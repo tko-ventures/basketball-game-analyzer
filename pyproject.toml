@@ -12,6 +12,9 @@ dependencies = [
 [project.optional-dependencies]
 # ONNX Runtime with the CoreML provider on Apple silicon (detect/onnx_rfdetr.py).
 onnx = ["onnxruntime>=1.20"]
+prefill = [
+    "inference>=1.8.3",
+]
 
 [dependency-groups]
 dev = ["pytest>=8.3", "ruff>=0.7"]
