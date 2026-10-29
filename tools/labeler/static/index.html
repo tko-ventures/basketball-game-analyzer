@@ -45,6 +45,8 @@
       <button id="copyPrevBtn" title="Copy boxes from previous labelled frame (C)">Copy prev (C)</button>
       <button id="interpBtn" title="Interpolate between surrounding done frames (I)">Interpolate (I)</button>
       <button id="doneBtn" title="Mark frame done (D)">Done (D)</button>
+      <button id="acceptShotBtn" title="Mark every labelled frame of this shot done once all its tracks are confirmed (Shift+D)">Accept shot (⇧D)</button>
+      <span id="reviewTime" class="muted small" title="Active labelling time logged for this clip"></span>
     </div>
   </section>
 
@@ -57,7 +59,7 @@
         <div class="row">
           <label>ID <select id="selTid"></select></label>
           <button id="newIdBtn" title="Give this box a new identity">New ID</button>
-          <button id="mergeBtn" title="Replace this identity with another one in every frame">Merge…</button>
+          <button id="mergeBtn" title="Merge this identity into the armed one, or one you type (M)">Merge (M)</button>
         </div>
         <div class="row team">
           <button data-team="home" title="1">Home (1)</button>
@@ -74,12 +76,20 @@
           <label class="chk"><input type="checkbox" id="selNumVis"> number readable here</label>
         </div>
         <button id="delBtn" class="danger">Delete box (Del)</button>
+        <h3 class="sub">Track <span id="trackInfo" class="muted small"></span></h3>
+        <canvas id="strip" width="280" height="150"></canvas>
+        <div class="row">
+          <button id="confirmTrackBtn" title="Mark this track reviewed (K)">Confirm (K)</button>
+          <button id="splitBtn" title="New identity for this track from this frame to the end of the shot (P)">Split here (P)</button>
+          <button id="delTrackBtn" class="danger" title="Delete this track in every frame (Shift+Del)">Delete track (⇧Del)</button>
+        </div>
       </div>
     </div>
 
     <div class="panel grow">
       <h3>Identities <span class="muted" id="idCount"></span></h3>
-      <div class="muted small">Click an identity to arm it — the next box you draw gets it. <a href="#" id="pruneBtn">Remove unused</a></div>
+      <div class="muted small">Click an identity to arm it: the next box you draw gets it, and Merge folds the selected box's identity into it. <a href="#" id="pruneBtn">Remove unused</a></div>
+      <label class="chk small"><input type="checkbox" id="idShotOnly" checked> this shot only</label>
       <ul id="idList"></ul>
     </div>
 
@@ -115,6 +125,11 @@
     <tr><td>C</td><td>copy boxes from previous labelled frame</td></tr>
     <tr><td>I</td><td>interpolate boxes across the gap between done frames</td></tr>
     <tr><td>D</td><td>mark frame done / not done</td></tr>
+    <tr><td>K</td><td>confirm the selected track (team, number and boxes look right)</td></tr>
+    <tr><td>P</td><td>split the selected track: new identity from this frame to the end of the shot</td></tr>
+    <tr><td>M</td><td>merge the selected track into the armed identity (or type one)</td></tr>
+    <tr><td>Shift+Del</td><td>delete the selected track in every frame (bench, staff, crowd)</td></tr>
+    <tr><td>Shift+D</td><td>accept shot: every labelled frame done, once all its tracks are confirmed</td></tr>
     <tr><td>G / X</td><td>mark current shot central / other</td></tr>
     <tr><td>H</td><td>hide / show boxes</td></tr>
     <tr><td>Ctrl/Cmd+S</td><td>save now (also autosaves)</td></tr>

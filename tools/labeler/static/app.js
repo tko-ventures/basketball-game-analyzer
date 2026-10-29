@@ -54,8 +54,9 @@ function newIdentity(team = "", number = "") {
 function boxLabel(b) {
   const id = ident(b.tid) || {};
   const t = { home: "H", away: "A", ref: "REF", other: "?" }[id.team] || "";
-  if (id.team === "ref") return `REF·${b.tid}`;
-  return `${t}${id.number ? id.number : ""}·${b.tid}`;
+  const ok = id.reviewed ? "✓" : "";
+  if (id.team === "ref") return `REF·${b.tid}${ok}`;
+  return `${t}${id.number ? id.number : ""}·${b.tid}${ok}`;
 }
 function markDirty() {
   S.dirty = true;
@@ -223,15 +224,21 @@ function renderSide() {
     $("#selOcc").checked = !!b.occluded;
     $("#selNumVis").checked = !!b.num_visible;
     renderLoupe(b);
+    renderStrip(b.tid);
   }
-  // identities list with per-identity frame counts
-  const counts = {};
-  for (const f of Object.values(S.L.frames)) if (f.done) for (const x of f.boxes) counts[x.tid] = (counts[x.tid] || 0) + 1;
+  // identities list: labelled frames per identity, optionally only those in the current shot
+  const counts = {}, s = shotAt(S.cur), inShot = new Set();
+  for (const [k, f] of Object.entries(S.L.frames)) for (const x of f.boxes) {
+    counts[x.tid] = (counts[x.tid] || 0) + 1;
+    if (s && +k >= s.start && +k <= s.end) inShot.add(String(x.tid));
+  }
   const here = new Set(boxes().map((x) => String(x.tid)));
-  $("#idCount").textContent = `(${ids.length})`;
-  $("#idList").innerHTML = ids.map(([t, v]) => {
+  const shown = $("#idShotOnly").checked ? ids.filter(([t]) => inShot.has(t)) : ids;
+  const open = shown.filter(([, v]) => !v.reviewed).length;
+  $("#idCount").textContent = `(${shown.length}, ${open} to confirm)`;
+  $("#idList").innerHTML = shown.map(([t, v]) => {
     const name = rosterName(v.number, v.team);
-    const cls = [String(S.armed) === t ? "armed" : "", b && String(b.tid) === t ? "sel" : ""].join(" ");
+    const cls = [String(S.armed) === t ? "armed" : "", b && String(b.tid) === t ? "sel" : "", v.reviewed ? "reviewed" : ""].join(" ");
     return `<li data-tid="${t}" class="${cls}"><span class="sw" style="background:${css(TEAM_COLOR[v.team || ""])}"></span>
       <span class="mono">${t}</span><span>${v.team || "?"} ${v.number ? "#" + v.number : ""}</span>
       <span class="muted small">${name}</span><span class="spacer"></span>
@@ -263,6 +270,101 @@ function renderLoupe(b) {
   g.imageSmoothingEnabled = true; g.imageSmoothingQuality = "high";
   g.drawImage(S.img, sx, sy, sw, sh, (c.width - sw * k) / 2, (c.height - sh * k) / 2, sw * k, sh * k);
 }
+
+// ---------------------------------------------------------------- tracks
+const shotFrames = (s) => Object.keys(S.L.frames).map(Number).filter((k) => k >= s.start && k <= s.end).sort((a, b) => a - b);
+const trackFrames = (tid, s) => shotFrames(s).filter((k) => S.L.frames[k].boxes.some((x) => String(x.tid) === String(tid)));
+const imgCache = new Map();
+function frameImg(k) {
+  const url = frameUrl(k);
+  if (!imgCache.has(url)) {
+    const im = new Image(); im.src = url; imgCache.set(url, im);
+    if (imgCache.size > 400) imgCache.delete(imgCache.keys().next().value);
+  }
+  return imgCache.get(url);
+}
+function renderStrip(tid) {
+  // Up to 8 crops of the track spread over the current shot, so a whole track is judged at once.
+  const c = $("#strip"), g = c.getContext("2d"), s = shotAt(S.cur);
+  g.fillStyle = "#000"; g.fillRect(0, 0, c.width, c.height);
+  S.stripTid = String(tid);
+  const ks = s ? trackFrames(tid, s) : [];
+  const span = ks.length ? `${ks.length} frames, ${ks[0]}–${ks[ks.length - 1]}` : "";
+  $("#trackInfo").textContent = span;
+  if (!ks.length) return;
+  const pick = ks.length <= 8 ? ks : Array.from({ length: 8 }, (_, i) => ks[Math.round((i * (ks.length - 1)) / 7)]);
+  const w = c.width / 4, h = c.height / 2;
+  pick.forEach((k, i) => {
+    const b = S.L.frames[k].boxes.find((x) => String(x.tid) === String(tid)), im = frameImg(k);
+    const draw = () => {
+      if (S.stripTid !== String(tid)) return;
+      const bw = Math.max(1, b.x2 - b.x1), bh = Math.max(1, b.y2 - b.y1), sc = Math.min(w / bw, (h - 10) / bh);
+      const x = (i % 4) * w + (w - bw * sc) / 2, y = Math.floor(i / 4) * h + 10;
+      g.drawImage(im, b.x1, b.y1, bw, bh, x, y, bw * sc, bh * sc);
+      g.fillStyle = k === S.cur ? css("--accent") : "#aaa"; g.font = "9px ui-monospace, Menlo, monospace";
+      g.fillText(String(k), (i % 4) * w + 2, Math.floor(i / 4) * h + 8);
+    };
+    if (im.complete && im.naturalWidth) draw(); else im.addEventListener("load", draw, { once: true });
+  });
+}
+function confirmTrack() {
+  const b = boxes()[S.sel]; if (!b) return;
+  const id = ident(b.tid); id.reviewed = !id.reviewed; markDirty(); renderAll();
+}
+function splitTrack() {
+  const b = boxes()[S.sel], s = shotAt(S.cur); if (!b || !s) return;
+  const from = String(b.tid), o = ident(from) || {}, to = newIdentity(o.team || "", "");
+  let n = 0;
+  for (const k of shotFrames(s)) if (k >= S.cur) for (const x of S.L.frames[k].boxes) if (String(x.tid) === from) { x.tid = to; n++; }
+  markDirty(); renderAll(); flash(`Split ${from}: ${n} boxes from frame ${S.cur} on are now ${to}`);
+}
+function deleteTrack() {
+  const b = boxes()[S.sel]; if (!b) return;
+  const t = String(b.tid); let n = 0;
+  for (const f of Object.values(S.L.frames)) { const before = f.boxes.length; f.boxes = f.boxes.filter((x) => String(x.tid) !== t); n += before - f.boxes.length; }
+  delete S.L.identities[t]; S.sel = -1; markDirty(); renderAll(); flash(`Deleted track ${t} (${n} boxes)`);
+}
+function mergeTrack() {
+  const b = boxes()[S.sel]; if (!b) return;
+  const from = String(b.tid);
+  const to = S.armed != null && String(S.armed) !== from ? String(S.armed)
+    : (prompt(`Merge identity ${from} into which ID? (replaced in every frame)`) || "").trim();
+  if (!to || to === from || !S.L.identities[to]) return to && flash(`No identity ${to}`);
+  let clash = 0;
+  for (const f of Object.values(S.L.frames)) {
+    const hasTo = f.boxes.some((x) => String(x.tid) === to);
+    for (const x of f.boxes) if (String(x.tid) === from) { if (hasTo) clash++; x.tid = +to; }
+  }
+  const src = S.L.identities[from], dst = S.L.identities[to];
+  if (!dst.team && src.team) dst.team = src.team;
+  if (!dst.number && src.number) { dst.number = src.number; dst.name = rosterName(dst.number, dst.team); }
+  delete S.L.identities[from]; S.armed = null;
+  markDirty(); renderAll(); flash(`Merged ${from} → ${to}` + (clash ? ` (${clash} frames now have ${to} twice — check them)` : ""));
+}
+function acceptShot() {
+  const s = shotAt(S.cur); if (!s) return;
+  const ks = shotFrames(s).filter((k) => S.L.frames[k].boxes.length);
+  const open = new Set();
+  for (const k of ks) for (const x of S.L.frames[k].boxes) if (!(ident(x.tid) || {}).reviewed) open.add(String(x.tid));
+  if (open.size) return flash(`${open.size} tracks in this shot not confirmed: ${[...open].slice(0, 8).join(", ")}`);
+  for (const k of ks) Object.assign(S.L.frames[k], { done: true, interp: false, prefill: false });
+  markDirty(); renderAll(); flash(`Shot accepted: ${ks.length} frames done`);
+}
+// Active labelling time per day, for the gold-set time log: gaps over 60 s count as idle.
+let lastAct = 0;
+function tickReview() {
+  const now = Date.now();
+  if (S.L && lastAct && now - lastAct < 60000) {
+    const m = S.L.meta, d = new Date().toISOString().slice(0, 10);
+    m.review_seconds ||= {}; m.review_seconds[d] = Math.round(((m.review_seconds[d] || 0) + (now - lastAct) / 1000) * 10) / 10;
+    S.dirty = true;
+    const tot = Object.values(m.review_seconds).reduce((a, v) => a + v, 0);
+    $("#reviewTime").textContent = `review ${Math.floor(tot / 60)}:${String(Math.round(tot % 60)).padStart(2, "0")}`;
+  }
+  lastAct = now;
+}
+window.addEventListener("keydown", tickReview, true);
+window.addEventListener("mousedown", tickReview, true);
 
 // ---------------------------------------------------------------- geometry / mouse
 const handleSize = () => { const cv = $("#cv"); return 10 * cv.width / cv.clientWidth; };
@@ -467,18 +569,12 @@ $("#delBtn").onclick = deleteSel;
 $("#prefillBtn").onclick = prefill;
 $("#helpBtn").onclick = () => $("#help").showModal();
 $("#newIdBtn").onclick = () => { const b = boxes()[S.sel]; if (!b) return; const o = ident(b.tid) || {}; b.tid = newIdentity(o.team || ""); touchFrame(); renderAll(); };
-$("#mergeBtn").onclick = () => {
-  const b = boxes()[S.sel]; if (!b) return;
-  const from = String(b.tid), to = (prompt(`Merge identity ${from} into which ID? (replaced in every frame)`) || "").trim();
-  if (!to || to === from || !S.L.identities[to]) return to && flash(`No identity ${to}`);
-  let clash = 0;
-  for (const f of Object.values(S.L.frames)) {
-    const hasTo = f.boxes.some((x) => String(x.tid) === to);
-    for (const x of f.boxes) if (String(x.tid) === from) { if (hasTo) clash++; x.tid = +to; }
-  }
-  delete S.L.identities[from];
-  markDirty(); renderAll(); flash(`Merged ${from} → ${to}` + (clash ? ` (${clash} frames now have ${to} twice — check them)` : ""));
-};
+$("#mergeBtn").onclick = mergeTrack;
+$("#confirmTrackBtn").onclick = confirmTrack;
+$("#splitBtn").onclick = splitTrack;
+$("#delTrackBtn").onclick = deleteTrack;
+$("#acceptShotBtn").onclick = acceptShot;
+$("#idShotOnly").onchange = () => renderAll();
 $("#pruneBtn").onclick = (e) => {
   e.preventDefault();
   const used = new Set(); for (const f of Object.values(S.L.frames)) for (const x of f.boxes) used.add(String(x.tid));
@@ -521,7 +617,12 @@ window.addEventListener("keydown", (e) => {
   else if ("1234".includes(k) && k.length === 1) setTeam(["home", "away", "ref", "other"][+k - 1]);
   else if (k === "n" || k === "N") { if (S.sel >= 0) { e.preventDefault(); $("#selNum").focus(); $("#selNum").select(); } }
   else if (k === "o" || k === "O") { const b = boxes()[S.sel]; if (b) { b.occluded = !b.occluded; touchFrame(); renderAll(); } }
+  else if ((k === "Delete" || k === "Backspace") && e.shiftKey) { e.preventDefault(); deleteTrack(); }
   else if (k === "Delete" || k === "Backspace") { e.preventDefault(); deleteSel(); }
+  else if (k === "D" && e.shiftKey) acceptShot();
+  else if (k === "k" || k === "K") confirmTrack();
+  else if (k === "p" || k === "P") splitTrack();
+  else if (k === "m" || k === "M") mergeTrack();
   else if (k === "c" || k === "C") copyPrev();
   else if (k === "i" || k === "I") interpolate();
   else if (k === "d" || k === "D") toggleDone();
