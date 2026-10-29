@@ -372,7 +372,7 @@ Conventions for whoever executes this:
 
 Ask these when the milestone needs them.
 
-1. **Roboflow account (M1, M4).** Partly answered 2026-10-29: no third-party VLM API keys; the implementer uses its own vision through Claude Code. Still open: is there a Roboflow workspace at all? A free one is enough to download the public NBA datasets and run the Universe court model. Default until answered: train everything on Modal from the public datasets.
+1. **Roboflow account (M1, M4).** Partly answered 2026-10-29: no third-party VLM API keys; the implementer uses its own vision through Claude Code. Answered 2026-10-29: workspace `tomasz-kopacki` exists; the API key is `ROBOFLOW_API_KEY` from `~/.config/bga/roboflow.env` on the Mac and the Modal secret `roboflow`. It serves Universe dataset downloads and `inference` prefill for labelling. Training credits are not visible through the API, so fine-tunes stay on Modal unless Tomasz says otherwise.
 2. **Runtime cloud policy (M2).** Answered 2026-10-29: rented CUDA machines (Modal, RunPod) are allowed for training and for batch stages that need them; closed VLM APIs stay labelling and QA only; prefer the Mac whenever a backend runs there at acceptable speed. Still open: a monthly spend cap for rented GPUs.
 3. **Play-by-play feed (M7).** plk.pl publishes per-game play-by-play. Confirm it includes substitutions with game clock, and whether scraping it is acceptable.
 4. **Full-game footage (M1 onward).** Does the club have Hudl Instat or Synergy access? Full games change the data mix and allow play-by-play alignment.
@@ -382,10 +382,10 @@ Ask these when the milestone needs them.
 8. **Hugging Face gated access.** Answered 2026-10-29: Meta declined the request, so SAM 3.x is out and no HF token is needed; every remaining model is an open download.
 9. **Modal credentials (M2).** Answered 2026-10-29: the token is in `~/.modal.toml` on Tomasz's Mac and the CLI is installed, so an implementer running there needs nothing else. Still open: confirm the 50 USD monthly cap.
 10. **Data provenance (M0).** Answered 2026-10-29: start from scratch; nothing is copied from the prior checkout except code, rosters and the shot files used as a cross-check.
-11. **Commit policy (M0).** Open. Default in force: the implementer commits on `feat/m<N>-<slug>` branches and opens one pull request per milestone referencing its issue, never pushing to main or merging without Tomasz.
-12. **Gold games (M1).** Open. The implementer proposes four games and a held-out one from the manifest; Tomasz confirms before labelling.
+11. **Commit policy (M0).** Answered 2026-10-29, default confirmed: the implementer commits on `feat/m<N>-<slug>` branches and opens one pull request per milestone referencing its issue, never pushing to main or merging without Tomasz.
+12. **Gold games (M1).** Answered 2026-10-29: `4XMD9FWmQws` PGE Start – Dziki (2024/25), `OSp445e0mXU` Dziki – Legia (2025/26), `1jDaJBkUGmc` Energa Trefl – Dziki (2025/26), `Tnuscrm9RyU` Dziki – Zastal (2026/27, held out). Rationale on issue #2.
 13. **Footage rights (M4).** Open: training on the YouTube highlights at scale. Default: proceed; the gold set is small.
-14. **Rosters (M1).** Open: collect every PLK team's roster now. Default: yes.
+14. **Rosters (M1).** Answered 2026-10-29: yes, collect every PLK team's roster.
 
 ## 13. Sources (checked 2026-10-27; Liquid AI and basal entries 2026-10-28; SAM 3.1 and GPU platform entries 2026-10-29)
 
