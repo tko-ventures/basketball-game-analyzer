@@ -15,7 +15,7 @@
   },
   "away": {
    "team": "Zastal",
-   "roster": "",
+   "roster": "zastal_zielona_gora",
    "kit": ""
   },
   "notes": "",
@@ -251,5 +251,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-29T20:48:19"
+ "saved_at": "2026-10-29T21:05:10"
 }

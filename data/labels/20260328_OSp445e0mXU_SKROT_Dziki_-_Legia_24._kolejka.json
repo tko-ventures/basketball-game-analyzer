@@ -15,7 +15,7 @@
   },
   "away": {
    "team": "Legia",
-   "roster": "",
+   "roster": "legia_warszawa",
    "kit": ""
   },
   "notes": "",
@@ -176,5 +176,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-29T20:46:10"
+ "saved_at": "2026-10-29T21:05:10"
 }

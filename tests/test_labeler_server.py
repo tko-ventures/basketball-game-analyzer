@@ -100,7 +100,7 @@ def test_migrate_v1_maps_dziki_and_opp_to_sides():
     }
     v2 = server.migrate_labels(v1)
     assert v2["version"] == 2
-    assert v2["meta"]["home"] == {"team": "Legia", "roster": "", "kit": ""}
+    assert v2["meta"]["home"] == {"team": "Legia", "roster": "legia_warszawa", "kit": ""}
     assert v2["meta"]["away"] == {"team": "Dziki Warszawa", "roster": "dziki_warszawa", "kit": "dark"}
     assert "opponent" not in v2["meta"] and "dziki_kit" not in v2["meta"]
     assert [v2["identities"][k]["team"] for k in "123"] == ["away", "home", "ref"]

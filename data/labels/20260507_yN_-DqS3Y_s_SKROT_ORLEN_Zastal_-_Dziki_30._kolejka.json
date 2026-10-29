@@ -10,7 +10,7 @@
   "season": "2025/26",
   "home": {
    "team": "ORLEN Zastal",
-   "roster": "",
+   "roster": "zastal_zielona_gora",
    "kit": ""
   },
   "away": {
@@ -171,5 +171,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-29T20:47:18"
+ "saved_at": "2026-10-29T21:05:10"
 }

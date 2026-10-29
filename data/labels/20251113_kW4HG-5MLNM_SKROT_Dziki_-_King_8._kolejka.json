@@ -15,7 +15,7 @@
   },
   "away": {
    "team": "King",
-   "roster": "",
+   "roster": "king_szczecin",
    "kit": ""
   },
   "notes": "",
@@ -171,5 +171,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-29T20:44:19"
+ "saved_at": "2026-10-29T21:05:10"
 }

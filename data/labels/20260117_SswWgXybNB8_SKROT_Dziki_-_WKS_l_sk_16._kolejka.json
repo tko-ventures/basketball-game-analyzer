@@ -15,7 +15,7 @@
   },
   "away": {
    "team": "WKS Śląsk",
-   "roster": "",
+   "roster": "wks_slask_wroclaw",
    "kit": ""
   },
   "notes": "",
@@ -176,5 +176,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-29T20:45:21"
+ "saved_at": "2026-10-29T21:05:10"
 }

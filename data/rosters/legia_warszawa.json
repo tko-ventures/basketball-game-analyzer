@@ -1,0 +1,458 @@
+{
+ "team": "Legia Warszawa",
+ "team_id_plk": 11,
+ "aliases": [
+  "Legia Warszawa"
+ ],
+ "retrieved": "2026-10-29",
+ "seasons": {
+  "2024/25": {
+   "team_name": "Legia Warszawa",
+   "source": "https://plk.pl/archiwum/27/druzyny/11/legia-warszawa/sklad",
+   "coach": "Heiko Rannula",
+   "players": [
+    {
+     "number": "0",
+     "name": "Kameron Mcgusty",
+     "pos": "PG/SG",
+     "height_cm": 197,
+     "nat": "USA",
+     "id_plk": 108142
+    },
+    {
+     "number": "2",
+     "name": "Dawid Niedziałkowski",
+     "pos": "PF/C",
+     "height_cm": 202,
+     "nat": "POL",
+     "id_plk": 78932
+    },
+    {
+     "number": "3",
+     "name": "Andrzej Pluta",
+     "pos": "PG/SG",
+     "height_cm": 190,
+     "nat": "POL",
+     "id_plk": 1661
+    },
+    {
+     "number": "4",
+     "name": "Marcin Wieluński",
+     "pos": "PG/SG",
+     "height_cm": 197,
+     "nat": "POL",
+     "id_plk": 2934
+    },
+    {
+     "number": "6",
+     "name": "Filip Maciejewski",
+     "pos": "PG/SG",
+     "height_cm": 190,
+     "nat": "POL",
+     "id_plk": 49124
+    },
+    {
+     "number": "10",
+     "name": "Mate Vucić",
+     "pos": "C",
+     "height_cm": 205,
+     "nat": "CRO",
+     "id_plk": 102486
+    },
+    {
+     "number": "11",
+     "name": "Bartosz Habiera",
+     "pos": "SG/SF",
+     "height_cm": 193,
+     "nat": "POL",
+     "id_plk": 50100
+    },
+    {
+     "number": "12",
+     "name": "Aleksa Radanov",
+     "pos": "SF/PF",
+     "height_cm": 202,
+     "nat": "SRB",
+     "id_plk": 113404
+    },
+    {
+     "number": "15",
+     "name": "Ojārs Siliņš",
+     "pos": "SF/PF",
+     "height_cm": 201,
+     "nat": "LAT",
+     "id_plk": 92103
+    },
+    {
+     "number": "17",
+     "name": "Wojciech Jasiewicz",
+     "pos": "SF/PF",
+     "height_cm": 195,
+     "nat": "POL",
+     "id_plk": 56531
+    },
+    {
+     "number": "21",
+     "name": "Julian Dąbrowski",
+     "pos": "PF/C",
+     "height_cm": 204,
+     "nat": "POL",
+     "id_plk": 52337
+    },
+    {
+     "number": "23",
+     "name": "Michał Kolenda",
+     "pos": "SG/SF",
+     "height_cm": 202,
+     "nat": "POL",
+     "id_plk": 7744
+    },
+    {
+     "number": "25",
+     "name": "Dominik Grudziński",
+     "pos": "PF",
+     "height_cm": 206,
+     "nat": "POL",
+     "id_plk": 22953
+    },
+    {
+     "number": "28",
+     "name": "Keifer Sykes",
+     "pos": "PG/SG",
+     "height_cm": 183,
+     "nat": "USA",
+     "id_plk": 113842
+    },
+    {
+     "number": "32",
+     "name": "Maksymilian Wilczek",
+     "pos": "SF",
+     "height_cm": 197,
+     "nat": "POL",
+     "id_plk": 39034
+    },
+    {
+     "number": "35",
+     "name": "E.j. Onu",
+     "pos": "C",
+     "height_cm": 211,
+     "nat": "USA",
+     "id_plk": 113015
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2025/26": {
+   "team_name": "Legia Warszawa",
+   "source": "https://plk.pl/archiwum/28/druzyny/11/legia-warszawa/sklad",
+   "coach": "Heiko Rannula",
+   "players": [
+    {
+     "number": "0",
+     "name": "Jayvon Graves",
+     "pos": "PG/SG",
+     "height_cm": 190,
+     "nat": "USA",
+     "id_plk": 115325
+    },
+    {
+     "number": "1",
+     "name": "Błażej Czapla",
+     "pos": "PG",
+     "height_cm": 190,
+     "nat": "POL",
+     "id_plk": 60730
+    },
+    {
+     "number": "2",
+     "name": "Dawid Niedziałkowski",
+     "pos": "PF/C",
+     "height_cm": 202,
+     "nat": "POL",
+     "id_plk": 78932
+    },
+    {
+     "number": "3",
+     "name": "Andrzej Pluta",
+     "pos": "PG/SG",
+     "height_cm": 190,
+     "nat": "POL",
+     "id_plk": 1661
+    },
+    {
+     "number": "5",
+     "name": "Wojciech Tomaszewski",
+     "pos": "SG/SF",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 41651
+    },
+    {
+     "number": "6",
+     "name": "Wojciech Błoch",
+     "pos": "PF",
+     "height_cm": 200,
+     "nat": "POL",
+     "id_plk": 77964
+    },
+    {
+     "number": "6",
+     "name": "Maciej Bołtuć",
+     "pos": "PF/C",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 93786
+    },
+    {
+     "number": "7",
+     "name": "Dominic Brewton III",
+     "pos": "PG/SG",
+     "height_cm": 192,
+     "nat": "USA",
+     "id_plk": 120312
+    },
+    {
+     "number": "10",
+     "name": "Krzysztof Antosik",
+     "pos": "SG/SF",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 64059
+    },
+    {
+     "number": "11",
+     "name": "Benjamin Shungu",
+     "pos": "PG/SG",
+     "height_cm": 188,
+     "nat": "USA",
+     "id_plk": 115412
+    },
+    {
+     "number": "12",
+     "name": "Wojciech Jasiewicz",
+     "pos": "SF/PF",
+     "height_cm": 195,
+     "nat": "POL",
+     "id_plk": 56531
+    },
+    {
+     "number": "12",
+     "name": "Wiktor Kucharczyk",
+     "pos": "SF/PF",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 55905
+    },
+    {
+     "number": "13",
+     "name": "Matthias Tass",
+     "pos": "C",
+     "height_cm": 209,
+     "nat": "EST",
+     "id_plk": 92294
+    },
+    {
+     "number": "15",
+     "name": "Ojārs Siliņš",
+     "pos": "SF/PF",
+     "height_cm": 201,
+     "nat": "LAT",
+     "id_plk": 92103
+    },
+    {
+     "number": "21",
+     "name": "Julian Dąbrowski",
+     "pos": "PF/C",
+     "height_cm": 204,
+     "nat": "POL",
+     "id_plk": 52337
+    },
+    {
+     "number": "23",
+     "name": "Michał Kolenda",
+     "pos": "SG/SF",
+     "height_cm": 202,
+     "nat": "POL",
+     "id_plk": 7744
+    },
+    {
+     "number": "25",
+     "name": "Race Thompson",
+     "pos": "SF/PF",
+     "height_cm": 202,
+     "nat": "USA",
+     "id_plk": 118047
+    },
+    {
+     "number": "32",
+     "name": "Maksymilian Wilczek",
+     "pos": "SF",
+     "height_cm": 197,
+     "nat": "POL",
+     "id_plk": 39034
+    },
+    {
+     "number": "33",
+     "name": "Eryk Frużyński",
+     "pos": "PF/C",
+     "height_cm": 200,
+     "nat": "POL",
+     "id_plk": 56322
+    },
+    {
+     "number": "40",
+     "name": "Shane Hunter",
+     "pos": "PF/C",
+     "height_cm": 208,
+     "nat": "USA",
+     "id_plk": 115413
+    },
+    {
+     "number": "42",
+     "name": "Carl Ponsar",
+     "pos": "PF",
+     "height_cm": 203,
+     "nat": "FRA",
+     "id_plk": 115414
+    },
+    {
+     "number": null,
+     "name": "Tytus Antoniuk",
+     "pos": "SG/SF",
+     "height_cm": 188,
+     "nat": "POL",
+     "id_plk": 64060
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2026/27": {
+   "team_name": "Legia Warszawa",
+   "source": "https://plk.pl/druzyny/11/legia-warszawa/sklad",
+   "coach": "Heiko Rannula",
+   "players": [
+    {
+     "number": "1",
+     "name": "Mathieu Wojciechowski",
+     "pos": "SF/PF",
+     "height_cm": 203,
+     "nat": "POL",
+     "id_plk": 58459
+    },
+    {
+     "number": "2",
+     "name": "Dawid Niedziałkowski",
+     "pos": "PF/C",
+     "height_cm": 202,
+     "nat": "POL",
+     "id_plk": 78932
+    },
+    {
+     "number": "3",
+     "name": "Arguster Daniels Iv",
+     "pos": "SG/SF",
+     "height_cm": 196,
+     "nat": "USA",
+     "id_plk": 99482
+    },
+    {
+     "number": "5",
+     "name": "Wojciech Tomaszewski",
+     "pos": "SG/SF",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 41651
+    },
+    {
+     "number": "6",
+     "name": "Kristers Zoriks",
+     "pos": "PG",
+     "height_cm": 192,
+     "nat": "LAT",
+     "id_plk": 122854
+    },
+    {
+     "number": "7",
+     "name": "György Golomán",
+     "pos": "C",
+     "height_cm": 208,
+     "nat": "HUN",
+     "id_plk": 122855
+    },
+    {
+     "number": "11",
+     "name": "Błażej Czapla",
+     "pos": "PG",
+     "height_cm": 190,
+     "nat": "POL",
+     "id_plk": 60730
+    },
+    {
+     "number": "12",
+     "name": "Wojciech Jasiewicz",
+     "pos": "SF/PF",
+     "height_cm": 195,
+     "nat": "POL",
+     "id_plk": 56531
+    },
+    {
+     "number": "17",
+     "name": "Patryk Redłowski",
+     "pos": "PF/C",
+     "height_cm": 205,
+     "nat": "POL",
+     "id_plk": 57976
+    },
+    {
+     "number": "18",
+     "name": "Szymon Tomczak",
+     "pos": "C",
+     "height_cm": 201,
+     "nat": "POL",
+     "id_plk": 50334
+    },
+    {
+     "number": "23",
+     "name": "Michał Kolenda",
+     "pos": "SG/SF",
+     "height_cm": 202,
+     "nat": "POL",
+     "id_plk": 7744
+    },
+    {
+     "number": "30",
+     "name": "Kuba Piśla",
+     "pos": "SG/SF",
+     "height_cm": 197,
+     "nat": "POL",
+     "id_plk": 54151
+    },
+    {
+     "number": "32",
+     "name": "Zachary Freemantle",
+     "pos": "PF",
+     "height_cm": 205,
+     "nat": "USA",
+     "id_plk": 122856
+    },
+    {
+     "number": "35",
+     "name": "Markus Ilver",
+     "pos": "SF/PF",
+     "height_cm": 203,
+     "nat": "EST",
+     "id_plk": 122857
+    },
+    {
+     "number": "95",
+     "name": "Jakub Andrzejewski",
+     "pos": "SG",
+     "height_cm": 190,
+     "nat": "POL",
+     "id_plk": 41673
+    }
+   ],
+   "note": "Current PLK squad page as of 2026-10-29."
+  }
+ }
+}

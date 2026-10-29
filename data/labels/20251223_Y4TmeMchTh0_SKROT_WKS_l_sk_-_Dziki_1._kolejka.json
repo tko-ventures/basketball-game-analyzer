@@ -10,7 +10,7 @@
   "season": "2025/26",
   "home": {
    "team": "WKS Śląsk",
-   "roster": "",
+   "roster": "wks_slask_wroclaw",
    "kit": ""
   },
   "away": {
@@ -191,5 +191,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-29T20:44:39"
+ "saved_at": "2026-10-29T21:05:10"
 }

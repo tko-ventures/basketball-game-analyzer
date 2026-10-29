@@ -28,7 +28,11 @@ const shotAt = (idx) => S.L.shots.find((s) => idx >= s.start && idx <= s.end) ||
 const ident = (tid) => S.L.identities[String(tid)] || null;
 // meta.home / meta.away = { team, roster, kit }; roster is a data/rosters/<key>.json stem.
 const side = (team) => (SIDES.includes(team) ? S.L.meta[team] || {} : {});
-const rosterKeyFor = (name) => Object.keys(S.rosters).find((k) => S.rosters[k].team === name) || "";
+const rosterKeyFor = (name) => Object.keys(S.rosters).find((k) => {
+  const r = S.rosters[k], n = name.toLowerCase();
+  return [r.team, ...(r.aliases || []), ...Object.values(r.seasons || {}).map((v) => v.team_name)]
+    .some((x) => x && x.toLowerCase() === n);
+}) || "";
 const roster = (team) => {
   const r = S.rosters[side(team).roster];
   return (r && r.seasons[S.L.meta.season]) ? r.seasons[S.L.meta.season].players : [];

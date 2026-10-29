@@ -15,7 +15,7 @@
   },
   "away": {
    "team": "Energa Trefl",
-   "roster": "",
+   "roster": "energa_trefl_sopot",
    "kit": ""
   },
   "notes": "",
@@ -231,5 +231,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-29T20:47:57"
+ "saved_at": "2026-10-29T21:05:10"
 }

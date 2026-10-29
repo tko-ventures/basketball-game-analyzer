@@ -10,7 +10,7 @@
   "season": "2025/26",
   "home": {
    "team": "Energa Trefl",
-   "roster": "",
+   "roster": "energa_trefl_sopot",
    "kit": ""
   },
   "away": {
@@ -211,5 +211,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-29T20:47:47"
+ "saved_at": "2026-10-29T21:05:10"
 }
