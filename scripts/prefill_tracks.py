@@ -3,6 +3,8 @@
 
     uv run --extra prefill scripts/prefill_tracks.py                  # every shot in data/labels/gold.json
     uv run --extra prefill scripts/prefill_tracks.py --clip-id 4XMD9FWmQws
+    uv run --extra prefill scripts/prefill_tracks.py --track-every 1   # detect and track every frame
+    uv run --extra prefill scripts/prefill_tracks.py --det-conf 0.1 --lost-buffer 90  # low boxes
 
 Labelling aid only (plan section 7), never a pipeline layer. Per gold clip writes
 runs/<clip>/prefill/<model-slug>/
@@ -10,7 +12,8 @@ runs/<clip>/prefill/<model-slug>/
   tracks.json       players and referees linked by ByteTrack within each shot, labeller prefill format
   meta.json         model id, thresholds, timings
 Sampled frames are the multiples of the gold stride inside each shot, so they line up with the
-labeller's keyframes. Tracks never cross a shot boundary (the tracker is reset per shot).
+labeller's keyframes. With --track-every N the detector and tracker run on every Nth frame and only the
+sampled frames are written. Tracks never cross a shot boundary (the tracker is reset per shot).
 """
 
 from __future__ import annotations
@@ -44,11 +47,23 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--gold", type=Path, default=Path("data/labels/gold.json"))
     ap.add_argument("--clip-id", action="append", help="YouTube id(s) to run; default all gold clips")
+    ap.add_argument(
+        "--track-every", type=int, default=0, help="frames between tracker updates (default: stride)"
+    )
+    ap.add_argument("--det-conf", type=float, default=CONFIDENCE, help="detector threshold fed to ByteTrack")
+    ap.add_argument("--lost-buffer", type=int, default=30, help="ByteTrack lost_track_buffer (at 30 fps)")
+    ap.add_argument(
+        "--max-aspect", type=float, default=0.0, help="drop person boxes wider than this x height"
+    )
     a = ap.parse_args(argv)
     gold = json.loads(a.gold.read_text())
     stride = gold["stride"]
+    step = a.track_every or stride
+    assert stride % step == 0, "--track-every must divide the gold stride"
     model = get_model(model_id=MODEL_ID)
-    slug = MODEL_ID.replace("/", "_v")
+    slug = MODEL_ID.replace("/", "_v") + ("" if step == stride else f"_track{step}")
+    if a.det_conf != CONFIDENCE or a.lost_buffer != 30 or a.max_aspect:
+        slug += f"_c{a.det_conf:g}_lb{a.lost_buffer}_ar{a.max_aspect:g}"
     for g in gold["games"]:
         if a.clip_id and g["youtube_id"] not in a.clip_id:
             continue
@@ -60,16 +75,25 @@ def main(argv=None):
         next_tid = 1
         with (out / "detections.jsonl").open("w") as det_f:
             for shot in g["shots"]:
-                tracker = sv.ByteTrack(frame_rate=round(labels["fps"] / stride))
+                # New tracks only from boxes at Skalski's threshold; lower boxes only extend tracks.
+                tracker = sv.ByteTrack(
+                    track_activation_threshold=CONFIDENCE,
+                    lost_track_buffer=a.lost_buffer,
+                    frame_rate=round(labels["fps"] / step),
+                )
                 local_to_global: dict[int, int] = {}
-                first = -(-shot["start"] // stride) * stride
-                for idx in range(first, shot["end"] + 1, stride):
-                    cap.set(cv2.CAP_PROP_POS_FRAMES, idx)
-                    ok, frame = cap.read()
+                first = -(-shot["start"] // step) * step
+                cap.set(cv2.CAP_PROP_POS_FRAMES, first)
+                pos, ok, frame = first, False, None
+                for idx in range(first, shot["end"] + 1, step):
+                    while pos <= idx:  # sequential decode: cheaper than seeking for small steps
+                        ok, frame = cap.read()
+                        pos += 1
                     if not ok:
                         break
+                    sampled = idx % stride == 0
                     t0 = time.time()
-                    r = model.infer(frame, confidence=CONFIDENCE, iou_threshold=IOU_THRESHOLD)[0]
+                    r = model.infer(frame, confidence=a.det_conf, iou_threshold=IOU_THRESHOLD)[0]
                     t_infer += time.time() - t0
                     n_frames += 1
                     dets = [
@@ -85,10 +109,19 @@ def main(argv=None):
                         }
                         for p in r.predictions
                     ]
-                    det_f.write(
-                        json.dumps({"frame_idx": idx, "shot": shot["shot"], "detections": dets}) + "\n"
-                    )
-                    people = [d for d in dets if d["class"] in PERSON_CLASSES]
+                    if sampled:
+                        det_f.write(
+                            json.dumps({"frame_idx": idx, "shot": shot["shot"], "detections": dets}) + "\n"
+                        )
+                    people = [
+                        d
+                        for d in dets
+                        if d["class"] in PERSON_CLASSES
+                        and not (
+                            a.max_aspect
+                            and d["xyxy"][2] - d["xyxy"][0] > a.max_aspect * (d["xyxy"][3] - d["xyxy"][1])
+                        )
+                    ]
                     sv_dets = sv.Detections(
                         xyxy=np.array([d["xyxy"] for d in people], dtype=np.float32).reshape(-1, 4),
                         confidence=np.array([d["score"] for d in people], dtype=np.float32),
@@ -109,7 +142,8 @@ def main(argv=None):
                                 "is_referee": bool(cls),
                             }
                         )
-                    frames_out.append({"frame_idx": idx, "shot": shot["shot"], "tracks": tracks})
+                    if sampled:
+                        frames_out.append({"frame_idx": idx, "shot": shot["shot"], "tracks": tracks})
         cap.release()
         # one team label per track: referee if most of its boxes were referee boxes
         votes: dict[int, Counter] = {}
@@ -124,9 +158,13 @@ def main(argv=None):
         (out / "tracks.json").write_text(json.dumps(doc))
         meta = {
             "model": MODEL_ID,
-            "confidence": CONFIDENCE,
+            "confidence": a.det_conf,
+            "track_activation": CONFIDENCE,
+            "lost_track_buffer": a.lost_buffer,
+            "max_aspect": a.max_aspect,
             "iou_threshold": IOU_THRESHOLD,
             "tracker": "supervision.ByteTrack per shot",
+            "track_every": step,
             "stride": stride,
             "frames": n_frames,
             "tracks": next_tid - 1,

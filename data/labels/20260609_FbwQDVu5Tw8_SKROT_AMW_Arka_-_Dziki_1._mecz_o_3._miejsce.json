@@ -1,7 +1,7 @@
 {
  "version": 2,
  "clip": "data/raw/20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce.mp4",
- "fps": 50.0,
+ "fps": 50,
  "frame_count": 9291,
  "width": 1920,
  "height": 1080,
@@ -20,7 +20,10 @@
   },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=FbwQDVu5Tw8",
-  "title": "SKRÓT | AMW Arka - Dziki | 1. mecz o 3. miejsce"
+  "title": "SKRÓT | AMW Arka - Dziki | 1. mecz o 3. miejsce",
+  "review_seconds": {
+   "2026-10-29": 2.8
+  }
  },
  "shots": [
   {
@@ -181,5 +184,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-29T21:05:10"
+ "saved_at": "2026-10-29T21:38:15"
 }
