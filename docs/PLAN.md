@@ -272,6 +272,14 @@ Rule: no change to any layer merges without a before/after row in `docs/metrics.
 
 Each milestone ends with a metrics table or an artifact checked into the repo.
 
+Progress is tracked in GitHub issues, one per milestone, created 2026-10-29 (label `milestone`):
+
+| M0 | M1 | M2 | M3 | M4 | M5 | M6 | M7 | M8 | M9 |
+|---|---|---|---|---|---|---|---|---|---|
+| [#1](https://github.com/tko-ventures/basketball-game-analyzer/issues/1) | [#2](https://github.com/tko-ventures/basketball-game-analyzer/issues/2) | [#3](https://github.com/tko-ventures/basketball-game-analyzer/issues/3) | [#4](https://github.com/tko-ventures/basketball-game-analyzer/issues/4) | [#5](https://github.com/tko-ventures/basketball-game-analyzer/issues/5) | [#6](https://github.com/tko-ventures/basketball-game-analyzer/issues/6) | [#7](https://github.com/tko-ventures/basketball-game-analyzer/issues/7) | [#8](https://github.com/tko-ventures/basketball-game-analyzer/issues/8) | [#9](https://github.com/tko-ventures/basketball-game-analyzer/issues/9) | [#10](https://github.com/tko-ventures/basketball-game-analyzer/issues/10) |
+
+The issue holds the checklist, comments, partial progress and dead ends; it closes when the milestone's done-when line has its metrics row or artifact. This file changes only when a decision changes, with a dated entry in `docs/decisions.md` and the `decision` label on the issue or pull request that changed it. Work the lowest open milestone issue first.
+
 **M0. Repository bootstrap.**
 Import the code assets from section 4 into this repo under the layout in section 10, with no media, weights, runs or caches from the prior checkout (section 2, data provenance). Set up `uv`, `ruff`, `pytest`, a `.gitignore` that excludes media, weights, runs and label caches. Re-download the clips with `fetch_highlights.sh`, regenerate the shot files with `prepare_clips.py` and diff them against the imported ones as a cross-check. Done: labeller opens every clip with shots ready to tag, from fresh downloads.
 
@@ -341,6 +349,7 @@ Conventions for whoever executes this:
 - Every approach is a backend selected in a config (section 5). Compare approaches by running configs through `eval`, not by editing the pipeline.
 - Nothing is copied from the prior checkout's data, weights or runs directories. Fresh downloads only.
 - Image reading for labelling goes through contact sheets with a ledger, never one tool call per crop.
+- Progress lives in the milestone issues (`gh issue list --label milestone --state open`), not in this file. Update the checklist as you go. One pull request per milestone from a `feat/m<N>-<slug>` branch, referencing its issue; never push to main (default until question 11 is answered).
 - Every model choice or threshold change comes with a row in `docs/metrics.md` that cites the config name and hash. No metrics row, no merge.
 - Every fine-tune starts from a committed `configs/train/*.yaml`. Weights are addressed as `<layer>/<backend>/<name>@<hash8>` with a `train.json` beside them; a metrics row cites the training config as well as the inference config.
 - Do not reproduce the prior repo's pattern of locked architecture sub-sections per heuristic. Prefer a measured experiment over a design document.
@@ -373,7 +382,7 @@ Ask these when the milestone needs them.
 8. **Hugging Face gated access.** Answered 2026-10-29: Meta declined the request, so SAM 3.x is out and no HF token is needed; every remaining model is an open download.
 9. **Modal credentials (M2).** Answered 2026-10-29: the token is in `~/.modal.toml` on Tomasz's Mac and the CLI is installed, so an implementer running there needs nothing else. Still open: confirm the 50 USD monthly cap.
 10. **Data provenance (M0).** Answered 2026-10-29: start from scratch; nothing is copied from the prior checkout except code, rosters and the shot files used as a cross-check.
-11. **Commit policy (M0).** Open. Default until answered: the implementer commits on `feat/*` branches and opens one pull request per milestone, never pushing to main.
+11. **Commit policy (M0).** Open. Default in force: the implementer commits on `feat/m<N>-<slug>` branches and opens one pull request per milestone referencing its issue, never pushing to main or merging without Tomasz.
 12. **Gold games (M1).** Open. The implementer proposes four games and a held-out one from the manifest; Tomasz confirms before labelling.
 13. **Footage rights (M4).** Open: training on the YouTube highlights at scale. Default: proceed; the gold set is small.
 14. **Rosters (M1).** Open: collect every PLK team's roster now. Default: yes.
