@@ -1,0 +1,172 @@
+{
+ "version": 1,
+ "clip": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+ "fps": 50.0,
+ "frame_count": 9359,
+ "width": 1920,
+ "height": 1080,
+ "stride": 5,
+ "meta": {
+  "season": "2025/26",
+  "opponent": "Energa Czarni",
+  "dziki_kit": "",
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=xTfkhQ0wO20",
+  "title": "SKRÓT | Dziki - Energa Czarni | 27. kolejka"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 344,
+   "camera": "unset"
+  },
+  {
+   "start": 345,
+   "end": 713,
+   "camera": "unset"
+  },
+  {
+   "start": 714,
+   "end": 1010,
+   "camera": "unset"
+  },
+  {
+   "start": 1011,
+   "end": 1541,
+   "camera": "unset"
+  },
+  {
+   "start": 1542,
+   "end": 1594,
+   "camera": "unset"
+  },
+  {
+   "start": 1595,
+   "end": 1978,
+   "camera": "unset"
+  },
+  {
+   "start": 1979,
+   "end": 2024,
+   "camera": "unset"
+  },
+  {
+   "start": 2025,
+   "end": 2417,
+   "camera": "unset"
+  },
+  {
+   "start": 2418,
+   "end": 2694,
+   "camera": "unset"
+  },
+  {
+   "start": 2695,
+   "end": 3006,
+   "camera": "unset"
+  },
+  {
+   "start": 3007,
+   "end": 3320,
+   "camera": "unset"
+  },
+  {
+   "start": 3321,
+   "end": 3767,
+   "camera": "unset"
+  },
+  {
+   "start": 3768,
+   "end": 4113,
+   "camera": "unset"
+  },
+  {
+   "start": 4114,
+   "end": 4380,
+   "camera": "unset"
+  },
+  {
+   "start": 4381,
+   "end": 4835,
+   "camera": "unset"
+  },
+  {
+   "start": 4836,
+   "end": 5175,
+   "camera": "unset"
+  },
+  {
+   "start": 5176,
+   "end": 5426,
+   "camera": "unset"
+  },
+  {
+   "start": 5427,
+   "end": 5783,
+   "camera": "unset"
+  },
+  {
+   "start": 5784,
+   "end": 6098,
+   "camera": "unset"
+  },
+  {
+   "start": 6099,
+   "end": 6595,
+   "camera": "unset"
+  },
+  {
+   "start": 6596,
+   "end": 6633,
+   "camera": "unset"
+  },
+  {
+   "start": 6634,
+   "end": 7074,
+   "camera": "unset"
+  },
+  {
+   "start": 7075,
+   "end": 7438,
+   "camera": "unset"
+  },
+  {
+   "start": 7439,
+   "end": 7780,
+   "camera": "unset"
+  },
+  {
+   "start": 7781,
+   "end": 8060,
+   "camera": "unset"
+  },
+  {
+   "start": 8061,
+   "end": 8402,
+   "camera": "unset"
+  },
+  {
+   "start": 8403,
+   "end": 8775,
+   "camera": "unset"
+  },
+  {
+   "start": 8776,
+   "end": 8859,
+   "camera": "unset"
+  },
+  {
+   "start": 8860,
+   "end": 9231,
+   "camera": "unset"
+  },
+  {
+   "start": 9232,
+   "end": 9358,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-10-05T11:26:19"
+}

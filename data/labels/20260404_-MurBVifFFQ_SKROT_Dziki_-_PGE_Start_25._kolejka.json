@@ -1,0 +1,177 @@
+{
+ "version": 1,
+ "clip": "data/raw/20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka.mp4",
+ "fps": 50.0,
+ "frame_count": 9089,
+ "width": 1920,
+ "height": 1080,
+ "stride": 5,
+ "meta": {
+  "season": "2025/26",
+  "opponent": "PGE Start",
+  "dziki_kit": "",
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=-MurBVifFFQ",
+  "title": "SKRÓT | Dziki - PGE Start | 25. kolejka"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 326,
+   "camera": "unset"
+  },
+  {
+   "start": 327,
+   "end": 717,
+   "camera": "unset"
+  },
+  {
+   "start": 718,
+   "end": 1164,
+   "camera": "unset"
+  },
+  {
+   "start": 1165,
+   "end": 1511,
+   "camera": "unset"
+  },
+  {
+   "start": 1512,
+   "end": 1790,
+   "camera": "unset"
+  },
+  {
+   "start": 1791,
+   "end": 2293,
+   "camera": "unset"
+  },
+  {
+   "start": 2294,
+   "end": 2658,
+   "camera": "unset"
+  },
+  {
+   "start": 2659,
+   "end": 3079,
+   "camera": "unset"
+  },
+  {
+   "start": 3080,
+   "end": 3497,
+   "camera": "unset"
+  },
+  {
+   "start": 3498,
+   "end": 3621,
+   "camera": "unset"
+  },
+  {
+   "start": 3622,
+   "end": 4023,
+   "camera": "unset"
+  },
+  {
+   "start": 4024,
+   "end": 4077,
+   "camera": "unset"
+  },
+  {
+   "start": 4078,
+   "end": 4418,
+   "camera": "unset"
+  },
+  {
+   "start": 4419,
+   "end": 4753,
+   "camera": "unset"
+  },
+  {
+   "start": 4754,
+   "end": 5136,
+   "camera": "unset"
+  },
+  {
+   "start": 5137,
+   "end": 5535,
+   "camera": "unset"
+  },
+  {
+   "start": 5536,
+   "end": 5953,
+   "camera": "unset"
+  },
+  {
+   "start": 5954,
+   "end": 6237,
+   "camera": "unset"
+  },
+  {
+   "start": 6238,
+   "end": 6536,
+   "camera": "unset"
+  },
+  {
+   "start": 6537,
+   "end": 6574,
+   "camera": "unset"
+  },
+  {
+   "start": 6575,
+   "end": 6666,
+   "camera": "unset"
+  },
+  {
+   "start": 6667,
+   "end": 7102,
+   "camera": "unset"
+  },
+  {
+   "start": 7103,
+   "end": 7156,
+   "camera": "unset"
+  },
+  {
+   "start": 7157,
+   "end": 7522,
+   "camera": "unset"
+  },
+  {
+   "start": 7523,
+   "end": 7879,
+   "camera": "unset"
+  },
+  {
+   "start": 7880,
+   "end": 8011,
+   "camera": "unset"
+  },
+  {
+   "start": 8012,
+   "end": 8297,
+   "camera": "unset"
+  },
+  {
+   "start": 8298,
+   "end": 8761,
+   "camera": "unset"
+  },
+  {
+   "start": 8762,
+   "end": 8819,
+   "camera": "unset"
+  },
+  {
+   "start": 8820,
+   "end": 8951,
+   "camera": "unset"
+  },
+  {
+   "start": 8952,
+   "end": 9088,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-10-05T11:25:27"
+}

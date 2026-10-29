@@ -1,0 +1,167 @@
+{
+ "version": 1,
+ "clip": "data/raw/20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka.mp4",
+ "fps": 50.0,
+ "frame_count": 9176,
+ "width": 1920,
+ "height": 1080,
+ "stride": 5,
+ "meta": {
+  "season": "2025/26",
+  "opponent": "ORLEN Zastal",
+  "dziki_kit": "",
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=yN_-DqS3Y_s",
+  "title": "SKRÓT | ORLEN Zastal - Dziki | 30. kolejka"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 295,
+   "camera": "unset"
+  },
+  {
+   "start": 296,
+   "end": 590,
+   "camera": "unset"
+  },
+  {
+   "start": 591,
+   "end": 929,
+   "camera": "unset"
+  },
+  {
+   "start": 930,
+   "end": 1324,
+   "camera": "unset"
+  },
+  {
+   "start": 1325,
+   "end": 1665,
+   "camera": "unset"
+  },
+  {
+   "start": 1666,
+   "end": 2053,
+   "camera": "unset"
+  },
+  {
+   "start": 2054,
+   "end": 2521,
+   "camera": "unset"
+  },
+  {
+   "start": 2522,
+   "end": 2831,
+   "camera": "unset"
+  },
+  {
+   "start": 2832,
+   "end": 2890,
+   "camera": "unset"
+  },
+  {
+   "start": 2891,
+   "end": 3234,
+   "camera": "unset"
+  },
+  {
+   "start": 3235,
+   "end": 3486,
+   "camera": "unset"
+  },
+  {
+   "start": 3487,
+   "end": 3632,
+   "camera": "unset"
+  },
+  {
+   "start": 3633,
+   "end": 3947,
+   "camera": "unset"
+  },
+  {
+   "start": 3948,
+   "end": 4295,
+   "camera": "unset"
+  },
+  {
+   "start": 4296,
+   "end": 4663,
+   "camera": "unset"
+  },
+  {
+   "start": 4664,
+   "end": 4963,
+   "camera": "unset"
+  },
+  {
+   "start": 4964,
+   "end": 5422,
+   "camera": "unset"
+  },
+  {
+   "start": 5423,
+   "end": 5708,
+   "camera": "unset"
+  },
+  {
+   "start": 5709,
+   "end": 6033,
+   "camera": "unset"
+  },
+  {
+   "start": 6034,
+   "end": 6479,
+   "camera": "unset"
+  },
+  {
+   "start": 6480,
+   "end": 6731,
+   "camera": "unset"
+  },
+  {
+   "start": 6732,
+   "end": 7198,
+   "camera": "unset"
+  },
+  {
+   "start": 7199,
+   "end": 7510,
+   "camera": "unset"
+  },
+  {
+   "start": 7511,
+   "end": 7836,
+   "camera": "unset"
+  },
+  {
+   "start": 7837,
+   "end": 8178,
+   "camera": "unset"
+  },
+  {
+   "start": 8179,
+   "end": 8529,
+   "camera": "unset"
+  },
+  {
+   "start": 8530,
+   "end": 8995,
+   "camera": "unset"
+  },
+  {
+   "start": 8996,
+   "end": 9025,
+   "camera": "unset"
+  },
+  {
+   "start": 9026,
+   "end": 9175,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-10-05T11:27:38"
+}

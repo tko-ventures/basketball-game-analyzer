@@ -1,0 +1,73 @@
+{
+  "team": "Dziki Warszawa",
+  "team_id_plk": 11257,
+  "kit_note": "Fill in home/away kit colours per game in the labeller (team = dziki / opponent).",
+  "retrieved": "2026-10-05",
+  "seasons": {
+    "2024/25": {
+      "source": "https://plk.pl/archiwum/27/druzyny/11257/dziki-warszawa/sklad",
+      "coach": "Krzysztof Szablowski",
+      "note": "End-of-season PLK squad page; players who left mid-season may be missing.",
+      "players": [
+        {"number": "1",  "name": "Denzel Andersson",      "pos": "PF/C",  "height_cm": 204, "nat": "SWE"},
+        {"number": "2",  "name": "Alijah Comithier",      "pos": "G/SF",  "height_cm": 201, "nat": "USA"},
+        {"number": "3",  "name": "Michał Szymański",      "pos": "PG/SG", "height_cm": 190, "nat": "POL"},
+        {"number": "4",  "name": "Mateusz Szlachetka",    "pos": "PG/SG", "height_cm": 196, "nat": "POL"},
+        {"number": "5",  "name": "Michał Aleksandrowicz", "pos": "G/SF",  "height_cm": 192, "nat": "POL"},
+        {"number": "7",  "name": "Grzegorz Grochowski",   "pos": "PG",    "height_cm": 180, "nat": "POL"},
+        {"number": "8",  "name": "Maciej Bender",         "pos": "PF/C",  "height_cm": 210, "nat": "POL"},
+        {"number": "9",  "name": "John Fulkerson",        "pos": "PF/C",  "height_cm": 206, "nat": "USA"},
+        {"number": "10", "name": "Piotr Pamuła",          "pos": "G/SF",  "height_cm": 195, "nat": "POL"},
+        {"number": "12", "name": "Jarosław Mokros",       "pos": "PF",    "height_cm": 201, "nat": "POL"},
+        {"number": "15", "name": "Mateusz Bartosz",       "pos": "PF/C",  "height_cm": 205, "nat": "POL"},
+        {"number": "19", "name": "Nicholas McGlynn",      "pos": "C",     "height_cm": 206, "nat": "USA"},
+        {"number": "21", "name": "Janari Jõesaar",        "pos": "SF",    "height_cm": 198, "nat": "EST"},
+        {"number": "31", "name": "Nikola Radičević",      "pos": "PG",    "height_cm": 195, "nat": "SRB"},
+        {"number": "33", "name": "Piotr Gałązka",         "pos": "PG/SG", "height_cm": 189, "nat": "POL"},
+        {"number": "44", "name": "Adam Lisewski",         "pos": "PF/C",  "height_cm": 201, "nat": "POL"},
+        {"number": "55", "name": "Andre Wesson",          "pos": "SF",    "height_cm": 198, "nat": "USA"}
+      ]
+    },
+    "2025/26": {
+      "source": "https://plk.pl/archiwum/28/druzyny/11257/dziki-warszawa/sklad",
+      "coach": "Marco Legovich",
+      "note": "End-of-season PLK squad page; players who left mid-season may be missing.",
+      "players": [
+        {"number": "0",  "name": "Bennett Vander Plas",   "pos": "PF/C",  "height_cm": 201, "nat": "USA"},
+        {"number": "1",  "name": "Landrius Horton",       "pos": "SG",    "height_cm": 193, "nat": "USA"},
+        {"number": "2",  "name": "Darnell Edge",          "pos": "PG/SG", "height_cm": 188, "nat": "USA"},
+        {"number": "3",  "name": "Piotr Gałązka",         "pos": "PG/SG", "height_cm": 189, "nat": "POL"},
+        {"number": "4",  "name": "Rivaldo Soares",        "pos": "SF",    "height_cm": 201, "nat": "USA"},
+        {"number": "5",  "name": "Michał Aleksandrowicz", "pos": "SG/SF", "height_cm": 192, "nat": "POL"},
+        {"number": "7",  "name": "Grzegorz Grochowski",   "pos": "PG",    "height_cm": 180, "nat": "POL"},
+        {"number": "8",  "name": "Krzysztof Kempa",       "pos": "PF",    "height_cm": 206, "nat": "POL"},
+        {"number": "11", "name": "Grzegorz Kamiński",     "pos": "SF",    "height_cm": 198, "nat": "POL"},
+        {"number": "12", "name": "Julian Sosna",          "pos": "SF",    "height_cm": 196, "nat": "POL"},
+        {"number": "16", "name": "Tahlik Chavez",         "pos": "SG",    "height_cm": 188, "nat": "USA"},
+        {"number": "25", "name": "Odinakachim Oguama",    "pos": "C",     "height_cm": 205, "nat": "USA"},
+        {"number": "45", "name": "Łukasz Frąckiewicz",    "pos": "C",     "height_cm": 205, "nat": "POL"}
+      ]
+    },
+    "2026/27": {
+      "source": "https://plk.pl/druzyny/11257/dziki-warszawa/sklad",
+      "coach": "Marco Legovich",
+      "note": "Current PLK squad page as of 2026-10-05. RealGM/Eurobasket also list Zane Waterman, Ta'Lon Cooper and Julian Sosna — numbers not yet confirmed, so they are listed with number null.",
+      "players": [
+        {"number": "1",  "name": "Austin Luke",           "pos": "PG",    "height_cm": 194, "nat": "USA"},
+        {"number": "2",  "name": "Makai Ashton",          "pos": "PG",    "height_cm": 192, "nat": "USA"},
+        {"number": "3",  "name": "Joseph Girard III",     "pos": "SG",    "height_cm": 186, "nat": "USA"},
+        {"number": "5",  "name": "Michał Aleksandrowicz", "pos": "SG/SF", "height_cm": 192, "nat": "POL"},
+        {"number": "8",  "name": "Krzysztof Kempa",       "pos": "PF",    "height_cm": 206, "nat": "POL"},
+        {"number": "11", "name": "Grzegorz Kamiński",     "pos": "SF",    "height_cm": 198, "nat": "POL"},
+        {"number": "13", "name": "Quanterrius Jackson",   "pos": "SG",    "height_cm": 193, "nat": "USA"},
+        {"number": "21", "name": "Michał Krasuski",       "pos": "SF",    "height_cm": 198, "nat": "POL"},
+        {"number": "22", "name": "Timothy Adetukasi",     "pos": "SF/PF", "height_cm": 198, "nat": "GBR"},
+        {"number": "23", "name": "OsunBowale Osunniyi",   "pos": "C",     "height_cm": 208, "nat": "USA"},
+        {"number": "45", "name": "Łukasz Frąckiewicz",    "pos": "C",     "height_cm": 205, "nat": "POL"},
+        {"number": null, "name": "Zane Waterman",         "pos": "F",     "height_cm": null, "nat": "USA"},
+        {"number": null, "name": "Ta'Lon Cooper",         "pos": "SG",    "height_cm": null, "nat": "USA"},
+        {"number": null, "name": "Julian Sosna",          "pos": "SF",    "height_cm": 196, "nat": "POL"}
+      ]
+    }
+  }
+}

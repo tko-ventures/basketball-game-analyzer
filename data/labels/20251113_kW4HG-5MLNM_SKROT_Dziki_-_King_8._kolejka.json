@@ -1,0 +1,167 @@
+{
+ "version": 1,
+ "clip": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+ "fps": 50.0,
+ "frame_count": 9281,
+ "width": 1920,
+ "height": 1080,
+ "stride": 5,
+ "meta": {
+  "season": "2025/26",
+  "opponent": "King",
+  "dziki_kit": "",
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=kW4HG-5MLNM",
+  "title": "SKRÓT | Dziki - King | 8. kolejka"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 407,
+   "camera": "unset"
+  },
+  {
+   "start": 408,
+   "end": 706,
+   "camera": "unset"
+  },
+  {
+   "start": 707,
+   "end": 1009,
+   "camera": "unset"
+  },
+  {
+   "start": 1010,
+   "end": 1149,
+   "camera": "unset"
+  },
+  {
+   "start": 1150,
+   "end": 1508,
+   "camera": "unset"
+  },
+  {
+   "start": 1509,
+   "end": 1859,
+   "camera": "unset"
+  },
+  {
+   "start": 1860,
+   "end": 2224,
+   "camera": "unset"
+  },
+  {
+   "start": 2225,
+   "end": 2488,
+   "camera": "unset"
+  },
+  {
+   "start": 2489,
+   "end": 2774,
+   "camera": "unset"
+  },
+  {
+   "start": 2775,
+   "end": 3103,
+   "camera": "unset"
+  },
+  {
+   "start": 3104,
+   "end": 3337,
+   "camera": "unset"
+  },
+  {
+   "start": 3338,
+   "end": 3657,
+   "camera": "unset"
+  },
+  {
+   "start": 3658,
+   "end": 4017,
+   "camera": "unset"
+  },
+  {
+   "start": 4018,
+   "end": 4047,
+   "camera": "unset"
+  },
+  {
+   "start": 4048,
+   "end": 4333,
+   "camera": "unset"
+  },
+  {
+   "start": 4334,
+   "end": 4861,
+   "camera": "unset"
+  },
+  {
+   "start": 4862,
+   "end": 5282,
+   "camera": "unset"
+  },
+  {
+   "start": 5283,
+   "end": 5341,
+   "camera": "unset"
+  },
+  {
+   "start": 5342,
+   "end": 5741,
+   "camera": "unset"
+  },
+  {
+   "start": 5742,
+   "end": 6154,
+   "camera": "unset"
+  },
+  {
+   "start": 6155,
+   "end": 6506,
+   "camera": "unset"
+  },
+  {
+   "start": 6507,
+   "end": 6781,
+   "camera": "unset"
+  },
+  {
+   "start": 6782,
+   "end": 7523,
+   "camera": "unset"
+  },
+  {
+   "start": 7524,
+   "end": 7984,
+   "camera": "unset"
+  },
+  {
+   "start": 7985,
+   "end": 8240,
+   "camera": "unset"
+  },
+  {
+   "start": 8241,
+   "end": 8286,
+   "camera": "unset"
+  },
+  {
+   "start": 8287,
+   "end": 8911,
+   "camera": "unset"
+  },
+  {
+   "start": 8912,
+   "end": 9140,
+   "camera": "unset"
+  },
+  {
+   "start": 9141,
+   "end": 9280,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-10-05T11:20:39"
+}

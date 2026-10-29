@@ -1,0 +1,242 @@
+{
+ "version": 1,
+ "clip": "data/raw/20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski.mp4",
+ "fps": 50.0,
+ "frame_count": 10253,
+ "width": 1920,
+ "height": 1080,
+ "stride": 5,
+ "meta": {
+  "season": "2026/27",
+  "opponent": "Zastal",
+  "dziki_kit": "",
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=Tnuscrm9RyU",
+  "title": "SKRÓT | Dziki - Zastal | półfinał Superpucharu Polski"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 305,
+   "camera": "unset"
+  },
+  {
+   "start": 306,
+   "end": 405,
+   "camera": "unset"
+  },
+  {
+   "start": 406,
+   "end": 818,
+   "camera": "unset"
+  },
+  {
+   "start": 819,
+   "end": 873,
+   "camera": "unset"
+  },
+  {
+   "start": 874,
+   "end": 1231,
+   "camera": "unset"
+  },
+  {
+   "start": 1232,
+   "end": 1324,
+   "camera": "unset"
+  },
+  {
+   "start": 1325,
+   "end": 1616,
+   "camera": "unset"
+  },
+  {
+   "start": 1617,
+   "end": 1654,
+   "camera": "unset"
+  },
+  {
+   "start": 1655,
+   "end": 2060,
+   "camera": "unset"
+  },
+  {
+   "start": 2061,
+   "end": 2392,
+   "camera": "unset"
+  },
+  {
+   "start": 2393,
+   "end": 2418,
+   "camera": "unset"
+  },
+  {
+   "start": 2419,
+   "end": 2761,
+   "camera": "unset"
+  },
+  {
+   "start": 2762,
+   "end": 2823,
+   "camera": "unset"
+  },
+  {
+   "start": 2824,
+   "end": 3156,
+   "camera": "unset"
+  },
+  {
+   "start": 3157,
+   "end": 3392,
+   "camera": "unset"
+  },
+  {
+   "start": 3393,
+   "end": 3412,
+   "camera": "unset"
+  },
+  {
+   "start": 3413,
+   "end": 3441,
+   "camera": "unset"
+  },
+  {
+   "start": 3442,
+   "end": 3832,
+   "camera": "unset"
+  },
+  {
+   "start": 3833,
+   "end": 4298,
+   "camera": "unset"
+  },
+  {
+   "start": 4299,
+   "end": 4507,
+   "camera": "unset"
+  },
+  {
+   "start": 4508,
+   "end": 4717,
+   "camera": "unset"
+  },
+  {
+   "start": 4718,
+   "end": 4765,
+   "camera": "unset"
+  },
+  {
+   "start": 4766,
+   "end": 5076,
+   "camera": "unset"
+  },
+  {
+   "start": 5077,
+   "end": 5139,
+   "camera": "unset"
+  },
+  {
+   "start": 5140,
+   "end": 5451,
+   "camera": "unset"
+  },
+  {
+   "start": 5452,
+   "end": 5487,
+   "camera": "unset"
+  },
+  {
+   "start": 5488,
+   "end": 5509,
+   "camera": "unset"
+  },
+  {
+   "start": 5510,
+   "end": 5800,
+   "camera": "unset"
+  },
+  {
+   "start": 5801,
+   "end": 6052,
+   "camera": "unset"
+  },
+  {
+   "start": 6053,
+   "end": 6449,
+   "camera": "unset"
+  },
+  {
+   "start": 6450,
+   "end": 6491,
+   "camera": "unset"
+  },
+  {
+   "start": 6492,
+   "end": 6878,
+   "camera": "unset"
+  },
+  {
+   "start": 6879,
+   "end": 7436,
+   "camera": "unset"
+  },
+  {
+   "start": 7437,
+   "end": 7847,
+   "camera": "unset"
+  },
+  {
+   "start": 7848,
+   "end": 7952,
+   "camera": "unset"
+  },
+  {
+   "start": 7953,
+   "end": 8414,
+   "camera": "unset"
+  },
+  {
+   "start": 8415,
+   "end": 8878,
+   "camera": "unset"
+  },
+  {
+   "start": 8879,
+   "end": 9164,
+   "camera": "unset"
+  },
+  {
+   "start": 9165,
+   "end": 9480,
+   "camera": "unset"
+  },
+  {
+   "start": 9481,
+   "end": 9675,
+   "camera": "unset"
+  },
+  {
+   "start": 9676,
+   "end": 9785,
+   "camera": "unset"
+  },
+  {
+   "start": 9786,
+   "end": 10028,
+   "camera": "unset"
+  },
+  {
+   "start": 10029,
+   "end": 10102,
+   "camera": "unset"
+  },
+  {
+   "start": 10103,
+   "end": 10252,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-10-05T11:31:24"
+}

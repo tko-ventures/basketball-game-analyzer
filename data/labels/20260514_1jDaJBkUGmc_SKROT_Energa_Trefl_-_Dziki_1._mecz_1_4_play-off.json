@@ -1,0 +1,162 @@
+{
+ "version": 1,
+ "clip": "data/raw/20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off.mp4",
+ "fps": 50.0,
+ "frame_count": 9714,
+ "width": 1920,
+ "height": 1080,
+ "stride": 5,
+ "meta": {
+  "season": "2025/26",
+  "opponent": "Energa Trefl",
+  "dziki_kit": "",
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=1jDaJBkUGmc",
+  "title": "SKRÓT | Energa Trefl - Dziki | 1. mecz 1/4 play-off"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 348,
+   "camera": "unset"
+  },
+  {
+   "start": 349,
+   "end": 664,
+   "camera": "unset"
+  },
+  {
+   "start": 665,
+   "end": 942,
+   "camera": "unset"
+  },
+  {
+   "start": 943,
+   "end": 1499,
+   "camera": "unset"
+  },
+  {
+   "start": 1500,
+   "end": 1824,
+   "camera": "unset"
+  },
+  {
+   "start": 1825,
+   "end": 2172,
+   "camera": "unset"
+  },
+  {
+   "start": 2173,
+   "end": 2485,
+   "camera": "unset"
+  },
+  {
+   "start": 2486,
+   "end": 3003,
+   "camera": "unset"
+  },
+  {
+   "start": 3004,
+   "end": 3348,
+   "camera": "unset"
+  },
+  {
+   "start": 3349,
+   "end": 3712,
+   "camera": "unset"
+  },
+  {
+   "start": 3713,
+   "end": 4122,
+   "camera": "unset"
+  },
+  {
+   "start": 4123,
+   "end": 4482,
+   "camera": "unset"
+  },
+  {
+   "start": 4483,
+   "end": 5030,
+   "camera": "unset"
+  },
+  {
+   "start": 5031,
+   "end": 5339,
+   "camera": "unset"
+  },
+  {
+   "start": 5340,
+   "end": 5808,
+   "camera": "unset"
+  },
+  {
+   "start": 5809,
+   "end": 6166,
+   "camera": "unset"
+  },
+  {
+   "start": 6167,
+   "end": 6602,
+   "camera": "unset"
+  },
+  {
+   "start": 6603,
+   "end": 6905,
+   "camera": "unset"
+  },
+  {
+   "start": 6906,
+   "end": 7184,
+   "camera": "unset"
+  },
+  {
+   "start": 7185,
+   "end": 7488,
+   "camera": "unset"
+  },
+  {
+   "start": 7489,
+   "end": 7841,
+   "camera": "unset"
+  },
+  {
+   "start": 7842,
+   "end": 8133,
+   "camera": "unset"
+  },
+  {
+   "start": 8134,
+   "end": 8437,
+   "camera": "unset"
+  },
+  {
+   "start": 8438,
+   "end": 8748,
+   "camera": "unset"
+  },
+  {
+   "start": 8749,
+   "end": 9099,
+   "camera": "unset"
+  },
+  {
+   "start": 9100,
+   "end": 9299,
+   "camera": "unset"
+  },
+  {
+   "start": 9300,
+   "end": 9530,
+   "camera": "unset"
+  },
+  {
+   "start": 9531,
+   "end": 9713,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-10-05T11:28:05"
+}

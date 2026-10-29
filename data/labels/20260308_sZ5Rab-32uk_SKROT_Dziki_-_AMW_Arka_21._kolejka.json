@@ -1,0 +1,167 @@
+{
+ "version": 1,
+ "clip": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+ "fps": 50.0,
+ "frame_count": 9369,
+ "width": 1920,
+ "height": 1080,
+ "stride": 5,
+ "meta": {
+  "season": "2025/26",
+  "opponent": "AMW Arka",
+  "dziki_kit": "",
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=sZ5Rab-32uk",
+  "title": "SKRÓT | Dziki - AMW Arka | 21. kolejka"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 245,
+   "camera": "unset"
+  },
+  {
+   "start": 246,
+   "end": 574,
+   "camera": "unset"
+  },
+  {
+   "start": 575,
+   "end": 976,
+   "camera": "unset"
+  },
+  {
+   "start": 977,
+   "end": 1261,
+   "camera": "unset"
+  },
+  {
+   "start": 1262,
+   "end": 1557,
+   "camera": "unset"
+  },
+  {
+   "start": 1558,
+   "end": 2057,
+   "camera": "unset"
+  },
+  {
+   "start": 2058,
+   "end": 2293,
+   "camera": "unset"
+  },
+  {
+   "start": 2294,
+   "end": 2607,
+   "camera": "unset"
+  },
+  {
+   "start": 2608,
+   "end": 2967,
+   "camera": "unset"
+  },
+  {
+   "start": 2968,
+   "end": 3530,
+   "camera": "unset"
+  },
+  {
+   "start": 3531,
+   "end": 3881,
+   "camera": "unset"
+  },
+  {
+   "start": 3882,
+   "end": 4185,
+   "camera": "unset"
+  },
+  {
+   "start": 4186,
+   "end": 4617,
+   "camera": "unset"
+  },
+  {
+   "start": 4618,
+   "end": 5005,
+   "camera": "unset"
+  },
+  {
+   "start": 5006,
+   "end": 5349,
+   "camera": "unset"
+  },
+  {
+   "start": 5350,
+   "end": 5651,
+   "camera": "unset"
+  },
+  {
+   "start": 5652,
+   "end": 5976,
+   "camera": "unset"
+  },
+  {
+   "start": 5977,
+   "end": 6077,
+   "camera": "unset"
+  },
+  {
+   "start": 6078,
+   "end": 6352,
+   "camera": "unset"
+  },
+  {
+   "start": 6353,
+   "end": 6703,
+   "camera": "unset"
+  },
+  {
+   "start": 6704,
+   "end": 7154,
+   "camera": "unset"
+  },
+  {
+   "start": 7155,
+   "end": 7376,
+   "camera": "unset"
+  },
+  {
+   "start": 7377,
+   "end": 7542,
+   "camera": "unset"
+  },
+  {
+   "start": 7543,
+   "end": 7859,
+   "camera": "unset"
+  },
+  {
+   "start": 7860,
+   "end": 8430,
+   "camera": "unset"
+  },
+  {
+   "start": 8431,
+   "end": 8875,
+   "camera": "unset"
+  },
+  {
+   "start": 8876,
+   "end": 9062,
+   "camera": "unset"
+  },
+  {
+   "start": 9063,
+   "end": 9221,
+   "camera": "unset"
+  },
+  {
+   "start": 9222,
+   "end": 9368,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-10-05T11:23:25"
+}

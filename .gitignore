@@ -1,0 +1,43 @@
+# Media: never committed
+data/raw/
+data/clips/
+data/crops/
+*.mp4
+*.mkv
+*.webm
+*.mov
+*.m4v
+*.part
+*.ytdl
+
+# Weights and run outputs
+weights/
+runs/
+*.onnx
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.mlpackage
+
+# Labeller frame cache and temp writes (label JSON, MOT gt and identities.csv are committed)
+data/labels/.cache/
+data/labels/*.tmp
+
+# Local logs
+logs/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+dist/
+build/
+
+.DS_Store
+.idea/
+.vscode/

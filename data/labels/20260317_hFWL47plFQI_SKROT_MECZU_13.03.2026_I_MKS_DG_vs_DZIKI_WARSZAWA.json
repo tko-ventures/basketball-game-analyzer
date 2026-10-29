@@ -1,0 +1,312 @@
+{
+ "version": 1,
+ "clip": "data/raw/20260317_hFWL47plFQI_SKROT_MECZU_13.03.2026_I_MKS_DG_vs_DZIKI_WARSZAWA.mp4",
+ "fps": 25.0,
+ "frame_count": 4591,
+ "width": 1920,
+ "height": 1080,
+ "stride": 2,
+ "meta": {
+  "season": "2025/26",
+  "opponent": "MKS DG",
+  "dziki_kit": "",
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=hFWL47plFQI",
+  "title": "SKRÓT MECZU 13.03.2026 I MKS DG vs DZIKI WARSZAWA"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 26,
+   "camera": "unset"
+  },
+  {
+   "start": 27,
+   "end": 84,
+   "camera": "unset"
+  },
+  {
+   "start": 85,
+   "end": 128,
+   "camera": "unset"
+  },
+  {
+   "start": 129,
+   "end": 170,
+   "camera": "unset"
+  },
+  {
+   "start": 171,
+   "end": 249,
+   "camera": "unset"
+  },
+  {
+   "start": 250,
+   "end": 275,
+   "camera": "unset"
+  },
+  {
+   "start": 276,
+   "end": 291,
+   "camera": "unset"
+  },
+  {
+   "start": 292,
+   "end": 326,
+   "camera": "unset"
+  },
+  {
+   "start": 327,
+   "end": 380,
+   "camera": "unset"
+  },
+  {
+   "start": 381,
+   "end": 404,
+   "camera": "unset"
+  },
+  {
+   "start": 405,
+   "end": 444,
+   "camera": "unset"
+  },
+  {
+   "start": 445,
+   "end": 477,
+   "camera": "unset"
+  },
+  {
+   "start": 478,
+   "end": 501,
+   "camera": "unset"
+  },
+  {
+   "start": 502,
+   "end": 558,
+   "camera": "unset"
+  },
+  {
+   "start": 559,
+   "end": 584,
+   "camera": "unset"
+  },
+  {
+   "start": 585,
+   "end": 594,
+   "camera": "unset"
+  },
+  {
+   "start": 595,
+   "end": 606,
+   "camera": "unset"
+  },
+  {
+   "start": 607,
+   "end": 631,
+   "camera": "unset"
+  },
+  {
+   "start": 632,
+   "end": 721,
+   "camera": "unset"
+  },
+  {
+   "start": 722,
+   "end": 781,
+   "camera": "unset"
+  },
+  {
+   "start": 782,
+   "end": 924,
+   "camera": "unset"
+  },
+  {
+   "start": 925,
+   "end": 1037,
+   "camera": "unset"
+  },
+  {
+   "start": 1038,
+   "end": 1163,
+   "camera": "unset"
+  },
+  {
+   "start": 1164,
+   "end": 1323,
+   "camera": "unset"
+  },
+  {
+   "start": 1324,
+   "end": 1372,
+   "camera": "unset"
+  },
+  {
+   "start": 1373,
+   "end": 1459,
+   "camera": "unset"
+  },
+  {
+   "start": 1460,
+   "end": 1529,
+   "camera": "unset"
+  },
+  {
+   "start": 1530,
+   "end": 1592,
+   "camera": "unset"
+  },
+  {
+   "start": 1593,
+   "end": 1750,
+   "camera": "unset"
+  },
+  {
+   "start": 1751,
+   "end": 1786,
+   "camera": "unset"
+  },
+  {
+   "start": 1787,
+   "end": 1926,
+   "camera": "unset"
+  },
+  {
+   "start": 1927,
+   "end": 1966,
+   "camera": "unset"
+  },
+  {
+   "start": 1967,
+   "end": 2009,
+   "camera": "unset"
+  },
+  {
+   "start": 2010,
+   "end": 2065,
+   "camera": "unset"
+  },
+  {
+   "start": 2066,
+   "end": 2102,
+   "camera": "unset"
+  },
+  {
+   "start": 2103,
+   "end": 2163,
+   "camera": "unset"
+  },
+  {
+   "start": 2164,
+   "end": 2215,
+   "camera": "unset"
+  },
+  {
+   "start": 2216,
+   "end": 2279,
+   "camera": "unset"
+  },
+  {
+   "start": 2280,
+   "end": 2351,
+   "camera": "unset"
+  },
+  {
+   "start": 2352,
+   "end": 2460,
+   "camera": "unset"
+  },
+  {
+   "start": 2461,
+   "end": 2558,
+   "camera": "unset"
+  },
+  {
+   "start": 2559,
+   "end": 2594,
+   "camera": "unset"
+  },
+  {
+   "start": 2595,
+   "end": 2655,
+   "camera": "unset"
+  },
+  {
+   "start": 2656,
+   "end": 2715,
+   "camera": "unset"
+  },
+  {
+   "start": 2716,
+   "end": 2839,
+   "camera": "unset"
+  },
+  {
+   "start": 2840,
+   "end": 3055,
+   "camera": "unset"
+  },
+  {
+   "start": 3056,
+   "end": 3104,
+   "camera": "unset"
+  },
+  {
+   "start": 3105,
+   "end": 3166,
+   "camera": "unset"
+  },
+  {
+   "start": 3167,
+   "end": 3176,
+   "camera": "unset"
+  },
+  {
+   "start": 3177,
+   "end": 3427,
+   "camera": "unset"
+  },
+  {
+   "start": 3428,
+   "end": 3573,
+   "camera": "unset"
+  },
+  {
+   "start": 3574,
+   "end": 3625,
+   "camera": "unset"
+  },
+  {
+   "start": 3626,
+   "end": 3743,
+   "camera": "unset"
+  },
+  {
+   "start": 3744,
+   "end": 3812,
+   "camera": "unset"
+  },
+  {
+   "start": 3813,
+   "end": 3869,
+   "camera": "unset"
+  },
+  {
+   "start": 3870,
+   "end": 4453,
+   "camera": "unset"
+  },
+  {
+   "start": 4454,
+   "end": 4468,
+   "camera": "unset"
+  },
+  {
+   "start": 4469,
+   "end": 4590,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-10-05T11:24:10"
+}

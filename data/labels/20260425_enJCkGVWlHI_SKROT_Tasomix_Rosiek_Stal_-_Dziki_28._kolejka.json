@@ -1,0 +1,162 @@
+{
+ "version": 1,
+ "clip": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+ "fps": 50.0,
+ "frame_count": 9417,
+ "width": 1920,
+ "height": 1080,
+ "stride": 5,
+ "meta": {
+  "season": "2025/26",
+  "opponent": "Tasomix Rosiek Stal",
+  "dziki_kit": "",
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=enJCkGVWlHI",
+  "title": "SKRÓT | Tasomix Rosiek Stal - Dziki | 28. kolejka"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 309,
+   "camera": "unset"
+  },
+  {
+   "start": 310,
+   "end": 617,
+   "camera": "unset"
+  },
+  {
+   "start": 618,
+   "end": 982,
+   "camera": "unset"
+  },
+  {
+   "start": 983,
+   "end": 1311,
+   "camera": "unset"
+  },
+  {
+   "start": 1312,
+   "end": 1725,
+   "camera": "unset"
+  },
+  {
+   "start": 1726,
+   "end": 2171,
+   "camera": "unset"
+  },
+  {
+   "start": 2172,
+   "end": 2415,
+   "camera": "unset"
+  },
+  {
+   "start": 2416,
+   "end": 2727,
+   "camera": "unset"
+  },
+  {
+   "start": 2728,
+   "end": 3076,
+   "camera": "unset"
+  },
+  {
+   "start": 3077,
+   "end": 3388,
+   "camera": "unset"
+  },
+  {
+   "start": 3389,
+   "end": 3717,
+   "camera": "unset"
+  },
+  {
+   "start": 3718,
+   "end": 4171,
+   "camera": "unset"
+  },
+  {
+   "start": 4172,
+   "end": 4720,
+   "camera": "unset"
+  },
+  {
+   "start": 4721,
+   "end": 5066,
+   "camera": "unset"
+  },
+  {
+   "start": 5067,
+   "end": 5365,
+   "camera": "unset"
+  },
+  {
+   "start": 5366,
+   "end": 5749,
+   "camera": "unset"
+  },
+  {
+   "start": 5750,
+   "end": 6095,
+   "camera": "unset"
+  },
+  {
+   "start": 6096,
+   "end": 6387,
+   "camera": "unset"
+  },
+  {
+   "start": 6388,
+   "end": 6760,
+   "camera": "unset"
+  },
+  {
+   "start": 6761,
+   "end": 7046,
+   "camera": "unset"
+  },
+  {
+   "start": 7047,
+   "end": 7380,
+   "camera": "unset"
+  },
+  {
+   "start": 7381,
+   "end": 7989,
+   "camera": "unset"
+  },
+  {
+   "start": 7990,
+   "end": 8310,
+   "camera": "unset"
+  },
+  {
+   "start": 8311,
+   "end": 8607,
+   "camera": "unset"
+  },
+  {
+   "start": 8608,
+   "end": 8880,
+   "camera": "unset"
+  },
+  {
+   "start": 8881,
+   "end": 9242,
+   "camera": "unset"
+  },
+  {
+   "start": 9243,
+   "end": 9276,
+   "camera": "unset"
+  },
+  {
+   "start": 9277,
+   "end": 9416,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-10-05T11:26:46"
+}

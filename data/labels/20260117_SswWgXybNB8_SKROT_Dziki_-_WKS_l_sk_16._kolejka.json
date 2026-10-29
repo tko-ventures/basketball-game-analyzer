@@ -1,0 +1,172 @@
+{
+ "version": 1,
+ "clip": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+ "fps": 60.00009517781596,
+ "frame_count": 12608,
+ "width": 1920,
+ "height": 1080,
+ "stride": 6,
+ "meta": {
+  "season": "2025/26",
+  "opponent": "WKS Śląsk",
+  "dziki_kit": "",
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=SswWgXybNB8",
+  "title": "SKRÓT | Dziki - WKS Śląsk | 16. kolejka"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 373,
+   "camera": "unset"
+  },
+  {
+   "start": 374,
+   "end": 777,
+   "camera": "unset"
+  },
+  {
+   "start": 778,
+   "end": 1105,
+   "camera": "unset"
+  },
+  {
+   "start": 1106,
+   "end": 1698,
+   "camera": "unset"
+  },
+  {
+   "start": 1699,
+   "end": 2051,
+   "camera": "unset"
+  },
+  {
+   "start": 2052,
+   "end": 2477,
+   "camera": "unset"
+  },
+  {
+   "start": 2478,
+   "end": 2870,
+   "camera": "unset"
+  },
+  {
+   "start": 2871,
+   "end": 3302,
+   "camera": "unset"
+  },
+  {
+   "start": 3303,
+   "end": 3815,
+   "camera": "unset"
+  },
+  {
+   "start": 3816,
+   "end": 4208,
+   "camera": "unset"
+  },
+  {
+   "start": 4209,
+   "end": 4805,
+   "camera": "unset"
+  },
+  {
+   "start": 4806,
+   "end": 5230,
+   "camera": "unset"
+  },
+  {
+   "start": 5231,
+   "end": 5527,
+   "camera": "unset"
+  },
+  {
+   "start": 5528,
+   "end": 5969,
+   "camera": "unset"
+  },
+  {
+   "start": 5970,
+   "end": 6465,
+   "camera": "unset"
+  },
+  {
+   "start": 6466,
+   "end": 6816,
+   "camera": "unset"
+  },
+  {
+   "start": 6817,
+   "end": 7258,
+   "camera": "unset"
+  },
+  {
+   "start": 7259,
+   "end": 7765,
+   "camera": "unset"
+  },
+  {
+   "start": 7766,
+   "end": 8161,
+   "camera": "unset"
+  },
+  {
+   "start": 8162,
+   "end": 8370,
+   "camera": "unset"
+  },
+  {
+   "start": 8371,
+   "end": 8850,
+   "camera": "unset"
+  },
+  {
+   "start": 8851,
+   "end": 9232,
+   "camera": "unset"
+  },
+  {
+   "start": 9233,
+   "end": 9602,
+   "camera": "unset"
+  },
+  {
+   "start": 9603,
+   "end": 9983,
+   "camera": "unset"
+  },
+  {
+   "start": 9984,
+   "end": 10378,
+   "camera": "unset"
+  },
+  {
+   "start": 10379,
+   "end": 11094,
+   "camera": "unset"
+  },
+  {
+   "start": 11095,
+   "end": 11553,
+   "camera": "unset"
+  },
+  {
+   "start": 11554,
+   "end": 11681,
+   "camera": "unset"
+  },
+  {
+   "start": 11682,
+   "end": 12423,
+   "camera": "unset"
+  },
+  {
+   "start": 12424,
+   "end": 12607,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-10-05T11:22:59"
+}

@@ -1,0 +1,222 @@
+{
+ "version": 1,
+ "clip": "data/raw/20241219_OmvWaQKu3rU_MKS_D_browa_Gornicza_-_Dziki_Warszawa_Skrot_meczu.mp4",
+ "fps": 25.0,
+ "frame_count": 1994,
+ "width": 1920,
+ "height": 1080,
+ "stride": 2,
+ "meta": {
+  "season": "2024/25",
+  "opponent": "MKS Dąbrowa Górnicza",
+  "dziki_kit": "",
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=OmvWaQKu3rU",
+  "title": "MKS Dąbrowa Górnicza - Dziki Warszawa | Skrót meczu 🎞️"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 92,
+   "camera": "unset"
+  },
+  {
+   "start": 93,
+   "end": 143,
+   "camera": "unset"
+  },
+  {
+   "start": 144,
+   "end": 177,
+   "camera": "unset"
+  },
+  {
+   "start": 178,
+   "end": 202,
+   "camera": "unset"
+  },
+  {
+   "start": 203,
+   "end": 212,
+   "camera": "unset"
+  },
+  {
+   "start": 213,
+   "end": 252,
+   "camera": "unset"
+  },
+  {
+   "start": 253,
+   "end": 273,
+   "camera": "unset"
+  },
+  {
+   "start": 274,
+   "end": 305,
+   "camera": "unset"
+  },
+  {
+   "start": 306,
+   "end": 390,
+   "camera": "unset"
+  },
+  {
+   "start": 391,
+   "end": 420,
+   "camera": "unset"
+  },
+  {
+   "start": 421,
+   "end": 442,
+   "camera": "unset"
+  },
+  {
+   "start": 443,
+   "end": 461,
+   "camera": "unset"
+  },
+  {
+   "start": 462,
+   "end": 491,
+   "camera": "unset"
+  },
+  {
+   "start": 492,
+   "end": 525,
+   "camera": "unset"
+  },
+  {
+   "start": 526,
+   "end": 553,
+   "camera": "unset"
+  },
+  {
+   "start": 554,
+   "end": 609,
+   "camera": "unset"
+  },
+  {
+   "start": 610,
+   "end": 638,
+   "camera": "unset"
+  },
+  {
+   "start": 639,
+   "end": 689,
+   "camera": "unset"
+  },
+  {
+   "start": 690,
+   "end": 710,
+   "camera": "unset"
+  },
+  {
+   "start": 711,
+   "end": 742,
+   "camera": "unset"
+  },
+  {
+   "start": 743,
+   "end": 783,
+   "camera": "unset"
+  },
+  {
+   "start": 784,
+   "end": 867,
+   "camera": "unset"
+  },
+  {
+   "start": 868,
+   "end": 888,
+   "camera": "unset"
+  },
+  {
+   "start": 889,
+   "end": 923,
+   "camera": "unset"
+  },
+  {
+   "start": 924,
+   "end": 988,
+   "camera": "unset"
+  },
+  {
+   "start": 989,
+   "end": 1035,
+   "camera": "unset"
+  },
+  {
+   "start": 1036,
+   "end": 1045,
+   "camera": "unset"
+  },
+  {
+   "start": 1046,
+   "end": 1155,
+   "camera": "unset"
+  },
+  {
+   "start": 1156,
+   "end": 1206,
+   "camera": "unset"
+  },
+  {
+   "start": 1207,
+   "end": 1282,
+   "camera": "unset"
+  },
+  {
+   "start": 1283,
+   "end": 1305,
+   "camera": "unset"
+  },
+  {
+   "start": 1306,
+   "end": 1325,
+   "camera": "unset"
+  },
+  {
+   "start": 1326,
+   "end": 1504,
+   "camera": "unset"
+  },
+  {
+   "start": 1505,
+   "end": 1545,
+   "camera": "unset"
+  },
+  {
+   "start": 1546,
+   "end": 1608,
+   "camera": "unset"
+  },
+  {
+   "start": 1609,
+   "end": 1660,
+   "camera": "unset"
+  },
+  {
+   "start": 1661,
+   "end": 1791,
+   "camera": "unset"
+  },
+  {
+   "start": 1792,
+   "end": 1801,
+   "camera": "unset"
+  },
+  {
+   "start": 1802,
+   "end": 1826,
+   "camera": "unset"
+  },
+  {
+   "start": 1827,
+   "end": 1993,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-10-05T11:18:43"
+}

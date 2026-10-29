@@ -1,0 +1,227 @@
+{
+ "version": 1,
+ "clip": "data/raw/20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off.mp4",
+ "fps": 50.0,
+ "frame_count": 10384,
+ "width": 1920,
+ "height": 1080,
+ "stride": 5,
+ "meta": {
+  "season": "2025/26",
+  "opponent": "Energa Trefl",
+  "dziki_kit": "",
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=BEFym3rFSOw",
+  "title": "SKRÓT | Dziki - Energa Trefl | 4. mecz 1/4 play-off"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 307,
+   "camera": "unset"
+  },
+  {
+   "start": 308,
+   "end": 1208,
+   "camera": "unset"
+  },
+  {
+   "start": 1209,
+   "end": 1471,
+   "camera": "unset"
+  },
+  {
+   "start": 1472,
+   "end": 1759,
+   "camera": "unset"
+  },
+  {
+   "start": 1760,
+   "end": 1986,
+   "camera": "unset"
+  },
+  {
+   "start": 1987,
+   "end": 2376,
+   "camera": "unset"
+  },
+  {
+   "start": 2377,
+   "end": 2581,
+   "camera": "unset"
+  },
+  {
+   "start": 2582,
+   "end": 2888,
+   "camera": "unset"
+  },
+  {
+   "start": 2889,
+   "end": 2915,
+   "camera": "unset"
+  },
+  {
+   "start": 2916,
+   "end": 3344,
+   "camera": "unset"
+  },
+  {
+   "start": 3345,
+   "end": 3788,
+   "camera": "unset"
+  },
+  {
+   "start": 3789,
+   "end": 4037,
+   "camera": "unset"
+  },
+  {
+   "start": 4038,
+   "end": 4324,
+   "camera": "unset"
+  },
+  {
+   "start": 4325,
+   "end": 4566,
+   "camera": "unset"
+  },
+  {
+   "start": 4567,
+   "end": 4862,
+   "camera": "unset"
+  },
+  {
+   "start": 4863,
+   "end": 5103,
+   "camera": "unset"
+  },
+  {
+   "start": 5104,
+   "end": 5444,
+   "camera": "unset"
+  },
+  {
+   "start": 5445,
+   "end": 5677,
+   "camera": "unset"
+  },
+  {
+   "start": 5678,
+   "end": 6173,
+   "camera": "unset"
+  },
+  {
+   "start": 6174,
+   "end": 6501,
+   "camera": "unset"
+  },
+  {
+   "start": 6502,
+   "end": 6541,
+   "camera": "unset"
+  },
+  {
+   "start": 6542,
+   "end": 6561,
+   "camera": "unset"
+  },
+  {
+   "start": 6562,
+   "end": 6597,
+   "camera": "unset"
+  },
+  {
+   "start": 6598,
+   "end": 6992,
+   "camera": "unset"
+  },
+  {
+   "start": 6993,
+   "end": 7292,
+   "camera": "unset"
+  },
+  {
+   "start": 7293,
+   "end": 7631,
+   "camera": "unset"
+  },
+  {
+   "start": 7632,
+   "end": 7920,
+   "camera": "unset"
+  },
+  {
+   "start": 7921,
+   "end": 8244,
+   "camera": "unset"
+  },
+  {
+   "start": 8245,
+   "end": 8578,
+   "camera": "unset"
+  },
+  {
+   "start": 8579,
+   "end": 8997,
+   "camera": "unset"
+  },
+  {
+   "start": 8998,
+   "end": 9024,
+   "camera": "unset"
+  },
+  {
+   "start": 9025,
+   "end": 9333,
+   "camera": "unset"
+  },
+  {
+   "start": 9334,
+   "end": 9354,
+   "camera": "unset"
+  },
+  {
+   "start": 9355,
+   "end": 9377,
+   "camera": "unset"
+  },
+  {
+   "start": 9378,
+   "end": 9704,
+   "camera": "unset"
+  },
+  {
+   "start": 9705,
+   "end": 9773,
+   "camera": "unset"
+  },
+  {
+   "start": 9774,
+   "end": 9793,
+   "camera": "unset"
+  },
+  {
+   "start": 9794,
+   "end": 9813,
+   "camera": "unset"
+  },
+  {
+   "start": 9814,
+   "end": 10139,
+   "camera": "unset"
+  },
+  {
+   "start": 10140,
+   "end": 10229,
+   "camera": "unset"
+  },
+  {
+   "start": 10230,
+   "end": 10383,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-10-05T11:29:02"
+}

@@ -1,0 +1,142 @@
+{
+ "version": 1,
+ "clip": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+ "fps": 50.0,
+ "frame_count": 9265,
+ "width": 1920,
+ "height": 1080,
+ "stride": 5,
+ "meta": {
+  "season": "2025/26",
+  "opponent": "Miasto Szkła",
+  "dziki_kit": "",
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=lwxZaHLNDmU",
+  "title": "SKRÓT | Dziki - Miasto Szkła | 17. kolejka"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 398,
+   "camera": "unset"
+  },
+  {
+   "start": 399,
+   "end": 673,
+   "camera": "unset"
+  },
+  {
+   "start": 674,
+   "end": 983,
+   "camera": "unset"
+  },
+  {
+   "start": 984,
+   "end": 1563,
+   "camera": "unset"
+  },
+  {
+   "start": 1564,
+   "end": 1896,
+   "camera": "unset"
+  },
+  {
+   "start": 1897,
+   "end": 2256,
+   "camera": "unset"
+  },
+  {
+   "start": 2257,
+   "end": 2645,
+   "camera": "unset"
+  },
+  {
+   "start": 2646,
+   "end": 2985,
+   "camera": "unset"
+  },
+  {
+   "start": 2986,
+   "end": 3582,
+   "camera": "unset"
+  },
+  {
+   "start": 3583,
+   "end": 3925,
+   "camera": "unset"
+  },
+  {
+   "start": 3926,
+   "end": 4343,
+   "camera": "unset"
+  },
+  {
+   "start": 4344,
+   "end": 4727,
+   "camera": "unset"
+  },
+  {
+   "start": 4728,
+   "end": 5052,
+   "camera": "unset"
+  },
+  {
+   "start": 5053,
+   "end": 5428,
+   "camera": "unset"
+  },
+  {
+   "start": 5429,
+   "end": 5784,
+   "camera": "unset"
+  },
+  {
+   "start": 5785,
+   "end": 6070,
+   "camera": "unset"
+  },
+  {
+   "start": 6071,
+   "end": 6358,
+   "camera": "unset"
+  },
+  {
+   "start": 6359,
+   "end": 6643,
+   "camera": "unset"
+  },
+  {
+   "start": 6644,
+   "end": 6954,
+   "camera": "unset"
+  },
+  {
+   "start": 6955,
+   "end": 7284,
+   "camera": "unset"
+  },
+  {
+   "start": 7285,
+   "end": 7927,
+   "camera": "unset"
+  },
+  {
+   "start": 7928,
+   "end": 8429,
+   "camera": "unset"
+  },
+  {
+   "start": 8430,
+   "end": 9110,
+   "camera": "unset"
+  },
+  {
+   "start": 9111,
+   "end": 9264,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-10-05T11:18:08"
+}

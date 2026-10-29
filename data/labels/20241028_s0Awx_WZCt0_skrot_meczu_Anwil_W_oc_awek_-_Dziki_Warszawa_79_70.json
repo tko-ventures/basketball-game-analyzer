@@ -1,0 +1,162 @@
+{
+ "version": 1,
+ "clip": "data/raw/20241028_s0Awx_WZCt0_skrot_meczu_Anwil_W_oc_awek_-_Dziki_Warszawa_79_70.mp4",
+ "fps": 25.0,
+ "frame_count": 2323,
+ "width": 1280,
+ "height": 720,
+ "stride": 2,
+ "meta": {
+  "season": "2024/25",
+  "opponent": "Anwil Włocławek",
+  "dziki_kit": "",
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=s0Awx_WZCt0",
+  "title": "skrót meczu Anwil Włocławek - Dziki Warszawa 79:70"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 89,
+   "camera": "unset"
+  },
+  {
+   "start": 90,
+   "end": 124,
+   "camera": "unset"
+  },
+  {
+   "start": 125,
+   "end": 165,
+   "camera": "unset"
+  },
+  {
+   "start": 166,
+   "end": 220,
+   "camera": "unset"
+  },
+  {
+   "start": 221,
+   "end": 255,
+   "camera": "unset"
+  },
+  {
+   "start": 256,
+   "end": 283,
+   "camera": "unset"
+  },
+  {
+   "start": 284,
+   "end": 331,
+   "camera": "unset"
+  },
+  {
+   "start": 332,
+   "end": 341,
+   "camera": "unset"
+  },
+  {
+   "start": 342,
+   "end": 378,
+   "camera": "unset"
+  },
+  {
+   "start": 379,
+   "end": 460,
+   "camera": "unset"
+  },
+  {
+   "start": 461,
+   "end": 552,
+   "camera": "unset"
+  },
+  {
+   "start": 553,
+   "end": 641,
+   "camera": "unset"
+  },
+  {
+   "start": 642,
+   "end": 727,
+   "camera": "unset"
+  },
+  {
+   "start": 728,
+   "end": 828,
+   "camera": "unset"
+  },
+  {
+   "start": 829,
+   "end": 919,
+   "camera": "unset"
+  },
+  {
+   "start": 920,
+   "end": 1075,
+   "camera": "unset"
+  },
+  {
+   "start": 1076,
+   "end": 1191,
+   "camera": "unset"
+  },
+  {
+   "start": 1192,
+   "end": 1272,
+   "camera": "unset"
+  },
+  {
+   "start": 1273,
+   "end": 1361,
+   "camera": "unset"
+  },
+  {
+   "start": 1362,
+   "end": 1448,
+   "camera": "unset"
+  },
+  {
+   "start": 1449,
+   "end": 1531,
+   "camera": "unset"
+  },
+  {
+   "start": 1532,
+   "end": 1703,
+   "camera": "unset"
+  },
+  {
+   "start": 1704,
+   "end": 1743,
+   "camera": "unset"
+  },
+  {
+   "start": 1744,
+   "end": 1790,
+   "camera": "unset"
+  },
+  {
+   "start": 1791,
+   "end": 1861,
+   "camera": "unset"
+  },
+  {
+   "start": 1862,
+   "end": 1921,
+   "camera": "unset"
+  },
+  {
+   "start": 1922,
+   "end": 2027,
+   "camera": "unset"
+  },
+  {
+   "start": 2028,
+   "end": 2322,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-10-05T11:18:38"
+}
