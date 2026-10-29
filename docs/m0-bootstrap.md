@@ -13,7 +13,7 @@ Artifact for [#1](https://github.com/tko-ventures/basketball-game-analyzer/issue
 | 1280x720, 25 fps | 1 (`s0Awx_WZCt0`) |
 | 1920x1080, 60 fps | 1 (`SswWgXybNB8`) |
 
-Plan section 2 assumes 1080p50 throughout. Four of the five exceptions are the three 2024/25 uploads plus `hFWL47plFQI`, a differently titled 2025/26 upload; the fifth, `SswWgXybNB8` (60 fps), is a regular 2025/26 highlight. The pipeline must read fps per clip, never assume 50 (the labeller's stride already does: `round(fps / 10)`). `4XMD9FWmQws` (PGE Start, 2024/25) is a 10-minute cut, not a 3-minute highlight. `d5lCDxjy1R4` and `s0Awx_WZCt0` share the title "Anwil Włocławek - Dziki Warszawa 79:70", so they are probably the same game uploaded twice; M1 must not put them on both sides of the held-out split.
+Plan section 2 assumes 1080p50 throughout. Four of the five exceptions are three of the four 2024/25 uploads plus `hFWL47plFQI`, a differently titled 2025/26 upload; the fifth, `SswWgXybNB8` (60 fps), is a regular 2025/26 highlight. The pipeline must read fps per clip, never assume 50 (the labeller's stride already does: `round(fps / 10)`). `4XMD9FWmQws` (PGE Start, 2024/25) is a 10-minute cut, not a 3-minute highlight. `d5lCDxjy1R4` and `s0Awx_WZCt0` share the title "Anwil Włocławek - Dziki Warszawa 79:70", so they are probably the same game uploaded twice; M1 must not put them on both sides of the held-out split.
 
 ## Shot files: regenerated against imported
 
