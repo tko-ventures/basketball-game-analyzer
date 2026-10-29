@@ -9,6 +9,7 @@ Ops file, one operation per line (``#`` comments allowed), first line ``clip <la
     delete 1044                remove identity 1044 everywhere (bench, staff, crowd)
     team 1003 home             home | away | ref | other
     number 1003 23
+    note 1003 switches to another player after ~3340   free text for the human pass (identities.csv)
     confirm 1003               mark the track reviewed
 Operations run in file order, so the file is the audit trail of a review pass.
 """
@@ -62,6 +63,9 @@ def apply_ops(labels: dict, lines: list[str]) -> dict[str, int]:
         elif op == "number":
             tid, num = args
             ids[tid]["number"] = num
+        elif op == "note":
+            tid, *text = args
+            ids[tid]["note"] = " ".join(text)
         elif op == "confirm":
             (tid,) = args
             ids[tid]["reviewed"] = True
