@@ -238,7 +238,7 @@ function renderSide() {
   $("#idCount").textContent = `(${shown.length}, ${open} to confirm)`;
   $("#idList").innerHTML = shown.map(([t, v]) => {
     const name = rosterName(v.number, v.team);
-    const cls = [String(S.armed) === t ? "armed" : "", b && String(b.tid) === t ? "sel" : "", v.reviewed ? "reviewed" : ""].join(" ");
+    const cls = [String(S.armed) === t ? "armed" : "", b && String(b.tid) === t ? "sel" : "", v.reviewed ? "reviewed" : "", v.note ? "noted" : ""].join(" ");
     return `<li data-tid="${t}" class="${cls}"><span class="sw" style="background:${css(TEAM_COLOR[v.team || ""])}"></span>
       <span class="mono">${t}</span><span>${v.team || "?"} ${v.number ? "#" + v.number : ""}</span>
       <span class="muted small">${name}</span><span class="spacer"></span>
@@ -291,6 +291,7 @@ function renderStrip(tid) {
   const ks = s ? trackFrames(tid, s) : [];
   const span = ks.length ? `${ks.length} frames, ${ks[0]}–${ks[ks.length - 1]}` : "";
   $("#trackInfo").textContent = span;
+  $("#trackNote").textContent = (ident(tid) || {}).note || "";
   if (!ks.length) return;
   const pick = ks.length <= 8 ? ks : Array.from({ length: 8 }, (_, i) => ks[Math.round((i * (ks.length - 1)) / 7)]);
   const w = c.width / 4, h = c.height / 2;
