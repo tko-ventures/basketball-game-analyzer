@@ -1,0 +1,195 @@
+{
+ "version": 2,
+ "clip": "data/raw/20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka.mp4",
+ "fps": 50.0,
+ "frame_count": 9795,
+ "width": 1920,
+ "height": 1080,
+ "stride": 5,
+ "meta": {
+  "season": "2025/26",
+  "home": {
+   "team": "WKS Śląsk",
+   "roster": "",
+   "kit": ""
+  },
+  "away": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=Y4TmeMchTh0",
+  "title": "SKRÓT | WKS Śląsk - Dziki | 1. kolejka"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 322,
+   "camera": "unset"
+  },
+  {
+   "start": 323,
+   "end": 621,
+   "camera": "unset"
+  },
+  {
+   "start": 622,
+   "end": 987,
+   "camera": "unset"
+  },
+  {
+   "start": 988,
+   "end": 1386,
+   "camera": "unset"
+  },
+  {
+   "start": 1387,
+   "end": 1429,
+   "camera": "unset"
+  },
+  {
+   "start": 1430,
+   "end": 1599,
+   "camera": "unset"
+  },
+  {
+   "start": 1600,
+   "end": 1934,
+   "camera": "unset"
+  },
+  {
+   "start": 1935,
+   "end": 2215,
+   "camera": "unset"
+  },
+  {
+   "start": 2216,
+   "end": 2520,
+   "camera": "unset"
+  },
+  {
+   "start": 2521,
+   "end": 2775,
+   "camera": "unset"
+  },
+  {
+   "start": 2776,
+   "end": 3015,
+   "camera": "unset"
+  },
+  {
+   "start": 3016,
+   "end": 3344,
+   "camera": "unset"
+  },
+  {
+   "start": 3345,
+   "end": 3612,
+   "camera": "unset"
+  },
+  {
+   "start": 3613,
+   "end": 3893,
+   "camera": "unset"
+  },
+  {
+   "start": 3894,
+   "end": 4249,
+   "camera": "unset"
+  },
+  {
+   "start": 4250,
+   "end": 4569,
+   "camera": "unset"
+  },
+  {
+   "start": 4570,
+   "end": 4873,
+   "camera": "unset"
+  },
+  {
+   "start": 4874,
+   "end": 5248,
+   "camera": "unset"
+  },
+  {
+   "start": 5249,
+   "end": 5599,
+   "camera": "unset"
+  },
+  {
+   "start": 5600,
+   "end": 5907,
+   "camera": "unset"
+  },
+  {
+   "start": 5908,
+   "end": 6171,
+   "camera": "unset"
+  },
+  {
+   "start": 6172,
+   "end": 6550,
+   "camera": "unset"
+  },
+  {
+   "start": 6551,
+   "end": 6872,
+   "camera": "unset"
+  },
+  {
+   "start": 6873,
+   "end": 7237,
+   "camera": "unset"
+  },
+  {
+   "start": 7238,
+   "end": 7492,
+   "camera": "unset"
+  },
+  {
+   "start": 7493,
+   "end": 7817,
+   "camera": "unset"
+  },
+  {
+   "start": 7818,
+   "end": 8132,
+   "camera": "unset"
+  },
+  {
+   "start": 8133,
+   "end": 8471,
+   "camera": "unset"
+  },
+  {
+   "start": 8472,
+   "end": 8827,
+   "camera": "unset"
+  },
+  {
+   "start": 8828,
+   "end": 9201,
+   "camera": "unset"
+  },
+  {
+   "start": 9202,
+   "end": 9264,
+   "camera": "unset"
+  },
+  {
+   "start": 9265,
+   "end": 9638,
+   "camera": "unset"
+  },
+  {
+   "start": 9639,
+   "end": 9794,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-10-29T20:44:39"
+}

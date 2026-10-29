@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Court Labeller</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <strong class="brand">Court Labeller</strong>
+  <select id="clipSel" title="Clip"></select>
+  <label>Season <select id="seasonSel"></select></label>
+  <label>Home <input id="homeTeam" size="14" list="teamNames" placeholder="team"></label>
+  <input id="homeKit" size="8" placeholder="kit colour" title="Home kit">
+  <label>Away <input id="awayTeam" size="14" list="teamNames" placeholder="team"></label>
+  <input id="awayKit" size="8" placeholder="kit colour" title="Away kit">
+  <label>Stride <input id="strideInput" type="number" min="1" max="50" style="width:4em"></label>
+  <span class="spacer"></span>
+  <span id="saveState" class="muted">—</span>
+  <button id="helpBtn" title="Keyboard shortcuts">?</button>
+</header>
+
+<main>
+  <section id="stage">
+    <div id="canvasWrap"><canvas id="cv"></canvas></div>
+    <div id="frameBar">
+      <button id="prevShotBtn" title="Previous shot (Shift+↑)">⏮</button>
+      <button id="prevBtn" title="Previous sampled frame (←)">◀</button>
+      <span id="frameInfo" class="mono"></span>
+      <button id="nextBtn" title="Next sampled frame (→)">▶</button>
+      <button id="nextShotBtn" title="Next shot (Shift+↓)">⏭</button>
+      <label class="chk"><input type="checkbox" id="centralOnly" checked> skip non-central shots</label>
+      <span class="spacer"></span>
+      <span id="frameStatus" class="pill"></span>
+    </div>
+    <div id="timelineWrap"><canvas id="timeline" height="34"></canvas></div>
+    <div id="shotBar">
+      <span>Shot <span id="shotInfo" class="mono"></span>:</span>
+      <button data-cam="central" class="cam">Central (G)</button>
+      <button data-cam="other" class="cam">Other / replay / close-up (X)</button>
+      <button id="detectShotsBtn">Detect camera cuts</button>
+      <span id="shotProgress" class="muted"></span>
+      <span class="spacer"></span>
+      <button id="copyPrevBtn" title="Copy boxes from previous labelled frame (C)">Copy prev (C)</button>
+      <button id="interpBtn" title="Interpolate between surrounding done frames (I)">Interpolate (I)</button>
+      <button id="doneBtn" title="Mark frame done (D)">Done (D)</button>
+    </div>
+  </section>
+
+  <aside>
+    <div class="panel">
+      <h3>Selected box</h3>
+      <div id="selEmpty" class="muted">Drag on the frame to draw a box. Click a box to select it.</div>
+      <div id="selForm" hidden>
+        <canvas id="loupe" width="240" height="240"></canvas>
+        <div class="row">
+          <label>ID <select id="selTid"></select></label>
+          <button id="newIdBtn" title="Give this box a new identity">New ID</button>
+          <button id="mergeBtn" title="Replace this identity with another one in every frame">Merge…</button>
+        </div>
+        <div class="row team">
+          <button data-team="home" title="1">Home (1)</button>
+          <button data-team="away" title="2">Away (2)</button>
+          <button data-team="ref" title="3">Ref (3)</button>
+          <button data-team="other" title="4">Other (4)</button>
+        </div>
+        <div class="row">
+          <label>Number <input id="selNum" list="rosterNums" size="4" placeholder="#"></label>
+          <span id="selName" class="muted"></span>
+        </div>
+        <div class="row">
+          <label class="chk"><input type="checkbox" id="selOcc"> occluded / partly visible (O)</label>
+          <label class="chk"><input type="checkbox" id="selNumVis"> number readable here</label>
+        </div>
+        <button id="delBtn" class="danger">Delete box (Del)</button>
+      </div>
+    </div>
+
+    <div class="panel grow">
+      <h3>Identities <span class="muted" id="idCount"></span></h3>
+      <div class="muted small">Click an identity to arm it — the next box you draw gets it. <a href="#" id="pruneBtn">Remove unused</a></div>
+      <ul id="idList"></ul>
+    </div>
+
+    <div class="panel">
+      <h3>Roster <span id="rosterSide" class="muted small"></span></h3>
+      <ul id="rosterList" class="small"></ul>
+    </div>
+
+    <div class="panel">
+      <h3>Prefill from pipeline</h3>
+      <div class="row"><select id="pipeSel"></select></div>
+      <div class="row"><button id="prefillBtn">Import boxes into empty frames</button></div>
+      <div class="muted small">Imported boxes keep pipeline track IDs (+1000) and are not marked done — review, fix, then press D.</div>
+    </div>
+  </aside>
+</main>
+
+<datalist id="rosterNums"></datalist>
+<datalist id="teamNames"></datalist>
+
+<dialog id="help">
+  <h3>Shortcuts</h3>
+  <table class="small">
+    <tr><td>← / →</td><td>prev / next sampled frame (Shift = ×10)</td></tr>
+    <tr><td>Shift+↑ / Shift+↓</td><td>prev / next shot</td></tr>
+    <tr><td>drag on empty area</td><td>draw box (gets armed identity, else a new one)</td></tr>
+    <tr><td>drag box / corner</td><td>move / resize</td></tr>
+    <tr><td>Tab</td><td>cycle selected box</td></tr>
+    <tr><td>1 2 3 4</td><td>team: Home / Away / Ref / Other</td></tr>
+    <tr><td>N</td><td>focus number field</td></tr>
+    <tr><td>O</td><td>toggle occluded</td></tr>
+    <tr><td>Del / Backspace</td><td>delete box</td></tr>
+    <tr><td>C</td><td>copy boxes from previous labelled frame</td></tr>
+    <tr><td>I</td><td>interpolate boxes across the gap between done frames</td></tr>
+    <tr><td>D</td><td>mark frame done / not done</td></tr>
+    <tr><td>G / X</td><td>mark current shot central / other</td></tr>
+    <tr><td>H</td><td>hide / show boxes</td></tr>
+    <tr><td>Ctrl/Cmd+S</td><td>save now (also autosaves)</td></tr>
+  </table>
+  <form method="dialog"><button>Close</button></form>
+</dialog>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

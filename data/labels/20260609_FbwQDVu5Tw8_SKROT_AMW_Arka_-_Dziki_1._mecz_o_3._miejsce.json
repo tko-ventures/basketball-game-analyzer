@@ -1,0 +1,185 @@
+{
+ "version": 2,
+ "clip": "data/raw/20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce.mp4",
+ "fps": 50.0,
+ "frame_count": 9291,
+ "width": 1920,
+ "height": 1080,
+ "stride": 5,
+ "meta": {
+  "season": "2025/26",
+  "home": {
+   "team": "AMW Arka",
+   "roster": "",
+   "kit": ""
+  },
+  "away": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=FbwQDVu5Tw8",
+  "title": "SKRÓT | AMW Arka - Dziki | 1. mecz o 3. miejsce"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 302,
+   "camera": "unset"
+  },
+  {
+   "start": 303,
+   "end": 570,
+   "camera": "unset"
+  },
+  {
+   "start": 571,
+   "end": 899,
+   "camera": "unset"
+  },
+  {
+   "start": 900,
+   "end": 1063,
+   "camera": "unset"
+  },
+  {
+   "start": 1064,
+   "end": 1140,
+   "camera": "unset"
+  },
+  {
+   "start": 1141,
+   "end": 1417,
+   "camera": "unset"
+  },
+  {
+   "start": 1418,
+   "end": 1719,
+   "camera": "unset"
+  },
+  {
+   "start": 1720,
+   "end": 2000,
+   "camera": "unset"
+  },
+  {
+   "start": 2001,
+   "end": 2342,
+   "camera": "unset"
+  },
+  {
+   "start": 2343,
+   "end": 2732,
+   "camera": "unset"
+  },
+  {
+   "start": 2733,
+   "end": 3149,
+   "camera": "unset"
+  },
+  {
+   "start": 3150,
+   "end": 3531,
+   "camera": "unset"
+  },
+  {
+   "start": 3532,
+   "end": 3844,
+   "camera": "unset"
+  },
+  {
+   "start": 3845,
+   "end": 4213,
+   "camera": "unset"
+  },
+  {
+   "start": 4214,
+   "end": 4493,
+   "camera": "unset"
+  },
+  {
+   "start": 4494,
+   "end": 4789,
+   "camera": "unset"
+  },
+  {
+   "start": 4790,
+   "end": 5122,
+   "camera": "unset"
+  },
+  {
+   "start": 5123,
+   "end": 5184,
+   "camera": "unset"
+  },
+  {
+   "start": 5185,
+   "end": 5551,
+   "camera": "unset"
+  },
+  {
+   "start": 5552,
+   "end": 5827,
+   "camera": "unset"
+  },
+  {
+   "start": 5828,
+   "end": 6129,
+   "camera": "unset"
+  },
+  {
+   "start": 6130,
+   "end": 6415,
+   "camera": "unset"
+  },
+  {
+   "start": 6416,
+   "end": 6836,
+   "camera": "unset"
+  },
+  {
+   "start": 6837,
+   "end": 7136,
+   "camera": "unset"
+  },
+  {
+   "start": 7137,
+   "end": 7531,
+   "camera": "unset"
+  },
+  {
+   "start": 7532,
+   "end": 7552,
+   "camera": "unset"
+  },
+  {
+   "start": 7553,
+   "end": 7982,
+   "camera": "unset"
+  },
+  {
+   "start": 7983,
+   "end": 8478,
+   "camera": "unset"
+  },
+  {
+   "start": 8479,
+   "end": 8553,
+   "camera": "unset"
+  },
+  {
+   "start": 8554,
+   "end": 9140,
+   "camera": "unset"
+  },
+  {
+   "start": 9141,
+   "end": 9290,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-10-29T20:48:14"
+}

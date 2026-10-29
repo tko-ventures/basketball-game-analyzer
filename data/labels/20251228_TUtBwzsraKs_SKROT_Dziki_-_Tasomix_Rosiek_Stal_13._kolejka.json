@@ -1,0 +1,170 @@
+{
+ "version": 2,
+ "clip": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+ "fps": 50.0,
+ "frame_count": 9427,
+ "width": 1920,
+ "height": 1080,
+ "stride": 5,
+ "meta": {
+  "season": "2025/26",
+  "home": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
+  "away": {
+   "team": "Tasomix Rosiek Stal",
+   "roster": "",
+   "kit": ""
+  },
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=TUtBwzsraKs",
+  "title": "SKRÓT | Dziki - Tasomix Rosiek Stal | 13. kolejka"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 408,
+   "camera": "unset"
+  },
+  {
+   "start": 409,
+   "end": 789,
+   "camera": "unset"
+  },
+  {
+   "start": 790,
+   "end": 1120,
+   "camera": "unset"
+  },
+  {
+   "start": 1121,
+   "end": 1446,
+   "camera": "unset"
+  },
+  {
+   "start": 1447,
+   "end": 1835,
+   "camera": "unset"
+  },
+  {
+   "start": 1836,
+   "end": 2168,
+   "camera": "unset"
+  },
+  {
+   "start": 2169,
+   "end": 2449,
+   "camera": "unset"
+  },
+  {
+   "start": 2450,
+   "end": 2621,
+   "camera": "unset"
+  },
+  {
+   "start": 2622,
+   "end": 2959,
+   "camera": "unset"
+  },
+  {
+   "start": 2960,
+   "end": 3348,
+   "camera": "unset"
+  },
+  {
+   "start": 3349,
+   "end": 3748,
+   "camera": "unset"
+  },
+  {
+   "start": 3749,
+   "end": 4093,
+   "camera": "unset"
+  },
+  {
+   "start": 4094,
+   "end": 4420,
+   "camera": "unset"
+  },
+  {
+   "start": 4421,
+   "end": 4887,
+   "camera": "unset"
+  },
+  {
+   "start": 4888,
+   "end": 5237,
+   "camera": "unset"
+  },
+  {
+   "start": 5238,
+   "end": 5589,
+   "camera": "unset"
+  },
+  {
+   "start": 5590,
+   "end": 5825,
+   "camera": "unset"
+  },
+  {
+   "start": 5826,
+   "end": 6259,
+   "camera": "unset"
+  },
+  {
+   "start": 6260,
+   "end": 6700,
+   "camera": "unset"
+  },
+  {
+   "start": 6701,
+   "end": 6990,
+   "camera": "unset"
+  },
+  {
+   "start": 6991,
+   "end": 7218,
+   "camera": "unset"
+  },
+  {
+   "start": 7219,
+   "end": 7385,
+   "camera": "unset"
+  },
+  {
+   "start": 7386,
+   "end": 7759,
+   "camera": "unset"
+  },
+  {
+   "start": 7760,
+   "end": 8148,
+   "camera": "unset"
+  },
+  {
+   "start": 8149,
+   "end": 8525,
+   "camera": "unset"
+  },
+  {
+   "start": 8526,
+   "end": 8797,
+   "camera": "unset"
+  },
+  {
+   "start": 8798,
+   "end": 9243,
+   "camera": "unset"
+  },
+  {
+   "start": 9244,
+   "end": 9426,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-10-29T20:44:49"
+}

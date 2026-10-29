@@ -1,0 +1,240 @@
+{
+ "version": 2,
+ "clip": "data/raw/20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u.mp4",
+ "fps": 50.0,
+ "frame_count": 12415,
+ "width": 1920,
+ "height": 1080,
+ "stride": 5,
+ "meta": {
+  "season": "2025/26",
+  "home": {
+   "team": "Legia",
+   "roster": "",
+   "kit": ""
+  },
+  "away": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=l7VkOarkFZk",
+  "title": "SKRÓT | Legia - Dziki | 2. mecz półfinału"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 343,
+   "camera": "unset"
+  },
+  {
+   "start": 344,
+   "end": 633,
+   "camera": "unset"
+  },
+  {
+   "start": 634,
+   "end": 937,
+   "camera": "unset"
+  },
+  {
+   "start": 938,
+   "end": 1201,
+   "camera": "unset"
+  },
+  {
+   "start": 1202,
+   "end": 1423,
+   "camera": "unset"
+  },
+  {
+   "start": 1424,
+   "end": 1446,
+   "camera": "unset"
+  },
+  {
+   "start": 1447,
+   "end": 1802,
+   "camera": "unset"
+  },
+  {
+   "start": 1803,
+   "end": 2199,
+   "camera": "unset"
+  },
+  {
+   "start": 2200,
+   "end": 2520,
+   "camera": "unset"
+  },
+  {
+   "start": 2521,
+   "end": 2591,
+   "camera": "unset"
+  },
+  {
+   "start": 2592,
+   "end": 2900,
+   "camera": "unset"
+  },
+  {
+   "start": 2901,
+   "end": 3280,
+   "camera": "unset"
+  },
+  {
+   "start": 3281,
+   "end": 3666,
+   "camera": "unset"
+  },
+  {
+   "start": 3667,
+   "end": 4036,
+   "camera": "unset"
+  },
+  {
+   "start": 4037,
+   "end": 4347,
+   "camera": "unset"
+  },
+  {
+   "start": 4348,
+   "end": 4745,
+   "camera": "unset"
+  },
+  {
+   "start": 4746,
+   "end": 4825,
+   "camera": "unset"
+  },
+  {
+   "start": 4826,
+   "end": 5082,
+   "camera": "unset"
+  },
+  {
+   "start": 5083,
+   "end": 5573,
+   "camera": "unset"
+  },
+  {
+   "start": 5574,
+   "end": 5842,
+   "camera": "unset"
+  },
+  {
+   "start": 5843,
+   "end": 5989,
+   "camera": "unset"
+  },
+  {
+   "start": 5990,
+   "end": 6261,
+   "camera": "unset"
+  },
+  {
+   "start": 6262,
+   "end": 6554,
+   "camera": "unset"
+  },
+  {
+   "start": 6555,
+   "end": 6863,
+   "camera": "unset"
+  },
+  {
+   "start": 6864,
+   "end": 7126,
+   "camera": "unset"
+  },
+  {
+   "start": 7127,
+   "end": 7393,
+   "camera": "unset"
+  },
+  {
+   "start": 7394,
+   "end": 7920,
+   "camera": "unset"
+  },
+  {
+   "start": 7921,
+   "end": 8172,
+   "camera": "unset"
+  },
+  {
+   "start": 8173,
+   "end": 8504,
+   "camera": "unset"
+  },
+  {
+   "start": 8505,
+   "end": 8736,
+   "camera": "unset"
+  },
+  {
+   "start": 8737,
+   "end": 9027,
+   "camera": "unset"
+  },
+  {
+   "start": 9028,
+   "end": 9351,
+   "camera": "unset"
+  },
+  {
+   "start": 9352,
+   "end": 9605,
+   "camera": "unset"
+  },
+  {
+   "start": 9606,
+   "end": 10460,
+   "camera": "unset"
+  },
+  {
+   "start": 10461,
+   "end": 11129,
+   "camera": "unset"
+  },
+  {
+   "start": 11130,
+   "end": 11371,
+   "camera": "unset"
+  },
+  {
+   "start": 11372,
+   "end": 11457,
+   "camera": "unset"
+  },
+  {
+   "start": 11458,
+   "end": 11491,
+   "camera": "unset"
+  },
+  {
+   "start": 11492,
+   "end": 11605,
+   "camera": "unset"
+  },
+  {
+   "start": 11606,
+   "end": 11720,
+   "camera": "unset"
+  },
+  {
+   "start": 11721,
+   "end": 12273,
+   "camera": "unset"
+  },
+  {
+   "start": 12274,
+   "end": 12414,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-10-29T20:48:10"
+}
