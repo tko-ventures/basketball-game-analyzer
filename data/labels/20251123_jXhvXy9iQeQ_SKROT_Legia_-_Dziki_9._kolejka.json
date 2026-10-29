@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "clip": "data/raw/20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka.mp4",
  "fps": 50.0,
  "frame_count": 9651,
@@ -8,8 +8,16 @@
  "stride": 5,
  "meta": {
   "season": "2025/26",
-  "opponent": "Legia",
-  "dziki_kit": "",
+  "home": {
+   "team": "Legia",
+   "roster": "",
+   "kit": ""
+  },
+  "away": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=jXhvXy9iQeQ",
   "title": "SKRÓT | Legia - Dziki | 9. kolejka"
@@ -127,6 +135,11 @@
   },
   {
    "start": 5424,
+   "end": 5595,
+   "camera": "unset"
+  },
+  {
+   "start": 5596,
    "end": 5941,
    "camera": "unset"
   },
@@ -193,5 +206,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-05T11:21:06"
+ "saved_at": "2026-10-29T20:44:23"
 }

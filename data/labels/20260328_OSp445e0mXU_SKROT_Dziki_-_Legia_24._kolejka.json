@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "clip": "data/raw/20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka.mp4",
  "fps": 50.0,
  "frame_count": 9377,
@@ -8,8 +8,16 @@
  "stride": 5,
  "meta": {
   "season": "2025/26",
-  "opponent": "Legia",
-  "dziki_kit": "",
+  "home": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
+  "away": {
+   "team": "Legia",
+   "roster": "",
+   "kit": ""
+  },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=OSp445e0mXU",
   "title": "SKRÓT | Dziki - Legia | 24. kolejka"
@@ -168,5 +176,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-05T11:25:02"
+ "saved_at": "2026-10-29T20:46:10"
 }

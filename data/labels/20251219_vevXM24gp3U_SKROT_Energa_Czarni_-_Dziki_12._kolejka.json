@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "clip": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
  "fps": 50.0,
  "frame_count": 9436,
@@ -8,8 +8,16 @@
  "stride": 5,
  "meta": {
   "season": "2025/26",
-  "opponent": "Energa Czarni",
-  "dziki_kit": "",
+  "home": {
+   "team": "Energa Czarni",
+   "roster": "",
+   "kit": ""
+  },
+  "away": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=vevXM24gp3U",
   "title": "SKRÓT | Energa Czarni - Dziki | 12. kolejka"
@@ -168,5 +176,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-05T11:21:34"
+ "saved_at": "2026-10-29T20:44:19"
 }

@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "clip": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
  "fps": 50.0,
  "frame_count": 9427,
@@ -8,8 +8,16 @@
  "stride": 5,
  "meta": {
   "season": "2025/26",
-  "opponent": "Tasomix Rosiek Stal",
-  "dziki_kit": "",
+  "home": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
+  "away": {
+   "team": "Tasomix Rosiek Stal",
+   "roster": "",
+   "kit": ""
+  },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=TUtBwzsraKs",
   "title": "SKRÓT | Dziki - Tasomix Rosiek Stal | 13. kolejka"
@@ -158,5 +166,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-05T11:22:26"
+ "saved_at": "2026-10-29T20:44:49"
 }

@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "clip": "data/raw/20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka.mp4",
  "fps": 50.0,
  "frame_count": 9795,
@@ -8,8 +8,16 @@
  "stride": 5,
  "meta": {
   "season": "2025/26",
-  "opponent": "WKS Śląsk",
-  "dziki_kit": "",
+  "home": {
+   "team": "WKS Śląsk",
+   "roster": "",
+   "kit": ""
+  },
+  "away": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=Y4TmeMchTh0",
   "title": "SKRÓT | WKS Śląsk - Dziki | 1. kolejka"
@@ -183,5 +191,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-05T11:22:01"
+ "saved_at": "2026-10-29T20:44:39"
 }

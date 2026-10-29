@@ -6,6 +6,10 @@
 #   IDS=other_ids.txt scripts/fetch_highlights.sh    # another id list (first column = YouTube id)
 #   SEARCH=1 N=80 SINCE=20250901 scripts/fetch_highlights.sh      # discover new clips by search
 #   SEARCH=1 QUERY="dziki warszawa mecz" scripts/fetch_highlights.sh
+#   YTDLP="uvx --from yt-dlp[default] yt-dlp" scripts/fetch_highlights.sh   # newest yt-dlp
+#
+# Chunked requests (10 MiB) avoid YouTube's per-stream throttling: one unchunked stream ran at
+# 40-150 KiB/s on 2026-10-29, the same video chunked at several MiB/s.
 #
 # Re-runs are incremental (data/raw/.archive.txt). A manifest with
 # upload date / season / title / resolution is appended to data/raw/manifest.tsv.
@@ -14,6 +18,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 IDS="${IDS:-data/clip_ids.txt}"
+read -r -a ytdlp <<< "${YTDLP:-yt-dlp}"
 QUERY="${QUERY:-dziki warszawa skrót}"
 N="${N:-40}"
 SINCE="${SINCE:-20240901}"          # start of 2024/25 season
@@ -34,10 +39,11 @@ else
   filters=()
 fi
 
-yt-dlp "${targets[@]}" \
+"${ytdlp[@]}" "${targets[@]}" \
   ${filters[@]+"${filters[@]}"} \
   -f "bv*[height<=1080]+ba/b[height<=1080]" -S "vcodec:h264,res:1080,fps" \
   --merge-output-format mp4 \
+  --http-chunk-size 10M --concurrent-fragments 4 \
   -o "$OUT/%(upload_date)s_%(id)s_%(title).60B.%(ext)s" \
   --restrict-filenames \
   --download-archive "$OUT/.archive.txt" \

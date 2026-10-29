@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "clip": "data/raw/20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski.mp4",
  "fps": 50.0,
  "frame_count": 10253,
@@ -8,8 +8,16 @@
  "stride": 5,
  "meta": {
   "season": "2026/27",
-  "opponent": "Zastal",
-  "dziki_kit": "",
+  "home": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
+  "away": {
+   "team": "Zastal",
+   "roster": "",
+   "kit": ""
+  },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=Tnuscrm9RyU",
   "title": "SKRÓT | Dziki - Zastal | półfinał Superpucharu Polski"
@@ -122,6 +130,11 @@
   },
   {
    "start": 4718,
+   "end": 4737,
+   "camera": "unset"
+  },
+  {
+   "start": 4738,
    "end": 4765,
    "camera": "unset"
   },
@@ -238,5 +251,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-05T11:31:24"
+ "saved_at": "2026-10-29T20:48:19"
 }

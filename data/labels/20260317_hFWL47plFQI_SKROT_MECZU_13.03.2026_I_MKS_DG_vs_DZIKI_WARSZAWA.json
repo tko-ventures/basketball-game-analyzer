@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "clip": "data/raw/20260317_hFWL47plFQI_SKROT_MECZU_13.03.2026_I_MKS_DG_vs_DZIKI_WARSZAWA.mp4",
  "fps": 25.0,
  "frame_count": 4591,
@@ -8,8 +8,16 @@
  "stride": 2,
  "meta": {
   "season": "2025/26",
-  "opponent": "MKS DG",
-  "dziki_kit": "",
+  "home": {
+   "team": "MKS DG",
+   "roster": "",
+   "kit": ""
+  },
+  "away": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=hFWL47plFQI",
   "title": "SKRÓT MECZU 13.03.2026 I MKS DG vs DZIKI WARSZAWA"
@@ -308,5 +316,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-05T11:24:10"
+ "saved_at": "2026-10-29T20:45:03"
 }

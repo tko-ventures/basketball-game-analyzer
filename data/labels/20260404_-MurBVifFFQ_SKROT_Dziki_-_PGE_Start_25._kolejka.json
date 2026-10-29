@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "clip": "data/raw/20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka.mp4",
  "fps": 50.0,
  "frame_count": 9089,
@@ -8,8 +8,16 @@
  "stride": 5,
  "meta": {
   "season": "2025/26",
-  "opponent": "PGE Start",
-  "dziki_kit": "",
+  "home": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
+  "away": {
+   "team": "PGE Start",
+   "roster": "",
+   "kit": ""
+  },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=-MurBVifFFQ",
   "title": "SKRÓT | Dziki - PGE Start | 25. kolejka"
@@ -173,5 +181,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-05T11:25:27"
+ "saved_at": "2026-10-29T20:46:22"
 }

@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "clip": "data/raw/20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce.mp4",
  "fps": 50.0,
  "frame_count": 9375,
@@ -8,8 +8,16 @@
  "stride": 5,
  "meta": {
   "season": "2025/26",
-  "opponent": "AMW Arka",
-  "dziki_kit": "",
+  "home": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
+  "away": {
+   "team": "AMW Arka",
+   "roster": "",
+   "kit": ""
+  },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=DJ6xFaC0Neo",
   "title": "SKRÓT | Dziki - AMW Arka | 2. mecz o 3. miejsce"
@@ -187,11 +195,6 @@
   },
   {
    "start": 8622,
-   "end": 8641,
-   "camera": "unset"
-  },
-  {
-   "start": 8642,
    "end": 8661,
    "camera": "unset"
   },
@@ -243,5 +246,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-05T11:30:55"
+ "saved_at": "2026-10-29T20:48:14"
 }

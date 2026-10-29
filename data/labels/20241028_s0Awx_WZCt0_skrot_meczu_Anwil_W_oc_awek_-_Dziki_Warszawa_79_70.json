@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "clip": "data/raw/20241028_s0Awx_WZCt0_skrot_meczu_Anwil_W_oc_awek_-_Dziki_Warszawa_79_70.mp4",
  "fps": 25.0,
  "frame_count": 2323,
@@ -8,8 +8,16 @@
  "stride": 2,
  "meta": {
   "season": "2024/25",
-  "opponent": "Anwil Włocławek",
-  "dziki_kit": "",
+  "home": {
+   "team": "Anwil Włocławek",
+   "roster": "",
+   "kit": ""
+  },
+  "away": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=s0Awx_WZCt0",
   "title": "skrót meczu Anwil Włocławek - Dziki Warszawa 79:70"
@@ -17,11 +25,6 @@
  "shots": [
   {
    "start": 0,
-   "end": 89,
-   "camera": "unset"
-  },
-  {
-   "start": 90,
    "end": 124,
    "camera": "unset"
   },
@@ -158,5 +161,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-05T11:18:38"
+ "saved_at": "2026-10-29T20:43:25"
 }

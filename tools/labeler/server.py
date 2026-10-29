@@ -161,9 +161,10 @@ def teams_from_title(title: str) -> tuple[str, str]:
     """Home and away team names from a highlight title ("SKRÓT | Dziki - Legia | 24. kolejka").
     PLK titles name the home team first. Dziki is returned as "Dziki Warszawa"; unparseable titles
     give ("", "")."""
-    t = re.sub(_TITLE_NOISE, " ", title)
+    t = re.sub(r"\s+", " ", re.sub(_TITLE_NOISE, " ", title))  # also folds non-breaking spaces
+    t = re.sub(r" I ", "|", t)  # a lone capital I stands in for "|" in some titles
     segs = [x for x in t.split("|") if re.search(r"(?i)dzik", x)] or [t]
-    parts = [p.strip(" .I") for p in re.split(r"\s*[-–]\s*|\s+vs\.?\s+|\s*🆚\s*", segs[0], flags=re.I)]
+    parts = [p.strip(" .") for p in re.split(r"\s*[-–]\s*|\s+vs\.?\s+|\s*🆚\s*", segs[0], flags=re.I)]
     parts = [p for p in parts if p]
     if len(parts) != 2:
         return "", ""

@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "clip": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
  "fps": 50.0,
  "frame_count": 9281,
@@ -8,8 +8,16 @@
  "stride": 5,
  "meta": {
   "season": "2025/26",
-  "opponent": "King",
-  "dziki_kit": "",
+  "home": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
+  "away": {
+   "team": "King",
+   "roster": "",
+   "kit": ""
+  },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=kW4HG-5MLNM",
   "title": "SKRÓT | Dziki - King | 8. kolejka"
@@ -163,5 +171,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-05T11:20:39"
+ "saved_at": "2026-10-29T20:44:19"
 }

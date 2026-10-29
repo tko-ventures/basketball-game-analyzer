@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "clip": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
  "fps": 50.0,
  "frame_count": 9359,
@@ -8,8 +8,16 @@
  "stride": 5,
  "meta": {
   "season": "2025/26",
-  "opponent": "Energa Czarni",
-  "dziki_kit": "",
+  "home": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
+  "away": {
+   "team": "Energa Czarni",
+   "roster": "",
+   "kit": ""
+  },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=xTfkhQ0wO20",
   "title": "SKRÓT | Dziki - Energa Czarni | 27. kolejka"
@@ -168,5 +176,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-05T11:26:19"
+ "saved_at": "2026-10-29T20:46:38"
 }

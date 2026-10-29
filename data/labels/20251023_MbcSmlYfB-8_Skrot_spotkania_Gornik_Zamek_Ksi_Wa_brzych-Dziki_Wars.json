@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "clip": "data/raw/20251023_MbcSmlYfB-8_Skrot_spotkania_Gornik_Zamek_Ksi_Wa_brzych-Dziki_Wars.mp4",
  "fps": 50.0,
  "frame_count": 5884,
@@ -8,8 +8,16 @@
  "stride": 5,
  "meta": {
   "season": "2025/26",
-  "opponent": "Górnik Zamek Książ Wałbrzych",
-  "dziki_kit": "",
+  "home": {
+   "team": "Górnik Zamek Książ Wałbrzych",
+   "roster": "",
+   "kit": ""
+  },
+  "away": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=MbcSmlYfB-8",
   "title": "Skrót spotkania Górnik Zamek Książ Wałbrzych-Dziki Warszawa"
@@ -22,6 +30,11 @@
   },
   {
    "start": 635,
+   "end": 992,
+   "camera": "unset"
+  },
+  {
+   "start": 993,
    "end": 1566,
    "camera": "unset"
   },
@@ -37,6 +50,11 @@
   },
   {
    "start": 1861,
+   "end": 1983,
+   "camera": "unset"
+  },
+  {
+   "start": 1984,
    "end": 2512,
    "camera": "unset"
   },
@@ -158,5 +176,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-05T11:20:14"
+ "saved_at": "2026-10-29T20:43:49"
 }

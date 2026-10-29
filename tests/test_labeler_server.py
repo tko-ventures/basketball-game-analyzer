@@ -78,6 +78,7 @@ def test_safe_path_rejects_escape():
             "Dziki Warszawa",
         ),
         ("SKRÓT MECZU 13.03.2026 I MKS DG vs DZIKI WARSZAWA", "MKS DG", "Dziki Warszawa"),
+        ("SKRÓT | Dziki - Legia\xa0| 3. mecz półfinału", "Dziki Warszawa", "Legia"),
         ("Season preview", "", ""),
     ],
 )

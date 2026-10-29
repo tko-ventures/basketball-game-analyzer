@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "clip": "data/raw/20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off.mp4",
  "fps": 50.0,
  "frame_count": 10492,
@@ -8,8 +8,16 @@
  "stride": 5,
  "meta": {
   "season": "2025/26",
-  "opponent": "Energa Trefl",
-  "dziki_kit": "",
+  "home": {
+   "team": "Energa Trefl",
+   "roster": "",
+   "kit": ""
+  },
+  "away": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=EExZbLxgez4",
   "title": "SKRÓT | Energa Trefl - Dziki | 2. mecz 1/4 play-off"
@@ -203,5 +211,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-05T11:28:33"
+ "saved_at": "2026-10-29T20:47:47"
 }

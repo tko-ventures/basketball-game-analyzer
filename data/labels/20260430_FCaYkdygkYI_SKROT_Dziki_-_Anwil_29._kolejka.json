@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "clip": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
  "fps": 50.0,
  "frame_count": 9253,
@@ -8,8 +8,16 @@
  "stride": 5,
  "meta": {
   "season": "2025/26",
-  "opponent": "Anwil",
-  "dziki_kit": "",
+  "home": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
+  "away": {
+   "team": "Anwil",
+   "roster": "",
+   "kit": ""
+  },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=FCaYkdygkYI",
   "title": "SKRÓT | Dziki - Anwil | 29. kolejka"
@@ -143,5 +151,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-05T11:27:13"
+ "saved_at": "2026-10-29T20:47:11"
 }

@@ -1,15 +1,23 @@
 {
- "version": 1,
+ "version": 2,
  "clip": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
- "fps": 60.00009517781596,
+ "fps": 60.0,
  "frame_count": 12608,
  "width": 1920,
  "height": 1080,
  "stride": 6,
  "meta": {
   "season": "2025/26",
-  "opponent": "WKS Śląsk",
-  "dziki_kit": "",
+  "home": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
+  "away": {
+   "team": "WKS Śląsk",
+   "roster": "",
+   "kit": ""
+  },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=SswWgXybNB8",
   "title": "SKRÓT | Dziki - WKS Śląsk | 16. kolejka"
@@ -168,5 +176,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-05T11:22:59"
+ "saved_at": "2026-10-29T20:45:21"
 }

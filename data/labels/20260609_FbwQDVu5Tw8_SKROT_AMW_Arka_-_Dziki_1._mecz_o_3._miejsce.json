@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "clip": "data/raw/20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce.mp4",
  "fps": 50.0,
  "frame_count": 9291,
@@ -8,8 +8,16 @@
  "stride": 5,
  "meta": {
   "season": "2025/26",
-  "opponent": "AMW Arka",
-  "dziki_kit": "",
+  "home": {
+   "team": "AMW Arka",
+   "roster": "",
+   "kit": ""
+  },
+  "away": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=FbwQDVu5Tw8",
   "title": "SKRÓT | AMW Arka - Dziki | 1. mecz o 3. miejsce"
@@ -173,5 +181,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-05T11:30:29"
+ "saved_at": "2026-10-29T20:48:14"
 }

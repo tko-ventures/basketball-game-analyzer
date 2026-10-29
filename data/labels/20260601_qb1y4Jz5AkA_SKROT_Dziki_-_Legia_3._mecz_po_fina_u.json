@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "clip": "data/raw/20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u.mp4",
  "fps": 50.0,
  "frame_count": 10144,
@@ -8,8 +8,16 @@
  "stride": 5,
  "meta": {
   "season": "2025/26",
-  "opponent": "Legia ",
-  "dziki_kit": "",
+  "home": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
+  "away": {
+   "team": "Legia",
+   "roster": "",
+   "kit": ""
+  },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=qb1y4Jz5AkA",
   "title": "SKRÓT | Dziki - Legia | 3. mecz półfinału"
@@ -178,5 +186,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-05T11:30:04"
+ "saved_at": "2026-10-29T20:48:12"
 }

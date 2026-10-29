@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "clip": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
  "fps": 50.0,
  "frame_count": 9718,
@@ -8,8 +8,16 @@
  "stride": 5,
  "meta": {
   "season": "2025/26",
-  "opponent": "Arriva LOTTO Twarde Pierniki",
-  "dziki_kit": "",
+  "home": {
+   "team": "Arriva LOTTO Twarde Pierniki",
+   "roster": "",
+   "kit": ""
+  },
+  "away": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=zZqAUytpmgc",
   "title": "SKRÓT | Arriva LOTTO Twarde Pierniki - Dziki | 26. kolejka"
@@ -163,5 +171,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-05T11:25:53"
+ "saved_at": "2026-10-29T20:46:32"
 }

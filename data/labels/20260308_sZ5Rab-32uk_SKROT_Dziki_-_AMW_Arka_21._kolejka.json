@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "clip": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
  "fps": 50.0,
  "frame_count": 9369,
@@ -8,8 +8,16 @@
  "stride": 5,
  "meta": {
   "season": "2025/26",
-  "opponent": "AMW Arka",
-  "dziki_kit": "",
+  "home": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
+  "away": {
+   "team": "AMW Arka",
+   "roster": "",
+   "kit": ""
+  },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=sZ5Rab-32uk",
   "title": "SKRÓT | Dziki - AMW Arka | 21. kolejka"
@@ -163,5 +171,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-05T11:23:25"
+ "saved_at": "2026-10-29T20:45:45"
 }

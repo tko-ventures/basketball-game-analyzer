@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "clip": "data/raw/20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu.mp4",
  "fps": 50.0,
  "frame_count": 30160,
@@ -8,8 +8,16 @@
  "stride": 5,
  "meta": {
   "season": "2024/25",
-  "opponent": "PGE Start",
-  "dziki_kit": "",
+  "home": {
+   "team": "PGE Start",
+   "roster": "",
+   "kit": ""
+  },
+  "away": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=4XMD9FWmQws",
   "title": "PGE Start 🆚 Dziki | Skrót meczu"
@@ -493,5 +501,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-05T11:19:57"
+ "saved_at": "2026-10-29T20:47:11"
 }
