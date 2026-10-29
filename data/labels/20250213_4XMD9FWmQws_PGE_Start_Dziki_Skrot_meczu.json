@@ -26,480 +26,480 @@
   {
    "start": 0,
    "end": 607,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 608,
    "end": 1281,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 1282,
    "end": 1393,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 1394,
    "end": 1901,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 1902,
    "end": 2476,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 2477,
    "end": 2590,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 2591,
    "end": 3072,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 3073,
    "end": 3432,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 3433,
    "end": 3482,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 3483,
    "end": 3562,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 3563,
    "end": 3980,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 3981,
    "end": 4086,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 4087,
    "end": 4504,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 4505,
    "end": 4943,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 4944,
    "end": 5032,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 5033,
    "end": 5390,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 5391,
    "end": 5743,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 5744,
    "end": 5883,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 5884,
    "end": 6452,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 6453,
    "end": 7134,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 7135,
    "end": 7404,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 7405,
    "end": 7756,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 7757,
    "end": 8128,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 8129,
    "end": 8457,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 8458,
    "end": 8553,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 8554,
    "end": 9017,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 9018,
    "end": 9484,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 9485,
    "end": 9611,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 9612,
    "end": 10031,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 10032,
    "end": 10553,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 10554,
    "end": 11041,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 11042,
    "end": 11128,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 11129,
    "end": 11676,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 11677,
    "end": 12100,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 12101,
    "end": 12244,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 12245,
    "end": 12557,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 12558,
    "end": 12686,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 12687,
    "end": 13103,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 13104,
    "end": 13216,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 13217,
    "end": 13746,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 13747,
    "end": 13819,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 13820,
    "end": 14311,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 14312,
    "end": 14851,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 14852,
    "end": 14904,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 14905,
    "end": 15405,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 15406,
    "end": 15465,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 15466,
    "end": 15777,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 15778,
    "end": 16088,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 16089,
    "end": 16627,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 16628,
    "end": 17063,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 17064,
    "end": 17142,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 17143,
    "end": 17457,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 17458,
    "end": 17694,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 17695,
    "end": 18196,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 18197,
    "end": 18378,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 18379,
    "end": 18521,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 18522,
    "end": 18597,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 18598,
    "end": 18756,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 18757,
    "end": 19074,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 19075,
    "end": 19190,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 19191,
    "end": 19719,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 19720,
    "end": 20273,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 20274,
    "end": 20785,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 20786,
    "end": 21243,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 21244,
    "end": 21680,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 21681,
    "end": 21814,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 21815,
    "end": 22568,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 22569,
    "end": 22678,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 22679,
    "end": 23039,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 23040,
    "end": 23089,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 23090,
    "end": 23411,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 23412,
    "end": 23775,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 23776,
    "end": 23880,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 23881,
    "end": 24273,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 24274,
    "end": 24423,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 24424,
    "end": 24925,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 24926,
    "end": 25000,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 25001,
    "end": 25487,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 25488,
    "end": 25997,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 25998,
    "end": 26291,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 26292,
    "end": 26405,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 26406,
    "end": 26795,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 26796,
    "end": 26888,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 26889,
    "end": 27318,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 27319,
    "end": 27469,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 27470,
    "end": 28032,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 28033,
    "end": 28105,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 28106,
    "end": 28603,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 28604,
    "end": 28792,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 28793,
    "end": 28885,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 28886,
    "end": 29156,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 29157,
    "end": 29526,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 29527,
    "end": 29723,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 29724,
    "end": 30011,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 30012,
    "end": 30159,
-   "camera": "unset"
+   "camera": "other"
   }
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-29T21:05:10"
+ "saved_at": "2026-10-29T21:07:01"
 }

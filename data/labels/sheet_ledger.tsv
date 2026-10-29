@@ -1,3 +1,8 @@
 date	sheet	purpose	items	result
 2026-10-29	shot_diff_sheet.jpg	M0 shot-file cross-check: frames c-2..c+1 around the 9 cuts where regenerated and imported shot files disagree	9	new right 5 (3 real cuts only new finds, 2 false cuts only old had); new false 2 (MbcSmlYfB-8 f1984, Tnuscrm9RyU f4738); 1 ambiguous pair (BEFym3rFSOw old f6562 / new f6570, no visible cut in either window)
 2026-10-29	clip_overview.jpg	M1 gold-game proposal: middle frame of the longest shot of each of the 31 clips (arena, kit, broadcast style)	31	Warsaw home floor in ~12 clips; distinct away floors incl. Lublin (red), Sopot (orange), Superpuchar venue (red PGE); 2 non-court frames (OmvWaQKu3rU graphic, MbcSmlYfB-8 and hFWL47plFQI crowd)
+2026-10-29	shots_*.jpg	M1 camera tags: middle frame of every shot of gold clip 4XMD9FWmQws	95	55 central, 40 other (close-ups, low/baseline angles, graphics)
+2026-10-29	shots_*.jpg	M1 camera tags: middle frame of every shot of gold clip OSp445e0mXU	30	24 central, 6 other (close-ups, low/baseline angles, graphics)
+2026-10-29	shots_*.jpg	M1 camera tags: middle frame of every shot of gold clip 1jDaJBkUGmc	28	26 central, 2 other (close-ups, low/baseline angles, graphics)
+2026-10-29	shots_*.jpg	M1 camera tags: middle frame of every shot of gold clip Tnuscrm9RyU	45	22 central, 23 other (close-ups, low/baseline angles, graphics)
+2026-10-29	gold_shot_check_0.jpg + _1.jpg	M1 gold-shot check: 6 frames across each of the 12 picked shots	12	all 12 continuous main-camera footage, no internal cut or replay

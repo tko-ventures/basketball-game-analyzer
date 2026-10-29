@@ -26,230 +26,230 @@
   {
    "start": 0,
    "end": 305,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 306,
    "end": 405,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 406,
    "end": 818,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 819,
    "end": 873,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 874,
    "end": 1231,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 1232,
    "end": 1324,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 1325,
    "end": 1616,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 1617,
    "end": 1654,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 1655,
    "end": 2060,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 2061,
    "end": 2392,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 2393,
    "end": 2418,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 2419,
    "end": 2761,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 2762,
    "end": 2823,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 2824,
    "end": 3156,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 3157,
    "end": 3392,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 3393,
    "end": 3412,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 3413,
    "end": 3441,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 3442,
    "end": 3832,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 3833,
    "end": 4298,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 4299,
    "end": 4507,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 4508,
    "end": 4717,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 4718,
    "end": 4737,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 4738,
    "end": 4765,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 4766,
    "end": 5076,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 5077,
    "end": 5139,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 5140,
    "end": 5451,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 5452,
    "end": 5487,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 5488,
    "end": 5509,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 5510,
    "end": 5800,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 5801,
    "end": 6052,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 6053,
    "end": 6449,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 6450,
    "end": 6491,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 6492,
    "end": 6878,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 6879,
    "end": 7436,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 7437,
    "end": 7847,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 7848,
    "end": 7952,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 7953,
    "end": 8414,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 8415,
    "end": 8878,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 8879,
    "end": 9164,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 9165,
    "end": 9480,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 9481,
    "end": 9675,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 9676,
    "end": 9785,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 9786,
    "end": 10028,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 10029,
    "end": 10102,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 10103,
    "end": 10252,
-   "camera": "unset"
+   "camera": "other"
   }
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-29T21:05:10"
+ "saved_at": "2026-10-29T21:07:01"
 }

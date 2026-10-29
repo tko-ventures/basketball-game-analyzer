@@ -26,155 +26,155 @@
   {
    "start": 0,
    "end": 214,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 215,
    "end": 545,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 546,
    "end": 1172,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 1173,
    "end": 1525,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 1526,
    "end": 1916,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 1917,
    "end": 2294,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 2295,
    "end": 2409,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 2410,
    "end": 2525,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 2526,
    "end": 2857,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 2858,
    "end": 3018,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 3019,
    "end": 3475,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 3476,
    "end": 3804,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 3805,
    "end": 4126,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 4127,
    "end": 4390,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 4391,
    "end": 4752,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 4753,
    "end": 5297,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 5298,
    "end": 5674,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 5675,
    "end": 5930,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 5931,
    "end": 6382,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 6383,
    "end": 6836,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 6837,
    "end": 7233,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 7234,
    "end": 7284,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 7285,
    "end": 7672,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 7673,
    "end": 8158,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 8159,
    "end": 8427,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 8428,
    "end": 8698,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 8699,
    "end": 8742,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 8743,
    "end": 8898,
-   "camera": "unset"
+   "camera": "other"
   },
   {
    "start": 8899,
    "end": 9227,
-   "camera": "unset"
+   "camera": "central"
   },
   {
    "start": 9228,
    "end": 9376,
-   "camera": "unset"
+   "camera": "other"
   }
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-29T21:05:10"
+ "saved_at": "2026-10-29T21:07:01"
 }
