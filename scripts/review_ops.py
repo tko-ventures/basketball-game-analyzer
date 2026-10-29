@@ -3,7 +3,8 @@
 
     uv run scripts/review_ops.py data/labels/review/<clip-id>.ops.txt
 
-Ops file, one operation per line (``#`` comments allowed), first line ``clip <labels stem>``:
+Ops file, one operation per line, first line ``clip <labels stem>``. Comments are lines starting
+with ``#`` or text after two or more spaces and ``#``; a ``#`` inside a note is kept:
     merge 1012 1003            fold identity 1012 into 1003 in every frame
     split 1003 4410 1077       frames >= 4410 of identity 1003 become new identity 1077
     delete 1044                remove identity 1044 everywhere (bench, staff, crowd)
@@ -18,6 +19,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -29,8 +31,9 @@ def apply_ops(labels: dict, lines: list[str]) -> dict[str, int]:
     ids, frames = labels["identities"], labels["frames"]
     counts: dict[str, int] = {}
     for raw in lines:
-        line = raw.split("#", 1)[0].strip()
-        if not line or line.startswith("clip "):
+        # Comments: whole lines starting with "#", or "#" after two or more spaces; "#7" in a note stays.
+        line = re.split(r"\s{2,}#", raw, maxsplit=1)[0].strip()
+        if not line or line.startswith("#") or line.startswith("clip "):
             continue
         op, *args = line.split()
         counts[op] = counts.get(op, 0) + 1

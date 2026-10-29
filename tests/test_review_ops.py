@@ -63,3 +63,13 @@ def test_merge_split_delete_assign_confirm():
     }
     assert labels["identities"]["1005"]["team"] == "home" and not labels["identities"]["1005"]["reviewed"]
     assert "1003" not in labels["identities"] and "1004" not in labels["identities"]
+
+
+def test_note_keeps_hash_and_inline_comments_are_stripped():
+    labels = _labels()
+    apply_ops(
+        labels,
+        ["# whole-line comment", "note 1001 possibly #7, not legible   # my comment", "team 1001 away  # x"],
+    )
+    assert labels["identities"]["1001"]["note"] == "possibly #7, not legible"
+    assert labels["identities"]["1001"]["team"] == "away"

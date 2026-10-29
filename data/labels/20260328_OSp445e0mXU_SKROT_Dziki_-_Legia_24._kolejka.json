@@ -276,7 +276,7 @@
    "number": "4",
    "name": "Rivaldo Soares",
    "source": "prefill",
-   "note": ""
+   "note": "#4 with the ball early; crops after ~3340 look like other players: check for a switch"
   },
   "1020": {
    "team": "home",
@@ -289,7 +289,7 @@
    "number": "",
    "name": "",
    "source": "prefill",
-   "note": "possibly"
+   "note": "possibly #7 (ball handler), not legible enough to set"
   },
   "1026": {
    "team": "away",
@@ -327,7 +327,7 @@
    "number": "",
    "name": "",
    "source": "prefill",
-   "note": "first box (3020) looks like Dziki"
+   "note": "first box (3020) looks like Dziki #2 rather than this Legia player"
   },
   "1025": {
    "team": "home",
@@ -30968,5 +30968,5 @@
    ]
   }
  },
- "saved_at": "2026-10-29T22:21:41"
+ "saved_at": "2026-10-29T22:22:06"
 }
