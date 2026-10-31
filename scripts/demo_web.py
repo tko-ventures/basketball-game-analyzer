@@ -352,8 +352,8 @@ footer{padding:4px 20px 20px;color:var(--muted);font-size:13px}
 </style></head><body>
 <header><h1>Analiza wideo meczów – demo</h1><span class="muted">Wykrywanie i śledzenie zawodników, drużyny, numery, pozycje na boisku 2D. Wynik automatyczny, bez ręcznej korekty.</span></header>
 <div class="grid">
- <div class="cell"><h2>Obraz z kamery</h2><div class="panel" id="pA"><video id="vA" src="broadcast.mp4" muted playsinline preload="auto"></video><button class="fs" data-p="pA" title="Pełny ekran">⛶</button></div></div>
- <div class="cell"><h2>Rzut 2D boiska</h2><div class="panel" id="pB"><video id="vB" src="court.mp4" muted playsinline preload="auto"></video><button class="fs" data-p="pB" title="Pełny ekran">⛶</button></div></div>
+ <div class="cell"><h2>Obraz z kamery</h2><div class="panel" id="pA"><video id="vA" muted playsinline preload="auto"></video><button class="fs" data-p="pA" title="Pełny ekran">⛶</button></div></div>
+ <div class="cell"><h2>Rzut 2D boiska</h2><div class="panel" id="pB"><video id="vB" muted playsinline preload="auto"></video><button class="fs" data-p="pB" title="Pełny ekran">⛶</button></div></div>
 </div>
 <div id="barHome"><div class="bar" id="bar">
  <button id="play" title="Start / pauza (spacja)">▶</button>
@@ -363,15 +363,20 @@ footer{padding:4px 20px 20px;color:var(--muted);font-size:13px}
  <select id="rate" title="Prędkość"><option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option></select>
  <span class="chapters" id="chapters"></span>
 </div></div>
-<footer>Spacja: start/pauza · ←/→: klatka (z Shift: 1 s) · ⛶: pełny ekran wybranego widoku, sterowanie działa dla obu.</footer>
+<footer>Spacja: start/pauza · ←/→: klatka (z Shift: 1 s) · 1–__N__: akcja (każda pamięta swoją pozycję i prędkość) · ⛶: pełny ekran wybranego widoku, sterowanie działa dla obu.</footer>
 <script>
-const CH = __CHAPTERS__, FPS = __FPS__;
+const CLIPS = __CLIPS__, FPS = __FPS__;
 const A = document.getElementById('vA'), B = document.getElementById('vB'), vids = [A, B];
 const $ = (id) => document.getElementById(id);
-let rate = 1;
+let rate = 1, cur = -1;
+// Each clip keeps its own control state: position, speed and whether it was playing.
+const state = CLIPS.map(() => ({ t: 0, rate: 1, playing: false }));
 const fmt = (t) => `${Math.floor(t / 60)}:${(t % 60).toFixed(1).padStart(4, '0')}`;
 function seekAll(t) { t = Math.max(0, Math.min(t, (A.duration || 0) - 0.01)); vids.forEach((v) => { v.currentTime = t; }); }
-function playAll() { B.currentTime = A.currentTime; vids.forEach((v) => { v.playbackRate = rate; v.play().catch(() => {}); }); }
+function playAll() {
+  if (A.duration && A.currentTime >= A.duration - 0.05) seekAll(0);  // replay a finished clip from its start
+  B.currentTime = A.currentTime; vids.forEach((v) => { v.playbackRate = rate; v.play().catch(() => {}); });
+}
 function pauseAll() { vids.forEach((v) => v.pause()); B.currentTime = A.currentTime; }
 function toggle() { A.paused ? playAll() : pauseAll(); }
 function step(dt) { pauseAll(); seekAll(A.currentTime + dt); }
@@ -386,8 +391,6 @@ function loop() {
   $('play').textContent = A.paused ? '▶' : '❚❚';
   if (document.activeElement !== $('seek')) $('seek').value = A.currentTime;
   $('time').textContent = `${fmt(A.currentTime)} / ${fmt(A.duration || 0)}`;
-  const c = CH.findLast((c) => A.currentTime >= c.start - 0.001);
-  document.querySelectorAll('.chapters button').forEach((b, i) => b.classList.toggle('on', CH[i] === c));
   requestAnimationFrame(loop);
 }
 A.addEventListener('loadedmetadata', () => { $('seek').max = A.duration; });
@@ -404,8 +407,26 @@ $('back').onclick = () => step(-1 / FPS);
 $('fwd').onclick = () => step(1 / FPS);
 $('seek').oninput = (e) => seekAll(+e.target.value);
 $('rate').onchange = (e) => { rate = +e.target.value; vids.forEach((v) => { v.playbackRate = rate; }); };
-$('chapters').innerHTML = CH.map((c, i) => `<button data-i="${i}" title="${c.title}">${c.short}</button>`).join('');
-$('chapters').onclick = (e) => { const b = e.target.closest('button'); if (b) seekAll(CH[+b.dataset.i].start + 0.01); };
+function load(i) {
+  if (i === cur || i < 0 || i >= CLIPS.length) return;
+  if (cur >= 0) state[cur] = { t: A.currentTime || 0, rate, playing: !A.paused };
+  vids.forEach((v) => v.pause());
+  cur = i;
+  const s = state[i];
+  rate = s.rate; $('rate').value = String(rate);
+  let pending = 2;
+  const ready = () => {
+    if (--pending) return;
+    $('seek').max = A.duration; seekAll(s.t);
+    vids.forEach((v) => { v.playbackRate = rate; });
+    if (s.playing) playAll();
+  };
+  [[A, CLIPS[i].a], [B, CLIPS[i].b]].forEach(([v, src]) => { v.addEventListener('loadedmetadata', ready, { once: true }); v.src = src; v.load(); });
+  document.querySelectorAll('.chapters button').forEach((b, k) => b.classList.toggle('on', k === i));
+}
+$('chapters').innerHTML = CLIPS.map((c, i) => `<button data-i="${i}" title="${c.title}">${c.short}</button>`).join('');
+$('chapters').onclick = (e) => { const b = e.target.closest('button'); if (b) load(+b.dataset.i); };
+load(0);
 // Full screen per panel; the shared control bar moves into the full-screen panel and back.
 document.querySelectorAll('.fs').forEach((b) => (b.onclick = () => {
   const p = $(b.dataset.p), v = p.querySelector('video');
@@ -429,6 +450,7 @@ document.addEventListener('keydown', (e) => {
   if (e.code === 'Space') { e.preventDefault(); toggle(); }
   else if (e.key === 'ArrowRight') { e.preventDefault(); step(e.shiftKey ? 1 : 1 / FPS); }
   else if (e.key === 'ArrowLeft') { e.preventDefault(); step(e.shiftKey ? -1 : -1 / FPS); }
+  else if (/^[1-9]$/.test(e.key)) load(+e.key - 1);
 });
 requestAnimationFrame(loop);
 </script></body></html>
@@ -484,8 +506,9 @@ def main(argv=None):
     vertices = np.array(cfg.vertices, dtype=np.float32)
     base = draw_court(cfg, scale=COURT_SCALE, padding=COURT_PAD, line_thickness=3)
     court_model = ocr_model = None
-    wa = wb = None
-    chapters, summary, t_out, fps = [], [], 0.0, 25.0
+    clips, summary, fps = [], [], 25.0
+    for old in a.out.glob("*.mp4"):  # one video pair per shot; drop pairs from earlier builds
+        old.unlink()
 
     shots = DEMO_SETS[a.set]
     same_game = len({y for y, _ in shots}) < len(shots)
@@ -563,13 +586,10 @@ def main(argv=None):
         paths = court_paths(frames, per_frame, H, max(1, round(a.key_s * fps)), is_ref, labels["height"])
         paths = {t: v for t, v in paths.items() if not is_ref[t]}  # 2D view shows players only (Tomasz)
         title = f"{meta['home']['team']} – {meta['away']['team']}  ·  {meta['season']}"
-        if wa is None:
-            wa = cv2.VideoWriter(
-                str(a.out / "broadcast_raw.mp4"), cv2.VideoWriter_fourcc(*"mp4v"), fps, (1920, 1080)
-            )
-            wb = cv2.VideoWriter(
-                str(a.out / "court_raw.mp4"), cv2.VideoWriter_fourcc(*"mp4v"), fps, (1920, 1080)
-            )
+        n = len(clips) + 1
+        raw_a, raw_b = a.out / f"broadcast_{n}_raw.mp4", a.out / f"court_{n}_raw.mp4"
+        wa = cv2.VideoWriter(str(raw_a), cv2.VideoWriter_fourcc(*"mp4v"), fps, (1920, 1080))
+        wb = cv2.VideoWriter(str(raw_b), cv2.VideoWriter_fourcc(*"mp4v"), fps, (1920, 1080))
         t0 = time.time()
         for f in frames:
             frame = read(f)
@@ -578,16 +598,20 @@ def main(argv=None):
                 draw_court_frame(base, f, paths, colour, number_of, title, meta, team_bgr, H[f] is not None)
             )
         read.release()
+        wa.release()
+        wb.release()
+        encode(raw_a, a.out / f"broadcast_{n}.mp4", fps)
+        encode(raw_b, a.out / f"court_{n}.mp4", fps)
         timing["render_s"] = round(time.time() - t0, 1)
-        chapters.append(
+        clips.append(
             {
-                "start": round(t_out, 3),
+                "a": f"broadcast_{n}.mp4",
+                "b": f"court_{n}.mp4",
                 "title": title,
                 "short": f"{meta['home']['team'].split()[0]} – {meta['away']['team'].split()[0]}"
-                + (f" · {sum(y == yid for y, _ in shots[: len(chapters) + 1])}" if same_game else ""),
+                + (f" · {sum(y == yid for y, _ in shots[:n])}" if same_game else ""),
             }
         )
-        t_out += len(frames) / fps
         numbered = {t for t, s in segments.items() if s}
         summary.append(
             {
@@ -603,12 +627,10 @@ def main(argv=None):
             }
         )
         print(json.dumps(summary[-1]), flush=True)
-    wa.release()
-    wb.release()
-    encode(a.out / "broadcast_raw.mp4", a.out / "broadcast.mp4", fps)
-    encode(a.out / "court_raw.mp4", a.out / "court.mp4", fps)
-    page = PAGE.replace("__CHAPTERS__", json.dumps(chapters, ensure_ascii=False)).replace(
-        "__FPS__", f"{fps:g}"
+    page = (
+        PAGE.replace("__CLIPS__", json.dumps(clips, ensure_ascii=False))
+        .replace("__FPS__", f"{fps:g}")
+        .replace("__N__", str(len(clips)))
     )
     (a.out / "index.html").write_text(page, encoding="utf-8")
     (a.out / "summary.json").write_text(json.dumps(summary, indent=1))

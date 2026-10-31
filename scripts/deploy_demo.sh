@@ -10,7 +10,8 @@ cd "$(dirname "$0")/.."
 SCOPE="${VERCEL_SCOPE:-tomasz-kopackis-projects}"
 D=runs/demo/deploy/basketball-analyzer-demo
 mkdir -p "$D"
-cp runs/demo/web/index.html runs/demo/web/broadcast.mp4 runs/demo/web/court.mp4 "$D/"
+rm -f "$D"/*.mp4
+cp runs/demo/web/index.html runs/demo/web/*.mp4 "$D/"
 cat > "$D/vercel.json" <<'JSON'
 {
   "headers": [
