@@ -177,12 +177,15 @@ def court_mapping(frames, read, court_model, vertices, wh, jump_cm=150.0, window
     return out, int(valid.sum())
 
 
-def court_paths(frames, per_frame, H, key_frames):
+def court_paths(frames, per_frame, H, key_frames, is_ref, img_h, edge_px=3):
     """Track -> {frame: (x_m, y_m)} for the frames where the track is visible.
 
     Foot points (box bottom-centre) are projected every frame; each visible run of a track is cut into
     windows of key_frames frames, each window becomes one key position (the median, so a single bad
     frame cannot move it), and a monotone cubic (PCHIP) through the key positions gives the path.
+    A box that reaches the bottom edge of the frame has no visible feet: such frames do not make key
+    positions unless a run has nothing else. Players are kept on the 28 x 15 m court; referees are not
+    clamped (they work outside the lines).
     """
     from scipy.interpolate import PchipInterpolator
 
@@ -194,8 +197,8 @@ def court_paths(frames, per_frame, H, key_frames):
         ts = list(per_frame[f])
         b = np.array([per_frame[f][t] for t in ts])
         feet = np.stack([(b[:, 0] + b[:, 2]) / 2, b[:, 3]], 1).astype(np.float32)
-        for t, p in zip(ts, cv2.perspectiveTransform(feet[None], H[f])[0] / 100.0, strict=True):
-            raw[t][i] = p
+        for t, p, y2 in zip(ts, cv2.perspectiveTransform(feet[None], H[f])[0] / 100.0, b[:, 3], strict=True):
+            raw[t][i] = (p, y2 < img_h - edge_px)
     out = {}
     for t, pos in raw.items():
         out[t] = {}
@@ -209,20 +212,22 @@ def court_paths(frames, per_frame, H, key_frames):
         if cur:
             runs.append(cur)
         for run in runs:
+            usable = [i for i in run if pos[i][1]] or run  # frames with visible feet, else all
             keys_t, keys_xy = [], []
-            for k in range(0, len(run), key_frames):
-                win = run[k : k + key_frames]
+            for k in range(0, len(usable), key_frames):
+                win = usable[k : k + key_frames]
                 keys_t.append(float(np.mean(win)))
-                keys_xy.append(np.median([pos[i] for i in win], axis=0))
+                keys_xy.append(np.median([pos[i][0] for i in win], axis=0))
             keys_xy = np.array(keys_xy)
-            if len(keys_t) >= 2:
-                curve = PchipInterpolator(keys_t, keys_xy, axis=0, extrapolate=False)
-                for i in run:
-                    v = curve(min(max(i, keys_t[0]), keys_t[-1]))
-                    out[t][frames[i]] = (float(v[0]), float(v[1]))
-            else:
-                for i in run:
-                    out[t][frames[i]] = (float(keys_xy[0][0]), float(keys_xy[0][1]))
+            curve = (
+                PchipInterpolator(keys_t, keys_xy, axis=0, extrapolate=False) if len(keys_t) >= 2 else None
+            )
+            for i in run:
+                v = curve(min(max(i, keys_t[0]), keys_t[-1])) if curve else keys_xy[0]
+                x, y = float(v[0]), float(v[1])
+                if not is_ref.get(t):
+                    x, y = min(max(x, 0.0), 28.0), min(max(y, 0.0), 15.0)
+                out[t][frames[i]] = (x, y)
     return out
 
 
@@ -545,7 +550,7 @@ def main(argv=None):
             name = names.get(side_of(t), {}).get(num, "") if num else ""
             return f"#{num} {name.split()[-1]}" if name else (f"#{num}" if num else "")
 
-        paths = court_paths(frames, per_frame, H, max(1, round(a.key_s * fps)))
+        paths = court_paths(frames, per_frame, H, max(1, round(a.key_s * fps)), is_ref, labels["height"])
         title = f"{meta['home']['team']} – {meta['away']['team']}  ·  {meta['season']}"
         if wa is None:
             wa = cv2.VideoWriter(
