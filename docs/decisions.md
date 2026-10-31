@@ -24,3 +24,17 @@ not cover track review of 12 shots. Options A/B/C are on issue #2; A (Tomasz rev
 game, the implementer the rest) is the working default until he decides. Tomasz also finds the
 jersey numbers hard to read in the YouTube highlights: better footage (question 4, full games via
 Hudl Instat or Synergy) would help the gold set and the number reader.
+
+## 2026-10-31: demo as a web page; NBA court model fails in two of three PLK halls
+
+Tomasz asked for the broadcast view and the 2D court as two separate, synchronised videos on one web
+page, each expandable to full screen (`scripts/demo_web.py`, `scripts/serve_demo.py`), and for 2D
+positions as key positions joined by interpolation (implemented: one median key position per 0.5 s,
+joined by a monotone cubic).
+
+Checked with `scripts/qa_court_overlay.py` (FIBA lines drawn back into the frames): Skalski's
+`basketball-court-detection-2/14` maps the Warsaw hall (blue keys) well, but systematically misplaces
+landmarks in Lublin (red keys; a consistent shift that RANSAC cannot detect) and mostly fails in
+Sopot (orange floor). The demo therefore uses three Warsaw shots, and the 2D panel says so where the
+mapping is not verified. This confirms plan layer 1 / M3: the court keypoint model must be fine-tuned
+on frames from every PLK hall before 2D positions can be trusted elsewhere.
