@@ -11,19 +11,19 @@
   "home": {
    "team": "Dziki Warszawa",
    "roster": "dziki_warszawa",
-   "kit": "gray"
+   "kit": "light"
   },
   "away": {
    "team": "Legia",
    "roster": "legia_warszawa",
-   "kit": "green"
+   "kit": "dark"
   },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=OSp445e0mXU",
   "title": "SKRÓT | Dziki - Legia | 24. kolejka",
   "review_seconds": {
    "2026-10-30": 248.5,
-   "2026-10-31": 1543.1
+   "2026-10-31": 1579.4
   }
  },
  "shots": [
@@ -30765,5 +30765,5 @@
    ]
   }
  },
- "saved_at": "2026-10-31T17:27:11"
+ "saved_at": "2026-10-31T17:33:12"
 }

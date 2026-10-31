@@ -11,12 +11,12 @@
   "home": {
    "team": "Energa Trefl",
    "roster": "energa_trefl_sopot",
-   "kit": ""
+   "kit": "light"
   },
   "away": {
    "team": "Dziki Warszawa",
    "roster": "dziki_warszawa",
-   "kit": ""
+   "kit": "dark"
   },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=1jDaJBkUGmc",

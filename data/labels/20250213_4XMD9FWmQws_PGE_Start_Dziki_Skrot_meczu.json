@@ -11,12 +11,12 @@
   "home": {
    "team": "PGE Start",
    "roster": "pge_start_lublin",
-   "kit": ""
+   "kit": "light"
   },
   "away": {
    "team": "Dziki Warszawa",
    "roster": "dziki_warszawa",
-   "kit": ""
+   "kit": "dark"
   },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=4XMD9FWmQws",

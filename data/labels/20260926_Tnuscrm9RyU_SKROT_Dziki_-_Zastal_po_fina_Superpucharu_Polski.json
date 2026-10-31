@@ -11,12 +11,12 @@
   "home": {
    "team": "Dziki Warszawa",
    "roster": "dziki_warszawa",
-   "kit": ""
+   "kit": "light"
   },
   "away": {
    "team": "Zastal",
    "roster": "zastal_zielona_gora",
-   "kit": ""
+   "kit": "dark"
   },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=Tnuscrm9RyU",
