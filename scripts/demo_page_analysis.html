@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Analiza wideo – demo</title>
+<style>
+:root{--bg:#111;--panel:#1b1b1b;--ink:#eee;--muted:#999;--accent:#e0452b;--open:#ffd400}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 -apple-system,system-ui,sans-serif}
+header{padding:14px 20px;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+h1{font-size:18px;margin:0}.switch{margin-left:auto;color:var(--ink);font-size:13px;text-decoration:none;border:1px solid #3a3a3a;border-radius:6px;padding:4px 10px}.switch:hover{border-color:var(--accent)}header .muted{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 20px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.cell h2{font-size:13px;font-weight:600;color:var(--muted);margin:0 0 6px;text-transform:uppercase;letter-spacing:.04em}
+.panel{position:relative;background:#000;border-radius:8px;overflow:hidden}
+.panel video{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#000}
+#ov{position:absolute;inset:0;width:100%;height:100%;cursor:pointer}
+.panel.map{background:var(--panel)}
+#map{display:block;width:100%;height:auto;cursor:pointer}
+.fs{position:absolute;right:8px;bottom:8px;z-index:2;border:0;border-radius:6px;background:#000a;color:#fff;font-size:18px;width:36px;height:32px;cursor:pointer}
+.fs:hover{background:var(--accent)}
+.panel:fullscreen,.panel:-webkit-full-screen{border-radius:0;display:flex;align-items:center;justify-content:center;background:#000}
+.panel:fullscreen video,.panel:-webkit-full-screen video{width:100vw;height:100vh;aspect-ratio:auto}
+.panel.map:fullscreen #map,.panel.map:-webkit-full-screen #map{width:auto;height:auto;max-width:100vw;max-height:100vh}
+#barHome{padding:12px 20px}
+.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--panel);padding:10px 12px;border-radius:8px}
+.panel .bar{position:absolute;left:16px;right:16px;bottom:16px;background:#000c;transition:opacity .3s;z-index:3}
+.panel.idle .bar{opacity:0}
+.bar button,.bar select{background:#2a2a2a;color:var(--ink);border:1px solid #3a3a3a;border-radius:6px;padding:5px 10px;font:inherit;cursor:pointer}
+.bar button:hover{border-color:var(--accent)}
+#play{width:44px;font-size:16px}
+#seek{flex:1;min-width:160px;accent-color:var(--accent)}
+#time{font-variant-numeric:tabular-nums;color:var(--muted);min-width:110px;text-align:right}
+.group{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.group .lbl{color:var(--muted);font-size:13px}
+.chapters button.on,.tog.on{background:var(--accent);border-color:var(--accent)}
+footer{padding:4px 20px 20px;color:var(--muted);font-size:13px;line-height:1.6}
+</style></head><body>
+<header><h1>Analiza wideo meczów – demo</h1><span class="muted">Wykrywanie i śledzenie zawodników, drużyny, numery, pozycje na boisku 2D, krycie i ustawienie. Wynik automatyczny, bez ręcznej korekty.</span><a class="switch" href="../">← Wersja: dwa zsynchronizowane filmy</a></header>
+<div class="grid">
+ <div class="cell"><h2>Obraz z kamery</h2><div class="panel" id="pA"><video id="vA" muted playsinline preload="auto"></video><canvas id="ov" title="Kliknij zawodnika, aby go wyróżnić"></canvas><button class="fs" data-p="pA" title="Pełny ekran">⛶</button></div></div>
+ <div class="cell"><h2>Rzut 2D boiska · analiza</h2><div class="panel map" id="pB"><canvas id="map" title="Kliknij zawodnika, aby go wyróżnić"></canvas><button class="fs" data-p="pB" title="Pełny ekran">⛶</button></div></div>
+</div>
+<div id="barHome"><div class="bar" id="bar">
+ <button id="play" title="Start / pauza (spacja)">▶</button>
+ <button id="back" title="Klatka wstecz (←)">⏮</button><button id="fwd" title="Klatka naprzód (→)">⏭</button>
+ <input id="seek" type="range" min="0" max="1" step="0.04" value="0">
+ <span id="time">0:00.0 / 0:00.0</span>
+ <select id="rate" title="Prędkość"><option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option></select>
+ <span class="group"><span class="lbl">Warstwy:</span>
+  <button class="tog on" data-l="cover" title="Linia od każdego atakującego do najbliższego obrońcy; żółty pierścień: najbardziej wolny">Krycie</button>
+  <button class="tog" data-l="shape" title="Obrys ustawienia drużyn, pole i średnia odległość w ataku">Ustawienie</button>
+  <button class="tog on" data-l="trails" title="Ruch w ostatniej sekundzie">Ślady</button></span>
+ <span class="group chapters" id="chapters"></span>
+</div></div>
+<footer>Kliknij zawodnika na obrazie albo na boisku, aby go wyróżnić w obu widokach (Esc: odznacz). Spacja: start/pauza · ←/→: klatka (z Shift: 1 s) · 1–__N__: akcja (każda pamięta swoją pozycję, prędkość i wybranego zawodnika) · ⛶: pełny ekran wybranego widoku.<br>
+Krycie: linia od każdego zawodnika ataku do najbliższego obrońcy z odległością w metrach; żółty pierścień to zawodnik najbardziej wolny. Kto atakuje, wynika z ustawienia (obrona stoi bliżej swojego kosza). Liczone tylko z zawodników widocznych na obrazie.</footer>
+<script>
+const CLIPS = __CLIPS__, FPS = __FPS__;
+const $ = (id) => document.getElementById(id);
+const A = $('vA'), map = $('map'), mc = map.getContext('2d'), ov = $('ov'), oc = ov.getContext('2d');
+const INFO_H = 185;  // strip under the court for the situation summary
+const bg = new Image();
+bg.onload = () => { map.width = bg.width; map.height = bg.height + INFO_H; };
+bg.src = '../court_bg.png';
+const layers = { cover: true, shape: false, trails: true };
+let D = null, sel = null, rate = 1, cur = -1;
+const state = CLIPS.map(() => ({ t: 0, rate: 1, playing: false, sel: null }));
+const fmt = (t) => `${Math.floor(t / 60)}:${(t % 60).toFixed(1).padStart(4, '0')}`;
+const idx = () => Math.max(0, Math.min(D.f.length - 1, Math.floor(A.currentTime * FPS + 1e-3)));
+
+// ---------------------------------------------------------------- playback
+function seek(t) { A.currentTime = Math.max(0, Math.min(t, (A.duration || 0) - 0.01)); }
+function play() { if (A.duration && A.currentTime >= A.duration - 0.05) seek(0); A.playbackRate = rate; A.play().catch(() => {}); }
+function toggle() { A.paused ? play() : A.pause(); }
+function step(dt) { A.pause(); seek(A.currentTime + dt); }
+function load(i) {
+  if (i === cur || i < 0 || i >= CLIPS.length) return;
+  if (cur >= 0) state[cur] = { t: A.currentTime || 0, rate, playing: !A.paused, sel };
+  A.pause(); cur = i; D = null;
+  const s = state[i];
+  rate = s.rate; $('rate').value = String(rate); sel = s.sel;
+  let pending = 2;
+  const ready = () => { if (--pending) return; $('seek').max = A.duration; seek(s.t); A.playbackRate = rate; if (s.playing) play(); };
+  fetch(CLIPS[i].data).then((r) => r.json()).then((j) => { if (cur === i) { D = j; ready(); } });
+  A.addEventListener('loadedmetadata', ready, { once: true });
+  A.src = CLIPS[i].a; A.load();
+  document.querySelectorAll('.chapters button').forEach((b, k) => b.classList.toggle('on', k === i));
+}
+
+// ---------------------------------------------------------------- helpers
+const px = (x, y) => [x * 100 * D.court.scale + D.court.pad, y * 100 * D.court.scale + D.court.pad];
+const sideOf = (t) => (D.players[t] || {}).side || null;
+const colour = (sd) => (sd ? D.teams[sd].color : '#888888');
+const inkOn = (hex) => { const n = parseInt(hex.slice(1), 16); return ((n >> 16) * 0.3 + ((n >> 8) & 255) * 0.59 + (n & 255) * 0.11) > 150 ? '#111' : '#fff'; };
+const withAlpha = (hex, a) => hex + Math.round(a * 255).toString(16).padStart(2, '0');
+function tag(p) {
+  if (!p.num) return `${p.side ? D.teams[p.side].name : '?'} (bez numeru)`;
+  const name = ((D.names[p.side] || {})[p.num] || '').split(' ').slice(-1)[0];
+  return `#${p.num}${name ? ' ' + name : ''}`;
+}
+function hull(pts) {  // monotone chain
+  const P = pts.slice().sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+  const lo = [], up = [];
+  for (const p of P) { while (lo.length >= 2 && cross(lo[lo.length - 2], lo[lo.length - 1], p) <= 0) lo.pop(); lo.push(p); }
+  for (const p of P.slice().reverse()) { while (up.length >= 2 && cross(up[up.length - 2], up[up.length - 1], p) <= 0) up.pop(); up.push(p); }
+  return lo.slice(0, -1).concat(up.slice(0, -1));
+}
+const area = (h) => Math.abs(h.reduce((s, p, i) => { const q = h[(i + 1) % h.length]; return s + p[0] * q[1] - q[0] * p[1]; }, 0)) / 2;
+function meanGap(pts) { let s = 0, n = 0; for (let i = 0; i < pts.length; i++) for (let j = i + 1; j < pts.length; j++) { s += Math.hypot(pts[i][0] - pts[j][0], pts[i][1] - pts[j][1]); n++; } return n ? s / n : 0; }
+function rows(i) { return D.f[i].map(([t, x, y, num, v, d]) => ({ t, x, y, num, v, d, side: sideOf(t) })); }
+
+// ---------------------------------------------------------------- 2D court
+function drawMap(i) {
+  const W = map.width, CH = bg.height;
+  mc.drawImage(bg, 0, 0);
+  mc.fillStyle = '#1b1b1b'; mc.fillRect(0, CH, W, INFO_H);
+  const info = [];
+  if (!D.mapped[i]) {
+    mc.fillStyle = 'rgba(0,0,0,.6)'; mc.fillRect(0, 0, W, CH);
+    mc.fillStyle = '#fff'; mc.font = '600 34px system-ui'; mc.textAlign = 'center';
+    mc.fillText('brak wiarygodnej kalibracji kamery w tym fragmencie', W / 2, CH / 2);
+    mc.textAlign = 'left';
+    drawInfo(['Pozycje 2D pojawią się, gdy kamera pokaże wystarczająco dużo linii boiska.']);
+    return;
+  }
+  const P = rows(i);
+  const [atk, basket] = D.atk[i] || [null, null];
+  const off = atk ? P.filter((p) => p.side === atk) : [], def = atk ? P.filter((p) => p.side && p.side !== atk) : [];
+  // team shape
+  if (layers.shape) for (const sd of ['home', 'away']) {
+    const pts = P.filter((p) => p.side === sd).map((p) => [p.x, p.y]);
+    if (pts.length < 3) continue;
+    const h = hull(pts).map((q) => px(q[0], q[1]));
+    mc.beginPath(); h.forEach((q, k) => (k ? mc.lineTo(q[0], q[1]) : mc.moveTo(q[0], q[1]))); mc.closePath();
+    mc.fillStyle = withAlpha(colour(sd), 0.18); mc.fill();
+    mc.lineWidth = 3; mc.strokeStyle = withAlpha(colour(sd), 0.8); mc.setLineDash([12, 8]); mc.stroke(); mc.setLineDash([]);
+  }
+  // trails: the continuous last second
+  if (layers.trails) for (const p of P) {
+    const pts = [[p.x, p.y]];
+    for (let k = i - 1; k >= Math.max(0, i - 25); k--) {
+      const q = D.f[k].find((r) => r[0] === p.t); if (!q) break;
+      const l = pts[pts.length - 1]; if (Math.hypot(q[1] - l[0], q[2] - l[1]) > 0.6) break;
+      pts.push([q[1], q[2]]);
+    }
+    if (pts.length < 2) continue;
+    mc.beginPath(); pts.forEach((q, k) => { const [cx, cy] = px(q[0], q[1]); k ? mc.lineTo(cx, cy) : mc.moveTo(cx, cy); });
+    mc.lineWidth = 5; mc.strokeStyle = withAlpha(colour(p.side), 0.5); mc.stroke();
+  }
+  // selected player: whole path in this action
+  if (sel != null) {
+    mc.beginPath(); let prev = null;
+    D.f.forEach((fr, k) => { const q = fr.find((r) => r[0] === sel); if (!q) { prev = null; return; } const [cx, cy] = px(q[1], q[2]); if (prev && Math.hypot(q[1] - prev[0], q[2] - prev[1]) < 0.6) mc.lineTo(cx, cy); else mc.moveTo(cx, cy); prev = [q[1], q[2]]; });
+    mc.lineWidth = 3; mc.strokeStyle = '#ffffffcc'; mc.setLineDash([6, 8]); mc.stroke(); mc.setLineDash([]);
+  }
+  // coverage: each attacker to the nearest defender
+  let open = null;
+  if (atk && layers.cover && def.length >= 3) {
+    for (const o of off) {
+      let best = null, bd = 1e9;
+      for (const d of def) { const dd = Math.hypot(o.x - d.x, o.y - d.y); if (dd < bd) { bd = dd; best = d; } }
+      o.gap = bd;
+      const [x1, y1] = px(o.x, o.y), [x2, y2] = px(best.x, best.y);
+      mc.beginPath(); mc.moveTo(x1, y1); mc.lineTo(x2, y2);
+      mc.lineWidth = 3; mc.strokeStyle = bd > 3 ? '#ffd400' : '#ffffffaa'; mc.setLineDash([8, 6]); mc.stroke(); mc.setLineDash([]);
+      const lx = (x1 + x2) / 2, ly = (y1 + y2) / 2;
+      mc.font = '600 22px system-ui'; const tw = mc.measureText(`${bd.toFixed(1)} m`).width;
+      mc.fillStyle = '#000b'; mc.fillRect(lx - tw / 2 - 5, ly - 15, tw + 10, 26);
+      mc.fillStyle = bd > 3 ? '#ffd400' : '#fff'; mc.fillText(`${bd.toFixed(1)} m`, lx - tw / 2, ly + 6);
+      if (!open || bd > open.gap) open = o;
+    }
+  }
+  // players
+  for (const p of P) {
+    const [cx, cy] = px(p.x, p.y), r = 22;
+    if (open && p === open) { mc.beginPath(); mc.arc(cx, cy, r + 11, 0, 7); mc.lineWidth = 6; mc.strokeStyle = '#ffd400'; mc.stroke(); }
+    if (p.t === sel) { mc.beginPath(); mc.arc(cx, cy, r + 7, 0, 7); mc.lineWidth = 5; mc.strokeStyle = '#e0452b'; mc.stroke(); }
+    mc.beginPath(); mc.arc(cx, cy, r, 0, 7); mc.fillStyle = colour(p.side); mc.fill();
+    mc.lineWidth = 2.5; mc.strokeStyle = inkOn(colour(p.side)) === '#111' ? '#111' : '#fff'; mc.stroke();
+    if (p.num) { mc.font = '700 20px system-ui'; mc.fillStyle = inkOn(colour(p.side)); mc.textAlign = 'center'; mc.fillText(p.num, cx, cy + 7); mc.textAlign = 'left'; }
+  }
+  // situation summary
+  if (atk) {
+    info.push(`Atak: ${D.teams[atk].name} → kosz ${basket === 'L' ? 'lewy' : 'prawy'}`);
+    if (layers.cover && open) info.push(`Najbardziej wolny: ${tag(open)}, ${open.gap.toFixed(1)} m od najbliższego obrońcy`);
+    if (layers.shape) {
+      const po = off.map((p) => [p.x, p.y]), pd = def.map((p) => [p.x, p.y]);
+      const parts = [];
+      if (po.length >= 3) parts.push(`atak: średnio ${meanGap(po).toFixed(1)} m między zawodnikami, pole ${area(hull(po)).toFixed(0)} m²`);
+      if (pd.length >= 3) parts.push(`obrona: pole ${area(hull(pd)).toFixed(0)} m²`);
+      if (parts.length) info.push('Ustawienie – ' + parts.join(' · '));
+    }
+  } else info.push('Przejście albo akcja w środkowej strefie – krycie liczone w ataku pozycyjnym');
+  if (sel != null) {
+    const p = P.find((q) => q.t === sel);
+    info.push(p ? `Wybrany: ${tag(p)} · prędkość ${p.v.toFixed(1)} km/h · dystans w akcji ${p.d.toFixed(1)} m` : 'Wybrany zawodnik jest teraz poza kadrem');
+  }
+  const nh = P.filter((p) => p.side === 'home').length, na = P.filter((p) => p.side === 'away').length;
+  info.push(`Widoczni na obrazie: ${D.teams.home.name} ${nh}/5 · ${D.teams.away.name} ${na}/5`);
+  drawInfo(info);
+}
+function drawInfo(lines) {
+  const y0 = bg.height;
+  mc.font = '500 24px system-ui'; mc.fillStyle = '#eee';
+  lines.slice(0, 5).forEach((s, k) => mc.fillText(s, 24, y0 + 36 + k * 32));
+}
+
+// ---------------------------------------------------------------- broadcast overlay (selection)
+function videoRect() {
+  const pr = $('pA').getBoundingClientRect(), vr = A.getBoundingClientRect();
+  const s = Math.min(vr.width / 1920, vr.height / 1080);
+  return { pr, s, x: vr.left - pr.left + (vr.width - 1920 * s) / 2, y: vr.top - pr.top + (vr.height - 1080 * s) / 2 };
+}
+function drawOverlay(i) {
+  const { pr, s, x, y } = videoRect(), dpr = window.devicePixelRatio || 1;
+  const w = Math.round(pr.width * dpr), h = Math.round(pr.height * dpr);
+  if (ov.width !== w || ov.height !== h) { ov.width = w; ov.height = h; }
+  oc.setTransform(dpr, 0, 0, dpr, 0, 0); oc.clearRect(0, 0, pr.width, pr.height);
+  if (sel == null) return;
+  const b = D.boxes[i].find((r) => r[0] === sel); if (!b) return;
+  const bx = x + b[1] * s, by = y + b[2] * s, bw = (b[3] - b[1]) * s, bh = (b[4] - b[2]) * s;
+  oc.lineWidth = 3; oc.strokeStyle = '#e0452b'; oc.strokeRect(bx - 3, by - 3, bw + 6, bh + 6);
+  const p = rows(i).find((q) => q.t === sel);
+  const s1 = p ? `${tag(p)} · ${p.v.toFixed(0)} km/h` : '';
+  if (s1) { oc.font = '600 13px system-ui'; const tw = oc.measureText(s1).width; oc.fillStyle = '#e0452b'; oc.fillRect(bx - 3, by + bh + 5, tw + 10, 20); oc.fillStyle = '#fff'; oc.fillText(s1, bx + 2, by + bh + 20); }
+}
+ov.addEventListener('click', (e) => {
+  if (!D) return;
+  const { pr, s, x, y } = videoRect();
+  const vx = (e.clientX - pr.left - x) / s, vy = (e.clientY - pr.top - y) / s;
+  const hits = D.boxes[idx()].filter((b) => vx >= b[1] && vx <= b[3] && vy >= b[2] && vy <= b[4]);
+  hits.sort((a, b) => (a[3] - a[1]) * (a[4] - a[2]) - (b[3] - b[1]) * (b[4] - b[2]));
+  sel = hits.length ? hits[0][0] : null;
+});
+map.addEventListener('click', (e) => {
+  if (!D) return;
+  const r = map.getBoundingClientRect(), mx = (e.clientX - r.left) * map.width / r.width, my = (e.clientY - r.top) * map.height / r.height;
+  let best = null, bd = 40;
+  for (const q of D.f[idx()]) { const [cx, cy] = px(q[1], q[2]); const d = Math.hypot(cx - mx, cy - my); if (d < bd) { bd = d; best = q[0]; } }
+  sel = best;
+});
+
+// ---------------------------------------------------------------- loop and controls
+function loop() {
+  $('play').textContent = A.paused ? '▶' : '❚❚';
+  if (document.activeElement !== $('seek')) $('seek').value = A.currentTime;
+  $('time').textContent = `${fmt(A.currentTime)} / ${fmt(A.duration || 0)}`;
+  if (D && map.width) { const i = idx(); drawMap(i); drawOverlay(i); }
+  requestAnimationFrame(loop);
+}
+$('play').onclick = toggle;
+$('back').onclick = () => step(-1 / FPS);
+$('fwd').onclick = () => step(1 / FPS);
+$('seek').oninput = (e) => seek(+e.target.value);
+$('rate').onchange = (e) => { rate = +e.target.value; A.playbackRate = rate; };
+document.querySelectorAll('.tog').forEach((b) => (b.onclick = () => { layers[b.dataset.l] = !layers[b.dataset.l]; b.classList.toggle('on', layers[b.dataset.l]); }));
+$('chapters').innerHTML = CLIPS.map((c, i) => `<button data-i="${i}" title="${c.title}">${c.short}</button>`).join('');
+$('chapters').onclick = (e) => { const b = e.target.closest('button'); if (b) load(+b.dataset.i); };
+A.addEventListener('ended', () => A.pause());
+// Full screen per panel; the control bar moves into the full-screen panel and back.
+document.querySelectorAll('.fs').forEach((b) => (b.onclick = () => {
+  const p = $(b.dataset.p), v = p.querySelector('video');
+  if (document.fullscreenElement || document.webkitFullscreenElement) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+  else if (p.requestFullscreen) p.requestFullscreen();
+  else if (p.webkitRequestFullscreen) p.webkitRequestFullscreen();
+  else if (v && v.webkitEnterFullscreen) v.webkitEnterFullscreen();
+}));
+function onFs() {
+  const el = document.fullscreenElement || document.webkitFullscreenElement;
+  if (el && el.classList.contains('panel')) el.appendChild($('bar')); else $('barHome').appendChild($('bar'));
+}
+document.addEventListener('fullscreenchange', onFs); document.addEventListener('webkitfullscreenchange', onFs);
+let idleT;
+document.addEventListener('mousemove', () => {
+  document.querySelectorAll('.panel').forEach((p) => p.classList.remove('idle'));
+  clearTimeout(idleT); idleT = setTimeout(() => document.querySelectorAll('.panel').forEach((p) => p.classList.add('idle')), 2500);
+});
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'SELECT') return;
+  if (e.code === 'Space') { e.preventDefault(); toggle(); }
+  else if (e.key === 'ArrowRight') { e.preventDefault(); step(e.shiftKey ? 1 : 1 / FPS); }
+  else if (e.key === 'ArrowLeft') { e.preventDefault(); step(e.shiftKey ? -1 : -1 / FPS); }
+  else if (e.key === 'Escape') sel = null;
+  else if (/^[1-9]$/.test(e.key)) load(+e.key - 1);
+});
+load(0);
+requestAnimationFrame(loop);
+</script></body></html>

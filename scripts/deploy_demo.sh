@@ -3,15 +3,14 @@
 #
 #   scripts/deploy_demo.sh            # -> https://basketball-analyzer-demo.vercel.app
 #
-# Uploads only index.html and the two videos, with noindex headers (match footage, client demo).
+# Uploads only the page, its videos, data and court image, with noindex headers (match footage, client demo).
 # Needs the Vercel CLI logged in (`vercel login`). The production URL is public.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 SCOPE="${VERCEL_SCOPE:-tomasz-kopackis-projects}"
 D=runs/demo/deploy/basketball-analyzer-demo
 mkdir -p "$D"
-rm -f "$D"/*.mp4
-cp runs/demo/web/index.html runs/demo/web/*.mp4 "$D/"
+rsync -a --delete --exclude .vercel --exclude vercel.json --exclude summary.json runs/demo/web/ "$D/"
 cat > "$D/vercel.json" <<'JSON'
 {
   "headers": [

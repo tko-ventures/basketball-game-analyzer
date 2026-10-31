@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-# ruff: noqa: E501  (the HTML template has long lines)
-"""Client demo as a web page: broadcast video with player labels and a separate 2D FIBA court video,
-played side by side with one set of controls, each panel expandable to full screen on its own.
+"""Client demo as two web pages over the same broadcast videos (one video per shot, labels burnt in):
+  /          broadcast and a 2D FIBA court video side by side, one set of controls, full screen per panel
+  /analiza/  broadcast and a live 2D court drawn in the browser from per-frame positions: coverage
+             (nearest defender, most open attacker), team shape, player selection with speed/distance
 
     uv run --extra prefill --extra demo scripts/demo_web.py                # -> runs/demo/web/
     uv run --extra prefill --extra demo scripts/demo_web.py --recompute    # redo number reads and court
@@ -24,6 +25,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import re
 import subprocess
 import sys
@@ -232,6 +234,59 @@ def court_paths(frames, per_frame, H, key_frames, is_ref, img_h, edge_px=3):
     return out
 
 
+# --------------------------------------------------------------------------- analysis for the page
+def kinematics(paths, src_fps, k=3, max_kmh=34.0):
+    """Per track and frame: speed (km/h, central difference over +-k frames) and distance so far (m).
+    Steps across a gap or a jump > 0.6 m do not count."""
+    speed, dist = {}, {}
+    for t, path in paths.items():
+        keys = sorted(path)
+        speed[t], dist[t], total = {}, {}, 0.0
+        for j, f in enumerate(keys):
+            if j and f - keys[j - 1] <= 4:
+                step = math.dist(path[f], path[keys[j - 1]])
+                total += step if step <= 0.6 else 0.0
+            dist[t][f] = round(total, 1)
+            lo = hi = j
+            while lo > 0 and j - lo < k and keys[lo] - keys[lo - 1] <= 4:
+                lo -= 1
+            while hi < len(keys) - 1 and hi - j < k and keys[hi + 1] - keys[hi] <= 4:
+                hi += 1
+            v = (
+                math.dist(path[keys[hi]], path[keys[lo]]) / ((keys[hi] - keys[lo]) / src_fps) * 3.6
+                if hi > lo
+                else 0.0
+            )
+            speed[t][f] = round(min(v, max_kmh), 1)
+    return speed, dist
+
+
+def attack_frames(rows, window=12):
+    """Per frame [attacking side, basket 'L'/'R'] or [None, None] in transition. In a half-court set the
+    defence stands closer to the basket it protects, so the attacking side is the one farther from it."""
+    raw = []
+    for frame_rows in rows:
+        sided = [r for r in frame_rows if r[0] in ("home", "away")]
+        sides = {r[0] for r in sided}
+        xs = sorted(r[1] for r in sided)
+        if len(sided) < 6 or len(sides) < 2 or abs(xs[len(xs) // 2] - 14.0) < 3.0:
+            raw.append(None)
+            continue
+        basket = "L" if xs[len(xs) // 2] < 14.0 else "R"
+        bx = 1.575 if basket == "L" else 26.425
+        mean = {sd: np.mean([math.hypot(r[1] - bx, r[2] - 7.5) for r in sided if r[0] == sd]) for sd in sides}
+        raw.append((max(mean, key=mean.get), basket))
+    out = []
+    for i in range(len(raw)):
+        top = Counter(raw[max(0, i - window) : i + window + 1]).most_common(1)[0][0]
+        out.append(list(top) if top else [None, None])
+    return out
+
+
+def hexcol(bgr):
+    return "#{:02x}{:02x}{:02x}".format(*[int(v) for v in bgr[::-1]])
+
+
 # --------------------------------------------------------------------------- drawing
 def to_px(x_m, y_m):
     return int(round(x_m * 100 * COURT_SCALE + COURT_PAD)), int(round(y_m * 100 * COURT_SCALE + COURT_PAD))
@@ -320,141 +375,8 @@ def draw_court_frame(base, f, paths, colour, number_of, title, meta, team_bgr, m
 
 
 # --------------------------------------------------------------------------- page
-PAGE = """<!doctype html>
-<html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Analiza wideo – demo</title>
-<style>
-:root{--bg:#111;--panel:#1b1b1b;--ink:#eee;--muted:#999;--accent:#e0452b}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 -apple-system,system-ui,sans-serif}
-header{padding:14px 20px;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
-h1{font-size:18px;margin:0}header .muted{color:var(--muted);font-size:13px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 20px}
-@media (max-width:900px){.grid{grid-template-columns:1fr}}
-.panel{position:relative;background:#000;border-radius:8px;overflow:hidden}
-.panel video{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#000}
-.cell h2{font-size:13px;font-weight:600;color:var(--muted);margin:0 0 6px;text-transform:uppercase;letter-spacing:.04em}
-.fs{position:absolute;right:8px;bottom:8px;border:0;border-radius:6px;background:#000a;color:#fff;font-size:18px;width:36px;height:32px;cursor:pointer}
-.fs:hover{background:var(--accent)}
-.panel:fullscreen,.panel:-webkit-full-screen{border-radius:0;display:flex;align-items:center}
-.panel:fullscreen video,.panel:-webkit-full-screen video{width:100vw;height:100vh;aspect-ratio:auto}
-#barHome{padding:12px 20px}
-.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--panel);padding:10px 12px;border-radius:8px}
-.panel .bar{position:absolute;left:16px;right:16px;bottom:16px;background:#000c;transition:opacity .3s}
-.panel.idle .bar{opacity:0}
-.bar button,.bar select{background:#2a2a2a;color:var(--ink);border:1px solid #3a3a3a;border-radius:6px;padding:5px 10px;font:inherit;cursor:pointer}
-.bar button:hover{border-color:var(--accent)}
-#play{width:44px;font-size:16px}
-#seek{flex:1;min-width:160px;accent-color:var(--accent)}
-#time{font-variant-numeric:tabular-nums;color:var(--muted);min-width:110px;text-align:right}
-.chapters{display:flex;gap:6px;flex-wrap:wrap}
-.chapters button.on{background:var(--accent);border-color:var(--accent)}
-footer{padding:4px 20px 20px;color:var(--muted);font-size:13px}
-</style></head><body>
-<header><h1>Analiza wideo meczów – demo</h1><span class="muted">Wykrywanie i śledzenie zawodników, drużyny, numery, pozycje na boisku 2D. Wynik automatyczny, bez ręcznej korekty.</span></header>
-<div class="grid">
- <div class="cell"><h2>Obraz z kamery</h2><div class="panel" id="pA"><video id="vA" muted playsinline preload="auto"></video><button class="fs" data-p="pA" title="Pełny ekran">⛶</button></div></div>
- <div class="cell"><h2>Rzut 2D boiska</h2><div class="panel" id="pB"><video id="vB" muted playsinline preload="auto"></video><button class="fs" data-p="pB" title="Pełny ekran">⛶</button></div></div>
-</div>
-<div id="barHome"><div class="bar" id="bar">
- <button id="play" title="Start / pauza (spacja)">▶</button>
- <button id="back" title="Klatka wstecz (←)">⏮</button><button id="fwd" title="Klatka naprzód (→)">⏭</button>
- <input id="seek" type="range" min="0" max="1" step="0.04" value="0">
- <span id="time">0:00.0 / 0:00.0</span>
- <select id="rate" title="Prędkość"><option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option></select>
- <span class="chapters" id="chapters"></span>
-</div></div>
-<footer>Spacja: start/pauza · ←/→: klatka (z Shift: 1 s) · 1–__N__: akcja (każda pamięta swoją pozycję i prędkość) · ⛶: pełny ekran wybranego widoku, sterowanie działa dla obu.</footer>
-<script>
-const CLIPS = __CLIPS__, FPS = __FPS__;
-const A = document.getElementById('vA'), B = document.getElementById('vB'), vids = [A, B];
-const $ = (id) => document.getElementById(id);
-let rate = 1, cur = -1;
-// Each clip keeps its own control state: position, speed and whether it was playing.
-const state = CLIPS.map(() => ({ t: 0, rate: 1, playing: false }));
-const fmt = (t) => `${Math.floor(t / 60)}:${(t % 60).toFixed(1).padStart(4, '0')}`;
-function seekAll(t) { t = Math.max(0, Math.min(t, (A.duration || 0) - 0.01)); vids.forEach((v) => { v.currentTime = t; }); }
-function playAll() {
-  if (A.duration && A.currentTime >= A.duration - 0.05) seekAll(0);  // replay a finished clip from its start
-  B.currentTime = A.currentTime; vids.forEach((v) => { v.playbackRate = rate; v.play().catch(() => {}); });
-}
-function pauseAll() { vids.forEach((v) => v.pause()); B.currentTime = A.currentTime; }
-function toggle() { A.paused ? playAll() : pauseAll(); }
-function step(dt) { pauseAll(); seekAll(A.currentTime + dt); }
-// Keep B on A: nudge its rate for small drift, jump for large drift.
-function loop() {
-  if (!A.paused) {
-    if (B.paused) B.play().catch(() => {});
-    const d = B.currentTime - A.currentTime;
-    if (Math.abs(d) > 0.25) B.currentTime = A.currentTime;
-    else B.playbackRate = rate * (1 - Math.max(-0.1, Math.min(0.1, d * 2)));
-  }
-  $('play').textContent = A.paused ? '▶' : '❚❚';
-  if (document.activeElement !== $('seek')) $('seek').value = A.currentTime;
-  $('time').textContent = `${fmt(A.currentTime)} / ${fmt(A.duration || 0)}`;
-  requestAnimationFrame(loop);
-}
-A.addEventListener('loadedmetadata', () => { $('seek').max = A.duration; });
-A.addEventListener('ended', pauseAll);
-// Keep both in step even if one is driven by native controls (iPhone full screen).
-for (const v of vids) {
-  const o = v === A ? B : A;
-  v.addEventListener('play', () => { if (o.paused) { o.currentTime = v.currentTime; o.play().catch(() => {}); } });
-  v.addEventListener('pause', () => { if (!o.paused) o.pause(); });
-  v.addEventListener('seeked', () => { if (v.paused && Math.abs(o.currentTime - v.currentTime) > 0.05) o.currentTime = v.currentTime; });
-}
-$('play').onclick = toggle;
-$('back').onclick = () => step(-1 / FPS);
-$('fwd').onclick = () => step(1 / FPS);
-$('seek').oninput = (e) => seekAll(+e.target.value);
-$('rate').onchange = (e) => { rate = +e.target.value; vids.forEach((v) => { v.playbackRate = rate; }); };
-function load(i) {
-  if (i === cur || i < 0 || i >= CLIPS.length) return;
-  if (cur >= 0) state[cur] = { t: A.currentTime || 0, rate, playing: !A.paused };
-  vids.forEach((v) => v.pause());
-  cur = i;
-  const s = state[i];
-  rate = s.rate; $('rate').value = String(rate);
-  let pending = 2;
-  const ready = () => {
-    if (--pending) return;
-    $('seek').max = A.duration; seekAll(s.t);
-    vids.forEach((v) => { v.playbackRate = rate; });
-    if (s.playing) playAll();
-  };
-  [[A, CLIPS[i].a], [B, CLIPS[i].b]].forEach(([v, src]) => { v.addEventListener('loadedmetadata', ready, { once: true }); v.src = src; v.load(); });
-  document.querySelectorAll('.chapters button').forEach((b, k) => b.classList.toggle('on', k === i));
-}
-$('chapters').innerHTML = CLIPS.map((c, i) => `<button data-i="${i}" title="${c.title}">${c.short}</button>`).join('');
-$('chapters').onclick = (e) => { const b = e.target.closest('button'); if (b) load(+b.dataset.i); };
-load(0);
-// Full screen per panel; the shared control bar moves into the full-screen panel and back.
-document.querySelectorAll('.fs').forEach((b) => (b.onclick = () => {
-  const p = $(b.dataset.p), v = p.querySelector('video');
-  if (document.fullscreenElement || document.webkitFullscreenElement) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
-  else if (p.requestFullscreen) p.requestFullscreen();
-  else if (p.webkitRequestFullscreen) p.webkitRequestFullscreen();
-  else if (v.webkitEnterFullscreen) v.webkitEnterFullscreen();
-}));
-function onFs() {
-  const el = document.fullscreenElement || document.webkitFullscreenElement;
-  if (el && el.classList.contains('panel')) el.appendChild($('bar')); else $('barHome').appendChild($('bar'));
-}
-document.addEventListener('fullscreenchange', onFs); document.addEventListener('webkitfullscreenchange', onFs);
-let idleT;
-document.addEventListener('mousemove', () => {
-  document.querySelectorAll('.panel').forEach((p) => p.classList.remove('idle'));
-  clearTimeout(idleT); idleT = setTimeout(() => document.querySelectorAll('.panel').forEach((p) => p.classList.add('idle')), 2500);
-});
-document.addEventListener('keydown', (e) => {
-  if (e.target.tagName === 'SELECT') return;
-  if (e.code === 'Space') { e.preventDefault(); toggle(); }
-  else if (e.key === 'ArrowRight') { e.preventDefault(); step(e.shiftKey ? 1 : 1 / FPS); }
-  else if (e.key === 'ArrowLeft') { e.preventDefault(); step(e.shiftKey ? -1 : -1 / FPS); }
-  else if (/^[1-9]$/.test(e.key)) load(+e.key - 1);
-});
-requestAnimationFrame(loop);
-</script></body></html>
-"""
+PAGE_VIDEO = Path(__file__).with_name("demo_page_video.html").read_text(encoding="utf-8")
+PAGE_ANALYSIS = Path(__file__).with_name("demo_page_analysis.html").read_text(encoding="utf-8")
 
 
 def encode(src: Path, dst: Path, fps: float) -> None:
@@ -507,8 +429,9 @@ def main(argv=None):
     base = draw_court(cfg, scale=COURT_SCALE, padding=COURT_PAD, line_thickness=3)
     court_model = ocr_model = None
     clips, summary, fps = [], [], 25.0
-    for old in a.out.glob("*.mp4"):  # one video pair per shot; drop pairs from earlier builds
+    for old in [*a.out.glob("*.mp4"), *a.out.glob("clip_*.json")]:  # drop files of earlier builds
         old.unlink()
+    cv2.imwrite(str(a.out / "court_bg.png"), base)
 
     shots = DEMO_SETS[a.set]
     same_game = len({y for y, _ in shots}) < len(shots)
@@ -592,8 +515,7 @@ def main(argv=None):
         wb = cv2.VideoWriter(str(raw_b), cv2.VideoWriter_fourcc(*"mp4v"), fps, (1920, 1080))
         t0 = time.time()
         for f in frames:
-            frame = read(f)
-            wa.write(draw_broadcast(frame, f, per_frame, colour, label, title, meta, team_bgr))
+            wa.write(draw_broadcast(read(f), f, per_frame, colour, label, title, meta, team_bgr))
             wb.write(
                 draw_court_frame(base, f, paths, colour, number_of, title, meta, team_bgr, H[f] is not None)
             )
@@ -603,10 +525,39 @@ def main(argv=None):
         encode(raw_a, a.out / f"broadcast_{n}.mp4", fps)
         encode(raw_b, a.out / f"court_{n}.mp4", fps)
         timing["render_s"] = round(time.time() - t0, 1)
+        # Data for the live 2D view in the page: one row per player per rendered frame.
+        speed, dist = kinematics(paths, labels["fps"])
+        rows = [
+            [
+                [t, round(x, 2), round(y, 2), number_of(t, f), speed[t][f], dist[t][f]]
+                for t, path in paths.items()
+                if f in path
+                for x, y in [path[f]]
+            ]
+            for f in frames
+        ]
+        sided = [[(side_of(r[0]), r[1], r[2]) for r in fr] for fr in rows]
+        data = {
+            "court": {"scale": COURT_SCALE, "pad": COURT_PAD},
+            "teams": {
+                sd: {"name": meta[sd]["team"], "color": hexcol(team_bgr.get(sd, GREY))}
+                for sd in ("home", "away")
+            },
+            "names": names,
+            "players": {str(t): {"side": side_of(t)} for t in paths},
+            "f": rows,
+            "boxes": [
+                [[t, *[int(v) for v in b]] for t, b in per_frame[f].items() if not is_ref[t]] for f in frames
+            ],
+            "mapped": [H[f] is not None for f in frames],
+            "atk": attack_frames(sided),
+        }
+        (a.out / f"clip_{n}.json").write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
         clips.append(
             {
                 "a": f"broadcast_{n}.mp4",
                 "b": f"court_{n}.mp4",
+                "data": f"clip_{n}.json",
                 "title": title,
                 "short": f"{meta['home']['team'].split()[0]} – {meta['away']['team'].split()[0]}"
                 + (f" · {sum(y == yid for y, _ in shots[:n])}" if same_game else ""),
@@ -627,12 +578,19 @@ def main(argv=None):
             }
         )
         print(json.dumps(summary[-1]), flush=True)
-    page = (
-        PAGE.replace("__CLIPS__", json.dumps(clips, ensure_ascii=False))
-        .replace("__FPS__", f"{fps:g}")
-        .replace("__N__", str(len(clips)))
-    )
-    (a.out / "index.html").write_text(page, encoding="utf-8")
+
+    # Two independent pages over the same videos: / (two synced videos) and /analiza/ (live 2D analysis).
+    def page(template, cl):
+        return (
+            template.replace("__CLIPS__", json.dumps(cl, ensure_ascii=False))
+            .replace("__FPS__", f"{fps:g}")
+            .replace("__N__", str(len(cl)))
+        )
+
+    (a.out / "index.html").write_text(page(PAGE_VIDEO, clips), encoding="utf-8")
+    sub = [{**c, "a": "../" + c["a"], "data": "../" + c["data"]} for c in clips]
+    (a.out / "analiza").mkdir(exist_ok=True)
+    (a.out / "analiza" / "index.html").write_text(page(PAGE_ANALYSIS, sub), encoding="utf-8")
     (a.out / "summary.json").write_text(json.dumps(summary, indent=1))
 
 
