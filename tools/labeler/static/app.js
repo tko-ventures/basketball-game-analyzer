@@ -605,7 +605,7 @@ async function selectTrack(tid, frame = null) {
 $("#idList").onclick = (e) => {
   const li = e.target.closest("li"); if (!li) return;
   const tid = li.dataset.tid;
-  if (e.shiftKey) { S.armed = S.armed === tid ? null : tid; S.sel = -1; renderAll(); return; }
+  if (e.shiftKey) { S.armed = S.armed === tid ? null : tid; renderAll(); return; }
   selectTrack(tid);
 };
 // Click a filmstrip crop: go to that frame with the track selected (to find where a split belongs).
