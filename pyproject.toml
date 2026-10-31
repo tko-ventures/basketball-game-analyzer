@@ -40,3 +40,11 @@ select = ["E", "F", "W", "I", "B", "UP"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
+
+[tool.uv]
+# One OpenCV only: `inference` also pulls opencv-python and opencv-contrib-python, which share the cv2
+# package directory with the headless wheel, so switching extras would half-delete cv2.
+override-dependencies = [
+  "opencv-python; sys_platform == 'never'",
+  "opencv-contrib-python; sys_platform == 'never'",
+]

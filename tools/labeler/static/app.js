@@ -294,6 +294,7 @@ function renderStrip(tid) {
   $("#trackNote").textContent = (ident(tid) || {}).note || "";
   if (!ks.length) return;
   const pick = ks.length <= 8 ? ks : Array.from({ length: 8 }, (_, i) => ks[Math.round((i * (ks.length - 1)) / 7)]);
+  S.stripFrames = pick;
   const w = c.width / 4, h = c.height / 2;
   pick.forEach((k, i) => {
     const b = S.L.frames[k].boxes.find((x) => String(x.tid) === String(tid)), im = frameImg(k);
@@ -592,13 +593,28 @@ $("#selNum").oninput = (e) => {
 $("#selNum").onchange = () => renderAll();
 $("#selOcc").onchange = (e) => { const b = boxes()[S.sel]; if (b) { b.occluded = e.target.checked; touchFrame(); renderAll(); } };
 $("#selNumVis").onchange = (e) => { const b = boxes()[S.sel]; if (b) { b.num_visible = e.target.checked; touchFrame(); } };
+// Click a track: select it, jumping to its first frame in this shot if it is not on screen.
+// Shift+click: arm it (the next box drawn gets this identity; M merges the selected box into it).
+async function selectTrack(tid, frame = null) {
+  const s = shotAt(S.cur), ks = s ? trackFrames(tid, s) : [];
+  const k = frame ?? (boxes().some((b) => String(b.tid) === tid) ? S.cur : ks[0]);
+  if (k == null) return flash(`Track ${tid} has no boxes in this shot`);
+  if (k !== S.cur) await goto(k);
+  S.sel = boxes().findIndex((b) => String(b.tid) === tid); S.armed = null; renderAll();
+}
 $("#idList").onclick = (e) => {
   const li = e.target.closest("li"); if (!li) return;
   const tid = li.dataset.tid;
-  const i = boxes().findIndex((b) => String(b.tid) === tid);
-  if (i >= 0) { S.sel = i; S.armed = null; } else { S.armed = S.armed === tid ? null : tid; S.sel = -1; }
-  renderAll();
+  if (e.shiftKey) { S.armed = S.armed === tid ? null : tid; S.sel = -1; renderAll(); return; }
+  selectTrack(tid);
 };
+// Click a filmstrip crop: go to that frame with the track selected (to find where a split belongs).
+$("#strip").addEventListener("click", (e) => {
+  const c = e.currentTarget, r = c.getBoundingClientRect();
+  const col = Math.floor(((e.clientX - r.left) / r.width) * 4), row = Math.floor(((e.clientY - r.top) / r.height) * 2);
+  const k = (S.stripFrames || [])[row * 4 + col];
+  if (k != null) selectTrack(S.stripTid, k);
+});
 window.addEventListener("resize", () => S.L && renderTimeline());
 window.addEventListener("beforeunload", (e) => { if (S.dirty) { save(); e.preventDefault(); } });
 

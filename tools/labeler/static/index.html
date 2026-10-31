@@ -77,7 +77,7 @@
         </div>
         <button id="delBtn" class="danger">Delete box (Del)</button>
         <h3 class="sub">Track <span id="trackInfo" class="muted small"></span></h3>
-        <canvas id="strip" width="280" height="150"></canvas>
+        <canvas id="strip" width="280" height="150" title="Click a crop to go to that frame"></canvas>
         <div id="trackNote" class="note small"></div>
         <div class="row">
           <button id="confirmTrackBtn" title="Mark this track reviewed (K)">Confirm (K)</button>
@@ -89,7 +89,7 @@
 
     <div class="panel grow">
       <h3>Identities <span class="muted" id="idCount"></span></h3>
-      <div class="muted small">Click an identity to arm it: the next box you draw gets it, and Merge folds the selected box's identity into it. <a href="#" id="pruneBtn">Remove unused</a></div>
+      <div class="muted small">Click a track to jump to it. Shift+click to arm it: M then merges the selected box's track into it, and the next box you draw gets it. <a href="#" id="pruneBtn">Remove unused</a></div>
       <label class="chk small"><input type="checkbox" id="idShotOnly" checked> this shot only</label>
       <ul id="idList"></ul>
     </div>
