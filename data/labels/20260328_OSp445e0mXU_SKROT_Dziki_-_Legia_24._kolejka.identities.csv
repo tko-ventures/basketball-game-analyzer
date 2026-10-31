@@ -1,4 +1,13 @@
 tid,team,number,name,team_name,note
+1,home,,,Dziki Warszawa,
+2,home,,,Dziki Warszawa,
+3,home,,,Dziki Warszawa,
+4,home,4,Rivaldo Soares,Dziki Warszawa,
+5,,,,,
+6,,,,,
+7,away,,,Legia,
+8,away,,,Legia,
+9,home,,,Dziki Warszawa,
 1001,ref,,,,
 1002,,,,,
 1003,,,,,
@@ -16,19 +25,16 @@ tid,team,number,name,team_name,note
 1015,,,,,
 1016,ref,,,,
 1017,ref,,,,
-1018,away,,,Legia,first box (3020) looks like Dziki #2 rather than this Legia player
-1019,away,,,Legia,"possibly #7 (ball handler), not legible enough to set"
+1018,away,3,Andrzej Pluta,Legia,first box (3020) looks like Dziki #2 rather than this Legia player
+1019,away,7,Dominic Brewton III,Legia,"possibly #7 (ball handler), not legible enough to set"
 1020,home,2,Darnell Edge,Dziki Warszawa,
 1021,ref,,,,
-1022,away,,,Legia,
-1023,home,4,Rivaldo Soares,Dziki Warszawa,#4 with the ball early; crops after ~3340 look like other players: check for a switch
-1024,home,,,Dziki Warszawa,"first crops are partial (legs only), check boxes 3020-3110"
-1025,home,,,Dziki Warszawa,
-1026,away,,,Legia,
+1022,away,40,Shane Hunter,Legia,
+1024,home,8,Krzysztof Kempa,Dziki Warszawa,"first crops are partial (legs only), check boxes 3020-3110"
+1025,home,25,Odinakachim Oguama,Dziki Warszawa,
+1026,away,25,Race Thompson,Legia,
 1027,away,,,Legia,green early; light-kit players after ~3230: likely a switch
-1028,,,,,"crowded group, team unclear: check"
-1029,home,,,Dziki Warszawa,
-1032,,,,,short track by the scorer's table: on court?
+1032,home,,,Dziki Warszawa,short track by the scorer's table: on court?
 1033,,,,,
 1034,,,,,
 1035,ref,,,,
