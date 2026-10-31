@@ -38,3 +38,10 @@ landmarks in Lublin (red keys; a consistent shift that RANSAC cannot detect) and
 Sopot (orange floor). The demo therefore uses three Warsaw shots, and the 2D panel says so where the
 mapping is not verified. This confirms plan layer 1 / M3: the court keypoint model must be fine-tuned
 on frames from every PLK hall before 2D positions can be trusted elsewhere.
+
+## 2026-10-31: client demo published on Vercel
+
+At Tomasz's request the web demo is deployed to Vercel production, project
+`basketball-analyzer-demo` in the `tomasz-kopackis-projects` scope:
+https://basketball-analyzer-demo.vercel.app (public, `noindex`; three Warsaw shots of Dziki – Legia,
+automatic and uncorrected). Redeploy with `scripts/deploy_demo.sh` after `scripts/demo_web.py`.
