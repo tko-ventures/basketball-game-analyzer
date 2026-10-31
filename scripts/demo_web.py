@@ -14,6 +14,7 @@ first demo (scripts/demo_video.py), after Tomasz's review on 2026-10-31:
            (a grid of image points is projected, smoothed with Savitzky-Golay, and the homography refit);
            a player's 2D path is one key position per --key-s seconds (median of the projected foot
            points in that window) joined by a monotone cubic, after Tomasz's suggestion
+  2D view  players only; referees appear in the broadcast view but not on the court map
   numbers  more reads per track (up to --max-reads, stop once a value leads by 3); a track's number can
            change once in time when the reads before and after a point disagree (SAM track switched
            players); at any frame one (team, number) has one owner, the track with more agreeing reads
@@ -282,7 +283,16 @@ def draw_court_frame(base, f, paths, colour, number_of, title, meta, team_bgr, m
             continue
         keys = list(path)
         k = keys.index(f)
-        pts = [to_px(*path[g]) for g in keys[max(0, k - trail) : k + 1]]
+        recent = keys[max(0, k - trail) : k + 1]
+        # Draw only the continuous tail: stop at a gap (player out of view or lost) or a jump > 0.6 m.
+        start = len(recent) - 1
+        while start > 0:
+            g0, g1 = recent[start - 1], recent[start]
+            (x0, y0), (x1, y1) = path[g0], path[g1]
+            if g1 - g0 > 4 or np.hypot(x1 - x0, y1 - y0) > 0.6:
+                break
+            start -= 1
+        pts = [to_px(*path[g]) for g in recent[start:]]
         if len(pts) > 1:
             cv2.polylines(trails, [np.array(pts, np.int32)], False, colour(t), 4, cv2.LINE_AA)
     court = cv2.addWeighted(trails, 0.55, court, 0.45, 0)
@@ -551,6 +561,7 @@ def main(argv=None):
             return f"#{num} {name.split()[-1]}" if name else (f"#{num}" if num else "")
 
         paths = court_paths(frames, per_frame, H, max(1, round(a.key_s * fps)), is_ref, labels["height"])
+        paths = {t: v for t, v in paths.items() if not is_ref[t]}  # 2D view shows players only (Tomasz)
         title = f"{meta['home']['team']} – {meta['away']['team']}  ·  {meta['season']}"
         if wa is None:
             wa = cv2.VideoWriter(

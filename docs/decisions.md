@@ -45,3 +45,10 @@ At Tomasz's request the web demo is deployed to Vercel production, project
 `basketball-analyzer-demo` in the `tomasz-kopackis-projects` scope:
 https://basketball-analyzer-demo.vercel.app (public, `noindex`; three Warsaw shots of Dziki – Legia,
 automatic and uncorrected). Redeploy with `scripts/deploy_demo.sh` after `scripts/demo_web.py`.
+
+## 2026-10-31: demo footage and hosting (question 13, partly)
+
+Tomasz: the Vercel page is a capability demo, not a product, and any PLK game would do; showing
+YouTube highlight clips there is acceptable. The page stays public with `noindex`. Training on the
+highlights at scale (question 13 proper) stays on its default. The 2D view now shows players only
+(referees remain labelled in the broadcast view), and trails break at gaps and jumps.
