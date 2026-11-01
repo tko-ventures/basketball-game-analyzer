@@ -52,3 +52,9 @@ Tomasz: the Vercel page is a capability demo, not a product, and any PLK game wo
 YouTube highlight clips there is acceptable. The page stays public with `noindex`. Training on the
 highlights at scale (question 13 proper) stays on its default. The 2D view now shows players only
 (referees remain labelled in the broadcast view), and trails break at gaps and jumps.
+
+## 2026-11-01: English for code, docs and app paths
+
+Tomasz: code, documentation, prompts and paths in the application are English. The analysis page
+moved from `/analiza/` to `/analysis/`; Vercel redirects the old path permanently. The demo pages'
+on-screen text stays Polish for the client.

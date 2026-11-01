@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Client demo as two web pages over the same broadcast videos (one video per shot, labels burnt in):
   /          broadcast and a 2D FIBA court video side by side, one set of controls, full screen per panel
-  /analiza/  broadcast and a live 2D court drawn in the browser from per-frame positions: coverage
+  /analysis/ broadcast and a live 2D court drawn in the browser from per-frame positions: coverage
              (nearest defender, most open attacker), team shape, player selection with speed/distance
 
     uv run --extra prefill --extra demo scripts/demo_web.py                # -> runs/demo/web/
@@ -27,6 +27,7 @@ import argparse
 import json
 import math
 import re
+import shutil
 import subprocess
 import sys
 import time
@@ -579,7 +580,7 @@ def main(argv=None):
         )
         print(json.dumps(summary[-1]), flush=True)
 
-    # Two independent pages over the same videos: / (two synced videos) and /analiza/ (live 2D analysis).
+    # Two independent pages over the same videos: / (two synced videos) and /analysis/ (live 2D analysis).
     def page(template, cl):
         return (
             template.replace("__CLIPS__", json.dumps(cl, ensure_ascii=False))
@@ -589,8 +590,9 @@ def main(argv=None):
 
     (a.out / "index.html").write_text(page(PAGE_VIDEO, clips), encoding="utf-8")
     sub = [{**c, "a": "../" + c["a"], "data": "../" + c["data"]} for c in clips]
-    (a.out / "analiza").mkdir(exist_ok=True)
-    (a.out / "analiza" / "index.html").write_text(page(PAGE_ANALYSIS, sub), encoding="utf-8")
+    shutil.rmtree(a.out / "analiza", ignore_errors=True)  # path before 2026-11-01; redirected on Vercel
+    (a.out / "analysis").mkdir(exist_ok=True)
+    (a.out / "analysis" / "index.html").write_text(page(PAGE_ANALYSIS, sub), encoding="utf-8")
     (a.out / "summary.json").write_text(json.dumps(summary, indent=1))
 
 

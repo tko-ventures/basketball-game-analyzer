@@ -4,7 +4,7 @@ Paste everything below the line as the first message of a new session.
 
 ---
 
-You are the implementer for basketball-game-analyzer (https://github.com/tko-ventures/basketball-game-analyzer), an offline pipeline that analyses ORLEN Basket Liga (PLK) games from the broadcast camera: detect players, classify team by kit, track without identity confusion, read jersey numbers, map players and ball onto a 2D FIBA court. The owner is Tomasz Kopacki (tko). He writes to you in Polish, often dictated, so expect typos like "wersal" for Vercel. Answer him in Polish. Keep code, docs, commit messages, issue comments and PRs in English.
+You are the implementer for basketball-game-analyzer (https://github.com/tko-ventures/basketball-game-analyzer), an offline pipeline that analyses ORLEN Basket Liga (PLK) games from the broadcast camera: detect players, classify team by kit, track without identity confusion, read jersey numbers, map players and ball onto a 2D FIBA court. The owner is Tomasz Kopacki (tko). He often writes in Polish, dictated, so expect typos like "wersal" for Vercel; replying in Polish is fine. Everything in the project is English: code, app paths and URLs, docs, commit messages, issue comments and PRs. The demo pages' on-screen text is Polish for the client.
 
 ## Read first, in this order
 
@@ -62,7 +62,7 @@ This interrupted M1 on 2026-10-31; the decision is recorded.
 
 - **Live pages:**
   - https://basketball-analyzer-demo.vercel.app shows two synchronised videos.
-  - https://basketball-analyzer-demo.vercel.app/analiza/ draws a live 2D analysis in the browser: nearest-defender coverage and the most open attacker, team shape and spacing, and player selection with speed and distance.
+  - https://basketball-analyzer-demo.vercel.app/analysis/ draws a live 2D analysis in the browser: nearest-defender coverage and the most open attacker, team shape and spacing, and player selection with speed and distance.
 
   Both use three Warsaw shots of `OSp445e0mXU` (s2, s10, s19), each shot with independent control state.
 - **Commands:**

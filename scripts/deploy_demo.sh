@@ -13,6 +13,10 @@ mkdir -p "$D"
 rsync -a --delete --exclude .vercel --exclude vercel.json --exclude summary.json runs/demo/web/ "$D/"
 cat > "$D/vercel.json" <<'JSON'
 {
+  "redirects": [
+    { "source": "/analiza", "destination": "/analysis/", "permanent": true },
+    { "source": "/analiza/(.*)", "destination": "/analysis/$1", "permanent": true }
+  ],
   "headers": [
     { "source": "/(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] },
     { "source": "/(.*)\\.mp4", "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }] }
