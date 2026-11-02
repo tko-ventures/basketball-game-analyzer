@@ -75,3 +75,9 @@ interested. This replaces options A/B/C on issue #2 and amends plan section 8 as
   outside the repo says "gold v0".
 - Gold is labelled just in time: landmark frames with M3 (court fine-tune), number crops with M7,
   on better footage if the club has full games (question 4, still open; Tomasz is asking).
+
+## 2026-11-02: court landmarks for M3, Tomasz corrects keyframes only
+
+Tomasz corrects only the court points the implementer flags, in one labeller session of about 20 minutes. Flags come from the implementer's visual check of FIBA lines drawn back into each frame, not from RANSAC residuals: in Lublin the NBA model is consistently shifted, so residuals stay low (issue #4).
+
+To fit the budget, he corrects one keyframe per selected shot, moving only the 4 to 6 points needed for a correct court fit; the overlay re-fits as he drags. A labelling aid then propagates that court mapping through the rest of the shot, using frame-to-frame floor matches with players masked. This yields the training frames (plan: 300 to 1,000). Propagation drift is measured on shots corrected at both ends before any propagated label is used. Landmark gold for evaluation is made the same way on the gold games, whose frames never enter training.
