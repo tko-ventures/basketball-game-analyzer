@@ -93,7 +93,7 @@
 
   <div class="now" aria-label="Where we are">
     <div><b>Done</b>M0 repository, M1 gold set v0, client demo on Vercel</div>
-    <div><b>Now</b>M2 baseline: code written, first scores being computed</div>
+    <div><b>Now</b>M2 baseline scored (HOTA 0.60 dev, 0.65 held-out on gold v0); PR open</div>
     <div><b>Waiting on you</b>merge PR #11, full-game footage, Modal spend cap</div>
     <div><b>Next</b>M3: make the 2D court work in every PLK hall, not just Warsaw</div>
   </div>
@@ -142,15 +142,15 @@
       <div class="note">Decision 2026-11-02: I labelled all of it (gold v0) so work can move fast. If the client is interested, your review turns it into v1, and every score is recomputed with one command. v0 scores run high because v0 was built from the same public models the baseline uses.</div>
     </article>
 
-    <article class="ms active">
-      <header><h3>M2 · Walking skeleton and baseline</h3><span class="badge active">◐ In progress</span>
+    <article class="ms done">
+      <header><h3>M2 · Walking skeleton and baseline</h3><span class="badge done">✓ Done · in review</span>
         <span class="links"><a href="https://github.com/tko-ventures/basketball-game-analyzer/issues/3">#3</a> · branch <code>feat/m2-baseline</code></span></header>
       <dl class="grid">
         <dt>Why</dt><dd>Run Skalski's published stack end to end, unchanged, and score it. That gives the number every later change has to beat, and the framework to compare approaches.</dd>
         <dt>What</dt><dd>Swappable layers chosen in a config file, <code>bga run</code> and <code>bga eval</code>, metrics written to <code>docs/metrics.md</code>, radar videos, and a runner that sends GPU work to Modal.</dd>
         <dt>Done when</dt><dd><strong>The first full metrics table exists, citing <code>baseline.yaml</code>.</strong></dd>
       </dl>
-      <div class="note">Code is written. All layers have run on the 9 non-held-out shots, and the scoring run is in progress now.</div>
+      <div class="note">First row in <code>docs/metrics.md</code>: HOTA 0.60 on dev, 0.65 on held-out, AP50 0.91, numbers right on 48% of tracks. Tracking breaks people into 2 to 4 times too many identities (that is M6), and in Sopot a third of positions land off the court (that is M3).</div>
     </article>
 
     <article class="ms">
