@@ -60,7 +60,8 @@ class RunConfig(BaseModel):
         return hashlib.sha256(blob.encode()).hexdigest()[:8]
 
     def config_hash(self) -> str:
-        blob = json.dumps(self.model_dump(exclude={"description"}), sort_keys=True)
+        """Hash of every layer's hash: the same for dev and held-out runs of one committed config."""
+        blob = json.dumps({layer: self.layer_hash(layer) for layer in self.layers}, sort_keys=True)
         return hashlib.sha256(blob.encode()).hexdigest()[:8]
 
     def run_dir(self, runs: Path, clip: str, layer: str) -> Path:
