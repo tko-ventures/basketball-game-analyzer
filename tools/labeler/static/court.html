@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Court keyframes</title>
+<style>
+  body { margin: 0; background: #1a1a19; color: #f0efec; font: 14px/1.4 -apple-system, Helvetica, Arial, sans-serif; }
+  header { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: baseline; padding: 8px 14px; background: #232322; border-bottom: 1px solid #3a3a38; }
+  header b { font-size: 15px; }
+  .muted { color: #9a998f; }
+  .flag { color: #fab219; }
+  .ok { color: #5fd35f; }
+  #wrap { position: relative; margin: 8px auto; }
+  canvas { display: block; cursor: crosshair; }
+  #help { padding: 6px 14px 14px; color: #c3c2b7; font-size: 13px; }
+  kbd { background: #3a3a38; border-radius: 3px; padding: 0 5px; font-size: 12px; }
+  #toast { position: fixed; bottom: 16px; right: 16px; background: #3987e5; color: #fff; padding: 6px 12px; border-radius: 6px; opacity: 0; transition: opacity .2s; }
+</style>
+</head>
+<body>
+<header>
+  <b>Court keyframes</b>
+  <span id="pos"></span>
+  <span id="where" class="muted"></span>
+  <span id="flags" class="flag"></span>
+  <span id="state"></span>
+  <span id="timer" class="muted"></span>
+</header>
+<div id="wrap"><canvas id="cv"></canvas></div>
+<div id="help">
+  Drag a dot onto the spot where that court point really is; it turns green and the lines re-fit. With 4 or more green dots
+  the court is fitted to the green dots only, so use well-spread points (corners of the key, sideline/baseline corners, the centre line).
+  Put a dot on its exact spot only where you can see it; leave the others alone.
+  <br><kbd>S</kbd> save and next · <kbd>←</kbd>/<kbd>→</kbd> previous/next · <kbd>U</kbd> undo last green dot ·
+  right-click a green dot to release it · <kbd>R</kbd> reset to the model's guess · <kbd>X</kbd> no usable court (close-up, replay) and next ·
+  <kbd>L</kbd> hide/show lines · <kbd>H</kbd> hide/show dots
+</div>
+<div id="toast"></div>
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+const S = { geo: null, queue: [], i: 0, img: new Image(), scale: 1, H: null, H0: null, fixed: {}, order: [],
+            labels: {}, drag: null, showLines: true, showDots: true, active: 0, lastInput: 0, status: "ok" };
+
+// ---------- linear algebra ----------
+function inv3(m) {
+  const [a, b, c, d, e, f, g, h, i] = [m[0][0], m[0][1], m[0][2], m[1][0], m[1][1], m[1][2], m[2][0], m[2][1], m[2][2]];
+  const A = e * i - f * h, B = -(d * i - f * g), C = d * h - e * g;
+  const det = a * A + b * B + c * C;
+  if (Math.abs(det) < 1e-12) return null;
+  return [[A / det, -(b * i - c * h) / det, (b * f - c * e) / det],
+          [B / det, (a * i - c * g) / det, -(a * f - c * d) / det],
+          [C / det, -(a * h - b * g) / det, (a * e - b * d) / det]];
+}
+function mul3(A, B) { return A.map((r) => [0, 1, 2].map((j) => r[0] * B[0][j] + r[1] * B[1][j] + r[2] * B[2][j])); }
+function apply(H, x, y) { const w = H[2][0] * x + H[2][1] * y + H[2][2]; return [(H[0][0] * x + H[0][1] * y + H[0][2]) / w, (H[1][0] * x + H[1][1] * y + H[1][2]) / w, w]; }
+function normT(pts) {
+  const n = pts.length, mx = pts.reduce((s, p) => s + p[0], 0) / n, my = pts.reduce((s, p) => s + p[1], 0) / n;
+  const d = pts.reduce((s, p) => s + Math.hypot(p[0] - mx, p[1] - my), 0) / n || 1, k = Math.SQRT2 / d;
+  return [[k, 0, -k * mx], [0, k, -k * my], [0, 0, 1]];
+}
+function solve(A, b) {  // Gaussian elimination with partial pivoting
+  const n = b.length, M = A.map((r, i) => [...r, b[i]]);
+  for (let c = 0; c < n; c++) {
+    let p = c; for (let r = c + 1; r < n; r++) if (Math.abs(M[r][c]) > Math.abs(M[p][c])) p = r;
+    if (Math.abs(M[p][c]) < 1e-12) return null;
+    [M[c], M[p]] = [M[p], M[c]];
+    for (let r = 0; r < n; r++) if (r !== c) { const f = M[r][c] / M[c][c]; for (let k = c; k <= n; k++) M[r][k] -= f * M[c][k]; }
+  }
+  return M.map((r, i) => r[n] / r[i]);
+}
+// Weighted normalised DLT: src (image px) -> dst (court cm), h33 = 1.
+function homography(src, dst, w) {
+  const T1 = normT(src), T2 = normT(dst);
+  const s = src.map((p) => apply(T1, p[0], p[1])), d = dst.map((p) => apply(T2, p[0], p[1]));
+  const AtA = Array.from({ length: 8 }, () => new Array(8).fill(0)), Atb = new Array(8).fill(0);
+  s.forEach(([x, y], k) => {
+    const [u, v] = d[k], wk = w[k];
+    for (const [row, rhs] of [[[x, y, 1, 0, 0, 0, -u * x, -u * y], u], [[0, 0, 0, x, y, 1, -v * x, -v * y], v]])
+      for (let i = 0; i < 8; i++) { Atb[i] += wk * row[i] * rhs; for (let j = 0; j < 8; j++) AtA[i][j] += wk * row[i] * row[j]; }
+  });
+  const h = solve(AtA, Atb); if (!h) return null;
+  const Hn = [[h[0], h[1], h[2]], [h[3], h[4], h[5]], [h[6], h[7], 1]];
+  const H = mul3(mul3(inv3(T2), Hn), T1);
+  return H.map((r) => r.map((v) => v / H[2][2]));
+}
+
+// ---------- fitting ----------
+function projected(H) {  // image position of every court vertex under image->court H
+  const G = inv3(H); if (!G) return [];
+  return S.geo.vertices.map(([X, Y]) => { const [x, y, w] = apply(G, X, Y); return w > 0 ? [x, y] : null; });
+}
+function refit(anchorH) {
+  const ids = Object.keys(S.fixed).map(Number);
+  const W = S.img.naturalWidth, Hh = S.img.naturalHeight;
+  let src = [], dst = [], w = [];
+  for (const i of ids) { src.push(S.fixed[i]); dst.push(S.geo.vertices[i]); w.push(1); }
+  if (ids.length < 4 && anchorH) {  // few green dots: keep the rest of the court where it was
+    projected(anchorH).forEach((p, i) => {
+      if (p && !(i in S.fixed) && p[0] > -W * 0.5 && p[0] < W * 1.5 && p[1] > -Hh * 0.5 && p[1] < Hh * 1.5) {
+        src.push(p); dst.push(S.geo.vertices[i]); w.push(0.05);
+      }
+    });
+    for (let k = 0; k < ids.length; k++) w[k] = 25;
+  }
+  if (src.length >= 4) { const H = homography(src, dst, w); if (H) S.H = H; }
+}
+
+// ---------- drawing ----------
+const cv = $("cv"), ctx = cv.getContext("2d");
+function draw() {
+  if (!S.img.complete) return;
+  const W = S.img.naturalWidth, Hh = S.img.naturalHeight;
+  S.scale = Math.min((window.innerWidth - 20) / W, (window.innerHeight - 130) / Hh);
+  cv.width = Math.round(W * S.scale); cv.height = Math.round(Hh * S.scale);
+  ctx.drawImage(S.img, 0, 0, cv.width, cv.height);
+  if (!S.H) return;
+  const G = inv3(S.H); if (!G) return;
+  const toC = (X, Y) => { const [x, y, w] = apply(G, X, Y); return w > 0 ? [x * S.scale, y * S.scale] : null; };
+  if (S.showLines) {
+    ctx.lineWidth = 2; ctx.strokeStyle = "rgba(255,40,200,0.9)";
+    const segs = S.geo.edges.map(([a, b]) => [S.geo.vertices[a], S.geo.vertices[b]]);
+    const line = (pts) => { ctx.beginPath(); let started = false;
+      for (const [X, Y] of pts) { const p = toC(X, Y); if (!p) { started = false; continue; } if (!started) { ctx.moveTo(...p); started = true; } else ctx.lineTo(...p); }
+      ctx.stroke(); };
+    for (const [a, b] of segs) {  // subdivide so lines bend correctly near the horizon
+      const pts = []; for (let t = 0; t <= 20; t++) pts.push([a[0] + (b[0] - a[0]) * t / 20, a[1] + (b[1] - a[1]) * t / 20]);
+      line(pts);
+    }
+    for (const pl of S.geo.polylines) line(pl);
+  }
+  if (S.showDots) {
+    projected(S.H).forEach((p, i) => {
+      if (!p) return;
+      const fx = S.fixed[i], q = fx || p, x = q[0] * S.scale, y = q[1] * S.scale;
+      if (x < -20 || y < -20 || x > cv.width + 20 || y > cv.height + 20) return;
+      ctx.beginPath(); ctx.arc(x, y, fx ? 6 : 5, 0, 2 * Math.PI);
+      ctx.fillStyle = fx ? "#0ca30c" : "rgba(0,0,0,0.35)"; ctx.fill();
+      ctx.lineWidth = 2; ctx.strokeStyle = fx ? "#ffffff" : "#ffd400"; ctx.stroke();
+      ctx.fillStyle = "#ffffff"; ctx.font = "11px sans-serif"; ctx.fillText(S.geo.labels[i], x + 7, y - 6);
+    });
+  }
+}
+
+// ---------- data ----------
+const cur = () => S.queue[S.i];
+async function api(path, body) {
+  const r = await fetch(path, body ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) } : {});
+  return r.json();
+}
+async function loadLabels(stem) {
+  if (!(stem in S.labels)) S.labels[stem] = (await api(`/api/court/labels?clip=${encodeURIComponent(stem)}`)).frames || {};
+  return S.labels[stem];
+}
+async function show(i) {
+  S.i = Math.max(0, Math.min(S.queue.length - 1, i));
+  const q = cur(), lab = (await loadLabels(q.clip))[q.frame];
+  S.H0 = q.prefill_H || null;
+  S.fixed = lab ? Object.fromEntries(Object.entries(lab.fixed || {}).map(([k, v]) => [Number(k), v])) : {};
+  S.order = Object.keys(S.fixed).map(Number);
+  S.H = lab && lab.H ? lab.H : S.H0;
+  S.status = lab ? lab.status : "";
+  S.img.onload = draw;
+  S.img.src = `/api/frame?path=${encodeURIComponent(q.video)}&idx=${q.frame}`;
+  $("pos").textContent = `${S.i + 1} / ${S.queue.length}`;
+  $("where").textContent = `${q.hall} · ${q.youtube_id} shot ${q.shot} · frame ${q.frame} · ${q.purpose}`;
+  $("flags").textContent = q.flags && q.flags.length ? "check: " + q.flags.join("; ") : "";
+  const done = S.queue.filter((k) => (S.labels[k.clip] || {})[k.frame]).length;
+  $("state").innerHTML = S.status ? `<span class="ok">saved (${S.status})</span> · ${done} done` : `${done} done`;
+}
+async function save(status) {
+  const q = cur();
+  const rec = { H: status === "ok" ? S.H : null, fixed: status === "ok" ? S.fixed : {}, status };
+  const res = await api("/api/court/labels", { clip: q.clip, frame: q.frame, record: rec, active_seconds: Math.round(S.active) });
+  S.active = 0;
+  (S.labels[q.clip] = S.labels[q.clip] || {})[q.frame] = rec;
+  toast(res.ok ? `saved ${status}` : "save failed");
+  if (res.ok) show(S.i + 1);
+}
+function toast(t) { const el = $("toast"); el.textContent = t; el.style.opacity = 1; setTimeout(() => (el.style.opacity = 0), 900); }
+
+// ---------- input ----------
+function touch() { const now = Date.now(); if (S.lastInput && now - S.lastInput < 60000) S.active += (now - S.lastInput) / 1000; S.lastInput = now; }
+setInterval(() => { $("timer").textContent = `active ${Math.round(S.active)} s on this frame`; }, 1000);
+function nearest(ev) {
+  const r = cv.getBoundingClientRect(), x = (ev.clientX - r.left) / S.scale, y = (ev.clientY - r.top) / S.scale;
+  let best = null, bd = 14 / S.scale;
+  projected(S.H).forEach((p, i) => { const q = S.fixed[i] || p; if (q) { const d = Math.hypot(q[0] - x, q[1] - y); if (d < bd) { bd = d; best = i; } } });
+  return [best, x, y];
+}
+cv.addEventListener("mousedown", (ev) => {
+  touch(); if (ev.button !== 0 || !S.H) return;
+  const [i] = nearest(ev); if (i === null) return;
+  S.drag = { i, anchor: S.H.map((r) => [...r]) };
+});
+window.addEventListener("mousemove", (ev) => {
+  if (!S.drag) return; touch();
+  const r = cv.getBoundingClientRect();
+  S.fixed[S.drag.i] = [(ev.clientX - r.left) / S.scale, (ev.clientY - r.top) / S.scale];
+  if (!S.order.includes(S.drag.i)) S.order.push(S.drag.i);
+  refit(S.drag.anchor); draw();
+});
+window.addEventListener("mouseup", () => { S.drag = null; });
+cv.addEventListener("contextmenu", (ev) => {
+  ev.preventDefault(); touch(); const [i] = nearest(ev);
+  if (i !== null && i in S.fixed) { delete S.fixed[i]; S.order = S.order.filter((k) => k !== i); refit(S.H); draw(); }
+});
+window.addEventListener("keydown", (ev) => {
+  touch(); const k = ev.key.toLowerCase();
+  if (k === "s") save("ok");
+  else if (k === "x") save("unusable");
+  else if (ev.key === "ArrowRight") show(S.i + 1);
+  else if (ev.key === "ArrowLeft") show(S.i - 1);
+  else if (k === "u") { const last = S.order.pop(); if (last !== undefined) { delete S.fixed[last]; refit(S.H); draw(); } }
+  else if (k === "r") { S.fixed = {}; S.order = []; S.H = S.H0; draw(); }
+  else if (k === "l") { S.showLines = !S.showLines; draw(); }
+  else if (k === "h") { S.showDots = !S.showDots; draw(); }
+});
+window.addEventListener("resize", draw);
+
+(async () => {
+  S.geo = await (await fetch("/static/fiba_court.json")).json();
+  S.queue = (await api("/api/court/queue")).keyframes || [];
+  if (!S.queue.length) { $("where").textContent = "No keyframes queued (data/labels/court/queue.json)."; return; }
+  const firstOpen = await (async () => { for (let i = 0; i < S.queue.length; i++) if (!(await loadLabels(S.queue[i].clip))[S.queue[i].frame]) return i; return 0; })();
+  show(firstOpen);
+})();
+</script>
+</body>
+</html>

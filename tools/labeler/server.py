@@ -284,6 +284,37 @@ def save_labels(labels_dir: Path, data: dict) -> None:
         write_exports(labels_dir, data)
 
 
+def _court_path(labels_dir: Path, stem: str) -> Path:
+    if not re.fullmatch(r"[\w.\-]+", stem):
+        raise ValueError(f"bad clip stem {stem!r}")
+    return labels_dir / "court" / f"{stem}.json"
+
+
+def load_court_labels(labels_dir: Path, stem: str) -> dict:
+    """Court keyframe labels of one clip: {"clip", "frames": {frame: {H, fixed, status}}, "meta"}."""
+    p = _court_path(labels_dir, stem)
+    return (
+        json.loads(p.read_text(encoding="utf-8")) if p.exists() else {"clip": stem, "frames": {}, "meta": {}}
+    )
+
+
+def save_court_record(labels_dir: Path, body: dict) -> None:
+    """Merge one keyframe record and add the reviewer's active seconds to today's total."""
+    stem, frame, rec = body["clip"], str(int(body["frame"])), body["record"]
+    if rec.get("status") not in ("ok", "unusable"):
+        raise ValueError("status must be ok or unusable")
+    data = load_court_labels(labels_dir, stem)
+    data["frames"][frame] = {**rec, "saved_at": time.strftime("%Y-%m-%dT%H:%M:%S")}
+    secs = data["meta"].setdefault("review_seconds", {})
+    day = time.strftime("%Y-%m-%d")
+    secs[day] = round(secs.get(day, 0) + float(body.get("active_seconds") or 0), 1)
+    p = _court_path(labels_dir, stem)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    tmp = p.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
+    os.replace(tmp, p)
+
+
 def label_progress(labels_dir: Path, rel: str) -> dict:
     p = labels_dir / f"{stem_for(rel)}.json"
     if not p.exists():
@@ -424,6 +455,13 @@ def make_handler(app: App):
                         return self._err(404, "not found")
                     ctype = mimetypes.guess_type(p.name)[0] or "application/octet-stream"
                     return self._bytes(p.read_bytes(), ctype)
+                if u.path in ("/court", "/court/"):
+                    return self._bytes((STATIC / "court.html").read_bytes(), "text/html; charset=utf-8")
+                if u.path == "/api/court/queue":
+                    qp = app.labels_dir / "court" / "queue.json"
+                    return self._json(json.loads(qp.read_text()) if qp.exists() else {"keyframes": []})
+                if u.path == "/api/court/labels":
+                    return self._json(load_court_labels(app.labels_dir, q["clip"]))
                 if u.path == "/api/clips":
                     return self._json(
                         {
@@ -468,6 +506,9 @@ def make_handler(app: App):
                     safe_path(body["clip"])
                     save_labels(app.labels_dir, body)
                     return self._json({"ok": True, "saved_at": body.get("saved_at")})
+                if u.path == "/api/court/labels":
+                    save_court_record(app.labels_dir, body)
+                    return self._json({"ok": True})
                 if u.path == "/api/shots":
                     app.shots.start(q["path"], float(body.get("threshold", DEFAULT_THRESHOLD)))
                     return self._json({"started": True})
