@@ -41,12 +41,21 @@ def run(
     seq: Annotated[list[str], typer.Option(help="only these sequences")] = [],  # noqa: B006
     layer: Annotated[list[str], typer.Option(help="only these layers")] = [],  # noqa: B006
     force: Annotated[list[str], typer.Option(help="recompute these layers")] = [],  # noqa: B006
+    remote: Annotated[str | None, typer.Option(help="modal: run CUDA backends on Modal")] = None,
+    remote_layer: Annotated[list[str], typer.Option(help="also run these layers remotely")] = [],  # noqa: B006
     verbose: bool = False,
 ) -> None:
     """Run every layer of a config over its sequences into runs/<clip>/<layer>/<backend>@<hash8>/."""
     _setup_logging(verbose)
     cfg = load_config(config, set_)
-    seqs = pipeline.run(cfg, only=seq or None, layers=layer or None, force=force or None)
+    seqs = pipeline.run(
+        cfg,
+        only=seq or None,
+        layers=layer or None,
+        force=force or None,
+        remote=remote,
+        remote_layers=remote_layer,
+    )
     typer.echo(f"{cfg.name}@{cfg.config_hash()}: {len(seqs)} sequences")
 
 
@@ -108,6 +117,22 @@ def eval_(
         if HEADER.splitlines()[0] not in text:
             text += "\n" + HEADER
         METRICS_MD.write_text(text.rstrip("\n") + "\n" + "\n".join(rows) + "\n")
+
+
+@app.command()
+def radar(
+    config: Annotated[Path, typer.Option(help="configs/<name>.yaml")],
+    set_: Annotated[list[str], typer.Option("--set")] = [],  # noqa: B006
+    seq: Annotated[list[str], typer.Option(help="only these sequences")] = [],  # noqa: B006
+    held_out: bool = False,
+) -> None:
+    """Render the radar video (broadcast above, 2D court below) for each sequence of a run."""
+    from bga.export.radar import render
+
+    cfg = load_config(config, set_)
+    cfg.layers["shots"].params["held_out"] = "only" if held_out else "exclude"
+    for s in pipeline.run(cfg, only=seq or None):
+        typer.echo(render(cfg, s))
 
 
 @app.command()

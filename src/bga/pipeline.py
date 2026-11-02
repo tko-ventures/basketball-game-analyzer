@@ -54,20 +54,40 @@ def run(
     only: list[str] | None = None,
     layers: list[str] | None = None,
     force: list[str] | None = None,
+    remote: str | None = None,
+    remote_layers: list[str] | None = None,
 ) -> list[Sequence]:
     seqs = sequences(cfg, only)
     for layer in LAYERS:
         if layer == "shots" or layer not in cfg.layers or (layers and layer not in layers):
             continue
         backend = make_backend(cfg, layer)
-        if getattr(backend, "requires", None) == "cuda":
-            log.warning("%s/%s needs CUDA: run it with --remote; skipped", layer, cfg.layers[layer].backend)
+        here = "modal" if remote and (backend.requires == "cuda" or layer in (remote_layers or ())) else None
+        if backend.requires == "cuda" and not here:
+            log.warning(
+                "%s/%s needs CUDA: run it with --remote modal; skipped", layer, cfg.layers[layer].backend
+            )
             continue
         todo = [s for s in seqs if force and layer in force or not output_path(cfg, runs, s, layer).exists()]
         if not todo:
             continue
-        log.info("%s/%s on %d sequences", layer, cfg.layers[layer].backend, len(todo))
+        log.info(
+            "%s/%s on %d sequences%s", layer, cfg.layers[layer].backend, len(todo), " (modal)" if here else ""
+        )
         t0 = time.perf_counter()
+        if here:
+            from bga.remote.modal_runner import run_layer
+
+            ups = [{u: load_output(cfg, runs, s, u) for u in LAYERS[layer] if u in cfg.layers} for s in todo]
+            gpu = getattr(backend, "gpu", None) if backend.requires == "cuda" else None
+            for seq, out in zip(
+                todo, run_layer(layer, cfg.layers[layer].model_dump(), todo, ups, gpu), strict=True
+            ):
+                path = output_path(cfg, runs, seq, layer)
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(json.dumps(out, separators=(",", ":")))
+            _write_meta(cfg, runs, layer, todo, t0)
+            continue
         backend.load()
         try:
             for seq in todo:
@@ -89,16 +109,28 @@ def run(
                 log.info("  %s: %.1f s", seq.name, out["wall_s"])
         finally:
             backend.unload()
-        for clip in {s.clip for s in todo}:
-            meta = {
-                "layer": layer,
-                "backend": cfg.layers[layer].backend,
-                "layer_hash": cfg.layer_hash(layer),
-                "entry": cfg.layers[layer].model_dump(),
-                "upstream": {u: cfg.layer_hash(u) for u in LAYERS[layer] if u in cfg.layers},
-                "config": cfg.name,
-                "commit": git_commit(),
-                "wall_s": round(time.perf_counter() - t0, 1),
-            }
-            (cfg.run_dir(runs, clip, layer) / "meta.json").write_text(json.dumps(meta, indent=1))
+        _write_meta(cfg, runs, layer, todo, t0)
     return seqs
+
+
+def _write_meta(cfg: RunConfig, runs: Path, layer: str, todo: list[Sequence], t0: float) -> None:
+    for clip in {s.clip for s in todo}:
+        remote = [r for s in todo if s.clip == clip and (r := load_output(cfg, runs, s, layer).get("remote"))]
+        meta = {
+            "layer": layer,
+            "backend": cfg.layers[layer].backend,
+            "layer_hash": cfg.layer_hash(layer),
+            "entry": cfg.layers[layer].model_dump(),
+            "upstream": {u: cfg.layer_hash(u) for u in LAYERS[layer] if u in cfg.layers},
+            "config": cfg.name,
+            "commit": git_commit(),
+            "wall_s": round(time.perf_counter() - t0, 1),
+        }
+        if remote:
+            meta["remote"] = {
+                "platform": remote[0]["platform"],
+                "gpu": remote[0]["gpu"],
+                "seconds": round(sum(r["seconds"] for r in remote), 1),
+                "usd": round(sum(r["usd"] for r in remote), 4),
+            }
+        (cfg.run_dir(runs, clip, layer) / "meta.json").write_text(json.dumps(meta, indent=1))
