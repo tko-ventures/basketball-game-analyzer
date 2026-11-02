@@ -1,0 +1,16 @@
+clip 20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski
+# Gold v0, implementer's pass 2 of 2 on shot 2 (410-815): what the kit votes miss, read on
+# runs/<clip>/review/s2/overview_00.jpg and tracks_00-02.jpg after pass 1.
+delete 1014  # mostly the Zastal coach in a suit at the sideline (off court), partly the referee 1003 already tracks
+cut 1003 790 790  # referee's box on a Dziki player
+cut 1013 665 675  # referee's box on Zastal #9 (1001)
+cut 1008 785 785  # box on a blurred fragment, not a person
+number 1001 9
+number 1002 3
+number 1004 45
+number 1005 2
+number 1006 21
+number 1009 21  # "21" on the light kit at 605-690
+number 1007 11  # "11" at 675-680
+note 1012 Dziki, number not legible (looked like 0 but Dziki has no #0 in 2026/27)
+note 1101 Dziki player with neon shoes split off 1008 at 735-780; may be the same person as 1007
