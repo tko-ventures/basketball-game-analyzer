@@ -73,3 +73,19 @@ def test_note_keeps_hash_and_inline_comments_are_stripped():
     )
     assert labels["identities"]["1001"]["note"] == "possibly #7, not legible"
     assert labels["identities"]["1001"]["team"] == "away"
+
+
+def test_move_and_cut_ranges():
+    labels = _labels()
+    counts = apply_ops(labels, ["move 1003 5 5 1001", "move 1003 10 10 1009", "cut 1002 5 10"])
+    assert counts == {"move": 2, "cut": 1}
+    tids = {k: sorted(b["tid"] for b in f["boxes"]) for k, f in labels["frames"].items()}
+    assert tids == {"0": [1001, 1002], "5": [1001], "10": [1004, 1009]}
+    assert labels["identities"]["1009"]["source"] == "prefill"
+
+
+def test_move_onto_an_existing_box_keeps_the_target():
+    labels = _labels()
+    apply_ops(labels, ["move 1003 5 5 1002"])
+    assert [b["tid"] for b in labels["frames"]["5"]["boxes"]] == [1002]
+    assert labels["frames"]["5"]["boxes"][0]["x1"] == 51

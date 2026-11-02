@@ -7,6 +7,8 @@ Ops file, one operation per line, first line ``clip <labels stem>``. Comments ar
 with ``#`` or text after two or more spaces and ``#``; a ``#`` inside a note is kept:
     merge 1012 1003            fold identity 1012 into 1003 in every frame
     split 1003 4410 1077       frames >= 4410 of identity 1003 become new identity 1077
+    move 1003 4410 4460 1012   frames 4410..4460 of 1003 go to 1012 (new or existing; a clash keeps 1012)
+    cut 1003 4410 4460         drop 1003's boxes in frames 4410..4460 (box on the wrong person briefly)
     delete 1044                remove identity 1044 everywhere (bench, staff, crowd)
     team 1003 home             home | away | ref | other
     number 1003 23
@@ -54,6 +56,20 @@ def apply_ops(labels: dict, lines: list[str]) -> dict[str, int]:
                     for b in f["boxes"]:
                         if str(b["tid"]) == src:
                             b["tid"] = int(new)
+        elif op in ("move", "cut"):
+            src, lo, hi, *dst = args
+            if dst:
+                ids.setdefault(dst[0], {**ids[src], "reviewed": False, "note": ""})
+            for k, f in frames.items():
+                if int(lo) <= int(k) <= int(hi):
+                    mine = [b for b in f["boxes"] if str(b["tid"]) == src]
+                    if not mine:
+                        continue
+                    if op == "cut" or any(str(b["tid"]) == dst[0] for b in f["boxes"]):
+                        f["boxes"] = [b for b in f["boxes"] if str(b["tid"]) != src]
+                    else:
+                        for b in mine:
+                            b["tid"] = int(dst[0])
         elif op == "delete":
             (tid,) = args
             for f in frames.values():
