@@ -19,5 +19,7 @@ image builds are not included, so the Modal invoice is the authority.
 | 2026-10-29 | modal | L40S | sam2_prefill Tnuscrm9RyU shot 18 | 259.9 | 0.1408 |
 | 2026-10-29 | modal | L40S | sam2_prefill Tnuscrm9RyU shot 2 | 515.1 | 0.279 |
 | 2026-10-29 | modal | L40S | sam2_prefill Tnuscrm9RyU shot 33 | 252.3 | 0.1367 |
+| 2026-11-02 | modal | cpu | bga run track/bytetrack OSp445e0mXU_s19 | 3.1 | 0.0 |
+| 2026-11-02 | modal | cpu | bga run track/bytetrack OSp445e0mXU_s19 | 1.5 | 0.0 |
 
 Month to date (2026-10): 3.60 USD of GPU time.

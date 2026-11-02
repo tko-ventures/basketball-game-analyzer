@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>basketball-game-analyzer: roadmap</title>
+<style>
+  :root {
+    --surface: #fcfcfb; --card: #ffffff; --line: #e4e3df;
+    --text-primary: #0b0b0b; --text-secondary: #52514e; --text-muted: #7a7974;
+    --accent: #2a78d6; --accent-soft: #e8f1fc;
+    --good: #0ca30c; --good-text: #006300; --warning: #fab219; --idle: #b9b8b2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #1a1a19; --card: #232322; --line: #3a3a38;
+      --text-primary: #f0efec; --text-secondary: #c3c2b7; --text-muted: #9a998f;
+      --accent: #3987e5; --accent-soft: #1f2d3f; --good-text: #5fd35f; --idle: #5c5b57;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--surface); color: var(--text-primary);
+         font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+  main { max-width: 1120px; margin: 0 auto; padding: 32px 24px 64px; }
+  h1 { font-size: 26px; margin: 0 0 4px; }
+  h2 { font-size: 18px; margin: 40px 0 6px; }
+  .lede { color: var(--text-secondary); margin: 0 0 4px; max-width: 760px; }
+  .sub { color: var(--text-muted); font-size: 13px; margin: 0 0 16px; }
+  a { color: var(--accent); }
+
+  /* Where we are */
+  .now { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 20px; }
+  .now div { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+  .now b { display: block; font-size: 13px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+
+  /* Pipeline */
+  .pipe { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px 28px; margin-top: 12px; }
+  @media (max-width: 760px) { .pipe { grid-template-columns: repeat(2, 1fr); } }
+  .stage { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; position: relative; }
+  .stage::after { content: "→"; position: absolute; right: -21px; top: 50%;
+           transform: translateY(-50%); color: var(--text-muted); font-size: 16px; }
+  .stage:nth-child(4n)::after, .stage:last-child::after { content: none; }
+  @media (max-width: 760px) { .stage:nth-child(2n)::after { content: none; } }
+  .stage .l { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+  .stage .n { font-weight: 650; margin: 2px 0; }
+  .stage .q { font-size: 13px; color: var(--text-secondary); }
+  .stage .m { margin-top: 6px; font-size: 12px; color: var(--accent); font-weight: 600; }
+
+  /* Milestones */
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--text-secondary); margin: 8px 0 14px; }
+  .timeline { position: relative; margin-left: 14px; padding-left: 26px; border-left: 2px solid var(--line); }
+  .ms { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+        padding: 14px 16px; margin-bottom: 12px; }
+  .ms::before { content: ""; position: absolute; left: -35px; top: 18px; width: 14px; height: 14px; border-radius: 50%;
+        background: var(--idle); border: 2px solid var(--surface); }
+  .ms.done::before { background: var(--good); }
+  .ms.wait::before { background: var(--warning); }
+  .ms.active::before { background: var(--accent); }
+  .ms.active { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+  .ms header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 12px; }
+  .ms h3 { font-size: 16px; margin: 0; }
+  .badge { font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--line);
+           color: var(--text-secondary); white-space: nowrap; }
+  .badge.done { color: var(--good-text); border-color: var(--good); }
+  .badge.wait { border-color: var(--warning); }
+  .badge.active { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+  .links { font-size: 13px; margin-left: auto; }
+  .grid { display: grid; grid-template-columns: 110px 1fr; gap: 4px 12px; margin-top: 8px; font-size: 14px; }
+  .grid dt { color: var(--text-muted); font-weight: 600; font-size: 13px; padding-top: 1px; }
+  .grid dd { margin: 0; color: var(--text-secondary); }
+  .grid dd strong { color: var(--text-primary); font-weight: 600; }
+  .note { margin-top: 8px; font-size: 13px; color: var(--text-primary); background: var(--accent-soft);
+          border-radius: 6px; padding: 6px 10px; }
+
+  /* Rules + questions */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin-top: 12px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+  .card h4 { margin: 0 0 4px; font-size: 14px; }
+  .card p { margin: 0; color: var(--text-secondary); font-size: 14px; }
+  table { border-collapse: collapse; width: 100%; margin-top: 10px; font-size: 14px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--text-muted); font-size: 13px; font-weight: 600; }
+  td:first-child { white-space: nowrap; font-weight: 600; }
+  footer { margin-top: 40px; color: var(--text-muted); font-size: 12px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>basketball-game-analyzer: roadmap</h1>
+  <p class="lede">The goal: from a PLK broadcast video of a Dziki game, know <strong>who is where on the court, for every frame</strong>.
+    That means finding the players, telling the teams apart, following each player without mixing them up, reading their jersey numbers, and drawing everyone on a 2D FIBA court.</p>
+  <p class="sub">A summary of <code>docs/PLAN.md</code> (sections 2, 5, 8, 9 and 12) and <code>docs/decisions.md</code>. Status as of 2026-11-02.</p>
+
+  <div class="now" aria-label="Where we are">
+    <div><b>Done</b>M0 repository, M1 gold set v0, client demo on Vercel</div>
+    <div><b>Now</b>M2 baseline scored (HOTA 0.60 dev, 0.65 held-out on gold v0); PR open</div>
+    <div><b>Waiting on you</b>merge PR #11, full-game footage, Modal spend cap</div>
+    <div><b>Next</b>M3: make the 2D court work in every PLK hall, not just Warsaw</div>
+  </div>
+
+  <h2>The pipeline</h2>
+  <p class="sub">Each stage is a swappable “layer”. Several approaches can live side by side, and the gold set decides which one wins. The milestone that improves each layer is in blue.</p>
+  <div class="pipe" role="list">
+    <div class="stage" role="listitem"><div class="l">L0</div><div class="n">Shots</div><div class="q">Which parts of the video show the main camera?</div><div class="m">M2</div></div>
+    <div class="stage" role="listitem"><div class="l">L1</div><div class="n">Court</div><div class="q">Where is the court in this frame?</div><div class="m">M3</div></div>
+    <div class="stage" role="listitem"><div class="l">L2</div><div class="n">Detect</div><div class="q">Where are the players, referees, ball and numbers?</div><div class="m">M4</div></div>
+    <div class="stage" role="listitem"><div class="l">L3</div><div class="n">Team</div><div class="q">Which team is each player on?</div><div class="m">M5</div></div>
+    <div class="stage" role="listitem"><div class="l">L4</div><div class="n">Track</div><div class="q">Is this the same player as a moment ago?</div><div class="m">M6</div></div>
+    <div class="stage" role="listitem"><div class="l">L5</div><div class="n">Numbers</div><div class="q">Which jersey number, so which player by name?</div><div class="m">M7</div></div>
+    <div class="stage" role="listitem"><div class="l">L6</div><div class="n">2D positions</div><div class="q">Where on the 28 × 15 m court?</div><div class="m">M8</div></div>
+    <div class="stage" role="listitem"><div class="l">L7</div><div class="n">Ball</div><div class="q">Who has the ball, and where are the shots?</div><div class="m">M9</div></div>
+  </div>
+  <p class="sub">Every stage is scored against the <strong>gold set</strong>: 12 short shots from 4 games that are labelled by hand and never used for training. One game, Dziki – Zastal 2026/27, is held out as the final test.</p>
+
+  <h2>Milestones</h2>
+  <div class="legend" aria-label="Status legend">
+    <span><span style="color:var(--good)">●</span> Done</span>
+    <span><span style="color:var(--warning)">●</span> Done, waiting on Tomasz</span>
+    <span><span style="color:var(--accent)">●</span> In progress</span>
+    <span><span style="color:var(--idle)">●</span> Not started</span>
+  </div>
+
+  <div class="timeline">
+    <article class="ms wait">
+      <header><h3>M0 · Repository bootstrap</h3><span class="badge wait">✓ Done · ⏳ merge pending</span>
+        <span class="links"><a href="https://github.com/tko-ventures/basketball-game-analyzer/issues/1">#1</a> · <a href="https://github.com/tko-ventures/basketball-game-analyzer/pull/11">PR #11</a></span></header>
+      <dl class="grid">
+        <dt>Why</dt><dd>A clean start that copies no data from the old prototype, so every result can be reproduced from the repo alone.</dd>
+        <dt>What</dt><dd>Imported the useful prototype code (labeller, shot detector, rosters), re-downloaded all 31 clips, regenerated the shot files.</dd>
+        <dt>Done when</dt><dd><strong>The labeller opens every clip with its shots ready.</strong> Met.</dd>
+      </dl>
+    </article>
+
+    <article class="ms done">
+      <header><h3>M1 · Gold set</h3><span class="badge done">✓ Done (v0) · in review</span>
+        <span class="links"><a href="https://github.com/tko-ventures/basketball-game-analyzer/issues/2">#2</a> · <a href="https://github.com/tko-ventures/basketball-game-analyzer/pull/12">PR #12</a></span></header>
+      <dl class="grid">
+        <dt>Why</dt><dd>Without a fixed answer key, nobody can tell whether a change helps. The old prototype piled up heuristics it never measured, so this plan measures before it changes anything.</dd>
+        <dt>What</dt><dd>12 shots (4 games, 3 seasons, 4 halls), every 5th frame: every player and referee with a persistent identity, team and number. Plus 100 frames where every person is boxed.</dd>
+        <dt>Done when</dt><dd><strong>The gold set is committed, with one game held out.</strong></dd>
+      </dl>
+      <div class="note">Decision 2026-11-02: I labelled all of it (gold v0) so work can move fast. If the client is interested, your review turns it into v1, and every score is recomputed with one command. v0 scores run high because v0 was built from the same public models the baseline uses.</div>
+    </article>
+
+    <article class="ms done">
+      <header><h3>M2 · Walking skeleton and baseline</h3><span class="badge done">✓ Done · in review</span>
+        <span class="links"><a href="https://github.com/tko-ventures/basketball-game-analyzer/issues/3">#3</a> · branch <code>feat/m2-baseline</code></span></header>
+      <dl class="grid">
+        <dt>Why</dt><dd>Run Skalski's published stack end to end, unchanged, and score it. That gives the number every later change has to beat, and the framework to compare approaches.</dd>
+        <dt>What</dt><dd>Swappable layers chosen in a config file, <code>bga run</code> and <code>bga eval</code>, metrics written to <code>docs/metrics.md</code>, radar videos, and a runner that sends GPU work to Modal.</dd>
+        <dt>Done when</dt><dd><strong>The first full metrics table exists, citing <code>baseline.yaml</code>.</strong></dd>
+      </dl>
+      <div class="note">First row in <code>docs/metrics.md</code>: HOTA 0.60 on dev, 0.65 on held-out, AP50 0.91, numbers right on 48% of tracks. Tracking breaks people into 2 to 4 times too many identities (that is M6), and in Sopot a third of positions land off the court (that is M3).</div>
+    </article>
+
+    <article class="ms">
+      <header><h3>M3 · Court layer</h3><span class="badge">○ Next</span>
+        <span class="links"><a href="https://github.com/tko-ventures/basketball-game-analyzer/issues/4">#4</a></span></header>
+      <dl class="grid">
+        <dt>Why</dt><dd>The NBA court model works in Warsaw but misplaces lines in Lublin and mostly fails in Sopot, and every 2D position depends on it. This is the biggest visible gap for the client.</dd>
+        <dt>What</dt><dd>Label court landmarks on frames from every PLK hall, retrain the court model on a rented GPU, and smooth it within each shot. This is also the first training run, so it brings training configs and the leakage test.</dd>
+        <dt>Done when</dt><dd><strong>The reprojection error is reported per arena.</strong> Provisional target: under 0.5 m near the paint.</dd>
+      </dl>
+    </article>
+
+    <article class="ms">
+      <header><h3>M4 · Detection fine-tune</h3><span class="badge">○ Later</span>
+        <span class="links"><a href="https://github.com/tko-ventures/basketball-game-analyzer/issues/5">#5</a></span></header>
+      <dl class="grid">
+        <dt>Why</dt><dd>The detector learned on NBA frames. PLK has different kits, sponsor logos, floors and camera angles, so it misses people (players on the floor, referees at the frame edge).</dd>
+        <dt>What</dt><dd>Auto-label PLK frames, review them, and train RF-DETR on them. Compare against two other open models trained the same way. Export it to run on the Mac.</dd>
+        <dt>Done when</dt><dd><strong>Per-class accuracy and speed per frame are reported.</strong></dd>
+      </dl>
+    </article>
+
+    <article class="ms">
+      <header><h3>M5 · Team layer</h3><span class="badge">○ Later</span>
+        <span class="links"><a href="https://github.com/tko-ventures/basketball-game-analyzer/issues/6">#6</a></span></header>
+      <dl class="grid">
+        <dt>Why</dt><dd>Telling the teams apart by kit colour fails in specific cases: light leggings under a dark kit, the white score overlay, fans in a team colour.</dd>
+        <dt>What</dt><dd>Skalski's kit-colour classifier per clip, plus a check that warns when the two teams' colours are too close to separate.</dd>
+        <dt>Done when</dt><dd><strong>Team accuracy is reported.</strong> Provisional target: 98%.</dd>
+      </dl>
+    </article>
+
+    <article class="ms">
+      <header><h3>M6 · Tracking and linking</h3><span class="badge">○ Later</span>
+        <span class="links"><a href="https://github.com/tko-ventures/basketball-game-analyzer/issues/7">#7</a></span></header>
+      <dl class="grid">
+        <dt>Why</dt><dd>“No identity confusion” is the core requirement. Simple trackers break a player into many pieces and swap identities when players cross.</dd>
+        <dt>What</dt><dd>Track in court metres instead of pixels, then link the pieces offline using team, number and the rule of 5 players per team on the floor. Also compare against SAM 2 tracking, which ran on a rented GPU for the gold-set prefill.</dd>
+        <dt>Done when</dt><dd><strong>HOTA and IDF1 are reported for both trackers, before and after linking.</strong></dd>
+      </dl>
+    </article>
+
+    <article class="ms">
+      <header><h3>M7 · Numbers and identity</h3><span class="badge">○ Later</span>
+        <span class="links"><a href="https://github.com/tko-ventures/basketball-game-analyzer/issues/8">#8</a></span></header>
+      <dl class="grid">
+        <dt>Why</dt><dd>A jersey number plus the roster gives a player's name. Numbers are small and blurred in the highlights, so the readers need PLK training and a fair comparison.</dd>
+        <dt>What</dt><dd>Label about 300 number crops (on better footage if the club has full games). Compare a small classifier with several vision-language models, limited to the numbers on that team's roster.</dd>
+        <dt>Done when</dt><dd><strong>Identity accuracy on the held-out game is reported.</strong></dd>
+      </dl>
+    </article>
+
+    <article class="ms">
+      <header><h3>M8 · 2D positions</h3><span class="badge">○ Later</span>
+        <span class="links"><a href="https://github.com/tko-ventures/basketball-game-analyzer/issues/9">#9</a></span></header>
+      <dl class="grid">
+        <dt>Why</dt><dd>The bottom of a player's box is a poor estimate of where the feet touch the floor (jumps, the frame edge). Ankles from pose estimation are better.</dd>
+        <dt>What</dt><dd>Ground points from the ankles, handling of jumps, the final export format (one row per player per frame), and a radar video.</dd>
+        <dt>Done when</dt><dd><strong>Positions are exported for every gold shot and checked visually.</strong></dd>
+      </dl>
+    </article>
+
+    <article class="ms">
+      <header><h3>M9 · Ball, possession, shots</h3><span class="badge">○ Last</span>
+        <span class="links"><a href="https://github.com/tko-ventures/basketball-game-analyzer/issues/10">#10</a></span></header>
+      <dl class="grid">
+        <dt>Why</dt><dd>Possession and shot events turn positions into basketball analysis. It comes last because it builds on every layer above.</dd>
+        <dt>What</dt><dd>Ball detection (tiled if it is too small to find), the holder taken from the player in possession, and made and missed shots.</dd>
+        <dt>Done when</dt><dd><strong>Possession accuracy on the gold shots is reported.</strong></dd>
+      </dl>
+    </article>
+  </div>
+
+  <h2>Rules that shape every step</h2>
+  <div class="cards">
+    <div class="card"><h4>Measure first</h4><p>No change goes into a layer without a before/after row against the gold set. Done is a number, not an opinion.</p></div>
+    <div class="card"><h4>Swappable layers</h4><p>A new approach is added beside the old one and selected in a config. The two are compared on the same shots, never by editing the pipeline.</p></div>
+    <div class="card"><h4>Follow Skalski</h4><p>Start from Roboflow's published basketball pipeline. Deviate only where his posts name a limitation or where PLK differs from the NBA.</p></div>
+    <div class="card"><h4>Open models, trained on PLK</h4><p>Production uses open-weight models fine-tuned on PLK frames. Closed AI services are used only to help with labelling.</p></div>
+    <div class="card"><h4>Mac first, GPU rented</h4><p>Inference runs on the M1 Max. Training and GPU-only models run on Modal, capped at a proposed 50 USD a month (3.60 USD spent so far).</p></div>
+    <div class="card"><h4>Honest test</h4><p>No gold frame is ever used for training. The held-out game is scored once per milestone.</p></div>
+  </div>
+
+  <h2>Open questions for you</h2>
+  <table>
+    <thead><tr><th>Question</th><th>Why it matters</th><th>Default until you answer</th></tr></thead>
+    <tbody>
+      <tr><td>Merge PR #11</td><td>M1 and M2 are stacked on M0. Merging lets each later PR land on <code>main</code>.</td><td>Keep stacking branches.</td></tr>
+      <tr><td>Full-game footage (Q4)</td><td>Jersey numbers are hard to read in highlights, even for a person. Hudl Instat or Synergy footage would help M7 and the gold set.</td><td>YouTube highlights.</td></tr>
+      <tr><td>Modal spend cap (Q9)</td><td>M3 and M4 train on rented GPUs.</td><td>50 USD a month, cost logged per job.</td></tr>
+      <tr><td>Gold v1 review</td><td>Your review of the held-out game would make the reported numbers trustworthy for the client.</td><td>Only if the client is interested.</td></tr>
+    </tbody>
+  </table>
+
+  <footer>Source: docs/PLAN.md, docs/decisions.md, GitHub issues #1 to #10. Update this page when a milestone changes status.</footer>
+</main>
+</body>
+</html>
