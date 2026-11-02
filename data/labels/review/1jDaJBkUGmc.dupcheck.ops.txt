@@ -1,0 +1,4 @@
+clip 20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off
+# Gold v0: duplicate-track check over all 12 shots (two tracks with box IoU > 0.6 on >= 4 shared frames).
+# Six pairs flagged; five are players in contact (overlap on 4 to 6 of 23 to 110 shared frames), one is a duplicate.
+delete 1101  # shot 3: overlaps 1004 (Trefl #21) on all 6 of its frames, 1095-1120

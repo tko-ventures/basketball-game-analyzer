@@ -421,14 +421,6 @@
    "source": "prefill",
    "note": "Dziki player from 6550, possibly #45 continuing 1040"
   },
-  "1101": {
-   "team": "home",
-   "number": "",
-   "name": "",
-   "source": "prefill",
-   "reviewed": false,
-   "note": "Trefl player under the basket, 1095-1120 only; probably a fragment of another Trefl track"
-  },
   "1105": {
    "team": "home",
    "number": "",
@@ -3615,15 +3607,6 @@
      "num_visible": false
     },
     {
-     "tid": 1101,
-     "x1": 1158.0,
-     "y1": 344.0,
-     "x2": 1243.0,
-     "y2": 572.0,
-     "occluded": false,
-     "num_visible": false
-    },
-    {
      "tid": 1008,
      "x1": 1204.0,
      "y1": 358.0,
@@ -3737,15 +3720,6 @@
      "y2": 455.0,
      "occluded": false,
      "num_visible": false
-    },
-    {
-     "tid": 1101,
-     "x1": 1162.0,
-     "y1": 344.0,
-     "x2": 1254.0,
-     "y2": 577.0,
-     "occluded": false,
-     "num_visible": false
     }
    ]
   },
@@ -3832,15 +3806,6 @@
      "y1": 347.0,
      "x2": 1236.0,
      "y2": 538.0,
-     "occluded": false,
-     "num_visible": false
-    },
-    {
-     "tid": 1101,
-     "x1": 1151.0,
-     "y1": 339.0,
-     "x2": 1249.0,
-     "y2": 580.0,
      "occluded": false,
      "num_visible": false
     },
@@ -3942,15 +3907,6 @@
      "num_visible": false
     },
     {
-     "tid": 1101,
-     "x1": 1136.0,
-     "y1": 338.0,
-     "x2": 1231.0,
-     "y2": 546.0,
-     "occluded": false,
-     "num_visible": false
-    },
-    {
      "tid": 1008,
      "x1": 1217.0,
      "y1": 377.0,
@@ -4044,15 +4000,6 @@
      "y1": 515.0,
      "x2": 798.0,
      "y2": 705.0,
-     "occluded": false,
-     "num_visible": false
-    },
-    {
-     "tid": 1101,
-     "x1": 1167.0,
-     "y1": 385.0,
-     "x2": 1244.0,
-     "y2": 586.0,
      "occluded": false,
      "num_visible": false
     },
@@ -4168,15 +4115,6 @@
      "y1": 414.0,
      "x2": 1265.0,
      "y2": 587.0,
-     "occluded": false,
-     "num_visible": false
-    },
-    {
-     "tid": 1101,
-     "x1": 1158.8,
-     "y1": 358.1,
-     "x2": 1230.0,
-     "y2": 586.9,
      "occluded": false,
      "num_visible": false
     }
@@ -32498,5 +32436,5 @@
    ]
   }
  },
- "saved_at": "2026-11-02T13:48:43"
+ "saved_at": "2026-11-02T13:53:48"
 }
