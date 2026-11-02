@@ -31,14 +31,20 @@ app = modal.App("bga-runner")
 vol = modal.Volume.from_name("bga-data", create_if_missing=True)
 image = (
     modal.Image.debian_slim(python_version="3.12")
+    # Same versions as the Mac's uv.lock, so a layer gives the same output wherever it runs.
     .pip_install(
-        "numpy>=2.0,<2.3",
-        "opencv-python-headless>=4.10",
-        "pydantic>=2.9",
-        "pyyaml>=6.0",
-        "supervision==0.27.0",
-        "torch==2.5.1",
-        "torchvision==0.20.1",
+        "numpy==2.3.5",
+        "pydantic==2.11.10",
+        "pyyaml==6.0.3",
+        "supervision==0.30.9",
+        "torch==2.15.0",
+        "torchvision==0.29.2",
+    )
+    # supervision pulls the GUI OpenCV, which needs libGL; the bullseye base is end-of-life, so swap in
+    # the headless wheel instead of apt-installing system libraries.
+    .run_commands(
+        "pip uninstall -y opencv-python opencv-contrib-python",
+        "pip install --force-reinstall --no-deps opencv-python-headless==5.0.0.93",
     )
     .add_local_python_source("bga")
 )
@@ -105,7 +111,9 @@ def log_costs(layer: str, backend: str, seqs: list, outs: list[dict]) -> None:
         f"| bga run {layer}/{backend} {s.name} | {o['remote']['seconds']} | {o['remote']['usd']} |"
         for s, o in zip(seqs, outs, strict=True)
     ]
-    COSTS_MD.write_text(COSTS_MD.read_text().rstrip("\n") + "\n" + "\n".join(rows) + "\n")
+    lines = COSTS_MD.read_text().rstrip("\n").split("\n")
+    last_row = max(i for i, line in enumerate(lines) if line.startswith("|"))  # rows go above any summary
+    COSTS_MD.write_text("\n".join(lines[: last_row + 1] + rows + lines[last_row + 1 :]) + "\n")
 
 
 if __name__ == "__main__":  # pragma: no cover
