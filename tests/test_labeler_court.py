@@ -19,3 +19,13 @@ def test_court_record_rejects_bad_input(tmp_path):
         save_court_record(tmp_path, {"clip": "../x", "frame": 1, "record": {"status": "ok"}})
     with pytest.raises(ValueError):
         save_court_record(tmp_path, {"clip": "c", "frame": 1, "record": {"status": "maybe"}})
+
+
+def test_safe_path_allows_symlinked_data_but_not_escapes():
+    from tools.labeler.server import REPO, safe_path
+
+    assert safe_path("data/raw/x.mp4") == REPO / "data/raw/x.mp4"
+    with pytest.raises(PermissionError):
+        safe_path("../outside.mp4")
+    with pytest.raises(PermissionError):
+        safe_path("data/../../outside.mp4")

@@ -91,7 +91,9 @@ class ClipRegistry:
 
 
 def safe_path(rel: str) -> Path:
-    p = (REPO / rel).resolve()
+    # Normalise ".." without following symlinks, so a worktree's data/raw link to the main checkout
+    # is accepted while a path that climbs out of the repo is not.
+    p = Path(os.path.normpath(REPO / rel))
     if REPO not in p.parents and p != REPO:
         raise PermissionError(rel)
     return p
