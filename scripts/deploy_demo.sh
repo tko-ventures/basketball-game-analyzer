@@ -3,6 +3,8 @@
 #
 #   scripts/deploy_demo.sh            # -> https://basketball-analyzer-demo.vercel.app
 #
+# Also publishes docs/roadmap.html as /roadmap/ (the plan at a glance; not linked from the demo pages).
+#
 # Uploads only the page, its videos, data and court image, with noindex headers (match footage, client demo).
 # Needs the Vercel CLI logged in (`vercel login`). The production URL is public.
 set -euo pipefail
@@ -11,6 +13,7 @@ SCOPE="${VERCEL_SCOPE:-tomasz-kopackis-projects}"
 D=runs/demo/deploy/basketball-analyzer-demo
 mkdir -p "$D"
 rsync -a --delete --exclude .vercel --exclude vercel.json --exclude summary.json runs/demo/web/ "$D/"
+mkdir -p "$D/roadmap" && cp docs/roadmap.html "$D/roadmap/index.html"
 cat > "$D/vercel.json" <<'JSON'
 {
   "redirects": [
