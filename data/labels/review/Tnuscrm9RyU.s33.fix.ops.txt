@@ -1,0 +1,21 @@
+clip 20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski
+# Gold v0, implementer's pass 2 of 2 on shot 33 (6880-7435): what the kit votes miss, read on
+# runs/<clip>/review/s33/overview_00.jpg, tracks_00-02.jpg and zoom_1035_*.jpg after pass 1.
+delete 1034  # Zastal coach in a suit at the sideline (off court), tagged ref by the prefill
+cut 1035 7160 7205  # box drifts onto Zastal #21 (1038) after the rebound scrum
+cut 1040 7110 7110  # small box on a face
+cut 1041 7220 7220  # referee's box on a Zastal player
+number 1030 13
+number 1031 11
+number 1032 23
+number 1033 3
+number 1035 22  # "22" at 7225-7240; earlier crops (6880-7115) show the same build and hair, number not visible
+number 1036 13
+number 1037 1  # "1" on the back at 6880, small
+number 1038 21
+number 1039 3
+number 1040 9
+note 1035 assumed one player (#22) before and after the scrum at 7115-7210; check
+note 1037 number read once and small; check
+note 1042 slivers at the left frame edge (referee or bench staff), mostly under 20 px wide
+note 1030 boxes 7245-7300 have a Dziki player in front; box kept on the Zastal player behind

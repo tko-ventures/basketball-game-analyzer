@@ -1,0 +1,38 @@
+clip 20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu
+# Gold v0, implementer's pass 1 of 2 on shot 78: kit-vote proposals from scripts/review_sheets.py --propose
+# (Skalski's TeamClassifier fitted on the shot), checked against tracks_*.jpg and zoom_*.jpg in runs/<clip>/review/s78.
+# shot 78 (25488-25997): kit-vote proposals
+team 1030 away  # kit D 94/102
+cut 1030 25535 25540  # kit L x2 in contact
+cut 1030 25595 25605  # kit L x3 in contact
+team 1033 home  # kit L 101/102
+cut 1033 25880 25880  # kit D x1 in contact
+team 1031 home  # kit L 93/93
+team 1032 away  # kit D 97/102
+cut 1032 25955 25965  # kit L x3 in contact
+cut 1032 25975 25975  # kit L x1 in contact
+team 1035 home  # kit L 100/102
+cut 1035 25860 25865  # kit D x2 in contact
+team 1036 away  # kit D 80/98
+cut 1036 25490 25490  # kit L x1 in contact
+cut 1036 25600 25600  # kit L x1 in contact
+cut 1036 25610 25610  # kit L x1 in contact
+cut 1036 25620 25620  # kit L x1 in contact
+cut 1036 25630 25660  # kit L x3 in contact
+cut 1036 25780 25800  # kit L x5 in contact
+cut 1036 25870 25890  # kit L x5 in contact
+cut 1036 25985 25985  # kit L x1 in contact
+team 1037 home  # kit L 91/92
+cut 1037 25665 25665  # kit D x1 in contact
+team 1038 home  # kit L 95/96
+cut 1038 25850 25850  # kit D x1 in contact
+team 1042 away  # kit D 68/85
+cut 1042 25530 25545  # kit L x4 in contact
+cut 1042 25855 25860  # kit L x2 in contact
+cut 1042 25905 25920  # kit L x4 in contact
+cut 1042 25955 25975  # kit L x4 in contact
+team 1043 away  # kit D 47/57
+cut 1043 25705 25720  # kit L x3 in contact
+cut 1043 25930 25935  # kit L x2 in contact
+cut 1043 25955 25970  # kit L x3 in contact
+cut 1043 25990 25990  # kit L x1 in contact

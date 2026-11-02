@@ -1,0 +1,29 @@
+clip 20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka
+# Gold v0, implementer's pass 1 of 2 on shot 19: kit-vote proposals from scripts/review_sheets.py --propose
+# (Skalski's TeamClassifier fitted on the shot), checked against tracks_*.jpg and zoom_*.jpg in runs/<clip>/review/s19.
+# shot 19 (6383-6836): kit-vote proposals
+team 1040 away  # kit D 91/91
+team 1034 home  # kit L 80/80
+team 1033 home  # kit L 71/83
+cut 1033 6465 6495  # kit D x7 in contact
+cut 1033 6715 6715  # kit D x1 in contact
+cut 1033 6745 6745  # kit D x1 in contact
+cut 1033 6790 6800  # kit D x3 in contact
+team 1036 home  # kit L 90/91
+cut 1036 6635 6635  # kit D x1 in contact
+team 1041 away  # kit D 67/70
+team 1039 away  # kit D 88/91
+team 1038 home  # kit L 87/91
+cut 1038 6770 6785  # kit D x4 in contact
+team 1037 away  # kit D 80/91
+cut 1037 6625 6625  # kit L x1 in contact
+cut 1037 6675 6685  # kit L x3 in contact
+cut 1037 6705 6705  # kit L x1 in contact
+cut 1037 6735 6740  # kit L x2 in contact
+cut 1037 6750 6765  # kit L x4 in contact
+team 1042 home  # kit L 74/78
+cut 1042 6385 6400  # kit D x4 in contact
+team 1043 away  # kit D 70/80
+cut 1043 6390 6465  # kit L x5 in contact
+cut 1043 6775 6775  # kit L x1 in contact
+cut 1043 6795 6795  # kit L x1 in contact

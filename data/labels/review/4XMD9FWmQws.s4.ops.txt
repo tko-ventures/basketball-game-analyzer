@@ -1,0 +1,50 @@
+clip 20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu
+# Gold v0, implementer's pass 1 of 2 on shot 4: kit-vote proposals from scripts/review_sheets.py --propose
+# (Skalski's TeamClassifier fitted on the shot), checked against tracks_*.jpg and zoom_*.jpg in runs/<clip>/review/s4.
+# shot 4 (1902-2476): kit-vote proposals
+team 1001 away  # kit D 107/111
+team 1006 home  # kit L 112/115
+cut 1006 2280 2280  # kit D x1 in contact
+cut 1006 2370 2370  # kit D x1 in contact
+cut 1006 2400 2400  # kit D x1 in contact
+# rejected (1002 is PGE #20 until 2035, then a duplicate of 1004 (IoU > 0.4 on 68 frames): fixed in the fix file): team 1002 away  # kit D 65/97
+# rejected (1002 is PGE #20 until 2035, then a duplicate of 1004 (IoU > 0.4 on 68 frames): fixed in the fix file): move 1002 1905 2035 1101  # kit L x27 inside
+# rejected (1002 is PGE #20 until 2035, then a duplicate of 1004 (IoU > 0.4 on 68 frames): fixed in the fix file): team 1101 home
+# rejected (1002 is PGE #20 until 2035, then a duplicate of 1004 (IoU > 0.4 on 68 frames): fixed in the fix file): cut 1002 2060 2065  # kit L x2 in contact
+# rejected (1002 is PGE #20 until 2035, then a duplicate of 1004 (IoU > 0.4 on 68 frames): fixed in the fix file): cut 1002 2125 2125  # kit L x1 in contact
+# rejected (1002 is PGE #20 until 2035, then a duplicate of 1004 (IoU > 0.4 on 68 frames): fixed in the fix file): cut 1002 2145 2145  # kit L x1 in contact
+# rejected (1002 is PGE #20 until 2035, then a duplicate of 1004 (IoU > 0.4 on 68 frames): fixed in the fix file): cut 1002 2170 2170  # kit L x1 in contact
+team 1005 home  # kit L 110/115
+cut 1005 2010 2015  # kit D x2 in contact
+cut 1005 2185 2185  # kit D x1 in contact
+cut 1005 2360 2365  # kit D x2 in contact
+team 1004 away  # kit D 112/115
+cut 1004 2125 2125  # kit L x1 in contact
+cut 1004 2145 2145  # kit L x1 in contact
+cut 1004 2170 2170  # kit L x1 in contact
+team 1009 away  # kit D 87/115
+# rejected (1009 is the bald Dziki player guarding #6 throughout (zoom_1009_2065/2240); L votes are his light leggings and #6 in front): move 1009 2035 2095 1102  # kit L x13 inside
+# rejected (1009 is the bald Dziki player guarding #6 throughout (zoom_1009_2065/2240); L votes are his light leggings and #6 in front): team 1102 home
+# rejected (1009 is the bald Dziki player guarding #6 throughout (zoom_1009_2065/2240); L votes are his light leggings and #6 in front): cut 1009 2115 2130  # kit L x4 in contact
+# rejected (1009 is the bald Dziki player guarding #6 throughout (zoom_1009_2065/2240); L votes are his light leggings and #6 in front): cut 1009 2200 2210  # kit L x3 in contact
+# rejected (1009 is the bald Dziki player guarding #6 throughout (zoom_1009_2065/2240); L votes are his light leggings and #6 in front): cut 1009 2260 2270  # kit L x3 in contact
+# rejected (1009 is the bald Dziki player guarding #6 throughout (zoom_1009_2065/2240); L votes are his light leggings and #6 in front): cut 1009 2310 2320  # kit L x3 in contact
+# rejected (1009 is the bald Dziki player guarding #6 throughout (zoom_1009_2065/2240); L votes are his light leggings and #6 in front): cut 1009 2370 2370  # kit L x1 in contact
+# rejected (1009 is the bald Dziki player guarding #6 throughout (zoom_1009_2065/2240); L votes are his light leggings and #6 in front): cut 1009 2380 2380  # kit L x1 in contact
+team 1007 away  # kit D 105/115
+cut 1007 1950 1950  # kit L x1 in contact
+cut 1007 2040 2040  # kit L x1 in contact
+cut 1007 2295 2325  # kit L x7 in contact
+team 1008 home  # kit L 101/105
+# rejected (no contact; dark skin read as dark kit): cut 1008 1940 1950  # kit D x3
+cut 1008 2190 2190  # kit D x1 in contact
+team 1011 away  # kit D 95/104
+cut 1011 2085 2100  # kit L x3 in contact
+cut 1011 2110 2110  # kit L x1 in contact
+cut 1011 2120 2125  # kit L x2 in contact
+cut 1011 2465 2465  # kit L x1 in contact
+team 1012 home  # kit L 84/94
+cut 1012 2045 2070  # kit D x6 in contact
+cut 1012 2080 2085  # kit D x2 in contact
+cut 1012 2470 2475  # kit D x2 in contact
+team 1015 home  # kit L 75/75

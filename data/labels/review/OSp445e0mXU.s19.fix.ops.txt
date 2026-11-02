@@ -1,0 +1,13 @@
+clip 20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka
+# Gold v0, implementer's pass 2 of 2 on shot 19 (6383-6836): what the kit votes miss, read on
+# runs/<clip>/review/s19/overview_*.jpg, tracks_*.jpg and zoom_*.jpg after pass 1.
+# No off-court tracks found; no same-team switches long enough to split.
+number 1033 4
+number 1036 2
+number 1037 42
+number 1038 1
+number 1041 3
+number 1042 0
+note 1037 boxes 6670-6730 sit in a scrum with Dziki #2 in front; #42 still inside the box
+note 1040 possibly Legia #0 (glimpse at 6735, 6785), not set
+note 1036 #2 from ~6685 on; earlier crops (bearded, light kit) not legible, assumed same player

@@ -1,0 +1,27 @@
+clip 20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off
+# Gold v0, implementer's pass 2 of 2 on shot 3 (943-1499): what the kit votes miss, read on
+# runs/<clip>/review/s3/overview_*.jpg, tracks_*.jpg and zoom_1004_1250.jpg after pass 1. L = Trefl yellow (checked).
+delete 1011  # coach in a suit on the sideline (tagged ref by the detector)
+delete 1013  # coach in a suit at the bottom edge
+delete 1017  # Dziki bench, grey warm-up, bottom right
+delete 1018  # Dziki bench
+delete 1019  # Dziki bench
+delete 1021  # Dziki bench
+delete 1102  # bench (moved out of 1019 in pass 1)
+delete 1020  # person on the near sideline, 3 boxes
+# 1004 (#21, blond) and 1012 (#2) swap: 1012 sits on #21 at ~1150-1225, 1004 on #2 from 1265.
+move 1012 1150 1229 1004  # #21's boxes go back to 1004; clashes keep 1004's box
+move 1004 1260 1499 1012  # #2's boxes go back to 1012; clashes keep 1012's box
+cut 1101 1080 1090  # boxes on the crowd / a raised hand
+cut 1008 965 970  # box on Dziki #2 next to #45
+number 1001 11
+number 1002 16
+number 1004 21
+number 1005 37
+number 1012 2
+number 1008 45
+number 1010 11
+number 1006 33  # "33" at 1305; earlier crops look like the same player
+note 1007 Dziki, number not legible (maybe #0)
+note 1015 Trefl, number not legible; may be a fragment of 1006 (#33): check against the five Trefl on court
+note 1101 Trefl player under the basket, 1095-1120 only; probably a fragment of another Trefl track
