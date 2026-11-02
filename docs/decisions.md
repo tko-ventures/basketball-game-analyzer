@@ -58,3 +58,20 @@ highlights at scale (question 13 proper) stays on its default. The 2D view now s
 Tomasz: code, documentation, prompts and paths in the application are English. The analysis page
 moved from `/analiza/` to `/analysis/`; Vercel redirects the old path permanently. The demo pages'
 on-screen text stays Polish for the client.
+
+## 2026-11-02: gold set v0 by the implementer; Tomasz's review deferred
+
+Tomasz: maximum progress now; more of his time goes into the gold set later if the client is
+interested. This replaces options A/B/C on issue #2 and amends plan section 8 as follows:
+
+- **Gold v0** is the implementer's full review of all 12 gold shots (tracks, teams, numbers where
+  legible) plus about 100 box-gold frames, with Tomasz's dry-run labels on Legia shot 10 kept as
+  they are. The held-out game stays held out and is reviewed with the same care, never trained on.
+- **Gold v1** follows Tomasz's review, at least of the held-out game. Every metrics row then gets
+  re-run from its configs; nothing else changes.
+- Every row in `docs/metrics.md` names the gold version it was scored on (`gold=v0` or `gold=v1`).
+  v0 was prefilled by the same public models the baseline uses (Skalski's player model, SAM 2.1),
+  so v0 absolute scores are biased upwards; they serve to compare backends, and any number shown
+  outside the repo says "gold v0".
+- Gold is labelled just in time: landmark frames with M3 (court fine-tune), number crops with M7,
+  on better footage if the club has full games (question 4, still open; Tomasz is asking).
