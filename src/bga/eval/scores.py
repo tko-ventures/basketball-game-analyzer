@@ -107,6 +107,7 @@ def box_ap50(cfg: RunConfig, runs: Path, seqs: list[Sequence], gold_root: Path) 
 def score(cfg: RunConfig, seqs: list[Sequence], runs: Path = Path("runs"), gold: str = "v0") -> dict:
     root = Path("data/gold") / gold
     mot, team_ok, team_n, churn_rows, speed = {}, 0, 0, [], defaultdict(list)
+    id_n = id_ok = id_confirmed = 0
     for seq in seqs:
         grid, gt_per, ids = read_gt(root, seq.name)
         tracks = load_output(cfg, runs, seq, "track")["frames"]
@@ -120,18 +121,30 @@ def score(cfg: RunConfig, seqs: list[Sequence], runs: Path = Path("runs"), gold:
             compute_churn([[r[0] for r in tracks[str(f)]] for f in seq.frames], short_lived_frames=short)
         )
         votes = defaultdict(Counter)  # gold track -> predicted team of its matched detections
+        owner = defaultdict(Counter)  # gold track -> predicted tracks it was matched to
         for f in grid:
             g, p = gt_per.get(f, []), tracks.get(str(f), [])
             for gi, pi in match(g, p):
+                owner[g[gi][0]][p[pi][0]] += 1
                 di = p[pi][7]
                 if di >= 0 and str(f) in teams:
                     votes[g[gi][0]][teams[str(f)][di]] += 1
+        if "numbers" in cfg.layers:
+            nums = load_output(cfg, runs, seq, "numbers")["tracks"]
+            for tid, ident in ids.items():
+                if not ident.get("number") or ident.get("team") not in ("home", "away"):
+                    continue
+                id_n += 1
+                best = owner[int(tid)].most_common(1)
+                got = nums.get(str(best[0][0])) if best else None
+                id_confirmed += got is not None
+                id_ok += got == ident["number"]
         for tid, v in votes.items():
             truth = ids.get(str(tid), {}).get("team", "")
             if truth in ("home", "away"):
                 team_n += 1
                 team_ok += v.most_common(1)[0][0] == truth
-        for layer in ("court", "detect", "team", "track"):
+        for layer in ("court", "detect", "team", "track", "numbers"):
             if layer in cfg.layers and output_path(cfg, runs, seq, layer).exists():
                 ms = load_output(cfg, runs, seq, layer).get("ms_per_frame")
                 if ms is not None:
@@ -139,6 +152,11 @@ def score(cfg: RunConfig, seqs: list[Sequence], runs: Path = Path("runs"), gold:
     out = evaluate(mot)
     out["team_acc"] = team_ok / team_n if team_n else float("nan")
     out["team_tracks"] = team_n
+    if "numbers" in cfg.layers:
+        out["id_acc"] = id_ok / id_n if id_n else float("nan")  # gold tracks with a legible number
+        out["id_confirmed"] = id_confirmed / id_n if id_n else float("nan")
+        out["id_wrong"] = id_confirmed - id_ok
+        out["id_tracks"] = id_n
     out["churn_short_lived"] = (
         float(np.mean([c["short_lived_id_fraction"] for c in churn_rows])) if churn_rows else float("nan")
     )

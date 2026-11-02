@@ -21,6 +21,7 @@ LAYERS: dict[str, tuple[str, ...]] = {
     "detect": ("shots",),
     "team": ("detect",),
     "track": ("detect", "court"),
+    "numbers": ("detect", "track"),
     "positions": ("track", "court"),
 }
 

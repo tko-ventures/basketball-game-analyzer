@@ -22,8 +22,8 @@ app = typer.Typer(add_completion=False, no_args_is_help=True)
 METRICS_MD = Path("docs/metrics.md")
 HEADER = (
     "| date | commit | config | gold | split | HOTA | DetA | AssA | IDF1 | MOTA | IDSW | AP50 | team acc "
-    "| ms/frame detect, team, court | notes |\n"
-    "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n"
+    "| number acc (confirmed, wrong) | ms/frame detect, team, court, numbers | notes |\n"
+    "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n"
 )
 
 
@@ -99,7 +99,10 @@ def eval_(
             f"| {_fmt(s['HOTA'])} | {_fmt(s['DetA'])} | {_fmt(s['AssA'])} "
             f"| {_fmt(s['IDF1'])} | {_fmt(s['MOTA'])} "
             f"| {s['IDSW']} | {_fmt(s.get('AP50'))} | {_fmt(s['team_acc'])} ({s['team_tracks']}) "
-            f"| {_fmt(ms.get('detect'), 0)}, {_fmt(ms.get('team'), 0)}, {_fmt(ms.get('court'), 0)} | {note} |"
+            f"| {_fmt(s.get('id_acc'))} ({_fmt(s.get('id_confirmed'))}, {s.get('id_wrong', '–')}; "
+            f"{s.get('id_tracks', 0)} tracks) "
+            f"| {_fmt(ms.get('detect'), 0)}, {_fmt(ms.get('team'), 0)}, {_fmt(ms.get('court'), 0)}, "
+            f"{_fmt(ms.get('numbers'), 0)} | {note} |"
         )
         rows.append(row)
         typer.echo(

@@ -17,6 +17,7 @@ BACKEND_MODULES = (
     "bga.detect.roboflow_inference",
     "bga.team.siglip_kmeans",
     "bga.track.bytetrack",
+    "bga.numbers.smolvlm_ocr",
     "bga.court.roboflow_keypoints",
     "bga.positions.bbox_bottom",
 )
