@@ -25,6 +25,10 @@ LAYERS: dict[str, tuple[str, ...]] = {
 }
 
 
+# Shots params that only choose sequences; kept out of the hashes so dev and held-out runs share dirs.
+SELECTION_PARAMS = frozenset({"version", "held_out", "root", "labels"})
+
+
 class LayerConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
     backend: str
@@ -49,6 +53,8 @@ class RunConfig(BaseModel):
 
     def layer_hash(self, layer: str) -> str:
         own = self.layers[layer].model_dump()
+        if layer == "shots":  # which sequences run does not change any one sequence's output
+            own["params"] = {k: v for k, v in own["params"].items() if k not in SELECTION_PARAMS}
         ups = {u: self.layer_hash(u) for u in LAYERS[layer] if u in self.layers}
         blob = json.dumps({"layer": layer, "own": own, "upstream": ups}, sort_keys=True)
         return hashlib.sha256(blob.encode()).hexdigest()[:8]
