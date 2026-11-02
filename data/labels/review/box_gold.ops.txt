@@ -1,0 +1,46 @@
+# Box gold v0, implementer's review of the 100 frames in data/labels/box_gold.json (2026-11-02).
+# Read on runs/box_gold/sheet_00-24.jpg, plus zoom tiles of every detector candidate (cand_00-05.jpg,
+# 114 candidates after dropping top/bottom strips and duplicates) and of square gold boxes and referees.
+# Candidates not listed were crowd, bench, coaches in suits, staff, edge slivers with nobody visible, or
+# duplicates of a gold box. Teams: PGE Start and Trefl home (light), Dziki away (dark) in 4XMD9FWmQws and
+# 1jDaJBkUGmc; Dziki home (light), Legia/Zastal away (dark) in OSp445e0mXU and Tnuscrm9RyU.
+
+# 4XMD9FWmQws (PGE Start – Dziki)
+add 4XMD9FWmQws 2060 c0 away  # Dziki player on the far side, untracked
+add 4XMD9FWmQws 2060 c2 home  # PGE player behind him
+add 4XMD9FWmQws 2125 c0 away  # Dziki player mid-court, untracked
+add 4XMD9FWmQws 14405 c0 ref  # referee on the baseline
+add 4XMD9FWmQws 14465 c0 away  # Dziki player lying on the floor
+add 4XMD9FWmQws 14525 c0 away  # same player on the floor
+add 4XMD9FWmQws 14525 c1 ref  # referee at the left baseline
+add 4XMD9FWmQws 14525 c2 home  # PGE player crouched with the ball, half behind 1023
+add 4XMD9FWmQws 14585 c0 ref  # same referee
+add 4XMD9FWmQws 14705 c0 ref  # referee 1022's box was cut 14575-14765 in review (it sat on PGE #20)
+add 4XMD9FWmQws 14765 c0 ref  # same
+add 4XMD9FWmQws 25515 c1 home  # PGE player in a group
+add 4XMD9FWmQws 25745 c0 away  # Dziki player, untracked
+
+# OSp445e0mXU (Dziki – Legia)
+add OSp445e0mXU 1120 c0 away  # Legia player under the basket
+add OSp445e0mXU 1120 c3 home  # Dziki player fallen on the floor
+add OSp445e0mXU 3050 c0 away  # Legia player next to another
+drop OSp445e0mXU 3115 1024  # box covers the legs only (noted in the dry run); replaced by the full-body box
+add OSp445e0mXU 3115 c0 home  # 1024's full body
+add OSp445e0mXU 3250 c0 home  # Dziki player diving on the floor
+
+# 1jDaJBkUGmc (Energa Trefl – Dziki)
+add 1jDaJBkUGmc 975 c0 away  # Dziki player guarding a Trefl player
+add 1jDaJBkUGmc 1095 c1 ref  # near-side referee, upper body above the bottom edge
+add 1jDaJBkUGmc 1220 c0 ref  # near-side referee
+add 1jDaJBkUGmc 1280 c1 ref  # near-side referee
+add 1jDaJBkUGmc 1465 c0 away  # Dziki player in game kit among the standing bench (on court)
+add 1jDaJBkUGmc 2650 c0 away  # Dziki player guarding Trefl, untracked
+add 1jDaJBkUGmc 6200 c3 home  # Trefl player jumping; narrowest of three loose candidates
+add 1jDaJBkUGmc 6570 c1 ref  # near-side referee, legs below the score overlay
+
+# Tnuscrm9RyU (Dziki – Zastal, held out)
+add Tnuscrm9RyU 790 c1 ref  # near-side referee (purple), above the bottom edge
+add Tnuscrm9RyU 4210 c0 home  # Dziki player in the scrum under the basket
+add Tnuscrm9RyU 6970 c0 away  # Zastal player on hands and knees
+add Tnuscrm9RyU 7345 c0 home  # Dziki player lying on the floor
+add Tnuscrm9RyU 7405 c1 home  # same
