@@ -1,0 +1,40 @@
+clip 20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu
+# Gold v0, implementer's pass 1 of 2 on shot 42: kit-vote proposals from scripts/review_sheets.py --propose
+# (Skalski's TeamClassifier fitted on the shot), checked against tracks_*.jpg and zoom_*.jpg in runs/<clip>/review/s42.
+# shot 42 (14312-14851): kit-vote proposals
+team 1016 home  # kit L 108/108
+team 1021 away  # kit D 97/108
+cut 1021 14315 14345  # kit L x7 in contact
+cut 1021 14540 14540  # kit L x1 in contact
+cut 1021 14600 14600  # kit L x1 in contact
+cut 1021 14610 14610  # kit L x1 in contact
+cut 1021 14745 14745  # kit L x1 in contact
+team 1024 away  # kit D 80/101
+# rejected (1024 stays on Dziki #31 at 14420-14485; L votes are PGE #3 in front): move 1024 14420 14485 1101  # kit L x14 inside
+# rejected (1024 stays on Dziki #31 at 14420-14485; L votes are PGE #3 in front): team 1101 home
+cut 1024 14570 14570  # kit L x1 in contact
+cut 1024 14655 14660  # kit L x2 in contact
+cut 1024 14685 14690  # kit L x2 in contact
+cut 1024 14700 14700  # kit L x1 in contact
+cut 1024 14760 14760  # kit L x1 in contact
+team 1023 home  # kit L 106/106
+team 1017 home  # kit L 103/103
+cut 1019 14795 14795  # box wider than tall
+team 1019 home  # kit L 49/96
+# rejected (1019 starts on Dziki #21 (continues as 1028) and ends on a duplicate of 1024: fixed in the fix file): cut 1019 14320 14330  # kit D x3
+# rejected (1019 starts on Dziki #21 (continues as 1028) and ends on a duplicate of 1024: fixed in the fix file): move 1019 14345 14510 1102  # kit D x34 inside
+# rejected (1019 starts on Dziki #21 (continues as 1028) and ends on a duplicate of 1024: fixed in the fix file): team 1102 away
+# rejected (1019 starts on Dziki #21 (continues as 1028) and ends on a duplicate of 1024: fixed in the fix file): cut 1019 14590 14590  # kit D x1 in contact
+# rejected (1019 starts on Dziki #21 (continues as 1028) and ends on a duplicate of 1024: fixed in the fix file): cut 1019 14745 14745  # kit D x1 in contact
+# rejected (1019 starts on Dziki #21 (continues as 1028) and ends on a duplicate of 1024: fixed in the fix file): split 1019 14810 1103  # kit D x8 at the end
+# rejected (1019 starts on Dziki #21 (continues as 1028) and ends on a duplicate of 1024: fixed in the fix file): team 1103 away
+team 1020 home  # kit L 84/85
+team 1018 away  # kit D 73/108
+# rejected (1018 is the bald Dziki #1 throughout; L votes are PGE #6 in front and the white score overlay (tracks_00)): cut 1018 14425 14435  # kit L x3 in contact
+# rejected (1018 is the bald Dziki #1 throughout; L votes are PGE #6 in front and the white score overlay (tracks_00)): cut 1018 14500 14510  # kit L x3
+# rejected (1018 is the bald Dziki #1 throughout; L votes are PGE #6 in front and the white score overlay (tracks_00)): split 1018 14720 1104  # kit L x27 at the end
+# rejected (1018 is the bald Dziki #1 throughout; L votes are PGE #6 in front and the white score overlay (tracks_00)): team 1104 home
+team 1025 away  # kit D 62/67
+cut 1025 14795 14805  # kit L x3 in contact
+team 1028 away  # kit D 58/61
+cut 1028 14655 14655  # kit L x1 in contact

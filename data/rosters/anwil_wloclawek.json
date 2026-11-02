@@ -1,0 +1,386 @@
+{
+ "team": "Anwil Włocławek",
+ "team_id_plk": 33,
+ "aliases": [
+  "Anwil Włocławek"
+ ],
+ "retrieved": "2026-10-29",
+ "seasons": {
+  "2024/25": {
+   "team_name": "Anwil Włocławek",
+   "source": "https://plk.pl/archiwum/27/druzyny/33/anwil-wloclawek/sklad",
+   "coach": "Selçuk  Ernak",
+   "players": [
+    {
+     "number": "0",
+     "name": "Dj Funderburk",
+     "pos": "C",
+     "height_cm": 208,
+     "nat": "USA",
+     "id_plk": 108629
+    },
+    {
+     "number": "1",
+     "name": "Justin Turner",
+     "pos": "PG/SG",
+     "height_cm": 193,
+     "nat": "USA",
+     "id_plk": 108630
+    },
+    {
+     "number": "2",
+     "name": "Shawn Pipes Jr",
+     "pos": "PG/SG",
+     "height_cm": 188,
+     "nat": "USA",
+     "id_plk": 99330
+    },
+    {
+     "number": "6",
+     "name": "Luke Nelson",
+     "pos": "PG",
+     "height_cm": 191,
+     "nat": "GBR",
+     "id_plk": 108795
+    },
+    {
+     "number": "7",
+     "name": "Krzysztof Sulima",
+     "pos": "PF/C",
+     "height_cm": 202,
+     "nat": "POL",
+     "id_plk": 125
+    },
+    {
+     "number": "9",
+     "name": "Kamil Łączyński",
+     "pos": "PG",
+     "height_cm": 183,
+     "nat": "POL",
+     "id_plk": 2057
+    },
+    {
+     "number": "11",
+     "name": "Bartosz Łazarski",
+     "pos": "PG/SG",
+     "height_cm": 193,
+     "nat": "POL",
+     "id_plk": 51321
+    },
+    {
+     "number": "13",
+     "name": "Antoni Ślufiński",
+     "pos": "SG/SF",
+     "height_cm": 190,
+     "nat": "POL",
+     "id_plk": 52429
+    },
+    {
+     "number": "14",
+     "name": "Ryan Taylor",
+     "pos": "SF",
+     "height_cm": 196,
+     "nat": "USA",
+     "id_plk": 108628
+    },
+    {
+     "number": "18",
+     "name": "Luke Petrasek",
+     "pos": "PF",
+     "height_cm": 206,
+     "nat": "POL",
+     "id_plk": 86382
+    },
+    {
+     "number": "19",
+     "name": "Ronald Jackson Jr.",
+     "pos": "SF/PF",
+     "height_cm": 203,
+     "nat": "USA",
+     "id_plk": 110694
+    },
+    {
+     "number": "21",
+     "name": "Nick Ongenda",
+     "pos": "C",
+     "height_cm": 211,
+     "nat": "Republika Południowej Afryki",
+     "id_plk": 108627
+    },
+    {
+     "number": "23",
+     "name": "Michał Michalak",
+     "pos": "SG/SF",
+     "height_cm": 197,
+     "nat": "POL",
+     "id_plk": 26501
+    },
+    {
+     "number": "31",
+     "name": "Deane Williams",
+     "pos": "PF",
+     "height_cm": 203,
+     "nat": "GBR",
+     "id_plk": 113967
+    },
+    {
+     "number": "34",
+     "name": "Karol Gruszecki",
+     "pos": "SG/SF",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 790
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2025/26": {
+   "team_name": "Anwil Włocławek",
+   "source": "https://plk.pl/archiwum/28/druzyny/33/anwil-wloclawek/sklad",
+   "coach": "Ronen Ginzburg",
+   "players": [
+    {
+     "number": "0",
+     "name": "Elvar Fridriksson",
+     "pos": "PG",
+     "height_cm": 183,
+     "nat": "Islandia",
+     "id_plk": 116486
+    },
+    {
+     "number": "1",
+     "name": "Eric Lockett",
+     "pos": "SG/SF",
+     "height_cm": 196,
+     "nat": "USA",
+     "id_plk": 116488
+    },
+    {
+     "number": "2",
+     "name": "Leroy Buchanan",
+     "pos": "PG/SG",
+     "height_cm": 190,
+     "nat": "USA",
+     "id_plk": 121074
+    },
+    {
+     "number": "4",
+     "name": "Anthony Slaughter",
+     "pos": "PG/SG",
+     "height_cm": 191,
+     "nat": "POL",
+     "id_plk": 116484
+    },
+    {
+     "number": "5",
+     "name": "Tyler Wahl",
+     "pos": "PF/C",
+     "height_cm": 206,
+     "nat": "USA",
+     "id_plk": 119847
+    },
+    {
+     "number": "7",
+     "name": "Isaiah Mucius",
+     "pos": "SF/PF",
+     "height_cm": 203,
+     "nat": "USA",
+     "id_plk": 116485
+    },
+    {
+     "number": "9",
+     "name": "Ife Ajayi",
+     "pos": "PF",
+     "height_cm": 201,
+     "nat": "USA",
+     "id_plk": 121026
+    },
+    {
+     "number": "11",
+     "name": "Bartosz Łazarski",
+     "pos": "PG/SG",
+     "height_cm": 193,
+     "nat": "POL",
+     "id_plk": 51321
+    },
+    {
+     "number": "13",
+     "name": "Kacper Borowski",
+     "pos": "C",
+     "height_cm": 205,
+     "nat": "POL",
+     "id_plk": 1461
+    },
+    {
+     "number": "15",
+     "name": "Mate Vucić",
+     "pos": "C",
+     "height_cm": 205,
+     "nat": "CRO",
+     "id_plk": 102486
+    },
+    {
+     "number": "16",
+     "name": "Dawid Słupiński",
+     "pos": "C",
+     "height_cm": 206,
+     "nat": "POL",
+     "id_plk": 1803
+    },
+    {
+     "number": "22",
+     "name": "Michał Kołodziej",
+     "pos": "SF/PF",
+     "height_cm": 203,
+     "nat": "POL",
+     "id_plk": 28852
+    },
+    {
+     "number": "23",
+     "name": "Michał Michalak",
+     "pos": "SG/SF",
+     "height_cm": 197,
+     "nat": "POL",
+     "id_plk": 26501
+    },
+    {
+     "number": "25",
+     "name": "Trevon Allen",
+     "pos": "SG",
+     "height_cm": 188,
+     "nat": "USA",
+     "id_plk": 78111
+    },
+    {
+     "number": "35",
+     "name": "Adam Modrzejewski",
+     "pos": "SF/PF",
+     "height_cm": 205,
+     "nat": "POL",
+     "id_plk": 62230
+    },
+    {
+     "number": "77",
+     "name": "Nijal Pearson",
+     "pos": "PG/SG",
+     "height_cm": 196,
+     "nat": "USA",
+     "id_plk": 116487
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2026/27": {
+   "team_name": "Anwil Włocławek",
+   "source": "https://plk.pl/druzyny/33/anwil-wloclawek/sklad",
+   "coach": "Vedran Bosnić",
+   "players": [
+    {
+     "number": "0",
+     "name": "Hans Vanwijn",
+     "pos": "PF/C",
+     "height_cm": 208,
+     "nat": "BEL",
+     "id_plk": 123716
+    },
+    {
+     "number": "1",
+     "name": "Wiktor Szcześko",
+     "pos": "C",
+     "height_cm": 209,
+     "nat": "POL",
+     "id_plk": 121990
+    },
+    {
+     "number": "3",
+     "name": "Maciej Małachowski",
+     "pos": "PG/SG",
+     "height_cm": 185,
+     "nat": "POL",
+     "id_plk": 71068
+    },
+    {
+     "number": "4",
+     "name": "Mateusz Szlachetka",
+     "pos": "PG/SG",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 31651
+    },
+    {
+     "number": "5",
+     "name": "Lennard Freeman",
+     "pos": "C",
+     "height_cm": 203,
+     "nat": "USA",
+     "id_plk": 123717
+    },
+    {
+     "number": "6",
+     "name": "Deon Edwin",
+     "pos": "PG/SG",
+     "height_cm": 192,
+     "nat": "USA",
+     "id_plk": 123857
+    },
+    {
+     "number": "7",
+     "name": "Adam Brenk",
+     "pos": "PG/SG",
+     "height_cm": 192,
+     "nat": "POL",
+     "id_plk": 3737
+    },
+    {
+     "number": "8",
+     "name": "Samuel Hines Jr",
+     "pos": "SF",
+     "height_cm": 198,
+     "nat": "USA",
+     "id_plk": 120567
+    },
+    {
+     "number": "9",
+     "name": "Szymon Wójcik",
+     "pos": "PF/C",
+     "height_cm": 204,
+     "nat": "POL",
+     "id_plk": 24550
+    },
+    {
+     "number": "11",
+     "name": "Bartosz Łazarski",
+     "pos": "PG/SG",
+     "height_cm": 193,
+     "nat": "POL",
+     "id_plk": 51321
+    },
+    {
+     "number": "16",
+     "name": "Dawid Słupiński",
+     "pos": "C",
+     "height_cm": 206,
+     "nat": "POL",
+     "id_plk": 1803
+    },
+    {
+     "number": "20",
+     "name": "Emmanuel Lecomte",
+     "pos": "PG",
+     "height_cm": 180,
+     "nat": "BEL",
+     "id_plk": 108689
+    },
+    {
+     "number": "21",
+     "name": "Kacper Pabijan",
+     "pos": "SG",
+     "height_cm": 195,
+     "nat": "POL",
+     "id_plk": 68835
+    }
+   ],
+   "note": "Current PLK squad page as of 2026-10-29."
+  }
+ }
+}

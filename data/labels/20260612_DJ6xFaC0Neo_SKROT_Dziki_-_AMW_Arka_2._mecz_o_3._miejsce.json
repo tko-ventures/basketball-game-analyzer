@@ -15,7 +15,7 @@
   },
   "away": {
    "team": "AMW Arka",
-   "roster": "",
+   "roster": "amw_arka_gdynia",
    "kit": ""
   },
   "notes": "",
@@ -246,5 +246,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-29T20:48:14"
+ "saved_at": "2026-10-29T21:05:10"
 }

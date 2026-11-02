@@ -1,0 +1,15 @@
+tid,team,number,name,team_name,note
+1001,home,11,Kasper Suurorg,Energa Trefl,
+1002,away,16,Tahlik Chavez,Dziki Warszawa,
+1003,ref,,,,
+1004,home,21,Szymon Zapała,Energa Trefl,
+1005,home,37,Dylan Addae-Wusu,Energa Trefl,
+1006,home,33,Kenneth Goins,Energa Trefl,
+1007,away,,,Dziki Warszawa,"Dziki, number not legible (maybe #0)"
+1008,away,45,Łukasz Frąckiewicz,Dziki Warszawa,
+1009,ref,,,,
+1010,away,11,Grzegorz Kamiński,Dziki Warszawa,
+1012,home,2,Grant Sherfield,Energa Trefl,
+1014,away,,,Dziki Warszawa,
+1015,home,,,Energa Trefl,"Trefl, number not legible; may be a fragment of 1006 (#33): check against the five Trefl on court"
+1016,ref,,,,

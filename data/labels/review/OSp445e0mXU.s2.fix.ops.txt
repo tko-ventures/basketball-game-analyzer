@@ -1,0 +1,16 @@
+clip 20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka
+# Gold v0, implementer's pass 2 of 2 on shot 2 (546-1172): what the kit votes miss, read on
+# runs/<clip>/review/s2/overview_*.jpg, tracks_*.jpg and zoom_*.jpg after pass 1.
+delete 1014  # sliver on a person in black by the bench, off court
+cut 1009 735 735  # referee's box on a Legia player
+cut 1008 655 660  # boxes spread over two people and a referee
+number 1002 32
+number 1008 42
+number 1004 25
+number 1012 3
+number 1003 45
+number 1005 0
+number 1006 1
+number 1013 2  # "2" on the back at 740 and 805
+note 1004 boxes 800-850 often cover two Legia players in contact
+note 1007 light-kit player, number not legible; crops at 1040-1065 look like other players

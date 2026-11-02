@@ -1,0 +1,386 @@
+{
+ "team": "AMW Arka Gdynia",
+ "team_id_plk": 121,
+ "aliases": [
+  "AMW Arka Gdynia"
+ ],
+ "retrieved": "2026-10-29",
+ "seasons": {
+  "2024/25": {
+   "team_name": "AMW Arka Gdynia",
+   "source": "https://plk.pl/archiwum/27/druzyny/121/amw-arka-gdynia/sklad",
+   "coach": "",
+   "players": [
+    {
+     "number": "2",
+     "name": "Jordan Watson",
+     "pos": "PG",
+     "height_cm": 188,
+     "nat": "USA",
+     "id_plk": 112672
+    },
+    {
+     "number": "3",
+     "name": "Anderson Tolbert Iii",
+     "pos": "SF/PF",
+     "height_cm": 203,
+     "nat": "USA",
+     "id_plk": 109159
+    },
+    {
+     "number": "6",
+     "name": "Wiktor Sewioł",
+     "pos": "SF/PF",
+     "height_cm": 198,
+     "nat": "POL",
+     "id_plk": 4201
+    },
+    {
+     "number": "10",
+     "name": "Łukasz Kolenda",
+     "pos": "PG/SG",
+     "height_cm": 195,
+     "nat": "POL",
+     "id_plk": 10664
+    },
+    {
+     "number": "11",
+     "name": "Jakub Gawlas",
+     "pos": "PF",
+     "height_cm": 199,
+     "nat": "POL",
+     "id_plk": 53254
+    },
+    {
+     "number": "14",
+     "name": "Filip Kowalczyk",
+     "pos": "PG/SG",
+     "height_cm": 192,
+     "nat": "POL",
+     "id_plk": 49979
+    },
+    {
+     "number": "17",
+     "name": "Jakub Zabłocki",
+     "pos": "C",
+     "height_cm": 214,
+     "nat": "POL",
+     "id_plk": 49635
+    },
+    {
+     "number": "20",
+     "name": "Nemanja Nenadić",
+     "pos": "PG/SG",
+     "height_cm": 197,
+     "nat": "SRB",
+     "id_plk": 86345
+    },
+    {
+     "number": "22",
+     "name": "Daniel Szymkiewicz",
+     "pos": "SG",
+     "height_cm": 195,
+     "nat": "POL",
+     "id_plk": 1400
+    },
+    {
+     "number": "23",
+     "name": "Ivan Gavrilović",
+     "pos": "PF",
+     "height_cm": 206,
+     "nat": "SRB",
+     "id_plk": 114136
+    },
+    {
+     "number": "30",
+     "name": "Jakub Garbacz",
+     "pos": "SG/SF",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 1702
+    },
+    {
+     "number": "32",
+     "name": "Adrian Bogucki",
+     "pos": "C",
+     "height_cm": 215,
+     "nat": "POL",
+     "id_plk": 31398
+    },
+    {
+     "number": "34",
+     "name": "Adam Hrycaniuk",
+     "pos": "C",
+     "height_cm": 206,
+     "nat": "POL",
+     "id_plk": 988
+    },
+    {
+     "number": "45",
+     "name": "Stefan Djordjević",
+     "pos": "C",
+     "height_cm": 206,
+     "nat": "SRB",
+     "id_plk": 108827
+    },
+    {
+     "number": "77",
+     "name": "Jakub Szumert",
+     "pos": "PF",
+     "height_cm": 205,
+     "nat": "POL",
+     "id_plk": 52072
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2025/26": {
+   "team_name": "AMW Arka Gdynia",
+   "source": "https://plk.pl/archiwum/28/druzyny/121/amw-arka-gdynia/sklad",
+   "coach": "Mantas Cesnauskis",
+   "players": [
+    {
+     "number": "1",
+     "name": "Jarosław Zyskowski",
+     "pos": "SF/PF",
+     "height_cm": 203,
+     "nat": "POL",
+     "id_plk": 1484
+    },
+    {
+     "number": "3",
+     "name": "Michael Okauru",
+     "pos": "SG",
+     "height_cm": 192,
+     "nat": "USA",
+     "id_plk": 116161
+    },
+    {
+     "number": "8",
+     "name": "Mateusz Orłowski",
+     "pos": "SG",
+     "height_cm": 187,
+     "nat": "POL",
+     "id_plk": 60133
+    },
+    {
+     "number": "9",
+     "name": "Kamil Łączyński",
+     "pos": "PG",
+     "height_cm": 183,
+     "nat": "POL",
+     "id_plk": 2057
+    },
+    {
+     "number": "10",
+     "name": "Milan Barbitch",
+     "pos": "PG/SG",
+     "height_cm": 196,
+     "nat": "FRA",
+     "id_plk": 120808
+    },
+    {
+     "number": "11",
+     "name": "Krzysztof Babis",
+     "pos": "PG/SG",
+     "height_cm": 191,
+     "nat": "POL",
+     "id_plk": 52610
+    },
+    {
+     "number": "14",
+     "name": "Filip Kowalczyk",
+     "pos": "PG/SG",
+     "height_cm": 192,
+     "nat": "POL",
+     "id_plk": 49979
+    },
+    {
+     "number": "17",
+     "name": "Jakub Zabłocki",
+     "pos": "C",
+     "height_cm": 214,
+     "nat": "POL",
+     "id_plk": 49635
+    },
+    {
+     "number": "30",
+     "name": "Jakub Garbacz",
+     "pos": "SG/SF",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 1702
+    },
+    {
+     "number": "33",
+     "name": "Luke Barrett",
+     "pos": "SF",
+     "height_cm": 198,
+     "nat": "USA",
+     "id_plk": 116160
+    },
+    {
+     "number": "34",
+     "name": "Adam Hrycaniuk",
+     "pos": "C",
+     "height_cm": 206,
+     "nat": "POL",
+     "id_plk": 988
+    },
+    {
+     "number": "37",
+     "name": "Einaras Tubutis",
+     "pos": "PF/C",
+     "height_cm": 208,
+     "nat": "LTU",
+     "id_plk": 116158
+    },
+    {
+     "number": "77",
+     "name": "Marcus Weathers",
+     "pos": "SF/PF",
+     "height_cm": 196,
+     "nat": "USA",
+     "id_plk": 107181
+    },
+    {
+     "number": "98",
+     "name": "Kresimir Ljubicić",
+     "pos": "C",
+     "height_cm": 208,
+     "nat": "CRO",
+     "id_plk": 116159
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2026/27": {
+   "team_name": "AMW Arka Gdynia",
+   "source": "https://plk.pl/druzyny/121/amw-arka-gdynia/sklad",
+   "coach": "Mantas Cesnauskis",
+   "players": [
+    {
+     "number": "1",
+     "name": "Jarosław Zyskowski",
+     "pos": "SF/PF",
+     "height_cm": 203,
+     "nat": "POL",
+     "id_plk": 1484
+    },
+    {
+     "number": "3",
+     "name": "Aleksander Marcinkowski",
+     "pos": "PG",
+     "height_cm": 193,
+     "nat": "POL",
+     "id_plk": 62983
+    },
+    {
+     "number": "6",
+     "name": "Oliwier Botorek",
+     "pos": "SF",
+     "height_cm": 200,
+     "nat": "POL",
+     "id_plk": 66125
+    },
+    {
+     "number": "8",
+     "name": "Jake O'Neil",
+     "pos": "SG/SF",
+     "height_cm": 193,
+     "nat": "USA",
+     "id_plk": 123714
+    },
+    {
+     "number": "9",
+     "name": "Kamil Łączyński",
+     "pos": "PG",
+     "height_cm": 183,
+     "nat": "POL",
+     "id_plk": 2057
+    },
+    {
+     "number": "10",
+     "name": "Mate Vucić",
+     "pos": "C",
+     "height_cm": 205,
+     "nat": "CRO",
+     "id_plk": 102486
+    },
+    {
+     "number": "11",
+     "name": "Kasper Suurorg",
+     "pos": "PG",
+     "height_cm": 200,
+     "nat": "EST",
+     "id_plk": 115406
+    },
+    {
+     "number": "13",
+     "name": "Stanisław Polaczuk",
+     "pos": "SG/PF",
+     "height_cm": 197,
+     "nat": "POL",
+     "id_plk": 66116
+    },
+    {
+     "number": "14",
+     "name": "Filip Kowalczyk",
+     "pos": "PG/SG",
+     "height_cm": 192,
+     "nat": "POL",
+     "id_plk": 49979
+    },
+    {
+     "number": "20",
+     "name": "Alex Stein",
+     "pos": "PG/SG",
+     "height_cm": 190,
+     "nat": "USA",
+     "id_plk": 105298
+    },
+    {
+     "number": "21",
+     "name": "Michał Nagel",
+     "pos": "SF/PF",
+     "height_cm": 201,
+     "nat": "POL",
+     "id_plk": 73195
+    },
+    {
+     "number": "30",
+     "name": "Jakub Garbacz",
+     "pos": "SG/SF",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 1702
+    },
+    {
+     "number": "33",
+     "name": "Shiloh Robinson",
+     "pos": "PF/C",
+     "height_cm": 201,
+     "nat": "USA",
+     "id_plk": 114853
+    },
+    {
+     "number": "40",
+     "name": "Jaquan Lawrence",
+     "pos": "PF/C",
+     "height_cm": 205,
+     "nat": "USA",
+     "id_plk": 123715
+    },
+    {
+     "number": "50",
+     "name": "Kacper Zarzycki",
+     "pos": "C",
+     "height_cm": 201,
+     "nat": "POL",
+     "id_plk": 66098
+    }
+   ],
+   "note": "Current PLK squad page as of 2026-10-29."
+  }
+ }
+}

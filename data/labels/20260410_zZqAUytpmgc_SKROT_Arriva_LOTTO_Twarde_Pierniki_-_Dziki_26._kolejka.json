@@ -10,7 +10,7 @@
   "season": "2025/26",
   "home": {
    "team": "Arriva LOTTO Twarde Pierniki",
-   "roster": "",
+   "roster": "arriva_lotto_twarde_pierniki_torun",
    "kit": ""
   },
   "away": {
@@ -171,5 +171,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-29T20:46:32"
+ "saved_at": "2026-10-29T21:05:10"
 }

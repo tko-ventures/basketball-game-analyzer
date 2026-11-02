@@ -10,7 +10,7 @@
   "season": "2025/26",
   "home": {
    "team": "MKS DG",
-   "roster": "",
+   "roster": "mks_dabrowa_gornicza",
    "kit": ""
   },
   "away": {
@@ -316,5 +316,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-29T20:45:03"
+ "saved_at": "2026-10-29T21:05:10"
 }

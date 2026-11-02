@@ -1,0 +1,27 @@
+clip 20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski
+# Gold v0, implementer's pass 1 of 2 on shot 33: kit-vote proposals from scripts/review_sheets.py --propose
+# (Skalski's TeamClassifier fitted on the shot), checked against tracks_*.jpg and zoom_*.jpg in runs/<clip>/review/s33.
+# shot 33 (6879-7436): kit-vote proposals
+team 1033 home  # kit L 110/112
+cut 1033 6925 6930  # kit D x2 in contact
+cut 1030 6980 6980  # box wider than tall
+cut 1030 7000 7000  # box wider than tall
+team 1030 away  # kit D 103/106
+team 1032 home  # kit L 101/109
+cut 1032 7085 7085  # kit D x1 in contact
+cut 1032 7095 7095  # kit D x1 in contact
+cut 1032 7110 7120  # kit D x3 in contact
+cut 1032 7250 7255  # kit D x2 in contact
+cut 1032 7420 7420  # kit D x1 in contact
+team 1035 away  # kit D 69/74
+cut 1035 7265 7280  # kit L x3 in contact
+cut 1035 7405 7410  # kit L x2 in contact
+team 1031 home  # kit L 110/110
+team 1037 home  # kit L 110/110
+team 1039 away  # kit D 111/112
+team 1036 home  # kit L 69/72
+cut 1036 7100 7100  # kit D x1 in contact
+cut 1036 7115 7115  # kit D x1 in contact
+cut 1036 7300 7300  # kit D x1 in contact
+team 1040 away  # kit D 62/62
+team 1038 away  # kit D 110/112

@@ -1,0 +1,394 @@
+{
+ "team": "Arriva Lotto Twarde Pierniki Toruń",
+ "team_id_plk": 101,
+ "aliases": [
+  "Arriva Lotto Twarde Pierniki Toruń"
+ ],
+ "retrieved": "2026-10-29",
+ "seasons": {
+  "2024/25": {
+   "team_name": "Arriva Lotto Twarde Pierniki Toruń",
+   "source": "https://plk.pl/archiwum/27/druzyny/101/arriva-polski-cukier-torun/sklad",
+   "coach": "Srdjan Subotić ",
+   "players": [
+    {
+     "number": "0",
+     "name": "Abdul Malik Abu",
+     "pos": "C",
+     "height_cm": 201,
+     "nat": "USA",
+     "id_plk": 108808
+    },
+    {
+     "number": "1",
+     "name": "Divine Myles",
+     "pos": "PG",
+     "height_cm": 176,
+     "nat": "USA",
+     "id_plk": 108807
+    },
+    {
+     "number": "2",
+     "name": "Wojciech Tomaszewski",
+     "pos": "SG/SF",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 41651
+    },
+    {
+     "number": "3",
+     "name": "Michael Ertel",
+     "pos": "SG",
+     "height_cm": 183,
+     "nat": "USA",
+     "id_plk": 108806
+    },
+    {
+     "number": "6",
+     "name": "Paweł Sowiński",
+     "pos": "PG",
+     "height_cm": 193,
+     "nat": "POL",
+     "id_plk": 51308
+    },
+    {
+     "number": "9",
+     "name": "Dominik Wilczek",
+     "pos": "SG",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 14672
+    },
+    {
+     "number": "10",
+     "name": "Ignacy Grochowski",
+     "pos": "SF/PF",
+     "height_cm": 200,
+     "nat": "POL",
+     "id_plk": 11603
+    },
+    {
+     "number": "11",
+     "name": "Dzimitry Ryuny",
+     "pos": "PF",
+     "height_cm": 205,
+     "nat": "BLR",
+     "id_plk": 108986
+    },
+    {
+     "number": "12",
+     "name": "Aljaz Kunc",
+     "pos": "PF",
+     "height_cm": 205,
+     "nat": "SLO",
+     "id_plk": 99362
+    },
+    {
+     "number": "17",
+     "name": "Hubert Lipiński",
+     "pos": "PF/C",
+     "height_cm": 208,
+     "nat": "POL",
+     "id_plk": 52346
+    },
+    {
+     "number": "18",
+     "name": "Viktor Gaddefors",
+     "pos": "SF/PF",
+     "height_cm": 201,
+     "nat": "SWE",
+     "id_plk": 108809
+    },
+    {
+     "number": "21",
+     "name": "Bartosz Diduszko",
+     "pos": "SF",
+     "height_cm": 198,
+     "nat": "POL",
+     "id_plk": 1326
+    },
+    {
+     "number": "27",
+     "name": "Hubert Prokopowicz",
+     "pos": "SF",
+     "height_cm": 195,
+     "nat": "POL",
+     "id_plk": 68529
+    },
+    {
+     "number": "31",
+     "name": "Grzegorz Kamiński",
+     "pos": "SF",
+     "height_cm": 198,
+     "nat": "POL",
+     "id_plk": 27552
+    },
+    {
+     "number": "40",
+     "name": "Barret Benson",
+     "pos": "C",
+     "height_cm": 206,
+     "nat": "USA",
+     "id_plk": 96333
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2025/26": {
+   "team_name": "Arriva Lotto Twarde Pierniki Toruń",
+   "source": "https://plk.pl/archiwum/28/druzyny/101/arriva-lotto-twarde-pierniki-torun/sklad",
+   "coach": "Srdjan Subotić",
+   "players": [
+    {
+     "number": "0",
+     "name": "Arik Smith",
+     "pos": "PG/SG",
+     "height_cm": 185,
+     "nat": "USA",
+     "id_plk": 99363
+    },
+    {
+     "number": "1",
+     "name": "Isaiah Cousins",
+     "pos": "PG/SG",
+     "height_cm": 192,
+     "nat": "USA",
+     "id_plk": 120921
+    },
+    {
+     "number": "2",
+     "name": "Tayler Persons",
+     "pos": "PG",
+     "height_cm": 188,
+     "nat": "USA",
+     "id_plk": 81655
+    },
+    {
+     "number": "3",
+     "name": "Noah Thomasson",
+     "pos": "PG/SG",
+     "height_cm": 191,
+     "nat": "USA",
+     "id_plk": 116006
+    },
+    {
+     "number": "4",
+     "name": "Mateusz Szlachetka",
+     "pos": "PG/SG",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 31651
+    },
+    {
+     "number": "6",
+     "name": "Paweł Sowiński",
+     "pos": "PG",
+     "height_cm": 193,
+     "nat": "POL",
+     "id_plk": 51308
+    },
+    {
+     "number": "7",
+     "name": "Adam Brenk",
+     "pos": "PG/SG",
+     "height_cm": 192,
+     "nat": "POL",
+     "id_plk": 3737
+    },
+    {
+     "number": "8",
+     "name": "Maciej Kenig",
+     "pos": "SG/SF",
+     "height_cm": 201,
+     "nat": "POL",
+     "id_plk": 54336
+    },
+    {
+     "number": "10",
+     "name": "Maximilian Lipiński",
+     "pos": "SF",
+     "height_cm": 188,
+     "nat": "POL",
+     "id_plk": 65182
+    },
+    {
+     "number": "11",
+     "name": "Aleksandar Langović",
+     "pos": "PF/C",
+     "height_cm": 202,
+     "nat": "SRB",
+     "id_plk": 99408
+    },
+    {
+     "number": "12",
+     "name": "Aljaz Kunc",
+     "pos": "PF",
+     "height_cm": 205,
+     "nat": "SLO",
+     "id_plk": 99362
+    },
+    {
+     "number": "17",
+     "name": "Hubert Lipiński",
+     "pos": "PF/C",
+     "height_cm": 208,
+     "nat": "POL",
+     "id_plk": 52346
+    },
+    {
+     "number": "19",
+     "name": "Jan Szumański",
+     "pos": "SF",
+     "height_cm": 193,
+     "nat": "POL",
+     "id_plk": 57476
+    },
+    {
+     "number": "27",
+     "name": "Hubert Prokopowicz",
+     "pos": "SF",
+     "height_cm": 195,
+     "nat": "POL",
+     "id_plk": 68529
+    },
+    {
+     "number": "77",
+     "name": "Damian Kulig",
+     "pos": "C",
+     "height_cm": 205,
+     "nat": "POL",
+     "id_plk": 238
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2026/27": {
+   "team_name": "Arriva Lotto Twarde Pierniki Toruń",
+   "source": "https://plk.pl/druzyny/101/arriva-lotto-twarde-pierniki-torun/sklad",
+   "coach": "Srdjan Subotić",
+   "players": [
+    {
+     "number": "0",
+     "name": "Bennett Vander Plas",
+     "pos": "PF/C",
+     "height_cm": 201,
+     "nat": "USA",
+     "id_plk": 116397
+    },
+    {
+     "number": "1",
+     "name": "Isaiah Cousins",
+     "pos": "PG/SG",
+     "height_cm": 192,
+     "nat": "USA",
+     "id_plk": 120921
+    },
+    {
+     "number": "2",
+     "name": "Luka Sakota",
+     "pos": "SG",
+     "height_cm": 198,
+     "nat": "CRO",
+     "id_plk": 116247
+    },
+    {
+     "number": "6",
+     "name": "Paweł Sowiński",
+     "pos": "PG",
+     "height_cm": 193,
+     "nat": "POL",
+     "id_plk": 51308
+    },
+    {
+     "number": "8",
+     "name": "Maciej Kenig",
+     "pos": "SG/SF",
+     "height_cm": 201,
+     "nat": "POL",
+     "id_plk": 54336
+    },
+    {
+     "number": "10",
+     "name": "Maximilian Lipiński",
+     "pos": "SF",
+     "height_cm": 188,
+     "nat": "POL",
+     "id_plk": 65182
+    },
+    {
+     "number": "11",
+     "name": "Raymond Cowels III",
+     "pos": "SG/SF",
+     "height_cm": 192,
+     "nat": "USA",
+     "id_plk": 73618
+    },
+    {
+     "number": "17",
+     "name": "Hubert Lipiński",
+     "pos": "PF/C",
+     "height_cm": 208,
+     "nat": "POL",
+     "id_plk": 52346
+    },
+    {
+     "number": "18",
+     "name": "Viktor Gaddefors",
+     "pos": "SF/PF",
+     "height_cm": 201,
+     "nat": "SWE",
+     "id_plk": 108809
+    },
+    {
+     "number": "19",
+     "name": "Jan Szumański",
+     "pos": "SF",
+     "height_cm": 193,
+     "nat": "POL",
+     "id_plk": 57476
+    },
+    {
+     "number": "22",
+     "name": "Mateusz Żebrowski",
+     "pos": "PG/SG",
+     "height_cm": 188,
+     "nat": "POL",
+     "id_plk": 52334
+    },
+    {
+     "number": "27",
+     "name": "Hubert Prokopowicz",
+     "pos": "SF",
+     "height_cm": 195,
+     "nat": "POL",
+     "id_plk": 68529
+    },
+    {
+     "number": "32",
+     "name": "Maksymilian Wilczek",
+     "pos": "SF",
+     "height_cm": 197,
+     "nat": "POL",
+     "id_plk": 39034
+    },
+    {
+     "number": "35",
+     "name": "Kristaps Kilps",
+     "pos": "SG",
+     "height_cm": 194,
+     "nat": "LAT",
+     "id_plk": 123537
+    },
+    {
+     "number": "77",
+     "name": "Damian Kulig",
+     "pos": "C",
+     "height_cm": 205,
+     "nat": "POL",
+     "id_plk": 238
+    }
+   ],
+   "note": "Current PLK squad page as of 2026-10-29."
+  }
+ }
+}

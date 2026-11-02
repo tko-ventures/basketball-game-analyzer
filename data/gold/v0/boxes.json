@@ -1,0 +1,12840 @@
+{
+ "version": "v0",
+ "geometry": "prefill (detector or SAM mask box); AP50 only in v0",
+ "frames": [
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 1935,
+   "boxes": [
+    {
+     "xyxy": [
+      590.0,
+      527.0,
+      731.0,
+      724.0
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      751.0,
+      484.0,
+      853.0,
+      700.0
+     ],
+     "team": "away",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1412.0,
+      601.0,
+      1542.0,
+      857.0
+     ],
+     "team": "away",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      723.0,
+      694.0,
+      913.0,
+      926.0
+     ],
+     "team": "away",
+     "tid": 1004,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1759.0,
+      498.0,
+      1868.0,
+      731.0
+     ],
+     "team": "ref",
+     "tid": 1013,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      382.0,
+      500.0,
+      483.0,
+      746.0
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      574.0,
+      719.0,
+      676.0,
+      925.0
+     ],
+     "team": "home",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1727.0,
+      630.0,
+      1824.0,
+      893.0
+     ],
+     "team": "home",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      802.0,
+      499.0,
+      922.0,
+      744.0
+     ],
+     "team": "away",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      40.0,
+      832.0,
+      175.0,
+      1079.0
+     ],
+     "team": "ref",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1018.0,
+      382.0,
+      1127.0,
+      571.0
+     ],
+     "team": "away",
+     "tid": 1011,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2000,
+   "boxes": [
+    {
+     "xyxy": [
+      601.0,
+      665.0,
+      819.0,
+      906.0
+     ],
+     "team": "away",
+     "tid": 1004,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1315.0,
+      584.0,
+      1457.0,
+      819.0
+     ],
+     "team": "away",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      257.0,
+      838.0,
+      402.0,
+      1080.0
+     ],
+     "team": "ref",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1574.0,
+      614.0,
+      1692.0,
+      892.0
+     ],
+     "team": "home",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1836.0,
+      504.0,
+      1919.0,
+      752.0
+     ],
+     "team": "ref",
+     "tid": 1013,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      879.0,
+      442.0,
+      957.0,
+      637.0
+     ],
+     "team": "away",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1043.0,
+      386.0,
+      1125.0,
+      578.0
+     ],
+     "team": "away",
+     "tid": 1011,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      822.0,
+      533.0,
+      920.0,
+      770.0
+     ],
+     "team": "away",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      946.0,
+      345.0,
+      1009.0,
+      493.0
+     ],
+     "team": "home",
+     "tid": 1012,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      604.0,
+      385.0,
+      704.0,
+      609.0
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      489.0,
+      707.0,
+      669.0,
+      921.0
+     ],
+     "team": "home",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      604.0,
+      332.0,
+      678.0,
+      505.0
+     ],
+     "team": "ref",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      585.0,
+      619.0,
+      676.0,
+      795.0
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2060,
+   "boxes": [
+    {
+     "xyxy": [
+      986.0,
+      393.0,
+      1083.0,
+      627.0
+     ],
+     "team": "away",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      704.0,
+      520.0,
+      848.0,
+      726.0
+     ],
+     "team": "away",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1406.0,
+      662.0,
+      1558.0,
+      924.0
+     ],
+     "team": "home",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1149.0,
+      577.0,
+      1304.0,
+      826.0
+     ],
+     "team": "away",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      532.0,
+      322.0,
+      596.0,
+      490.0
+     ],
+     "team": "ref",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1874.0,
+      500.0,
+      1919.0,
+      750.0
+     ],
+     "team": "ref",
+     "tid": 1013,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      240.0,
+      822.0,
+      383.0,
+      1079.0
+     ],
+     "team": "ref",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      507.0,
+      635.0,
+      671.0,
+      889.0
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      720.0,
+      347.0,
+      808.0,
+      557.0
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      434.0,
+      536.0,
+      620.0,
+      785.0
+     ],
+     "team": "away",
+     "tid": 1004,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      911.0,
+      350.0,
+      989.0,
+      549.0
+     ],
+     "team": "away",
+     "tid": null,
+     "src": "detector-added"
+    },
+    {
+     "xyxy": [
+      935.0,
+      339.0,
+      1008.0,
+      488.0
+     ],
+     "team": "home",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2125,
+   "boxes": [
+    {
+     "xyxy": [
+      150.0,
+      845.0,
+      275.0,
+      1079.0
+     ],
+     "team": "ref",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      988.0,
+      575.0,
+      1135.0,
+      800.0
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1865.0,
+      507.0,
+      1919.0,
+      777.0
+     ],
+     "team": "ref",
+     "tid": 1013,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1419.0,
+      500.0,
+      1518.0,
+      755.0
+     ],
+     "team": "home",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      600.0,
+      512.0,
+      700.0,
+      717.0
+     ],
+     "team": "home",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      884.0,
+      388.0,
+      963.0,
+      617.0
+     ],
+     "team": "away",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      417.0,
+      331.0,
+      492.0,
+      511.0
+     ],
+     "team": "ref",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1263.0,
+      571.0,
+      1358.0,
+      826.0
+     ],
+     "team": "away",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      662.0,
+      357.0,
+      779.0,
+      567.0
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      663.0,
+      372.0,
+      763.0,
+      567.0
+     ],
+     "team": "home",
+     "tid": 1012,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      954.4,
+      496.9,
+      1057.5,
+      624.4
+     ],
+     "team": "away",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      759.0,
+      480.0,
+      883.0,
+      695.0
+     ],
+     "team": "away",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2190,
+   "boxes": [
+    {
+     "xyxy": [
+      406.0,
+      354.0,
+      473.0,
+      542.0
+     ],
+     "team": "ref",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      815.0,
+      347.0,
+      912.0,
+      590.0
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      258.0,
+      543.0,
+      368.0,
+      798.0
+     ],
+     "team": "home",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      939.0,
+      585.0,
+      1061.0,
+      863.0
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      576.0,
+      539.0,
+      676.0,
+      783.0
+     ],
+     "team": "away",
+     "tid": 1004,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      114.0,
+      461.0,
+      252.0,
+      681.0
+     ],
+     "team": "home",
+     "tid": 1012,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      436.0,
+      452.0,
+      536.0,
+      692.0
+     ],
+     "team": "away",
+     "tid": 1011,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      944.0,
+      394.0,
+      1039.0,
+      631.0
+     ],
+     "team": "away",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      305.0,
+      895.0,
+      427.0,
+      1079.0
+     ],
+     "team": "ref",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      963.0,
+      577.0,
+      1154.0,
+      825.0
+     ],
+     "team": "away",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1196.0,
+      389.0,
+      1314.0,
+      651.0
+     ],
+     "team": "away",
+     "tid": 1001,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2255,
+   "boxes": [
+    {
+     "xyxy": [
+      671.0,
+      446.0,
+      771.0,
+      689.0
+     ],
+     "team": "away",
+     "tid": 1011,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1213.0,
+      551.0,
+      1370.0,
+      777.0
+     ],
+     "team": "away",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      602.0,
+      346.0,
+      678.0,
+      539.0
+     ],
+     "team": "ref",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      700.0,
+      836.0,
+      831.0,
+      1080.0
+     ],
+     "team": "ref",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      263.0,
+      585.0,
+      373.0,
+      844.0
+     ],
+     "team": "home",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      208.0,
+      428.0,
+      308.0,
+      674.0
+     ],
+     "team": "home",
+     "tid": 1012,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1138.0,
+      412.0,
+      1234.0,
+      612.0
+     ],
+     "team": "away",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1170.0,
+      583.0,
+      1288.0,
+      831.0
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1097.0,
+      383.0,
+      1193.0,
+      607.0
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      856.9,
+      581.2,
+      1055.6,
+      785.6
+     ],
+     "team": "away",
+     "tid": 1004,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2320,
+   "boxes": [
+    {
+     "xyxy": [
+      434.0,
+      623.0,
+      557.0,
+      895.0
+     ],
+     "team": "home",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      997.0,
+      388.0,
+      1104.0,
+      606.0
+     ],
+     "team": "away",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      576.0,
+      358.0,
+      664.0,
+      550.0
+     ],
+     "team": "ref",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      872.0,
+      552.0,
+      982.0,
+      816.0
+     ],
+     "team": "away",
+     "tid": 1004,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      820.0,
+      462.0,
+      918.0,
+      680.0
+     ],
+     "team": "away",
+     "tid": 1011,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      259.0,
+      447.0,
+      350.0,
+      685.0
+     ],
+     "team": "home",
+     "tid": 1012,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1266.0,
+      561.0,
+      1438.0,
+      772.0
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      736.0,
+      836.0,
+      857.0,
+      1080.0
+     ],
+     "team": "ref",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1265.0,
+      535.0,
+      1410.0,
+      725.0
+     ],
+     "team": "away",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1151.0,
+      432.0,
+      1282.0,
+      659.0
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      836.0,
+      348.0,
+      930.0,
+      548.0
+     ],
+     "team": "home",
+     "tid": 1008,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2380,
+   "boxes": [
+    {
+     "xyxy": [
+      671.0,
+      864.0,
+      801.0,
+      1080.0
+     ],
+     "team": "ref",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      509.0,
+      367.0,
+      608.0,
+      569.0
+     ],
+     "team": "ref",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      831.0,
+      488.0,
+      970.0,
+      728.0
+     ],
+     "team": "away",
+     "tid": 1011,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1188.0,
+      457.0,
+      1363.0,
+      691.0
+     ],
+     "team": "away",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      222.0,
+      474.0,
+      318.0,
+      742.0
+     ],
+     "team": "home",
+     "tid": 1012,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      885.0,
+      399.0,
+      997.0,
+      643.0
+     ],
+     "team": "away",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1463.0,
+      510.0,
+      1596.0,
+      764.0
+     ],
+     "team": "away",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      555.0,
+      655.0,
+      639.0,
+      926.0
+     ],
+     "team": "home",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      628.0,
+      381.0,
+      714.0,
+      602.0
+     ],
+     "team": "home",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1428.0,
+      605.0,
+      1543.0,
+      868.0
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1132.0,
+      438.0,
+      1325.0,
+      673.0
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1035.0,
+      549.4,
+      1170.0,
+      825.0
+     ],
+     "team": "away",
+     "tid": 1004,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2445,
+   "boxes": [
+    {
+     "xyxy": [
+      1063.0,
+      725.0,
+      1260.0,
+      1034.0
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      989.0,
+      519.0,
+      1146.0,
+      755.0
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      559.0,
+      534.0,
+      715.0,
+      746.0
+     ],
+     "team": "away",
+     "tid": 1011,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1185.0,
+      525.0,
+      1315.0,
+      791.0
+     ],
+     "team": "away",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      399.0,
+      690.0,
+      511.0,
+      925.0
+     ],
+     "team": "home",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      782.0,
+      408.0,
+      879.0,
+      631.0
+     ],
+     "team": "away",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1424.0,
+      575.0,
+      1571.0,
+      878.0
+     ],
+     "team": "away",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      653.0,
+      357.0,
+      744.0,
+      572.0
+     ],
+     "team": "ref",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      437.0,
+      440.0,
+      539.0,
+      678.0
+     ],
+     "team": "home",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1362.0,
+      518.0,
+      1456.0,
+      801.0
+     ],
+     "team": "away",
+     "tid": 1004,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14345,
+   "boxes": [
+    {
+     "xyxy": [
+      1840.0,
+      731.0,
+      1919.0,
+      1025.0
+     ],
+     "team": "ref",
+     "tid": 1026,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      868.0,
+      579.0,
+      1009.0,
+      829.0
+     ],
+     "team": "home",
+     "tid": 1016,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      770.0,
+      491.0,
+      853.0,
+      734.0
+     ],
+     "team": "away",
+     "tid": 1018,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1372.0,
+      543.0,
+      1471.0,
+      792.0
+     ],
+     "team": "home",
+     "tid": 1017,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1259.0,
+      414.0,
+      1357.0,
+      626.0
+     ],
+     "team": "away",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1673.0,
+      381.0,
+      1748.0,
+      563.0
+     ],
+     "team": "home",
+     "tid": 1020,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      838.0,
+      386.0,
+      945.0,
+      585.0
+     ],
+     "team": "away",
+     "tid": 1028,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1399.0,
+      309.0,
+      1471.0,
+      517.0
+     ],
+     "team": "ref",
+     "tid": 1022,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1376.2,
+      435.0,
+      1445.6,
+      540.0
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14405,
+   "boxes": [
+    {
+     "xyxy": [
+      1646.0,
+      716.0,
+      1751.0,
+      1008.0
+     ],
+     "team": "ref",
+     "tid": 1026,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1260.0,
+      549.0,
+      1364.0,
+      788.0
+     ],
+     "team": "home",
+     "tid": 1017,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      750.0,
+      366.0,
+      826.0,
+      572.0
+     ],
+     "team": "away",
+     "tid": 1028,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1143.0,
+      520.0,
+      1239.0,
+      771.0
+     ],
+     "team": "away",
+     "tid": 1021,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      729.0,
+      558.0,
+      843.0,
+      811.0
+     ],
+     "team": "home",
+     "tid": 1016,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      681.0,
+      491.0,
+      763.0,
+      736.0
+     ],
+     "team": "away",
+     "tid": 1018,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1280.0,
+      422.0,
+      1378.0,
+      636.0
+     ],
+     "team": "away",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1756.9,
+      446.2,
+      1822.5,
+      631.9
+     ],
+     "team": "home",
+     "tid": 1020,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1509.4,
+      506.2,
+      1653.8,
+      639.4
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1356.0,
+      331.0,
+      1434.0,
+      509.0
+     ],
+     "team": "ref",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14465,
+   "boxes": [
+    {
+     "xyxy": [
+      1412.0,
+      668.0,
+      1513.0,
+      925.0
+     ],
+     "team": "ref",
+     "tid": 1026,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      331.0,
+      566.0,
+      493.0,
+      808.0
+     ],
+     "team": "home",
+     "tid": 1016,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      945.0,
+      556.0,
+      1050.0,
+      794.0
+     ],
+     "team": "home",
+     "tid": 1017,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      588.0,
+      366.0,
+      659.0,
+      551.0
+     ],
+     "team": "away",
+     "tid": 1028,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      862.0,
+      525.0,
+      966.0,
+      761.0
+     ],
+     "team": "away",
+     "tid": 1021,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1247.0,
+      414.0,
+      1345.0,
+      617.0
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1003.0,
+      429.0,
+      1081.0,
+      613.0
+     ],
+     "team": "away",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      527.0,
+      481.0,
+      609.0,
+      684.0
+     ],
+     "team": "away",
+     "tid": 1018,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1464.0,
+      402.0,
+      1595.0,
+      573.0
+     ],
+     "team": "home",
+     "tid": 1020,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      0.0,
+      426.0,
+      49.0,
+      635.0
+     ],
+     "team": "ref",
+     "tid": 1027,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1753.0,
+      557.0,
+      1868.0,
+      684.0
+     ],
+     "team": "away",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14525,
+   "boxes": [
+    {
+     "xyxy": [
+      124.0,
+      557.0,
+      279.0,
+      795.0
+     ],
+     "team": "home",
+     "tid": 1016,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      798.0,
+      603.0,
+      937.0,
+      840.0
+     ],
+     "team": "home",
+     "tid": 1017,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1406.0,
+      652.0,
+      1502.0,
+      910.0
+     ],
+     "team": "ref",
+     "tid": 1026,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      645.0,
+      374.0,
+      708.0,
+      542.0
+     ],
+     "team": "away",
+     "tid": 1028,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      421.0,
+      454.0,
+      517.0,
+      658.0
+     ],
+     "team": "away",
+     "tid": 1018,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      882.0,
+      413.0,
+      975.0,
+      567.0
+     ],
+     "team": "away",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1160.0,
+      428.0,
+      1250.0,
+      616.0
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      748.0,
+      519.0,
+      841.0,
+      749.0
+     ],
+     "team": "away",
+     "tid": 1021,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1713.0,
+      580.0,
+      1878.0,
+      718.0
+     ],
+     "team": "away",
+     "tid": null,
+     "src": "detector-added"
+    },
+    {
+     "xyxy": [
+      6.0,
+      417.0,
+      120.0,
+      621.0
+     ],
+     "team": "ref",
+     "tid": null,
+     "src": "detector-added"
+    },
+    {
+     "xyxy": [
+      1085.0,
+      407.0,
+      1185.0,
+      501.0
+     ],
+     "team": "home",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14585,
+   "boxes": [
+    {
+     "xyxy": [
+      1529.0,
+      681.0,
+      1635.0,
+      944.0
+     ],
+     "team": "ref",
+     "tid": 1026,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      137.0,
+      536.0,
+      247.0,
+      772.0
+     ],
+     "team": "home",
+     "tid": 1016,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      618.0,
+      621.0,
+      760.0,
+      871.0
+     ],
+     "team": "home",
+     "tid": 1017,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      965.0,
+      377.0,
+      1046.0,
+      534.0
+     ],
+     "team": "away",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1803.0,
+      496.0,
+      1919.0,
+      688.0
+     ],
+     "team": "away",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      823.0,
+      426.0,
+      896.0,
+      631.0
+     ],
+     "team": "away",
+     "tid": 1021,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      581.0,
+      448.0,
+      659.0,
+      616.0
+     ],
+     "team": "away",
+     "tid": 1018,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1099.0,
+      360.0,
+      1170.0,
+      524.0
+     ],
+     "team": "home",
+     "tid": 1020,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      686.0,
+      292.0,
+      758.0,
+      508.0
+     ],
+     "team": "away",
+     "tid": 1028,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      686.2,
+      301.9,
+      740.6,
+      448.1
+     ],
+     "team": "home",
+     "tid": 1019,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      901.9,
+      397.5,
+      967.5,
+      631.9
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      104.0,
+      416.0,
+      234.0,
+      634.0
+     ],
+     "team": "ref",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14645,
+   "boxes": [
+    {
+     "xyxy": [
+      1527.0,
+      746.0,
+      1719.0,
+      1040.0
+     ],
+     "team": "ref",
+     "tid": 1026,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      930.0,
+      433.0,
+      1033.0,
+      648.0
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      309.0,
+      495.0,
+      414.0,
+      714.0
+     ],
+     "team": "home",
+     "tid": 1016,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1720.0,
+      465.0,
+      1862.0,
+      712.0
+     ],
+     "team": "away",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      639.0,
+      635.0,
+      749.0,
+      919.0
+     ],
+     "team": "home",
+     "tid": 1017,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1323.0,
+      376.0,
+      1394.0,
+      568.0
+     ],
+     "team": "home",
+     "tid": 1020,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      906.0,
+      282.0,
+      974.0,
+      468.0
+     ],
+     "team": "home",
+     "tid": 1019,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1009.0,
+      368.0,
+      1078.0,
+      582.0
+     ],
+     "team": "away",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      89.0,
+      381.0,
+      184.0,
+      685.0
+     ],
+     "team": "ref",
+     "tid": 1027,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      747.0,
+      342.0,
+      845.0,
+      561.0
+     ],
+     "team": "away",
+     "tid": 1028,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      769.0,
+      459.0,
+      876.0,
+      656.0
+     ],
+     "team": "away",
+     "tid": 1021,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      635.0,
+      512.0,
+      729.0,
+      819.0
+     ],
+     "team": "away",
+     "tid": 1018,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14705,
+   "boxes": [
+    {
+     "xyxy": [
+      1282.0,
+      737.0,
+      1464.0,
+      1080.0
+     ],
+     "team": "ref",
+     "tid": 1026,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      370.0,
+      512.0,
+      473.0,
+      756.0
+     ],
+     "team": "home",
+     "tid": 1016,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1406.0,
+      432.0,
+      1486.0,
+      649.0
+     ],
+     "team": "home",
+     "tid": 1020,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      466.0,
+      494.0,
+      586.0,
+      745.0
+     ],
+     "team": "away",
+     "tid": 1021,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1124.0,
+      348.0,
+      1237.0,
+      535.0
+     ],
+     "team": "home",
+     "tid": 1019,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1284.0,
+      478.0,
+      1392.0,
+      758.0
+     ],
+     "team": "away",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      368.0,
+      736.0,
+      589.0,
+      1009.0
+     ],
+     "team": "away",
+     "tid": 1018,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      650.0,
+      675.0,
+      776.0,
+      927.0
+     ],
+     "team": "home",
+     "tid": 1017,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      826.0,
+      462.0,
+      1003.0,
+      682.0
+     ],
+     "team": "away",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      745.0,
+      409.0,
+      858.0,
+      610.0
+     ],
+     "team": "away",
+     "tid": 1028,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      779.0,
+      461.0,
+      867.0,
+      708.0
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1403.0,
+      332.0,
+      1476.0,
+      523.0
+     ],
+     "team": "ref",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14765,
+   "boxes": [
+    {
+     "xyxy": [
+      940.0,
+      478.0,
+      1049.0,
+      731.0
+     ],
+     "team": "away",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1304.0,
+      850.0,
+      1455.0,
+      1078.0
+     ],
+     "team": "ref",
+     "tid": 1026,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1416.0,
+      504.0,
+      1506.0,
+      751.0
+     ],
+     "team": "home",
+     "tid": 1020,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      439.0,
+      530.0,
+      548.0,
+      806.0
+     ],
+     "team": "away",
+     "tid": 1021,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1580.0,
+      423.0,
+      1699.0,
+      649.0
+     ],
+     "team": "home",
+     "tid": 1019,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      447.0,
+      772.0,
+      596.0,
+      1078.0
+     ],
+     "team": "away",
+     "tid": 1018,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      0.0,
+      515.0,
+      33.0,
+      801.0
+     ],
+     "team": "ref",
+     "tid": 1027,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      563.0,
+      584.0,
+      715.0,
+      854.0
+     ],
+     "team": "home",
+     "tid": 1016,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      634.0,
+      540.0,
+      781.0,
+      744.0
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      534.0,
+      425.0,
+      710.0,
+      669.0
+     ],
+     "team": "away",
+     "tid": 1028,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1132.0,
+      766.0,
+      1259.0,
+      1071.0
+     ],
+     "team": "home",
+     "tid": 1017,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      641.2,
+      466.9,
+      723.8,
+      581.2
+     ],
+     "team": "away",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1437.0,
+      348.0,
+      1510.0,
+      555.0
+     ],
+     "team": "ref",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14825,
+   "boxes": [
+    {
+     "xyxy": [
+      16.0,
+      590.0,
+      152.0,
+      879.0
+     ],
+     "team": "ref",
+     "tid": 1027,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1512.0,
+      375.0,
+      1610.0,
+      590.0
+     ],
+     "team": "ref",
+     "tid": 1022,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1105.0,
+      515.0,
+      1288.0,
+      750.0
+     ],
+     "team": "away",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1197.0,
+      621.0,
+      1418.0,
+      924.0
+     ],
+     "team": "home",
+     "tid": 1016,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1504.0,
+      582.0,
+      1630.0,
+      856.0
+     ],
+     "team": "home",
+     "tid": 1020,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      449.0,
+      596.0,
+      601.0,
+      911.0
+     ],
+     "team": "away",
+     "tid": 1021,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      521.0,
+      455.0,
+      630.0,
+      729.0
+     ],
+     "team": "away",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1796.0,
+      712.0,
+      1919.0,
+      1046.0
+     ],
+     "team": "home",
+     "tid": 1017,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      400.0,
+      403.0,
+      549.0,
+      674.0
+     ],
+     "team": "away",
+     "tid": 1028,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1369.0,
+      603.0,
+      1478.0,
+      894.0
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      795.0,
+      787.5,
+      1016.2,
+      1080.0
+     ],
+     "team": "away",
+     "tid": 1018,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25515,
+   "boxes": [
+    {
+     "xyxy": [
+      428.0,
+      494.0,
+      557.0,
+      680.0
+     ],
+     "team": "away",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      496.0,
+      498.0,
+      641.0,
+      729.0
+     ],
+     "team": "away",
+     "tid": 1036,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1069.0,
+      656.0,
+      1235.0,
+      930.0
+     ],
+     "team": "away",
+     "tid": 1032,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      709.0,
+      483.0,
+      820.0,
+      678.0
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      626.0,
+      498.0,
+      741.0,
+      731.0
+     ],
+     "team": "home",
+     "tid": 1031,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1743.0,
+      503.0,
+      1833.0,
+      740.0
+     ],
+     "team": "ref",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      670.0,
+      323.0,
+      755.0,
+      494.0
+     ],
+     "team": "ref",
+     "tid": 1034,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1071.0,
+      406.0,
+      1153.0,
+      622.0
+     ],
+     "team": "home",
+     "tid": 1037,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1063.0,
+      552.0,
+      1202.0,
+      840.0
+     ],
+     "team": "home",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      751.0,
+      418.0,
+      823.0,
+      598.0
+     ],
+     "team": "home",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25575,
+   "boxes": [
+    {
+     "xyxy": [
+      1070.0,
+      665.0,
+      1244.0,
+      928.0
+     ],
+     "team": "away",
+     "tid": 1032,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      864.0,
+      470.0,
+      983.0,
+      698.0
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      959.0,
+      578.0,
+      1057.0,
+      833.0
+     ],
+     "team": "home",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      524.0,
+      528.0,
+      658.0,
+      715.0
+     ],
+     "team": "away",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      485.0,
+      363.0,
+      562.0,
+      539.0
+     ],
+     "team": "away",
+     "tid": 1042,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      314.0,
+      819.0,
+      400.0,
+      1080.0
+     ],
+     "team": "ref",
+     "tid": 1040,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1075.0,
+      403.0,
+      1152.0,
+      618.0
+     ],
+     "team": "home",
+     "tid": 1037,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      687.0,
+      314.0,
+      753.0,
+      496.0
+     ],
+     "team": "ref",
+     "tid": 1034,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      731.0,
+      472.0,
+      869.0,
+      700.0
+     ],
+     "team": "away",
+     "tid": 1036,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1787.0,
+      507.0,
+      1858.0,
+      748.0
+     ],
+     "team": "ref",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      733.0,
+      442.0,
+      841.0,
+      648.0
+     ],
+     "team": "home",
+     "tid": 1038,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25630,
+   "boxes": [
+    {
+     "xyxy": [
+      1427.0,
+      655.0,
+      1553.0,
+      927.0
+     ],
+     "team": "away",
+     "tid": 1032,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      756.0,
+      544.0,
+      863.0,
+      783.0
+     ],
+     "team": "away",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      920.0,
+      487.0,
+      1088.0,
+      731.0
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1216.0,
+      588.0,
+      1346.0,
+      825.0
+     ],
+     "team": "home",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      225.0,
+      835.0,
+      334.0,
+      1079.0
+     ],
+     "team": "ref",
+     "tid": 1040,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1026.0,
+      428.0,
+      1108.0,
+      629.0
+     ],
+     "team": "home",
+     "tid": 1037,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      677.0,
+      447.0,
+      813.0,
+      655.0
+     ],
+     "team": "home",
+     "tid": 1038,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      354.0,
+      413.0,
+      443.0,
+      622.0
+     ],
+     "team": "away",
+     "tid": 1042,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      605.0,
+      307.0,
+      670.0,
+      502.0
+     ],
+     "team": "ref",
+     "tid": 1034,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      807.0,
+      478.0,
+      912.0,
+      736.0
+     ],
+     "team": "home",
+     "tid": 1031,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1727.0,
+      510.0,
+      1795.0,
+      752.0
+     ],
+     "team": "ref",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      890.6,
+      324.4,
+      960.0,
+      493.1
+     ],
+     "team": "away",
+     "tid": 1043,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25685,
+   "boxes": [
+    {
+     "xyxy": [
+      1031.0,
+      466.0,
+      1168.0,
+      690.0
+     ],
+     "team": "away",
+     "tid": 1036,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      535.0,
+      442.0,
+      621.0,
+      619.0
+     ],
+     "team": "home",
+     "tid": 1038,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      770.0,
+      544.0,
+      897.0,
+      809.0
+     ],
+     "team": "away",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1355.0,
+      637.0,
+      1473.0,
+      928.0
+     ],
+     "team": "away",
+     "tid": 1032,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1742.0,
+      509.0,
+      1809.0,
+      754.0
+     ],
+     "team": "ref",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      255.0,
+      838.0,
+      365.0,
+      1079.0
+     ],
+     "team": "ref",
+     "tid": 1040,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      392.0,
+      412.0,
+      474.0,
+      624.0
+     ],
+     "team": "away",
+     "tid": 1042,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1277.0,
+      577.0,
+      1375.0,
+      856.0
+     ],
+     "team": "home",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      600.0,
+      308.0,
+      666.0,
+      510.0
+     ],
+     "team": "ref",
+     "tid": 1034,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      900.0,
+      461.0,
+      1045.0,
+      712.0
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      831.0,
+      491.0,
+      936.0,
+      753.0
+     ],
+     "team": "home",
+     "tid": 1031,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      894.4,
+      378.8,
+      967.5,
+      504.4
+     ],
+     "team": "home",
+     "tid": 1037,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      823.1,
+      328.1,
+      907.5,
+      495.0
+     ],
+     "team": "away",
+     "tid": 1043,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25745,
+   "boxes": [
+    {
+     "xyxy": [
+      659.0,
+      610.0,
+      809.0,
+      912.0
+     ],
+     "team": "away",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      902.0,
+      509.0,
+      997.0,
+      769.0
+     ],
+     "team": "home",
+     "tid": 1031,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1293.0,
+      592.0,
+      1417.0,
+      888.0
+     ],
+     "team": "away",
+     "tid": 1032,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      984.0,
+      422.0,
+      1108.0,
+      642.0
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      698.0,
+      423.0,
+      804.0,
+      635.0
+     ],
+     "team": "home",
+     "tid": 1038,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      522.0,
+      333.0,
+      602.0,
+      518.0
+     ],
+     "team": "ref",
+     "tid": 1034,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      304.0,
+      431.0,
+      398.0,
+      655.0
+     ],
+     "team": "away",
+     "tid": 1042,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1133.0,
+      459.0,
+      1295.0,
+      704.0
+     ],
+     "team": "away",
+     "tid": 1036,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1275.0,
+      524.0,
+      1361.0,
+      793.0
+     ],
+     "team": "home",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      372.0,
+      841.0,
+      505.0,
+      1079.0
+     ],
+     "team": "ref",
+     "tid": 1040,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      882.0,
+      342.0,
+      976.0,
+      518.0
+     ],
+     "team": "away",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25800,
+   "boxes": [
+    {
+     "xyxy": [
+      606.0,
+      645.0,
+      732.0,
+      926.0
+     ],
+     "team": "away",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      901.0,
+      545.0,
+      1031.0,
+      781.0
+     ],
+     "team": "home",
+     "tid": 1031,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      305.0,
+      456.0,
+      402.0,
+      675.0
+     ],
+     "team": "away",
+     "tid": 1042,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1122.0,
+      560.0,
+      1254.0,
+      813.0
+     ],
+     "team": "away",
+     "tid": 1032,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      525.0,
+      340.0,
+      623.0,
+      535.0
+     ],
+     "team": "ref",
+     "tid": 1034,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      783.0,
+      372.0,
+      896.0,
+      529.0
+     ],
+     "team": "home",
+     "tid": 1037,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      611.0,
+      440.0,
+      683.0,
+      646.0
+     ],
+     "team": "home",
+     "tid": 1038,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      537.0,
+      834.0,
+      647.0,
+      1080.0
+     ],
+     "team": "ref",
+     "tid": 1040,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1808.0,
+      515.0,
+      1877.0,
+      773.0
+     ],
+     "team": "ref",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1043.0,
+      413.0,
+      1130.0,
+      624.0
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      963.0,
+      374.0,
+      1041.0,
+      576.0
+     ],
+     "team": "away",
+     "tid": 1043,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1170.0,
+      495.0,
+      1297.0,
+      724.0
+     ],
+     "team": "home",
+     "tid": 1035,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25855,
+   "boxes": [
+    {
+     "xyxy": [
+      809.0,
+      565.0,
+      912.0,
+      839.0
+     ],
+     "team": "home",
+     "tid": 1031,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1008.0,
+      405.0,
+      1119.0,
+      638.0
+     ],
+     "team": "away",
+     "tid": 1043,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      554.0,
+      850.0,
+      668.0,
+      1079.0
+     ],
+     "team": "ref",
+     "tid": 1040,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1246.0,
+      480.0,
+      1360.0,
+      736.0
+     ],
+     "team": "away",
+     "tid": 1036,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      567.0,
+      341.0,
+      638.0,
+      538.0
+     ],
+     "team": "ref",
+     "tid": 1034,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1160.0,
+      546.0,
+      1321.0,
+      824.0
+     ],
+     "team": "away",
+     "tid": 1032,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      607.0,
+      660.0,
+      721.0,
+      925.0
+     ],
+     "team": "away",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      899.0,
+      413.0,
+      1028.0,
+      636.0
+     ],
+     "team": "home",
+     "tid": 1037,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1054.0,
+      474.0,
+      1198.0,
+      719.0
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1179.4,
+      543.8,
+      1260.0,
+      736.9
+     ],
+     "team": "home",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      315.0,
+      496.9,
+      390.0,
+      720.0
+     ],
+     "team": "home",
+     "tid": 1038,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1826.2,
+      530.6,
+      1895.6,
+      781.9
+     ],
+     "team": "ref",
+     "tid": 1039,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25915,
+   "boxes": [
+    {
+     "xyxy": [
+      824.0,
+      542.0,
+      924.0,
+      830.0
+     ],
+     "team": "home",
+     "tid": 1031,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      975.0,
+      544.0,
+      1130.0,
+      798.0
+     ],
+     "team": "away",
+     "tid": 1032,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      567.0,
+      720.0,
+      698.0,
+      931.0
+     ],
+     "team": "away",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      10.0,
+      577.0,
+      138.0,
+      840.0
+     ],
+     "team": "home",
+     "tid": 1038,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1310.0,
+      525.0,
+      1413.0,
+      803.0
+     ],
+     "team": "away",
+     "tid": 1036,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1104.0,
+      536.0,
+      1250.0,
+      798.0
+     ],
+     "team": "home",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      531.0,
+      352.0,
+      610.0,
+      567.0
+     ],
+     "team": "ref",
+     "tid": 1034,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1206.0,
+      492.0,
+      1368.0,
+      781.0
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1891.0,
+      562.0,
+      1919.0,
+      851.0
+     ],
+     "team": "ref",
+     "tid": 1039,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25970,
+   "boxes": [
+    {
+     "xyxy": [
+      1208.0,
+      485.0,
+      1312.0,
+      782.0
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      894.0,
+      578.0,
+      1054.0,
+      837.0
+     ],
+     "team": "home",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1084.0,
+      582.0,
+      1265.0,
+      880.0
+     ],
+     "team": "away",
+     "tid": 1036,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      166.0,
+      705.0,
+      350.0,
+      1017.0
+     ],
+     "team": "away",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      746.0,
+      658.0,
+      848.0,
+      923.0
+     ],
+     "team": "home",
+     "tid": 1031,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1018.0,
+      491.0,
+      1149.0,
+      754.0
+     ],
+     "team": "home",
+     "tid": 1037,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      501.0,
+      367.0,
+      586.0,
+      588.0
+     ],
+     "team": "ref",
+     "tid": 1034,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      128.0,
+      551.0,
+      272.0,
+      807.0
+     ],
+     "team": "home",
+     "tid": 1038,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      655.0,
+      548.0,
+      766.0,
+      803.0
+     ],
+     "team": "away",
+     "tid": 1032,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 580,
+   "boxes": [
+    {
+     "xyxy": [
+      357,
+      619,
+      474,
+      887
+     ],
+     "team": "ref",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1347,
+      378,
+      1421,
+      580
+     ],
+     "team": "away",
+     "tid": 1004,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      823,
+      576,
+      955,
+      863
+     ],
+     "team": "away",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1142,
+      368,
+      1249,
+      576
+     ],
+     "team": "home",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1626,
+      328,
+      1683,
+      482
+     ],
+     "team": "ref",
+     "tid": 1011,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      0,
+      523,
+      32,
+      757
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      463,
+      406,
+      538,
+      627
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      656,
+      279,
+      708,
+      423
+     ],
+     "team": "ref",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      842,
+      336,
+      937,
+      479
+     ],
+     "team": "home",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      862,
+      468,
+      925,
+      686
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      838,
+      294,
+      931,
+      423
+     ],
+     "team": "away",
+     "tid": 1010,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 640,
+   "boxes": [
+    {
+     "xyxy": [
+      373,
+      623,
+      492,
+      903
+     ],
+     "team": "ref",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      842,
+      575,
+      972,
+      862
+     ],
+     "team": "away",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      0,
+      493,
+      76,
+      766
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1588,
+      318,
+      1653,
+      484
+     ],
+     "team": "ref",
+     "tid": 1011,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1118,
+      383,
+      1235,
+      581
+     ],
+     "team": "home",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      491,
+      403,
+      576,
+      630
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      676,
+      280,
+      736,
+      419
+     ],
+     "team": "ref",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1170,
+      396,
+      1285,
+      554
+     ],
+     "team": "away",
+     "tid": 1004,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      878,
+      282,
+      966,
+      421
+     ],
+     "team": "away",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      907,
+      470,
+      980,
+      677
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      895,
+      335,
+      977,
+      490
+     ],
+     "team": "home",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1361.2,
+      444.4,
+      1501.9,
+      585
+     ],
+     "team": "away",
+     "tid": 1012,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1303.1,
+      408.8,
+      1372.5,
+      540
+     ],
+     "team": "home",
+     "tid": 1013,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 700,
+   "boxes": [
+    {
+     "xyxy": [
+      892,
+      356,
+      1023,
+      515
+     ],
+     "team": "home",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      450,
+      627,
+      571,
+      916
+     ],
+     "team": "ref",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      756,
+      560,
+      902,
+      854
+     ],
+     "team": "away",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      47,
+      490,
+      151,
+      770
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      784,
+      369,
+      899,
+      543
+     ],
+     "team": "away",
+     "tid": 1004,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1656,
+      327,
+      1716,
+      503
+     ],
+     "team": "ref",
+     "tid": 1011,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      715,
+      285,
+      774,
+      428
+     ],
+     "team": "ref",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      548,
+      413,
+      632,
+      644
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1076,
+      421,
+      1172,
+      669
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      838,
+      407,
+      956,
+      585
+     ],
+     "team": "home",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1024,
+      412,
+      1155,
+      644
+     ],
+     "team": "away",
+     "tid": 1012,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1058,
+      420,
+      1173,
+      668
+     ],
+     "team": "home",
+     "tid": 1013,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 760,
+   "boxes": [
+    {
+     "xyxy": [
+      233,
+      472,
+      389,
+      738
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1246,
+      508,
+      1393,
+      761
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      479,
+      632,
+      592,
+      920
+     ],
+     "team": "ref",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      646,
+      394,
+      733,
+      586
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      829,
+      559,
+      1009,
+      796
+     ],
+     "team": "away",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      794,
+      342,
+      887,
+      529
+     ],
+     "team": "home",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1700,
+      334,
+      1761,
+      511
+     ],
+     "team": "ref",
+     "tid": 1011,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1370,
+      309,
+      1430,
+      483
+     ],
+     "team": "away",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1059,
+      430,
+      1143,
+      650
+     ],
+     "team": "home",
+     "tid": 1013,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      726,
+      287,
+      801,
+      481
+     ],
+     "team": "ref",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      748.1,
+      350.6,
+      800.6,
+      547.5
+     ],
+     "team": "home",
+     "tid": 1003,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 820,
+   "boxes": [
+    {
+     "xyxy": [
+      1435,
+      613,
+      1629,
+      862
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      472,
+      682,
+      658,
+      919
+     ],
+     "team": "ref",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1142,
+      380,
+      1261,
+      563
+     ],
+     "team": "home",
+     "tid": 1013,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      902,
+      351,
+      1027,
+      507
+     ],
+     "team": "home",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1384,
+      477,
+      1499,
+      714
+     ],
+     "team": "away",
+     "tid": 1012,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      581,
+      470,
+      741,
+      674
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1378,
+      552,
+      1560,
+      810
+     ],
+     "team": "away",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1492,
+      343,
+      1606,
+      542
+     ],
+     "team": "away",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      711,
+      441,
+      808,
+      654
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1771,
+      344,
+      1859,
+      508
+     ],
+     "team": "ref",
+     "tid": 1011,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      676,
+      284,
+      768,
+      431
+     ],
+     "team": "ref",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      780,
+      386.2,
+      873.8,
+      551.2
+     ],
+     "team": "home",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      594.4,
+      405,
+      746.2,
+      540
+     ],
+     "team": "away",
+     "tid": 1004,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 880,
+   "boxes": [
+    {
+     "xyxy": [
+      571,
+      500,
+      713,
+      764
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      728,
+      317,
+      821,
+      484
+     ],
+     "team": "home",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1445,
+      518,
+      1642,
+      759
+     ],
+     "team": "away",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      675,
+      401,
+      797,
+      610
+     ],
+     "team": "home",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1068,
+      427,
+      1156,
+      599
+     ],
+     "team": "away",
+     "tid": 1012,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1177,
+      341,
+      1261,
+      515
+     ],
+     "team": "away",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1484,
+      725,
+      1723,
+      966
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      509,
+      477,
+      611,
+      742
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      242,
+      296,
+      307,
+      438
+     ],
+     "team": "ref",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      725,
+      741,
+      855,
+      991
+     ],
+     "team": "ref",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1494.4,
+      313.1,
+      1588.1,
+      457.5
+     ],
+     "team": "ref",
+     "tid": 1011,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      926.2,
+      328.1,
+      1001.2,
+      450
+     ],
+     "team": "home",
+     "tid": 1013,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 940,
+   "boxes": [
+    {
+     "xyxy": [
+      964,
+      768,
+      1118,
+      1079
+     ],
+     "team": "ref",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      469,
+      536,
+      655,
+      763
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1374,
+      641,
+      1592,
+      919
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      652,
+      440,
+      762,
+      634
+     ],
+     "team": "away",
+     "tid": 1004,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      701,
+      347,
+      814,
+      494
+     ],
+     "team": "away",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      493,
+      422,
+      671,
+      615
+     ],
+     "team": "home",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      12,
+      510,
+      166,
+      747
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1480,
+      500,
+      1606,
+      761
+     ],
+     "team": "away",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      428,
+      413,
+      532,
+      562
+     ],
+     "team": "away",
+     "tid": 1012,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1554,
+      311,
+      1621,
+      448
+     ],
+     "team": "ref",
+     "tid": 1011,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      796,
+      319,
+      892,
+      471
+     ],
+     "team": "home",
+     "tid": 1013,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      442,
+      376,
+      544,
+      510
+     ],
+     "team": "home",
+     "tid": 1007,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 1000,
+   "boxes": [
+    {
+     "xyxy": [
+      251,
+      391,
+      418,
+      584
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1598,
+      627,
+      1772,
+      934
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      436,
+      388,
+      549,
+      529
+     ],
+     "team": "away",
+     "tid": 1012,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      570,
+      479,
+      689,
+      717
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1537,
+      419,
+      1646,
+      636
+     ],
+     "team": "away",
+     "tid": 1004,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1006,
+      316,
+      1090,
+      485
+     ],
+     "team": "away",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1257,
+      335,
+      1361,
+      492
+     ],
+     "team": "home",
+     "tid": 1013,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      263,
+      297,
+      335,
+      431
+     ],
+     "team": "ref",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      656,
+      362,
+      767,
+      513
+     ],
+     "team": "home",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      766,
+      355,
+      864,
+      553
+     ],
+     "team": "home",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      971.2,
+      787.5,
+      1053.8,
+      1080
+     ],
+     "team": "ref",
+     "tid": 1001,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 1060,
+   "boxes": [
+    {
+     "xyxy": [
+      488,
+      697,
+      623,
+      923
+     ],
+     "team": "ref",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1289,
+      583,
+      1454,
+      835
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      485,
+      368,
+      568,
+      559
+     ],
+     "team": "home",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      976,
+      323,
+      1058,
+      487
+     ],
+     "team": "away",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1174,
+      358,
+      1253,
+      530
+     ],
+     "team": "home",
+     "tid": 1013,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      358,
+      293,
+      464,
+      546
+     ],
+     "team": "home",
+     "tid": 1007,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 1120,
+   "boxes": [
+    {
+     "xyxy": [
+      383,
+      663,
+      490,
+      922
+     ],
+     "team": "ref",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1738,
+      556,
+      1894,
+      835
+     ],
+     "team": "away",
+     "tid": 1004,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      919,
+      534,
+      1021,
+      770
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1534,
+      356,
+      1621,
+      498
+     ],
+     "team": "ref",
+     "tid": 1011,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      489,
+      368,
+      622,
+      538
+     ],
+     "team": "home",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      464,
+      297,
+      525,
+      435
+     ],
+     "team": "ref",
+     "tid": 1016,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      5,
+      511,
+      113,
+      752
+     ],
+     "team": "away",
+     "tid": 1012,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      346,
+      328,
+      429,
+      563
+     ],
+     "team": "home",
+     "tid": 1015,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1008,
+      345,
+      1103,
+      529
+     ],
+     "team": "home",
+     "tid": 1013,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      971,
+      335,
+      1060,
+      490
+     ],
+     "team": "away",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      257.0,
+      328.0,
+      362.0,
+      519.0
+     ],
+     "team": "away",
+     "tid": null,
+     "src": "detector-added"
+    },
+    {
+     "xyxy": [
+      169.0,
+      490.0,
+      308.0,
+      611.0
+     ],
+     "team": "home",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 10,
+   "frame": 3050,
+   "boxes": [
+    {
+     "xyxy": [
+      479,
+      693,
+      649,
+      921
+     ],
+     "team": "home",
+     "tid": 4,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1650,
+      680,
+      1863,
+      942
+     ],
+     "team": "home",
+     "tid": 1020,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1629,
+      609,
+      1697,
+      852
+     ],
+     "team": "away",
+     "tid": 1018,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1065,
+      470,
+      1182,
+      673
+     ],
+     "team": "away",
+     "tid": 1022,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1390,
+      492,
+      1456,
+      701
+     ],
+     "team": "away",
+     "tid": 1026,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1321,
+      481,
+      1416,
+      696
+     ],
+     "team": "home",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      702,
+      695,
+      829,
+      926
+     ],
+     "team": "away",
+     "tid": 1019,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      316,
+      378,
+      384,
+      532
+     ],
+     "team": "ref",
+     "tid": 1021,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      826,
+      421,
+      909,
+      622
+     ],
+     "team": "home",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1286.2,
+      823.1,
+      1387.5,
+      1080
+     ],
+     "team": "ref",
+     "tid": 1017,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1043.0,
+      446.0,
+      1122.0,
+      602.0
+     ],
+     "team": "away",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 10,
+   "frame": 3115,
+   "boxes": [
+    {
+     "xyxy": [
+      1774,
+      592,
+      1888,
+      819
+     ],
+     "team": "away",
+     "tid": 1018,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      835,
+      600,
+      979,
+      800
+     ],
+     "team": "away",
+     "tid": 1019,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      732,
+      581,
+      870,
+      794
+     ],
+     "team": "home",
+     "tid": 9,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1189,
+      449,
+      1263,
+      631
+     ],
+     "team": "away",
+     "tid": 1022,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1138,
+      500,
+      1210,
+      709
+     ],
+     "team": "away",
+     "tid": 1026,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1055,
+      506,
+      1152,
+      713
+     ],
+     "team": "home",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1495,
+      807,
+      1608,
+      1078
+     ],
+     "team": "ref",
+     "tid": 1017,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1005.0,
+      401.0,
+      1088.0,
+      567.0
+     ],
+     "team": "home",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 10,
+   "frame": 3180,
+   "boxes": [
+    {
+     "xyxy": [
+      788,
+      579,
+      881,
+      757
+     ],
+     "team": "home",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1658,
+      604,
+      1739,
+      823
+     ],
+     "team": "home",
+     "tid": 1020,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      778,
+      413,
+      864,
+      561
+     ],
+     "team": "home",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1472,
+      567,
+      1583,
+      743
+     ],
+     "team": "away",
+     "tid": 1018,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      563,
+      560,
+      690,
+      747
+     ],
+     "team": "away",
+     "tid": 1019,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      247,
+      445,
+      309,
+      580
+     ],
+     "team": "ref",
+     "tid": 1021,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      949,
+      407,
+      1036,
+      545
+     ],
+     "team": "home",
+     "tid": 1,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1023,
+      447,
+      1097,
+      626
+     ],
+     "team": "away",
+     "tid": 1022,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      981,
+      407,
+      1049,
+      583
+     ],
+     "team": "away",
+     "tid": 1027,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1451,
+      747,
+      1568,
+      1032
+     ],
+     "team": "ref",
+     "tid": 1017,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      565,
+      554,
+      686,
+      743
+     ],
+     "team": "away",
+     "tid": 1026,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 10,
+   "frame": 3250,
+   "boxes": [
+    {
+     "xyxy": [
+      57,
+      578,
+      208,
+      761
+     ],
+     "team": "away",
+     "tid": 7,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1537,
+      609,
+      1667,
+      799
+     ],
+     "team": "home",
+     "tid": 1020,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1555,
+      772,
+      1714,
+      1012
+     ],
+     "team": "ref",
+     "tid": 1017,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1209,
+      526,
+      1337,
+      696
+     ],
+     "team": "away",
+     "tid": 8,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1034,
+      451,
+      1103,
+      631
+     ],
+     "team": "away",
+     "tid": 1022,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1080,
+      555,
+      1200,
+      696
+     ],
+     "team": "home",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1107,
+      398,
+      1207,
+      557
+     ],
+     "team": "away",
+     "tid": 1027,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      309.0,
+      575.0,
+      513.0,
+      705.0
+     ],
+     "team": "home",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 10,
+   "frame": 3315,
+   "boxes": [
+    {
+     "xyxy": [
+      1830,
+      944,
+      1919,
+      1079
+     ],
+     "team": "ref",
+     "tid": 1017,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1511,
+      540,
+      1664,
+      709
+     ],
+     "team": "home",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1853,
+      507,
+      1919,
+      718
+     ],
+     "team": "away",
+     "tid": 1022,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      693,
+      478,
+      797,
+      645
+     ],
+     "team": "home",
+     "tid": 9,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      526,
+      506,
+      622,
+      654
+     ],
+     "team": "away",
+     "tid": 7,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      858,
+      405,
+      921,
+      534
+     ],
+     "team": "ref",
+     "tid": 1021,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      645,
+      442,
+      736,
+      587
+     ],
+     "team": "away",
+     "tid": 1026,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 10,
+   "frame": 3380,
+   "boxes": [
+    {
+     "xyxy": [
+      1764,
+      689,
+      1881,
+      956
+     ],
+     "team": "home",
+     "tid": 1020,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1110,
+      498,
+      1196,
+      697
+     ],
+     "team": "home",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      587,
+      453,
+      649,
+      624
+     ],
+     "team": "away",
+     "tid": 1026,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1070,
+      383,
+      1153,
+      598
+     ],
+     "team": "home",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      825,
+      356,
+      895,
+      516
+     ],
+     "team": "ref",
+     "tid": 1021,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 10,
+   "frame": 3445,
+   "boxes": [
+    {
+     "xyxy": [
+      1260,
+      608,
+      1383,
+      823
+     ],
+     "team": "home",
+     "tid": 1020,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      683,
+      457,
+      787,
+      648
+     ],
+     "team": "home",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1852,
+      459,
+      1919,
+      623
+     ],
+     "team": "home",
+     "tid": 1032,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      472,
+      462,
+      562,
+      641
+     ],
+     "team": "away",
+     "tid": 1026,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      817,
+      439,
+      907,
+      590
+     ],
+     "team": "home",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      807,
+      782,
+      905,
+      1050
+     ],
+     "team": "ref",
+     "tid": 1017,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6410,
+   "boxes": [
+    {
+     "xyxy": [
+      1484,
+      511,
+      1618,
+      725
+     ],
+     "team": "home",
+     "tid": 1036,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1676,
+      518,
+      1780,
+      749
+     ],
+     "team": "away",
+     "tid": 1040,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1389,
+      436,
+      1483,
+      644
+     ],
+     "team": "home",
+     "tid": 1038,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      998,
+      386,
+      1066,
+      543
+     ],
+     "team": "home",
+     "tid": 1034,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      688,
+      314,
+      772,
+      472
+     ],
+     "team": "away",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1748,
+      422,
+      1801,
+      621
+     ],
+     "team": "ref",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      39,
+      922,
+      145,
+      1080
+     ],
+     "team": "ref",
+     "tid": 1044,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      645,
+      316,
+      702,
+      465
+     ],
+     "team": "ref",
+     "tid": 1045,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      684,
+      574,
+      856,
+      799
+     ],
+     "team": "home",
+     "tid": 1042,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      617,
+      614,
+      740,
+      865
+     ],
+     "team": "away",
+     "tid": 1041,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      850,
+      571,
+      979,
+      789
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      817,
+      556,
+      912,
+      818
+     ],
+     "team": "away",
+     "tid": 1037,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6470,
+   "boxes": [
+    {
+     "xyxy": [
+      1722,
+      558,
+      1856,
+      819
+     ],
+     "team": "away",
+     "tid": 1040,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1362,
+      435,
+      1436,
+      621
+     ],
+     "team": "home",
+     "tid": 1038,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      235,
+      540,
+      335,
+      785
+     ],
+     "team": "away",
+     "tid": 1041,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      830,
+      537,
+      981,
+      826
+     ],
+     "team": "away",
+     "tid": 1037,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      560,
+      504,
+      671,
+      716
+     ],
+     "team": "home",
+     "tid": 1042,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1532,
+      471,
+      1624,
+      664
+     ],
+     "team": "away",
+     "tid": 1043,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1473,
+      505,
+      1570,
+      733
+     ],
+     "team": "home",
+     "tid": 1036,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1699,
+      414,
+      1760,
+      609
+     ],
+     "team": "ref",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      210,
+      874,
+      349,
+      1079
+     ],
+     "team": "ref",
+     "tid": 1044,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      626,
+      323,
+      696,
+      485
+     ],
+     "team": "away",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      968,
+      367,
+      1057,
+      544
+     ],
+     "team": "home",
+     "tid": 1034,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      666,
+      325,
+      735,
+      469
+     ],
+     "team": "ref",
+     "tid": 1045,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6525,
+   "boxes": [
+    {
+     "xyxy": [
+      1020,
+      557,
+      1182,
+      831
+     ],
+     "team": "away",
+     "tid": 1037,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1402,
+      517,
+      1489,
+      748
+     ],
+     "team": "home",
+     "tid": 1036,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      902,
+      513,
+      1083,
+      761
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1548,
+      476,
+      1648,
+      673
+     ],
+     "team": "away",
+     "tid": 1043,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1595,
+      586,
+      1687,
+      848
+     ],
+     "team": "away",
+     "tid": 1040,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1332,
+      425,
+      1401,
+      622
+     ],
+     "team": "home",
+     "tid": 1038,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      228,
+      493,
+      376,
+      686
+     ],
+     "team": "away",
+     "tid": 1041,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      503,
+      486,
+      605,
+      673
+     ],
+     "team": "home",
+     "tid": 1042,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1678,
+      411,
+      1739,
+      607
+     ],
+     "team": "ref",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      894,
+      360,
+      951,
+      541
+     ],
+     "team": "home",
+     "tid": 1034,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      662,
+      312,
+      757,
+      476
+     ],
+     "team": "away",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      331,
+      841,
+      415,
+      1080
+     ],
+     "team": "ref",
+     "tid": 1044,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6580,
+   "boxes": [
+    {
+     "xyxy": [
+      1297,
+      523,
+      1378,
+      758
+     ],
+     "team": "home",
+     "tid": 1036,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      691,
+      468,
+      834,
+      655
+     ],
+     "team": "home",
+     "tid": 1042,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      560,
+      481,
+      652,
+      652
+     ],
+     "team": "away",
+     "tid": 1041,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1428,
+      587,
+      1535,
+      856
+     ],
+     "team": "away",
+     "tid": 1040,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1324,
+      425,
+      1395,
+      628
+     ],
+     "team": "home",
+     "tid": 1038,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      846,
+      491,
+      928,
+      706
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      880,
+      332,
+      956,
+      539
+     ],
+     "team": "home",
+     "tid": 1034,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      634,
+      322,
+      699,
+      464
+     ],
+     "team": "ref",
+     "tid": 1045,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1599,
+      478,
+      1683,
+      699
+     ],
+     "team": "away",
+     "tid": 1043,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1203,
+      547,
+      1306,
+      811
+     ],
+     "team": "away",
+     "tid": 1037,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1657,
+      416,
+      1725,
+      605
+     ],
+     "team": "ref",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      748.1,
+      320.6,
+      802.5,
+      466.9
+     ],
+     "team": "away",
+     "tid": 1039,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6640,
+   "boxes": [
+    {
+     "xyxy": [
+      381,
+      818,
+      496,
+      1080
+     ],
+     "team": "ref",
+     "tid": 1044,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1545,
+      473,
+      1651,
+      698
+     ],
+     "team": "away",
+     "tid": 1043,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      594,
+      361,
+      691,
+      575
+     ],
+     "team": "home",
+     "tid": 1042,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1297,
+      436,
+      1381,
+      628
+     ],
+     "team": "home",
+     "tid": 1038,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      491,
+      375,
+      593,
+      575
+     ],
+     "team": "away",
+     "tid": 1041,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1171,
+      513,
+      1263,
+      754
+     ],
+     "team": "home",
+     "tid": 1036,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1130,
+      564,
+      1269,
+      815
+     ],
+     "team": "away",
+     "tid": 1040,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      943,
+      394,
+      1043,
+      638
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1638,
+      406,
+      1697,
+      591
+     ],
+     "team": "ref",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1173,
+      426,
+      1256,
+      619
+     ],
+     "team": "away",
+     "tid": 1037,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      903.8,
+      318.8,
+      963.8,
+      465
+     ],
+     "team": "away",
+     "tid": 1039,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6695,
+   "boxes": [
+    {
+     "xyxy": [
+      321,
+      774,
+      451,
+      1080
+     ],
+     "team": "ref",
+     "tid": 1044,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      861,
+      504,
+      953,
+      732
+     ],
+     "team": "away",
+     "tid": 1040,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1338,
+      429,
+      1419,
+      631
+     ],
+     "team": "away",
+     "tid": 1043,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      225,
+      399,
+      339,
+      564
+     ],
+     "team": "away",
+     "tid": 1041,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      996,
+      489,
+      1121,
+      687
+     ],
+     "team": "home",
+     "tid": 1036,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1643,
+      409,
+      1704,
+      594
+     ],
+     "team": "ref",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      980,
+      364,
+      1055,
+      526
+     ],
+     "team": "home",
+     "tid": 1034,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      334,
+      358,
+      403,
+      551
+     ],
+     "team": "home",
+     "tid": 1042,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      616,
+      325,
+      681,
+      468
+     ],
+     "team": "ref",
+     "tid": 1045,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1102,
+      417,
+      1188,
+      597
+     ],
+     "team": "home",
+     "tid": 1038,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      908,
+      350,
+      997,
+      534
+     ],
+     "team": "away",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1093.1,
+      416.2,
+      1151.2,
+      590.6
+     ],
+     "team": "away",
+     "tid": 1037,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6750,
+   "boxes": [
+    {
+     "xyxy": [
+      1251,
+      402,
+      1306,
+      594
+     ],
+     "team": "away",
+     "tid": 1043,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      635,
+      473,
+      711,
+      669
+     ],
+     "team": "away",
+     "tid": 1040,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1133,
+      426,
+      1226,
+      605
+     ],
+     "team": "home",
+     "tid": 1038,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      251,
+      783,
+      434,
+      1079
+     ],
+     "team": "ref",
+     "tid": 1044,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      965,
+      365,
+      1038,
+      560
+     ],
+     "team": "home",
+     "tid": 1034,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      37,
+      350,
+      129,
+      546
+     ],
+     "team": "home",
+     "tid": 1042,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      797,
+      369,
+      881,
+      566
+     ],
+     "team": "away",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1036,
+      479,
+      1124,
+      690
+     ],
+     "team": "home",
+     "tid": 1036,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      615,
+      324,
+      680,
+      467
+     ],
+     "team": "ref",
+     "tid": 1045,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1637,
+      409,
+      1691,
+      599
+     ],
+     "team": "ref",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      862,
+      383,
+      976,
+      599
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6810,
+   "boxes": [
+    {
+     "xyxy": [
+      1191,
+      409,
+      1283,
+      594
+     ],
+     "team": "away",
+     "tid": 1043,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1010,
+      473,
+      1108,
+      687
+     ],
+     "team": "home",
+     "tid": 1036,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      843,
+      380,
+      922,
+      578
+     ],
+     "team": "home",
+     "tid": 1034,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      473,
+      426,
+      619,
+      669
+     ],
+     "team": "away",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1650,
+      427,
+      1729,
+      625
+     ],
+     "team": "ref",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      639,
+      410,
+      720,
+      628
+     ],
+     "team": "away",
+     "tid": 1037,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      381,
+      435,
+      452,
+      675
+     ],
+     "team": "away",
+     "tid": 1040,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      661,
+      371,
+      734,
+      567
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1271,
+      377,
+      1340,
+      571
+     ],
+     "team": "home",
+     "tid": 1038,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 975,
+   "boxes": [
+    {
+     "xyxy": [
+      921.0,
+      449.0,
+      997.0,
+      643.0
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1647.0,
+      443.0,
+      1710.0,
+      618.0
+     ],
+     "team": "ref",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1137.0,
+      393.0,
+      1210.0,
+      553.0
+     ],
+     "team": "home",
+     "tid": 1012,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1310.0,
+      645.0,
+      1433.0,
+      850.0
+     ],
+     "team": "away",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      950.0,
+      440.0,
+      1074.0,
+      603.0
+     ],
+     "team": "home",
+     "tid": 1004,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      693.0,
+      368.0,
+      760.0,
+      528.0
+     ],
+     "team": "home",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      816.0,
+      307.0,
+      869.0,
+      431.0
+     ],
+     "team": "away",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      874.0,
+      348.0,
+      944.0,
+      480.0
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1378.0,
+      515.0,
+      1442.0,
+      706.0
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      633.0,
+      383.0,
+      698.0,
+      528.0
+     ],
+     "team": "away",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      634.0,
+      319.0,
+      714.0,
+      471.0
+     ],
+     "team": "ref",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1210.0,
+      391.0,
+      1275.0,
+      528.0
+     ],
+     "team": "away",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1035,
+   "boxes": [
+    {
+     "xyxy": [
+      1039.0,
+      435.0,
+      1154.0,
+      599.0
+     ],
+     "team": "home",
+     "tid": 1004,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      734.0,
+      605.0,
+      848.0,
+      816.0
+     ],
+     "team": "away",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1693.0,
+      449.0,
+      1765.0,
+      645.0
+     ],
+     "team": "ref",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1213.0,
+      489.0,
+      1301.0,
+      699.0
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      923.0,
+      356.0,
+      1025.0,
+      500.0
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      633.0,
+      365.0,
+      730.0,
+      549.0
+     ],
+     "team": "away",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      899.0,
+      325.0,
+      978.0,
+      483.0
+     ],
+     "team": "away",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1114.0,
+      435.0,
+      1221.0,
+      629.0
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      626.0,
+      312.0,
+      700.0,
+      456.0
+     ],
+     "team": "ref",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      681.0,
+      326.0,
+      740.0,
+      530.0
+     ],
+     "team": "home",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1165.0,
+      420.0,
+      1264.0,
+      580.0
+     ],
+     "team": "home",
+     "tid": 1012,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1095,
+   "boxes": [
+    {
+     "xyxy": [
+      1132.0,
+      471.0,
+      1249.0,
+      650.0
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      639.0,
+      390.0,
+      723.0,
+      548.0
+     ],
+     "team": "home",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      868.0,
+      331.0,
+      953.0,
+      475.0
+     ],
+     "team": "away",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      374.0,
+      381.0,
+      452.0,
+      550.0
+     ],
+     "team": "away",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1783.0,
+      472.0,
+      1843.0,
+      681.0
+     ],
+     "team": "ref",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      949.0,
+      360.0,
+      1004.0,
+      489.0
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      617.0,
+      314.0,
+      687.0,
+      455.0
+     ],
+     "team": "ref",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      703.0,
+      525.0,
+      765.0,
+      726.0
+     ],
+     "team": "away",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1204.0,
+      358.0,
+      1314.0,
+      567.0
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1156.0,
+      341.0,
+      1243.0,
+      536.0
+     ],
+     "team": "home",
+     "tid": 1004,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      638.0,
+      983.0,
+      757.0,
+      1080.0
+     ],
+     "team": "ref",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1160,
+   "boxes": [
+    {
+     "xyxy": [
+      0.0,
+      456.0,
+      166.0,
+      652.0
+     ],
+     "team": "away",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1125.0,
+      456.0,
+      1249.0,
+      640.0
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      752.0,
+      566.0,
+      841.0,
+      763.0
+     ],
+     "team": "away",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1246.0,
+      396.0,
+      1318.0,
+      512.0
+     ],
+     "team": "home",
+     "tid": 1015,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      563.0,
+      416.0,
+      653.0,
+      587.0
+     ],
+     "team": "away",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      581.0,
+      331.0,
+      651.0,
+      451.0
+     ],
+     "team": "ref",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      332.0,
+      389.0,
+      415.0,
+      546.0
+     ],
+     "team": "home",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      977.0,
+      571.0,
+      1084.0,
+      752.0
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      828.0,
+      441.0,
+      921.0,
+      618.0
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1786.0,
+      495.0,
+      1850.0,
+      694.0
+     ],
+     "team": "ref",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1066.0,
+      374.0,
+      1123.0,
+      502.0
+     ],
+     "team": "away",
+     "tid": 1014,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1152.0,
+      413.0,
+      1251.0,
+      576.0
+     ],
+     "team": "home",
+     "tid": 1004,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1220,
+   "boxes": [
+    {
+     "xyxy": [
+      1402.0,
+      472.0,
+      1576.0,
+      694.0
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      748.0,
+      424.0,
+      900.0,
+      587.0
+     ],
+     "team": "away",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1029.0,
+      644.0,
+      1189.0,
+      894.0
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      995.0,
+      462.0,
+      1076.0,
+      607.0
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      504.0,
+      378.0,
+      601.0,
+      546.0
+     ],
+     "team": "away",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1069.0,
+      482.0,
+      1220.0,
+      659.0
+     ],
+     "team": "away",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1785.0,
+      296.0,
+      1919.0,
+      581.0
+     ],
+     "team": "home",
+     "tid": 1004,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      753.8,
+      277.5,
+      804.4,
+      438.8
+     ],
+     "team": "home",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1481.2,
+      315.0,
+      1537.5,
+      455.6
+     ],
+     "team": "away",
+     "tid": 1014,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      109.0,
+      919.0,
+      301.0,
+      1079.0
+     ],
+     "team": "ref",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1280,
+   "boxes": [
+    {
+     "xyxy": [
+      780.0,
+      660.0,
+      916.0,
+      909.0
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      695.0,
+      452.0,
+      830.0,
+      611.0
+     ],
+     "team": "away",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      654.0,
+      566.0,
+      814.0,
+      786.0
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1070.0,
+      415.0,
+      1147.0,
+      583.0
+     ],
+     "team": "away",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1212.0,
+      268.0,
+      1294.0,
+      382.0
+     ],
+     "team": "away",
+     "tid": 1014,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1502.0,
+      467.0,
+      1609.0,
+      697.0
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      549.0,
+      326.0,
+      699.0,
+      545.0
+     ],
+     "team": "away",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      628.1,
+      333.8,
+      693.8,
+      453.8
+     ],
+     "team": "home",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1503.8,
+      371.2,
+      1558.1,
+      538.1
+     ],
+     "team": "home",
+     "tid": 1015,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      33.0,
+      946.0,
+      196.0,
+      1079.0
+     ],
+     "team": "ref",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1345,
+   "boxes": [
+    {
+     "xyxy": [
+      742.0,
+      662.0,
+      858.0,
+      906.0
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1337.0,
+      488.0,
+      1410.0,
+      645.0
+     ],
+     "team": "home",
+     "tid": 1012,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1202.0,
+      373.0,
+      1296.0,
+      516.0
+     ],
+     "team": "home",
+     "tid": 1015,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1295.0,
+      432.0,
+      1381.0,
+      622.0
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      849.0,
+      518.0,
+      943.0,
+      729.0
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      763.0,
+      468.0,
+      842.0,
+      644.0
+     ],
+     "team": "away",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      600.0,
+      397.0,
+      667.0,
+      563.0
+     ],
+     "team": "home",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1892.0,
+      451.0,
+      1919.0,
+      671.0
+     ],
+     "team": "ref",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1092.0,
+      356.0,
+      1161.0,
+      481.0
+     ],
+     "team": "away",
+     "tid": 1014,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1065.0,
+      450.0,
+      1142.0,
+      618.0
+     ],
+     "team": "away",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      821.0,
+      322.0,
+      870.0,
+      449.0
+     ],
+     "team": "ref",
+     "tid": 1003,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1405,
+   "boxes": [
+    {
+     "xyxy": [
+      941.0,
+      456.0,
+      1046.0,
+      599.0
+     ],
+     "team": "away",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1891.0,
+      482.0,
+      1919.0,
+      682.0
+     ],
+     "team": "ref",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1100.0,
+      451.0,
+      1192.0,
+      604.0
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      885.0,
+      623.0,
+      976.0,
+      820.0
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1385.0,
+      483.0,
+      1463.0,
+      670.0
+     ],
+     "team": "home",
+     "tid": 1012,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      576.0,
+      516.0,
+      646.0,
+      723.0
+     ],
+     "team": "away",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      763.0,
+      377.0,
+      823.0,
+      540.0
+     ],
+     "team": "home",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1234.0,
+      433.0,
+      1312.0,
+      593.0
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1121.0,
+      390.0,
+      1187.0,
+      536.0
+     ],
+     "team": "away",
+     "tid": 1014,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1183.0,
+      419.0,
+      1272.0,
+      556.0
+     ],
+     "team": "away",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      821.0,
+      317.0,
+      869.0,
+      449.0
+     ],
+     "team": "ref",
+     "tid": 1003,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1465,
+   "boxes": [
+    {
+     "xyxy": [
+      1501.0,
+      510.0,
+      1574.0,
+      707.0
+     ],
+     "team": "home",
+     "tid": 1012,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      816.0,
+      674.0,
+      933.0,
+      912.0
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      775.0,
+      326.0,
+      831.0,
+      448.0
+     ],
+     "team": "ref",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      826.0,
+      439.0,
+      909.0,
+      590.0
+     ],
+     "team": "away",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      908.0,
+      405.0,
+      980.0,
+      533.0
+     ],
+     "team": "home",
+     "tid": 1015,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      990.0,
+      472.0,
+      1075.0,
+      668.0
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      669.0,
+      425.0,
+      750.0,
+      594.0
+     ],
+     "team": "away",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1900.0,
+      503.0,
+      1919.0,
+      700.0
+     ],
+     "team": "ref",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      280.0,
+      640.0,
+      378.0,
+      875.0
+     ],
+     "team": "away",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      823.0,
+      373.0,
+      932.0,
+      497.0
+     ],
+     "team": "home",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      925.0,
+      443.0,
+      1019.0,
+      601.0
+     ],
+     "team": "home",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      999.4,
+      444.4,
+      1048.1,
+      513.8
+     ],
+     "team": "away",
+     "tid": 1014,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1678.0,
+      722.0,
+      1806.0,
+      990.0
+     ],
+     "team": "away",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2520,
+   "boxes": [
+    {
+     "xyxy": [
+      1258.0,
+      507.0,
+      1387.0,
+      713.0
+     ],
+     "team": "away",
+     "tid": 1026,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      0.0,
+      689.0,
+      87.0,
+      939.0
+     ],
+     "team": "home",
+     "tid": 1032,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      403.0,
+      588.0,
+      521.0,
+      804.0
+     ],
+     "team": "away",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1175.0,
+      659.0,
+      1323.0,
+      912.0
+     ],
+     "team": "away",
+     "tid": 1022,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1279.0,
+      350.0,
+      1338.0,
+      504.0
+     ],
+     "team": "ref",
+     "tid": 1028,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      835.0,
+      419.0,
+      929.0,
+      593.0
+     ],
+     "team": "home",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      748.0,
+      469.0,
+      848.0,
+      636.0
+     ],
+     "team": "away",
+     "tid": 1027,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1612.0,
+      454.0,
+      1696.0,
+      653.0
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      66.0,
+      519.0,
+      181.0,
+      738.0
+     ],
+     "team": "ref",
+     "tid": 1031,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1581.0,
+      701.0,
+      1705.0,
+      973.0
+     ],
+     "team": "home",
+     "tid": 1029,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      600.0,
+      750.0,
+      707.0,
+      911.0
+     ],
+     "team": "away",
+     "tid": 1025,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2585,
+   "boxes": [
+    {
+     "xyxy": [
+      1471.0,
+      426.0,
+      1574.0,
+      613.0
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      104.0,
+      657.0,
+      199.0,
+      927.0
+     ],
+     "team": "home",
+     "tid": 1032,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1155.0,
+      466.0,
+      1272.0,
+      658.0
+     ],
+     "team": "away",
+     "tid": 1026,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1138.0,
+      592.0,
+      1242.0,
+      839.0
+     ],
+     "team": "away",
+     "tid": 1022,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1833.0,
+      680.0,
+      1919.0,
+      954.0
+     ],
+     "team": "home",
+     "tid": 1029,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      180.0,
+      683.0,
+      328.0,
+      917.0
+     ],
+     "team": "away",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      672.0,
+      751.0,
+      833.0,
+      1079.0
+     ],
+     "team": "home",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      745.0,
+      513.0,
+      874.0,
+      670.0
+     ],
+     "team": "away",
+     "tid": 1027,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1355.0,
+      354.0,
+      1412.0,
+      509.0
+     ],
+     "team": "ref",
+     "tid": 1028,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      37.0,
+      538.0,
+      124.0,
+      770.0
+     ],
+     "team": "ref",
+     "tid": 1031,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      695.0,
+      673.0,
+      820.0,
+      906.0
+     ],
+     "team": "away",
+     "tid": 1025,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2650,
+   "boxes": [
+    {
+     "xyxy": [
+      0.0,
+      579.0,
+      81.0,
+      824.0
+     ],
+     "team": "ref",
+     "tid": 1031,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      195.0,
+      727.0,
+      374.0,
+      946.0
+     ],
+     "team": "home",
+     "tid": 1032,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1861.0,
+      648.0,
+      1919.0,
+      904.0
+     ],
+     "team": "home",
+     "tid": 1029,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1435.0,
+      423.0,
+      1510.0,
+      605.0
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      855.0,
+      647.0,
+      958.0,
+      872.0
+     ],
+     "team": "away",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1026.0,
+      466.0,
+      1120.0,
+      626.0
+     ],
+     "team": "away",
+     "tid": 1026,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      939.0,
+      713.0,
+      1051.0,
+      918.0
+     ],
+     "team": "home",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1184.0,
+      551.0,
+      1268.0,
+      780.0
+     ],
+     "team": "away",
+     "tid": 1022,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1433.0,
+      364.0,
+      1502.0,
+      520.0
+     ],
+     "team": "ref",
+     "tid": 1028,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      772.0,
+      498.0,
+      898.0,
+      660.0
+     ],
+     "team": "away",
+     "tid": 1027,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      820.0,
+      463.0,
+      938.0,
+      607.0
+     ],
+     "team": "home",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      309.0,
+      694.0,
+      410.0,
+      892.0
+     ],
+     "team": "away",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2715,
+   "boxes": [
+    {
+     "xyxy": [
+      1.0,
+      598.0,
+      54.0,
+      838.0
+     ],
+     "team": "ref",
+     "tid": 1031,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      878.0,
+      624.0,
+      976.0,
+      871.0
+     ],
+     "team": "away",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1743.0,
+      587.0,
+      1839.0,
+      825.0
+     ],
+     "team": "home",
+     "tid": 1029,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      823.0,
+      452.0,
+      925.0,
+      624.0
+     ],
+     "team": "away",
+     "tid": 1027,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1018.0,
+      755.0,
+      1144.0,
+      917.0
+     ],
+     "team": "home",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1162.0,
+      521.0,
+      1252.0,
+      745.0
+     ],
+     "team": "away",
+     "tid": 1022,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      969.0,
+      454.0,
+      1074.0,
+      632.0
+     ],
+     "team": "away",
+     "tid": 1026,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1453.0,
+      416.0,
+      1520.0,
+      600.0
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1421.0,
+      376.0,
+      1492.0,
+      532.0
+     ],
+     "team": "ref",
+     "tid": 1028,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      939.0,
+      410.0,
+      1013.0,
+      593.0
+     ],
+     "team": "home",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      484.0,
+      524.0,
+      604.0,
+      731.0
+     ],
+     "team": "away",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      410.0,
+      556.0,
+      564.0,
+      747.0
+     ],
+     "team": "home",
+     "tid": 1032,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2775,
+   "boxes": [
+    {
+     "xyxy": [
+      917.0,
+      739.0,
+      1083.0,
+      1052.0
+     ],
+     "team": "home",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      925.0,
+      451.0,
+      1047.0,
+      618.0
+     ],
+     "team": "away",
+     "tid": 1026,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1688.0,
+      562.0,
+      1760.0,
+      820.0
+     ],
+     "team": "home",
+     "tid": 1029,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      675.0,
+      558.0,
+      807.0,
+      828.0
+     ],
+     "team": "away",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      583.0,
+      476.0,
+      685.0,
+      665.0
+     ],
+     "team": "away",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1019.0,
+      494.0,
+      1118.0,
+      719.0
+     ],
+     "team": "away",
+     "tid": 1022,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1420.0,
+      409.0,
+      1491.0,
+      605.0
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1358.0,
+      357.0,
+      1425.0,
+      524.0
+     ],
+     "team": "ref",
+     "tid": 1028,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      835.0,
+      445.0,
+      944.0,
+      625.0
+     ],
+     "team": "home",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      562.5,
+      468.8,
+      613.1,
+      633.8
+     ],
+     "team": "home",
+     "tid": 1032,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2840,
+   "boxes": [
+    {
+     "xyxy": [
+      1361.0,
+      392.0,
+      1461.0,
+      568.0
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1647.0,
+      565.0,
+      1748.0,
+      843.0
+     ],
+     "team": "home",
+     "tid": 1029,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      914.0,
+      411.0,
+      1018.0,
+      603.0
+     ],
+     "team": "away",
+     "tid": 1026,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      625.0,
+      477.0,
+      747.0,
+      694.0
+     ],
+     "team": "away",
+     "tid": 1027,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      467.0,
+      501.0,
+      575.0,
+      753.0
+     ],
+     "team": "away",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1312.0,
+      329.0,
+      1381.0,
+      501.0
+     ],
+     "team": "ref",
+     "tid": 1028,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      579.0,
+      453.0,
+      659.0,
+      623.0
+     ],
+     "team": "away",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      991.0,
+      476.0,
+      1114.0,
+      733.0
+     ],
+     "team": "away",
+     "tid": 1022,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      549.0,
+      446.0,
+      641.0,
+      725.0
+     ],
+     "team": "home",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      894.0,
+      628.0,
+      1038.0,
+      917.0
+     ],
+     "team": "home",
+     "tid": 1035,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2905,
+   "boxes": [
+    {
+     "xyxy": [
+      1634.0,
+      558.0,
+      1727.0,
+      838.0
+     ],
+     "team": "home",
+     "tid": 1029,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1055.0,
+      515.0,
+      1200.0,
+      737.0
+     ],
+     "team": "away",
+     "tid": 1022,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1509.0,
+      420.0,
+      1599.0,
+      645.0
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      581.0,
+      559.0,
+      701.0,
+      833.0
+     ],
+     "team": "home",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      464.0,
+      539.0,
+      624.0,
+      826.0
+     ],
+     "team": "away",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1084.0,
+      393.0,
+      1233.0,
+      592.0
+     ],
+     "team": "away",
+     "tid": 1026,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1286.0,
+      318.0,
+      1349.0,
+      494.0
+     ],
+     "team": "ref",
+     "tid": 1028,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1004.0,
+      639.0,
+      1156.0,
+      996.0
+     ],
+     "team": "home",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      641.0,
+      387.0,
+      726.0,
+      619.0
+     ],
+     "team": "away",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      674.0,
+      323.0,
+      779.0,
+      566.0
+     ],
+     "team": "home",
+     "tid": 1032,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2970,
+   "boxes": [
+    {
+     "xyxy": [
+      675.0,
+      486.0,
+      812.0,
+      721.0
+     ],
+     "team": "away",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1313.0,
+      327.0,
+      1392.0,
+      497.0
+     ],
+     "team": "ref",
+     "tid": 1028,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      426.0,
+      521.0,
+      523.0,
+      762.0
+     ],
+     "team": "away",
+     "tid": 1027,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1433.0,
+      492.0,
+      1550.0,
+      731.0
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1677.0,
+      573.0,
+      1768.0,
+      850.0
+     ],
+     "team": "home",
+     "tid": 1029,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      769.0,
+      460.0,
+      866.0,
+      690.0
+     ],
+     "team": "away",
+     "tid": 1022,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      993.0,
+      690.0,
+      1157.0,
+      996.0
+     ],
+     "team": "home",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1192.0,
+      379.0,
+      1263.0,
+      595.0
+     ],
+     "team": "away",
+     "tid": 1026,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      591.0,
+      459.0,
+      669.0,
+      667.0
+     ],
+     "team": "home",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      628.0,
+      436.0,
+      731.0,
+      665.0
+     ],
+     "team": "away",
+     "tid": 1024,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6200,
+   "boxes": [
+    {
+     "xyxy": [
+      460.0,
+      757.0,
+      587.0,
+      1058.0
+     ],
+     "team": "away",
+     "tid": 1044,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      955.0,
+      511.0,
+      1089.0,
+      700.0
+     ],
+     "team": "home",
+     "tid": 1046,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      932.0,
+      389.0,
+      1000.0,
+      562.0
+     ],
+     "team": "home",
+     "tid": 1048,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      782.0,
+      396.0,
+      888.0,
+      585.0
+     ],
+     "team": "home",
+     "tid": 1043,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      985.0,
+      284.0,
+      1077.0,
+      444.0
+     ],
+     "team": "away",
+     "tid": 1042,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1586.0,
+      571.0,
+      1724.0,
+      857.0
+     ],
+     "team": "away",
+     "tid": 1040,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      477.0,
+      266.0,
+      548.0,
+      407.0
+     ],
+     "team": "ref",
+     "tid": 1041,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      576.0,
+      563.0,
+      689.0,
+      824.0
+     ],
+     "team": "home",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1178.0,
+      510.0,
+      1285.0,
+      707.0
+     ],
+     "team": "away",
+     "tid": 1045,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1321.0,
+      322.0,
+      1400.0,
+      483.0
+     ],
+     "team": "away",
+     "tid": 1047,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      773.0,
+      873.0,
+      873.0,
+      1079.0
+     ],
+     "team": "ref",
+     "tid": 1051,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1526.0,
+      468.0,
+      1673.0,
+      692.0
+     ],
+     "team": "home",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6260,
+   "boxes": [
+    {
+     "xyxy": [
+      1349.0,
+      578.0,
+      1435.0,
+      813.0
+     ],
+     "team": "away",
+     "tid": 1045,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1227.0,
+      571.0,
+      1352.0,
+      844.0
+     ],
+     "team": "away",
+     "tid": 1040,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      394.0,
+      715.0,
+      539.0,
+      921.0
+     ],
+     "team": "away",
+     "tid": 1044,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1152.0,
+      407.0,
+      1249.0,
+      544.0
+     ],
+     "team": "home",
+     "tid": 1048,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      931.0,
+      393.0,
+      1027.0,
+      532.0
+     ],
+     "team": "home",
+     "tid": 1043,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      726.0,
+      543.0,
+      788.0,
+      774.0
+     ],
+     "team": "home",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1158.0,
+      509.0,
+      1241.0,
+      709.0
+     ],
+     "team": "home",
+     "tid": 1046,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1352.0,
+      393.0,
+      1425.0,
+      557.0
+     ],
+     "team": "away",
+     "tid": 1047,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1847.0,
+      403.0,
+      1919.0,
+      595.0
+     ],
+     "team": "ref",
+     "tid": 1052,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      640.0,
+      322.0,
+      697.0,
+      479.0
+     ],
+     "team": "ref",
+     "tid": 1041,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1014.0,
+      344.0,
+      1089.0,
+      472.0
+     ],
+     "team": "away",
+     "tid": 1042,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      603.8,
+      825.0,
+      695.6,
+      1080.0
+     ],
+     "team": "ref",
+     "tid": 1051,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6325,
+   "boxes": [
+    {
+     "xyxy": [
+      1524.0,
+      576.0,
+      1643.0,
+      808.0
+     ],
+     "team": "away",
+     "tid": 1045,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1162.0,
+      337.0,
+      1266.0,
+      470.0
+     ],
+     "team": "away",
+     "tid": 1042,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1722.0,
+      362.0,
+      1818.0,
+      528.0
+     ],
+     "team": "ref",
+     "tid": 1052,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1254.0,
+      374.0,
+      1340.0,
+      538.0
+     ],
+     "team": "home",
+     "tid": 1048,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      552.0,
+      754.0,
+      658.0,
+      1034.0
+     ],
+     "team": "ref",
+     "tid": 1051,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      724.0,
+      487.0,
+      806.0,
+      683.0
+     ],
+     "team": "home",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      932.0,
+      444.0,
+      1028.0,
+      666.0
+     ],
+     "team": "away",
+     "tid": 1040,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      404.0,
+      646.0,
+      509.0,
+      917.0
+     ],
+     "team": "away",
+     "tid": 1044,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1528.0,
+      379.0,
+      1631.0,
+      549.0
+     ],
+     "team": "away",
+     "tid": 1047,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1284.0,
+      495.0,
+      1369.0,
+      698.0
+     ],
+     "team": "home",
+     "tid": 1054,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      753.0,
+      297.0,
+      816.0,
+      443.0
+     ],
+     "team": "ref",
+     "tid": 1041,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1053.0,
+      352.0,
+      1138.0,
+      503.0
+     ],
+     "team": "home",
+     "tid": 1043,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      879.4,
+      448.1,
+      971.2,
+      607.5
+     ],
+     "team": "home",
+     "tid": 1049,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6385,
+   "boxes": [
+    {
+     "xyxy": [
+      1502.0,
+      647.0,
+      1635.0,
+      915.0
+     ],
+     "team": "away",
+     "tid": 1045,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      870.0,
+      388.0,
+      988.0,
+      584.0
+     ],
+     "team": "home",
+     "tid": 1049,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      730.0,
+      501.0,
+      808.0,
+      726.0
+     ],
+     "team": "home",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1736.0,
+      355.0,
+      1813.0,
+      524.0
+     ],
+     "team": "ref",
+     "tid": 1052,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      588.0,
+      770.0,
+      693.0,
+      1038.0
+     ],
+     "team": "ref",
+     "tid": 1051,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1238.0,
+      399.0,
+      1363.0,
+      565.0
+     ],
+     "team": "home",
+     "tid": 1048,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      526.0,
+      666.0,
+      609.0,
+      898.0
+     ],
+     "team": "away",
+     "tid": 1044,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1327.0,
+      522.0,
+      1403.0,
+      740.0
+     ],
+     "team": "home",
+     "tid": 1054,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1028.0,
+      348.0,
+      1102.0,
+      487.0
+     ],
+     "team": "home",
+     "tid": 1043,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      781.0,
+      278.0,
+      843.0,
+      433.0
+     ],
+     "team": "ref",
+     "tid": 1041,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      918.0,
+      378.0,
+      1009.0,
+      552.0
+     ],
+     "team": "away",
+     "tid": 1040,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1740.0,
+      398.0,
+      1807.0,
+      584.0
+     ],
+     "team": "away",
+     "tid": 1047,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1136.0,
+      374.0,
+      1231.0,
+      474.0
+     ],
+     "team": "away",
+     "tid": 1042,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6445,
+   "boxes": [
+    {
+     "xyxy": [
+      1144.0,
+      407.0,
+      1220.0,
+      585.0
+     ],
+     "team": "home",
+     "tid": 1048,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      642.0,
+      783.0,
+      773.0,
+      1074.0
+     ],
+     "team": "ref",
+     "tid": 1051,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1641.0,
+      453.0,
+      1751.0,
+      647.0
+     ],
+     "team": "away",
+     "tid": 1047,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1156.0,
+      572.0,
+      1280.0,
+      777.0
+     ],
+     "team": "home",
+     "tid": 1054,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      895.0,
+      435.0,
+      1029.0,
+      610.0
+     ],
+     "team": "away",
+     "tid": 1042,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      501.0,
+      685.0,
+      625.0,
+      894.0
+     ],
+     "team": "away",
+     "tid": 1044,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1735.0,
+      357.0,
+      1813.0,
+      523.0
+     ],
+     "team": "ref",
+     "tid": 1052,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      785.0,
+      277.0,
+      847.0,
+      434.0
+     ],
+     "team": "ref",
+     "tid": 1041,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1198.0,
+      699.0,
+      1317.0,
+      917.0
+     ],
+     "team": "away",
+     "tid": 1045,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      813.0,
+      365.0,
+      917.0,
+      571.0
+     ],
+     "team": "home",
+     "tid": 1049,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      691.0,
+      538.0,
+      779.0,
+      751.0
+     ],
+     "team": "home",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      862.0,
+      400.0,
+      980.0,
+      520.0
+     ],
+     "team": "home",
+     "tid": 1043,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6510,
+   "boxes": [
+    {
+     "xyxy": [
+      550.0,
+      693.0,
+      692.0,
+      913.0
+     ],
+     "team": "away",
+     "tid": 1044,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1626.0,
+      524.0,
+      1741.0,
+      734.0
+     ],
+     "team": "away",
+     "tid": 1047,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1737.0,
+      357.0,
+      1813.0,
+      521.0
+     ],
+     "team": "ref",
+     "tid": 1052,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      678.0,
+      782.0,
+      785.0,
+      1073.0
+     ],
+     "team": "ref",
+     "tid": 1051,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      932.0,
+      674.0,
+      1049.0,
+      915.0
+     ],
+     "team": "away",
+     "tid": 1045,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      924.0,
+      591.0,
+      1028.0,
+      834.0
+     ],
+     "team": "home",
+     "tid": 1054,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      484.0,
+      412.0,
+      605.0,
+      624.0
+     ],
+     "team": "away",
+     "tid": 1042,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      722.0,
+      445.0,
+      822.0,
+      624.0
+     ],
+     "team": "home",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1055.0,
+      403.0,
+      1113.0,
+      597.0
+     ],
+     "team": "home",
+     "tid": 1048,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      775.0,
+      373.0,
+      846.0,
+      582.0
+     ],
+     "team": "home",
+     "tid": 1049,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      785.0,
+      276.0,
+      844.0,
+      403.0
+     ],
+     "team": "ref",
+     "tid": 1041,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      637.5,
+      416.2,
+      714.4,
+      600.0
+     ],
+     "team": "home",
+     "tid": 1043,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6570,
+   "boxes": [
+    {
+     "xyxy": [
+      645.0,
+      792.0,
+      798.0,
+      1079.0
+     ],
+     "team": "ref",
+     "tid": 1051,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      430.0,
+      545.0,
+      572.0,
+      727.0
+     ],
+     "team": "away",
+     "tid": 1042,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      951.0,
+      661.0,
+      1054.0,
+      893.0
+     ],
+     "team": "home",
+     "tid": 1054,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      789.0,
+      280.0,
+      866.0,
+      430.0
+     ],
+     "team": "ref",
+     "tid": 1041,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1318.0,
+      693.0,
+      1444.0,
+      921.0
+     ],
+     "team": "away",
+     "tid": 1045,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1103.0,
+      379.0,
+      1172.0,
+      563.0
+     ],
+     "team": "home",
+     "tid": 1048,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      646.0,
+      395.0,
+      715.0,
+      590.0
+     ],
+     "team": "home",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      868.0,
+      403.0,
+      999.0,
+      583.0
+     ],
+     "team": "away",
+     "tid": 1059,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1839.0,
+      351.0,
+      1919.0,
+      533.0
+     ],
+     "team": "ref",
+     "tid": 1052,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1894.0,
+      534.0,
+      1919.0,
+      773.0
+     ],
+     "team": "away",
+     "tid": 1047,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      558.8,
+      410.6,
+      622.5,
+      611.2
+     ],
+     "team": "home",
+     "tid": 1043,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      986.2,
+      766.9,
+      1156.9,
+      1063.1
+     ],
+     "team": "away",
+     "tid": 1044,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      494.0,
+      989.0,
+      603.0,
+      1080.0
+     ],
+     "team": "ref",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 435,
+   "boxes": [
+    {
+     "xyxy": [
+      614,
+      550,
+      731,
+      764
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      928,
+      521,
+      1058,
+      751
+     ],
+     "team": "away",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1220,
+      498,
+      1349,
+      692
+     ],
+     "team": "away",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      707,
+      639,
+      804,
+      900
+     ],
+     "team": "away",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      938,
+      406,
+      1044,
+      575
+     ],
+     "team": "home",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1389,
+      714,
+      1503,
+      923
+     ],
+     "team": "away",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      763,
+      470,
+      859,
+      673
+     ],
+     "team": "home",
+     "tid": 1004,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1405,
+      364,
+      1477,
+      504
+     ],
+     "team": "ref",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1298,
+      362,
+      1369,
+      551
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1050,
+      525,
+      1179.4,
+      665.6
+     ],
+     "team": "home",
+     "tid": 1009,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 495,
+   "boxes": [
+    {
+     "xyxy": [
+      1545,
+      768,
+      1658,
+      1077
+     ],
+     "team": "ref",
+     "tid": 1013,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1289,
+      479,
+      1373,
+      694
+     ],
+     "team": "home",
+     "tid": 1012,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1016,
+      544,
+      1189,
+      742
+     ],
+     "team": "home",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      761,
+      628,
+      887,
+      866
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      966,
+      633,
+      1131,
+      911
+     ],
+     "team": "away",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      829,
+      500,
+      933,
+      746
+     ],
+     "team": "away",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1183,
+      338,
+      1286,
+      537
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      392,
+      665,
+      520,
+      917
+     ],
+     "team": "away",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1382,
+      331,
+      1477,
+      507
+     ],
+     "team": "ref",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1015,
+      395,
+      1089,
+      581
+     ],
+     "team": "home",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1363,
+      504,
+      1449,
+      726
+     ],
+     "team": "away",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1,
+      519,
+      36,
+      763
+     ],
+     "team": "ref",
+     "tid": 1011,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 555,
+   "boxes": [
+    {
+     "xyxy": [
+      0,
+      534,
+      64,
+      779
+     ],
+     "team": "ref",
+     "tid": 1011,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1072,
+      378,
+      1171,
+      559
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      785,
+      480,
+      905,
+      736
+     ],
+     "team": "home",
+     "tid": 1004,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      428,
+      611,
+      551,
+      900
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1250,
+      493,
+      1364,
+      721
+     ],
+     "team": "home",
+     "tid": 1012,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      86,
+      636,
+      208,
+      922
+     ],
+     "team": "away",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1281,
+      765,
+      1415,
+      1078
+     ],
+     "team": "ref",
+     "tid": 1013,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      943,
+      642,
+      1099,
+      911
+     ],
+     "team": "away",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      876,
+      594,
+      1005,
+      890
+     ],
+     "team": "home",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1559,
+      498,
+      1642,
+      734
+     ],
+     "team": "away",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      920,
+      401,
+      1004,
+      606
+     ],
+     "team": "home",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      850,
+      473,
+      981,
+      728
+     ],
+     "team": "away",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1321.9,
+      335.6,
+      1385.6,
+      498.8
+     ],
+     "team": "ref",
+     "tid": 1003,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 615,
+   "boxes": [
+    {
+     "xyxy": [
+      1104,
+      756,
+      1285,
+      1079
+     ],
+     "team": "ref",
+     "tid": 1013,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      914,
+      509,
+      1031,
+      773
+     ],
+     "team": "away",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1280,
+      516,
+      1391,
+      717
+     ],
+     "team": "home",
+     "tid": 1012,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1507,
+      495,
+      1674,
+      695
+     ],
+     "team": "away",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1078,
+      333,
+      1170,
+      539
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      989,
+      546,
+      1099,
+      789
+     ],
+     "team": "home",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      845,
+      466,
+      950,
+      730
+     ],
+     "team": "home",
+     "tid": 1004,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1289,
+      325,
+      1363,
+      506
+     ],
+     "team": "ref",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1185,
+      592,
+      1294,
+      866
+     ],
+     "team": "away",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      176,
+      655,
+      286,
+      963
+     ],
+     "team": "away",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      431,
+      552,
+      509,
+      816
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      0,
+      537,
+      36,
+      812
+     ],
+     "team": "ref",
+     "tid": 1011,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      947,
+      386,
+      1050,
+      584
+     ],
+     "team": "home",
+     "tid": 1007,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 670,
+   "boxes": [
+    {
+     "xyxy": [
+      0,
+      550,
+      76,
+      812
+     ],
+     "team": "ref",
+     "tid": 1011,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      161,
+      691,
+      289,
+      1015
+     ],
+     "team": "away",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      861,
+      459,
+      978,
+      716
+     ],
+     "team": "home",
+     "tid": 1004,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      505,
+      549,
+      646,
+      800
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1129,
+      477,
+      1265,
+      733
+     ],
+     "team": "away",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1367,
+      325,
+      1444,
+      522
+     ],
+     "team": "ref",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      941,
+      318,
+      1045,
+      514
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1224,
+      669,
+      1349,
+      951
+     ],
+     "team": "away",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1027,
+      523,
+      1170,
+      809
+     ],
+     "team": "home",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      998,
+      450,
+      1091,
+      654
+     ],
+     "team": "home",
+     "tid": 1012,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      998,
+      415,
+      1093,
+      654
+     ],
+     "team": "home",
+     "tid": 1007,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 730,
+   "boxes": [
+    {
+     "xyxy": [
+      1001,
+      379,
+      1123,
+      565
+     ],
+     "team": "home",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      243,
+      737,
+      451,
+      1080
+     ],
+     "team": "away",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1130,
+      493,
+      1267,
+      776
+     ],
+     "team": "away",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1468,
+      344,
+      1554,
+      554
+     ],
+     "team": "ref",
+     "tid": 1003,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      0,
+      561,
+      47,
+      860
+     ],
+     "team": "ref",
+     "tid": 1011,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      305,
+      466,
+      451,
+      663
+     ],
+     "team": "away",
+     "tid": 1010,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      994,
+      544,
+      1082,
+      837
+     ],
+     "team": "home",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      685,
+      462,
+      808,
+      728
+     ],
+     "team": "home",
+     "tid": 1004,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      574,
+      511,
+      691,
+      776
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1046,
+      318,
+      1130,
+      560
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1366,
+      714,
+      1543,
+      1074
+     ],
+     "team": "away",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      651,
+      453,
+      750,
+      713
+     ],
+     "team": "home",
+     "tid": 1012,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 790,
+   "boxes": [
+    {
+     "xyxy": [
+      1459,
+      544,
+      1682,
+      821
+     ],
+     "team": "away",
+     "tid": 1006,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1152,
+      652,
+      1291,
+      917
+     ],
+     "team": "home",
+     "tid": 1009,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1798,
+      722,
+      1919,
+      1078
+     ],
+     "team": "away",
+     "tid": 1001,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      491,
+      423,
+      589,
+      672
+     ],
+     "team": "home",
+     "tid": 1012,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      390,
+      531,
+      480,
+      787
+     ],
+     "team": "home",
+     "tid": 1005,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1403,
+      403,
+      1586,
+      625
+     ],
+     "team": "home",
+     "tid": 1007,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      605,
+      423,
+      758,
+      725
+     ],
+     "team": "home",
+     "tid": 1004,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      847,
+      746,
+      980,
+      1059
+     ],
+     "team": "away",
+     "tid": 1002,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1528.1,
+      376.9,
+      1580.6,
+      607.5
+     ],
+     "team": "away",
+     "tid": 1008,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1538.0,
+      932.0,
+      1765.0,
+      1080.0
+     ],
+     "team": "ref",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 3860,
+   "boxes": [
+    {
+     "xyxy": [
+      993,
+      499,
+      1125,
+      777
+     ],
+     "team": "home",
+     "tid": 1017,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      703,
+      416,
+      819,
+      636
+     ],
+     "team": "home",
+     "tid": 1016,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      335,
+      609,
+      459,
+      874
+     ],
+     "team": "away",
+     "tid": 1018,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1249,
+      304,
+      1329,
+      517
+     ],
+     "team": "ref",
+     "tid": 1021,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      428,
+      393,
+      546,
+      602
+     ],
+     "team": "away",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1474,
+      565,
+      1571,
+      795
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1533,
+      577,
+      1682,
+      832
+     ],
+     "team": "away",
+     "tid": 1201,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      923,
+      376,
+      1053,
+      617
+     ],
+     "team": "away",
+     "tid": 1020,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1099,
+      468,
+      1278,
+      703
+     ],
+     "team": "away",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      9,
+      361,
+      90,
+      571
+     ],
+     "team": "ref",
+     "tid": 1015,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1009,
+      399,
+      1135,
+      601
+     ],
+     "team": "home",
+     "tid": 1019,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1245,
+      750,
+      1406.2,
+      1080
+     ],
+     "team": "ref",
+     "tid": 1027,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 3920,
+   "boxes": [
+    {
+     "xyxy": [
+      364,
+      659,
+      492,
+      922
+     ],
+     "team": "away",
+     "tid": 1018,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1209,
+      488,
+      1328,
+      783
+     ],
+     "team": "home",
+     "tid": 1017,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      710,
+      429,
+      840,
+      637
+     ],
+     "team": "home",
+     "tid": 1016,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      804,
+      333,
+      904,
+      527
+     ],
+     "team": "away",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1046,
+      467,
+      1201,
+      688
+     ],
+     "team": "home",
+     "tid": 1019,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1312,
+      331,
+      1391,
+      500
+     ],
+     "team": "ref",
+     "tid": 1021,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1006,
+      463,
+      1124,
+      703
+     ],
+     "team": "away",
+     "tid": 1020,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1177.5,
+      457.5,
+      1410,
+      729.4
+     ],
+     "team": "away",
+     "tid": 1024,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 3980,
+   "boxes": [
+    {
+     "xyxy": [
+      1491,
+      782,
+      1607,
+      1079
+     ],
+     "team": "ref",
+     "tid": 1027,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      966,
+      467,
+      1097,
+      714
+     ],
+     "team": "home",
+     "tid": 1019,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1278,
+      346,
+      1360,
+      562
+     ],
+     "team": "ref",
+     "tid": 1021,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1337,
+      566,
+      1541,
+      858
+     ],
+     "team": "away",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      225,
+      615,
+      339,
+      927
+     ],
+     "team": "away",
+     "tid": 1018,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1123,
+      498,
+      1261,
+      801
+     ],
+     "team": "home",
+     "tid": 1017,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1087,
+      470,
+      1175,
+      754
+     ],
+     "team": "away",
+     "tid": 1020,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1278,
+      533,
+      1429,
+      816
+     ],
+     "team": "home",
+     "tid": 1028,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      922,
+      396,
+      1026,
+      621
+     ],
+     "team": "away",
+     "tid": 1029,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1039,
+      359,
+      1140,
+      641
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      993,
+      292,
+      1081,
+      517
+     ],
+     "team": "away",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1072.5,
+      273.8,
+      1119.4,
+      420
+     ],
+     "team": "home",
+     "tid": 1016,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 4035,
+   "boxes": [
+    {
+     "xyxy": [
+      1068,
+      584,
+      1265,
+      863
+     ],
+     "team": "away",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      734,
+      456,
+      881,
+      725
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      0,
+      708,
+      102,
+      1046
+     ],
+     "team": "away",
+     "tid": 1018,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1545,
+      867,
+      1682,
+      1080
+     ],
+     "team": "ref",
+     "tid": 1027,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1229,
+      320,
+      1303,
+      544
+     ],
+     "team": "home",
+     "tid": 1016,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1013,
+      355,
+      1138,
+      597
+     ],
+     "team": "away",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      449,
+      450,
+      597,
+      699
+     ],
+     "team": "away",
+     "tid": 1029,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1215,
+      596,
+      1396,
+      918
+     ],
+     "team": "home",
+     "tid": 1028,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1291,
+      376,
+      1382,
+      635
+     ],
+     "team": "ref",
+     "tid": 1021,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1028,
+      519,
+      1131,
+      793
+     ],
+     "team": "home",
+     "tid": 1019,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 4095,
+   "boxes": [
+    {
+     "xyxy": [
+      1173,
+      553,
+      1345,
+      856
+     ],
+     "team": "home",
+     "tid": 1028,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      25,
+      465,
+      178,
+      733
+     ],
+     "team": "away",
+     "tid": 1029,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      743,
+      451,
+      890,
+      726
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1602,
+      860,
+      1751,
+      1079
+     ],
+     "team": "ref",
+     "tid": 1027,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1035,
+      447,
+      1129,
+      722
+     ],
+     "team": "home",
+     "tid": 1019,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      945,
+      367,
+      1127,
+      623
+     ],
+     "team": "away",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1094,
+      504,
+      1238,
+      855
+     ],
+     "team": "away",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1357,
+      379,
+      1452,
+      611
+     ],
+     "team": "ref",
+     "tid": 1021,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      0,
+      779,
+      35,
+      1054
+     ],
+     "team": "away",
+     "tid": 1018,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 4150,
+   "boxes": [
+    {
+     "xyxy": [
+      1252,
+      631,
+      1383,
+      919
+     ],
+     "team": "home",
+     "tid": 1028,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      845,
+      565,
+      1062,
+      849
+     ],
+     "team": "away",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1647,
+      851,
+      1789,
+      1080
+     ],
+     "team": "ref",
+     "tid": 1027,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      678,
+      474,
+      826,
+      739
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1447,
+      411,
+      1591,
+      649
+     ],
+     "team": "away",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1138,
+      409,
+      1242,
+      681
+     ],
+     "team": "away",
+     "tid": 1020,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      845,
+      443,
+      980,
+      701
+     ],
+     "team": "home",
+     "tid": 1019,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1266,
+      385,
+      1363,
+      658
+     ],
+     "team": "home",
+     "tid": 1017,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1395,
+      354,
+      1514,
+      594
+     ],
+     "team": "ref",
+     "tid": 1021,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      0,
+      720,
+      120,
+      1010.6
+     ],
+     "team": "away",
+     "tid": 1018,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 4210,
+   "boxes": [
+    {
+     "xyxy": [
+      1697,
+      812,
+      1832,
+      1080
+     ],
+     "team": "ref",
+     "tid": 1027,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1588,
+      414,
+      1744,
+      655
+     ],
+     "team": "away",
+     "tid": 1025,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1453,
+      322,
+      1561,
+      568
+     ],
+     "team": "ref",
+     "tid": 1021,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1033,
+      436,
+      1164,
+      697
+     ],
+     "team": "home",
+     "tid": 1019,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1278,
+      650,
+      1416,
+      921
+     ],
+     "team": "home",
+     "tid": 1028,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      274,
+      637,
+      410,
+      970
+     ],
+     "team": "away",
+     "tid": 1018,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1077,
+      334,
+      1245,
+      612
+     ],
+     "team": "home",
+     "tid": 1016,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1234,
+      450,
+      1361,
+      778
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1234,
+      475,
+      1449,
+      785
+     ],
+     "team": "away",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1290,
+      425.6,
+      1370.6,
+      703.1
+     ],
+     "team": "away",
+     "tid": 1020,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1340.0,
+      369.0,
+      1428.0,
+      687.0
+     ],
+     "team": "home",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 4270,
+   "boxes": [
+    {
+     "xyxy": [
+      1680,
+      832,
+      1810,
+      1079
+     ],
+     "team": "ref",
+     "tid": 1027,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1263,
+      611,
+      1408,
+      916
+     ],
+     "team": "home",
+     "tid": 1028,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1498,
+      347,
+      1643,
+      669
+     ],
+     "team": "away",
+     "tid": 1024,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1634,
+      503,
+      1838,
+      781
+     ],
+     "team": "home",
+     "tid": 1023,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1045,
+      356,
+      1145,
+      606
+     ],
+     "team": "home",
+     "tid": 1016,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      254,
+      596,
+      363,
+      976
+     ],
+     "team": "away",
+     "tid": 1018,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1284,
+      427,
+      1399,
+      667
+     ],
+     "team": "home",
+     "tid": 1017,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1432,
+      349,
+      1534,
+      584
+     ],
+     "team": "ref",
+     "tid": 1021,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1188,
+      524,
+      1374,
+      758
+     ],
+     "team": "away",
+     "tid": 1020,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 6910,
+   "boxes": [
+    {
+     "xyxy": [
+      0,
+      503,
+      54,
+      751
+     ],
+     "team": "ref",
+     "tid": 1042,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      148,
+      662,
+      264,
+      968
+     ],
+     "team": "home",
+     "tid": 1031,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1538,
+      576,
+      1649,
+      815
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1501,
+      431,
+      1581,
+      621
+     ],
+     "team": "home",
+     "tid": 1037,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      856,
+      313,
+      937,
+      495
+     ],
+     "team": "home",
+     "tid": 1036,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      855,
+      391,
+      927,
+      582
+     ],
+     "team": "away",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      437,
+      511,
+      524,
+      755
+     ],
+     "team": "away",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1172,
+      454,
+      1275,
+      686
+     ],
+     "team": "away",
+     "tid": 1038,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1208,
+      318,
+      1284,
+      493
+     ],
+     "team": "ref",
+     "tid": 1041,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1235,
+      437,
+      1360,
+      626
+     ],
+     "team": "away",
+     "tid": 1040,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1406,
+      595,
+      1554,
+      815
+     ],
+     "team": "away",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1393,
+      549,
+      1467,
+      784
+     ],
+     "team": "home",
+     "tid": 1032,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 6970,
+   "boxes": [
+    {
+     "xyxy": [
+      1834,
+      813,
+      1919,
+      1079
+     ],
+     "team": "ref",
+     "tid": 1043,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1287,
+      506,
+      1388,
+      710
+     ],
+     "team": "away",
+     "tid": 1038,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1037,
+      526,
+      1214,
+      789
+     ],
+     "team": "home",
+     "tid": 1032,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      460,
+      546,
+      604,
+      774
+     ],
+     "team": "away",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1418,
+      438,
+      1484,
+      668
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1584,
+      361,
+      1659,
+      576
+     ],
+     "team": "home",
+     "tid": 1037,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      306,
+      683,
+      473,
+      996
+     ],
+     "team": "home",
+     "tid": 1031,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      772,
+      408,
+      868,
+      590
+     ],
+     "team": "away",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1216,
+      303,
+      1291,
+      489
+     ],
+     "team": "ref",
+     "tid": 1041,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      833,
+      340,
+      919,
+      482
+     ],
+     "team": "home",
+     "tid": 1036,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1309,
+      375,
+      1381,
+      604
+     ],
+     "team": "away",
+     "tid": 1040,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      0,
+      561,
+      10,
+      756
+     ],
+     "team": "ref",
+     "tid": 1042,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1595.0,
+      621.0,
+      1799.0,
+      768.0
+     ],
+     "team": "away",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7035,
+   "boxes": [
+    {
+     "xyxy": [
+      507,
+      461,
+      645,
+      674
+     ],
+     "team": "away",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      994,
+      381,
+      1142,
+      596
+     ],
+     "team": "away",
+     "tid": 1040,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1470,
+      459,
+      1568,
+      689
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      110,
+      690,
+      270,
+      989
+     ],
+     "team": "home",
+     "tid": 1031,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1376,
+      509,
+      1518,
+      764
+     ],
+     "team": "away",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1143,
+      442,
+      1218,
+      713
+     ],
+     "team": "away",
+     "tid": 1038,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      774,
+      437,
+      857,
+      692
+     ],
+     "team": "home",
+     "tid": 1032,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      661,
+      377,
+      748,
+      593
+     ],
+     "team": "home",
+     "tid": 1036,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1695,
+      384,
+      1784,
+      605
+     ],
+     "team": "home",
+     "tid": 1037,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      684,
+      476,
+      806,
+      718
+     ],
+     "team": "away",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1236,
+      303,
+      1329,
+      491
+     ],
+     "team": "ref",
+     "tid": 1041,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1895,
+      795,
+      1919,
+      1048
+     ],
+     "team": "ref",
+     "tid": 1043,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7095,
+   "boxes": [
+    {
+     "xyxy": [
+      1465,
+      504,
+      1606,
+      767
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      172,
+      702,
+      342,
+      1033
+     ],
+     "team": "home",
+     "tid": 1031,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1198,
+      530,
+      1365,
+      818
+     ],
+     "team": "away",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1744,
+      442,
+      1844,
+      703
+     ],
+     "team": "home",
+     "tid": 1037,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      491,
+      508,
+      571,
+      784
+     ],
+     "team": "away",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1457,
+      320,
+      1543,
+      531
+     ],
+     "team": "ref",
+     "tid": 1041,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      852,
+      417,
+      938,
+      630
+     ],
+     "team": "away",
+     "tid": 1040,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      710,
+      427,
+      792,
+      668
+     ],
+     "team": "home",
+     "tid": 1036,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      885,
+      452,
+      1010,
+      744
+     ],
+     "team": "away",
+     "tid": 1038,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      746,
+      456,
+      953,
+      729
+     ],
+     "team": "away",
+     "tid": 1035,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7160,
+   "boxes": [
+    {
+     "xyxy": [
+      989,
+      446,
+      1183,
+      722
+     ],
+     "team": "away",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      638,
+      464,
+      767,
+      781
+     ],
+     "team": "away",
+     "tid": 1038,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      872,
+      428,
+      998,
+      745
+     ],
+     "team": "home",
+     "tid": 1032,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1315,
+      511,
+      1462,
+      801
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      438,
+      558,
+      565,
+      881
+     ],
+     "team": "away",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1603,
+      298,
+      1701,
+      536
+     ],
+     "team": "ref",
+     "tid": 1041,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      752,
+      314,
+      844,
+      634
+     ],
+     "team": "away",
+     "tid": 1040,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1548,
+      467,
+      1658,
+      742
+     ],
+     "team": "home",
+     "tid": 1037,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      588.8,
+      825,
+      723.8,
+      1080
+     ],
+     "team": "home",
+     "tid": 1031,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7220,
+   "boxes": [
+    {
+     "xyxy": [
+      1116,
+      516,
+      1283,
+      872
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1538,
+      424,
+      1680,
+      692
+     ],
+     "team": "home",
+     "tid": 1037,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      422,
+      516,
+      609,
+      844
+     ],
+     "team": "away",
+     "tid": 1038,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      681,
+      446,
+      901,
+      733
+     ],
+     "team": "home",
+     "tid": 1032,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      170,
+      606,
+      308,
+      944
+     ],
+     "team": "away",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      629,
+      359,
+      765,
+      570
+     ],
+     "team": "home",
+     "tid": 1036,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1320,
+      353,
+      1427,
+      573
+     ],
+     "team": "away",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      491,
+      517,
+      618,
+      755
+     ],
+     "team": "away",
+     "tid": 1035,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1308,
+      707,
+      1455,
+      1014
+     ],
+     "team": "home",
+     "tid": 1031,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1844,
+      908,
+      1919,
+      1079
+     ],
+     "team": "ref",
+     "tid": 1043,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7280,
+   "boxes": [
+    {
+     "xyxy": [
+      1702,
+      873,
+      1839,
+      1079
+     ],
+     "team": "ref",
+     "tid": 1043,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1423,
+      371,
+      1552,
+      580
+     ],
+     "team": "away",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1467,
+      577,
+      1581,
+      895
+     ],
+     "team": "home",
+     "tid": 1031,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      315,
+      447,
+      473,
+      744
+     ],
+     "team": "home",
+     "tid": 1032,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1116,
+      594,
+      1249,
+      905
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1349,
+      419,
+      1436,
+      694
+     ],
+     "team": "home",
+     "tid": 1037,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      81,
+      562,
+      204,
+      865
+     ],
+     "team": "away",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1138,
+      279,
+      1221,
+      498
+     ],
+     "team": "ref",
+     "tid": 1041,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      454,
+      521,
+      644,
+      819
+     ],
+     "team": "away",
+     "tid": 1038,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      481.9,
+      330,
+      558.8,
+      530.6
+     ],
+     "team": "home",
+     "tid": 1036,
+     "src": "track"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7345,
+   "boxes": [
+    {
+     "xyxy": [
+      1571,
+      880,
+      1721,
+      1079
+     ],
+     "team": "ref",
+     "tid": 1043,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1144,
+      606,
+      1279,
+      917
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1320,
+      491,
+      1454,
+      734
+     ],
+     "team": "home",
+     "tid": 1037,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      174,
+      518,
+      287,
+      796
+     ],
+     "team": "away",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1304,
+      550,
+      1476,
+      858
+     ],
+     "team": "home",
+     "tid": 1031,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1097,
+      407,
+      1208,
+      676
+     ],
+     "team": "away",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1170,
+      295,
+      1253,
+      519
+     ],
+     "team": "ref",
+     "tid": 1041,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      349,
+      451,
+      464,
+      742
+     ],
+     "team": "away",
+     "tid": 1038,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      288,
+      453,
+      408,
+      741
+     ],
+     "team": "home",
+     "tid": 1032,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      450.0,
+      564.0,
+      629.0,
+      656.0
+     ],
+     "team": "home",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  },
+  {
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7405,
+   "boxes": [
+    {
+     "xyxy": [
+      1058,
+      544,
+      1149,
+      841
+     ],
+     "team": "home",
+     "tid": 1033,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1473,
+      851,
+      1603,
+      1079
+     ],
+     "team": "ref",
+     "tid": 1043,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      109,
+      541,
+      224,
+      840
+     ],
+     "team": "away",
+     "tid": 1039,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      337,
+      417,
+      440,
+      724
+     ],
+     "team": "home",
+     "tid": 1032,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      930,
+      469,
+      1055,
+      741
+     ],
+     "team": "home",
+     "tid": 1031,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      407,
+      448,
+      502,
+      742
+     ],
+     "team": "away",
+     "tid": 1038,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      1170,
+      303,
+      1262,
+      517
+     ],
+     "team": "ref",
+     "tid": 1041,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      856,
+      433,
+      972,
+      669
+     ],
+     "team": "home",
+     "tid": 1037,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      905.6,
+      418.1,
+      999.4,
+      676.9
+     ],
+     "team": "away",
+     "tid": 1030,
+     "src": "track"
+    },
+    {
+     "xyxy": [
+      490.0,
+      555.0,
+      649.0,
+      666.0
+     ],
+     "team": "home",
+     "tid": null,
+     "src": "detector-added"
+    }
+   ]
+  }
+ ]
+}

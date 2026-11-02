@@ -15,7 +15,7 @@
   },
   "away": {
    "team": "Miasto Szkła",
-   "roster": "",
+   "roster": "miasto_szkla_krosno",
    "kit": ""
   },
   "notes": "",
@@ -146,5 +146,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-29T20:45:07"
+ "saved_at": "2026-10-29T21:05:10"
 }

@@ -1,0 +1,40 @@
+tid,team,number,name,team_name,note
+1001,away,,,Dziki Warszawa,
+1002,home,20,Emmanuel Lecomte,PGE Start,
+1003,ref,,,,referee behind the score overlay at the bottom edge from ~2200; boxes kept
+1004,away,31,Nikola Radičević,Dziki Warszawa,
+1005,home,6,Tyran De Lattibeaudiere,PGE Start,
+1006,home,19,Roman Szymański,PGE Start,
+1007,away,,,Dziki Warszawa,boxes 2260-2415 often coincide with 1006 (PGE #19) in contact
+1008,home,3,Courtney Ramey,PGE Start,
+1009,away,1,Denzel Andersson,Dziki Warszawa,kit votes flicker: light leggings and PGE #6 in front while guarding him; boxes kept
+1010,ref,,,,
+1011,away,,,Dziki Warszawa,
+1012,home,,,PGE Start,
+1013,ref,,,,
+1016,home,6,Tyran De Lattibeaudiere,PGE Start,
+1017,home,3,Courtney Ramey,PGE Start,
+1018,away,1,Denzel Andersson,Dziki Warszawa,
+1019,home,,,PGE Start,"PGE light, bald, number not legible"
+1020,home,20,Emmanuel Lecomte,PGE Start,
+1021,away,4,Mateusz Szlachetka,Dziki Warszawa,
+1022,ref,,,,
+1023,home,21,Filip Put,PGE Start,
+1024,away,31,Nikola Radičević,Dziki Warszawa,
+1025,away,,,Dziki Warszawa,"Dziki dark, possibly #9 (14740), not set"
+1026,ref,,,,
+1027,ref,,,,
+1028,away,21,Janari Jõesaar,Dziki Warszawa,"#21 to ~14665; later boxes (14680-14850) may sit on other Dziki players, incl. #31 at 14750"
+1030,away,4,Mateusz Szlachetka,Dziki Warszawa,
+1031,home,10,Tevin Brown,PGE Start,
+1032,away,21,Janari Jõesaar,Dziki Warszawa,
+1033,home,23,Ousmane Drame,PGE Start,
+1034,ref,,,,
+1035,home,9,Jakub Karolak,PGE Start,
+1036,away,15,Mateusz Bartosz,Dziki Warszawa,
+1037,home,6,Tyran De Lattibeaudiere,PGE Start,"PGE #6 to ~25715; 25720-25935 a bigger PGE player boxing out, possibly a same-team switch (zoom_1037_*)"
+1038,home,20,Emmanuel Lecomte,PGE Start,early boxes 25490-25575 contain other players in front of PGE #20
+1039,ref,,,,
+1040,ref,,,,
+1042,away,,,Dziki Warszawa,"Dziki dark, long hair, number not legible"
+1043,away,1,Denzel Andersson,Dziki Warszawa,

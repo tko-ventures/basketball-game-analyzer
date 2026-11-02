@@ -1,0 +1,370 @@
+{
+ "team": "King Szczecin",
+ "team_id_plk": 943,
+ "aliases": [
+  "King Szczecin"
+ ],
+ "retrieved": "2026-10-29",
+ "seasons": {
+  "2024/25": {
+   "team_name": "King Szczecin",
+   "source": "https://plk.pl/archiwum/27/druzyny/943/king-szczecin/sklad",
+   "coach": "Arkadiusz Miłoszewski",
+   "players": [
+    {
+     "number": "1",
+     "name": "Mustapha Heron",
+     "pos": "SF",
+     "height_cm": 193,
+     "nat": "USA",
+     "id_plk": 114135
+    },
+    {
+     "number": "3",
+     "name": "Andy Mazurczak",
+     "pos": "PG",
+     "height_cm": 184,
+     "nat": "POL",
+     "id_plk": 52794
+    },
+    {
+     "number": "7",
+     "name": "Kassim Nicholson",
+     "pos": "SF",
+     "height_cm": 197,
+     "nat": "USA",
+     "id_plk": 108224
+    },
+    {
+     "number": "8",
+     "name": "James Woodard",
+     "pos": "SG",
+     "height_cm": 191,
+     "nat": "USA",
+     "id_plk": 108222
+    },
+    {
+     "number": "9",
+     "name": "Michał Kierlewicz",
+     "pos": "PG",
+     "height_cm": 193,
+     "nat": "POL",
+     "id_plk": 3932
+    },
+    {
+     "number": "10",
+     "name": "Szymon Wójcik",
+     "pos": "PF",
+     "height_cm": 204,
+     "nat": "POL",
+     "id_plk": 42704
+    },
+    {
+     "number": "11",
+     "name": "Aleksander Dziewa",
+     "pos": "PF/C",
+     "height_cm": 205,
+     "nat": "POL",
+     "id_plk": 39866
+    },
+    {
+     "number": "12",
+     "name": "Antoni Majcherek",
+     "pos": "PG",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 63698
+    },
+    {
+     "number": "15",
+     "name": "Isaiah Whitehead",
+     "pos": "SG",
+     "height_cm": 194,
+     "nat": "USA",
+     "id_plk": 108088
+    },
+    {
+     "number": "21",
+     "name": "Tony Meier",
+     "pos": "PF",
+     "height_cm": 204,
+     "nat": "USA",
+     "id_plk": 43056
+    },
+    {
+     "number": "24",
+     "name": "Marcus Lee",
+     "pos": "C",
+     "height_cm": 211,
+     "nat": "USA",
+     "id_plk": 114122
+    },
+    {
+     "number": "28",
+     "name": "Przemysław Żołnierewicz",
+     "pos": "SG/SF",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 2714
+    },
+    {
+     "number": "30",
+     "name": "Jovan Novak",
+     "pos": "PG",
+     "height_cm": 191,
+     "nat": "SRB",
+     "id_plk": 113152
+    },
+    {
+     "number": "31",
+     "name": "Mateusz Kostrzewski",
+     "pos": "PF",
+     "height_cm": 202,
+     "nat": "POL",
+     "id_plk": 1070
+    },
+    {
+     "number": "33",
+     "name": "Maciej Żmudzki",
+     "pos": "C",
+     "height_cm": 206,
+     "nat": "POL",
+     "id_plk": 23696
+    },
+    {
+     "number": "37",
+     "name": "Adam Brenk",
+     "pos": "PG/SG",
+     "height_cm": 192,
+     "nat": "POL",
+     "id_plk": 3737
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2025/26": {
+   "team_name": "King Szczecin",
+   "source": "https://plk.pl/archiwum/28/druzyny/943/king-szczecin/sklad",
+   "coach": "Maciej Majcherek",
+   "players": [
+    {
+     "number": "2",
+     "name": "Antoni Majcherek",
+     "pos": "PG",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 63698
+    },
+    {
+     "number": "3",
+     "name": "Jeremy Roach",
+     "pos": "PG",
+     "height_cm": 188,
+     "nat": "USA",
+     "id_plk": 116430
+    },
+    {
+     "number": "7",
+     "name": "Nemanja Popović",
+     "pos": "C",
+     "height_cm": 205,
+     "nat": "SRB",
+     "id_plk": 116417
+    },
+    {
+     "number": "8",
+     "name": "Ondrej Hustak",
+     "pos": "C",
+     "height_cm": 211,
+     "nat": "CZE",
+     "id_plk": 116419
+    },
+    {
+     "number": "10",
+     "name": "Jovan Novak",
+     "pos": "PG",
+     "height_cm": 191,
+     "nat": "SRB",
+     "id_plk": 113152
+    },
+    {
+     "number": "12",
+     "name": "Tomasz Gielo",
+     "pos": "PF",
+     "height_cm": 205,
+     "nat": "POL",
+     "id_plk": 576
+    },
+    {
+     "number": "14",
+     "name": "Maximillian Egner",
+     "pos": "SF",
+     "height_cm": 202,
+     "nat": "POL",
+     "id_plk": 97593
+    },
+    {
+     "number": "15",
+     "name": "Noah Freidel",
+     "pos": "SG",
+     "height_cm": 193,
+     "nat": "USA",
+     "id_plk": 116418
+    },
+    {
+     "number": "22",
+     "name": "Anthony Roberts",
+     "pos": "SF/PF",
+     "height_cm": 196,
+     "nat": "USA",
+     "id_plk": 114152
+    },
+    {
+     "number": "23",
+     "name": "Malcolm Dandridge",
+     "pos": "C",
+     "height_cm": 205,
+     "nat": "USA",
+     "id_plk": 120604
+    },
+    {
+     "number": "27",
+     "name": "Jakub Ucieszyński",
+     "pos": "SG",
+     "height_cm": 195,
+     "nat": "POL",
+     "id_plk": 49034
+    },
+    {
+     "number": "28",
+     "name": "Przemysław Żołnierewicz",
+     "pos": "SG/SF",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 2714
+    },
+    {
+     "number": "31",
+     "name": "Mateusz Kostrzewski",
+     "pos": "PF",
+     "height_cm": 202,
+     "nat": "POL",
+     "id_plk": 1070
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2026/27": {
+   "team_name": "King Szczecin",
+   "source": "https://plk.pl/druzyny/943/king-szczecin/sklad",
+   "coach": "Maciej Majcherek",
+   "players": [
+    {
+     "number": "0",
+     "name": "Zahir Porter",
+     "pos": "SG/SF",
+     "height_cm": 198,
+     "nat": "USA",
+     "id_plk": 123305
+    },
+    {
+     "number": "2",
+     "name": "Antoni Majcherek",
+     "pos": "PG",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 63698
+    },
+    {
+     "number": "6",
+     "name": "Filip Woźniak",
+     "pos": "PF/C",
+     "height_cm": 205,
+     "nat": "POL",
+     "id_plk": 64573
+    },
+    {
+     "number": "11",
+     "name": "Alexandre Chassang",
+     "pos": "PF/C",
+     "height_cm": 205,
+     "nat": "FRA",
+     "id_plk": 123301
+    },
+    {
+     "number": "12",
+     "name": "Tomasz Gielo",
+     "pos": "PF",
+     "height_cm": 205,
+     "nat": "POL",
+     "id_plk": 576
+    },
+    {
+     "number": "14",
+     "name": "Maximillian Egner",
+     "pos": "SF",
+     "height_cm": 202,
+     "nat": "POL",
+     "id_plk": 97593
+    },
+    {
+     "number": "15",
+     "name": "Mikołaj Witliński",
+     "pos": "C",
+     "height_cm": 208,
+     "nat": "POL",
+     "id_plk": 2712
+    },
+    {
+     "number": "19",
+     "name": "Ondrej Sehnal",
+     "pos": "PG",
+     "height_cm": 191,
+     "nat": "CZE",
+     "id_plk": 123304
+    },
+    {
+     "number": "21",
+     "name": "Noah Reynolds",
+     "pos": "PG/SG",
+     "height_cm": 191,
+     "nat": "USA",
+     "id_plk": 123303
+    },
+    {
+     "number": "22",
+     "name": "Patrick McCaffery",
+     "pos": "SF/PF",
+     "height_cm": 206,
+     "nat": "USA",
+     "id_plk": 123302
+    },
+    {
+     "number": "27",
+     "name": "Jakub Ucieszyński",
+     "pos": "SG",
+     "height_cm": 195,
+     "nat": "POL",
+     "id_plk": 49034
+    },
+    {
+     "number": "28",
+     "name": "Przemysław Żołnierewicz",
+     "pos": "SG/SF",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 2714
+    },
+    {
+     "number": "31",
+     "name": "Mateusz Kostrzewski",
+     "pos": "PF",
+     "height_cm": 202,
+     "nat": "POL",
+     "id_plk": 1070
+    }
+   ],
+   "note": "Current PLK squad page as of 2026-10-29."
+  }
+ }
+}

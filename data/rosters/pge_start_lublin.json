@@ -1,0 +1,346 @@
+{
+ "team": "PGE Start Lublin",
+ "team_id_plk": 22,
+ "aliases": [
+  "PGE Start Lublin"
+ ],
+ "retrieved": "2026-10-29",
+ "seasons": {
+  "2024/25": {
+   "team_name": "PGE Start Lublin",
+   "source": "https://plk.pl/archiwum/27/druzyny/22/pge-start-lublin/sklad",
+   "coach": "Wojciech Kamiński",
+   "players": [
+    {
+     "number": "0",
+     "name": "Michał Krasuski",
+     "pos": "SF",
+     "height_cm": 198,
+     "nat": "POL",
+     "id_plk": 36921
+    },
+    {
+     "number": "3",
+     "name": "Courtney Ramey",
+     "pos": "PG/SG",
+     "height_cm": 190,
+     "nat": "USA",
+     "id_plk": 108693
+    },
+    {
+     "number": "5",
+     "name": "Michał Turewicz",
+     "pos": "PF",
+     "height_cm": 200,
+     "nat": "POL",
+     "id_plk": 60484
+    },
+    {
+     "number": "6",
+     "name": "Tyran De Lattibeaudiere",
+     "pos": "SF/PF",
+     "height_cm": 202,
+     "nat": "JAM",
+     "id_plk": 106245
+    },
+    {
+     "number": "7",
+     "name": "Bartłomiej Pelczar",
+     "pos": "PG/SG",
+     "height_cm": 190,
+     "nat": "POL",
+     "id_plk": 16665
+    },
+    {
+     "number": "8",
+     "name": "Wiktor Kępka",
+     "pos": "PG/SG",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 58298
+    },
+    {
+     "number": "9",
+     "name": "Jakub Karolak",
+     "pos": "SG/SF",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 1854
+    },
+    {
+     "number": "10",
+     "name": "Tevin Brown",
+     "pos": "SG",
+     "height_cm": 196,
+     "nat": "USA",
+     "id_plk": 112604
+    },
+    {
+     "number": "15",
+     "name": "Cj Williams",
+     "pos": "SG/SF",
+     "height_cm": 195,
+     "nat": "USA",
+     "id_plk": 108692
+    },
+    {
+     "number": "19",
+     "name": "Roman Szymański",
+     "pos": "C",
+     "height_cm": 209,
+     "nat": "POL",
+     "id_plk": 791
+    },
+    {
+     "number": "20",
+     "name": "Emmanuel Lecomte",
+     "pos": "PG",
+     "height_cm": 180,
+     "nat": "BEL",
+     "id_plk": 108689
+    },
+    {
+     "number": "21",
+     "name": "Filip Put",
+     "pos": "PF",
+     "height_cm": 201,
+     "nat": "POL",
+     "id_plk": 958
+    },
+    {
+     "number": "23",
+     "name": "Ousmane Drame",
+     "pos": "PF/C",
+     "height_cm": 206,
+     "nat": "USA",
+     "id_plk": 90755
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2025/26": {
+   "team_name": "PGE Start Lublin",
+   "source": "https://plk.pl/archiwum/28/druzyny/22/pge-start-lublin/sklad",
+   "coach": "Wojciech Kamiński",
+   "players": [
+    {
+     "number": "0",
+     "name": "Michał Krasuski",
+     "pos": "SF",
+     "height_cm": 198,
+     "nat": "POL",
+     "id_plk": 36921
+    },
+    {
+     "number": "1",
+     "name": "Jean-Pierre Tokoto Ii",
+     "pos": "PF",
+     "height_cm": 201,
+     "nat": "USA",
+     "id_plk": 119803
+    },
+    {
+     "number": "2",
+     "name": "Liam O'Reilly",
+     "pos": "PG/SG",
+     "height_cm": 188,
+     "nat": "USA",
+     "id_plk": 99510
+    },
+    {
+     "number": "3",
+     "name": "Courtney Ramey",
+     "pos": "PG/SG",
+     "height_cm": 190,
+     "nat": "USA",
+     "id_plk": 108693
+    },
+    {
+     "number": "5",
+     "name": "Michał Turewicz",
+     "pos": "PF",
+     "height_cm": 200,
+     "nat": "POL",
+     "id_plk": 60484
+    },
+    {
+     "number": "6",
+     "name": "Jordan Cameron Wright",
+     "pos": "PF",
+     "height_cm": 198,
+     "nat": "USA",
+     "id_plk": 115258
+    },
+    {
+     "number": "7",
+     "name": "Bartłomiej Pelczar",
+     "pos": "PG/SG",
+     "height_cm": 190,
+     "nat": "POL",
+     "id_plk": 16665
+    },
+    {
+     "number": "8",
+     "name": "Wiktor Kępka",
+     "pos": "PG/SG",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 58298
+    },
+    {
+     "number": "12",
+     "name": "Quincy Ford",
+     "pos": "PF",
+     "height_cm": 203,
+     "nat": "USA",
+     "id_plk": 108624
+    },
+    {
+     "number": "19",
+     "name": "Roman Szymański",
+     "pos": "C",
+     "height_cm": 209,
+     "nat": "POL",
+     "id_plk": 791
+    },
+    {
+     "number": "21",
+     "name": "Filip Put",
+     "pos": "PF",
+     "height_cm": 201,
+     "nat": "POL",
+     "id_plk": 958
+    },
+    {
+     "number": "25",
+     "name": "Bryan Michael Griffin",
+     "pos": "PF",
+     "height_cm": 201,
+     "nat": "USA",
+     "id_plk": 115256
+    },
+    {
+     "number": "32",
+     "name": "Piotr Mazek",
+     "pos": "SG",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 80836
+    },
+    {
+     "number": "33",
+     "name": "Conner Frankamp",
+     "pos": "PG",
+     "height_cm": 183,
+     "nat": "USA",
+     "id_plk": 119802
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2026/27": {
+   "team_name": "PGE Start Lublin",
+   "source": "https://plk.pl/druzyny/22/pge-start-lublin/sklad",
+   "coach": "Wojciech Kamiński",
+   "players": [
+    {
+     "number": "3",
+     "name": "Courtney Ramey",
+     "pos": "PG/SG",
+     "height_cm": 190,
+     "nat": "USA",
+     "id_plk": 108693
+    },
+    {
+     "number": "4",
+     "name": "Jaizec Lottie",
+     "pos": "PG",
+     "height_cm": 182,
+     "nat": "USA",
+     "id_plk": 123720
+    },
+    {
+     "number": "5",
+     "name": "Cezary Siergiej",
+     "pos": "SF",
+     "height_cm": 202,
+     "nat": "POL",
+     "id_plk": 67224
+    },
+    {
+     "number": "7",
+     "name": "Bartłomiej Pelczar",
+     "pos": "PG/SG",
+     "height_cm": 190,
+     "nat": "POL",
+     "id_plk": 16665
+    },
+    {
+     "number": "8",
+     "name": "Patryk Kowalski",
+     "pos": "SF/PF",
+     "height_cm": 191,
+     "nat": "POL",
+     "id_plk": 45884
+    },
+    {
+     "number": "10",
+     "name": "Bartosz Ciechociński",
+     "pos": "SF/PF",
+     "height_cm": 203,
+     "nat": "POL",
+     "id_plk": 18118
+    },
+    {
+     "number": "13",
+     "name": "Matthias Tass",
+     "pos": "C",
+     "height_cm": 209,
+     "nat": "EST",
+     "id_plk": 92294
+    },
+    {
+     "number": "15",
+     "name": "Anrijs Miśka",
+     "pos": "PF",
+     "height_cm": 205,
+     "nat": "LAT",
+     "id_plk": 123692
+    },
+    {
+     "number": "21",
+     "name": "Filip Put",
+     "pos": "PF",
+     "height_cm": 201,
+     "nat": "POL",
+     "id_plk": 958
+    },
+    {
+     "number": "23",
+     "name": "Janari Jõesaar",
+     "pos": "SF",
+     "height_cm": 198,
+     "nat": "EST",
+     "id_plk": 92303
+    },
+    {
+     "number": "55",
+     "name": "Lucas Williamson",
+     "pos": "SG",
+     "height_cm": 192,
+     "nat": "USA",
+     "id_plk": 123721
+    },
+    {
+     "number": null,
+     "name": "Grzegorz Kulka",
+     "pos": "PF",
+     "height_cm": 205,
+     "nat": "POL",
+     "id_plk": 2926
+    }
+   ],
+   "note": "Current PLK squad page as of 2026-10-29."
+  }
+ }
+}

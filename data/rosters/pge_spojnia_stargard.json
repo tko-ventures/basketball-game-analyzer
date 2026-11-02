@@ -1,0 +1,128 @@
+{
+ "team": "Spójnia Stargard",
+ "team_id_plk": 3022,
+ "aliases": [],
+ "retrieved": "2026-10-29",
+ "seasons": {
+  "2024/25": {
+   "team_name": "Spójnia Stargard",
+   "source": "https://plk.pl/archiwum/27/druzyny/3022/pge-spojnia-stargard/sklad",
+   "coach": "Krzysztof Koziorowicz",
+   "players": [
+    {
+     "number": "2",
+     "name": "Elijah Mccadden",
+     "pos": "SG/SF",
+     "height_cm": 195,
+     "nat": "USA",
+     "id_plk": 113966
+    },
+    {
+     "number": "3",
+     "name": "Mikołaj Hensler",
+     "pos": "SG",
+     "height_cm": 186,
+     "nat": "POL",
+     "id_plk": 70777
+    },
+    {
+     "number": "5",
+     "name": "Malik Johnson",
+     "pos": "PG",
+     "height_cm": 178,
+     "nat": "USA",
+     "id_plk": 113758
+    },
+    {
+     "number": "7",
+     "name": "Sebastian Kowalczyk",
+     "pos": "PG/SG",
+     "height_cm": 188,
+     "nat": "POL",
+     "id_plk": 1872
+    },
+    {
+     "number": "10",
+     "name": "Jayden Martinez",
+     "pos": "SF/PF",
+     "height_cm": 201,
+     "nat": "USA",
+     "id_plk": 108804
+    },
+    {
+     "number": "11",
+     "name": "Aleksandar Langović",
+     "pos": "PF/C",
+     "height_cm": 202,
+     "nat": "SRB",
+     "id_plk": 99408
+    },
+    {
+     "number": "13",
+     "name": "Mateusz Bryła",
+     "pos": "PG",
+     "height_cm": 184,
+     "nat": "POL",
+     "id_plk": 63541
+    },
+    {
+     "number": "16",
+     "name": "Dawid Słupiński",
+     "pos": "C",
+     "height_cm": 206,
+     "nat": "POL",
+     "id_plk": 1803
+    },
+    {
+     "number": "25",
+     "name": "Wesley Gordon",
+     "pos": "C",
+     "height_cm": 205,
+     "nat": "USA",
+     "id_plk": 92283
+    },
+    {
+     "number": "31",
+     "name": "Kacper Borowski",
+     "pos": "C",
+     "height_cm": 205,
+     "nat": "POL",
+     "id_plk": 1461
+    },
+    {
+     "number": "32",
+     "name": "Yehonatan Yam",
+     "pos": "PG",
+     "height_cm": 182,
+     "nat": "POL",
+     "id_plk": 108310
+    },
+    {
+     "number": "77",
+     "name": "Jakub Wojdak",
+     "pos": "PG",
+     "height_cm": 192,
+     "nat": "POL",
+     "id_plk": 63538
+    },
+    {
+     "number": "86",
+     "name": "Paweł Kikowski",
+     "pos": "SG/SF",
+     "height_cm": 191,
+     "nat": "POL",
+     "id_plk": 102
+    },
+    {
+     "number": "88",
+     "name": "Isiah Ross",
+     "pos": "SG/SF",
+     "height_cm": 192,
+     "nat": "USA",
+     "id_plk": 114139
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  }
+ }
+}
