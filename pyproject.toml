@@ -7,7 +7,13 @@ requires-python = ">=3.12,<3.13"
 dependencies = [
   "numpy>=2.0",
   "opencv-python-headless>=4.10",
+  "pydantic>=2.9",
+  "pyyaml>=6.0",
+  "typer>=0.12",
 ]
+
+[project.scripts]
+bga = "bga.cli:app"
 
 [project.optional-dependencies]
 # ONNX Runtime with the CoreML provider on Apple silicon (detect/onnx_rfdetr.py).
@@ -17,6 +23,11 @@ prefill = [
 ]
 remote = [
     "modal>=1.6",
+]
+# Gold-set metrics: TrackEval (HOTA, CLEAR, Identity) pinned to a commit, pycocotools for box AP.
+eval = [
+    "pycocotools>=2.0.8",
+    "trackeval @ git+https://github.com/JonathonLuiten/TrackEval.git@12c8791b303e0a0b50f753af204249e622d0281a",
 ]
 demo = [
     "scikit-learn>=1.9.1",
@@ -55,6 +66,9 @@ override-dependencies = [
   "opencv-python; sys_platform == 'never'",
   "opencv-contrib-python; sys_platform == 'never'",
 ]
+
+[tool.hatch.metadata]
+allow-direct-references = true
 
 [tool.uv.sources]
 sports = { git = "https://github.com/roboflow/sports.git", rev = "415751384e34f1cb7089a00909e0d7932fe73a75" }
