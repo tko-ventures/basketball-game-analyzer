@@ -35,7 +35,7 @@ class BBoxBottom(BaseBackend):
             feet = np.array([[(r[1] + r[3]) / 2, r[4]] for r in rows])
             for r, p in zip(rows, project(H, feet) / 100.0, strict=True):
                 xy[i, col[r[0]]] = p
-        out = {}
+        out, unclean = {}, 0
         for t, j in col.items():
             seen = np.where(np.isfinite(xy[:, j, 0]))[0]
             if len(seen) == 0:
@@ -46,13 +46,16 @@ class BBoxBottom(BaseBackend):
             ok = np.isfinite(path[:, 0, 0])
             for d in range(2):  # clean_paths needs a gap-free path: interpolate missing frames first
                 path[:, 0, d] = np.interp(idx, idx[ok], path[ok, 0, d])
-            if self.p["clean"] and hi - lo >= 3:
-                path, _ = clean_paths(
-                    path, min_jump_dist=self.p["min_jump_m"], smooth_window=self.p["smooth_window"]
-                )
+            if self.p["clean"] and hi - lo >= self.p["smooth_window"]:  # shorter: sports bug, n+1 out
+                try:
+                    path, _ = clean_paths(
+                        path, min_jump_dist=self.p["min_jump_m"], smooth_window=self.p["smooth_window"]
+                    )
+                except ValueError:  # every point flagged as a jump leaves nothing to interpolate from
+                    unclean += 1
             out[str(t)] = [
                 [seq.frames[lo + k], round(float(x), 3), round(float(y), 3)]
                 for k, (x, y) in enumerate(path[:, 0])
                 if np.isfinite(x)
             ]
-        return {"tracks": out, "court_m": [28.0, 15.0]}
+        return {"tracks": out, "court_m": [28.0, 15.0], "paths_left_uncleaned": unclean}
