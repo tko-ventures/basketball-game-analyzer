@@ -1,0 +1,18 @@
+clip 20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu
+# Gold v0, implementer's pass 2 of 2 on shot 78 (25488-25997): what the kit votes miss, read on
+# runs/<clip>/review/s78/overview_*.jpg, tracks_*.jpg and zoom_*.jpg after pass 1.
+delete 1041  # man in a suit on the sideline (coach), off court
+cut 1031 25540 25575  # box on Dziki #15 (1036) and blurred fragments; the kit vote missed it
+cut 1042 25945 25990  # duplicates 1032 (Dziki #21)
+number 1030 4
+number 1031 10
+number 1032 21
+number 1033 23
+number 1035 9
+number 1036 15
+number 1037 6  # "6" at 25490 and 25690-25715
+number 1038 20
+number 1043 1  # the bald Dziki #1 again (shots 4 and 42)
+note 1037 PGE #6 to ~25715; 25720-25935 a bigger PGE player boxing out, possibly a same-team switch (zoom_1037_*)
+note 1038 early boxes 25490-25575 contain other players in front of PGE #20
+note 1042 Dziki dark, long hair, number not legible

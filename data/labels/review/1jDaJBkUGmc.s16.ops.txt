@@ -1,0 +1,43 @@
+clip 20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off
+# Gold v0, implementer's pass 1 of 2 on shot 16: kit-vote proposals from scripts/review_sheets.py --propose
+# (Skalski's TeamClassifier fitted on the shot), checked against tracks_*.jpg and zoom_*.jpg in runs/<clip>/review/s16.
+# shot 16 (6167-6602): kit-vote proposals
+team 1040 away  # kit D 55/61
+cut 1040 6390 6410  # kit L x5 in contact
+cut 1040 6430 6430  # kit L x1 in contact
+team 1039 home  # kit L 80/87
+cut 1039 6275 6290  # kit D x4
+team 1044 away  # kit D 85/86
+cut 1044 6530 6530  # kit L x1 in contact
+team 1042 away  # kit D 82/87
+cut 1042 6405 6420  # kit L x4
+team 1047 away  # kit D 78/81
+cut 1047 6420 6425  # kit L x2 in contact
+team 1046 home  # kit L 74/80
+cut 1046 6270 6270  # kit D x1 in contact
+cut 1046 6280 6280  # kit D x1 in contact
+cut 1046 6290 6290  # kit D x1 in contact
+cut 1046 6415 6415  # kit D x1 in contact
+cut 1046 6460 6465  # kit D x2 in contact
+team 1048 home  # kit L 87/87
+team 1043 home  # kit L 78/80
+cut 1043 6455 6455  # kit D x1 in contact
+cut 1043 6465 6465  # kit D x1 in contact
+team 1045 away  # kit D 81/87
+cut 1045 6575 6595  # kit L x5
+team 1049 home  # kit L 69/87
+cut 1049 6180 6185  # kit D x2 in contact
+cut 1049 6195 6205  # kit D x3 in contact
+cut 1049 6215 6225  # kit D x3 in contact
+cut 1049 6235 6245  # kit D x3 in contact
+cut 1049 6260 6275  # kit D x4 in contact
+cut 1049 6415 6415  # kit D x1 in contact
+cut 1049 6465 6465  # kit D x1 in contact
+cut 1049 6570 6570  # kit D x1 in contact
+team 1053 home  # kit L 66/66
+team 1054 home  # kit L 64/65
+cut 1054 6505 6505  # kit D x1 in contact
+team 1055 home  # kit L 2/2
+team 1056 home  # kit L 10/10
+team 1058 home  # kit L 32/32
+team 1059 away  # kit D 11/11
