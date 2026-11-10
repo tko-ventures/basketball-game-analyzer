@@ -185,9 +185,9 @@ A fine-tune is reproducible and evaluable only if its setup is recorded the same
   - **Speed:** 2.5 ms per crop on the M1 Max (MPS), about 30 ms per sampled frame.
 - **PLK fine-tune.** Identity crops come from linked tracklets on non-gold clips (section 7). Each run has its training config, `configs/train/appearance-reid-<name>.yaml`, and its weight id, `appearance/reid/<name>@<hash8>`. It trains on Modal with the `reid` trainer once that is released (draft pull request 2 in its repository). Until then it uses torchreid (MIT), whose OSNet checkpoints `reid` loads as an `osnet_x1_0` weights file. Two starting points, each with its own training config:
   - `osnet_x1_0_sportsmot`, which was trained on research-only data (question 15);
-  - ImageNet weights, a clean alternative.
+  - a backbone whose weights carry an explicit permissive licence, for example DINOv2 (Apache 2.0) through `reid`'s `timm:` support, still to be checked. Plain ImageNet weights are not clean either: ImageNet's terms of access are research-only, although ImageNet-pretrained backbones are the industry norm.
 
-  The ImageNet start makes sure a licence answer can never strand the layer.
+  The second start makes sure a licence answer can never strand the layer.
 - **Done when:** the appearance metrics of section 8 are reported for the pretrained and PLK encoders, together with the layer 4 rows with and without the appearance term.
 
 ### Layer 4: tracking and tracklet linking
@@ -417,7 +417,7 @@ Ask these when the milestone needs them.
 12. **Gold games (M1).** Answered 2026-10-29: `4XMD9FWmQws` PGE Start – Dziki (2024/25), `OSp445e0mXU` Dziki – Legia (2025/26), `1jDaJBkUGmc` Energa Trefl – Dziki (2025/26), `Tnuscrm9RyU` Dziki – Zastal (2026/27, held out). Rationale on issue #2.
 13. **Footage rights (M4).** Open: training on the YouTube highlights at scale. Default: proceed; the gold set is small.
 14. **Rosters (M1).** Answered 2026-10-29: yes, collect every PLK team's roster.
-15. **Re-ID checkpoints (M6).** Open: the pretrained appearance encoders are open downloads, but they were trained on research-only datasets (SportsMOT is CC BY-NC 4.0, MSMT17 is an academic release) and Roboflow publishes no licence for its fine-tuned weights, `osnet_x1_0_sportsmot` among them. Are they acceptable for the club's analysis? Default: use them for measurement and as the starting point of the PLK fine-tune, also train one PLK encoder from ImageNet weights so a clean alternative has a metrics row, and settle this before anything is sold.
+15. **Re-ID checkpoints (M6).** Open: the pretrained appearance encoders are open downloads, but they were trained on research-only datasets (SportsMOT is CC BY-NC 4.0, MSMT17 is an academic release) and Roboflow publishes no licence for its fine-tuned weights, `osnet_x1_0_sportsmot` among them. Are they acceptable for the club's analysis? Default: use them for measurement and as the starting point of the PLK fine-tune, also train one PLK encoder from a backbone with an explicit permissive weight licence (for example DINOv2, Apache 2.0), so an alternative with no research-only weights in its history has a metrics row, and settle this before anything is sold.
 
 ## 13. Sources (checked 2026-10-27; Liquid AI and basal entries 2026-10-28; SAM 3.1 and GPU platform entries 2026-10-29; re-ID entries 2026-11-10)
 

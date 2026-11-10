@@ -95,7 +95,7 @@ Tomasz pointed to https://reid.roboflow.com and asked for the scope to follow. `
 - **Layer 5.** New game-level identity: tracklets are clustered across the shots of one game by appearance, and number votes are pooled per cluster.
 - **Milestones.** M6 lands the layer, the `trackers` configs and the encoder fine-tune. M7 adds the game-level pooling. Each has before/after rows, as every layer change does. No new milestone; no milestone moves.
 - **Eval.** `bga eval` gains appearance metrics on gold boxes, so they are independent of detector and tracker.
-- **Licences.** Question 15 is new: the encoder weights were trained on research-only data. The default is to use them for measurement and as a fine-tune start, and to train a clean PLK encoder from ImageNet weights alongside.
+- **Licences.** Question 15 is new: the encoder weights were trained on research-only data. The default is to use them for measurement and as a fine-tune start, and to train a PLK encoder alongside from a backbone with an explicit permissive weight licence (for example DINOv2, Apache 2.0). Plain ImageNet weights are not clean either: ImageNet's terms are research-only.
 
 **Evidence.** The probe `scripts/probe_reid.py` ran on gold v0, on the 9 dev shots, with the held-out game not read. It is a measurement behind this decision, not a metrics row. Each cell is rank-1: the share of queries whose nearest candidate is the right player.
 
