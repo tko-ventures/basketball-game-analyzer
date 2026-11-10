@@ -85,3 +85,36 @@ To fit the budget, he corrects one keyframe per selected shot, moving only the 4
 ## 2026-11-02: correction, two gold games share the Sosnowiec hall
 
 Seen on the court keyframe sheets for M3: `4XMD9FWmQws` ("PGE Start – Dziki", recorded since M1 as Lublin) is a Polish Cup game ("Puchar Polski" on the scoreboard, "Sosnowiec" on the floor). The held-out `Tnuscrm9RyU` (Superpuchar semi-final) was played in the same Sosnowiec arena: same regional sponsor boards, "…owiec" on the floor. The floor paint differs (2024/25 against 2026/27), so the held-out game still has a floor no training clip shows. It is not a hall the gold set has never seen, though, and M1's claim that its floor "appears in no other clip" holds for the paint only. Court results are reported per hall: Warsaw, Sosnowiec 2024/25, Sopot and Sosnowiec 2026/27 (held out). The NBA court model's failures recorded on 2026-10-31 as "Lublin" are Sosnowiec. No PLK clip in the set was filmed in Lublin.
+
+## 2026-11-10: appearance embeddings (Roboflow `reid`) join the scope
+
+Tomasz pointed to https://reid.roboflow.com and asked for the scope to follow. `reid` 0.1.0 (Apache 2.0, released 2026-11-03) turns a player crop into an appearance embedding. Roboflow `trackers` 2.7.0 fuses those embeddings into BoT-SORT, and Roboflow reports that this raises SportsMOT HOTA from 74.1 to 77.8 with the SportsMOT-trained encoder. Since the plan follows Skalski and Roboflow, the scope changes as follows (plan sections 2, 3, 5, 7, 8, 9, 11, 12 and 13):
+
+- **New layer 3b, appearance.** One embedding per box. The backends are `none` and `reid`. The default encoder is `osnet_x1_0_sportsmot` as published, followed by a PLK fine-tune.
+- **Layer 4.** `botsort` and `botsort_reid` (Roboflow `trackers`) become tracker candidates, with `mcbyte` at low priority. The mean tracklet embedding becomes one term of the linking cost.
+- **Layer 5.** New game-level identity: tracklets are clustered across the shots of one game by appearance, and number votes are pooled per cluster.
+- **Milestones.** M6 lands the layer, the `trackers` configs and the encoder fine-tune. M7 adds the game-level pooling. Each has before/after rows, as every layer change does. No new milestone; no milestone moves.
+- **Eval.** `bga eval` gains appearance metrics on gold boxes, so they are independent of detector and tracker.
+- **Licences.** Question 15 is new: the encoder weights were trained on research-only data. The default is to use them for measurement and as a fine-tune start, and to train a clean PLK encoder from ImageNet weights alongside.
+
+**Evidence.** The probe `scripts/probe_reid.py` ran on gold v0, on the 9 dev shots, with the held-out game not read. It is a measurement behind this decision, not a metrics row. Each cell is rank-1: the share of queries whose nearest candidate is the right player.
+
+| Encoder | Teammates 1 s later | 3 s | 5 s | Shot halves | Across cuts | ms per crop |
+|---|---|---|---|---|---|---|
+| Chance | 0.229 | 0.228 | 0.230 | 0.197 | 0.268 | |
+| Box centre in pixels, no motion model | 0.777 | 0.509 | 0.397 | n/a | n/a | |
+| `osnet_x1_0_sportsmot` | **0.857** | **0.738** | **0.646** | **0.847** | **0.865** | 2.5 |
+| `osnet_x1_0_dancetrack` | 0.746 | 0.534 | 0.447 | 0.635 | 0.662 | 3.0 |
+| `osnet_x1_0_soccernet` | 0.727 | 0.500 | 0.417 | 0.447 | 0.459 | 2.5 |
+| `fastreid_mot17_sbs50` | 0.692 | 0.467 | 0.421 | 0.647 | 0.486 | 5.3 |
+| `osnet_x1_0_msmt17_combineall` | 0.672 | 0.503 | 0.423 | 0.647 | 0.608 | 2.5 |
+| `osnet_x1_0_mot17` | 0.627 | 0.427 | 0.365 | 0.518 | 0.608 | 2.5 |
+
+How each column was scored:
+
+- **Teammates 1, 3 and 5 s later.** One crop, against the crops of the player's teammates on the floor that much later in the same shot (712 to 1,325 queries, 4.5 candidates on average).
+- **Shot halves.** The mean embedding of a player over the first half of a shot, against his teammates' means over the second half (85 queries).
+- **Across cuts.** A numbered player's mean embedding in one shot, against his numbered teammates in another shot of the same game (74 queries). By hall: Sopot 0.962, Warsaw 0.909, Sosnowiec 0.731.
+- **Speed.** Milliseconds per crop on the M1 Max (MPS).
+
+**Caveats.** Gold v0 boxes come from the same prefill as the tracks. The pixel reference has no motion model or camera compensation, so a real tracker would likely do better at 1 s. The cross-cut samples are small. These numbers justify the scope change; they do not stand in for M6's metrics rows.

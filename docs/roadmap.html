@@ -89,7 +89,7 @@
   <h1>basketball-game-analyzer: roadmap</h1>
   <p class="lede">The goal: from a PLK broadcast video of a Dziki game, know <strong>who is where on the court, for every frame</strong>.
     That means finding the players, telling the teams apart, following each player without mixing them up, reading their jersey numbers, and drawing everyone on a 2D FIBA court.</p>
-  <p class="sub">A summary of <code>docs/PLAN.md</code> (sections 2, 5, 8, 9 and 12) and <code>docs/decisions.md</code>. Status as of 2026-11-02.</p>
+  <p class="sub">A summary of <code>docs/PLAN.md</code> (sections 2, 5, 8, 9 and 12) and <code>docs/decisions.md</code>. Status as of 2026-11-02; scope updated 2026-11-10 (appearance embeddings, layer 3b).</p>
 
   <div class="now" aria-label="Where we are">
     <div><b>Done</b>M0 repository, M1 gold set v0, client demo on Vercel</div>
@@ -105,6 +105,7 @@
     <div class="stage" role="listitem"><div class="l">L1</div><div class="n">Court</div><div class="q">Where is the court in this frame?</div><div class="m">M3</div></div>
     <div class="stage" role="listitem"><div class="l">L2</div><div class="n">Detect</div><div class="q">Where are the players, referees, ball and numbers?</div><div class="m">M4</div></div>
     <div class="stage" role="listitem"><div class="l">L3</div><div class="n">Team</div><div class="q">Which team is each player on?</div><div class="m">M5</div></div>
+    <div class="stage" role="listitem"><div class="l">L3b</div><div class="n">Appearance</div><div class="q">Does this player look like the one we saw before, even after a cut?</div><div class="m">M6</div></div>
     <div class="stage" role="listitem"><div class="l">L4</div><div class="n">Track</div><div class="q">Is this the same player as a moment ago?</div><div class="m">M6</div></div>
     <div class="stage" role="listitem"><div class="l">L5</div><div class="n">Numbers</div><div class="q">Which jersey number, so which player by name?</div><div class="m">M7</div></div>
     <div class="stage" role="listitem"><div class="l">L6</div><div class="n">2D positions</div><div class="q">Where on the 28 × 15 m court?</div><div class="m">M8</div></div>
@@ -188,8 +189,8 @@
         <span class="links"><a href="https://github.com/tko-ventures/basketball-game-analyzer/issues/7">#7</a></span></header>
       <dl class="grid">
         <dt>Why</dt><dd>“No identity confusion” is the core requirement. Simple trackers break a player into many pieces and swap identities when players cross.</dd>
-        <dt>What</dt><dd>Track in court metres instead of pixels, then link the pieces offline using team, number and the rule of 5 players per team on the floor. Also compare against SAM 2 tracking, which ran on a rented GPU for the gold-set prefill.</dd>
-        <dt>Done when</dt><dd><strong>HOTA and IDF1 are reported for both trackers, before and after linking.</strong></dd>
+        <dt>What</dt><dd>Track in court metres instead of pixels, then link the pieces offline using team, number, appearance and the rule of 5 players per team on the floor. Appearance comes from Roboflow's new re-identification models (reid.roboflow.com), which turn each player crop into a fingerprint. Their basketball-trained model already picks the right teammate 86% of the time one second later on our footage. It is then fine-tuned on PLK players. Also compare Roboflow's BoT-SORT tracker with appearance, and SAM 2 tracking, which ran on a rented GPU for the gold-set prefill.</dd>
+        <dt>Done when</dt><dd><strong>HOTA and IDF1 are reported for each tracker, before and after linking, with and without appearance.</strong></dd>
       </dl>
     </article>
 
@@ -198,7 +199,7 @@
         <span class="links"><a href="https://github.com/tko-ventures/basketball-game-analyzer/issues/8">#8</a></span></header>
       <dl class="grid">
         <dt>Why</dt><dd>A jersey number plus the roster gives a player's name. Numbers are small and blurred in the highlights, so the readers need PLK training and a fair comparison.</dd>
-        <dt>What</dt><dd>Label about 300 number crops (on better footage if the club has full games). Compare a small classifier with several vision-language models, limited to the numbers on that team's roster.</dd>
+        <dt>What</dt><dd>Label about 300 number crops (on better footage if the club has full games). Compare a small classifier with several vision-language models, limited to the numbers on that team's roster. Then carry a number read in one shot over to the same player in other shots of the game, matched by appearance. On our footage that match is right 87% of the time, so far fewer players stay nameless.</dd>
         <dt>Done when</dt><dd><strong>Identity accuracy on the held-out game is reported.</strong></dd>
       </dl>
     </article>
@@ -241,6 +242,7 @@
       <tr><td>Merge PR #11</td><td>M1 and M2 are stacked on M0. Merging lets each later PR land on <code>main</code>.</td><td>Keep stacking branches.</td></tr>
       <tr><td>Full-game footage (Q4)</td><td>Jersey numbers are hard to read in highlights, even for a person. Hudl Instat or Synergy footage would help M7 and the gold set.</td><td>YouTube highlights.</td></tr>
       <tr><td>Modal spend cap (Q9)</td><td>M3 and M4 train on rented GPUs.</td><td>50 USD a month, cost logged per job.</td></tr>
+      <tr><td>Re-ID model licence (Q15)</td><td>Roboflow's player-appearance models were trained on research-only datasets, and their weights carry no licence of their own.</td><td>Use them to measure and as a starting point, and train a clean PLK model alongside. Settle before anything is sold.</td></tr>
       <tr><td>Gold v1 review</td><td>Your review of the held-out game would make the reported numbers trustworthy for the client.</td><td>Only if the client is interested.</td></tr>
     </tbody>
   </table>

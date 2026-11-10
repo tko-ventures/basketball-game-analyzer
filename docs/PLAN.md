@@ -1,6 +1,6 @@
 # Basketball game analyzer: implementation plan
 
-**Status:** handoff draft, 2026-10-27. Revised 2026-10-28 (Liquid, basal, backends) and 2026-10-29 (remote CUDA, training setups, SAM 3.x withdrawn after Meta declined access, Tomasz's answers in section 12).
+**Status:** handoff draft, 2026-10-27. Revised 2026-10-28 (Liquid, basal, backends) and 2026-10-29 (remote CUDA, training setups, SAM 3.x withdrawn after Meta declined access, Tomasz's answers in section 12). Revised 2026-11-10 (appearance embeddings through Roboflow `reid`, layer 3b).
 **Written by:** Claude Fable 5.1 with Tomasz Kopacki (tko).
 **Written for:** Claude Opus 5.5 or any engineer picking this up with no prior conversation context.
 
@@ -36,7 +36,7 @@ Longer term, the 2D data feeds tactical reports about opponents. That is out of 
 | Data provenance | Start from scratch. Clips are re-downloaded with the fetch script, weights re-downloaded from their sources, shot files regenerated. Nothing under the prior checkout's `data/`, `weights/` or `runs/` is copied; the old shot files serve only as a cross-check. | Tomasz 2026-10-29 |
 | Labelling budget | Tomasz corrects the gold labels himself in about 90 minutes total, measured by a timed dry run on one shot. The implementer does every first pass itself. | Tomasz 2026-10-29 |
 | Labelling VLM | No third-party VLM API keys. The implementer's own vision through Claude Code (Tomasz's subscription) reads contact sheets of crops and review frames. Labelling and QA only, never per-frame production. | Tomasz 2026-10-29 |
-| Licences | RF-DETR Nano to Large, RF-DETR Seg, RF-DETR Keypoint: Apache 2.0. RF-DETR XL and 2XL: Roboflow Platform Model Licence 1.0, terms to be checked. YOLO26 and YOLO11: AGPL-3.0. D-FINE and DEIM: Apache 2.0. DEIMv2: non-commercial only. SAM 3 and SAM 3.1: SAM License, gated; Meta declined Tomasz's access request, so neither is used, and third-party re-uploads of gated weights are off limits. SAM 2.1 and EdgeTAM: Apache 2.0, open downloads. **Verified** 2026-10-29. | section 13 |
+| Licences | RF-DETR Nano to Large, RF-DETR Seg, RF-DETR Keypoint: Apache 2.0. RF-DETR XL and 2XL: Roboflow Platform Model Licence 1.0, terms to be checked. YOLO26 and YOLO11: AGPL-3.0. D-FINE and DEIM: Apache 2.0. DEIMv2: non-commercial only. SAM 3 and SAM 3.1: SAM License, gated; Meta declined Tomasz's access request, so neither is used, and third-party re-uploads of gated weights are off limits. SAM 2.1 and EdgeTAM: Apache 2.0, open downloads. **Verified** 2026-10-29. Roboflow `reid` and `trackers`: Apache 2.0 code. Their pretrained re-ID checkpoints are open downloads. The torchreid OSNet weights on Hugging Face are tagged MIT. Roboflow's tracking encoders, `osnet_x1_0_sportsmot` among them, carry no licence of their own. All were trained on research-only data: SportsMOT is CC BY-NC 4.0 and MSMT17 is an academic release (question 15). **Verified** 2026-11-10. | section 13 |
 
 ## 3. Reference stack: Skalski's basketball pipeline (verified 2026-10-27)
 
@@ -60,6 +60,13 @@ What the notebook does, in order:
 Environment the notebook pins: `supervision==0.27.0`, `inference-gpu`, `git+https://github.com/roboflow/sports.git@feat/basketball`, `transformers`, `num2words`. The keypoint post uses `rfdetr>=1.8.1` and `supervision>=0.29.1`. Pick one `supervision` version per environment and record it.
 
 His stated limitations, which this plan treats as the work list: 1 to 2 FPS on a T4 with SAM2; SAM2 degrades with many objects and in high-action moments; tracking needs re-prompting on longer clips; numbers fail on distant players; number predictions should be constrained to who is on the court.
+
+Roboflow's own additions since the notebook (checked 2026-11-10) address the tracking limits and are treated as part of the reference stack:
+
+- **`reid` 0.1.0** (2026-11-03, https://reid.roboflow.com): loads and evaluates person re-identification encoders. A player crop becomes a 512-number appearance embedding that is close for crops of the same person. Six pretrained encoders; `osnet_x1_0_sportsmot` is OSNet x1.0 (2.2M parameters, input 256 x 128) fine-tuned on SportsMOT, which is basketball, football and volleyball broadcast footage. It takes `supervision.Detections` plus a frame, runs on MPS, and ships two evaluation protocols: retrieval, and re-association (is this the same player N frames later). Fine-tuning is announced but not released (draft pull request 2 in the repository).
+- **`trackers` 2.7.0** (2026-11-05): BoT-SORT with camera motion compensation and, through the `reid` extra, appearance fused with motion. Published SportsMOT test scores with YOLOX detections and tuned parameters: ByteTrack 73.3 HOTA and 73.5 IDF1, BoT-SORT without appearance 74.1 and 74.0, BoT-SORT with `osnet_x1_0_sportsmot` 77.8 and 78.5. A generic pedestrian encoder adds only about 1.3 HOTA, so Roboflow's own reading is that the encoder fine-tuned on the target footage brings most of the gain. The mask-based McByte scores 76.5 HOTA and 76.9 IDF1 at default settings. On a T4, OSNet takes BoT-SORT's update from 38 to 16 frames per second.
+
+Where these land: layer 3b (appearance embeddings), the layer 4 candidates and linking pass, and cross-shot identity in layer 5.
 
 ## 4. Assets to import from the prior repository
 
@@ -86,7 +93,7 @@ Pipeline is a sequence of stages. Every stage writes its output to disk (parquet
 
 ```
 video -> L0 ingest + shots -> L1 court homography -> L2 detect + pose (+ seg)
-      -> L3 team -> L4 track + link -> L5 number + identity -> L6 2D positions
+      -> L3 team -> L3b appearance -> L4 track + link -> L5 number + identity -> L6 2D positions
       -> L7 ball + possession -> export (parquet, radar video) -> L8 eval
 ```
 
@@ -109,7 +116,8 @@ Initial backends. Defaults follow Skalski's stack; candidates are compared only 
 | L2 detect | `rfdetr_onnx` (CoreML provider) | `rfdetr_torch` (MPS), `yolo26`, `deim`, `d1_boxes` (labelling cross-check only, see layer 2) |
 | L2 segment | `none` | `rfdetr_seg`, `sam21_boxmask` (SAM 2.1 masks from detector boxes, `requires: cuda`; mask labelling and mask source) |
 | L3 team | `siglip_kmeans` (`sports.TeamClassifier`) | `d1_choice` (kit descriptions as options) |
-| L4 track | `bytetrack_court` | `sam2_realtime` (Skalski's path, `requires: cuda`), `edgetam` (SAM 2 variant with Core ML export, Mac), Roboflow `trackers` |
+| L3b appearance | `none` | `reid` (Roboflow `reid` encoders: `osnet_x1_0_sportsmot` pretrained, then the PLK fine-tune) |
+| L4 track | `bytetrack_court` | `botsort` and `botsort_reid` (Roboflow `trackers`: camera motion compensation, then appearance), `sam2_realtime` (Skalski's path, `requires: cuda`), `edgetam` (SAM 2 variant with Core ML export, Mac), `mcbyte` (Roboflow `trackers` with SAM and Cutie masks, low priority) |
 | L5 numbers | `resnet_cls` | `d1_choice`, `lfm3vl` (zero-shot and SFT), `smolvlm2`, `basal_choice` (`requires: cuda`, low priority) |
 | L6 ground point | `ankles_pose` | `bbox_bottom` |
 
@@ -166,20 +174,38 @@ A fine-tune is reproducible and evaluable only if its setup is recorded the same
 - **Cross-check backend:** `d1_choice` asks Liquid d1-2B one `choice` question per crop with the two kit descriptions as options. It needs no fitting, so it is a cheap second opinion when the clusters do not separate.
 - **Done when:** team accuracy on gold tracks is reported. Provisional target 0.98.
 
+### Layer 3b: appearance embeddings (added 2026-11-10)
+- **Input:** person boxes and frames. **Output:** one L2-normalised embedding per box (a float16 array per sequence next to the JSON output) and the encoder's weight id.
+- **Approach:** Roboflow `reid` (section 3). `ReIDModel.extract_embeddings` takes the detector's `sv.Detections` and the frame. The default encoder is `osnet_x1_0_sportsmot` as published, then a PLK fine-tune. The embeddings feed three consumers: the `botsort_reid` tracker (layer 4), the linking pass, as the distance between mean tracklet embeddings (layer 4), and game-level identity (layer 5). They do not decide the team, which is layer 3's job, and they never overrule a confirmed number.
+- **Probe, 2026-11-10** (`scripts/probe_reid.py`; gold v0, 9 dev shots, 9,860 clean boxes; a measurement behind the decision, not a metrics row). `osnet_x1_0_sportsmot` beats every other published encoder on every question:
+  - **Same shot, among teammates.** The right player is the nearest crop 86% of the time 1 s later, 74% at 3 s and 65% at 5 s. Nearest box centre in pixels, with no motion model, scores 78%, 51% and 40%.
+  - **First half of a shot against the second.** The right teammate's tracklet is nearest 85% of the time (chance 20%).
+  - **Across cuts.** A numbered player's mean embedding finds him among his numbered teammates in another shot of the same game 87% of the time (74 queries, chance 27%). By hall: Sopot 96%, Warsaw 91%, Sosnowiec 73%, on 22 to 26 queries each.
+  - **The pedestrian encoders** (MSMT17, MOT17, FastReID) score 49% to 61% across cuts. At 1 s among teammates they score 63% to 69%, below the pixel-distance reference. The SoccerNet and DanceTrack encoders score 46% and 66% across cuts.
+  - **Speed:** 2.5 ms per crop on the M1 Max (MPS), about 30 ms per sampled frame.
+- **PLK fine-tune.** Identity crops come from linked tracklets on non-gold clips (section 7). Each run has its training config, `configs/train/appearance-reid-<name>.yaml`, and its weight id, `appearance/reid/<name>@<hash8>`. It trains on Modal with the `reid` trainer once that is released (draft pull request 2 in its repository). Until then it uses torchreid (MIT), whose OSNet checkpoints `reid` loads as an `osnet_x1_0` weights file. Two starting points, each with its own training config:
+  - `osnet_x1_0_sportsmot`, which was trained on research-only data (question 15);
+  - ImageNet weights, a clean alternative.
+
+  The ImageNet start makes sure a licence answer can never strand the layer.
+- **Done when:** the appearance metrics of section 8 are reported for the pretrained and PLK encoders, together with the layer 4 rows with and without the appearance term.
+
 ### Layer 4: tracking and tracklet linking
 - **Input:** filtered player boxes, foot points in court coordinates. **Output:** stable track ids per clip.
 - **Approach, two stages:**
   1. Short tracklets from ByteTrack (`supervision` or Roboflow `trackers`) on per-frame RF-DETR boxes. Run the motion model in court metres after the homography, not in pixels.
-  2. Offline linking pass that merges tracklets within a shot using team, confirmed number, court-space motion continuity, and the hard constraint of 5 players per team on the floor. Identity rules from section 4 apply: one live owner per `(team, number)`, conflicts flagged, rebind window after occlusion.
+  2. Offline linking pass that merges tracklets within a shot using team, confirmed number, court-space motion continuity, the distance between mean tracklet embeddings (layer 3b), and the hard constraint of 5 players per team on the floor. Identity rules from section 4 apply: one live owner per `(team, number)`, conflicts flagged, rebind window after occlusion.
 - **Candidates (2026-10-29):** `sam2_realtime` is Skalski's SAM2 real-time path as published (`Gy920/segment-anything-2-real-time`, SAM 2.1 weights, Apache 2.0), prompted with RF-DETR boxes on the first frame of each central shot, with a re-prompt monitor that adds objects when the on-floor count drops below 5 per team and closes the session at every cut. It needs CUDA and runs through `--remote`; his stated limits (1 to 2 fps on a T4, degradation with many objects and in high action) are the things to measure. `edgetam` is Meta's EdgeTAM (CVPR 2025, Apache 2.0, open checkpoint, box prompts, 22x faster than SAM 2, SA-V val J&F 72.3 against 76.8 for SAM 2.1-B+, Core ML export for macOS), a mask tracker that can run on the Mac; try it after `sam2_realtime` has a metrics row. Both produce masks plus ids per frame, so they feed L2 masks and L4 tracks. The offline linking pass and identity rules apply unchanged. Compare with `bytetrack_court` on HOTA and IDF1 in M6 and keep whichever wins per shot type.
+- **Roboflow `trackers` candidates (2026-11-10).** `botsort` is BoT-SORT with camera motion compensation; `botsort_reid` adds the layer 3b encoder. Both run on the Mac and in pixels, so they test whether camera compensation plus appearance can stand in for court-space motion. `mcbyte` adds masks from SAM 1 ViT-B (Apache 2.0) and Cutie (MIT). It leads Roboflow's SportsMOT table at default settings, but it is heavy and its device options list CUDA only, so it is low priority. Moving `trackers` from 2.4.0 to 2.7.0 needs `supervision>=0.31` (the lock has 0.30.9). The M6 branch does that upgrade and re-runs `baseline.yaml` to show its row is unchanged.
 - **Done when:** HOTA and IDF1 on the gold set, plus churn metrics, are reported before and after the linking pass.
 
 ### Layer 5: jersey number and identity
 - **Input:** `number` boxes matched to tracks by IoS >= 0.9, torso crops from pose as fallback. **Output:** jersey number per track, player name via roster.
 - **Approach:** a 0 to 99 classifier (ResNet-18 class, as in Skalski's result) on number crops, read every 5th frame, confirmed by consecutive agreement, voted per tracklet. Restrict outputs to the roster of that team. Where play-by-play exists, restrict further to the 5 numbers on the floor at that game-clock time.
 - **PLK adaptation:** European kits carry sponsor logos next to the number. Include those in the crop training set.
+- **Game-level identity (2026-11-10).** After linking, a team's tracklets from every shot of one game are clustered by mean embedding (layer 3b). Tracklets visible in the same frame are never joined. Number votes are pooled per cluster, so a number read in one shot names the player in shots where it is not legible. The 87% cross-shot probe result is the reason to try this. A cluster with conflicting confirmed numbers is split, never resolved by vote.
 - **Backends to compare (M7):** `resnet_cls` is the default because Skalski measured 93% for a classifier against 86% for fine-tuned SmolVLM2. `d1_choice` asks Liquid d1-2B one `choice` question per crop with the roster numbers as options and gets a probability per option in a single forward pass with no token generation (18.6 ms per question and 45 ms with a 384 px picture on an Apple M5 Pro; no OCR benchmark published; no self-serve fine-tuning). The same pass can carry extra questions on the same crop: `noul` number visible, `choice` team by kit. The probabilities feed the consecutive-agreement vote directly. `lfm3vl` is Liquid LFM3-VL-2B, generative, OCRBench 86.3 vendor-reported, fine-tunable with Liquid's TRL notebook. `basal_choice` is the same `choice` pattern on basal-omni (Polish open-source decision models by Remigiusz Kinas, Apache 2.0, Gemma 4 base, same `/v1/systemone` API as d1). It is low priority: images need `--mode eager` on an NVIDIA GPU (about 16 GB for mini, 24 GB for max), so it is Colab-only; the vision encoder is used zero-shot with no multimodal training and the author reports plain Gemma 4 scoring close to it on photos; confidence thresholds were calibrated on text only. Worth keeping because basal's independent Werdykt benchmark is the only third-party measurement of decision models so far: Liquid d1-ultra via API scored 88.1% on Polish and English text decisions while the local d1-omni-600M scored 33.3%, so small local decision models can fall far below their vendor claims and d1-2B must be measured, not assumed. Score every backend on the gold number crops: top-1 accuracy under the roster constraint, calibration of the reported probabilities, ms per crop on the M1 Max. Measure before choosing; none of the Liquid numbers has an independent evaluation yet.
-- **Done when:** per-track identity accuracy on the held-out gold game is reported, and the fraction of tracks that reach a confirmed number.
+- **Done when:** per-track identity accuracy on the held-out gold game is reported, and the fraction of tracks that reach a confirmed number, each with and without game-level pooling.
 
 ### Layer 6: 2D positions
 - **Input:** tracks, homographies, pose. **Output:** x, y in metres per player per frame; radar video.
@@ -228,9 +254,10 @@ Goal: near-zero hand-drawn boxes outside the gold set. Humans review and correct
 | Player, referee, ball, rim boxes | Skalski's NBA-trained 10-class model on PLK frames; the implementer reviews contact sheets of low-confidence and crowded frames with its own vision and fixes classes; from round two the PLK-trained v0 detector labels and the NBA model is the second opinion; keep boxes where both agree | Tomasz sees only frames the implementer flags, inside the 90-minute budget |
 | Masks | SAM 2.1 on Modal draws a mask inside every reviewed box (`sam21_boxmask`); Roboflow Auto Label with SAM 3 only if a workspace exists | Spot checks on contact sheets by the implementer |
 | Number boxes | `number` class from his model; torso crop from pose as fallback | Review flagged crops |
-| Number values | The implementer reads contact sheets of 3 to 4 legible crops per tracklet (about 20 crops per sheet) with its own vision; majority vote propagates to every crop of that tracklet; reads outside the roster are conflicts, not labels | Tomasz resolves conflicts only |
+| Number values | The implementer reads contact sheets of 3 to 4 legible crops per tracklet (about 20 crops per sheet) with its own vision; majority vote propagates to every crop of that tracklet; on non-gold clips, appearance clusters (layer 3b) carry it on to that player's other tracklets in the game, flagged for a look on the next sheet; reads outside the roster are conflicts, not labels | Tomasz resolves conflicts only |
 | Court landmarks | Pre-label with the NBA court model; the implementer drops points with a high RANSAC reprojection residual and keeps frames with at least 6 consistent points; 6 frames per arena go to Tomasz | The only real clicking in the project, about 20 minutes |
 | Pose | COCO-pretrained keypoint model | None |
+| Identity crops for the appearance encoder | Linked tracklets on non-gold clips: one tracklet is one identity inside its shot, and a confirmed number joins tracklets of the same player across shots of a game. The implementer checks tracklet purity on filmstrip sheets and drops mixed ones | None |
 | Gold set (section 8) | Prefill from the walking skeleton's `tracks.json`; the implementer does the first correction pass on contact sheets; Tomasz does the final pass at tracklet level | Confirm, split, merge, assign identities; fix boxes only on the box-gold frames |
 
 Roboflow Auto Label is optional (no workspace confirmed, no third-party VLM keys). Facts, verified, in case one is set up: models offered are Gemini 4 Argon, GPT-6 Astra, GPT-6.1 Sol, Gemini 3.8 Flash, Claude Opus 5.5, SAM 3, CLIP, VLM + SAM 3 combinations, your own models trained on the same dataset, and saved Workflows with SAHI or consensus blocks. Boxes, masks, polygons and classification are supported; keypoints are not. Test runs on four images are free; batch jobs show cost before starting; your own API key avoids credit charges.
@@ -261,6 +288,7 @@ Metrics, computed by a single `eval` command and written to `docs/metrics.md` wi
 | Detection | per-class AP50 and AP50:95 on the box-gold frames | pycocotools or supervision |
 | Tracking | HOTA, IDF1, MOTA, plus churn metrics | TrackEval on MOT gt |
 | Team | accuracy per gold track | custom |
+| Appearance | on gold boxes, so independent of detector and tracker: re-association rank-1 and MRR among teammates 1 s and 3 s later in the same shot; rank-1 of a numbered player among his numbered teammates in another shot of the same game; ms per crop on the Mac | `reid` protocols or custom |
 | Identity | per-track number accuracy, confirmed fraction, wrong-confirmed count | custom |
 | Court | median and p90 reprojection error in metres on held-out landmarks | custom |
 | 2D positions | position error in metres against landmark-derived gold where available; otherwise visual radar check | custom |
@@ -299,10 +327,10 @@ Auto-label per section 7, review, fine-tune RF-DETR Large on the 10-class schema
 `TeamClassifier` per clip with separation check. Done: team accuracy.
 
 **M6. Tracking and linking.**
-Court-space ByteTrack, then the offline linking pass with the 5-per-team constraint and identity rules. Run `sam2_realtime` on Modal as the second tracker config over the same shots, then `edgetam` on the Mac if time allows. Done: HOTA and IDF1 for both trackers, before and after linking.
+Court-space ByteTrack, then the offline linking pass with the 5-per-team constraint and identity rules. Layer 3b lands here: the `reid` appearance backend with `osnet_x1_0_sportsmot`, appearance metrics in `bga eval`, appearance as a linking term, and Roboflow `trackers` `botsort` and `botsort_reid` configs. The PLK encoder fine-tune follows, from both starting points, on identity crops from linked non-gold tracklets. Run `sam2_realtime` on Modal as a further tracker config over the same shots, then `edgetam` on the Mac if time allows. Done: HOTA and IDF1 for each tracker config, before and after linking, and with and without the appearance term; appearance metrics for the pretrained and PLK encoders.
 
 **M7. Numbers and identity.**
-VLM-bootstrapped crop labels with tracklet propagation, then a number-reader bake-off per section 5 layer 5: `resnet_cls`, `d1_choice`, `lfm3vl` zero-shot and SFT, each as its own config with a metrics row (top-1 under the roster constraint, calibration, ms per crop). Wire the winner into identity with the roster constraint and the play-by-play on-floor constraint if the feed is available. Done: identity accuracy on the held-out game.
+VLM-bootstrapped crop labels with tracklet propagation, then a number-reader bake-off per section 5 layer 5: `resnet_cls`, `d1_choice`, `lfm3vl` zero-shot and SFT, each as its own config with a metrics row (top-1 under the roster constraint, calibration, ms per crop). Wire the winner into identity with the roster constraint and the play-by-play on-floor constraint if the feed is available. Add game-level identity: appearance clusters across shots pool the number votes (layer 5). Done: identity accuracy and confirmed fraction on the held-out game, with and without game-level pooling.
 
 **M8. 2D positions.**
 Ankle ground points from pose, airborne handling, export contract, radar video. Done: exported parquet for all gold shots and a visual check.
@@ -366,6 +394,9 @@ Conventions for whoever executes this:
 - **Remote drift.** A CUDA backend run on Modal must produce the same output as the same config run anywhere else. Pin torch and CUDA per platform in the remote image, and rerun `baseline.yaml` remotely once per milestone to compare.
 - **Gated weights.** Meta declined access to SAM 3.x. Do not route around it through third-party re-uploads or conversions; a model without a licence Tomasz holds is not used. Cache the open weights in the remote volume so jobs do not depend on the Hub.
 - **Subscription labelling.** Reading images through Claude Code spends Tomasz's subscription limits. Batch into contact sheets, log every sheet, and stop a labelling round when agreement stops improving.
+- **Young re-ID dependency.** `reid` is at 0.1.0, one week old on 2026-11-10, with no fine-tuning yet, and `trackers` pins it exactly. Pin both, keep the encoder behind the layer 3b interface, and expect the API to move.
+- **Same kit.** Teammates wear identical kits, so appearance has to separate people by build, skin, hair, shoes and sleeves. Resolution is not the limit: on the gold dev shots the median player box is 212 px tall (5th percentile 140 px), against an encoder input of 256 x 128. Gaps are. In the 2026-11-10 probe, the right teammate is the nearest crop 86% of the time 1 s later and 65% 5 s later. Appearance therefore joins the linking cost as one term, next to team, number, motion and the 5-per-team rule. It never overrules a confirmed number.
+- **Research-only checkpoints.** The pretrained re-ID encoders were trained on SportsMOT (CC BY-NC 4.0) and MSMT17 (academic release), and their weights carry no licence of their own. Question 15.
 - **Prior-repo gravity.** 18k lines of heuristics are tempting to port. Only section 4's list comes over.
 
 ## 12. Open questions for Tomasz
@@ -386,8 +417,9 @@ Ask these when the milestone needs them.
 12. **Gold games (M1).** Answered 2026-10-29: `4XMD9FWmQws` PGE Start – Dziki (2024/25), `OSp445e0mXU` Dziki – Legia (2025/26), `1jDaJBkUGmc` Energa Trefl – Dziki (2025/26), `Tnuscrm9RyU` Dziki – Zastal (2026/27, held out). Rationale on issue #2.
 13. **Footage rights (M4).** Open: training on the YouTube highlights at scale. Default: proceed; the gold set is small.
 14. **Rosters (M1).** Answered 2026-10-29: yes, collect every PLK team's roster.
+15. **Re-ID checkpoints (M6).** Open: the pretrained appearance encoders are open downloads, but they were trained on research-only datasets (SportsMOT is CC BY-NC 4.0, MSMT17 is an academic release) and Roboflow publishes no licence for its fine-tuned weights, `osnet_x1_0_sportsmot` among them. Are they acceptable for the club's analysis? Default: use them for measurement and as the starting point of the PLK fine-tune, also train one PLK encoder from ImageNet weights so a clean alternative has a metrics row, and settle this before anything is sold.
 
-## 13. Sources (checked 2026-10-27; Liquid AI and basal entries 2026-10-28; SAM 3.1 and GPU platform entries 2026-10-29)
+## 13. Sources (checked 2026-10-27; Liquid AI and basal entries 2026-10-28; SAM 3.1 and GPU platform entries 2026-10-29; re-ID entries 2026-11-10)
 
 - Skalski basketball tutorial: https://roboflow.com/blog/identify-basketball-players
 - Notebook: https://colab.research.google.com/github/roboflow-ai/notebooks/blob/main/notebooks/basketball-ai-how-to-detect-track-and-identify-basketball-players.ipynb
@@ -421,3 +453,6 @@ Ask these when the milestone needs them.
 - EdgeTAM (Apache 2.0, Core ML export): https://github.com/facebookresearch/EdgeTAM
 - Roboflow Inference SAM 3 docs (no 3.1 yet): https://github.com/roboflow/inference/blob/main/docs/foundation/sam3.md
 - GPU platform prices: https://modal.com/pricing , https://www.runpod.io/pricing
+- Roboflow `reid` (checked 2026-11-10): docs https://reid.roboflow.com/ , loading guide https://reid.roboflow.com/guides/loading/ , evaluation guide https://reid.roboflow.com/guides/evaluation/ , repository https://github.com/roboflow/re-ID (Apache 2.0; weight sources in `src/reid/catalog.py`; training port in draft pull request 2), package https://pypi.org/project/reid/ (0.1.0, 2026-11-03)
+- Roboflow `trackers` with ReID (checked 2026-11-10): guide https://trackers.roboflow.com/latest/guides/reid/ , benchmark results https://trackers.roboflow.com/latest/evaluations/results/ , package https://pypi.org/project/trackers/ (2.7.0, 2026-11-05; the `reid` extra pins `reid==0.1.0` and needs `supervision>=0.31.0`)
+- SportsMOT dataset and licence (CC BY-NC 4.0, no redistribution without permission): https://github.com/MCG-NJU/SportsMOT ; OSNet https://arxiv.org/abs/1905.00953 ; torchreid model zoo https://kaiyangzhou.github.io/deep-person-reid/MODEL_ZOO
