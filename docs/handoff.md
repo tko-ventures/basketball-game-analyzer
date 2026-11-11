@@ -72,7 +72,7 @@ This interrupted M1 on 2026-10-31; the decision is recorded.
   - Serve locally: `uv run scripts/serve_demo.py`.
   - Check before showing it: `uv run scripts/demo_audit.py` compares the teams and numbers the pages show with gold v0, and lists each wrong number with its frames.
   - Page templates: `scripts/demo_page_video.html` and `scripts/demo_page_analysis.html`.
-  - Coach page (simulated data, 2026-11-11): `uv run scripts/coach_web.py` writes `/coach/` and `/en/coach/` from `data/fixtures/synthetic/`; regenerate the fixtures with `uv run scripts/synth_plays.py` (deterministic; `tests/test_synthetic_plays.py` fails if they drift). Template `scripts/coach_page.html`, strings `scripts/coach_strings.py`, insights `scripts/coach_insights.py`, format `docs/fixtures.md`.
+  - Coach page (simulated data, live at https://basketball-analyzer-demo.vercel.app/coach/ and `/en/coach/` since 2026-11-11; `deploy_demo.sh` rebuilds it): `uv run scripts/coach_web.py` writes `/coach/` and `/en/coach/` from `data/fixtures/synthetic/`; regenerate the fixtures with `uv run scripts/synth_plays.py` (deterministic; `tests/test_synthetic_plays.py` fails if they drift). Template `scripts/coach_page.html`, strings `scripts/coach_strings.py`, insights `scripts/coach_insights.py`, format `docs/fixtures.md`.
 - **Status:** a showcase, not a pipeline layer, with no metrics row. Keep both pages working. If you change shared helpers (`scripts/demo_video.py`, `scripts/demo_web.py`), rebuild and check both pages.
 
 ## Findings: do not rediscover these

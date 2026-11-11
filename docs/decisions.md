@@ -143,5 +143,5 @@ A Game tab adds totals.
 - **Label:** the page carries a "Simulated tracking data" badge and says in its footer that the possessions are simulated. The fixtures are never gold or training data.
 - **Format:** the fixture format (`bga.tracking2d/v0`) is the shape the pipeline's 2D output should take, so the page will take real possessions once M3 and M4 deliver them.
 - **Status:** a showcase, not a pipeline layer, so no metrics row. The insight rules (`scripts/coach_insights.py`) are demo rules on simulated data. Before any of them becomes a pipeline layer it needs a before/after row against gold like any other heuristic.
-- **Built:** with the other demo pages, at `/coach/` and `/en/coach/`, linked from both video pages. Not deployed yet; that waits for Tomasz.
+- **Built:** with the other demo pages, at `/coach/` and `/en/coach/`, linked from both video pages. Deployed to Vercel production at Tomasz's request on 2026-11-11, after a coach-friendliness pass: every number is coloured from Dziki's side and explains itself when tapped, timeline legend, feedback steps, and layouts for a laptop and a tablet.
 
