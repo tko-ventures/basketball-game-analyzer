@@ -130,3 +130,18 @@ Tomasz is showing the demo to Marco Legovich, Dziki Warszawa's head coach in 202
 
 The demo still reads numbers with Skalski's public SmolVLM model; the fix for the 2/8 confusion is M7's fine-tune on PLK crops. Deployed to Vercel production at Tomasz's request on 2026-11-11 (https://basketball-analyzer-demo.vercel.app/en/).
 
+## 2026-11-11: coach page on simulated 2D data
+
+Tomasz asked for synthetic possessions so the demo can show the head coach (Marco Legovich) what accurate 2D tracking gives him, before the camera pipeline can deliver it. Marco watches the game first and then turns to statistics and insights, so the page follows that order:
+1. **Watch:** the court with no overlays, possession by possession.
+2. **Insights:** the detected play and coverage, a verdict on the shot, and the shot quality, defender distances, spacing and passes, plus clickable key moments (open team-mates found or missed, screens, helps, rotations) and per-player distance and speed.
+3. **Feedback:** drawing on the court (pen, arrow, "this player should have been here"), and notes addressed to the team or a player and tagged "well done" or "to improve". Notes are kept in the browser and exported as text grouped by player.
+
+A Game tab adds totals.
+
+- **Data:** eight possessions in `data/fixtures/synthetic/`, written by `scripts/synth_plays.py` (format and method in `docs/fixtures.md`). Offence is choreographed from common set plays; defence follows man-to-man or zone rules with reaction delay and speed limits, plus the scripted decision each play turns on. Dziki's players are the 2026/27 roster. The opponent is anonymous, so no real team is shown losing a made-up possession.
+- **Label:** the page carries a "Simulated tracking data" badge and says in its footer that the possessions are simulated. The fixtures are never gold or training data.
+- **Format:** the fixture format (`bga.tracking2d/v0`) is the shape the pipeline's 2D output should take, so the page will take real possessions once M3 and M4 deliver them.
+- **Status:** a showcase, not a pipeline layer, so no metrics row. The insight rules (`scripts/coach_insights.py`) are demo rules on simulated data. Before any of them becomes a pipeline layer it needs a before/after row against gold like any other heuristic.
+- **Built:** with the other demo pages, at `/coach/` and `/en/coach/`, linked from both video pages. Not deployed yet; that waits for Tomasz.
+

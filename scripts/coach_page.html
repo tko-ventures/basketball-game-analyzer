@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="{{lang}}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{title}}</title>
+<style>
+:root{--bg:#111;--panel:#1b1b1b;--panel2:#232323;--line:#333;--ink:#eee;--muted:#9a9a9a;--accent:#e0452b;--open:#ffd400;--good:#3fb950;--bad:#f0883e}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 -apple-system,system-ui,sans-serif}
+header{padding:12px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+h1{font-size:18px;margin:0}
+.sim{font-size:12px;color:#111;background:var(--open);border-radius:10px;padding:2px 9px;cursor:help;font-weight:600}
+.tabs{display:flex;gap:4px;margin-left:12px}
+.tabs button{background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:6px 12px;font:inherit;font-weight:600;cursor:pointer}
+.tabs button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.switch{color:var(--ink);font-size:13px;text-decoration:none;border:1px solid #3a3a3a;border-radius:6px;padding:4px 10px}
+.switch:hover{border-color:var(--accent)}.switch.first{margin-left:auto}
+main{display:grid;grid-template-columns:250px minmax(0,1fr) 410px;gap:14px;padding:0 16px;align-items:start}
+main.watch{grid-template-columns:250px minmax(0,1fr)}main.watch #side{display:none}
+main.game #stage,main.game #side{display:none}#game{display:none}main.game #game{display:block}
+@media (max-width:1150px){main,main.watch{grid-template-columns:1fr}}
+#list{display:flex;flex-direction:column;gap:6px;max-height:calc(100vh - 120px);overflow:auto}
+#list .hint{color:var(--muted);font-size:13px;margin:0 0 4px}
+.card{text-align:left;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font:inherit;cursor:pointer}
+.card:hover{border-color:#555}.card.on{border-color:var(--accent);background:#2a1d1a}
+.card .k{display:inline-block;min-width:18px;text-align:center;border-radius:4px;background:#333;color:#ddd;margin-right:6px;font-weight:600}
+.card .top{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.card .name{font-weight:600;margin:2px 0}
+.card .bot{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--muted);flex-wrap:wrap}
+.pill{white-space:nowrap;border-radius:9px;padding:1px 7px;font-size:11px;background:#333;color:#ddd}
+.pill.att{background:#3a2a10;color:#f5c26b}.pill.def{background:#10283a;color:#7cc0f5}
+.pill.good{background:#123a1c;color:#7ee39a}.pill.bad{background:#3a1d10;color:#f7a46b}.pill.note{background:var(--accent);color:#fff}
+#board{display:flex;justify-content:space-between;align-items:center;background:var(--panel);border-radius:8px 8px 0 0;padding:6px 12px;font-variant-numeric:tabular-nums;gap:10px;flex-wrap:wrap}
+#board .score{font-size:18px;font-weight:700}#board .muted{color:var(--muted);font-size:13px}
+.panel{position:relative;background:#1b1b1b;overflow:hidden;display:flex;justify-content:center}
+#court{display:block;max-width:100%;max-height:68vh;width:auto;height:auto;cursor:pointer;touch-action:none}
+main.feedback.tool #court{cursor:crosshair}
+.fs{position:absolute;right:8px;bottom:8px;border:0;border-radius:6px;background:#000a;color:#fff;font-size:18px;width:36px;height:32px;cursor:pointer}
+.fs:hover{background:var(--accent)}
+.panel:fullscreen{align-items:center;background:#000}.panel:fullscreen #court{max-height:100vh}
+#caption{position:absolute;left:10px;top:10px;max-width:70%;background:#000c;border-left:3px solid var(--accent);padding:6px 10px;border-radius:4px;font-size:14px;display:none}
+#tl{position:relative;height:22px;background:var(--panel2);cursor:pointer;touch-action:none}
+#tlFill{position:absolute;left:0;top:0;bottom:0;background:#e0452b55}
+#tlHead{position:absolute;top:0;bottom:0;width:2px;background:var(--accent)}
+.mk{position:absolute;top:4px;width:8px;height:14px;margin-left:-4px;border-radius:2px;background:#bbb}
+.mk.open_missed{background:var(--bad)}.mk.open_found{background:var(--good)}.mk.shot{background:#f08a24}.mk.note{background:var(--accent);top:0;height:22px;width:4px;margin-left:-2px}
+.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--panel);padding:8px 10px;border-radius:0 0 8px 8px}
+.bar button,.bar select,#side button,#side select{background:#2a2a2a;color:var(--ink);border:1px solid #3a3a3a;border-radius:6px;padding:5px 10px;font:inherit;font-size:14px;cursor:pointer}
+.bar button:hover,#side button:hover{border-color:var(--accent)}
+.bar .on,#side .on{background:var(--accent);border-color:var(--accent)}
+#play{width:44px}#time{font-variant-numeric:tabular-nums;color:var(--muted);min-width:96px}
+.lbl{color:var(--muted);font-size:13px}.sp{flex:1}
+#selInfo{min-height:24px;padding:6px 2px;color:#ddd;font-size:14px}
+#side{background:var(--panel);border-radius:8px;padding:12px 14px;max-height:calc(100vh - 120px);overflow:auto}
+#side h3{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin:16px 0 6px}
+.det{font-size:14px;color:#ccc}.det b{color:#fff}
+.verdict{font-size:16px;font-weight:600;margin:10px 0;padding:8px 10px;border-radius:6px;background:var(--panel2);border-left:4px solid #888}
+.verdict.good{border-color:var(--good)}.verdict.bad{border-color:var(--bad)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tile{background:var(--panel2);border-radius:6px;padding:8px 10px}
+.tile .l{font-size:12px;color:var(--muted)}.tile .v{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}.tile .u{font-size:12px;color:var(--muted)}
+.moments{list-style:none;margin:0;padding:0}
+.moments li{padding:6px 8px;border-radius:6px;cursor:pointer;display:flex;gap:8px;font-size:14px}
+.moments li:hover{background:var(--panel2)}.moments li.now{background:#2a1d1a}
+.moments .tm{color:var(--muted);font-variant-numeric:tabular-nums;min-width:34px}
+.moments li.open_missed .tx{color:#f7a46b}.moments li.open_found .tx{color:#7ee39a}.moments li.shot .tx{font-weight:600}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th{text-align:left;color:var(--muted);font-weight:600;border-bottom:1px solid var(--line);padding:4px 6px}
+td{padding:4px 6px;border-bottom:1px solid #222}td.n,th.n{text-align:right}
+tbody tr{cursor:pointer}tbody tr:hover{background:var(--panel2)}tr.sel{background:#2a1d1a}
+.muted{color:var(--muted);font-size:12px}
+.row{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:6px 0}
+textarea{width:100%;min-height:70px;background:#111;color:var(--ink);border:1px solid #3a3a3a;border-radius:6px;padding:8px;font:inherit}
+#save{width:100%;background:var(--accent)!important;border-color:var(--accent)!important;font-weight:600;margin-top:6px}
+.notes{list-style:none;margin:0;padding:0}
+.notes li{background:var(--panel2);border-radius:6px;padding:7px 9px;margin-bottom:6px;cursor:pointer;font-size:14px}
+.notes li.on{outline:2px solid var(--accent)}
+.notes .h{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--muted)}.notes .del{margin-left:auto;padding:1px 7px!important;font-size:12px!important}
+.who{font-weight:600;margin:10px 0 4px}
+#game{grid-column:2/-1;background:var(--panel);border-radius:8px;padding:12px 16px}
+#game h3{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin:14px 0 6px}
+footer{padding:10px 16px 20px;color:var(--muted);font-size:13px;line-height:1.6}
+</style></head><body>
+<header>
+ <h1 data-t="h1"></h1><span class="sim" data-t="sim" data-tip="sim_tip"></span>
+ <nav class="tabs"><button data-tab="watch" data-t="tab_watch"></button><button data-tab="insights" data-t="tab_insights"></button><button data-tab="feedback" data-t="tab_feedback"></button><button data-tab="game" data-t="tab_game"></button></nav>
+ <a class="switch first" href="../" data-t="to_video"></a><a class="switch" href="{{lang_href}}" data-t="other_lang"></a>
+</header>
+<main id="main" class="watch">
+ <aside id="list"></aside>
+ <section id="stage">
+  <div id="board"></div>
+  <div class="panel" id="pC"><canvas id="court"></canvas><div id="caption"></div><button class="fs" id="fs" data-tip="fullscreen">⛶</button></div>
+  <div id="tl"><div id="tlFill"></div><div id="tlMarks"></div><div id="tlHead"></div></div>
+  <div class="bar">
+   <button id="play" data-tip="play">▶</button><button id="back" data-tip="back">⏮</button><button id="fwd" data-tip="fwd">⏭</button>
+   <span id="time"></span>
+   <select id="rate" data-tip="speed"><option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option></select>
+   <span class="lbl" data-t="layers"></span>
+   <button class="tog" data-l="names" data-t="names" data-tip="names_tip"></button>
+   <button class="tog" data-l="trails" data-t="trails" data-tip="trails_tip"></button>
+   <button class="tog" data-l="cover" data-t="cover" data-tip="cover_tip"></button>
+   <button class="tog" data-l="shape" data-t="shape" data-tip="shape_tip"></button>
+   <span class="sp"></span>
+   <button id="zoom" data-t="zoom" data-tip="zoom_tip"></button>
+   <button id="auto" data-t="auto" data-tip="auto_tip"></button>
+  </div>
+  <div id="selInfo"></div>
+ </section>
+ <aside id="side"><div id="pInsights"></div><div id="pFeedback">
+  <div class="row"><span class="lbl" data-t="tools"></span>
+   <button class="tool" data-tool="pen" data-t="pen"></button><button class="tool" data-tool="arrow" data-t="arrow"></button>
+   <button class="tool" data-tool="move" data-t="move" data-tip="move_tip"></button><button id="undo" data-t="undo"></button></div>
+  <div class="row"><span class="lbl" data-t="note_to"></span><select id="to"></select>
+   <button class="tag" data-tag="good" data-t="tag_good"></button><button class="tag" data-tag="fix" data-t="tag_fix"></button></div>
+  <textarea id="note"></textarea><button id="save"></button>
+  <h3 data-t="notes_here"></h3><ul class="notes" id="notesHere"></ul>
+  <h3 data-t="notes_all"></h3><div id="notesAll"></div>
+  <div class="row"><button id="copy" data-t="copy"></button><button id="download" data-t="download"></button></div>
+  <p class="muted" data-t="notes_local"></p>
+ </div></aside>
+ <section id="game"></section>
+</main>
+<footer id="footer"></footer>
+<script>
+const D = __DATA__, T = __T__, LANG = T.lang;
+const $ = (id) => document.getElementById(id);
+const tr = (s, o = {}) => s.replace(/\{(\w+)\}/g, (_, k) => (o[k] ?? ''));
+const num = (x, d = 1) => Number(x).toLocaleString(LANG, {minimumFractionDigits: d, maximumFractionDigits: d});
+const esc = (s) => String(s).replace(/[&<>"]/g, (ch) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[ch]));
+const COL = {home: '#ececec', away: '#2f6fd0'}, INK = {home: '#111', away: '#fff'};
+const surname = (n) => n.split(' ').slice(1).join(' ') || n;
+const plays = D.plays, PX = 50, OPEN_M = D.open_m;
+const ROSTER = {};
+
+// ------------------------------------------------------------ data
+for (const P of plays) {
+  P.n = P.ball.length; P.dur = (P.n - 1) / P.fps;
+  P.byId = {}; for (const p of P.players) { P.byId[p.id] = p; ROSTER[p.id] = p; }
+  P.m = {}; P.v = {}; P.cum = {};
+  for (const [pid, raw] of Object.entries(P.tracks)) {
+    const m = raw.map(([x, y]) => [x / 100, y / 100]);
+    const sm = m.map((_, i) => { let sx = 0, sy = 0, k = 0;
+      for (let j = Math.max(0, i - 2); j <= Math.min(P.n - 1, i + 2); j++) { sx += m[j][0]; sy += m[j][1]; k++; }
+      return [sx / k, sy / k]; });
+    const v = new Float32Array(P.n), c = new Float32Array(P.n);
+    for (let i = 1; i < P.n; i++) {
+      c[i] = c[i - 1] + Math.hypot(sm[i][0] - sm[i - 1][0], sm[i][1] - sm[i - 1][1]);
+      const a = Math.max(0, i - 5);
+      v[i] = (c[i] - c[a]) / ((i - a) / P.fps);
+    }
+    P.m[pid] = m; P.v[pid] = v; P.cum[pid] = c;
+  }
+  P.bm = P.ball.map(([x, y, z]) => [x / 100, y / 100, z / 100]);
+  P.shot = P.events.find((e) => e.type === 'shot');
+}
+const who = (pid) => { const p = ROSTER[pid]; if (!p) return pid;
+  return p.team === 'home' ? `#${p.number} ${surname(p.name)}` : tr(T.opp_player, {n: p.number}); };
+const fullName = (pid) => pid === 'team' ? T.team : `#${ROSTER[pid].number} ${ROSTER[pid].name}`;
+const clock = (P, t) => { const s = Math.max(0, Math.floor(P.game.clock_start_s - t)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
+const scoreAt = (P, t) => (P.shot && P.shot.made && t >= P.shot.t1 ? P.game.score_after : P.game.score_before);
+const playName = (P) => T.play_names[P.labels.play] || P.labels.play;
+function momentText(m) {
+  const o = {};
+  for (const k of ['by', 'for', 'on', 'to_def', 'def_by']) if (m[k]) o[k] = who(m[k]);
+  if (m.dur != null) o.dur = num(m.dur); if (m.dist != null) o.dist = num(m.dist);
+  if (m.def_dist != null) o.def_dist = num(m.def_dist); if (m.xpts != null) o.xpts = num(m.xpts, 2);
+  if (m.zone) o.zone = T.zones[m.zone]; if (m.open) o.open = T.open_names[m.open];
+  o.res = m.made ? T.made : T.missed;
+  return tr(T.m[m.kind] || m.kind, o);
+}
+
+// ------------------------------------------------------------ state
+const S = {i: 0, t: 0, playing: false, rate: 1, sel: null, tab: 'watch', half: true, auto: true,
+  layers: {names: true, trails: false, cover: false, shape: false}, tool: null, draft: [], cur: null, shown: null,
+  tag: null, pos: {}};
+let notes = []; try { notes = JSON.parse(localStorage.getItem('bga-coach-notes-v1') || '[]'); } catch (e) { notes = []; }
+const persist = () => localStorage.setItem('bga-coach-notes-v1', JSON.stringify(notes));
+const cur = () => plays[S.i];
+const cv = $('court'), c = cv.getContext('2d');
+let V = {x0: 0, y0: 0};
+const X = (x) => (x - V.x0) * PX, Y = (y) => (y - V.y0) * PX;
+
+function setView() {
+  const P = cur();
+  V = !S.half ? {x0: -0.5, x1: 28.5} : P.attacks === 'left' ? {x0: -0.5, x1: 15.5} : {x0: 12.5, x1: 28.5};
+  V.y0 = -0.5; V.y1 = 15.5;
+  cv.width = Math.round((V.x1 - V.x0) * PX); cv.height = Math.round((V.y1 - V.y0) * PX);
+  $('zoom').classList.toggle('on', S.half);
+}
+
+// ------------------------------------------------------------ drawing
+function court() {
+  c.fillStyle = '#1b1b1b'; c.fillRect(0, 0, cv.width, cv.height);
+  c.fillStyle = '#c39a66'; c.fillRect(X(0), Y(0), 28 * PX, 15 * PX);
+  c.strokeStyle = '#fffffff0'; c.lineWidth = 2.5;
+  const line = (pts) => { c.beginPath(); pts.forEach(([x, y], k) => (k ? c.lineTo(X(x), Y(y)) : c.moveTo(X(x), Y(y)))); c.stroke(); };
+  const arc = (x, y, r, a0, a1, dash) => { c.beginPath(); c.setLineDash(dash || []); c.arc(X(x), Y(y), r * PX, a0, a1); c.stroke(); c.setLineDash([]); };
+  for (const s of [1, -1]) {
+    const fx = (d) => (s > 0 ? d : 28 - d), H = Math.PI / 2, a0 = s > 0 ? -H : H;
+    c.fillStyle = '#b3884f';
+    c.fillRect(Math.min(X(fx(0)), X(fx(5.8))), Y(5.05), 5.8 * PX, 4.9 * PX);
+    c.strokeRect(Math.min(X(fx(0)), X(fx(5.8))), Y(5.05), 5.8 * PX, 4.9 * PX);
+    arc(fx(5.8), 7.5, 1.8, a0, a0 + Math.PI); arc(fx(5.8), 7.5, 1.8, a0 + Math.PI, a0 + 2 * Math.PI, [9, 9]);
+    line([[fx(0), 0.9], [fx(2.99), 0.9]]); line([[fx(0), 14.1], [fx(2.99), 14.1]]);
+    const th = Math.asin(6.6 / 6.75), b0 = s > 0 ? 0 : Math.PI;
+    arc(fx(1.575), 7.5, 6.75, b0 - th, b0 + th);
+    arc(fx(1.575), 7.5, 1.25, a0, a0 + Math.PI);
+    c.lineWidth = 4; line([[fx(1.2), 6.6], [fx(1.2), 8.4]]); c.lineWidth = 2.5;
+    c.strokeStyle = '#ff7a1a'; arc(fx(1.575), 7.5, 0.225, 0, 7); c.strokeStyle = '#fffffff0';
+  }
+  c.strokeRect(X(0), Y(0), 28 * PX, 15 * PX);
+  line([[14, 0], [14, 15]]); arc(14, 7.5, 1.8, 0, 7);
+}
+function hull(pts) {
+  const p = pts.slice().sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  const cr = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+  const lo = [], up = [];
+  for (const q of p) { while (lo.length >= 2 && cr(lo[lo.length - 2], lo[lo.length - 1], q) <= 0) lo.pop(); lo.push(q); }
+  for (const q of p.reverse()) { while (up.length >= 2 && cr(up[up.length - 2], up[up.length - 1], q) <= 0) up.pop(); up.push(q); }
+  return lo.slice(0, -1).concat(up.slice(0, -1));
+}
+function arrow(a, b, col, w = 4, dash) {
+  const ax = X(a[0]), ay = Y(a[1]), bx = X(b[0]), by = Y(b[1]), ang = Math.atan2(by - ay, bx - ax);
+  c.strokeStyle = col; c.fillStyle = col; c.lineWidth = w; c.setLineDash(dash || []);
+  c.beginPath(); c.moveTo(ax, ay); c.lineTo(bx - 10 * Math.cos(ang), by - 10 * Math.sin(ang)); c.stroke(); c.setLineDash([]);
+  c.beginPath(); c.moveTo(bx, by); c.lineTo(bx - 18 * Math.cos(ang - 0.4), by - 18 * Math.sin(ang - 0.4));
+  c.lineTo(bx - 18 * Math.cos(ang + 0.4), by - 18 * Math.sin(ang + 0.4)); c.closePath(); c.fill();
+}
+const label = (txt, x, y, col = '#fff', font = '600 15px system-ui') => {
+  c.font = font; c.textAlign = 'center'; c.lineWidth = 4; c.strokeStyle = '#000b'; c.strokeText(txt, x, y); c.fillStyle = col; c.fillText(txt, x, y); };
+function visibleDraws() {
+  const out = S.tab === 'feedback' ? S.draft.slice() : [];
+  const n = notes.find((q) => q.id === S.shown);
+  if (n && n.play === cur().id && Math.abs(S.t - n.t) < 0.3) out.push(...n.draw);
+  return out;
+}
+function draw() {
+  const P = cur(), f = Math.min(S.t * P.fps, P.n - 1), i = Math.min(P.n - 2, Math.floor(f)), a = f - i;
+  const at = (arr) => arr[i].map((v, k) => v + (arr[i + 1][k] - v) * a);
+  const pos = {}; for (const pid in P.m) pos[pid] = at(P.m[pid]);
+  S.pos = pos;
+  court();
+  const off = P.players.filter((p) => p.team === P.offence), def = P.players.filter((p) => p.team !== P.offence);
+  if (S.layers.shape) for (const side of ['home', 'away']) {
+    const h = hull(P.players.filter((p) => p.team === side).map((p) => pos[p.id]));
+    c.beginPath(); h.forEach(([x, y], k) => (k ? c.lineTo(X(x), Y(y)) : c.moveTo(X(x), Y(y)))); c.closePath();
+    c.fillStyle = side === 'home' ? '#ffffff22' : '#2f6fd033'; c.fill(); c.strokeStyle = side === 'home' ? '#ffffffaa' : '#2f6fd0'; c.lineWidth = 2; c.stroke();
+  }
+  if (S.layers.trails || S.sel) for (const p of P.players) {
+    if (!S.layers.trails && p.id !== S.sel) continue;
+    const m = P.m[p.id], from = p.id === S.sel ? 0 : Math.max(0, i - Math.round(1.5 * P.fps));
+    c.beginPath(); for (let j = from; j <= i; j++) (j === from ? c.moveTo(X(m[j][0]), Y(m[j][1])) : c.lineTo(X(m[j][0]), Y(m[j][1])));
+    c.strokeStyle = p.id === S.sel ? '#e0452bcc' : COL[p.team] + '99'; c.lineWidth = p.id === S.sel ? 3 : 2.5; c.stroke();
+  }
+  let open = [];
+  if (S.layers.cover) for (const p of off) {
+    let best = null, bd = 1e9;
+    for (const q of def) { const d = Math.hypot(pos[p.id][0] - pos[q.id][0], pos[p.id][1] - pos[q.id][1]); if (d < bd) { bd = d; best = q; } }
+    const A = pos[p.id], B = pos[best.id], isOpen = bd >= OPEN_M;
+    if (isOpen) open.push(p.id);
+    c.beginPath(); c.moveTo(X(A[0]), Y(A[1])); c.lineTo(X(B[0]), Y(B[1])); c.setLineDash([7, 6]);
+    c.strokeStyle = isOpen ? '#ffd400' : '#ffffffaa'; c.lineWidth = isOpen ? 3 : 2; c.stroke(); c.setLineDash([]);
+    label(`${num(bd)} m`, X((A[0] + B[0]) / 2), Y((A[1] + B[1]) / 2) - 6, isOpen ? '#ffd400' : '#fff', '600 14px system-ui');
+  }
+  if (S.tab !== 'watch') for (const m of cur().insights.moments) {
+    if (!m.kind.startsWith('open') || S.t < m.t || S.t > m.t + m.dur) continue;
+    const p = pos[m.by]; c.beginPath(); c.arc(X(p[0]), Y(p[1]), 0.95 * PX, 0, 7); c.setLineDash([6, 5]);
+    c.strokeStyle = m.kind === 'open_found' ? '#3fb950' : '#f0883e'; c.lineWidth = 4; c.stroke(); c.setLineDash([]);
+  }
+  const draws = visibleDraws();
+  for (const d of draws) if (d.type === 'move') {
+    arrow(pos[d.pid] || d.from, d.to, '#e0452b', 3, [8, 6]);
+    c.beginPath(); c.arc(X(d.to[0]), Y(d.to[1]), 0.45 * PX, 0, 7); c.setLineDash([5, 4]); c.strokeStyle = '#e0452b'; c.lineWidth = 3; c.stroke(); c.setLineDash([]);
+    label(ROSTER[d.pid].number, X(d.to[0]), Y(d.to[1]) + 6, '#e0452b');
+  }
+  for (const p of P.players) {
+    const [x, y] = pos[p.id], cx = X(x), cy = Y(y), r = 0.45 * PX;
+    if (open.includes(p.id)) { c.beginPath(); c.arc(cx, cy, r + 8, 0, 7); c.strokeStyle = '#ffd400'; c.lineWidth = 5; c.stroke(); }
+    if (p.id === S.sel) { c.beginPath(); c.arc(cx, cy, r + 6, 0, 7); c.strokeStyle = '#e0452b'; c.lineWidth = 5; c.stroke(); }
+    c.beginPath(); c.arc(cx, cy, r, 0, 7); c.fillStyle = COL[p.team]; c.fill(); c.lineWidth = 2; c.strokeStyle = '#000a'; c.stroke();
+    c.font = '700 19px system-ui'; c.textAlign = 'center'; c.fillStyle = INK[p.team]; c.fillText(p.number, cx, cy + 7);
+  }
+  if (S.layers.names) for (const p of P.players) if (p.team === 'home') label(surname(p.name), X(pos[p.id][0]), Y(pos[p.id][1]) + 0.45 * PX + 17, '#fff', '600 14px system-ui');
+  const b = at(P.bm), br = (0.14 + 0.045 * b[2]) * PX;
+  c.beginPath(); c.ellipse(X(b[0]) + b[2] * 3, Y(b[1]) + b[2] * 5, 9, 5, 0, 0, 7); c.fillStyle = '#0005'; c.fill();
+  c.beginPath(); c.arc(X(b[0]), Y(b[1]) - b[2] * 4, br, 0, 7); c.fillStyle = '#f08a24'; c.fill(); c.strokeStyle = '#3a1a00'; c.lineWidth = 1.5; c.stroke();
+  for (const d of draws) {
+    if (d.type === 'pen' && d.pts.length > 1) {
+      c.beginPath(); d.pts.forEach(([x, y], k) => (k ? c.lineTo(X(x), Y(y)) : c.moveTo(X(x), Y(y))));
+      c.strokeStyle = '#e0452b'; c.lineWidth = 4; c.lineJoin = c.lineCap = 'round'; c.stroke();
+    } else if (d.type === 'arrow' && Math.hypot(d.b[0] - d.a[0], d.b[1] - d.a[1]) > 0.3) arrow(d.a, d.b, '#e0452b', 4);
+  }
+}
+
+// ------------------------------------------------------------ ui
+function ui() {
+  const P = cur(), sc = scoreAt(P, S.t);
+  const arrowDir = P.attacks === 'right' ? '→' : '←';
+  $('board').innerHTML = `<span>${tr(T.quarter, {q: P.game.quarter})} · <b>${clock(P, S.t)}</b></span>
+    <span class="score">Dziki ${sc[0]} : ${sc[1]} ${esc(T.opp)}</span>
+    <span class="muted">${P.offence === 'home' ? T.home_attack : T.home_defend} ${arrowDir} · ${T.shot_clock} ${Math.max(0, Math.ceil(P.game.shot_clock_start_s - S.t))}</span>`;
+  const pct = (100 * S.t) / P.dur;
+  $('tlFill').style.width = pct + '%'; $('tlHead').style.left = pct + '%';
+  $('time').textContent = `${num(S.t)} / ${num(P.dur)} s`;
+  $('play').textContent = S.playing ? '❚❚' : '▶';
+  let info = '';
+  if (S.sel && S.pos[S.sel]) {
+    const f = Math.min(P.n - 1, Math.round(S.t * P.fps)), me = ROSTER[S.sel];
+    let nd = 1e9; for (const p of P.players) if (p.team !== me.team) nd = Math.min(nd, Math.hypot(S.pos[p.id][0] - S.pos[S.sel][0], S.pos[p.id][1] - S.pos[S.sel][1]));
+    info = tr(T.selected, {who: esc(who(S.sel)), v: num(P.v[S.sel][f] * 3.6), d: num(P.cum[S.sel][f], 0), n: num(nd)});
+  }
+  $('selInfo').innerHTML = info;
+  let capt = '';
+  if (S.tab === 'insights') {
+    const ms = P.insights.moments.filter((m) => m.t <= S.t && S.t - m.t < 2.5);
+    if (ms.length) capt = esc(momentText(ms[ms.length - 1]));
+    const nowT = ms.length ? String(ms[ms.length - 1].t) : null;
+    document.querySelectorAll('.moments li').forEach((li) => li.classList.toggle('now', li.dataset.t === nowT));
+  }
+  $('caption').style.display = capt ? 'block' : 'none'; $('caption').innerHTML = capt;
+  $('save').textContent = tr(T.save_at, {t: clock(P, S.t)});
+}
+function renderList() {
+  const hint = S.tab === 'watch' ? `<p class="hint">${esc(T.watch_hint)}</p>` : '';
+  $('list').innerHTML = hint + plays.map((P, k) => {
+    const s = P.insights.shot, cnt = notes.filter((n) => n.play === P.id).length, sb = P.game.score_before;
+    const res = s ? (s.made ? tr(T.res_made, {pts: s.points, who: who(s.by)}) : tr(T.res_miss, {who: who(s.by)})) : '';
+    const good = s && (s.made === (P.offence === 'home'));
+    return `<button class="card${k === S.i ? ' on' : ''}" data-k="${k}"><div class="top"><span><span class="k">${k + 1}</span>${tr(T.quarter, {q: P.game.quarter})} · ${clock(P, 0)}</span><span>${sb[0]}:${sb[1]}</span></div>
+      <div class="name">${esc(playName(P))}</div>
+      <div class="bot"><span class="pill ${P.offence === 'home' ? 'att' : 'def'}">${P.offence === 'home' ? T.home_attack : T.home_defend}</span><span class="pill ${good ? 'good' : 'bad'}">${esc(res)}</span>${cnt ? `<span class="pill note">✎ ${cnt}</span>` : ''}</div></button>`;
+  }).join('');
+  $('list').querySelectorAll('.card').forEach((b) => (b.onclick = () => load(+b.dataset.k, false)));
+}
+function renderMarks() {
+  const P = cur(); let h = '';
+  if (S.tab !== 'watch') for (const m of P.insights.moments) h += `<div class="mk ${m.kind}" style="left:${(100 * m.t) / P.dur}%" title="${esc(momentText(m))}"></div>`;
+  else if (P.shot) h += `<div class="mk shot" style="left:${(100 * P.shot.t) / P.dur}%"></div>`;
+  if (S.tab === 'feedback') for (const n of notes.filter((q) => q.play === P.id)) h += `<div class="mk note" style="left:${(100 * n.t) / P.dur}%" title="${esc(n.text)}"></div>`;
+  $('tlMarks').innerHTML = h;
+}
+function renderInsights() {
+  const P = cur(), I = P.insights, s = I.shot, L = P.labels;
+  const good = (I.quality === 'good') === (P.offence === 'home'), mid = I.quality === 'average';
+  let h = `<div class="det">${esc(T.detected)}: <b>${esc(playName(P))}</b> ${esc(T.vs)} ${esc(T.def_names[L.defence] || L.defence)}${L.coverage ? ', ' + esc(T.cov_names[L.coverage] || L.coverage) : ''}</div>`;
+  if (s) h += `<div class="verdict ${mid ? '' : good ? 'good' : 'bad'}">${esc(tr(T.verdict[P.offence][I.quality], {zone: T.zones[s.zone], open: T.open_names[s.open], near: s.defenders_near}))}</div>`;
+  const tt = T.tiles, tiles = [];
+  if (s) tiles.push([tt.xpts, num(s.xpts, 2), tt.xpts_u], [tt.def_dist, num(s.def_dist), 'm · ' + T.open_names[s.open]],
+    [tt.catch, num(s.catch_def_dist), tr(tt.catch_u, {s: num(s.catch_to_release)})]);
+  tiles.push([tt.spacing, num(I.spacing.mean), tt.spacing_u], [tt.passes, I.passes, tr(tt.passes_u, {r: I.reversals})]);
+  tiles.push([tt.paint, I.paint_touches, ''], [tt.tts, num(I.time_to_shot), 's']);
+  if (I.onball_def_dist != null) tiles.push([tt.onball, num(I.onball_def_dist), tt.onball_u]);
+  h += `<div class="tiles">${tiles.map(([l, v, u]) => `<div class="tile"><div class="l">${esc(l)}</div><div class="v">${v}</div><div class="u">${esc(u)}</div></div>`).join('')}</div>`;
+  h += `<h3>${esc(T.moments_h)}</h3><p class="muted">${esc(T.moments_hint)}</p><ul class="moments">${I.moments.map((m) =>
+    `<li class="${m.kind}" data-t="${m.t}"><span class="tm">${clock(P, m.t)}</span><span class="tx">${esc(momentText(m))}</span></li>`).join('')}</ul>`;
+  const rows = P.players.map((p) => { const r = I.players[p.id];
+    return `<tr data-pid="${p.id}" class="${p.id === S.sel ? 'sel' : ''}"><td>${esc(p.team === 'home' ? `#${p.number} ${p.name}` : who(p.id))}</td><td class="n">${num(r.dist_m)}</td><td class="n">${num(r.top_kmh)}</td><td class="n">${num(r.ball_s)}</td></tr>`; }).join('');
+  h += `<h3>${esc(T.players_h)}</h3><table><thead><tr><th>${T.col_player}</th><th class="n">${T.col_dist}</th><th class="n">${T.col_top}</th><th class="n">${T.col_ball}</th></tr></thead><tbody>${rows}</tbody></table>`;
+  h += `<p class="muted">${esc(T.model_note)}</p>`;
+  $('pInsights').innerHTML = h;
+  $('pInsights').querySelectorAll('.moments li').forEach((li) => (li.onclick = () => { S.t = Math.max(0, +li.dataset.t - 1.5); S.playing = true; }));
+  $('pInsights').querySelectorAll('tbody tr').forEach((tr_) => (tr_.onclick = () => { S.sel = tr_.dataset.pid === S.sel ? null : tr_.dataset.pid; renderInsights(); }));
+}
+function renderFeedback() {
+  const P = cur(), to = $('to'), prev = to.value;
+  const opts = [['team', T.team]].concat(P.players.filter((p) => p.team === 'home').map((p) => [p.id, `#${p.number} ${p.name}`]));
+  to.innerHTML = opts.map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join('');
+  to.value = opts.some(([v]) => v === prev) ? prev : 'team';
+  document.querySelectorAll('.tool').forEach((b) => b.classList.toggle('on', b.dataset.tool === S.tool));
+  document.querySelectorAll('.tag').forEach((b) => b.classList.toggle('on', b.dataset.tag === S.tag));
+  $('note').placeholder = T.note_ph;
+  const here = notes.filter((n) => n.play === P.id).sort((a, b) => a.t - b.t);
+  const tagTxt = (n) => (n.tag ? `<span class="pill ${n.tag === 'good' ? 'good' : 'bad'}">${n.tag === 'good' ? T.tag_good : T.tag_fix}</span>` : '');
+  $('notesHere').innerHTML = here.length ? here.map((n) => `<li data-id="${n.id}" class="${n.id === S.shown ? 'on' : ''}"><div class="h"><b>${clock(P, n.t)}</b> · ${esc(fullName(n.to))} ${tagTxt(n)}${n.draw.length ? ' ✎' : ''}<button class="del" data-id="${n.id}">${T.delete}</button></div>${esc(n.text)}</li>`).join('')
+    : `<p class="muted">${esc(T.notes_none)}</p>`;
+  $('notesHere').querySelectorAll('li').forEach((li) => (li.onclick = (e) => {
+    const n = notes.find((q) => q.id === li.dataset.id);
+    if (e.target.classList.contains('del')) { notes = notes.filter((q) => q.id !== n.id); persist(); refresh(); return; }
+    S.t = n.t; S.playing = false; S.shown = n.id; renderFeedback(); }));
+  const groups = {};
+  for (const n of notes) (groups[n.to] ||= []).push(n);
+  const keys = Object.keys(groups).sort((a, b) => (a === 'team' ? -1 : b === 'team' ? 1 : +ROSTER[a].number - +ROSTER[b].number));
+  $('notesAll').innerHTML = keys.map((k) => `<div class="who">${esc(fullName(k))}</div><ul class="notes">${groups[k].map((n) => {
+    const Q = plays.find((q) => q.id === n.play);
+    return `<li data-id="${n.id}"><div class="h">${tr(T.quarter, {q: Q.game.quarter})} ${clock(Q, n.t)} · ${esc(playName(Q))} ${tagTxt(n)}</div>${esc(n.text)}</li>`; }).join('')}</ul>`).join('');
+  $('notesAll').querySelectorAll('li').forEach((li) => (li.onclick = () => {
+    const n = notes.find((q) => q.id === li.dataset.id); load(plays.findIndex((q) => q.id === n.play), false); S.t = n.t; S.shown = n.id; renderFeedback(); }));
+}
+function exportText() {
+  const lines = [T.export_title, ''], groups = {};
+  for (const n of notes) (groups[n.to] ||= []).push(n);
+  const keys = Object.keys(groups).sort((a, b) => (a === 'team' ? -1 : b === 'team' ? 1 : +ROSTER[a].number - +ROSTER[b].number));
+  for (const k of keys) {
+    lines.push(fullName(k));
+    for (const n of groups[k].sort((a, b) => plays.findIndex((q) => q.id === a.play) - plays.findIndex((q) => q.id === b.play) || a.t - b.t)) {
+      const Q = plays.find((q) => q.id === n.play);
+      const tag = n.tag ? ` · ${n.tag === 'good' ? T.tag_good : T.tag_fix}` : '';
+      lines.push(`- ${tr(T.quarter, {q: Q.game.quarter})} ${clock(Q, n.t)} · ${playName(Q)}${tag}: ${n.text}${n.draw.length ? ` [${T.drawing}]` : ''}`);
+    }
+    lines.push('');
+  }
+  return lines.join('\n');
+}
+function renderGame() {
+  const G = D.summary, tm = G.teams;
+  const rows = plays.map((P, k) => { const s = P.insights.shot;
+    const res = s ? (s.made ? tr(T.res_made, {pts: s.points, who: who(s.by)}) : tr(T.res_miss, {who: who(s.by)})) : '';
+    return `<tr data-k="${k}"><td>${tr(T.quarter, {q: P.game.quarter})} ${clock(P, 0)}</td><td>${P.offence === 'home' ? T.home_attack : T.home_defend}</td><td>${esc(playName(P))}</td><td>${esc(res)}</td><td class="n">${s ? num(s.xpts, 2) : ''}</td><td class="n">${s ? num(s.def_dist) : ''}</td><td class="n">${num(P.insights.spacing.mean)}</td></tr>`; }).join('');
+  const trow = (lab, r) => `<tr><td>${lab}</td><td class="n">${r.possessions}</td><td class="n">${r.points}</td><td class="n">${num(r.ppp, 2)}</td><td class="n">${num(r.xpts, 2)}</td><td class="n">${r.open_shots}/${r.shots}</td><td class="n">${num(r.spacing)}</td><td class="n">${num(r.passes)}</td></tr>`;
+  const prow = G.players.map((p) => `<tr><td>#${p.number} ${esc(p.name)}</td><td>${p.pos}</td><td class="n">${p.plays}</td><td class="n">${num(p.dist_m)}</td><td class="n">${num(p.top_kmh)}</td></tr>`).join('');
+  $('game').innerHTML = `<h3>${T.game_plays}</h3><table><thead><tr><th>${T.col_when}</th><th></th><th>${T.col_play}</th><th>${T.col_result}</th><th class="n">${T.col_xpts}</th><th class="n">${T.col_def}</th><th class="n">${T.col_spacing}</th></tr></thead><tbody>${rows}</tbody></table>
+    <h3>${T.game_teams}</h3><table><thead><tr><th></th><th class="n">${T.col_poss}</th><th class="n">${T.col_pts}</th><th class="n">${T.col_ppp}</th><th class="n">${T.col_xpts}</th><th class="n">${T.col_open}</th><th class="n">${T.col_spacing}</th><th class="n">${T.col_passes}</th></tr></thead><tbody>${trow(T.row_off, tm.home)}${trow(T.row_def, tm.away)}</tbody></table>
+    <h3>${T.game_players}</h3><table><thead><tr><th>${T.col_player}</th><th></th><th class="n">${T.col_plays}</th><th class="n">${T.col_dist}</th><th class="n">${T.col_top}</th></tr></thead><tbody>${prow}</tbody></table>
+    <p class="muted">${esc(T.sample_note)} ${esc(T.model_note)}</p>`;
+  $('game').querySelectorAll('tbody tr[data-k]').forEach((r) => (r.onclick = () => { load(+r.dataset.k, false); setTab('insights'); }));
+}
+function refresh() {
+  renderList(); renderMarks();
+  if (S.tab === 'insights') renderInsights();
+  if (S.tab === 'feedback') renderFeedback();
+  if (S.tab === 'game') renderGame();
+}
+function load(k, playing) {
+  S.i = Math.max(0, Math.min(plays.length - 1, k)); S.t = 0; S.playing = playing; S.draft = []; S.shown = null;
+  if (S.sel && !cur().byId[S.sel]) S.sel = null;
+  S.half = cur().labels.play === 'fast_break' ? false : S.halfPref ?? true;
+  setView(); refresh();
+}
+function setTab(tab) {
+  S.tab = tab; $('main').className = tab + (tab === 'feedback' && S.tool ? ' tool' : '');
+  document.querySelectorAll('.tabs button').forEach((b) => b.classList.toggle('on', b.dataset.tab === tab));
+  if (tab === 'watch') { S.layers.cover = false; S.layers.shape = false; }
+  if (tab === 'insights') S.layers.cover = true;
+  if (tab !== 'feedback') S.tool = null;
+  syncToggles(); refresh();
+}
+function syncToggles() {
+  document.querySelectorAll('.tog').forEach((b) => b.classList.toggle('on', S.layers[b.dataset.l]));
+  $('auto').classList.toggle('on', S.auto);
+}
+
+// ------------------------------------------------------------ input
+const toM = (e) => { const r = cv.getBoundingClientRect();
+  return [((e.clientX - r.left) * cv.width) / r.width / PX + V.x0, ((e.clientY - r.top) * cv.height) / r.height / PX + V.y0]; };
+const pick = (x, y) => { let best = null, bd = 0.8;
+  for (const [pid, p] of Object.entries(S.pos)) { const d = Math.hypot(p[0] - x, p[1] - y); if (d < bd) { bd = d; best = pid; } } return best; };
+cv.addEventListener('pointerdown', (e) => {
+  const [x, y] = toM(e);
+  if (S.tab === 'feedback' && S.tool) {
+    S.playing = false; S.shown = null;
+    if (S.tool === 'pen') S.cur = {type: 'pen', pts: [[x, y]]};
+    else if (S.tool === 'arrow') S.cur = {type: 'arrow', a: [x, y], b: [x, y]};
+    else { const pid = pick(x, y); if (!pid) return; S.cur = {type: 'move', pid, from: S.pos[pid].slice(), to: [x, y]}; }
+    S.draft.push(S.cur); cv.setPointerCapture(e.pointerId); return;
+  }
+  const pid = pick(x, y); S.sel = pid && pid !== S.sel ? pid : null;
+  if (S.sel && ROSTER[S.sel].team === 'home' && S.tab === 'feedback') $('to').value = S.sel;
+  if (S.tab === 'insights') renderInsights();
+});
+cv.addEventListener('pointermove', (e) => {
+  if (!S.cur) return; const [x, y] = toM(e);
+  if (S.cur.type === 'pen') S.cur.pts.push([x, y]); else if (S.cur.type === 'arrow') S.cur.b = [x, y]; else S.cur.to = [x, y];
+});
+cv.addEventListener('pointerup', () => { if (S.cur && S.cur.type === 'move' && ROSTER[S.cur.pid].team === 'home') $('to').value = S.cur.pid; S.cur = null; });
+let dragTl = false;
+const seekTl = (e) => { const r = $('tl').getBoundingClientRect(); S.t = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)) * cur().dur; };
+$('tl').addEventListener('pointerdown', (e) => { dragTl = true; $('tl').setPointerCapture(e.pointerId); seekTl(e); });
+$('tl').addEventListener('pointermove', (e) => dragTl && seekTl(e));
+$('tl').addEventListener('pointerup', () => (dragTl = false));
+const togglePlay = () => { if (!S.playing && S.t >= cur().dur - 0.01) S.t = 0; S.playing = !S.playing; };
+$('play').onclick = togglePlay;
+const step = (s) => { S.playing = false; S.t = Math.max(0, Math.min(cur().dur, S.t + s)); };
+$('back').onclick = () => step(-1 / cur().fps); $('fwd').onclick = () => step(1 / cur().fps);
+$('rate').onchange = (e) => (S.rate = +e.target.value);
+document.querySelectorAll('.tog').forEach((b) => (b.onclick = () => { S.layers[b.dataset.l] = !S.layers[b.dataset.l]; syncToggles(); }));
+$('zoom').onclick = () => { S.half = !S.half; S.halfPref = S.half; setView(); };
+$('auto').onclick = () => { S.auto = !S.auto; syncToggles(); };
+$('fs').onclick = () => (document.fullscreenElement ? document.exitFullscreen() : $('pC').requestFullscreen());
+document.querySelectorAll('.tabs button').forEach((b) => (b.onclick = () => setTab(b.dataset.tab)));
+document.querySelectorAll('.tool').forEach((b) => (b.onclick = () => {
+  S.tool = S.tool === b.dataset.tool ? null : b.dataset.tool; S.playing = false; setTab('feedback'); }));
+document.querySelectorAll('.tag').forEach((b) => (b.onclick = () => { S.tag = S.tag === b.dataset.tag ? null : b.dataset.tag; renderFeedback(); }));
+$('undo').onclick = () => S.draft.pop();
+$('save').onclick = () => {
+  const text = $('note').value.trim();
+  if (!text && !S.draft.length) { $('note').focus(); return; }
+  const n = {id: Date.now().toString(36), play: cur().id, t: +S.t.toFixed(2), to: $('to').value, tag: S.tag, text, draw: S.draft};
+  notes.push(n); persist(); S.draft = []; S.tag = null; $('note').value = ''; S.playing = false; S.shown = n.id; refresh();
+};
+$('copy').onclick = async () => { await navigator.clipboard.writeText(exportText()); $('copy').textContent = T.copied; setTimeout(() => ($('copy').textContent = T.copy), 1500); };
+$('download').onclick = () => { const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([exportText()], {type: 'text/plain;charset=utf-8'})); a.download = 'dziki-feedback.txt'; a.click(); };
+document.addEventListener('keydown', (e) => {
+  if (['TEXTAREA', 'INPUT', 'SELECT'].includes(document.activeElement.tagName)) return;
+  if (e.code === 'Space') { e.preventDefault(); togglePlay(); }
+  else if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { e.preventDefault(); step((e.key === 'ArrowLeft' ? -1 : 1) * (e.shiftKey ? 1 : 1 / cur().fps)); }
+  else if (/^[1-9]$/.test(e.key) && +e.key <= plays.length) load(+e.key - 1, false);
+  else if (e.key === 'Escape') { S.sel = null; S.tool = null; S.shown = null; S.draft = []; setTab(S.tab); }
+});
+
+// ------------------------------------------------------------ start
+document.querySelectorAll('[data-t]').forEach((el) => (el.textContent = T[el.dataset.t]));
+document.querySelectorAll('[data-tip]').forEach((el) => (el.title = T[el.dataset.tip]));
+$('footer').innerHTML = tr(T.footer, {n: plays.length});
+let last = null;
+function tick(ts) {
+  if (S.playing && last != null) {
+    S.t += ((ts - last) / 1000) * S.rate;
+    if (S.t >= cur().dur) {
+      if (S.auto && S.tab === 'watch' && S.i < plays.length - 1) load(S.i + 1, true);
+      else { S.t = cur().dur; S.playing = false; }
+    }
+  }
+  last = ts; draw(); ui(); requestAnimationFrame(tick);
+}
+load(0, false); setTab('watch'); requestAnimationFrame(tick);
+</script>
+</body></html>
