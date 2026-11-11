@@ -128,5 +128,5 @@ Tomasz is showing the demo to Marco Legovich, Dziki Warszawa's head coach in 202
 - **Roster check.** A number that is not on the team's roster for that season is no longer shown. This removed the Dziki "#32" (60 boxes); 307 right and 135 wrong remain. The remaining errors are 2 read as 8 (Edge, shot 1), 25 read as 8 (Oguama, shot 2) and Legia's Thompson shown as "#3 Pluta" (shot 2). Shot 3 has no wrong number.
 - **Names.** Labels show the name after the first given name ("#0 Vander Plas", not "#0 Plas").
 
-The demo still reads numbers with Skalski's public SmolVLM model; the fix for the 2/8 confusion is M7's fine-tune on PLK crops. Not deployed yet: Vercel deploys need Tomasz.
+The demo still reads numbers with Skalski's public SmolVLM model; the fix for the 2/8 confusion is M7's fine-tune on PLK crops. Deployed to Vercel production at Tomasz's request on 2026-11-11 (https://basketball-analyzer-demo.vercel.app/en/).
 
