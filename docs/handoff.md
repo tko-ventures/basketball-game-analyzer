@@ -65,10 +65,12 @@ This interrupted M1 on 2026-10-31; the decision is recorded.
   - https://basketball-analyzer-demo.vercel.app/analysis/ draws a live 2D analysis in the browser: nearest-defender coverage and the most open attacker, team shape and spacing, and player selection with speed and distance.
 
   Both use three Warsaw shots of `OSp445e0mXU` (s2, s10, s19), each shot with independent control state.
+  An English edition sits at `/en/` and `/en/analysis/`, with a language link on every page (built locally on 2026-11-11 for Dziki's head coach, Marco Legovich; not deployed until Tomasz says so).
 - **Commands:**
   - Build: `uv run --extra prefill --extra demo scripts/demo_web.py`. It caches number reads and homographies in `runs/demo/cache`, so re-renders take seconds.
   - Publish: `scripts/deploy_demo.sh`. The Vercel CLI is logged in; the scope is `tomasz-kopackis-projects`.
   - Serve locally: `uv run scripts/serve_demo.py`.
+  - Check before showing it: `uv run scripts/demo_audit.py` compares the teams and numbers the pages show with gold v0, and lists each wrong number with its frames.
   - Page templates: `scripts/demo_page_video.html` and `scripts/demo_page_analysis.html`.
 - **Status:** a showcase, not a pipeline layer, with no metrics row. Keep both pages working. If you change shared helpers (`scripts/demo_video.py`, `scripts/demo_web.py`), rebuild and check both pages.
 

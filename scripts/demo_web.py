@@ -4,9 +4,13 @@
   /analysis/ broadcast and a live 2D court drawn in the browser from per-frame positions: coverage
              (nearest defender, most open attacker), team shape, player selection with speed/distance
 
-    uv run --extra prefill --extra demo scripts/demo_web.py                # -> runs/demo/web/
+    uv run --extra prefill --extra demo scripts/demo_web.py                # -> runs/demo/web/ (pl), web/en/
     uv run --extra prefill --extra demo scripts/demo_web.py --recompute    # redo number reads and court
-    open runs/demo/web/index.html
+    uv run scripts/serve_demo.py                                           # http://127.0.0.1:8770
+    uv run scripts/demo_audit.py                                           # what the pages show vs gold
+
+Editions: Polish at / and /analysis/, English at /en/ and /en/analysis/ (scripts/demo_strings.py); both
+show the same tracks, teams and numbers, only the text differs.
 
 Showcase, not a measured pipeline (no metrics row): automatic and uncorrected. Differences from the
 first demo (scripts/demo_video.py), after Tomasz's review on 2026-10-31:
@@ -18,7 +22,10 @@ first demo (scripts/demo_video.py), after Tomasz's review on 2026-10-31:
   2D view  players only; referees appear in the broadcast view but not on the court map
   numbers  more reads per track (up to --max-reads, stop once a value leads by 3); a track's number can
            change once in time when the reads before and after a point disagree (SAM track switched
-           players); at any frame one (team, number) has one owner, the track with more agreeing reads
+           players); at any frame one (team, number) has one owner, the track with more agreeing reads;
+           a number that is not on the team's roster for that season is not shown (2026-11-11, after
+           scripts/demo_audit.py found a Dziki player shown as #32)
+  names    label = number and the name after the first given name ("#0 Vander Plas", not "#0 Plas")
 """
 
 from __future__ import annotations
@@ -38,6 +45,7 @@ import cv2
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from scripts.demo_strings import JS, LANGS, PAGE, VIDEO, surname  # noqa: E402
 from scripts.demo_video import (  # noqa: E402
     COURT_MODEL,
     DISPLAY_BGR,
@@ -306,7 +314,7 @@ def legend(img, x, y, meta, team_bgr, size=0.6):
     return x
 
 
-def draw_broadcast(frame, f, per_frame, colour, label, title, meta, team_bgr):
+def draw_broadcast(frame, f, per_frame, colour, label, title, meta, team_bgr, vs):
     for t, b in per_frame[f].items():
         bgr = colour(t)
         x1, y1, x2, y2 = b.astype(int)
@@ -321,16 +329,16 @@ def draw_broadcast(frame, f, per_frame, colour, label, title, meta, team_bgr):
     cv2.rectangle(frame, (20, 20), (820, 112), (20, 20, 20), -1)
     text(frame, title, (34, 54), 0.8)
     x = legend(frame, 34, 95, meta, team_bgr)
-    text(frame, "automatycznie, bez korekty", (x + 10, 95), 0.5, (180, 180, 180), 1)
+    text(frame, vs["automatic"], (x + 10, 95), 0.5, (180, 180, 180), 1)
     return frame
 
 
-def draw_court_frame(base, f, paths, colour, number_of, title, meta, team_bgr, mapped, trail=25):
+def draw_court_frame(base, f, paths, colour, number_of, title, meta, team_bgr, mapped, vs, trail=25):
     canvas = np.full((1080, 1920, 3), 24, np.uint8)
     court = base.copy()
     if not mapped:
         court = cv2.addWeighted(court, 0.35, np.zeros_like(court), 0.65, 0)
-        msg = "brak wiarygodnej kalibracji kamery w tym fragmencie"
+        msg = vs["no_calibration"]
         (tw, _), _ = cv2.getTextSize(msg, FONT, 1.0, 2)
         text(court, msg, ((court.shape[1] - tw) // 2, court.shape[0] // 2), 1.0)
     trails = court.copy()
@@ -371,7 +379,7 @@ def draw_court_frame(base, f, paths, colour, number_of, title, meta, team_bgr, m
     canvas[y0 : y0 + ch, x0 : x0 + cw] = court
     text(canvas, title, (x0, 52), 0.9)
     x = legend(canvas, x0 + 760, 52, meta, team_bgr, 0.7)
-    text(canvas, "pozycje na boisku FIBA 28 x 15 m, automatycznie", (x + 10, 52), 0.55, (170, 170, 170), 1)
+    text(canvas, vs["court_caption"], (x + 10, 52), 0.55, (170, 170, 170), 1)
     return canvas
 
 
@@ -411,9 +419,6 @@ def encode(src: Path, dst: Path, fps: float) -> None:
 
 # --------------------------------------------------------------------------- main
 def main(argv=None):
-    from inference import get_model
-    from sports.basketball import CourtConfiguration, League, draw_court
-
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", type=Path, default=Path("runs/demo/web"))
     ap.add_argument("--step", type=int, default=2, help="render every Nth frame (2: 25 fps from 50 fps)")
@@ -421,18 +426,40 @@ def main(argv=None):
     ap.add_argument("--max-reads", type=int, default=16)
     ap.add_argument("--key-s", type=float, default=0.5, help="seconds per key position on the 2D court")
     ap.add_argument("--set", choices=list(DEMO_SETS), default="warsaw")
+    ap.add_argument("--cache", type=Path, default=Path("runs/demo/cache"))
+    ap.add_argument(
+        "--langs", default=",".join(LANGS), help="editions: the first at --out, the others in a subfolder"
+    )
     a = ap.parse_args(argv)
-    a.out.mkdir(parents=True, exist_ok=True)
-    cache_dir = a.out.parent / "cache"
+    langs = a.langs.split(",")
+    for lang in langs:
+        out = a.out if lang == langs[0] else a.out / lang
+        others = {
+            other: ("../" if lang != langs[0] else "") + ("" if other == langs[0] else f"{other}/")
+            for other in langs
+            if other != lang
+        }
+        build(a, lang, out, others)
+        a.recompute = False  # number reads and court mapping are shared by the editions
+
+
+def build(a, lang, out, others):
+    """One edition: videos with this language's text burnt in, the two pages, clip data."""
+    from inference import get_model
+    from sports.basketball import CourtConfiguration, League, draw_court
+
+    vs = VIDEO[lang]
+    out.mkdir(parents=True, exist_ok=True)
+    cache_dir = a.cache
     cache_dir.mkdir(parents=True, exist_ok=True)
     cfg = CourtConfiguration(league=League.FIBA)
     vertices = np.array(cfg.vertices, dtype=np.float32)
     base = draw_court(cfg, scale=COURT_SCALE, padding=COURT_PAD, line_thickness=3)
     court_model = ocr_model = None
     clips, summary, fps = [], [], 25.0
-    for old in [*a.out.glob("*.mp4"), *a.out.glob("clip_*.json")]:  # drop files of earlier builds
+    for old in [*out.glob("*.mp4"), *out.glob("clip_*.json")]:  # drop files of earlier builds
         old.unlink()
-    cv2.imwrite(str(a.out / "court_bg.png"), base)
+    cv2.imwrite(str(out / "court_bg.png"), base)
 
     shots = DEMO_SETS[a.set]
     same_game = len({y for y, _ in shots}) < len(shots)
@@ -456,6 +483,7 @@ def main(argv=None):
             tc = json.loads(
                 json.dumps({"cluster": cl, "side_of_cluster": sc, "team_bgr": tb, "team_crops": n})
             )
+            team_cache.write_text(json.dumps(tc))
         cluster = {int(k): v for k, v in tc["cluster"].items()}
         side_of_cluster = {int(k): v for k, v in tc["side_of_cluster"].items()}
         team_bgr = {
@@ -493,38 +521,53 @@ def main(argv=None):
         by_track = defaultdict(list)
         for f, t, d in c["reads"]:
             by_track[t].append((f, d))
-        segments = {t: number_segments(sorted(r)) for t, r in by_track.items()}
-        owner = numbers_at(frames, lambda f, pf=per_frame: pf[f].keys(), segments, side_of)
         names = {s: roster_names(labels, s) for s in ("home", "away")}
+        segments = {
+            t: [seg for seg in number_segments(sorted(r)) if seg[2] in names.get(side_of(t), {})]
+            for t, r in by_track.items()
+        }
+        owner = numbers_at(frames, lambda f, pf=per_frame: pf[f].keys(), segments, side_of)
 
         def number_of(t, f, owner=owner):
             return owner.get(f, {}).get(t, "")
 
+        # What the pages show per frame (team, number, box), for scripts/demo_audit.py against gold.
+        shown = {
+            str(f): [
+                [t, "ref" if is_ref[t] else side_of(t), number_of(t, f), *[round(float(v)) for v in b]]
+                for t, b in per_frame[f].items()
+            ]
+            for f in frames
+        }
+        (cache_dir / f"{yid}_s{shot}_step{a.step}_shown.json").write_text(json.dumps(shown))
+
         def label(t, f, is_ref=is_ref, names=names, side_of=side_of, number_of=number_of):
             if is_ref[t]:
-                return "SĘDZIA"
+                return vs["referee"]
             num = number_of(t, f)
             name = names.get(side_of(t), {}).get(num, "") if num else ""
-            return f"#{num} {name.split()[-1]}" if name else (f"#{num}" if num else "")
+            return f"#{num} {surname(name)}" if name else (f"#{num}" if num else "")
 
         paths = court_paths(frames, per_frame, H, max(1, round(a.key_s * fps)), is_ref, labels["height"])
         paths = {t: v for t, v in paths.items() if not is_ref[t]}  # 2D view shows players only (Tomasz)
         title = f"{meta['home']['team']} – {meta['away']['team']}  ·  {meta['season']}"
         n = len(clips) + 1
-        raw_a, raw_b = a.out / f"broadcast_{n}_raw.mp4", a.out / f"court_{n}_raw.mp4"
+        raw_a, raw_b = out / f"broadcast_{n}_raw.mp4", out / f"court_{n}_raw.mp4"
         wa = cv2.VideoWriter(str(raw_a), cv2.VideoWriter_fourcc(*"mp4v"), fps, (1920, 1080))
         wb = cv2.VideoWriter(str(raw_b), cv2.VideoWriter_fourcc(*"mp4v"), fps, (1920, 1080))
         t0 = time.time()
         for f in frames:
-            wa.write(draw_broadcast(read(f), f, per_frame, colour, label, title, meta, team_bgr))
+            wa.write(draw_broadcast(read(f), f, per_frame, colour, label, title, meta, team_bgr, vs))
             wb.write(
-                draw_court_frame(base, f, paths, colour, number_of, title, meta, team_bgr, H[f] is not None)
+                draw_court_frame(
+                    base, f, paths, colour, number_of, title, meta, team_bgr, H[f] is not None, vs
+                )
             )
         read.release()
         wa.release()
         wb.release()
-        encode(raw_a, a.out / f"broadcast_{n}.mp4", fps)
-        encode(raw_b, a.out / f"court_{n}.mp4", fps)
+        encode(raw_a, out / f"broadcast_{n}.mp4", fps)
+        encode(raw_b, out / f"court_{n}.mp4", fps)
         timing["render_s"] = round(time.time() - t0, 1)
         # Data for the live 2D view in the page: one row per player per rendered frame.
         speed, dist = kinematics(paths, labels["fps"])
@@ -553,7 +596,7 @@ def main(argv=None):
             "mapped": [H[f] is not None for f in frames],
             "atk": attack_frames(sided),
         }
-        (a.out / f"clip_{n}.json").write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
+        (out / f"clip_{n}.json").write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
         clips.append(
             {
                 "a": f"broadcast_{n}.mp4",
@@ -581,19 +624,26 @@ def main(argv=None):
         print(json.dumps(summary[-1]), flush=True)
 
     # Two independent pages over the same videos: / (two synced videos) and /analysis/ (live 2D analysis).
-    def page(template, cl):
+    def page(template, cl, lang_href):
+        html = template
+        for k, v in {**PAGE[lang], "lang_href": lang_href}.items():
+            html = html.replace("{{" + k + "}}", v)
         return (
-            template.replace("__CLIPS__", json.dumps(cl, ensure_ascii=False))
+            html.replace("__CLIPS__", json.dumps(cl, ensure_ascii=False))
+            .replace("__T__", json.dumps(JS[lang], ensure_ascii=False))
             .replace("__FPS__", f"{fps:g}")
             .replace("__N__", str(len(cl)))
         )
 
-    (a.out / "index.html").write_text(page(PAGE_VIDEO, clips), encoding="utf-8")
+    other = next(iter(others.values()), "")  # link to the other edition (two editions)
+    (out / "index.html").write_text(page(PAGE_VIDEO, clips, other), encoding="utf-8")
     sub = [{**c, "a": "../" + c["a"], "data": "../" + c["data"]} for c in clips]
-    shutil.rmtree(a.out / "analiza", ignore_errors=True)  # path before 2026-11-01; redirected on Vercel
-    (a.out / "analysis").mkdir(exist_ok=True)
-    (a.out / "analysis" / "index.html").write_text(page(PAGE_ANALYSIS, sub), encoding="utf-8")
-    (a.out / "summary.json").write_text(json.dumps(summary, indent=1))
+    shutil.rmtree(out / "analiza", ignore_errors=True)  # path before 2026-11-01; redirected on Vercel
+    (out / "analysis").mkdir(exist_ok=True)
+    (out / "analysis" / "index.html").write_text(
+        page(PAGE_ANALYSIS, sub, "../" + other + "analysis/"), encoding="utf-8"
+    )
+    (out / "summary.json").write_text(json.dumps(summary, indent=1))
 
 
 if __name__ == "__main__":

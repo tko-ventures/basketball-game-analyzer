@@ -3,6 +3,7 @@
 #
 #   scripts/deploy_demo.sh            # -> https://basketball-analyzer-demo.vercel.app
 #
+# Editions: Polish at / and /analysis/, English at /en/ and /en/analysis/ (both built by demo_web.py).
 # Also publishes docs/roadmap.html as /roadmap/ (the plan at a glance; not linked from the demo pages).
 #
 # Uploads only the page, its videos, data and court image, with noindex headers (match footage, client demo).

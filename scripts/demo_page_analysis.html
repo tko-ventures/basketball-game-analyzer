@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Analiza wideo – demo</title>
+<html lang="{{lang}}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{title}}</title>
 <style>
 :root{--bg:#111;--panel:#1b1b1b;--ink:#eee;--muted:#999;--accent:#e0452b;--open:#ffd400}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 -apple-system,system-ui,sans-serif}
 header{padding:14px 20px;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
-h1{font-size:18px;margin:0}.switch{margin-left:auto;color:var(--ink);font-size:13px;text-decoration:none;border:1px solid #3a3a3a;border-radius:6px;padding:4px 10px}.switch:hover{border-color:var(--accent)}header .muted{color:var(--muted);font-size:13px}
+h1{font-size:18px;margin:0}.switch{margin-left:auto;color:var(--ink);font-size:13px;text-decoration:none;border:1px solid #3a3a3a;border-radius:6px;padding:4px 10px}.switch:hover{border-color:var(--accent)}.switch.lang{margin-left:0}header .muted{color:var(--muted);font-size:13px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 20px;align-items:start}
 @media (max-width:900px){.grid{grid-template-columns:1fr}}
 .cell h2{font-size:13px;font-weight:600;color:var(--muted);margin:0 0 6px;text-transform:uppercase;letter-spacing:.04em}
@@ -33,27 +33,27 @@ h1{font-size:18px;margin:0}.switch{margin-left:auto;color:var(--ink);font-size:1
 .chapters button.on,.tog.on{background:var(--accent);border-color:var(--accent)}
 footer{padding:4px 20px 20px;color:var(--muted);font-size:13px;line-height:1.6}
 </style></head><body>
-<header><h1>Analiza wideo meczów – demo</h1><span class="muted">Wykrywanie i śledzenie zawodników, drużyny, numery, pozycje na boisku 2D, krycie i ustawienie. Wynik automatyczny, bez ręcznej korekty.</span><a class="switch" href="../">← Wersja: dwa zsynchronizowane filmy</a></header>
+<header><h1>{{h1}}</h1><span class="muted">{{sub_analysis}}</span><a class="switch" href="../">{{to_video}}</a><a class="switch lang" href="{{lang_href}}">{{other_lang}}</a></header>
 <div class="grid">
- <div class="cell"><h2>Obraz z kamery</h2><div class="panel" id="pA"><video id="vA" muted playsinline preload="auto"></video><canvas id="ov" title="Kliknij zawodnika, aby go wyróżnić"></canvas><button class="fs" data-p="pA" title="Pełny ekran">⛶</button></div></div>
- <div class="cell"><h2>Rzut 2D boiska · analiza</h2><div class="panel map" id="pB"><canvas id="map" title="Kliknij zawodnika, aby go wyróżnić"></canvas><button class="fs" data-p="pB" title="Pełny ekran">⛶</button></div></div>
+ <div class="cell"><h2>{{camera}}</h2><div class="panel" id="pA"><video id="vA" muted playsinline preload="auto"></video><canvas id="ov" title="{{click_hint}}"></canvas><button class="fs" data-p="pA" title="{{fullscreen}}">⛶</button></div></div>
+ <div class="cell"><h2>{{court_analysis}}</h2><div class="panel map" id="pB"><canvas id="map" title="{{click_hint}}"></canvas><button class="fs" data-p="pB" title="{{fullscreen}}">⛶</button></div></div>
 </div>
 <div id="barHome"><div class="bar" id="bar">
- <button id="play" title="Start / pauza (spacja)">▶</button>
- <button id="back" title="Klatka wstecz (←)">⏮</button><button id="fwd" title="Klatka naprzód (→)">⏭</button>
+ <button id="play" title="{{play}}">▶</button>
+ <button id="back" title="{{back}}">⏮</button><button id="fwd" title="{{fwd}}">⏭</button>
  <input id="seek" type="range" min="0" max="1" step="0.04" value="0">
  <span id="time">0:00.0 / 0:00.0</span>
- <select id="rate" title="Prędkość"><option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option></select>
- <span class="group"><span class="lbl">Warstwy:</span>
-  <button class="tog on" data-l="cover" title="Linia od każdego atakującego do najbliższego obrońcy; żółty pierścień: najbardziej wolny">Krycie</button>
-  <button class="tog" data-l="shape" title="Obrys ustawienia drużyn, pole i średnia odległość w ataku">Ustawienie</button>
-  <button class="tog on" data-l="trails" title="Ruch w ostatniej sekundzie">Ślady</button></span>
+ <select id="rate" title="{{speed}}"><option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option></select>
+ <span class="group"><span class="lbl">{{layers}}</span>
+  <button class="tog on" data-l="cover" title="{{cover_tip}}">{{cover}}</button>
+  <button class="tog" data-l="shape" title="{{shape_tip}}">{{shape}}</button>
+  <button class="tog on" data-l="trails" title="{{trails_tip}}">{{trails}}</button></span>
  <span class="group chapters" id="chapters"></span>
 </div></div>
-<footer>Kliknij zawodnika na obrazie albo na boisku, aby go wyróżnić w obu widokach (Esc: odznacz). Spacja: start/pauza · ←/→: klatka (z Shift: 1 s) · 1–__N__: akcja (każda pamięta swoją pozycję, prędkość i wybranego zawodnika) · ⛶: pełny ekran wybranego widoku.<br>
-Krycie: linia od każdego zawodnika ataku do najbliższego obrońcy z odległością w metrach; żółty pierścień to zawodnik najbardziej wolny. Kto atakuje, wynika z ustawienia (obrona stoi bliżej swojego kosza). Liczone tylko z zawodników widocznych na obrazie.</footer>
+<footer>{{footer_analysis}}</footer>
 <script>
-const CLIPS = __CLIPS__, FPS = __FPS__;
+const CLIPS = __CLIPS__, FPS = __FPS__, T = __T__;
+const tr = (k, o = {}) => T[k].replace(/\{(\w+)\}/g, (_, n) => o[n]);
 const $ = (id) => document.getElementById(id);
 const A = $('vA'), map = $('map'), mc = map.getContext('2d'), ov = $('ov'), oc = ov.getContext('2d');
 const INFO_H = 185;  // strip under the court for the situation summary
@@ -92,8 +92,8 @@ const colour = (sd) => (sd ? D.teams[sd].color : '#888888');
 const inkOn = (hex) => { const n = parseInt(hex.slice(1), 16); return ((n >> 16) * 0.3 + ((n >> 8) & 255) * 0.59 + (n & 255) * 0.11) > 150 ? '#111' : '#fff'; };
 const withAlpha = (hex, a) => hex + Math.round(a * 255).toString(16).padStart(2, '0');
 function tag(p) {
-  if (!p.num) return `${p.side ? D.teams[p.side].name : '?'} (bez numeru)`;
-  const name = ((D.names[p.side] || {})[p.num] || '').split(' ').slice(-1)[0];
+  if (!p.num) return tr('no_number', { team: p.side ? D.teams[p.side].name : '?' });
+  const name = ((D.names[p.side] || {})[p.num] || '').split(' ').slice(1).join(' ');
   return `#${p.num}${name ? ' ' + name : ''}`;
 }
 function hull(pts) {  // monotone chain
@@ -117,9 +117,9 @@ function drawMap(i) {
   if (!D.mapped[i]) {
     mc.fillStyle = 'rgba(0,0,0,.6)'; mc.fillRect(0, 0, W, CH);
     mc.fillStyle = '#fff'; mc.font = '600 34px system-ui'; mc.textAlign = 'center';
-    mc.fillText('brak wiarygodnej kalibracji kamery w tym fragmencie', W / 2, CH / 2);
+    mc.fillText(tr('no_calibration'), W / 2, CH / 2);
     mc.textAlign = 'left';
-    drawInfo(['Pozycje 2D pojawią się, gdy kamera pokaże wystarczająco dużo linii boiska.']);
+    drawInfo([tr('no_calibration_info')]);
     return;
   }
   const P = rows(i);
@@ -180,22 +180,22 @@ function drawMap(i) {
   }
   // situation summary
   if (atk) {
-    info.push(`Atak: ${D.teams[atk].name} → kosz ${basket === 'L' ? 'lewy' : 'prawy'}`);
-    if (layers.cover && open) info.push(`Najbardziej wolny: ${tag(open)}, ${open.gap.toFixed(1)} m od najbliższego obrońcy`);
+    info.push(tr('attack', { team: D.teams[atk].name, side: tr(basket === 'L' ? 'left' : 'right') }));
+    if (layers.cover && open) info.push(tr('open', { who: tag(open), m: open.gap.toFixed(1) }));
     if (layers.shape) {
       const po = off.map((p) => [p.x, p.y]), pd = def.map((p) => [p.x, p.y]);
       const parts = [];
-      if (po.length >= 3) parts.push(`atak: średnio ${meanGap(po).toFixed(1)} m między zawodnikami, pole ${area(hull(po)).toFixed(0)} m²`);
-      if (pd.length >= 3) parts.push(`obrona: pole ${area(hull(pd)).toFixed(0)} m²`);
-      if (parts.length) info.push('Ustawienie – ' + parts.join(' · '));
+      if (po.length >= 3) parts.push(tr('shape_off', { m: meanGap(po).toFixed(1), a: area(hull(po)).toFixed(0) }));
+      if (pd.length >= 3) parts.push(tr('shape_def', { a: area(hull(pd)).toFixed(0) }));
+      if (parts.length) info.push(tr('shape_line', { parts: parts.join(' · ') }));
     }
-  } else info.push('Przejście albo akcja w środkowej strefie – krycie liczone w ataku pozycyjnym');
+  } else info.push(tr('transition'));
   if (sel != null) {
     const p = P.find((q) => q.t === sel);
-    info.push(p ? `Wybrany: ${tag(p)} · prędkość ${p.v.toFixed(1)} km/h · dystans w akcji ${p.d.toFixed(1)} m` : 'Wybrany zawodnik jest teraz poza kadrem');
+    info.push(p ? tr('selected', { who: tag(p), v: p.v.toFixed(1), d: p.d.toFixed(1) }) : tr('selected_out'));
   }
   const nh = P.filter((p) => p.side === 'home').length, na = P.filter((p) => p.side === 'away').length;
-  info.push(`Widoczni na obrazie: ${D.teams.home.name} ${nh}/5 · ${D.teams.away.name} ${na}/5`);
+  info.push(tr('visible', { home: D.teams.home.name, nh, away: D.teams.away.name, na }));
   drawInfo(info);
 }
 function drawInfo(lines) {

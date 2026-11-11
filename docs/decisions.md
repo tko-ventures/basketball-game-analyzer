@@ -118,3 +118,15 @@ How each column was scored:
 - **Speed.** Milliseconds per crop on the M1 Max (MPS).
 
 **Caveats.** Gold v0 boxes come from the same prefill as the tracks. The pixel reference has no motion model or camera compensation, so a real tracker would likely do better at 1 s. The cross-cut samples are small. These numbers justify the scope change; they do not stand in for M6's metrics rows.
+
+## 2026-11-11: demo for Dziki's head coach; English edition and a number check
+
+Tomasz is showing the demo to Marco Legovich, Dziki Warszawa's head coach in 2025/26 and 2026/27 (`data/rosters/dziki_warszawa.json`). The three demo shots come from his own game against Legia (March 2026), so he will judge every name on his players. Changes, all demo aids and not pipeline layers:
+
+- **English edition.** `/en/` and `/en/analysis/` with the same tracks, teams and numbers as the Polish pages; only the text differs (`scripts/demo_strings.py`). Polish stays the default at `/`, as decided on 2026-11-01. Every page links to the other language.
+- **Audit against gold.** `scripts/demo_audit.py` compares what the pages show with gold v0 on matched boxes. Before today's change, teams agreed on 1,513 of 1,515 boxes. Numbers were right on 307 boxes and wrong on 195, and two Dziki players carried wrong labels: Horton (#1) shown as "#32" and Edge (#2) shown as "#8 Kempa".
+- **Roster check.** A number that is not on the team's roster for that season is no longer shown. This removed the Dziki "#32" (60 boxes); 307 right and 135 wrong remain. The remaining errors are 2 read as 8 (Edge, shot 1), 25 read as 8 (Oguama, shot 2) and Legia's Thompson shown as "#3 Pluta" (shot 2). Shot 3 has no wrong number.
+- **Names.** Labels show the name after the first given name ("#0 Vander Plas", not "#0 Plas").
+
+The demo still reads numbers with Skalski's public SmolVLM model; the fix for the 2/8 confusion is M7's fine-tune on PLK crops. Not deployed yet: Vercel deploys need Tomasz.
+
