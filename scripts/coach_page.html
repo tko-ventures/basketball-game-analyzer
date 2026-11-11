@@ -12,10 +12,10 @@ h1{font-size:18px;margin:0}
 .tabs button.on{background:var(--accent);border-color:var(--accent);color:#fff}
 .switch{color:var(--ink);font-size:13px;text-decoration:none;border:1px solid #3a3a3a;border-radius:6px;padding:4px 10px}
 .switch:hover{border-color:var(--accent)}.switch.first{margin-left:auto}
-main{display:grid;grid-template-columns:250px minmax(0,1fr) 410px;gap:14px;padding:0 16px;align-items:start}
-main.watch{grid-template-columns:250px minmax(0,1fr)}main.watch #side{display:none}
+main{display:grid;grid-template-columns:230px minmax(0,1fr) 380px;gap:14px;padding:0 16px;align-items:start}
+main.watch{grid-template-columns:230px minmax(0,1fr)}
+@media (max-width:1400px){main{grid-template-columns:200px minmax(0,1fr) 340px}main.watch{grid-template-columns:200px minmax(0,1fr)}}main.watch #side{display:none}
 main.game #stage,main.game #side{display:none}#game{display:none}main.game #game{display:block}
-@media (max-width:1150px){main,main.watch{grid-template-columns:1fr}}
 #list{display:flex;flex-direction:column;gap:6px;max-height:calc(100vh - 120px);overflow:auto}
 #list .hint{color:var(--muted);font-size:13px;margin:0 0 4px}
 .card{text-align:left;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font:inherit;cursor:pointer}
@@ -55,6 +55,7 @@ main.feedback.tool #court{cursor:crosshair}
 .verdict.good{border-color:var(--good)}.verdict.bad{border-color:var(--bad)}
 .tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .tile{background:var(--panel2);border-radius:6px;padding:8px 10px}
+.tile{cursor:pointer;border-left:4px solid transparent}.tile.g{border-left-color:var(--good)}.tile.b{border-left-color:var(--bad)}.tile .ex{display:none;font-size:12px;color:#ccc;margin-top:4px}.tile.open .ex{display:block}
 .tile .l{font-size:12px;color:var(--muted)}.tile .v{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}.tile .u{font-size:12px;color:var(--muted)}
 .moments{list-style:none;margin:0;padding:0}
 .moments li{padding:6px 8px;border-radius:6px;cursor:pointer;display:flex;gap:8px;font-size:14px}
@@ -73,10 +74,14 @@ textarea{width:100%;min-height:70px;background:#111;color:var(--ink);border:1px 
 .notes li{background:var(--panel2);border-radius:6px;padding:7px 9px;margin-bottom:6px;cursor:pointer;font-size:14px}
 .notes li.on{outline:2px solid var(--accent)}
 .notes .h{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--muted)}.notes .del{margin-left:auto;padding:1px 7px!important;font-size:12px!important}
+.legend{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--muted);margin:6px 0}.legend i{display:inline-block;width:8px;height:12px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+.steps{font-size:13px;color:#ccc;background:var(--panel2);border-radius:6px;padding:7px 9px;margin-bottom:8px}
 .who{font-weight:600;margin:10px 0 4px}
 #game{grid-column:2/-1;background:var(--panel);border-radius:8px;padding:12px 16px}
 #game h3{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin:14px 0 6px}
 footer{padding:10px 16px 20px;color:var(--muted);font-size:13px;line-height:1.6}
+main.insights #pFeedback,main.feedback #pInsights{display:none}
+@media (max-width:1150px){main,main.watch{grid-template-columns:1fr}#list{flex-direction:row;overflow-x:auto;max-height:none;padding-bottom:4px}#list .card{flex:0 0 210px}#court{max-height:60vh}#list .hint{display:none}#side{max-height:none}#game{grid-column:1}}
 </style></head><body>
 <header>
  <h1 data-t="h1"></h1><span class="sim" data-t="sim" data-tip="sim_tip"></span>
@@ -105,6 +110,7 @@ footer{padding:10px 16px 20px;color:var(--muted);font-size:13px;line-height:1.6}
   <div id="selInfo"></div>
  </section>
  <aside id="side"><div id="pInsights"></div><div id="pFeedback">
+  <div class="steps" data-t="fb_steps"></div>
   <div class="row"><span class="lbl" data-t="tools"></span>
    <button class="tool" data-tool="pen" data-t="pen"></button><button class="tool" data-tool="arrow" data-t="arrow"></button>
    <button class="tool" data-tool="move" data-t="move" data-tip="move_tip"></button><button id="undo" data-t="undo"></button></div>
@@ -258,7 +264,7 @@ function draw() {
     if (isOpen) open.push(p.id);
     c.beginPath(); c.moveTo(X(A[0]), Y(A[1])); c.lineTo(X(B[0]), Y(B[1])); c.setLineDash([7, 6]);
     c.strokeStyle = isOpen ? '#ffd400' : '#ffffffaa'; c.lineWidth = isOpen ? 3 : 2; c.stroke(); c.setLineDash([]);
-    label(`${num(bd)} m`, X((A[0] + B[0]) / 2), Y((A[1] + B[1]) / 2) - 6, isOpen ? '#ffd400' : '#fff', '600 14px system-ui');
+    label(`${num(bd)} m`, X((A[0] + B[0]) / 2), Y((A[1] + B[1]) / 2) - 6, isOpen ? '#ffd400' : '#fff', '700 17px system-ui');
   }
   if (S.tab !== 'watch') for (const m of cur().insights.moments) {
     if (!m.kind.startsWith('open') || S.t < m.t || S.t > m.t + m.dur) continue;
@@ -269,16 +275,16 @@ function draw() {
   for (const d of draws) if (d.type === 'move') {
     arrow(pos[d.pid] || d.from, d.to, '#e0452b', 3, [8, 6]);
     c.beginPath(); c.arc(X(d.to[0]), Y(d.to[1]), 0.45 * PX, 0, 7); c.setLineDash([5, 4]); c.strokeStyle = '#e0452b'; c.lineWidth = 3; c.stroke(); c.setLineDash([]);
-    label(ROSTER[d.pid].number, X(d.to[0]), Y(d.to[1]) + 6, '#e0452b');
+    label(ROSTER[d.pid].number, X(d.to[0]), Y(d.to[1]) + 7, '#e0452b', '700 21px system-ui');
   }
   for (const p of P.players) {
     const [x, y] = pos[p.id], cx = X(x), cy = Y(y), r = 0.45 * PX;
     if (open.includes(p.id)) { c.beginPath(); c.arc(cx, cy, r + 8, 0, 7); c.strokeStyle = '#ffd400'; c.lineWidth = 5; c.stroke(); }
     if (p.id === S.sel) { c.beginPath(); c.arc(cx, cy, r + 6, 0, 7); c.strokeStyle = '#e0452b'; c.lineWidth = 5; c.stroke(); }
     c.beginPath(); c.arc(cx, cy, r, 0, 7); c.fillStyle = COL[p.team]; c.fill(); c.lineWidth = 2; c.strokeStyle = '#000a'; c.stroke();
-    c.font = '700 19px system-ui'; c.textAlign = 'center'; c.fillStyle = INK[p.team]; c.fillText(p.number, cx, cy + 7);
+    c.font = '700 23px system-ui'; c.textAlign = 'center'; c.fillStyle = INK[p.team]; c.fillText(p.number, cx, cy + 8);
   }
-  if (S.layers.names) for (const p of P.players) if (p.team === 'home') label(surname(p.name), X(pos[p.id][0]), Y(pos[p.id][1]) + 0.45 * PX + 17, '#fff', '600 14px system-ui');
+  if (S.layers.names) for (const p of P.players) if (p.team === 'home') label(surname(p.name), X(pos[p.id][0]), Y(pos[p.id][1]) + 0.45 * PX + 20, '#fff', '600 17px system-ui');
   const b = at(P.bm), br = (0.14 + 0.045 * b[2]) * PX;
   c.beginPath(); c.ellipse(X(b[0]) + b[2] * 3, Y(b[1]) + b[2] * 5, 9, 5, 0, 0, 7); c.fillStyle = '#0005'; c.fill();
   c.beginPath(); c.arc(X(b[0]), Y(b[1]) - b[2] * 4, br, 0, 7); c.fillStyle = '#f08a24'; c.fill(); c.strokeStyle = '#3a1a00'; c.lineWidth = 1.5; c.stroke();
@@ -343,19 +349,25 @@ function renderInsights() {
   let h = `<div class="det">${esc(T.detected)}: <b>${esc(playName(P))}</b> ${esc(T.vs)} ${esc(T.def_names[L.defence] || L.defence)}${L.coverage ? ', ' + esc(T.cov_names[L.coverage] || L.coverage) : ''}</div>`;
   if (s) h += `<div class="verdict ${mid ? '' : good ? 'good' : 'bad'}">${esc(tr(T.verdict[P.offence][I.quality], {zone: T.zones[s.zone], open: T.open_names[s.open], near: s.defenders_near}))}</div>`;
   const tt = T.tiles, tiles = [];
-  if (s) tiles.push([tt.xpts, num(s.xpts, 2), tt.xpts_u], [tt.def_dist, num(s.def_dist), 'm · ' + T.open_names[s.open]],
-    [tt.catch, num(s.catch_def_dist), tr(tt.catch_u, {s: num(s.catch_to_release)})]);
-  tiles.push([tt.spacing, num(I.spacing.mean), tt.spacing_u], [tt.passes, I.passes, tr(tt.passes_u, {r: I.reversals})]);
-  tiles.push([tt.paint, I.paint_touches, ''], [tt.tts, num(I.time_to_shot), 's']);
-  if (I.onball_def_dist != null) tiles.push([tt.onball, num(I.onball_def_dist), tt.onball_u]);
-  h += `<div class="tiles">${tiles.map(([l, v, u]) => `<div class="tile"><div class="l">${esc(l)}</div><div class="v">${v}</div><div class="u">${esc(u)}</div></div>`).join('')}</div>`;
-  h += `<h3>${esc(T.moments_h)}</h3><p class="muted">${esc(T.moments_hint)}</p><ul class="moments">${I.moments.map((m) =>
+  // colour from Dziki's side: a number that is good for the attack is good for Dziki only when Dziki attack
+  const side = (offGood) => (offGood == null ? '' : offGood === (P.offence === 'home') ? 'g' : 'b');
+  const band = (x, good, bad) => (x >= good ? true : x < bad ? false : null);  // good for the attack, bad, or neither
+  if (s) tiles.push(['xpts', num(s.xpts, 2), tt.xpts_u, side(band(s.xpts, 1.1, 0.9))],
+    ['def_dist', num(s.def_dist), 'm · ' + T.open_names[s.open], side(band(s.def_dist, 1.8, 1.2))],
+    ['catch', num(s.catch_def_dist), tr(tt.catch_u, {s: num(s.catch_to_release)}), side(band(s.catch_def_dist, 2.5, 1.5))]);
+  tiles.push(['spacing', num(I.spacing.mean), tt.spacing_u, side(band(I.spacing.mean, 7.5, 6.8))], ['passes', I.passes, tr(tt.passes_u, {r: I.reversals}), '']);
+  tiles.push(['paint', I.paint_touches, '', side(I.paint_touches > 0 ? true : null)], ['tts', num(I.time_to_shot), 's', '']);
+  if (I.onball_def_dist != null) tiles.push(['onball', num(I.onball_def_dist), tt.onball_u, side(I.onball_def_dist <= 1.0 ? false : I.onball_def_dist >= 1.6 ? true : null)]);
+  h += `<p class="muted">${esc(T.tile_hint)}</p><div class="tiles">${tiles.map(([k, v, u, cls]) => `<div class="tile ${cls}"><div class="l">${esc(tt[k])}</div><div class="v">${v}</div><div class="u">${esc(u)}</div><div class="ex">${esc(T.ex[k])}</div></div>`).join('')}</div>`;
+  const lg = T.lg, sw = (c_, t_) => `<span><i style="background:${c_}"></i>${esc(t_)}</span>`;
+  h += `<h3>${esc(T.moments_h)}</h3><p class="muted">${esc(T.moments_hint)}</p><div class="legend">${esc(lg.title)} ${sw('#bbb', lg.event)}${sw('#3fb950', lg.found)}${sw('#f0883e', lg.missed)}${sw('#f08a24', lg.shot)}</div><ul class="moments">${I.moments.map((m) =>
     `<li class="${m.kind}" data-t="${m.t}"><span class="tm">${clock(P, m.t)}</span><span class="tx">${esc(momentText(m))}</span></li>`).join('')}</ul>`;
   const rows = P.players.map((p) => { const r = I.players[p.id];
     return `<tr data-pid="${p.id}" class="${p.id === S.sel ? 'sel' : ''}"><td>${esc(p.team === 'home' ? `#${p.number} ${p.name}` : who(p.id))}</td><td class="n">${num(r.dist_m)}</td><td class="n">${num(r.top_kmh)}</td><td class="n">${num(r.ball_s)}</td></tr>`; }).join('');
   h += `<h3>${esc(T.players_h)}</h3><table><thead><tr><th>${T.col_player}</th><th class="n">${T.col_dist}</th><th class="n">${T.col_top}</th><th class="n">${T.col_ball}</th></tr></thead><tbody>${rows}</tbody></table>`;
   h += `<p class="muted">${esc(T.model_note)}</p>`;
   $('pInsights').innerHTML = h;
+  $('pInsights').querySelectorAll('.tile').forEach((el) => (el.onclick = () => el.classList.toggle('open')));
   $('pInsights').querySelectorAll('.moments li').forEach((li) => (li.onclick = () => { S.t = Math.max(0, +li.dataset.t - 1.5); S.playing = true; }));
   $('pInsights').querySelectorAll('tbody tr').forEach((tr_) => (tr_.onclick = () => { S.sel = tr_.dataset.pid === S.sel ? null : tr_.dataset.pid; renderInsights(); }));
 }
@@ -479,6 +491,7 @@ document.querySelectorAll('.tool').forEach((b) => (b.onclick = () => {
   S.tool = S.tool === b.dataset.tool ? null : b.dataset.tool; S.playing = false; setTab('feedback'); }));
 document.querySelectorAll('.tag').forEach((b) => (b.onclick = () => { S.tag = S.tag === b.dataset.tag ? null : b.dataset.tag; renderFeedback(); }));
 $('undo').onclick = () => S.draft.pop();
+$('note').addEventListener('focus', () => (S.playing = false));
 $('save').onclick = () => {
   const text = $('note').value.trim();
   if (!text && !S.draft.length) { $('note').focus(); return; }
