@@ -212,7 +212,7 @@ Contact sheets for reading by eye come from `bga.review.sheets`.
 
 ## Demo site
 
-The site is published to the Vercel project `basketball-analyzer-demo` by `scripts/deploy_demo.sh`. The Vercel project has no Git connection. The script deploys only from a clean `main` that matches `origin/main`, and tags each deployment with the commit (`BGA_DEPLOY_ANY_BRANCH=1` overrides the check). The site is built outside the `bga` pipeline:
+The site is published to the Vercel project `basketball-analyzer-demo` by `scripts/deploy_demo.sh`. It is served at https://basketball-analyzer.demo.tko.ventures, and `basketball-analyzer-demo.vercel.app` redirects there. The Vercel project has no Git connection. The script deploys only from a clean `main` that matches `origin/main`, and tags each deployment with the commit (`BGA_DEPLOY_ANY_BRANCH=1` overrides the check). The site is built outside the `bga` pipeline:
 
 - **Video and analysis pages:** `scripts/demo_web.py` builds `/` and `/analysis/`, plus `/en/` and `/en/analysis/`, from three shots of `OSp445e0mXU`. It runs Skalski's models through the helpers in `scripts/demo_video.py` and caches number reads and homographies in `runs/demo/cache`.
   - Templates: `demo_page_video.html` and `demo_page_analysis.html`.

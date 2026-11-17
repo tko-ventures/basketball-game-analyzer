@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Publish the web demo (runs/demo/web, built by scripts/demo_web.py) to Vercel production.
 #
-#   scripts/deploy_demo.sh            # -> https://basketball-analyzer-demo.vercel.app
+#   scripts/deploy_demo.sh            # -> https://basketball-analyzer.demo.tko.ventures (vercel.app redirects there)
 #
 # Editions: Polish at / and /analysis/, English at /en/ and /en/analysis/ (both built by demo_web.py).
 # The coach page (/coach/, /en/coach/, simulated data) is rebuilt here by coach_web.py, so it is never stale.

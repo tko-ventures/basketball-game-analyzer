@@ -20,7 +20,7 @@ You are the implementer for basketball-game-analyzer (https://github.com/tko-ven
 ### Branches and PRs
 
 - `main` holds M0, M1, M2 and M3 part 1, squash-merged from PRs #11 to #14. Issues #1 to #3 are closed.
-- `feat/m3-court-model` is the one working branch, cut from `main` after #14. Its PR closes #4. No other branches or worktrees exist.
+- `feat/m3-court-model` is the working branch for the court model, cut from `main`. Its PR closes #4.
 
 ### M3 (#4): in progress
 
@@ -29,7 +29,7 @@ You are the implementer for basketball-game-analyzer (https://github.com/tko-ven
 
 ### Demo site
 
-- **Live:** https://basketball-analyzer-demo.vercel.app hosts these pages:
+- **Live:** https://basketball-analyzer.demo.tko.ventures hosts these pages (`basketball-analyzer-demo.vercel.app` redirects there):
 
   | Path | Page |
   |---|---|
