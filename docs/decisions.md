@@ -188,3 +188,11 @@ Tomasz asked to tidy every branch other than `main`. M3's done-when (a per-arena
 - the docs, including `docs/architecture.md`.
 
 After the squash, the court-model work continues on a fresh branch from `main`, and its PR closes #4. This bends the one-pull-request-per-milestone rule for M3 only.
+
+## 2026-11-17: training runs on Modal
+
+Tomasz chose Modal (modal.com) for training. Every fine-tune runs through `bga train --remote modal`, starting with the M3 court keypoint model; RunPod and Roboflow Train are not used for training. The rules from `CLAUDE.md` still apply:
+- each run starts from a committed `configs/train/*.yaml`;
+- weights and `train.json` sync back into `weights/`;
+- the cost of every job goes in `docs/costs.md`;
+- spend stays within the proposed cap of 50 USD per month until Tomasz confirms a figure.
