@@ -96,9 +96,17 @@ function homography(src, dst, w) {
 }
 
 // Court -> image, scaled so the court centre has w > 0 (a homography and its negative are the same map).
+// The sign is fixed on a floor point in view (the user's dots and pins, else below the image centre), not on the
+// court: from a low or baseline camera part of the court is behind the camera, and that is fine.
+function floorPoints() {
+  const pts = [...Object.values(S.fixed), ...S.lines.map((l) => l.p)];
+  return pts.length ? pts : [[S.img.naturalWidth / 2, S.img.naturalHeight * 0.6]];
+}
+const wOf = (H, [x, y]) => H[2][0] * x + H[2][1] * y + H[2][2];  // image->court denominator at an image point
 function courtToImage(H) {
   const G = inv3(H); if (!G) return null;
-  return apply(G, S.geo.length / 2, S.geo.width / 2)[2] < 0 ? G.map((r) => r.map((v) => -v)) : G;
+  const [cx, cy] = floorPoints().reduce(([a, b], [x, y], _, A) => [a + x / A.length, b + y / A.length], [0, 0]);
+  return wOf(H, [cx, cy]) < 0 ? G.map((r) => r.map((v) => -v)) : G;
 }
 
 // ---------- painted lines, for pins ----------
@@ -239,20 +247,23 @@ function uncertainty(n, resid, toH, r0) {
 }
 
 // ---------- fitting ----------
-// A usable broadcast mapping keeps the whole court in front of the camera (w > 0 at the four corners)
-// and its handedness (no mirror or fold), and every number in it is finite.
-function orientation(H) {
-  const G = courtToImage(H); if (!G) return 0;
-  const L = S.geo.length, W = S.geo.width;
-  const c = [[0, 0], [L, 0], [L, W], [0, W]].map(([X, Y]) => apply(G, X, Y));
-  if (c.some(([x, y, w]) => !(w > 0) || !isFinite(x) || !isFinite(y))) return 0;
-  let a = 0; for (let k = 0; k < 4; k++) { const [x1, y1] = c[k], [x2, y2] = c[(k + 1) % 4]; a += x1 * y2 - x2 * y1; }
-  return Math.sign(a);
+// A usable mapping does not fold between the dots and pins (the floor's horizon must not pass between them) and is
+// not mirrored where they are relative to the reference court. Parts of the court may lie behind the camera.
+function handedness(H, pts) {
+  const ws = pts.map((p) => wOf(H, p));
+  if (!ws.every((w) => Number.isFinite(w) && Math.abs(w) > 1e-12)) return 0;
+  const sg = Math.sign(ws[0]);
+  if (ws.some((w) => Math.sign(w) !== sg)) return 0;  // folded: some points beyond the horizon
+  const det = H[0][0] * (H[1][1] * H[2][2] - H[1][2] * H[2][1]) - H[0][1] * (H[1][0] * H[2][2] - H[1][2] * H[2][0])
+            + H[0][2] * (H[1][0] * H[2][1] - H[1][1] * H[2][0]);
+  return Math.sign(det) * sg;  // sign of the Jacobian of image->court at these points
 }
 function usable(H, ref) {
   if (!H || !H.flat().every(Number.isFinite)) return false;
-  const o = orientation(H);
-  return o !== 0 && (!ref || orientation(ref) === 0 || o === orientation(ref));
+  const pts = floorPoints(), o = handedness(H, pts);
+  if (o === 0) return false;
+  const r = ref ? handedness(ref, pts) : 0;
+  return r === 0 || o === r;
 }
 function pushHistory() {
   S.history.push({ fixed: { ...S.fixed }, order: [...S.order], H: S.H && S.H.map((r) => [...r]),

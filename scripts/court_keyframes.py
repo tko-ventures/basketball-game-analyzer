@@ -57,7 +57,7 @@ def hall_of(stem: str, labels: dict) -> str:
 def draw_court(img: np.ndarray, H, color=(255, 0, 255), width=3) -> np.ndarray:
     if H is None:
         return img
-    G = court_to_image(H)
+    G = court_to_image(H, (img.shape[1] / 2, img.shape[0] * 0.6))
 
     def P(X, Y):
         p = G @ [X, Y, 1.0]

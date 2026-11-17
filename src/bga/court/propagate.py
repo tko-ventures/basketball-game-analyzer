@@ -17,21 +17,23 @@ import numpy as np
 COURT_CM = (2800.0, 1500.0)
 
 
-def court_to_image(H: np.ndarray) -> np.ndarray:
-    """Inverse of an image->court H, signed so the court centre has w > 0.
+def court_to_image(H: np.ndarray, floor_px: tuple[float, float] = (960.0, 648.0)) -> np.ndarray:
+    """Inverse of an image->court H, signed so that court points in front of the camera have w > 0.
 
     A homography and its negative are the same map, but "w > 0" is how a point in front of the camera
     is told from one behind it. Normalising H to h33 = 1 flips the sign whenever the image origin lies
-    above the floor's horizon (stands, roof), so the sign is fixed on the court side, as the labeller
-    page does.
+    above the floor's horizon (stands, roof). The sign is fixed at ``floor_px``, an image point on the
+    floor (default: below the centre of a 1920x1080 frame), not at a court point: from a low or
+    baseline camera part of the court is behind the camera. The labeller page does the same.
     """
-    G = np.linalg.inv(np.asarray(H, dtype=np.float64))
-    return -G if (G @ [COURT_CM[0] / 2, COURT_CM[1] / 2, 1.0])[2] < 0 else G
+    H = np.asarray(H, dtype=np.float64)
+    G = np.linalg.inv(H)
+    return -G if (H @ [floor_px[0], floor_px[1], 1.0])[2] < 0 else G
 
 
 def court_mask(H: np.ndarray, shape: tuple[int, int], margin_cm: float = -50.0) -> np.ndarray:
     """Pixels inside the court rectangle (grown by margin_cm; negative keeps clear of ad boards) under H."""
-    G = court_to_image(H)
+    G = court_to_image(H, (shape[1] / 2, shape[0] * 0.6))
     L, W = COURT_CM
     corners = np.array(
         [
@@ -49,7 +51,8 @@ def court_mask(H: np.ndarray, shape: tuple[int, int], margin_cm: float = -50.0) 
             pts.append(a + (b - a) * t)
     p = np.c_[np.array(pts), np.ones(len(pts))] @ G.T
     keep = p[:, 2] > 1e-9
-    poly = (p[keep, :2] / p[keep, 2:3]).astype(np.int32)
+    # a court partly behind the camera reaches far out of the frame: clip before converting
+    poly = np.clip(p[keep, :2] / p[keep, 2:3], -1e5, 1e5).astype(np.int32)
     mask = np.zeros(shape, np.uint8)
     if len(poly) >= 3:
         cv2.fillPoly(mask, [cv2.convexHull(poly)], 255)
@@ -114,7 +117,7 @@ class Propagator:
 
 def landmarks(H: np.ndarray, vertices: np.ndarray, wh: tuple[int, int], margin: int = 0) -> list[list[float]]:
     """Image position and visibility (2 inside the frame, 0 outside) of each court vertex."""
-    G = court_to_image(H)
+    G = court_to_image(H, (wh[0] / 2, wh[1] * 0.6))
     p = np.c_[vertices, np.ones(len(vertices))] @ G.T
     out = []
     for x, y, w in p:

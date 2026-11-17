@@ -29,3 +29,16 @@ def test_sign_does_not_change_projection():
 def test_court_centre_in_front():
     for H in (_broadcast_H(), -_broadcast_H()):
         assert (court_to_image(H) @ [1400, 750, 1])[2] > 0
+
+
+def test_court_partly_behind_a_low_camera():
+    """From a low camera near the sideline the far end's near corner is behind it; the rest still projects."""
+    img = np.float64([[1068, 378], [1010, 403], [455, 549], [25, 667], [228, 806], [1186, 556]])
+    court = np.float64([[0, 0], [0, 90], [0, 995], [0, 1410], [330, 1410], [580, 505]])
+    H, _ = cv2.findHomography(img, court)
+    for h in (H, -H, H / H[2, 2]):
+        G = court_to_image(h)
+        assert (G @ [2800, 1500, 1])[2] < 0  # behind the camera
+        assert (G @ [0, 0, 1])[2] > 0 and (G @ [580, 505, 1])[2] > 0
+        kp = landmarks(h, VERTS, (1920, 1080))
+        assert kp[0][2] == 2  # corner (0, 0) in view
