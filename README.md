@@ -9,7 +9,7 @@ Offline analysis of Polish top-league (ORLEN Basket Liga) basketball games from 
 - Agent instructions: [CLAUDE.md](CLAUDE.md)
 - Progress: [milestone issues](https://github.com/tko-ventures/basketball-game-analyzer/issues?q=is%3Aissue+label%3Amilestone)
 
-Status (2026-11-17): M0 to M2 are on `main`: repository, gold set v0, and the baseline pipeline with its first metrics rows. M3 (court layer) is in progress on `feat/m3-court`, where all 42 court keyframes are labelled.
+Status (2026-11-17): M0 to M2 and M3 part 1 are on `main`: repository, gold set v0, the baseline pipeline with its first metrics rows, and all 42 court keyframes. The M3 court model is in progress on `feat/m3-court-model`.
 
 ## Setup
 

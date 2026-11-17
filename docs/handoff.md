@@ -13,16 +13,14 @@ You are the implementer for basketball-game-analyzer (https://github.com/tko-ven
 3. `docs/PLAN.md`, especially sections 5, 8 and 9.
 4. `docs/decisions.md`: the entries from 2026-11-02 on.
 5. GitHub issue #4 (M3) with all its comments, and the last comment on #8 (M7).
-6. Then run `git switch feat/m3-court && uv sync --all-extras`. All current work is on that branch.
+6. Then run `git switch feat/m3-court-model && uv sync --all-extras`. All current work is on that branch.
 
 ## Where things stand
 
 ### Branches and PRs
 
-- `main` holds M0, M1 and M2, squash-merged from PRs #11, #12 and #13. Issues #1 to #3 are closed.
-- `feat/m3-court` is the one working branch. It also carries the coach page and the M7 scope (decision 2026-11-17). Its PR opens when M3's done-when is met.
-- `feat/m7-numbers` and `feat/coach-demo` are contained in `feat/m3-court`, so don't build on them.
-- Old worktrees exist at `../basketball-game-analyzer-m2` (`feat/m2-baseline`, merged) and `../basketball-game-analyzer-m3` (`feat/m3-train`, a stale local branch).
+- `main` holds M0, M1, M2 and M3 part 1, squash-merged from PRs #11 to #14. Issues #1 to #3 are closed.
+- `feat/m3-court-model` is the working branch for the court model, cut from `main`. Its PR closes #4.
 
 ### M3 (#4): in progress
 
@@ -31,7 +29,7 @@ You are the implementer for basketball-game-analyzer (https://github.com/tko-ven
 
 ### Demo site
 
-- **Live:** https://basketball-analyzer-demo.vercel.app hosts these pages:
+- **Live:** https://basketball-analyzer.demo.tko.ventures hosts these pages (`basketball-analyzer-demo.vercel.app` redirects there):
 
   | Path | Page |
   |---|---|
@@ -42,7 +40,7 @@ You are the implementer for basketball-game-analyzer (https://github.com/tko-ven
 
   How each is built is in `docs/architecture.md`.
 - **Commands:**
-  - Publish: `scripts/deploy_demo.sh`. The Vercel CLI is logged in, with scope `tomasz-kopackis-projects`.
+  - Publish: `scripts/deploy_demo.sh`, from a clean `main` only; the script refuses otherwise. The Vercel CLI is logged in, with scope `tomasz-kopackis-projects`.
   - Build the video and analysis pages: `uv run --extra prefill --extra demo scripts/demo_web.py`.
   - Check before showing anyone: `uv run scripts/demo_audit.py`.
 - **Status:** a showcase, not a pipeline layer, with no metrics row. If you change shared helpers (`scripts/demo_video.py`, `scripts/demo_web.py`), rebuild and check every page.
