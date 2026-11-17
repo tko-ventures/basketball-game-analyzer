@@ -75,3 +75,116 @@ interested. This replaces options A/B/C on issue #2 and amends plan section 8 as
   outside the repo says "gold v0".
 - Gold is labelled just in time: landmark frames with M3 (court fine-tune), number crops with M7,
   on better footage if the club has full games (question 4, still open; Tomasz is asking).
+
+## 2026-11-02: court landmarks for M3, Tomasz corrects keyframes only
+
+Tomasz corrects only the court points the implementer flags, in one labeller session of about 20 minutes. Flags come from the implementer's visual check of FIBA lines drawn back into each frame, not from RANSAC residuals: in Lublin the NBA model is consistently shifted, so residuals stay low (issue #4).
+
+To fit the budget, he corrects one keyframe per selected shot, moving only the 4 to 6 points needed for a correct court fit; the overlay re-fits as he drags. A labelling aid then propagates that court mapping through the rest of the shot, using frame-to-frame floor matches with players masked. This yields the training frames (plan: 300 to 1,000). Propagation drift is measured on shots corrected at both ends before any propagated label is used. Landmark gold for evaluation is made the same way on the gold games, whose frames never enter training.
+
+## 2026-11-02: correction, two gold games share the Sosnowiec hall
+
+Seen on the court keyframe sheets for M3: `4XMD9FWmQws` ("PGE Start – Dziki", recorded since M1 as Lublin) is a Polish Cup game ("Puchar Polski" on the scoreboard, "Sosnowiec" on the floor). The held-out `Tnuscrm9RyU` (Superpuchar semi-final) was played in the same Sosnowiec arena: same regional sponsor boards, "…owiec" on the floor. The floor paint differs (2024/25 against 2026/27), so the held-out game still has a floor no training clip shows. It is not a hall the gold set has never seen, though, and M1's claim that its floor "appears in no other clip" holds for the paint only. Court results are reported per hall: Warsaw, Sosnowiec 2024/25, Sopot and Sosnowiec 2026/27 (held out). The NBA court model's failures recorded on 2026-10-31 as "Lublin" are Sosnowiec. No PLK clip in the set was filmed in Lublin.
+
+## 2026-11-10: appearance embeddings (Roboflow `reid`) join the scope
+
+Tomasz pointed to https://reid.roboflow.com and asked for the scope to follow. `reid` 0.1.0 (Apache 2.0, released 2026-11-03) turns a player crop into an appearance embedding. Roboflow `trackers` 2.7.0 fuses those embeddings into BoT-SORT, and Roboflow reports that this raises SportsMOT HOTA from 74.1 to 77.8 with the SportsMOT-trained encoder. Since the plan follows Skalski and Roboflow, the scope changes as follows (plan sections 2, 3, 5, 7, 8, 9, 11, 12 and 13):
+
+- **New layer 3b, appearance.** One embedding per box. The backends are `none` and `reid`. The default encoder is `osnet_x1_0_sportsmot` as published, followed by a PLK fine-tune.
+- **Layer 4.** `botsort` and `botsort_reid` (Roboflow `trackers`) become tracker candidates, with `mcbyte` at low priority. The mean tracklet embedding becomes one term of the linking cost.
+- **Layer 5.** New game-level identity: tracklets are clustered across the shots of one game by appearance, and number votes are pooled per cluster.
+- **Milestones.** M6 lands the layer, the `trackers` configs and the encoder fine-tune. M7 adds the game-level pooling. Each has before/after rows, as every layer change does. No new milestone; no milestone moves.
+- **Eval.** `bga eval` gains appearance metrics on gold boxes, so they are independent of detector and tracker.
+- **Licences.** Question 15 is new: the encoder weights were trained on research-only data. The default is to use them for measurement and as a fine-tune start, and to train a PLK encoder alongside from a backbone with an explicit permissive weight licence (for example DINOv2, Apache 2.0). Plain ImageNet weights are not clean either: ImageNet's terms are research-only.
+
+**Evidence.** The probe `scripts/probe_reid.py` ran on gold v0, on the 9 dev shots, with the held-out game not read. It is a measurement behind this decision, not a metrics row. Each cell is rank-1: the share of queries whose nearest candidate is the right player.
+
+| Encoder | Teammates 1 s later | 3 s | 5 s | Shot halves | Across cuts | ms per crop |
+|---|---|---|---|---|---|---|
+| Chance | 0.229 | 0.228 | 0.230 | 0.197 | 0.268 | |
+| Box centre in pixels, no motion model | 0.777 | 0.509 | 0.397 | n/a | n/a | |
+| `osnet_x1_0_sportsmot` | **0.857** | **0.738** | **0.646** | **0.847** | **0.865** | 2.5 |
+| `osnet_x1_0_dancetrack` | 0.746 | 0.534 | 0.447 | 0.635 | 0.662 | 3.0 |
+| `osnet_x1_0_soccernet` | 0.727 | 0.500 | 0.417 | 0.447 | 0.459 | 2.5 |
+| `fastreid_mot17_sbs50` | 0.692 | 0.467 | 0.421 | 0.647 | 0.486 | 5.3 |
+| `osnet_x1_0_msmt17_combineall` | 0.672 | 0.503 | 0.423 | 0.647 | 0.608 | 2.5 |
+| `osnet_x1_0_mot17` | 0.627 | 0.427 | 0.365 | 0.518 | 0.608 | 2.5 |
+
+How each column was scored:
+
+- **Teammates 1, 3 and 5 s later.** One crop, against the crops of the player's teammates on the floor that much later in the same shot (712 to 1,325 queries, 4.5 candidates on average).
+- **Shot halves.** The mean embedding of a player over the first half of a shot, against his teammates' means over the second half (85 queries).
+- **Across cuts.** A numbered player's mean embedding in one shot, against his numbered teammates in another shot of the same game (74 queries). By hall: Sopot 0.962, Warsaw 0.909, Sosnowiec 0.731.
+- **Speed.** Milliseconds per crop on the M1 Max (MPS).
+
+**Caveats.** Gold v0 boxes come from the same prefill as the tracks. The pixel reference has no motion model or camera compensation, so a real tracker would likely do better at 1 s. The cross-cut samples are small. These numbers justify the scope change; they do not stand in for M6's metrics rows.
+
+## 2026-11-11: demo for Dziki's head coach; English edition and a number check
+
+Tomasz is showing the demo to Marco Legovich, Dziki Warszawa's head coach in 2025/26 and 2026/27 (`data/rosters/dziki_warszawa.json`). The three demo shots come from his own game against Legia (March 2026), so he will judge every name on his players. Changes, all demo aids and not pipeline layers:
+
+- **English edition.** `/en/` and `/en/analysis/` with the same tracks, teams and numbers as the Polish pages; only the text differs (`scripts/demo_strings.py`). Polish stays the default at `/`, as decided on 2026-11-01. Every page links to the other language.
+- **Audit against gold.** `scripts/demo_audit.py` compares what the pages show with gold v0 on matched boxes. Before today's change, teams agreed on 1,513 of 1,515 boxes. Numbers were right on 307 boxes and wrong on 195, and two Dziki players carried wrong labels: Horton (#1) shown as "#32" and Edge (#2) shown as "#8 Kempa".
+- **Roster check.** A number that is not on the team's roster for that season is no longer shown. This removed the Dziki "#32" (60 boxes); 307 right and 135 wrong remain. The remaining errors are 2 read as 8 (Edge, shot 1), 25 read as 8 (Oguama, shot 2) and Legia's Thompson shown as "#3 Pluta" (shot 2). Shot 3 has no wrong number.
+- **Names.** Labels show the name after the first given name ("#0 Vander Plas", not "#0 Plas").
+
+The demo still reads numbers with Skalski's public SmolVLM model; the fix for the 2/8 confusion is M7's fine-tune on PLK crops. Deployed to Vercel production at Tomasz's request on 2026-11-11 (https://basketball-analyzer-demo.vercel.app/en/).
+
+## 2026-11-11: coach page on simulated 2D data
+
+Tomasz asked for synthetic possessions so the demo can show the head coach (Marco Legovich) what accurate 2D tracking gives him, before the camera pipeline can deliver it. Marco watches the game first and then turns to statistics and insights, so the page follows that order:
+1. **Watch:** the court with no overlays, possession by possession.
+2. **Insights:** the detected play and coverage, a verdict on the shot, and the shot quality, defender distances, spacing and passes, plus clickable key moments (open team-mates found or missed, screens, helps, rotations) and per-player distance and speed.
+3. **Feedback:** drawing on the court (pen, arrow, "this player should have been here"), and notes addressed to the team or a player and tagged "well done" or "to improve". Notes are kept in the browser and exported as text grouped by player.
+
+A Game tab adds totals.
+
+- **Data:** eight possessions in `data/fixtures/synthetic/`, written by `scripts/synth_plays.py` (format and method in `docs/fixtures.md`). Offence is choreographed from common set plays; defence follows man-to-man or zone rules with reaction delay and speed limits, plus the scripted decision each play turns on. Dziki's players are the 2026/27 roster. The opponent is anonymous, so no real team is shown losing a made-up possession.
+- **Label:** the page carries a "Simulated tracking data" badge and says in its footer that the possessions are simulated. The fixtures are never gold or training data.
+- **Format:** the fixture format (`bga.tracking2d/v0`) is the shape the pipeline's 2D output should take, so the page will take real possessions once M3 and M4 deliver them.
+- **Status:** a showcase, not a pipeline layer, so no metrics row. The insight rules (`scripts/coach_insights.py`) are demo rules on simulated data. Before any of them becomes a pipeline layer it needs a before/after row against gold like any other heuristic.
+- **Built:** with the other demo pages, at `/coach/` and `/en/coach/`, linked from both video pages. Deployed to Vercel production at Tomasz's request on 2026-11-11, after a coach-friendliness pass: every number is coloured from Dziki's side and explains itself when tapped, timeline legend, feedback steps, and layouts for a laptop and a tablet.
+
+
+## 2026-11-17: number reading, what M7 takes from an outside review
+
+Tomasz shared a jersey-number pipeline guide he worked out with Google's Gemini assistant (roster-constrained PARSeq scoring, kit-colour clustering, shear and CLAHE preprocessing, per-frame uniqueness). Most of it was already in layer 5. The implementer reviewed it against the plan and the demo's reads, and Tomasz agreed to the following.
+
+- **Adopted, as backends with their own configs and metrics rows in M7** (plan section 5, layer 5):
+  - `roster_logprob`: score roster numbers plus `unreadable` from the reader's probabilities and sum them per track, instead of decoding free text, filtering by roster afterwards and waiting for 3 equal reads. The sequence probability includes the end token and is renormalised over the candidates; the guide's division by length is not used.
+  - `covisible_assign`: teammates' tracks visible in the same frame cannot share a number, solved as an assignment per team and shot with an abstain option for each track. The guide's version runs per frame on already-aggregated scores and always assigns something; a wrong unique number is worse for the coach than none.
+  - `parseq` joins the reader bake-off, after Koshkina and Elder's jersey pipeline (CVPR Workshops 2024), fine-tuned from `baudm` weights on PLK crops. Their released models are trained on SoccerNet and hockey data and are not used.
+- **Not adopted:** kit colour clustering with k-means (the HSV colour cue was left behind with the prior repo; `siglip_kmeans` agrees with gold v0 on 1,513 of 1,515 demo boxes), test-time shear sweeps and CLAHE (the prior repo's crop preprocessing; slant, blur and contrast go into training augmentation), and the guide's football specifics (goalkeepers, 11 players on the floor).
+- **Check on the demo's reads, before building anything.** The demo already applies a greedy one-owner rule per frame (`scripts/demo_web.py`, `numbers_at`). A stricter uniqueness rule fixes none of its three wrong numbers, because the true owner of the wrong number is never confirmed in the same shot:
+  - Edge (#2) read as 8, shot 2: Kempa (#8) is not in the shot. Edge's reads over the game's three demo shots are 8 eleven times and 2 eleven times (shot 2: 8×4, 2×1; shot 10: 2×7, 8×1; shot 19: 8×6, 2×3), so pooling across shots ties as well. The 2/8 confusion is systematic for this kit and font.
+  - Oguama (#25) read as 8, shot 10: his reads are 8×3, 11, 27; 25 is never read. Kempa's track in that shot has no reads at all.
+  - Thompson (#25) shown as #3, shot 10: Pluta's track (#3) has one read, "4". Game-level pooling would fix this one: in shot 2 Thompson's track reads 25 five times out of nine, which the demo's 60% purity bar hid.
+  - In shot 19 two Dziki tracks tie at three reads of 4 each, and the owner rule gave #4 to the player gold has no number for. Per-read probabilities, not counts, are what would break such ties.
+
+  So the main fix stays a reader fine-tuned on PLK crops, with 2/8 well represented in the crop set. The roster vote and the assignment are worth measuring for confirmed fraction and wrong-confirmed count, not as the fix for these errors. This is an inspection of demo output, not a metrics row.
+
+## 2026-11-17: squash merges, one working branch, and a second pass on court keyframes
+
+- **Squash merges.** Tomasz merges milestone PRs with "Squash and merge" (#11, #12 and #13 so far). The feature branches are stacked, so each squash makes the next PR conflict even though no file differs. The fix after each merge:
+  1. Check that `main`'s tree equals the merged branch's tip.
+  2. Check that the next branch contains that tip.
+  3. Record `main` into the next branch with `git merge -s ours`, which changes no files.
+
+  If either check fails, do a real merge instead. There is no history rewrite and no force-push.
+- **One working branch.** `feat/m7-numbers`, which holds the coach page and the M7 scope, has been merged into `feat/m3-court`. A deploy from `feat/m3-court` would otherwise have dropped the live coach page, and two decision entries were missing on it. The M3 PR will therefore carry the coach page and the M7 scope documents as well.
+- **Court keyframes, second pass.** The court labelling page could not fit two kinds of frame:
+  - frames whose only visible landmarks lie on one or two lines (Sopot 2310);
+  - frames from a low camera, where part of the court is behind the camera (King 822).
+
+  Two fixes followed: pins on painted lines, and a fold check limited to the dots and pins. Tomasz then redid 24 keyframes, and 41 of 42 are usable. These are labelling-aid changes, not a layer, so they need no metrics row.
+- **`docs/architecture.md`** records what is built, ground truth only. Every commit that changes what it describes updates it (`CLAUDE.md`).
+
+## 2026-11-17: M3 lands in two pull requests
+
+Tomasz asked to tidy every branch other than `main`. M3's done-when (a per-arena reprojection-error row) is several days away, so `feat/m3-court` goes to `main` now as **M3 part 1**. That PR references #4 but does not close it. It carries:
+- the court keyframes and the court labelling page;
+- the propagation fixes;
+- the coach page and the M7 scope;
+- the docs, including `docs/architecture.md`.
+
+After the squash, the court-model work continues on a fresh branch from `main`, and its PR closes #4. This bends the one-pull-request-per-milestone rule for M3 only.

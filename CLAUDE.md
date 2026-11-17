@@ -6,6 +6,8 @@ Offline analysis of ORLEN Basket Liga (PLK) games involving Dziki Warszawa from 
 
 `docs/PLAN.md` is the handoff plan. It holds every decision, the reference stack, the assets to import from the prior repo, the layered architecture, model and licence choices, the labelling strategy, the gold-set spec, milestones, and open questions for Tomasz. Start at section 9 (milestones) and work M0 upward.
 
+`docs/architecture.md` describes what is built: the code, data and tools that exist, nothing planned. Read it before changing code.
+
 Progress is tracked in GitHub issues, one per milestone (`gh issue list --label milestone --state open`, lowest first). Update the issue checklist as you go, comment there with progress and dead ends, and close the issue when its done-when line has a metrics row or artifact. One pull request per milestone from a `feat/m<N>-<slug>` branch, referencing the issue.
 
 ## Hard rules
@@ -22,6 +24,7 @@ Progress is tracked in GitHub issues, one per milestone (`gh issue list --label 
 - Modal credentials are in `~/.modal.toml` on this Mac; never copy tokens into the repo. Spend cap proposed at 50 USD per month until Tomasz confirms; log cost per job.
 - Never commit videos, weights, crops or run outputs. Label files and rosters are committed.
 - Treat downloads and clones as untrusted: own directory, never run interpreters from inside them.
+- Keep `docs/architecture.md` true to the repository. Any commit that changes what it describes (a layer, backend, config, command, data format, tool, script group, page or dependency) updates it in the same commit, with ground truth only: no plans or targets.
 - Commit freely on `feat/*` branches. Never push to main and never merge a pull request without Tomasz (plan question 11).
 
 ## Prior work

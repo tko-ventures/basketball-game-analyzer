@@ -1,0 +1,266 @@
+{
+ "note": "Court keyframes to redo with pins (2026-11-17): halls with no usable frame, frames marked unusable, and frames fitted from 4-5 dots. Open /court?set=redo.",
+ "keyframes": [
+  {
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "youtube_id": "OSp445e0mXU",
+   "hall": "Dziki Warszawa",
+   "shot": 2,
+   "frame": 858,
+   "video": "data/raw/20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka.mp4",
+   "purpose": "gold",
+   "prefill_H": [
+    [
+     2.69021348,
+     5.83647268,
+     -3243.89860656
+    ],
+    [
+     -0.72908508,
+     12.7150917,
+     -4450.38363525
+    ],
+    [
+     6.577e-05,
+     0.00368928,
+     1.0
+    ]
+   ],
+   "flags": [
+    "only 4 dots and the fit is degenerate"
+   ]
+  },
+  {
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "youtube_id": "1jDaJBkUGmc",
+   "hall": "Energa Trefl",
+   "shot": 6,
+   "frame": 2310,
+   "video": "data/raw/20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off.mp4",
+   "purpose": "gold",
+   "prefill_H": [
+    [
+     -100.75799476,
+     -62.38781954,
+     60556.46295011
+    ],
+    [
+     -20.87237459,
+     -179.32780513,
+     89923.64204238
+    ],
+    [
+     -0.04059089,
+     -0.03380078,
+     1.0
+    ]
+   ],
+   "flags": [
+    "marked unusable; try pins on the sideline, centre line, centre circle and 3-pt arc"
+   ]
+  },
+  {
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "youtube_id": "1jDaJBkUGmc",
+   "hall": "Energa Trefl",
+   "shot": 19,
+   "frame": 7322,
+   "video": "data/raw/20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off.mp4",
+   "purpose": "gold",
+   "prefill_H": [
+    [
+     -5.45546786,
+     -11.68468433,
+     7216.58061214
+    ],
+    [
+     -0.39374635,
+     -11.22177097,
+     4066.41542697
+    ],
+    [
+     0.00044107,
+     -0.00825676,
+     1.0
+    ]
+   ],
+   "flags": [
+    "marked unusable; try pins"
+   ]
+  },
+  {
+   "clip": "20241013_d5lCDxjy1R4_Skrot_meczu_Anwil_W_oc_awek_-_Dziki_Warszawa_79_70",
+   "youtube_id": "d5lCDxjy1R4",
+   "hall": "Anwil Włocławek",
+   "shot": 12,
+   "frame": 2834,
+   "video": "data/raw/20241013_d5lCDxjy1R4_Skrot_meczu_Anwil_W_oc_awek_-_Dziki_Warszawa_79_70.mp4",
+   "purpose": "train",
+   "prefill_H": [
+    [
+     1.36089875,
+     1.38089026,
+     -18.15932986
+    ],
+    [
+     -0.02781763,
+     6.06935054,
+     -2336.69215831
+    ],
+    [
+     2.164e-05,
+     0.00096655,
+     1.0
+    ]
+   ],
+   "flags": [
+    "marked unusable; no usable frame in this hall"
+   ]
+  },
+  {
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "youtube_id": "vevXM24gp3U",
+   "hall": "Energa Czarni",
+   "shot": 7,
+   "frame": 2861,
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "purpose": "train",
+   "prefill_H": [
+    [
+     -3.02283598,
+     -10.0072045,
+     868.90414342
+    ],
+    [
+     -1.68402322,
+     -22.12167363,
+     13300.4821775
+    ],
+    [
+     0.00026599,
+     -0.00761867,
+     1.0
+    ]
+   ],
+   "flags": [
+    "only 4 dots, nothing checks them: add pins or a dot"
+   ]
+  },
+  {
+   "clip": "20251023_MbcSmlYfB-8_Skrot_spotkania_Gornik_Zamek_Ksi_Wa_brzych-Dziki_Wars",
+   "youtube_id": "MbcSmlYfB-8",
+   "hall": "Górnik Zamek Książ Wałbrzych",
+   "shot": 21,
+   "frame": 4864,
+   "video": "data/raw/20251023_MbcSmlYfB-8_Skrot_spotkania_Gornik_Zamek_Ksi_Wa_brzych-Dziki_Wars.mp4",
+   "purpose": "train",
+   "prefill_H": [
+    [
+     0.91287597,
+     2.50033667,
+     -2116.28102548
+    ],
+    [
+     -0.37861474,
+     4.95992863,
+     -2594.39992805
+    ],
+    [
+     0.00023996,
+     0.00041347,
+     1.0
+    ]
+   ],
+   "flags": [
+    "only 5 dots: add pins or a dot"
+   ]
+  },
+  {
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "youtube_id": "hUoD7ptXzCE",
+   "hall": "King",
+   "shot": 2,
+   "frame": 822,
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "purpose": "train",
+   "prefill_H": [
+    [
+     2.78586442,
+     7.93258693,
+     -5489.45866395
+    ],
+    [
+     -1.25693959,
+     14.75712761,
+     -4288.19177691
+    ],
+    [
+     3.349e-05,
+     0.00402074,
+     1.0
+    ]
+   ],
+   "flags": [
+    "marked unusable; no usable frame in this hall"
+   ]
+  },
+  {
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "youtube_id": "hUoD7ptXzCE",
+   "hall": "King",
+   "shot": 18,
+   "frame": 6353,
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "purpose": "train",
+   "prefill_H": [
+    [
+     1.748502,
+     2.22472876,
+     2143.82969407
+    ],
+    [
+     0.62798652,
+     8.80442928,
+     -3997.51792605
+    ],
+    [
+     -3.996e-05,
+     0.00238739,
+     1.0
+    ]
+   ],
+   "flags": [
+    "marked unusable; no usable frame in this hall"
+   ]
+  },
+  {
+   "clip": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "youtube_id": "jXhvXy9iQeQ",
+   "hall": "Legia",
+   "shot": 1,
+   "frame": 428,
+   "video": "data/raw/20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka.mp4",
+   "purpose": "train",
+   "prefill_H": [
+    [
+     1.23530917,
+     3.99380595,
+     -2888.38740971
+    ],
+    [
+     -0.64120541,
+     7.65761924,
+     -2677.26661194
+    ],
+    [
+     0.00046889,
+     0.00056448,
+     1.0
+    ]
+   ],
+   "flags": [
+    "only 5 dots: add pins or a dot"
+   ]
+  }
+ ]
+}

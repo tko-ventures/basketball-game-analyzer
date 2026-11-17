@@ -1,0 +1,51 @@
+# Implementer's visual check of the NBA court model's lines on the 50 keyframe candidates (sheets 00-08).
+0 drop  # close-up of players
+1 fix lines missing; low wide angle, few landmarks visible
+2 drop  # sponsor graphic
+3 fix lines miss the floor entirely (Sosnowiec, Polish Cup)
+4 fix key and arcs shifted left of the red key
+5 fix key drawn short of the red key
+6 fix key drawn inside the red key, arc too small
+7 fix no lines in view
+8 fix no lines in view
+9 fix key drawn mid-court, painted key is at the left
+10 drop  # player close-up
+11 ok
+12 fix arc and key offset from the blue key
+13 fix no lines in view
+14 fix key drawn mid-court
+15 fix no lines in view
+16 fix key offset from the red key
+17 fix key drawn above the green key
+18 fix key and arc misplaced
+19 fix court skewed; centre circle near the logo but the key is off
+20 fix key and arc misplaced
+21 fix key and arc misplaced
+22 ok
+23 ok
+24 ok
+25 ok
+26 ok
+27 ok
+28 fix key and arc misplaced
+29 fix key and arc misplaced
+30 fix no model mapping
+31 fix no lines in view
+32 fix key roughly on the green key but tilted
+33 ok
+34 fix lines do not follow the floor
+35 fix key drawn over the logo, not the orange key
+36 fix lines do not follow the floor
+37 fix no lines in view
+38 fix lines do not follow the floor
+39 fix no lines in view
+40 drop  # player close-up
+41 fix key and arc misplaced
+42 ok
+43 ok
+44 fix key offset from the red key
+45 fix key drawn below the red key
+46 fix key offset from the red key
+47 fix key offset from the red key
+48 fix arc offset
+49 fix key offset from the red key
