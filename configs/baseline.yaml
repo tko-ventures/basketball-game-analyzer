@@ -1,0 +1,29 @@
+name: baseline
+description: >
+  M2 walking skeleton, Skalski's stack unchanged: his public RF-DETR-S basketball detector
+  (basketball-player-detection-3-ycjdo/6, NBA frames), SigLIP + UMAP + KMeans teams, ByteTrack in
+  pixels on every gold frame (stride 5 at 50 fps), his NBA court keypoint model mapped to FIBA,
+  box bottom-centre ground point, clean_paths.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: roboflow_keypoints
+    params: {model_id: basketball-court-detection-2/14}
+    weights: pretrained:roboflow/basketball-court-detection-2/14
+  detect:
+    backend: roboflow_inference
+    params: {model_id: basketball-player-detection-3-ycjdo/6, confidence: 0.4}
+    weights: pretrained:roboflow/basketball-player-detection-3-ycjdo/6
+  team:
+    backend: siglip_kmeans
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  track:
+    backend: bytetrack
+  positions:
+    backend: bbox_bottom
+  numbers:
+    backend: smolvlm_ocr
+    params: {model_id: basketball-jersey-numbers-ocr/3}
+    weights: pretrained:roboflow/basketball-jersey-numbers-ocr/3

@@ -1,5 +1,5 @@
 # Media: never committed
-data/raw/
+data/raw
 data/clips/
 data/crops/
 *.mp4

@@ -308,6 +308,9 @@ source = { editable = "." }
 dependencies = [
     { name = "numpy" },
     { name = "opencv-python-headless" },
+    { name = "pydantic" },
+    { name = "pyyaml" },
+    { name = "typer" },
 ]
 
 [package.optional-dependencies]
@@ -317,6 +320,10 @@ demo = [
     { name = "sports" },
     { name = "transformers" },
     { name = "umap-learn" },
+]
+eval = [
+    { name = "pycocotools" },
+    { name = "trackeval" },
 ]
 onnx = [
     { name = "onnxruntime" },
@@ -341,13 +348,18 @@ requires-dist = [
     { name = "numpy", specifier = ">=2.0" },
     { name = "onnxruntime", marker = "extra == 'onnx'", specifier = ">=1.20" },
     { name = "opencv-python-headless", specifier = ">=4.10" },
+    { name = "pycocotools", marker = "extra == 'eval'", specifier = ">=2.0.8" },
+    { name = "pydantic", specifier = ">=2.9" },
+    { name = "pyyaml", specifier = ">=6.0" },
     { name = "scikit-learn", marker = "extra == 'demo'", specifier = ">=1.9.1" },
     { name = "sentencepiece", marker = "extra == 'demo'", specifier = ">=0.2.2" },
     { name = "sports", marker = "extra == 'demo'", git = "https://github.com/roboflow/sports.git?rev=415751384e34f1cb7089a00909e0d7932fe73a75" },
+    { name = "trackeval", marker = "extra == 'eval'", git = "https://github.com/JonathonLuiten/TrackEval.git?rev=12c8791b303e0a0b50f753af204249e622d0281a" },
     { name = "transformers", marker = "extra == 'demo'", specifier = ">=5.15.1" },
+    { name = "typer", specifier = ">=0.12" },
     { name = "umap-learn", marker = "extra == 'demo'", specifier = ">=0.5.12" },
 ]
-provides-extras = ["onnx", "prefill", "remote", "demo"]
+provides-extras = ["onnx", "prefill", "remote", "eval", "demo"]
 
 [package.metadata.requires-dev]
 dev = [
@@ -3531,6 +3543,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/01/d7/ef7a223be4ce81bddbf1023f2dcbe5f7317ad35df85d8af2fa9e54f20ae3/trackers-2.4.0.tar.gz", hash = "sha256:0839394bae9dea68fb23effce844644d351e76ba780cce385421a5206bcf78f6", size = 424364, upload-time = "2026-05-06T21:11:38.558Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/9d/3c/29594d8e24f0520df876373c470270bf141b060efc9757e9c37b70780ebe/trackers-2.4.0-py3-none-any.whl", hash = "sha256:0d5981c1c39196a43f2dc3b3f7c331e8d62594cd1ab6024aae7288f24e24e893", size = 126400, upload-time = "2026-05-06T21:11:37.178Z" },
+]
+
+[[package]]
+name = "trackeval"
+version = "1.0.dev1"
+source = { git = "https://github.com/JonathonLuiten/TrackEval.git?rev=12c8791b303e0a0b50f753af204249e622d0281a#12c8791b303e0a0b50f753af204249e622d0281a" }
+dependencies = [
+    { name = "numpy" },
+    { name = "scipy" },
 ]
 
 [[package]]
