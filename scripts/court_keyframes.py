@@ -31,6 +31,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+from bga.court.propagate import court_to_image  # noqa: E402
 from bga.review.sheets import contact_sheet  # noqa: E402
 
 GEO = json.loads((Path(__file__).resolve().parents[1] / "tools/labeler/static/fiba_court.json").read_text())
@@ -56,7 +57,7 @@ def hall_of(stem: str, labels: dict) -> str:
 def draw_court(img: np.ndarray, H, color=(255, 0, 255), width=3) -> np.ndarray:
     if H is None:
         return img
-    G = np.linalg.inv(np.asarray(H))
+    G = court_to_image(H)
 
     def P(X, Y):
         p = G @ [X, Y, 1.0]

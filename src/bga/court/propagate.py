@@ -17,9 +17,21 @@ import numpy as np
 COURT_CM = (2800.0, 1500.0)
 
 
+def court_to_image(H: np.ndarray) -> np.ndarray:
+    """Inverse of an image->court H, signed so the court centre has w > 0.
+
+    A homography and its negative are the same map, but "w > 0" is how a point in front of the camera
+    is told from one behind it. Normalising H to h33 = 1 flips the sign whenever the image origin lies
+    above the floor's horizon (stands, roof), so the sign is fixed on the court side, as the labeller
+    page does.
+    """
+    G = np.linalg.inv(np.asarray(H, dtype=np.float64))
+    return -G if (G @ [COURT_CM[0] / 2, COURT_CM[1] / 2, 1.0])[2] < 0 else G
+
+
 def court_mask(H: np.ndarray, shape: tuple[int, int], margin_cm: float = -50.0) -> np.ndarray:
     """Pixels inside the court rectangle (grown by margin_cm; negative keeps clear of ad boards) under H."""
-    G = np.linalg.inv(H)
+    G = court_to_image(H)
     L, W = COURT_CM
     corners = np.array(
         [
@@ -102,7 +114,7 @@ class Propagator:
 
 def landmarks(H: np.ndarray, vertices: np.ndarray, wh: tuple[int, int], margin: int = 0) -> list[list[float]]:
     """Image position and visibility (2 inside the frame, 0 outside) of each court vertex."""
-    G = np.linalg.inv(H)
+    G = court_to_image(H)
     p = np.c_[vertices, np.ones(len(vertices))] @ G.T
     out = []
     for x, y, w in p:
