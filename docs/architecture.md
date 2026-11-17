@@ -1,6 +1,6 @@
 # Architecture: what is built
 
-This page describes the code and data that exist, as of 2026-11-17 on `feat/m3-court`. `main` holds M0 to M2. It records only what is in the repository. Intentions, targets and milestones are in `docs/PLAN.md`, decisions in `docs/decisions.md`, and scores in `docs/metrics.md`.
+This page describes the code and data that exist on `main`, as of 2026-11-17 (M0 to M2, and M3 part 1). It records only what is in the repository. Intentions, targets and milestones are in `docs/PLAN.md`, decisions in `docs/decisions.md`, and scores in `docs/metrics.md`.
 
 The repository has three parts:
 
@@ -212,7 +212,7 @@ Contact sheets for reading by eye come from `bga.review.sheets`.
 
 ## Demo site
 
-The site is published to the Vercel project `basketball-analyzer-demo` by `scripts/deploy_demo.sh`. It is built outside the `bga` pipeline:
+The site is published to the Vercel project `basketball-analyzer-demo` by `scripts/deploy_demo.sh`. The Vercel project has no Git connection. The script deploys only from a clean `main` that matches `origin/main`, and tags each deployment with the commit (`BGA_DEPLOY_ANY_BRANCH=1` overrides the check). The site is built outside the `bga` pipeline:
 
 - **Video and analysis pages:** `scripts/demo_web.py` builds `/` and `/analysis/`, plus `/en/` and `/en/analysis/`, from three shots of `OSp445e0mXU`. It runs Skalski's models through the helpers in `scripts/demo_video.py` and caches number reads and homographies in `runs/demo/cache`.
   - Templates: `demo_page_video.html` and `demo_page_analysis.html`.
