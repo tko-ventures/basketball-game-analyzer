@@ -1,0 +1,418 @@
+{
+ "team": "WKS Śląsk Wrocław",
+ "team_id_plk": 110,
+ "aliases": [
+  "WKS Śląsk Wrocław"
+ ],
+ "retrieved": "2026-10-29",
+ "seasons": {
+  "2024/25": {
+   "team_name": "WKS Śląsk Wrocław",
+   "source": "https://plk.pl/archiwum/27/druzyny/110/wks-slask-wroclaw/sklad",
+   "coach": "Aristeidis Lykogiannis",
+   "players": [
+    {
+     "number": "3",
+     "name": "Błażej Kulikowski",
+     "pos": "SG/SF",
+     "height_cm": 197,
+     "nat": "POL",
+     "id_plk": 45491
+    },
+    {
+     "number": "4",
+     "name": "Przemysław Kociszewski",
+     "pos": "PF",
+     "height_cm": 203,
+     "nat": "POL",
+     "id_plk": 47654
+    },
+    {
+     "number": "4",
+     "name": "Jakub Nizioł",
+     "pos": "SF/PF",
+     "height_cm": 201,
+     "nat": "POL",
+     "id_plk": 2977
+    },
+    {
+     "number": "6",
+     "name": "Daniel Gołębiowski",
+     "pos": "SG/SF",
+     "height_cm": 195,
+     "nat": "POL",
+     "id_plk": 25862
+    },
+    {
+     "number": "7",
+     "name": "Marcel Ponitka",
+     "pos": "PG/SG",
+     "height_cm": 192,
+     "nat": "POL",
+     "id_plk": 2957
+    },
+    {
+     "number": "8",
+     "name": "Szymon Nowicki",
+     "pos": "SF/PF",
+     "height_cm": 203,
+     "nat": "POL",
+     "id_plk": 43706
+    },
+    {
+     "number": "11",
+     "name": "Ajdin Penava",
+     "pos": "PF/C",
+     "height_cm": 208,
+     "nat": "BIH",
+     "id_plk": 97304
+    },
+    {
+     "number": "12",
+     "name": "Justin Robinson",
+     "pos": "PG",
+     "height_cm": 173,
+     "nat": "USA",
+     "id_plk": 113341
+    },
+    {
+     "number": "13",
+     "name": "Kenan Blackshear",
+     "pos": "SF",
+     "height_cm": 198,
+     "nat": "USA",
+     "id_plk": 108216
+    },
+    {
+     "number": "19",
+     "name": "Mikołaj Adamczak",
+     "pos": "PF",
+     "height_cm": 207,
+     "nat": "POL",
+     "id_plk": 43206
+    },
+    {
+     "number": "21",
+     "name": "Adam Waczyński",
+     "pos": "SG/SF",
+     "height_cm": 199,
+     "nat": "POL",
+     "id_plk": 795
+    },
+    {
+     "number": "22",
+     "name": "Tobiasz Dydak",
+     "pos": "C",
+     "height_cm": 211,
+     "nat": "POL",
+     "id_plk": 44857
+    },
+    {
+     "number": "23",
+     "name": "Emmanuel Nzekwesi",
+     "pos": "C",
+     "height_cm": 203,
+     "nat": "NED",
+     "id_plk": 112566
+    },
+    {
+     "number": "24",
+     "name": "Soprano Szelążek",
+     "pos": "SF",
+     "height_cm": 201,
+     "nat": "POL",
+     "id_plk": 106686
+    },
+    {
+     "number": "26",
+     "name": "Wojciech Siembiga",
+     "pos": "SF",
+     "height_cm": 195,
+     "nat": "POL",
+     "id_plk": 39031
+    },
+    {
+     "number": "30",
+     "name": "Jeremy Senglin",
+     "pos": "PG",
+     "height_cm": 183,
+     "nat": "USA",
+     "id_plk": 108087
+    },
+    {
+     "number": "31",
+     "name": "Macio Teague",
+     "pos": "SG",
+     "height_cm": 193,
+     "nat": "USA",
+     "id_plk": 99274
+    },
+    {
+     "number": "33",
+     "name": "Oskar Hlebowicki",
+     "pos": "PG/SG",
+     "height_cm": 199,
+     "nat": "POL",
+     "id_plk": 42340
+    },
+    {
+     "number": "35",
+     "name": "Dejon Davis",
+     "pos": "PF",
+     "height_cm": 201,
+     "nat": "USA",
+     "id_plk": 113579
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2025/26": {
+   "team_name": "WKS Śląsk Wrocław",
+   "source": "https://plk.pl/archiwum/28/druzyny/110/wks-slask-wroclaw/sklad",
+   "coach": "Jacek Winnicki",
+   "players": [
+    {
+     "number": "1",
+     "name": "Angel Nunez",
+     "pos": "PF",
+     "height_cm": 203,
+     "nat": "USA",
+     "id_plk": 106087
+    },
+    {
+     "number": "2",
+     "name": "Aleksander Wiśniewski",
+     "pos": "PG/SG",
+     "height_cm": 192,
+     "nat": "POL",
+     "id_plk": 41657
+    },
+    {
+     "number": "3",
+     "name": "Błażej Kulikowski",
+     "pos": "SG/SF",
+     "height_cm": 197,
+     "nat": "POL",
+     "id_plk": 45491
+    },
+    {
+     "number": "4",
+     "name": "Maksymilian Leniec",
+     "pos": "PG/SG",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 60998
+    },
+    {
+     "number": "5",
+     "name": "Kyrell Luc",
+     "pos": "PG",
+     "height_cm": 180,
+     "nat": "USA",
+     "id_plk": 121075
+    },
+    {
+     "number": "6",
+     "name": "Reigarvius Williams",
+     "pos": "PF/C",
+     "height_cm": 203,
+     "nat": "USA",
+     "id_plk": 120809
+    },
+    {
+     "number": "7",
+     "name": "Jakub Urbaniak",
+     "pos": "PF",
+     "height_cm": 205,
+     "nat": "POL",
+     "id_plk": 92281
+    },
+    {
+     "number": "10",
+     "name": "Noah Kirkwood",
+     "pos": "SF",
+     "height_cm": 201,
+     "nat": "CAN",
+     "id_plk": 116238
+    },
+    {
+     "number": "11",
+     "name": "Ajdin Penava",
+     "pos": "PF/C",
+     "height_cm": 208,
+     "nat": "BIH",
+     "id_plk": 97304
+    },
+    {
+     "number": "22",
+     "name": "Tymoteusz Sternicki",
+     "pos": "SF/PF",
+     "height_cm": 203,
+     "nat": "POL",
+     "id_plk": 50141
+    },
+    {
+     "number": "25",
+     "name": "Kadre Gray",
+     "pos": "PG",
+     "height_cm": 186,
+     "nat": "CAN",
+     "id_plk": 99395
+    },
+    {
+     "number": "27",
+     "name": "Błażej Czerniewicz",
+     "pos": "PG/SG",
+     "height_cm": 198,
+     "nat": "POL",
+     "id_plk": 48340
+    },
+    {
+     "number": "30",
+     "name": "Issuf Sanon",
+     "pos": "PG/SG",
+     "height_cm": 197,
+     "nat": "UKR",
+     "id_plk": 116239
+    },
+    {
+     "number": "34",
+     "name": "Stefan Djordjević",
+     "pos": "C",
+     "height_cm": 206,
+     "nat": "SRB",
+     "id_plk": 108827
+    },
+    {
+     "number": "35",
+     "name": "Jakub Nizioł",
+     "pos": "SF/PF",
+     "height_cm": 201,
+     "nat": "POL",
+     "id_plk": 2977
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2026/27": {
+   "team_name": "WKS Śląsk Wrocław",
+   "source": "https://plk.pl/druzyny/110/wks-slask-wroclaw/sklad",
+   "coach": "Danny Franco",
+   "players": [
+    {
+     "number": "2",
+     "name": "Anthony Hickey",
+     "pos": "PG/SG",
+     "height_cm": 186,
+     "nat": "USA",
+     "id_plk": 123823
+    },
+    {
+     "number": "3",
+     "name": "Malik Parsons",
+     "pos": "SG/SF",
+     "height_cm": 190,
+     "nat": "USA",
+     "id_plk": 123825
+    },
+    {
+     "number": "4",
+     "name": "Kyrell Luc",
+     "pos": "PG",
+     "height_cm": 180,
+     "nat": "USA",
+     "id_plk": 121075
+    },
+    {
+     "number": "5",
+     "name": "Devin Robinson",
+     "pos": "PF",
+     "height_cm": 205,
+     "nat": "USA",
+     "id_plk": 123822
+    },
+    {
+     "number": "8",
+     "name": "Anthony Wrzeszcz",
+     "pos": "",
+     "height_cm": 0,
+     "nat": "POL",
+     "id_plk": 71988
+    },
+    {
+     "number": "10",
+     "name": "Paul Scruggs",
+     "pos": "PG/SG",
+     "height_cm": 193,
+     "nat": "USA",
+     "id_plk": 99268
+    },
+    {
+     "number": "11",
+     "name": "Błażej Kulikowski",
+     "pos": "SG/SF",
+     "height_cm": 197,
+     "nat": "POL",
+     "id_plk": 45491
+    },
+    {
+     "number": "13",
+     "name": "Isaih Moore",
+     "pos": "PF/C",
+     "height_cm": 205,
+     "nat": "USA",
+     "id_plk": 123826
+    },
+    {
+     "number": "15",
+     "name": "John Egbunu",
+     "pos": "C",
+     "height_cm": 210,
+     "nat": "NGR",
+     "id_plk": 123824
+    },
+    {
+     "number": "22",
+     "name": "Tymoteusz Sternicki",
+     "pos": "SF/PF",
+     "height_cm": 203,
+     "nat": "POL",
+     "id_plk": 50141
+    },
+    {
+     "number": "27",
+     "name": "Błażej Czerniewicz",
+     "pos": "PG/SG",
+     "height_cm": 198,
+     "nat": "POL",
+     "id_plk": 48340
+    },
+    {
+     "number": "33",
+     "name": "Patryk Pobuta",
+     "pos": "PG/SG",
+     "height_cm": 184,
+     "nat": "POL",
+     "id_plk": 56209
+    },
+    {
+     "number": "34",
+     "name": "Adam Wilczek",
+     "pos": "SF",
+     "height_cm": 198,
+     "nat": "POL",
+     "id_plk": 78394
+    },
+    {
+     "number": "35",
+     "name": "Jakub Nizioł",
+     "pos": "SF/PF",
+     "height_cm": 201,
+     "nat": "POL",
+     "id_plk": 2977
+    }
+   ],
+   "note": "Current PLK squad page as of 2026-10-29."
+  }
+ }
+}

@@ -1,0 +1,140 @@
+{
+ "version": "v0",
+ "exported": "2026-11-02",
+ "stride": 5,
+ "max_gap": 3,
+ "sequences": [
+  {
+   "name": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "held_out": false,
+   "frames": 115,
+   "boxes": 1342,
+   "boxes_interpolated_or_occluded": 42,
+   "identities": 13,
+   "labels_sha256_8": "6613f7cc"
+  },
+  {
+   "name": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "held_out": false,
+   "frames": 108,
+   "boxes": 1127,
+   "boxes_interpolated_or_occluded": 39,
+   "identities": 13,
+   "labels_sha256_8": "6613f7cc"
+  },
+  {
+   "name": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "held_out": false,
+   "frames": 102,
+   "boxes": 1153,
+   "boxes_interpolated_or_occluded": 40,
+   "identities": 13,
+   "labels_sha256_8": "6613f7cc"
+  },
+  {
+   "name": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "held_out": false,
+   "frames": 120,
+   "boxes": 1354,
+   "boxes_interpolated_or_occluded": 60,
+   "identities": 15,
+   "labels_sha256_8": "b573fdc3"
+  },
+  {
+   "name": "OSp445e0mXU_s10",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 10,
+   "held_out": false,
+   "frames": 92,
+   "boxes": 737,
+   "boxes_interpolated_or_occluded": 16,
+   "identities": 16,
+   "labels_sha256_8": "b573fdc3"
+  },
+  {
+   "name": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "held_out": false,
+   "frames": 91,
+   "boxes": 1043,
+   "boxes_interpolated_or_occluded": 21,
+   "identities": 13,
+   "labels_sha256_8": "b573fdc3"
+  },
+  {
+   "name": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "held_out": false,
+   "frames": 111,
+   "boxes": 1212,
+   "boxes_interpolated_or_occluded": 20,
+   "identities": 14,
+   "labels_sha256_8": "d586343e"
+  },
+  {
+   "name": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "held_out": false,
+   "frames": 103,
+   "boxes": 1118,
+   "boxes_interpolated_or_occluded": 22,
+   "identities": 12,
+   "labels_sha256_8": "d586343e"
+  },
+  {
+   "name": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "held_out": false,
+   "frames": 87,
+   "boxes": 1062,
+   "boxes_interpolated_or_occluded": 28,
+   "identities": 15,
+   "labels_sha256_8": "d586343e"
+  },
+  {
+   "name": "Tnuscrm9RyU_s2",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "held_out": true,
+   "frames": 82,
+   "boxes": 961,
+   "boxes_interpolated_or_occluded": 10,
+   "identities": 13,
+   "labels_sha256_8": "eafd4bed"
+  },
+  {
+   "name": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "held_out": true,
+   "frames": 93,
+   "boxes": 982,
+   "boxes_interpolated_or_occluded": 41,
+   "identities": 14,
+   "labels_sha256_8": "eafd4bed"
+  },
+  {
+   "name": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "held_out": true,
+   "frames": 112,
+   "boxes": 1188,
+   "boxes_interpolated_or_occluded": 17,
+   "identities": 13,
+   "labels_sha256_8": "eafd4bed"
+  }
+ ]
+}

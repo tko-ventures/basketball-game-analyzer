@@ -1,0 +1,29 @@
+clip 20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka
+# First pass by the implementer, 2026-10-29, on runs/<clip>/review/tracks_s10_00.jpg (8 crops per track).
+# Only merges, teams and numbers I am sure of; anything uncertain is a note for Tomasz. Nothing confirmed.
+# Kits: Dziki (home) light/cream, Legia (away) green.
+
+# shot 10 (frames 3019-3475)
+merge 1031 1017   # same referee by the score overlay; 1017 ends ~3285, 1031 starts 3305
+merge 1030 1020   # Dziki #2 again after a gap
+team 1017 ref
+team 1021 ref
+team 1020 home
+number 1020 2
+team 1023 home
+number 1023 4
+note 1023 #4 with the ball early; crops after ~3340 look like other players: check for a switch
+team 1024 home
+note 1024 first crops are partial (legs only), check boxes 3020-3110
+team 1025 home
+team 1029 home
+team 1018 away
+note 1018 first box (3020) looks like Dziki #2 rather than this Legia player
+team 1019 away
+note 1019 possibly #7 (ball handler), not legible enough to set
+team 1022 away
+team 1026 away
+team 1027 away
+note 1027 green early; light-kit players after ~3230: likely a switch
+note 1028 crowded group, team unclear: check
+note 1032 short track by the scorer's table: on court?

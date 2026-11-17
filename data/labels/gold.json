@@ -1,0 +1,119 @@
+{
+ "version": 1,
+ "note": "Gold set, plan section 8. Track gold every `stride` frames; held_out games are scored once per milestone only. No frame of any listed clip may appear in a training manifest.",
+ "stride": 5,
+ "games": [
+  {
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "youtube_id": "4XMD9FWmQws",
+   "game": "PGE Start Lublin – Dziki Warszawa",
+   "season": "2024/25",
+   "fps": 50.0,
+   "held_out": false,
+   "shots": [
+    {
+     "shot": 4,
+     "start": 1902,
+     "end": 2476,
+     "seconds": 11.5
+    },
+    {
+     "shot": 42,
+     "start": 14312,
+     "end": 14851,
+     "seconds": 10.8
+    },
+    {
+     "shot": 78,
+     "start": 25488,
+     "end": 25997,
+     "seconds": 10.2
+    }
+   ]
+  },
+  {
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "youtube_id": "OSp445e0mXU",
+   "game": "Dziki Warszawa – Legia Warszawa",
+   "season": "2025/26",
+   "fps": 50.0,
+   "held_out": false,
+   "shots": [
+    {
+     "shot": 2,
+     "start": 546,
+     "end": 1145,
+     "seconds": 12.0
+    },
+    {
+     "shot": 10,
+     "start": 3019,
+     "end": 3475,
+     "seconds": 9.14
+    },
+    {
+     "shot": 19,
+     "start": 6383,
+     "end": 6836,
+     "seconds": 9.08
+    }
+   ]
+  },
+  {
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "youtube_id": "1jDaJBkUGmc",
+   "game": "Energa Trefl Sopot – Dziki Warszawa",
+   "season": "2025/26",
+   "fps": 50.0,
+   "held_out": false,
+   "shots": [
+    {
+     "shot": 3,
+     "start": 943,
+     "end": 1499,
+     "seconds": 11.14
+    },
+    {
+     "shot": 7,
+     "start": 2486,
+     "end": 3003,
+     "seconds": 10.36
+    },
+    {
+     "shot": 16,
+     "start": 6167,
+     "end": 6602,
+     "seconds": 8.72
+    }
+   ]
+  },
+  {
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "youtube_id": "Tnuscrm9RyU",
+   "game": "Dziki Warszawa – Zastal Zielona Góra",
+   "season": "2026/27",
+   "fps": 50.0,
+   "held_out": true,
+   "shots": [
+    {
+     "shot": 2,
+     "start": 406,
+     "end": 818,
+     "seconds": 8.26
+    },
+    {
+     "shot": 18,
+     "start": 3833,
+     "end": 4298,
+     "seconds": 9.32
+    },
+    {
+     "shot": 33,
+     "start": 6879,
+     "end": 7436,
+     "seconds": 11.16
+    }
+   ]
+  }
+ ]
+}

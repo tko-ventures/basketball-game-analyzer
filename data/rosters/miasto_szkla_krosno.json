@@ -1,0 +1,136 @@
+{
+ "team": "Miasto Szkła Krosno",
+ "team_id_plk": 1820,
+ "aliases": [],
+ "retrieved": "2026-10-29",
+ "seasons": {
+  "2025/26": {
+   "team_name": "Miasto Szkła Krosno",
+   "source": "https://plk.pl/archiwum/28/druzyny/1820/miasto-szkla-krosno/sklad",
+   "coach": "Maroš Kovačik",
+   "players": [
+    {
+     "number": "0",
+     "name": "Jan Góreńczyk",
+     "pos": "SF",
+     "height_cm": 192,
+     "nat": "POL",
+     "id_plk": 49329
+    },
+    {
+     "number": "1",
+     "name": "Terrell Brown-Soares",
+     "pos": "C",
+     "height_cm": 208,
+     "nat": "USA",
+     "id_plk": 116037
+    },
+    {
+     "number": "2",
+     "name": "Benjamin Shungu",
+     "pos": "PG/SG",
+     "height_cm": 188,
+     "nat": "USA",
+     "id_plk": 115412
+    },
+    {
+     "number": "3",
+     "name": "Charles Jackson Iii",
+     "pos": "PG",
+     "height_cm": 183,
+     "nat": "USA",
+     "id_plk": 107244
+    },
+    {
+     "number": "10",
+     "name": "Marcus Shaver Jr",
+     "pos": "PG/SG",
+     "height_cm": 188,
+     "nat": "USA",
+     "id_plk": 120807
+    },
+    {
+     "number": "11",
+     "name": "Leemet Bockler",
+     "pos": "SF",
+     "height_cm": 198,
+     "nat": "EST",
+     "id_plk": 116035
+    },
+    {
+     "number": "12",
+     "name": "Michał Jankowski",
+     "pos": "SG/SF",
+     "height_cm": 191,
+     "nat": "POL",
+     "id_plk": 26295
+    },
+    {
+     "number": "13",
+     "name": "Cezary Chruściel",
+     "pos": "PG",
+     "height_cm": 180,
+     "nat": "POL",
+     "id_plk": 75891
+    },
+    {
+     "number": "15",
+     "name": "Jairus Hamilton",
+     "pos": "PF",
+     "height_cm": 203,
+     "nat": "USA",
+     "id_plk": 119882
+    },
+    {
+     "number": "17",
+     "name": "Przemysław Wrona",
+     "pos": "C",
+     "height_cm": 205,
+     "nat": "POL",
+     "id_plk": 26378
+    },
+    {
+     "number": "24",
+     "name": "Hubert Łałak",
+     "pos": "PG",
+     "height_cm": 180,
+     "nat": "POL",
+     "id_plk": 53133
+    },
+    {
+     "number": "25",
+     "name": "Jan Wójcik",
+     "pos": "PF/C",
+     "height_cm": 210,
+     "nat": "POL",
+     "id_plk": 24551
+    },
+    {
+     "number": "39",
+     "name": "Martins Laksa",
+     "pos": "SF/PF",
+     "height_cm": 198,
+     "nat": "LAT",
+     "id_plk": 73435
+    },
+    {
+     "number": "41",
+     "name": "Ivica Radić",
+     "pos": "C",
+     "height_cm": 208,
+     "nat": "CRO",
+     "id_plk": 73647
+    },
+    {
+     "number": "77",
+     "name": "Michał Chrabota",
+     "pos": "SG/SF",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 17546
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  }
+ }
+}

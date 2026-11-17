@@ -1,0 +1,15 @@
+clip 20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka
+# Gold v0, implementer's pass 1 of 2 on shot 10: kit-vote proposals from scripts/review_sheets.py --propose
+# (Skalski's TeamClassifier fitted on the shot), checked against tracks_*.jpg and zoom_*.jpg in runs/<clip>/review/s10.
+# Tracks Tomasz confirmed in the labeller are skipped by --propose and left untouched.
+# shot 10 (3019-3475): kit-vote proposals
+# skipped, Tomasz worked on this track or box in the labeller: team 4 home  # kit L 19/19
+team 1020 home  # kit L 61/62
+# skipped, Tomasz worked on this track or box in the labeller: cut 1024 3295 3295  # box wider than tall
+# skipped, Tomasz worked on this track or box in the labeller: team 1024 home  # kit L 71/71
+# skipped, Tomasz worked on this track or box in the labeller: team 1 home  # kit L 17/17
+team 1027 away  # kit D 29/35
+cut 1027 3230 3230  # kit L x1 in contact
+cut 1027 3265 3280  # kit L x4 in contact
+cut 1027 3475 3475  # kit L x1 in contact
+team 1032 home  # kit L 8/8

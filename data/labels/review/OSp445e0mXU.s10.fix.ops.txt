@@ -1,0 +1,8 @@
+clip 20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka
+# Gold v0, implementer's pass 2 of 2 on shot 10 (3019-3475), unreviewed tracks only (1020, 1021, 1027,
+# 1032); Tomasz's tracks (reviewed, and 1, 4, 1024 which he edited) are left exactly as he saved them.
+# Read on runs/<clip>/review/s10/overview_*.jpg and tracks_*.jpg after pass 1.
+cut 1027 3210 3220  # duplicate of Tomasz's 1022 (#40), IoU 0.5-0.8
+note 1027 Legia, number not legible; boxes 3240-3290 sit in a group near the basket
+note 1020 a few sliver boxes at 3255-3275 and 3365 (partial masks)
+note 1032 light-kit player walking along the sideline by the scorer's table at the end of the shot; kept as a player (likely checking in), number not legible

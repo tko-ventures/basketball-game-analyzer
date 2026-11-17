@@ -1,0 +1,411 @@
+{
+ "team": "Zastal Zielona Góra",
+ "team_id_plk": 769,
+ "aliases": [
+  "ORLEN Zastal",
+  "Zastal Zielona Góra"
+ ],
+ "retrieved": "2026-10-29",
+ "seasons": {
+  "2024/25": {
+   "team_name": "Zastal Zielona Góra",
+   "source": "https://plk.pl/archiwum/27/druzyny/769/orlen-zastal-zielona-gora/sklad",
+   "coach": "Vladimir Jovanović",
+   "players": [
+    {
+     "number": "0",
+     "name": "Sindarius Thornwell",
+     "pos": "PG/SG/SF",
+     "height_cm": 193,
+     "nat": "USA",
+     "id_plk": 108623
+    },
+    {
+     "number": "1",
+     "name": "Miłosz Góreńczyk",
+     "pos": "SF",
+     "height_cm": 187,
+     "nat": "POL",
+     "id_plk": 38198
+    },
+    {
+     "number": "1",
+     "name": "Ty Charles Nichols",
+     "pos": "PG",
+     "height_cm": 190,
+     "nat": "USA",
+     "id_plk": 113354
+    },
+    {
+     "number": "2",
+     "name": "Detrek Browning",
+     "pos": "PG",
+     "height_cm": 180,
+     "nat": "USA",
+     "id_plk": 108622
+    },
+    {
+     "number": "2",
+     "name": "Artur Łabinowicz",
+     "pos": "SG/SF",
+     "height_cm": 193,
+     "nat": "POL",
+     "id_plk": 78160
+    },
+    {
+     "number": "3",
+     "name": "Robert Turner Iii",
+     "pos": "PG",
+     "height_cm": 186,
+     "nat": "USA",
+     "id_plk": 113894
+    },
+    {
+     "number": "4",
+     "name": "Darius Perry",
+     "pos": "PG",
+     "height_cm": 186,
+     "nat": "USA",
+     "id_plk": 113754
+    },
+    {
+     "number": "8",
+     "name": "Filip Matczak",
+     "pos": "PG",
+     "height_cm": 183,
+     "nat": "POL",
+     "id_plk": 1551
+    },
+    {
+     "number": "8",
+     "name": "Evaldas Šaulys",
+     "pos": "SG",
+     "height_cm": 190,
+     "nat": "LTU",
+     "id_plk": 108620
+    },
+    {
+     "number": "9",
+     "name": "Michał Pluta",
+     "pos": "PG/SG",
+     "height_cm": 188,
+     "nat": "POL",
+     "id_plk": 36291
+    },
+    {
+     "number": "10",
+     "name": "Wesley Harris",
+     "pos": "SF",
+     "height_cm": 200,
+     "nat": "USA",
+     "id_plk": 108621
+    },
+    {
+     "number": "10",
+     "name": "Szymon Wójcik",
+     "pos": "PF/C",
+     "height_cm": 204,
+     "nat": "POL",
+     "id_plk": 24550
+    },
+    {
+     "number": "12",
+     "name": "Veljko Brkić",
+     "pos": "C",
+     "height_cm": 206,
+     "nat": "SRB",
+     "id_plk": 113353
+    },
+    {
+     "number": "15",
+     "name": "Walter Hodge",
+     "pos": "PG",
+     "height_cm": 182,
+     "nat": "USA",
+     "id_plk": 1967
+    },
+    {
+     "number": "21",
+     "name": "Kamari Murphy",
+     "pos": "PF/C",
+     "height_cm": 206,
+     "nat": "USA",
+     "id_plk": 92278
+    },
+    {
+     "number": "22",
+     "name": "Michał Kołodziej",
+     "pos": "SF/PF",
+     "height_cm": 203,
+     "nat": "POL",
+     "id_plk": 28852
+    },
+    {
+     "number": "23",
+     "name": "Michał Sitnik",
+     "pos": "SF/PF",
+     "height_cm": 197,
+     "nat": "POL",
+     "id_plk": 24416
+    },
+    {
+     "number": "24",
+     "name": "Zachary Simmons",
+     "pos": "C",
+     "height_cm": 207,
+     "nat": "USA",
+     "id_plk": 113757
+    },
+    {
+     "number": "31",
+     "name": "Kellan Grady",
+     "pos": "SF",
+     "height_cm": 195,
+     "nat": "USA",
+     "id_plk": 113755
+    },
+    {
+     "number": "33",
+     "name": "Maciej Żmudzki",
+     "pos": "C",
+     "height_cm": 206,
+     "nat": "POL",
+     "id_plk": 23696
+    },
+    {
+     "number": "77",
+     "name": "Marcin Woroniecki",
+     "pos": "PG",
+     "height_cm": 190,
+     "nat": "POL",
+     "id_plk": 25870
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2025/26": {
+   "team_name": "Zastal Zielona Góra",
+   "source": "https://plk.pl/archiwum/28/druzyny/769/orlen-zastal-zielona-gora/sklad",
+   "coach": "Arkadiusz Miłoszewski",
+   "players": [
+    {
+     "number": "0",
+     "name": "Conley Garrison",
+     "pos": "PG/SG",
+     "height_cm": 185,
+     "nat": "USA",
+     "id_plk": 117097
+    },
+    {
+     "number": "1",
+     "name": "Miłosz Góreńczyk",
+     "pos": "SF",
+     "height_cm": 187,
+     "nat": "POL",
+     "id_plk": 38198
+    },
+    {
+     "number": "2",
+     "name": "Jakub Kowacki",
+     "pos": "SG/SF",
+     "height_cm": 191,
+     "nat": "POL",
+     "id_plk": 53092
+    },
+    {
+     "number": "3",
+     "name": "Andy Mazurczak",
+     "pos": "PG",
+     "height_cm": 184,
+     "nat": "POL",
+     "id_plk": 52794
+    },
+    {
+     "number": "4",
+     "name": "Dwight Wilson Iii",
+     "pos": "C",
+     "height_cm": 204,
+     "nat": "USA",
+     "id_plk": 121015
+    },
+    {
+     "number": "6",
+     "name": "Miłosz Majewski",
+     "pos": "SF/PF",
+     "height_cm": 199,
+     "nat": "POL",
+     "id_plk": 66298
+    },
+    {
+     "number": "7",
+     "name": "Krzysztof Sulima",
+     "pos": "PF/C",
+     "height_cm": 202,
+     "nat": "POL",
+     "id_plk": 125
+    },
+    {
+     "number": "8",
+     "name": "Filip Matczak",
+     "pos": "PG",
+     "height_cm": 183,
+     "nat": "POL",
+     "id_plk": 1551
+    },
+    {
+     "number": "10",
+     "name": "Phil Fayne",
+     "pos": "PF",
+     "height_cm": 205,
+     "nat": "USA",
+     "id_plk": 92301
+    },
+    {
+     "number": "12",
+     "name": "Patrick Cartier",
+     "pos": "PF",
+     "height_cm": 204,
+     "nat": "USA",
+     "id_plk": 116230
+    },
+    {
+     "number": "13",
+     "name": "Jakub Szumert",
+     "pos": "PF",
+     "height_cm": 205,
+     "nat": "POL",
+     "id_plk": 52072
+    },
+    {
+     "number": "19",
+     "name": "Sagaba Konate",
+     "pos": "PF/C",
+     "height_cm": 204,
+     "nat": "MLI",
+     "id_plk": 120247
+    },
+    {
+     "number": "22",
+     "name": "Bartosz Chęciński",
+     "pos": "PG",
+     "height_cm": 182,
+     "nat": "POL",
+     "id_plk": 70936
+    },
+    {
+     "number": "32",
+     "name": "Jayvon Maughmer",
+     "pos": "SG/SF",
+     "height_cm": 193,
+     "nat": "USA",
+     "id_plk": 116229
+    },
+    {
+     "number": "40",
+     "name": "Chavaughn Lewis",
+     "pos": "SG",
+     "height_cm": 194,
+     "nat": "USA",
+     "id_plk": 56243
+    },
+    {
+     "number": "77",
+     "name": "Marcin Woroniecki",
+     "pos": "PG",
+     "height_cm": 190,
+     "nat": "POL",
+     "id_plk": 25870
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2026/27": {
+   "team_name": "Zastal Zielona Góra",
+   "source": "https://plk.pl/druzyny/769/zastal-zielona-gora/sklad",
+   "coach": "Arkadiusz Miłoszewski",
+   "players": [
+    {
+     "number": "0",
+     "name": "Conley Garrison",
+     "pos": "PG/SG",
+     "height_cm": 185,
+     "nat": "USA",
+     "id_plk": 117097
+    },
+    {
+     "number": "1",
+     "name": "Jakub Galewski",
+     "pos": "PG",
+     "height_cm": 180,
+     "nat": "POL",
+     "id_plk": 49151
+    },
+    {
+     "number": "3",
+     "name": "Andy Mazurczak",
+     "pos": "PG",
+     "height_cm": 184,
+     "nat": "POL",
+     "id_plk": 52794
+    },
+    {
+     "number": "7",
+     "name": "Krzysztof Sulima",
+     "pos": "PF/C",
+     "height_cm": 202,
+     "nat": "POL",
+     "id_plk": 125
+    },
+    {
+     "number": "8",
+     "name": "Filip Matczak",
+     "pos": "PG",
+     "height_cm": 183,
+     "nat": "POL",
+     "id_plk": 1551
+    },
+    {
+     "number": "9",
+     "name": "Gauthier Denis",
+     "pos": "SF",
+     "height_cm": 198,
+     "nat": "FRA",
+     "id_plk": 122781
+    },
+    {
+     "number": "13",
+     "name": "Trazarien White",
+     "pos": "SF",
+     "height_cm": 191,
+     "nat": "USA",
+     "id_plk": 122780
+    },
+    {
+     "number": "21",
+     "name": "Veljko Brkić",
+     "pos": "C",
+     "height_cm": 206,
+     "nat": "SRB",
+     "id_plk": 113353
+    },
+    {
+     "number": "22",
+     "name": "Beau Beech Iii",
+     "pos": "PF",
+     "height_cm": 202,
+     "nat": "USA",
+     "id_plk": 86331
+    },
+    {
+     "number": "25",
+     "name": "Jan Wójcik",
+     "pos": "PF",
+     "height_cm": 207,
+     "nat": "POL",
+     "id_plk": 37787
+    }
+   ],
+   "note": "Current PLK squad page as of 2026-10-29."
+  }
+ }
+}

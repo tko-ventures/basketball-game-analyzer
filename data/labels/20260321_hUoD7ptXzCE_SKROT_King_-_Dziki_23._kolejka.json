@@ -10,7 +10,7 @@
   "season": "2025/26",
   "home": {
    "team": "King",
-   "roster": "",
+   "roster": "king_szczecin",
    "kit": ""
   },
   "away": {
@@ -166,5 +166,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-29T20:45:57"
+ "saved_at": "2026-10-29T21:05:10"
 }

@@ -1,0 +1,120 @@
+{
+ "team": "Enea Łaciate Astoria Bydgoszcz",
+ "team_id_plk": 4162,
+ "aliases": [],
+ "retrieved": "2026-10-29",
+ "seasons": {
+  "2026/27": {
+   "team_name": "Enea Łaciate Astoria Bydgoszcz",
+   "source": "https://plk.pl/druzyny/4162/enea-laciate-astoria-bydgoszcz/sklad",
+   "coach": "Anders Sommer",
+   "players": [
+    {
+     "number": "0",
+     "name": "Jordan Ogundiran",
+     "pos": "PG",
+     "height_cm": 180,
+     "nat": "USA",
+     "id_plk": 123725
+    },
+    {
+     "number": "1",
+     "name": "Wojciech Dzierżak",
+     "pos": "PG",
+     "height_cm": 185,
+     "nat": "POL",
+     "id_plk": 14587
+    },
+    {
+     "number": "2",
+     "name": "Jalen Thomas",
+     "pos": "C",
+     "height_cm": 207,
+     "nat": "USA",
+     "id_plk": 123726
+    },
+    {
+     "number": "3",
+     "name": "Mikołaj Kachelski",
+     "pos": "SF",
+     "height_cm": 198,
+     "nat": "POL",
+     "id_plk": 52508
+    },
+    {
+     "number": "5",
+     "name": "Denzel Andersson",
+     "pos": "PF/C",
+     "height_cm": 204,
+     "nat": "SWE",
+     "id_plk": 83676
+    },
+    {
+     "number": "8",
+     "name": "David Brembly",
+     "pos": "SF",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 2250
+    },
+    {
+     "number": "9",
+     "name": "Jayden Taylor",
+     "pos": "SG",
+     "height_cm": 193,
+     "nat": "USA",
+     "id_plk": 123727
+    },
+    {
+     "number": "11",
+     "name": "Karol Kamiński",
+     "pos": "SG/SF",
+     "height_cm": 195,
+     "nat": "POL",
+     "id_plk": 3910
+    },
+    {
+     "number": "14",
+     "name": "Martyce Kimbrough",
+     "pos": "PG",
+     "height_cm": 185,
+     "nat": "USA",
+     "id_plk": 108212
+    },
+    {
+     "number": "21",
+     "name": "Bartosz Ptak",
+     "pos": "SF/PF",
+     "height_cm": 200,
+     "nat": "POL",
+     "id_plk": 63189
+    },
+    {
+     "number": "23",
+     "name": "Piotr Wińkowski",
+     "pos": "C",
+     "height_cm": 207,
+     "nat": "POL",
+     "id_plk": 36605
+    },
+    {
+     "number": "55",
+     "name": "Marcin Nowakowski",
+     "pos": "PG",
+     "height_cm": 184,
+     "nat": "POL",
+     "id_plk": 141
+    },
+    {
+     "number": "66",
+     "name": "Kacper Kłaczek",
+     "pos": "SF",
+     "height_cm": 204,
+     "nat": "POL",
+     "id_plk": 28491
+    }
+   ],
+   "note": "Current PLK squad page as of 2026-10-29."
+  }
+ }
+}

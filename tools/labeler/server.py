@@ -171,9 +171,34 @@ def teams_from_title(title: str) -> tuple[str, str]:
     return tuple(DZIKI["team"] if re.search(r"(?i)dzik", p) else p[:40] for p in parts)  # type: ignore[return-value]
 
 
-def side_meta(team: str, kit: str = "") -> dict:
-    roster = DZIKI["roster"] if team == DZIKI["team"] else ""
-    return {"team": team, "roster": roster, "kit": kit}
+def _words(name: str) -> set[str]:
+    return set(re.findall(r"\w+", name.casefold()))
+
+
+def roster_key_for(team: str, rosters_dir: Path | None = None) -> str:
+    """Stem of the roster file for a team name as written in a title ("Legia", "Energa Trefl").
+
+    Matches the official name or an alias exactly, else a unique roster whose name across seasons
+    contains every word of ``team``. Returns "" when nothing or more than one roster matches."""
+    if not team:
+        return ""
+    rosters_dir = rosters_dir or REPO / "data/rosters"
+    exact, partial = [], []
+    for p in sorted(rosters_dir.glob("*.json")):
+        r = json.loads(p.read_text(encoding="utf-8"))
+        names = {r.get("team", ""), *r.get("aliases", [])}
+        names |= {v.get("team_name", "") for v in r.get("seasons", {}).values()}
+        names.discard("")
+        if any(n.casefold() == team.casefold() for n in names):
+            exact.append(p.stem)
+        elif any(_words(team) <= _words(n) for n in names):
+            partial.append(p.stem)
+    hits = exact or partial
+    return hits[0] if len(hits) == 1 else ""
+
+
+def side_meta(team: str, kit: str = "", rosters_dir: Path | None = None) -> dict:
+    return {"team": team, "roster": roster_key_for(team, rosters_dir), "kit": kit}
 
 
 def migrate_labels(data: dict) -> dict:
@@ -255,7 +280,8 @@ def save_labels(labels_dir: Path, data: dict) -> None:
     data["saved_at"] = time.strftime("%Y-%m-%dT%H:%M:%S")
     tmp.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
     os.replace(tmp, p)
-    write_exports(labels_dir, data)
+    if data.get("identities") or data.get("frames"):
+        write_exports(labels_dir, data)
 
 
 def label_progress(labels_dir: Path, rel: str) -> dict:

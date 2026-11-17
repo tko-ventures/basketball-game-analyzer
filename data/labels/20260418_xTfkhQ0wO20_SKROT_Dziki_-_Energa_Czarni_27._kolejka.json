@@ -15,7 +15,7 @@
   },
   "away": {
    "team": "Energa Czarni",
-   "roster": "",
+   "roster": "energa_czarni_slupsk",
    "kit": ""
   },
   "notes": "",
@@ -176,5 +176,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-29T20:46:38"
+ "saved_at": "2026-10-29T21:05:10"
 }

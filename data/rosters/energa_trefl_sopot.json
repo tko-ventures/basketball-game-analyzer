@@ -1,0 +1,434 @@
+{
+ "team": "Energa Trefl Sopot",
+ "team_id_plk": 112,
+ "aliases": [
+  "Energa Trefl Sopot"
+ ],
+ "retrieved": "2026-10-29",
+ "seasons": {
+  "2024/25": {
+   "team_name": "Energa Trefl Sopot",
+   "source": "https://plk.pl/archiwum/27/druzyny/112/trefl-sopot/sklad",
+   "coach": "Žan Tabak",
+   "players": [
+    {
+     "number": "0",
+     "name": "Bartosz Jankowski",
+     "pos": "SG/SF",
+     "height_cm": 197,
+     "nat": "POL",
+     "id_plk": 3194
+    },
+    {
+     "number": "3",
+     "name": "Aaron Best",
+     "pos": "SG/SF",
+     "height_cm": 193,
+     "nat": "CAN",
+     "id_plk": 99267
+    },
+    {
+     "number": "4",
+     "name": "Nahiem Alleyne",
+     "pos": "SG",
+     "height_cm": 193,
+     "nat": "USA",
+     "id_plk": 112136
+    },
+    {
+     "number": "5",
+     "name": "Trey McGowens III",
+     "pos": "PG/SG",
+     "height_cm": 193,
+     "nat": "USA",
+     "id_plk": 107177
+    },
+    {
+     "number": "9",
+     "name": "Wiktor Jaszczerski",
+     "pos": "SG/SF",
+     "height_cm": 189,
+     "nat": "POL",
+     "id_plk": 42656
+    },
+    {
+     "number": "11",
+     "name": "Keondre Kennedy",
+     "pos": "SG",
+     "height_cm": 198,
+     "nat": "USA",
+     "id_plk": 113170
+    },
+    {
+     "number": "12",
+     "name": "Mikołaj Witliński",
+     "pos": "C",
+     "height_cm": 208,
+     "nat": "POL",
+     "id_plk": 2712
+    },
+    {
+     "number": "13",
+     "name": "Nicholas Johnson",
+     "pos": "PG",
+     "height_cm": 191,
+     "nat": "USA",
+     "id_plk": 112333
+    },
+    {
+     "number": "15",
+     "name": "Jarosław Zyskowski",
+     "pos": "SF/PF",
+     "height_cm": 203,
+     "nat": "POL",
+     "id_plk": 1484
+    },
+    {
+     "number": "18",
+     "name": "Igor Wadowski",
+     "pos": "PG/SG",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 2910
+    },
+    {
+     "number": "22",
+     "name": "Tarik Phillip",
+     "pos": "PG/SG",
+     "height_cm": 191,
+     "nat": "GBR",
+     "id_plk": 107179
+    },
+    {
+     "number": "32",
+     "name": "Geoffrey Groselle",
+     "pos": "C",
+     "height_cm": 213,
+     "nat": "POL",
+     "id_plk": 92014
+    },
+    {
+     "number": "34",
+     "name": "Darious Moten",
+     "pos": "SF/PF",
+     "height_cm": 202,
+     "nat": "USA",
+     "id_plk": 113016
+    },
+    {
+     "number": "50",
+     "name": "Marcus Weathers",
+     "pos": "SF/PF",
+     "height_cm": 196,
+     "nat": "USA",
+     "id_plk": 107181
+    },
+    {
+     "number": "55",
+     "name": "Jakub Schenk",
+     "pos": "PG",
+     "height_cm": 185,
+     "nat": "POL",
+     "id_plk": 1948
+    },
+    {
+     "number": "81",
+     "name": "Andy Van Vliet",
+     "pos": "PF/C",
+     "height_cm": 213,
+     "nat": "BEL",
+     "id_plk": 99269
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2025/26": {
+   "team_name": "Energa Trefl Sopot",
+   "source": "https://plk.pl/archiwum/28/druzyny/112/energa-trefl-sopot/sklad",
+   "coach": "Mikko Larkas",
+   "players": [
+    {
+     "number": "0",
+     "name": "Paul Scruggs",
+     "pos": "PG/SG",
+     "height_cm": 193,
+     "nat": "USA",
+     "id_plk": 99268
+    },
+    {
+     "number": "1",
+     "name": "Eric Lockett",
+     "pos": "SG/SF",
+     "height_cm": 196,
+     "nat": "USA",
+     "id_plk": 116488
+    },
+    {
+     "number": "2",
+     "name": "Grant Sherfield",
+     "pos": "PG/SG",
+     "height_cm": 186,
+     "nat": "USA",
+     "id_plk": 121076
+    },
+    {
+     "number": "3",
+     "name": "Szymon Kiejzik",
+     "pos": "SG/SF",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 51086
+    },
+    {
+     "number": "5",
+     "name": "Filip Łącz",
+     "pos": "PG/SG",
+     "height_cm": 188,
+     "nat": "POL",
+     "id_plk": 59274
+    },
+    {
+     "number": "6",
+     "name": "Filip Gurtatowski",
+     "pos": "PF",
+     "height_cm": 205,
+     "nat": "POL",
+     "id_plk": 51484
+    },
+    {
+     "number": "7",
+     "name": "Szymon Nowicki",
+     "pos": "SF/PF",
+     "height_cm": 203,
+     "nat": "POL",
+     "id_plk": 43706
+    },
+    {
+     "number": "11",
+     "name": "Kasper Suurorg",
+     "pos": "PG",
+     "height_cm": 200,
+     "nat": "EST",
+     "id_plk": 115406
+    },
+    {
+     "number": "12",
+     "name": "Mikołaj Witliński",
+     "pos": "C",
+     "height_cm": 208,
+     "nat": "POL",
+     "id_plk": 2712
+    },
+    {
+     "number": "13",
+     "name": "Mindaugas Kacinas",
+     "pos": "SF/PF",
+     "height_cm": 203,
+     "nat": "LTU",
+     "id_plk": 115407
+    },
+    {
+     "number": "14",
+     "name": "Antoni Wardziński",
+     "pos": "SF/PF",
+     "height_cm": 204,
+     "nat": "POL",
+     "id_plk": 87117
+    },
+    {
+     "number": "17",
+     "name": "Fabian Syrzycki",
+     "pos": "C",
+     "height_cm": 209,
+     "nat": "POL",
+     "id_plk": 90800
+    },
+    {
+     "number": "18",
+     "name": "Raymond Cowels III",
+     "pos": "SG/SF",
+     "height_cm": 192,
+     "nat": "USA",
+     "id_plk": 73618
+    },
+    {
+     "number": "21",
+     "name": "Szymon Zapała",
+     "pos": "C",
+     "height_cm": 211,
+     "nat": "POL",
+     "id_plk": 43418
+    },
+    {
+     "number": "25",
+     "name": "Maksymilian Jęch",
+     "pos": "PF/C",
+     "height_cm": 210,
+     "nat": "POL",
+     "id_plk": 41525
+    },
+    {
+     "number": "33",
+     "name": "Kenneth Goins",
+     "pos": "PF/C",
+     "height_cm": 201,
+     "nat": "USA",
+     "id_plk": 115408
+    },
+    {
+     "number": "37",
+     "name": "Dylan Addae-Wusu",
+     "pos": "PG/SG",
+     "height_cm": 191,
+     "nat": "USA",
+     "id_plk": 117226
+    },
+    {
+     "number": "55",
+     "name": "Jakub Schenk",
+     "pos": "PG",
+     "height_cm": 185,
+     "nat": "POL",
+     "id_plk": 1948
+    },
+    {
+     "number": "91",
+     "name": "Franciszek Chac",
+     "pos": "SG",
+     "height_cm": 190,
+     "nat": "POL",
+     "id_plk": 56589
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2026/27": {
+   "team_name": "Energa Trefl Sopot",
+   "source": "https://plk.pl/druzyny/112/energa-trefl-sopot/sklad",
+   "coach": "Krzysztof Roszyk",
+   "players": [
+    {
+     "number": "1",
+     "name": "Trey Anderson",
+     "pos": "SF/PF",
+     "height_cm": 201,
+     "nat": "USA",
+     "id_plk": 122820
+    },
+    {
+     "number": "3",
+     "name": "Szymon Kiejzik",
+     "pos": "SG/SF",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 51086
+    },
+    {
+     "number": "5",
+     "name": "Filip Łącz",
+     "pos": "PG/SG",
+     "height_cm": 188,
+     "nat": "POL",
+     "id_plk": 59274
+    },
+    {
+     "number": "9",
+     "name": "Kacper Marchewka",
+     "pos": "SG",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 40140
+    },
+    {
+     "number": "12",
+     "name": "Stefan Simanic",
+     "pos": "PF/C",
+     "height_cm": 207,
+     "nat": "BIH",
+     "id_plk": 122819
+    },
+    {
+     "number": "14",
+     "name": "Antoni Wardziński",
+     "pos": "SF/PF",
+     "height_cm": 204,
+     "nat": "POL",
+     "id_plk": 87117
+    },
+    {
+     "number": "15",
+     "name": "David Twigg",
+     "pos": "SF/PF",
+     "height_cm": 214,
+     "nat": "POL",
+     "id_plk": 110792
+    },
+    {
+     "number": "17",
+     "name": "Fabian Syrzycki",
+     "pos": "C",
+     "height_cm": 209,
+     "nat": "POL",
+     "id_plk": 90800
+    },
+    {
+     "number": "20",
+     "name": "Perttu Blomgren",
+     "pos": "PG/SG",
+     "height_cm": 194,
+     "nat": "FIN",
+     "id_plk": 122818
+    },
+    {
+     "number": "21",
+     "name": "Szymon Zapała",
+     "pos": "C",
+     "height_cm": 211,
+     "nat": "POL",
+     "id_plk": 43418
+    },
+    {
+     "number": "23",
+     "name": "Michał Michalak",
+     "pos": "SG/SF",
+     "height_cm": 197,
+     "nat": "POL",
+     "id_plk": 26501
+    },
+    {
+     "number": "24",
+     "name": "Karol Prochorowicz",
+     "pos": "PF/C",
+     "height_cm": 205,
+     "nat": "POL",
+     "id_plk": 62168
+    },
+    {
+     "number": "33",
+     "name": "Tobias Rotegard",
+     "pos": "SF",
+     "height_cm": 201,
+     "nat": "NOR",
+     "id_plk": 122821
+    },
+    {
+     "number": "52",
+     "name": "Carter Gilmore",
+     "pos": "PF",
+     "height_cm": 201,
+     "nat": "USA",
+     "id_plk": 124410
+    },
+    {
+     "number": "55",
+     "name": "Jakub Schenk",
+     "pos": "PG",
+     "height_cm": 185,
+     "nat": "POL",
+     "id_plk": 1948
+    }
+   ],
+   "note": "Current PLK squad page as of 2026-10-29."
+  }
+ }
+}

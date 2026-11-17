@@ -1,0 +1,435 @@
+{
+ "team": "MKS Dąbrowa Górnicza",
+ "team_id_plk": 1490,
+ "aliases": [
+  "MKS DG",
+  "MKS Dąbrowa Górnicza"
+ ],
+ "retrieved": "2026-10-29",
+ "seasons": {
+  "2024/25": {
+   "team_name": "MKS Dąbrowa Górnicza",
+   "source": "https://plk.pl/archiwum/27/druzyny/1490/mks-dabrowa-gornicza/sklad",
+   "coach": "Jean-Denys Choulet",
+   "players": [
+    {
+     "number": "1",
+     "name": "Jakub Wojdała",
+     "pos": "PG/SG",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 60135
+    },
+    {
+     "number": "4",
+     "name": "Marcin Piechowicz",
+     "pos": "SG/SF",
+     "height_cm": 198,
+     "nat": "POL",
+     "id_plk": 1689
+    },
+    {
+     "number": "5",
+     "name": "Teyvon Myers",
+     "pos": "PG/SG",
+     "height_cm": 188,
+     "nat": "USA",
+     "id_plk": 108225
+    },
+    {
+     "number": "6",
+     "name": "Aleksander Załucki",
+     "pos": "SG/SF",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 12930
+    },
+    {
+     "number": "7",
+     "name": "Wiktor Rajewicz",
+     "pos": "PG",
+     "height_cm": 176,
+     "nat": "POL",
+     "id_plk": 16317
+    },
+    {
+     "number": "14",
+     "name": "Mattias Markusson",
+     "pos": "C",
+     "height_cm": 220,
+     "nat": "SWE",
+     "id_plk": 108818
+    },
+    {
+     "number": "16",
+     "name": "Adam Łapeta",
+     "pos": "C",
+     "height_cm": 217,
+     "nat": "POL",
+     "id_plk": 73
+    },
+    {
+     "number": "17",
+     "name": "Maciej Kucharek",
+     "pos": "PF",
+     "height_cm": 205,
+     "nat": "POL",
+     "id_plk": 1870
+    },
+    {
+     "number": "18",
+     "name": "Raymond Cowels III",
+     "pos": "SG/SF",
+     "height_cm": 192,
+     "nat": "USA",
+     "id_plk": 73618
+    },
+    {
+     "number": "20",
+     "name": "Maksymilian Szefler",
+     "pos": "C",
+     "height_cm": 203,
+     "nat": "POL",
+     "id_plk": 73223
+    },
+    {
+     "number": "23",
+     "name": "Szymon Ryżek",
+     "pos": "SG",
+     "height_cm": 190,
+     "nat": "POL",
+     "id_plk": 23479
+    },
+    {
+     "number": "24",
+     "name": "Cobe Lee Williams",
+     "pos": "PG",
+     "height_cm": 182,
+     "nat": "USA",
+     "id_plk": 113756
+    },
+    {
+     "number": "25",
+     "name": "Jan Wójcik",
+     "pos": "PF/C",
+     "height_cm": 210,
+     "nat": "POL",
+     "id_plk": 24551
+    },
+    {
+     "number": "32",
+     "name": "Nikodem Woźny",
+     "pos": "SF/PF",
+     "height_cm": 197,
+     "nat": "POL",
+     "id_plk": 76170
+    },
+    {
+     "number": "44",
+     "name": "David Höök",
+     "pos": "SG/SF",
+     "height_cm": 197,
+     "nat": "SWE",
+     "id_plk": 108817
+    },
+    {
+     "number": "55",
+     "name": "Tyler Cheese",
+     "pos": "PG/SG",
+     "height_cm": 196,
+     "nat": "USA",
+     "id_plk": 99356
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2025/26": {
+   "team_name": "MKS Dąbrowa Górnicza",
+   "source": "https://plk.pl/archiwum/28/druzyny/1490/mks-dabrowa-gornicza/sklad",
+   "coach": "Artur Gronek",
+   "players": [
+    {
+     "number": "0",
+     "name": "Dale Bonner",
+     "pos": "PG/SG",
+     "height_cm": 185,
+     "nat": "USA",
+     "id_plk": 116250
+    },
+    {
+     "number": "1",
+     "name": "Dominic Green",
+     "pos": "SF",
+     "height_cm": 198,
+     "nat": "USA",
+     "id_plk": 99554
+    },
+    {
+     "number": "2",
+     "name": "Jakub Wojdała",
+     "pos": "PG/SG",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 60135
+    },
+    {
+     "number": "3",
+     "name": "Przemysław Wojdała",
+     "pos": "SG/SF",
+     "height_cm": 189,
+     "nat": "POL",
+     "id_plk": 87502
+    },
+    {
+     "number": "4",
+     "name": "Marcin Piechowicz",
+     "pos": "SG/SF",
+     "height_cm": 198,
+     "nat": "POL",
+     "id_plk": 1689
+    },
+    {
+     "number": "5",
+     "name": "Aleksander Załucki",
+     "pos": "SG/SF",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 12930
+    },
+    {
+     "number": "6",
+     "name": "Maciej Zabłocki",
+     "pos": "PF",
+     "height_cm": 197,
+     "nat": "POL",
+     "id_plk": 44953
+    },
+    {
+     "number": "7",
+     "name": "Efrem Montgomery Jr",
+     "pos": "C",
+     "height_cm": 204,
+     "nat": "USA",
+     "id_plk": 116253
+    },
+    {
+     "number": "8",
+     "name": "Luther Muhammad",
+     "pos": "SG",
+     "height_cm": 186,
+     "nat": "USA",
+     "id_plk": 108802
+    },
+    {
+     "number": "9",
+     "name": "Jamarii Thomas",
+     "pos": "PG",
+     "height_cm": 180,
+     "nat": "USA",
+     "id_plk": 120451
+    },
+    {
+     "number": "10",
+     "name": "Jakub Musiał",
+     "pos": "PG",
+     "height_cm": 186,
+     "nat": "POL",
+     "id_plk": 14674
+    },
+    {
+     "number": "11",
+     "name": "Ronald Curry JR",
+     "pos": "PG/SG",
+     "height_cm": 190,
+     "nat": "USA",
+     "id_plk": 116252
+    },
+    {
+     "number": "12",
+     "name": "Robert Misiak",
+     "pos": "SG/SF/PF",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 60134
+    },
+    {
+     "number": "14",
+     "name": "Justin Gray",
+     "pos": "SG/SF",
+     "height_cm": 198,
+     "nat": "USA",
+     "id_plk": 86387
+    },
+    {
+     "number": "15",
+     "name": "Martin Peterka",
+     "pos": "PF",
+     "height_cm": 205,
+     "nat": "CZE",
+     "id_plk": 116251
+    },
+    {
+     "number": "23",
+     "name": "Nikodem Woźny",
+     "pos": "SF/PF",
+     "height_cm": 197,
+     "nat": "POL",
+     "id_plk": 76170
+    },
+    {
+     "number": "30",
+     "name": "Wiktor Kurowski",
+     "pos": "PF/C",
+     "height_cm": 203,
+     "nat": "POL",
+     "id_plk": 73755
+    },
+    {
+     "number": "32",
+     "name": "Adrian Bogucki",
+     "pos": "C",
+     "height_cm": 215,
+     "nat": "POL",
+     "id_plk": 31398
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2026/27": {
+   "team_name": "MKS Dąbrowa Górnicza",
+   "source": "https://plk.pl/druzyny/1490/mks-dabrowa-gornicza/sklad",
+   "coach": "Artur Gronek",
+   "players": [
+    {
+     "number": "0",
+     "name": "Kyle Lofton",
+     "pos": "PG/SG",
+     "height_cm": 191,
+     "nat": "USA",
+     "id_plk": 123768
+    },
+    {
+     "number": "1",
+     "name": "Jakub Wojdała",
+     "pos": "PG/SG",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 60135
+    },
+    {
+     "number": "2",
+     "name": "Daylen Kountz",
+     "pos": "SG",
+     "height_cm": 193,
+     "nat": "USA",
+     "id_plk": 123815
+    },
+    {
+     "number": "3",
+     "name": "Przemysław Wojdała",
+     "pos": "SG/SF",
+     "height_cm": 189,
+     "nat": "POL",
+     "id_plk": 87502
+    },
+    {
+     "number": "4",
+     "name": "Marcin Piechowicz",
+     "pos": "SG/SF",
+     "height_cm": 198,
+     "nat": "POL",
+     "id_plk": 1689
+    },
+    {
+     "number": "5",
+     "name": "Aundre Hyatt",
+     "pos": "SF/PF",
+     "height_cm": 198,
+     "nat": "USA",
+     "id_plk": 123767
+    },
+    {
+     "number": "9",
+     "name": "Dawid Jakubiec",
+     "pos": "SF",
+     "height_cm": 197,
+     "nat": "POL",
+     "id_plk": 61153
+    },
+    {
+     "number": "10",
+     "name": "Jakub Musiał",
+     "pos": "PG",
+     "height_cm": 186,
+     "nat": "POL",
+     "id_plk": 14674
+    },
+    {
+     "number": "12",
+     "name": "Stanisław Musiałek",
+     "pos": "PG",
+     "height_cm": 192,
+     "nat": "POL",
+     "id_plk": 69286
+    },
+    {
+     "number": "15",
+     "name": "Martin Peterka",
+     "pos": "PF",
+     "height_cm": 205,
+     "nat": "CZE",
+     "id_plk": 116251
+    },
+    {
+     "number": "17",
+     "name": "Jordan Hall",
+     "pos": "PG/SF",
+     "height_cm": 203,
+     "nat": "USA",
+     "id_plk": 123766
+    },
+    {
+     "number": "21",
+     "name": "Maciej Nagel",
+     "pos": "C",
+     "height_cm": 205,
+     "nat": "POL",
+     "id_plk": 67396
+    },
+    {
+     "number": "22",
+     "name": "Kalib Boone",
+     "pos": "PF/C",
+     "height_cm": 205,
+     "nat": "USA",
+     "id_plk": 123814
+    },
+    {
+     "number": "23",
+     "name": "Nikodem Woźny",
+     "pos": "SF/PF",
+     "height_cm": 197,
+     "nat": "POL",
+     "id_plk": 76170
+    },
+    {
+     "number": "25",
+     "name": "Maksymilian Jęch",
+     "pos": "PF/C",
+     "height_cm": 210,
+     "nat": "POL",
+     "id_plk": 41525
+    },
+    {
+     "number": "77",
+     "name": "Marcin Woroniecki",
+     "pos": "PG",
+     "height_cm": 190,
+     "nat": "POL",
+     "id_plk": 25870
+    }
+   ],
+   "note": "Current PLK squad page as of 2026-10-29."
+  }
+ }
+}

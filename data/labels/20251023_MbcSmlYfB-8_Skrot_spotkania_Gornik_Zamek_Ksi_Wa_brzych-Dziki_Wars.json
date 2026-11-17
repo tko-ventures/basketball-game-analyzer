@@ -10,7 +10,7 @@
   "season": "2025/26",
   "home": {
    "team": "Górnik Zamek Książ Wałbrzych",
-   "roster": "",
+   "roster": "gornik_zamek_ksiaz_walbrzych",
    "kit": ""
   },
   "away": {
@@ -176,5 +176,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-29T20:43:49"
+ "saved_at": "2026-10-29T21:05:10"
 }

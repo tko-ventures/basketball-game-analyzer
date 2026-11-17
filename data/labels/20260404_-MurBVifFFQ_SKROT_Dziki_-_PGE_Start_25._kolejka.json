@@ -15,7 +15,7 @@
   },
   "away": {
    "team": "PGE Start",
-   "roster": "",
+   "roster": "pge_start_lublin",
    "kit": ""
   },
   "notes": "",
@@ -181,5 +181,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-29T20:46:22"
+ "saved_at": "2026-10-29T21:05:10"
 }

@@ -1,0 +1,43 @@
+tid,team,number,name,team_name,note
+1001,home,11,Kasper Suurorg,Energa Trefl,
+1002,away,16,Tahlik Chavez,Dziki Warszawa,
+1003,ref,,,,
+1004,home,21,Szymon Zapała,Energa Trefl,
+1005,home,37,Dylan Addae-Wusu,Energa Trefl,
+1006,home,33,Kenneth Goins,Energa Trefl,
+1007,away,,,Dziki Warszawa,"Dziki, number not legible (maybe #0)"
+1008,away,45,Łukasz Frąckiewicz,Dziki Warszawa,
+1009,ref,,,,
+1010,away,11,Grzegorz Kamiński,Dziki Warszawa,
+1012,home,2,Grant Sherfield,Energa Trefl,
+1014,away,,,Dziki Warszawa,
+1015,home,,,Energa Trefl,"Trefl, number not legible; may be a fragment of 1006 (#33): check against the five Trefl on court"
+1016,ref,,,,
+1022,away,25,Odinakachim Oguama,Dziki Warszawa,crops at 2945-3000 may be on another Dziki player
+1023,home,2,Grant Sherfield,Energa Trefl,
+1024,away,16,Tahlik Chavez,Dziki Warszawa,
+1025,away,0,Bennett Vander Plas,Dziki Warszawa,
+1026,away,,,Dziki Warszawa,"Dziki player with a headband, number not legible (maybe #4)"
+1027,away,2,Darnell Edge,Dziki Warszawa,
+1028,ref,,,,
+1029,home,37,Dylan Addae-Wusu,Energa Trefl,
+1030,home,33,Kenneth Goins,Energa Trefl,early boxes 2555-2580 sit on a Dziki player crouching or on a face close-up
+1031,ref,,,,
+1032,home,0,Paul Scruggs,Energa Trefl,
+1035,home,13,Mindaugas Kacinas,Energa Trefl,
+1039,home,13,Mindaugas Kacinas,Energa Trefl,
+1040,away,45,Łukasz Frąckiewicz,Dziki Warszawa,Dziki #45 to ~6410; crops from 6440 sit in contact with Trefl #13 and may be on another player
+1041,ref,,,,
+1042,away,,,Dziki Warszawa,"Dziki player with a headband, number not legible (as 1026 in shot 7)"
+1043,home,11,Kasper Suurorg,Energa Trefl,
+1044,away,0,Bennett Vander Plas,Dziki Warszawa,
+1045,away,16,Tahlik Chavez,Dziki Warszawa,
+1046,home,,,Energa Trefl,boxes end at 6265; the same player probably continues in another track or is lost
+1047,away,,,Dziki Warszawa,
+1048,home,,,Energa Trefl,"dark-skinned Trefl player, number not legible"
+1049,home,21,Szymon Zapała,Energa Trefl,
+1051,ref,,,,
+1052,ref,,,,
+1054,home,2,Grant Sherfield,Energa Trefl,
+1059,away,,,Dziki Warszawa,"Dziki player from 6550, possibly #45 continuing 1040"
+1105,home,,,Energa Trefl,

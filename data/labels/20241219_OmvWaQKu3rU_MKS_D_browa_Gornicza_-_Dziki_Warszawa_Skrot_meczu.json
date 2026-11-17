@@ -10,7 +10,7 @@
   "season": "2024/25",
   "home": {
    "team": "MKS Dąbrowa Górnicza",
-   "roster": "",
+   "roster": "mks_dabrowa_gornicza",
    "kit": ""
   },
   "away": {
@@ -231,5 +231,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-29T20:43:15"
+ "saved_at": "2026-10-29T21:05:10"
 }

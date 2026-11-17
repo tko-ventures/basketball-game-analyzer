@@ -1,0 +1,258 @@
+{
+ "team": "Euvic GTK Gliwice",
+ "team_id_plk": 2310,
+ "aliases": [
+  "Euvic GTK Gliwice"
+ ],
+ "retrieved": "2026-10-29",
+ "seasons": {
+  "2025/26": {
+   "team_name": "Euvic GTK Gliwice",
+   "source": "https://plk.pl/archiwum/28/druzyny/2310/tauron-gtk-gliwice/sklad",
+   "coach": "Nebojsa Vidic",
+   "players": [
+    {
+     "number": "0",
+     "name": "Kaelin Jackson",
+     "pos": "PG",
+     "height_cm": 188,
+     "nat": "USA",
+     "id_plk": 119838
+    },
+    {
+     "number": "1",
+     "name": "Aleksander Busz",
+     "pos": "SF",
+     "height_cm": 204,
+     "nat": "POL",
+     "id_plk": 46776
+    },
+    {
+     "number": "4",
+     "name": "Marcel Walczuk",
+     "pos": "SG",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 73493
+    },
+    {
+     "number": "5",
+     "name": "Jarred Godfrey",
+     "pos": "SG/SF",
+     "height_cm": 194,
+     "nat": "USA",
+     "id_plk": 115625
+    },
+    {
+     "number": "6",
+     "name": "Ivan Almeida",
+     "pos": "SG/SF/PF",
+     "height_cm": 197,
+     "nat": "Portugalia",
+     "id_plk": 59187
+    },
+    {
+     "number": "7",
+     "name": "Kacper Gordon",
+     "pos": "PG",
+     "height_cm": 184,
+     "nat": "POL",
+     "id_plk": 23880
+    },
+    {
+     "number": "8",
+     "name": "Maciej Bender",
+     "pos": "PF/C",
+     "height_cm": 210,
+     "nat": "POL",
+     "id_plk": 3920
+    },
+    {
+     "number": "10",
+     "name": "Michael Oguine",
+     "pos": "SG",
+     "height_cm": 190,
+     "nat": "USA",
+     "id_plk": 114113
+    },
+    {
+     "number": "11",
+     "name": "Jaiden Delaire",
+     "pos": "PF",
+     "height_cm": 206,
+     "nat": "USA",
+     "id_plk": 115626
+    },
+    {
+     "number": "12",
+     "name": "Dominik Kondratowicz",
+     "pos": "SG",
+     "height_cm": 189,
+     "nat": "POL",
+     "id_plk": 66614
+    },
+    {
+     "number": "13",
+     "name": "Florent Thamba",
+     "pos": "C",
+     "height_cm": 208,
+     "nat": "Kongo",
+     "id_plk": 115627
+    },
+    {
+     "number": "24",
+     "name": "Wesley Gordon",
+     "pos": "C",
+     "height_cm": 205,
+     "nat": "USA",
+     "id_plk": 92283
+    },
+    {
+     "number": "30",
+     "name": "Kuba Piśla",
+     "pos": "SG/SF",
+     "height_cm": 197,
+     "nat": "POL",
+     "id_plk": 54151
+    },
+    {
+     "number": "34",
+     "name": "Michał Jodłowski",
+     "pos": "PF",
+     "height_cm": 208,
+     "nat": "POL",
+     "id_plk": 24288
+    },
+    {
+     "number": "66",
+     "name": "Kajetan Misztal",
+     "pos": "C",
+     "height_cm": 206,
+     "nat": "POL",
+     "id_plk": 65966
+    },
+    {
+     "number": "77",
+     "name": "Piotr Łosiak",
+     "pos": "PG/SG",
+     "height_cm": 187,
+     "nat": "POL",
+     "id_plk": 45937
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2026/27": {
+   "team_name": "Euvic GTK Gliwice",
+   "source": "https://plk.pl/druzyny/2310/euvic-gtk-gliwice/sklad",
+   "coach": "Nebojsa Vidic",
+   "players": [
+    {
+     "number": "0",
+     "name": "Maksymilian Leniec",
+     "pos": "PG/SG",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 60998
+    },
+    {
+     "number": "1",
+     "name": "Selton Miguel",
+     "pos": "SG",
+     "height_cm": 193,
+     "nat": "Angola",
+     "id_plk": 123283
+    },
+    {
+     "number": "2",
+     "name": "Eric Nottage",
+     "pos": "PG",
+     "height_cm": 186,
+     "nat": "USA",
+     "id_plk": 123496
+    },
+    {
+     "number": "3",
+     "name": "Benjamin Schwieger",
+     "pos": "SF/PF",
+     "height_cm": 203,
+     "nat": "USA",
+     "id_plk": 123501
+    },
+    {
+     "number": "4",
+     "name": "Marcel Walczuk",
+     "pos": "SG",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 73493
+    },
+    {
+     "number": "5",
+     "name": "Justin Gray",
+     "pos": "SG/SF",
+     "height_cm": 198,
+     "nat": "USA",
+     "id_plk": 86387
+    },
+    {
+     "number": "7",
+     "name": "Kacper Gordon",
+     "pos": "PG",
+     "height_cm": 184,
+     "nat": "POL",
+     "id_plk": 23880
+    },
+    {
+     "number": "9",
+     "name": "Dominik Wilczek",
+     "pos": "SG",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 14672
+    },
+    {
+     "number": "10",
+     "name": "Milan Suskavcevic",
+     "pos": "C",
+     "height_cm": 211,
+     "nat": "MNE",
+     "id_plk": 123497
+    },
+    {
+     "number": "11",
+     "name": "Piotr Łosiak",
+     "pos": "PG/SG",
+     "height_cm": 187,
+     "nat": "POL",
+     "id_plk": 45937
+    },
+    {
+     "number": "24",
+     "name": "Anthony Smith",
+     "pos": "PF/C",
+     "height_cm": 201,
+     "nat": "USA",
+     "id_plk": 123495
+    },
+    {
+     "number": "66",
+     "name": "Kajetan Misztal",
+     "pos": "C",
+     "height_cm": 206,
+     "nat": "POL",
+     "id_plk": 65966
+    },
+    {
+     "number": "88",
+     "name": "Miłosz Szul",
+     "pos": "PG/SG",
+     "height_cm": 187,
+     "nat": "POL",
+     "id_plk": 67781
+    }
+   ],
+   "note": "Current PLK squad page as of 2026-10-29."
+  }
+ }
+}

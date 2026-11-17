@@ -15,7 +15,7 @@
   },
   "away": {
    "team": "Anwil",
-   "roster": "",
+   "roster": "anwil_wloclawek",
    "kit": ""
   },
   "notes": "",
@@ -151,5 +151,5 @@
  ],
  "identities": {},
  "frames": {},
- "saved_at": "2026-10-29T20:47:11"
+ "saved_at": "2026-10-29T21:05:10"
 }

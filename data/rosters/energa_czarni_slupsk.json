@@ -1,0 +1,434 @@
+{
+ "team": "Energa Czarni Słupsk",
+ "team_id_plk": 8607,
+ "aliases": [
+  "Energa Czarni Słupsk"
+ ],
+ "retrieved": "2026-10-29",
+ "seasons": {
+  "2024/25": {
+   "team_name": "Energa Czarni Słupsk",
+   "source": "https://plk.pl/archiwum/27/druzyny/8607/energa-icon-sea-czarni-slupsk/sklad",
+   "coach": "Roberts Štelmahers",
+   "players": [
+    {
+     "number": "1",
+     "name": "Loren Jackson",
+     "pos": "PG",
+     "height_cm": 175,
+     "nat": "USA",
+     "id_plk": 105471
+    },
+    {
+     "number": "2",
+     "name": "Justice Sueing",
+     "pos": "SF",
+     "height_cm": 198,
+     "nat": "USA",
+     "id_plk": 108625
+    },
+    {
+     "number": "3",
+     "name": "Mateusz Dziemba",
+     "pos": "SG",
+     "height_cm": 192,
+     "nat": "POL",
+     "id_plk": 1493
+    },
+    {
+     "number": "5",
+     "name": "Jakub Musiał",
+     "pos": "PG",
+     "height_cm": 186,
+     "nat": "POL",
+     "id_plk": 14674
+    },
+    {
+     "number": "6",
+     "name": "Fahrudin Manjgafić",
+     "pos": "C",
+     "height_cm": 206,
+     "nat": "BIH",
+     "id_plk": 112837
+    },
+    {
+     "number": "7",
+     "name": "Michał Kozioł",
+     "pos": "SG",
+     "height_cm": 187,
+     "nat": "POL",
+     "id_plk": 59243
+    },
+    {
+     "number": "8",
+     "name": "Nikodem Czoska",
+     "pos": "PF",
+     "height_cm": 203,
+     "nat": "POL",
+     "id_plk": 34378
+    },
+    {
+     "number": "8",
+     "name": "Alex Jursza",
+     "pos": "SG",
+     "height_cm": 189,
+     "nat": "POL",
+     "id_plk": 67543
+    },
+    {
+     "number": "11",
+     "name": "Nikodem Klocek",
+     "pos": "PG/SG",
+     "height_cm": 189,
+     "nat": "POL",
+     "id_plk": 47900
+    },
+    {
+     "number": "12",
+     "name": "Quincy Ford",
+     "pos": "PF",
+     "height_cm": 203,
+     "nat": "USA",
+     "id_plk": 108624
+    },
+    {
+     "number": "14",
+     "name": "Nikola Kočović",
+     "pos": "SG",
+     "height_cm": 197,
+     "nat": "SRB",
+     "id_plk": 113724
+    },
+    {
+     "number": "14",
+     "name": "Jakub Wasilewski",
+     "pos": "SG",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 59234
+    },
+    {
+     "number": "18",
+     "name": "Szymon Tomczak",
+     "pos": "C",
+     "height_cm": 201,
+     "nat": "POL",
+     "id_plk": 50334
+    },
+    {
+     "number": "20",
+     "name": "Alex Stein",
+     "pos": "PG/SG",
+     "height_cm": 190,
+     "nat": "USA",
+     "id_plk": 105298
+    },
+    {
+     "number": "23",
+     "name": "Daniel Słomczyński",
+     "pos": "SG",
+     "height_cm": 191,
+     "nat": "POL",
+     "id_plk": 74045
+    },
+    {
+     "number": "25",
+     "name": "Michał Nowakowski",
+     "pos": "PF",
+     "height_cm": 202,
+     "nat": "POL",
+     "id_plk": 26292
+    },
+    {
+     "number": "30",
+     "name": "Maciej Orzechowski",
+     "pos": "SG",
+     "height_cm": 181,
+     "nat": "POL",
+     "id_plk": 54879
+    },
+    {
+     "number": "32",
+     "name": "Jakub Powroźnik",
+     "pos": "SG",
+     "height_cm": 189,
+     "nat": "POL",
+     "id_plk": 67553
+    },
+    {
+     "number": "33",
+     "name": "Igor Wysoczański",
+     "pos": "PF",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 82165
+    },
+    {
+     "number": "34",
+     "name": "Paweł Stanisławski",
+     "pos": "SG",
+     "height_cm": 195,
+     "nat": "POL",
+     "id_plk": 97945
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2025/26": {
+   "team_name": "Energa Czarni Słupsk",
+   "source": "https://plk.pl/archiwum/28/druzyny/8607/energa-czarni-slupsk/sklad",
+   "coach": "Ivica Skelin",
+   "players": [
+    {
+     "number": "1",
+     "name": "Jorden Duffy",
+     "pos": "PG",
+     "height_cm": 182,
+     "nat": "USA",
+     "id_plk": 115995
+    },
+    {
+     "number": "2",
+     "name": "Chico Carter Jr",
+     "pos": "SG",
+     "height_cm": 193,
+     "nat": "USA",
+     "id_plk": 115997
+    },
+    {
+     "number": "3",
+     "name": "Eral Jarred Penn",
+     "pos": "PF",
+     "height_cm": 200,
+     "nat": "USA",
+     "id_plk": 119556
+    },
+    {
+     "number": "8",
+     "name": "Cezary Zabrocki",
+     "pos": "SG",
+     "height_cm": 187,
+     "nat": "POL",
+     "id_plk": 43702
+    },
+    {
+     "number": "9",
+     "name": "Dominik Wilczek",
+     "pos": "SG",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 14672
+    },
+    {
+     "number": "10",
+     "name": "Jakub Powroźnik",
+     "pos": "SG",
+     "height_cm": 189,
+     "nat": "POL",
+     "id_plk": 67553
+    },
+    {
+     "number": "11",
+     "name": "Tim Lambrecht",
+     "pos": "C",
+     "height_cm": 208,
+     "nat": "BEL",
+     "id_plk": 108789
+    },
+    {
+     "number": "11",
+     "name": "Igor Wysoczański",
+     "pos": "PF",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 82165
+    },
+    {
+     "number": "12",
+     "name": "Jan Pluta",
+     "pos": "PF",
+     "height_cm": 195,
+     "nat": "POL",
+     "id_plk": 49565
+    },
+    {
+     "number": "18",
+     "name": "Szymon Tomczak",
+     "pos": "C",
+     "height_cm": 201,
+     "nat": "POL",
+     "id_plk": 50334
+    },
+    {
+     "number": "20",
+     "name": "Samuel Hines Jr",
+     "pos": "SF",
+     "height_cm": 198,
+     "nat": "USA",
+     "id_plk": 120567
+    },
+    {
+     "number": "21",
+     "name": "Aigars Šķēle",
+     "pos": "PG",
+     "height_cm": 193,
+     "nat": "LAT",
+     "id_plk": 92130
+    },
+    {
+     "number": "23",
+     "name": "Daniel Słomczyński",
+     "pos": "SG",
+     "height_cm": 191,
+     "nat": "POL",
+     "id_plk": 74045
+    },
+    {
+     "number": "25",
+     "name": "Michał Nowakowski",
+     "pos": "PF",
+     "height_cm": 202,
+     "nat": "POL",
+     "id_plk": 24
+    },
+    {
+     "number": "41",
+     "name": "Jakub Parzeński",
+     "pos": "C",
+     "height_cm": 212,
+     "nat": "POL",
+     "id_plk": 695
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2026/27": {
+   "team_name": "Energa Czarni Słupsk",
+   "source": "https://plk.pl/druzyny/8607/energa-czarni-slupsk/sklad",
+   "coach": "Krzysztof Szablowski",
+   "players": [
+    {
+     "number": "0",
+     "name": "Demond Robinson Jr",
+     "pos": "C",
+     "height_cm": 205,
+     "nat": "USA",
+     "id_plk": 123363
+    },
+    {
+     "number": "1",
+     "name": "Dominic Green",
+     "pos": "SF",
+     "height_cm": 198,
+     "nat": "USA",
+     "id_plk": 99554
+    },
+    {
+     "number": "2",
+     "name": "Jakub Stupnicki",
+     "pos": "PG",
+     "height_cm": 184,
+     "nat": "POL",
+     "id_plk": 50826
+    },
+    {
+     "number": "5",
+     "name": "Dorde Dimitrijevic",
+     "pos": "PG",
+     "height_cm": 188,
+     "nat": "SRB",
+     "id_plk": 123361
+    },
+    {
+     "number": "7",
+     "name": "Filip Mazur",
+     "pos": "SG",
+     "height_cm": 183,
+     "nat": "POL",
+     "id_plk": 72816
+    },
+    {
+     "number": "8",
+     "name": "Maksymilian Maćkowiak",
+     "pos": "SF",
+     "height_cm": 194,
+     "nat": "POL",
+     "id_plk": 74042
+    },
+    {
+     "number": "12",
+     "name": "Jan Pluta",
+     "pos": "PF",
+     "height_cm": 195,
+     "nat": "POL",
+     "id_plk": 49565
+    },
+    {
+     "number": "13",
+     "name": "Kacper Borowski",
+     "pos": "C",
+     "height_cm": 205,
+     "nat": "POL",
+     "id_plk": 1461
+    },
+    {
+     "number": "17",
+     "name": "Igor Mazur",
+     "pos": "SG",
+     "height_cm": 184,
+     "nat": "POL",
+     "id_plk": 72817
+    },
+    {
+     "number": "21",
+     "name": "Robert Carpenter IV",
+     "pos": "PF",
+     "height_cm": 202,
+     "nat": "USA",
+     "id_plk": 123360
+    },
+    {
+     "number": "23",
+     "name": "Daniel Słomczyński",
+     "pos": "SG",
+     "height_cm": 191,
+     "nat": "POL",
+     "id_plk": 74045
+    },
+    {
+     "number": "25",
+     "name": "Dominik Grudziński",
+     "pos": "PF",
+     "height_cm": 206,
+     "nat": "POL",
+     "id_plk": 22953
+    },
+    {
+     "number": "26",
+     "name": "Keevan Veinot",
+     "pos": "SG",
+     "height_cm": 193,
+     "nat": "CAN",
+     "id_plk": 123362
+    },
+    {
+     "number": "34",
+     "name": "Aleksander Kornacki",
+     "pos": "PF/C",
+     "height_cm": 210,
+     "nat": "POL",
+     "id_plk": 70705
+    },
+    {
+     "number": "45",
+     "name": "Mason Madsen",
+     "pos": "SG",
+     "height_cm": 192,
+     "nat": "USA",
+     "id_plk": 123364
+    }
+   ],
+   "note": "Current PLK squad page as of 2026-10-29."
+  }
+ }
+}

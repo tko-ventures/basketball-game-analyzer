@@ -1,0 +1,27 @@
+clip 20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off
+# Gold v0, implementer's pass 2 of 2 on shot 16 (6170-6600): what the kit votes miss, read on
+# runs/<clip>/review/s16/overview_*.jpg, tracks_*.jpg, zoom_1046_6280.jpg, zoom_1049_6330.jpg after pass 1.
+# L = Trefl yellow (checked); yellow-shirted fans in the stands vote L too and are deleted here.
+delete 1050  # coach in a suit at the bottom edge (tagged ref)
+delete 1053  # fan in a yellow shirt in the stands
+delete 1055  # fans in the stands
+delete 1056  # fan in a yellow shirt at the left edge
+delete 1057  # fan in the stands (tagged ref)
+delete 1058  # fan in a yellow shirt and cap in the stands
+# 1046 is a dark-skinned Trefl player to ~6265, then jumps onto #21 (1049) and later #11 (1043).
+split 1046 6270 1105
+move 1105 6270 6470 1049  # duplicates of #21; clashes keep 1049's box
+move 1105 6475 6600 1043  # duplicates of #11; clashes keep 1043's box
+delete 1033  # shot-7 cleanup: identity left without boxes after its boxes moved into 1032
+number 1039 13
+number 1043 11
+number 1044 0
+number 1045 16
+number 1049 21
+number 1054 2
+number 1040 45
+note 1040 Dziki #45 to ~6410; crops from 6440 sit in contact with Trefl #13 and may be on another player
+note 1059 Dziki player from 6550, possibly #45 continuing 1040
+note 1042 Dziki player with a headband, number not legible (as 1026 in shot 7)
+note 1048 dark-skinned Trefl player, number not legible
+note 1046 boxes end at 6265; the same player probably continues in another track or is lost

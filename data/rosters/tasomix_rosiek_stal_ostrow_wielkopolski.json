@@ -1,0 +1,418 @@
+{
+ "team": "Tasomix Rosiek Stal Ostrów Wielkopolski",
+ "team_id_plk": 11309,
+ "aliases": [
+  "Tasomix Rosiek Stal Ostrów Wielkopolski"
+ ],
+ "retrieved": "2026-10-29",
+ "seasons": {
+  "2024/25": {
+   "team_name": "Tasomix Rosiek Stal Ostrów Wielkopolski",
+   "source": "https://plk.pl/archiwum/27/druzyny/11309/tasomix-rosiek-stal-ostrow-wielkopolski/sklad",
+   "coach": "Andrzej Urban",
+   "players": [
+    {
+     "number": "0",
+     "name": "Märt Rosenthal",
+     "pos": "PG/SG",
+     "height_cm": 0,
+     "nat": "EST",
+     "id_plk": 108790
+    },
+    {
+     "number": "1",
+     "name": "Jalen Riley",
+     "pos": "PG/SG",
+     "height_cm": 182,
+     "nat": "USA",
+     "id_plk": 113843
+    },
+    {
+     "number": "1",
+     "name": "Tyquan Rolon",
+     "pos": "PG/SG",
+     "height_cm": 187,
+     "nat": "USA",
+     "id_plk": 108788
+    },
+    {
+     "number": "2",
+     "name": "Aleksander Smektała",
+     "pos": "PG",
+     "height_cm": 190,
+     "nat": "POL",
+     "id_plk": 55936
+    },
+    {
+     "number": "3",
+     "name": "Adas Juškevičius",
+     "pos": "PG/SG",
+     "height_cm": 194,
+     "nat": "LTU",
+     "id_plk": 111654
+    },
+    {
+     "number": "5",
+     "name": "Nikodem Ratkowski",
+     "pos": "PG/SG",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 60838
+    },
+    {
+     "number": "6",
+     "name": "Mateusz Zębski",
+     "pos": "SG/SF",
+     "height_cm": 191,
+     "nat": "POL",
+     "id_plk": 603
+    },
+    {
+     "number": "7",
+     "name": "Wojciech Czerlonko",
+     "pos": "SF",
+     "height_cm": 201,
+     "nat": "POL",
+     "id_plk": 3620
+    },
+    {
+     "number": "8",
+     "name": "Paxson Wojcik",
+     "pos": "PG/SG",
+     "height_cm": 191,
+     "nat": "USA",
+     "id_plk": 108791
+    },
+    {
+     "number": "9",
+     "name": "Siim-Sander Vene",
+     "pos": "SF/PF",
+     "height_cm": 0,
+     "nat": "EST",
+     "id_plk": 108805
+    },
+    {
+     "number": "10",
+     "name": "Stanisław Tyc",
+     "pos": "SF",
+     "height_cm": 189,
+     "nat": "POL",
+     "id_plk": 88130
+    },
+    {
+     "number": "11",
+     "name": "Tim Lambrecht",
+     "pos": "C",
+     "height_cm": 208,
+     "nat": "BEL",
+     "id_plk": 108789
+    },
+    {
+     "number": "12",
+     "name": "Antoni Waniak",
+     "pos": "SG",
+     "height_cm": 182,
+     "nat": "POL",
+     "id_plk": 56139
+    },
+    {
+     "number": "14",
+     "name": "Maximillian Egner",
+     "pos": "SF",
+     "height_cm": 202,
+     "nat": "POL",
+     "id_plk": 97593
+    },
+    {
+     "number": "15",
+     "name": "Tomasz Pływaczyk",
+     "pos": "C",
+     "height_cm": 204,
+     "nat": "POL",
+     "id_plk": 63166
+    },
+    {
+     "number": "21",
+     "name": "Aigars Šķēle",
+     "pos": "PG",
+     "height_cm": 193,
+     "nat": "LAT",
+     "id_plk": 92130
+    },
+    {
+     "number": "22",
+     "name": "Anthony Roberts",
+     "pos": "SF/PF",
+     "height_cm": 196,
+     "nat": "USA",
+     "id_plk": 114152
+    },
+    {
+     "number": "23",
+     "name": "Jacek Rutecki",
+     "pos": "SG/SF",
+     "height_cm": 193,
+     "nat": "POL",
+     "id_plk": 56154
+    },
+    {
+     "number": "24",
+     "name": "David Brembly",
+     "pos": "SF",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 2250
+    },
+    {
+     "number": "25",
+     "name": "Jan Wójcik",
+     "pos": "PF/C",
+     "height_cm": 210,
+     "nat": "POL",
+     "id_plk": 24551
+    },
+    {
+     "number": "41",
+     "name": "Jakub Parzeński",
+     "pos": "C",
+     "height_cm": 212,
+     "nat": "POL",
+     "id_plk": 695
+    },
+    {
+     "number": "77",
+     "name": "Damian Kulig",
+     "pos": "C",
+     "height_cm": 205,
+     "nat": "POL",
+     "id_plk": 238
+    },
+    {
+     "number": "99",
+     "name": "Dominik Bieganek",
+     "pos": "PF",
+     "height_cm": 193,
+     "nat": "POL",
+     "id_plk": 61215
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2025/26": {
+   "team_name": "Tasomix Rosiek Stal Ostrów Wielkopolski",
+   "source": "https://plk.pl/archiwum/28/druzyny/11309/tasomix-rosiek-stal-ostrow-wielkopolski/sklad",
+   "coach": "Andrzej Urban",
+   "players": [
+    {
+     "number": "2",
+     "name": "Luka Sakota",
+     "pos": "SG",
+     "height_cm": 198,
+     "nat": "CRO",
+     "id_plk": 116247
+    },
+    {
+     "number": "5",
+     "name": "Mareks Mejeris",
+     "pos": "PF",
+     "height_cm": 207,
+     "nat": "LAT",
+     "id_plk": 116248
+    },
+    {
+     "number": "6",
+     "name": "David Brembly",
+     "pos": "SF",
+     "height_cm": 196,
+     "nat": "POL",
+     "id_plk": 2250
+    },
+    {
+     "number": "8",
+     "name": "Nikodem Czoska",
+     "pos": "PF",
+     "height_cm": 203,
+     "nat": "POL",
+     "id_plk": 34378
+    },
+    {
+     "number": "9",
+     "name": "Daniel Gołębiowski",
+     "pos": "SG/SF",
+     "height_cm": 195,
+     "nat": "POL",
+     "id_plk": 25862
+    },
+    {
+     "number": "10",
+     "name": "Ante Brzović",
+     "pos": "PF/C",
+     "height_cm": 208,
+     "nat": "CRO",
+     "id_plk": 116249
+    },
+    {
+     "number": "11",
+     "name": "Aleksander Smektała",
+     "pos": "PG",
+     "height_cm": 190,
+     "nat": "POL",
+     "id_plk": 55936
+    },
+    {
+     "number": "12",
+     "name": "Antoni Waniak",
+     "pos": "SG",
+     "height_cm": 182,
+     "nat": "POL",
+     "id_plk": 56139
+    },
+    {
+     "number": "13",
+     "name": "Quanterrius Jackson",
+     "pos": "SG",
+     "height_cm": 193,
+     "nat": "USA",
+     "id_plk": 116246
+    },
+    {
+     "number": "15",
+     "name": "Efton Reid Iii",
+     "pos": "C",
+     "height_cm": 213,
+     "nat": "USA",
+     "id_plk": 120824
+    },
+    {
+     "number": "22",
+     "name": "Daniel Laster Jr",
+     "pos": "PF",
+     "height_cm": 198,
+     "nat": "USA",
+     "id_plk": 116245
+    },
+    {
+     "number": "23",
+     "name": "Jacek Rutecki",
+     "pos": "SG/SF",
+     "height_cm": 193,
+     "nat": "POL",
+     "id_plk": 56154
+    },
+    {
+     "number": "33",
+     "name": "Trenton Gibson",
+     "pos": "SG",
+     "height_cm": 193,
+     "nat": "USA",
+     "id_plk": 116244
+    },
+    {
+     "number": "55",
+     "name": "Michał Pluta",
+     "pos": "PG/SG",
+     "height_cm": 188,
+     "nat": "POL",
+     "id_plk": 36291
+    }
+   ],
+   "note": "End-of-season PLK squad page; players who left mid-season may be missing."
+  },
+  "2026/27": {
+   "team_name": "Tasomix Rosiek Stal Ostrów Wielkopolski",
+   "source": "https://plk.pl/druzyny/11309/tasomix-rosiek-stal-ostrow-wielkopolski/sklad",
+   "coach": "Andrzej Urban",
+   "players": [
+    {
+     "number": "1",
+     "name": "Jared Billups",
+     "pos": "SF",
+     "height_cm": 196,
+     "nat": "USA",
+     "id_plk": 123540
+    },
+    {
+     "number": "2",
+     "name": "Aleksander Wiśniewski",
+     "pos": "PG/SG",
+     "height_cm": 192,
+     "nat": "POL",
+     "id_plk": 41657
+    },
+    {
+     "number": "3",
+     "name": "Tajion Jones",
+     "pos": "SG",
+     "height_cm": 196,
+     "nat": "USA",
+     "id_plk": 123539
+    },
+    {
+     "number": "6",
+     "name": "Daniel Gołębiowski",
+     "pos": "SG/SF",
+     "height_cm": 195,
+     "nat": "POL",
+     "id_plk": 25862
+    },
+    {
+     "number": "8",
+     "name": "Nikodem Czoska",
+     "pos": "PF",
+     "height_cm": 203,
+     "nat": "POL",
+     "id_plk": 34378
+    },
+    {
+     "number": "9",
+     "name": "Karl Lips",
+     "pos": "SF",
+     "height_cm": 203,
+     "nat": "EST",
+     "id_plk": 123538
+    },
+    {
+     "number": "12",
+     "name": "Jaylin Hunter",
+     "pos": "PG",
+     "height_cm": 183,
+     "nat": "USA",
+     "id_plk": 123541
+    },
+    {
+     "number": "14",
+     "name": "Szymon Soszyński",
+     "pos": "SG",
+     "height_cm": 193,
+     "nat": "POL",
+     "id_plk": 52079
+    },
+    {
+     "number": "23",
+     "name": "Joshua Ashaolu",
+     "pos": "PG/SG",
+     "height_cm": 181,
+     "nat": "POL",
+     "id_plk": 60832
+    },
+    {
+     "number": "41",
+     "name": "Jakub Parzeński",
+     "pos": "C",
+     "height_cm": 212,
+     "nat": "POL",
+     "id_plk": 695
+    },
+    {
+     "number": "67",
+     "name": "Vyacheslav Bobrov",
+     "pos": "PF/C",
+     "height_cm": 203,
+     "nat": "UKR",
+     "id_plk": 123542
+    }
+   ],
+   "note": "Current PLK squad page as of 2026-10-29."
+  }
+ }
+}

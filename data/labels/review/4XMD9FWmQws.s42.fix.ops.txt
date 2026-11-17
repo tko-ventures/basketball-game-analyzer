@@ -1,0 +1,20 @@
+clip 20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu
+# Gold v0, implementer's pass 2 of 2 on shot 42 (14312-14851): what the kit votes miss, read on
+# runs/<clip>/review/s42/overview_*.jpg, tracks_*.jpg and zoom_*.jpg after pass 1.
+move 1019 14315 14510 1028  # Dziki #21 (zoom_1028_14550); 1028 continues him from 14515
+cut 1019 14590 14590  # kit D in contact
+cut 1019 14745 14745  # kit D in contact
+cut 1019 14810 14845  # duplicates 1024 (Dziki #31)
+cut 1022 14575 14765  # referee's box sits on PGE #20 (1020) in front of him (zoom_1022_14640)
+delete 1029  # man in black on the sideline (bench staff), off court
+number 1016 6
+number 1017 3
+number 1018 1
+number 1020 20
+number 1024 31
+number 1028 21
+number 1023 21  # "21" on the back at 14500 and 14560
+number 1021 4  # "4" at 14555 and 14790
+note 1019 PGE light, bald, number not legible
+note 1025 Dziki dark, possibly #9 (14740), not set
+note 1028 #21 to ~14665; later boxes (14680-14850) may sit on other Dziki players, incl. #31 at 14750

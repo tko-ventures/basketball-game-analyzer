@@ -9,6 +9,7 @@ For every video in data/raw (or given paths) without a label file yet:
     uv run tools/labeler/prepare_clips.py                 # all of data/raw
     uv run tools/labeler/prepare_clips.py --force         # redo shots (keeps boxes and camera tags)
     uv run tools/labeler/prepare_clips.py --labels-dir runs/_shots --jobs 6
+    uv run tools/labeler/prepare_clips.py --meta-only     # refresh team/roster meta, keep shots
 """
 
 from __future__ import annotations
@@ -32,10 +33,10 @@ def season_for(upload_date: str | None) -> str:
     return f"{start}/{str(start + 1)[2:]}"
 
 
-def prepare(video: Path, labels_dir: Path, force: bool) -> str:
+def prepare(video: Path, labels_dir: Path, force: bool, meta_only: bool = False) -> str:
     rel = str(video.resolve().relative_to(server.REPO))
     out = labels_dir / f"{video.stem}.json"
-    if out.exists() and not force:
+    if out.exists() and not (force or meta_only):
         return f"skip {video.name}"
     data = server.load_labels(labels_dir, rel, server.Clip(video.resolve()))
     info = video.with_suffix(".info.json")
@@ -49,6 +50,13 @@ def prepare(video: Path, labels_dir: Path, force: bool) -> str:
         for side, team in (("home", home), ("away", away)):
             if not m[side].get("team"):
                 m[side] = server.side_meta(team, m[side].get("kit", ""))
+            elif not m[side].get("roster"):
+                m[side]["roster"] = server.roster_key_for(m[side]["team"])
+    if meta_only:
+        server.save_labels(labels_dir, data)
+        return (
+            f"{video.name}: {data['meta']['home']['roster'] or '?'} - {data['meta']['away']['roster'] or '?'}"
+        )
     old = data.get("shots", [])
     data["shots"] = [
         {
@@ -73,12 +81,14 @@ def main(argv=None):
     ap.add_argument("--labels-dir", default="data/labels")
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--jobs", type=int, default=1, help="clips processed in parallel")
+    ap.add_argument("--meta-only", action="store_true", help="refresh season/team/roster meta only")
     a = ap.parse_args(argv)
     labels_dir = server.REPO / a.labels_dir
     labels_dir.mkdir(parents=True, exist_ok=True)
     vids = [Path(v) for v in a.videos] or sorted((server.REPO / "data/raw").glob("*.mp4"))
     with ProcessPoolExecutor(max_workers=max(1, a.jobs)) as pool:
-        for line in pool.map(prepare, vids, [labels_dir] * len(vids), [a.force] * len(vids)):
+        n = len(vids)
+        for line in pool.map(prepare, vids, [labels_dir] * n, [a.force] * n, [a.meta_only] * n):
             print(line, flush=True)
 
 

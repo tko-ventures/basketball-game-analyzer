@@ -1,0 +1,22 @@
+clip 20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski
+# Gold v0, implementer's pass 2 of 2 on shot 18 (3835-4295): what the kit votes miss, read on
+# runs/<clip>/review/s18/overview_00-02.jpg and tracks_00-02.jpg after pass 1, plus box IoU between tracks.
+delete 1026  # Zastal coach in a suit at the sideline (off court), tagged ref by the prefill
+move 1022 3835 4295 1023  # 1022 duplicates Dziki #21 (1023): IoU 0.6-1.0 wherever both exist
+delete 1022  # leftovers of the duplicate (frames where 1023 has its own box)
+cut 1029 4140 4295  # from 4140 1029 sits on Zastal #0 (1018), IoU 0.8-1.0: duplicate
+cut 1021 4140 4145  # referee's box on a Zastal player under the basket
+cut 1017 4215 4220  # small boxes on a face, not the player's body
+cut 1025 4115 4115  # small box inside a crowd at the basket
+number 1016 8
+number 1017 23
+number 1018 0
+number 1019 13
+number 1020 7
+number 1023 21
+number 1024 25
+number 1028 11
+number 1201 8  # Zastal #8 with the ball, split off 1022 by kit votes
+note 1029 Zastal, blond, no headband, number not legible (3980-4135)
+note 1025 Zastal, number not legible
+note 1027 referee at the bottom edge is not boxed in some frames (e.g. 3885)

@@ -1,0 +1,43 @@
+clip 20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski
+# Gold v0, implementer's pass 1 of 2 on shot 18: kit-vote proposals from scripts/review_sheets.py --propose
+# (Skalski's TeamClassifier fitted on the shot), checked against tracks_*.jpg and zoom_*.jpg in runs/<clip>/review/s18.
+# shot 18 (3833-4298): kit-vote proposals
+team 1024 away  # kit D 92/93
+cut 1024 4205 4205  # kit L x1 in contact
+team 1016 home  # kit L 82/87
+cut 1016 4150 4160  # kit D x3 in contact
+cut 1016 4295 4295  # kit D x1 in contact
+team 1018 away  # kit D 83/83
+team 1022 home  # kit L 27/46
+move 1022 3835 3895 1201  # kit D x13 inside
+team 1201 away
+cut 1022 3975 3975  # kit D x1 in contact
+cut 1022 4230 4255  # kit D x4 in contact
+cut 1022 4285 4285  # kit D x1 in contact
+team 1019 home  # kit L 86/91
+cut 1019 3930 3945  # kit D x3 in contact
+cut 1019 4270 4275  # kit D x2 in contact
+team 1017 home  # kit L 68/89
+cut 1017 4015 4025  # kit D x3 in contact
+cut 1017 4035 4070  # kit D x6 in contact
+cut 1017 4090 4105  # kit D x4 in contact
+cut 1017 4120 4130  # kit D x3 in contact
+cut 1017 4230 4250  # kit D x5 in contact
+team 1023 home  # kit L 74/81
+cut 1023 3890 3890  # kit D x1 in contact
+cut 1023 3905 3925  # kit D x5 in contact
+cut 1023 4210 4210  # kit D x1 in contact
+team 1020 away  # kit D 82/87
+cut 1020 4010 4010  # kit L x1 in contact
+cut 1020 4020 4025  # kit L x2 in contact
+cut 1020 4055 4055  # kit L x1 in contact
+cut 1020 4075 4075  # kit L x1 in contact
+team 1025 away  # kit D 79/85
+cut 1025 3905 3910  # kit L x2 in contact
+cut 1025 3960 3960  # kit L x1 in contact
+cut 1025 3970 3970  # kit L x1 in contact
+cut 1025 4110 4110  # kit L x1 in contact
+cut 1025 4235 4235  # kit L x1 in contact
+team 1028 home  # kit L 71/75
+cut 1028 3985 4000  # kit D x4 in contact
+team 1029 away  # kit D 63/64

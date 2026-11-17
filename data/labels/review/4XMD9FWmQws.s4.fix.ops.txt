@@ -1,0 +1,18 @@
+clip 20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu
+# Gold v0, implementer's pass 2 of 2 on shot 4 (1902-2476): what the kit votes miss, read on
+# runs/<clip>/review/s4/overview_*.jpg, tracks_*.jpg and zoom_*.jpg after pass 1.
+# Kit split holds in Lublin: PGE Start light (white/red), Dziki dark (navy, pinstripes).
+team 1002 home
+number 1002 20
+cut 1002 2040 2475  # after 2035 the box duplicates 1004 (Dziki #31), IoU > 0.4 on 68 frames
+cut 1010 2390 2405  # referee's box on PGE #3 (1008)
+number 1004 31
+number 1005 6
+number 1006 19
+number 1008 3
+number 1009 1  # "1" on the back at 2385-2410; same bald player throughout
+note 1009 kit votes flicker: light leggings and PGE #6 in front while guarding him; boxes kept
+note 1003 referee behind the score overlay at the bottom edge from ~2200; boxes kept
+note 1007 boxes 2260-2415 often coincide with 1006 (PGE #19) in contact
+delete 1014  # staff in black with a lanyard by the bench, off court
+merge 1015 1002  # PGE #20 again from 2105 ("20" at 2395); 1002 ends 2035

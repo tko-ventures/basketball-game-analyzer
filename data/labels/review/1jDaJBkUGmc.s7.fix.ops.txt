@@ -1,0 +1,22 @@
+clip 20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off
+# Gold v0, implementer's pass 2 of 2 on shot 7 (2490-3000): what the kit votes miss, read on
+# runs/<clip>/review/s7/overview_*.jpg and tracks_*.jpg after pass 1. L = Trefl yellow (checked).
+delete 1034  # green shirt at the bottom-left corner, off court
+delete 1036  # staff in an orange shirt by the stands (tagged ref)
+delete 1037  # fan in a yellow shirt behind the baseline
+delete 1038  # man in the stands (tagged ref)
+# 1033 duplicates 1032 (Trefl #0, IoU 0.5-1.0 on most shared frames): keep 1032, fill its gaps from 1033.
+move 1033 2490 3000 1032
+cut 1027 2895 2915  # box on Dziki #0 (1025's player) in a crowd
+number 1022 25
+number 1023 2
+number 1024 16
+number 1025 0
+number 1027 2
+number 1029 37
+number 1030 33
+number 1032 0
+number 1035 13
+note 1026 Dziki player with a headband, number not legible (maybe #4)
+note 1030 early boxes 2555-2580 sit on a Dziki player crouching or on a face close-up
+note 1022 crops at 2945-3000 may be on another Dziki player

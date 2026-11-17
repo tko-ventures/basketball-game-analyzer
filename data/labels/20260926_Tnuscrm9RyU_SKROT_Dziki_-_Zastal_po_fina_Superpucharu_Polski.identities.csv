@@ -1,0 +1,41 @@
+tid,team,number,name,team_name,note
+1001,away,9,Gauthier Denis,Zastal,
+1002,away,3,Andy Mazurczak,Zastal,
+1003,ref,,,,
+1004,home,45,Łukasz Frąckiewicz,Dziki Warszawa,
+1005,home,2,Makai Ashton,Dziki Warszawa,
+1006,away,21,Veljko Brkić,Zastal,
+1007,home,11,Grzegorz Kamiński,Dziki Warszawa,
+1008,away,,,Zastal,
+1009,home,21,Michał Krasuski,Dziki Warszawa,
+1010,away,,,Zastal,
+1011,ref,,,,
+1012,home,,,Dziki Warszawa,"Dziki, number not legible (looked like 0 but Dziki has no #0 in 2026/27)"
+1013,ref,,,,
+1015,ref,,,,
+1016,home,8,Krzysztof Kempa,Dziki Warszawa,
+1017,home,23,OsunBowale Osunniyi,Dziki Warszawa,
+1018,away,0,Conley Garrison,Zastal,
+1019,home,13,Quanterrius Jackson,Dziki Warszawa,
+1020,away,7,Krzysztof Sulima,Zastal,
+1021,ref,,,,
+1023,home,21,Michał Krasuski,Dziki Warszawa,
+1024,away,25,Jan Wójcik,Zastal,
+1025,away,,,Zastal,"Zastal, number not legible"
+1027,ref,,,,referee at the bottom edge is not boxed in some frames (e.g. 3885)
+1028,home,11,Grzegorz Kamiński,Dziki Warszawa,
+1029,away,,,Zastal,"Zastal, blond, no headband, number not legible (3980-4135)"
+1030,away,13,Trazarien White,Zastal,boxes 7245-7300 have a Dziki player in front; box kept on the Zastal player behind
+1031,home,11,Grzegorz Kamiński,Dziki Warszawa,
+1032,home,23,OsunBowale Osunniyi,Dziki Warszawa,
+1033,home,3,Piotr Gałązka,Dziki Warszawa,
+1035,away,22,Beau Beech Iii,Zastal,assumed one player (#22) before and after the scrum at 7115-7210; check
+1036,home,13,Quanterrius Jackson,Dziki Warszawa,
+1037,home,1,Austin Luke,Dziki Warszawa,number read once and small; check
+1038,away,21,Veljko Brkić,Zastal,
+1039,away,3,Andy Mazurczak,Zastal,
+1040,away,9,Gauthier Denis,Zastal,
+1041,ref,,,,
+1042,ref,,,,"slivers at the left frame edge (referee or bench staff), mostly under 20 px wide"
+1043,ref,,,,
+1201,away,8,Filip Matczak,Zastal,

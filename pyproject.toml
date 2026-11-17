@@ -12,6 +12,19 @@ dependencies = [
 [project.optional-dependencies]
 # ONNX Runtime with the CoreML provider on Apple silicon (detect/onnx_rfdetr.py).
 onnx = ["onnxruntime>=1.20"]
+prefill = [
+    "inference>=1.8.3",
+]
+remote = [
+    "modal>=1.6",
+]
+demo = [
+    "scikit-learn>=1.9.1",
+    "sentencepiece>=0.2.2",
+    "sports",
+    "transformers>=5.15.1",
+    "umap-learn>=0.5.12",
+]
 
 [dependency-groups]
 dev = ["pytest>=8.3", "ruff>=0.7"]
@@ -34,3 +47,14 @@ select = ["E", "F", "W", "I", "B", "UP"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
+
+[tool.uv]
+# One OpenCV only: `inference` also pulls opencv-python and opencv-contrib-python, which share the cv2
+# package directory with the headless wheel, so switching extras would half-delete cv2.
+override-dependencies = [
+  "opencv-python; sys_platform == 'never'",
+  "opencv-contrib-python; sys_platform == 'never'",
+]
+
+[tool.uv.sources]
+sports = { git = "https://github.com/roboflow/sports.git", rev = "415751384e34f1cb7089a00909e0d7932fe73a75" }
