@@ -22,7 +22,13 @@ v0 was prefilled by the public models the baseline uses (Skalski's player detect
 
   Gaps of up to 3 sampled frames inside an identity are interpolated and written with visibility 0.5. `manifest.json` lists the sequences, their held-out flags and the hash of the source label file.
 - **Box gold:** `data/gold/v0/boxes.json` covers 100 frames chosen evenly over the 12 shots (`data/labels/box_gold.json`). It takes the track-gold boxes, adds people the tracks miss (detector candidates the reviewer accepted) and removes the boxes the reviewer dropped, as listed in `data/labels/review/box_gold.ops.txt`. Geometry is the prefill's, so v0 supports AP50 only.
-- **Not in v0:** number crops move to M7 and court landmarks to M3, both labelled just in time.
+- **Court keyframes** (labelled for M3, outside the v0 export): one keyframe per shot in `data/labels/court/`, with the queue in `queue.json`.
+  - **What:** 24 gold keyframes, 6 per gold game, for evaluation only; and 18 training keyframes from 12 other halls.
+  - **Who:** Tomasz labelled all 42 on 2026-11-02 and 2026-11-17, in two passes totalling 84.5 min.
+  - **Result:** 41 are usable; one Anwil frame is marked unusable.
+  - **Each record:** the image→court homography in cm, the landmark dots Tomasz placed, any pins on painted lines, and the status.
+  - **Agreement:** the saved courts fit his dots to a median of 5.6 px rms, with 10–14 px on the worst frames (Lublin and the held-out game).
+- **Not in v0:** number crops, which move to M7 and are labelled just in time.
 
 ## How v0 was made
 

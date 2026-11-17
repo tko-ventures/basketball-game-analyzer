@@ -162,3 +162,19 @@ Tomasz shared a jersey-number pipeline guide he worked out with Google's Gemini 
   - In shot 19 two Dziki tracks tie at three reads of 4 each, and the owner rule gave #4 to the player gold has no number for. Per-read probabilities, not counts, are what would break such ties.
 
   So the main fix stays a reader fine-tuned on PLK crops, with 2/8 well represented in the crop set. The roster vote and the assignment are worth measuring for confirmed fraction and wrong-confirmed count, not as the fix for these errors. This is an inspection of demo output, not a metrics row.
+
+## 2026-11-17: squash merges, one working branch, and a second pass on court keyframes
+
+- **Squash merges.** Tomasz merges milestone PRs with "Squash and merge" (#11, #12 and #13 so far). The feature branches are stacked, so each squash makes the next PR conflict even though no file differs. The fix after each merge:
+  1. Check that `main`'s tree equals the merged branch's tip.
+  2. Check that the next branch contains that tip.
+  3. Record `main` into the next branch with `git merge -s ours`, which changes no files.
+
+  If either check fails, do a real merge instead. There is no history rewrite and no force-push.
+- **One working branch.** `feat/m7-numbers`, which holds the coach page and the M7 scope, has been merged into `feat/m3-court`. A deploy from `feat/m3-court` would otherwise have dropped the live coach page, and two decision entries were missing on it. The M3 PR will therefore carry the coach page and the M7 scope documents as well.
+- **Court keyframes, second pass.** The court labelling page could not fit two kinds of frame:
+  - frames whose only visible landmarks lie on one or two lines (Sopot 2310);
+  - frames from a low camera, where part of the court is behind the camera (King 822).
+
+  Two fixes followed: pins on painted lines, and a fold check limited to the dots and pins. Tomasz then redid 24 keyframes, and 41 of 42 are usable. These are labelling-aid changes, not a layer, so they need no metrics row.
+- **`docs/architecture.md`** records what is built, ground truth only. Every commit that changes what it describes updates it (`CLAUDE.md`).

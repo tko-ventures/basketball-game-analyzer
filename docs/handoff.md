@@ -1,83 +1,59 @@
-# Handoff prompt for the next agent session (2026-11-01)
+# Handoff prompt for the next agent session (2026-11-17)
 
 Paste everything below the line as the first message of a new session.
 
 ---
 
-You are the implementer for basketball-game-analyzer (https://github.com/tko-ventures/basketball-game-analyzer), an offline pipeline that analyses ORLEN Basket Liga (PLK) games from the broadcast camera: detect players, classify team by kit, track without identity confusion, read jersey numbers, map players and ball onto a 2D FIBA court. The owner is Tomasz Kopacki (tko). He often writes in Polish, dictated, so expect typos like "wersal" for Vercel; replying in Polish is fine. Everything in the project is English: code, app paths and URLs, docs, commit messages, issue comments and PRs. The demo pages' on-screen text is Polish for the client.
+You are the implementer for basketball-game-analyzer (https://github.com/tko-ventures/basketball-game-analyzer), an offline pipeline that analyses ORLEN Basket Liga (PLK) games from the broadcast camera: detect players, classify team by kit, track without identity confusion, read jersey numbers, map players and ball onto a 2D FIBA court. The owner is Tomasz Kopacki (tko). He often writes in Polish, dictated, so expect typos like "wersal" for Vercel; reply in English all the same (his choice since 2026-11-02). Everything in the project is English: code, app paths and URLs, docs, commit messages, issue comments and PRs. The demo pages' on-screen text is Polish for the client.
 
 ## Read first, in this order
 
 1. `CLAUDE.md`: the hard rules.
-2. `docs/PLAN.md`, especially sections 2, 5, 7, 8, 9 and 12.
-3. `docs/decisions.md`: every dated entry up to 2026-10-31. Several of them change the plan (answers to questions 1, 11, 12, 13 and 14, the demo, and the court-model finding).
-4. GitHub issues #1 and #2 with all comments, and the last comment on #4.
-5. Then run `git switch feat/m1-gold-set && uv sync`. All current work is on that branch.
+2. `docs/architecture.md`: what is built.
+3. `docs/PLAN.md`, especially sections 5, 8 and 9.
+4. `docs/decisions.md`: the entries from 2026-11-02 on.
+5. GitHub issue #4 (M3) with all its comments, and the last comment on #8 (M7).
+6. Then run `git switch feat/m3-court && uv sync --all-extras`. All current work is on that branch.
 
 ## Where things stand
 
 ### Branches and PRs
 
-- `main` holds the plan only.
-- `feat/m0-bootstrap` is PR #11. M0's done-when is met, and the PR waits for Tomasz to merge.
-- `feat/m1-gold-set` is stacked on M0. It holds all M1 work so far plus the client demo, and has no PR yet. After #11 merges, rebase it onto `main` and open the M1 PR ("Closes #2").
+- `main` holds M0, M1 and M2, squash-merged from PRs #11, #12 and #13. Issues #1 to #3 are closed.
+- `feat/m3-court` is the one working branch. It also carries the coach page and the M7 scope (decision 2026-11-17). Its PR opens when M3's done-when is met.
+- `feat/m7-numbers` and `feat/coach-demo` are contained in `feat/m3-court`, so don't build on them.
+- Old worktrees exist at `../basketball-game-analyzer-m2` (`feat/m2-baseline`, merged) and `../basketball-game-analyzer-m3` (`feat/m3-train`, a stale local branch).
 
-### M0 (#1): done
+### M3 (#4): in progress
 
-- **Clips:** 31, not 32; the extra prior label file was a duplicate download. All are H.264, mostly 1080p50. Re-download with `scripts/fetch_highlights.sh` into `data/raw/` (gitignored).
-- **Shot files:** regenerated and cross-checked against the imported ones (`docs/m0-bootstrap.md`).
+- **Court keyframes:** labelled, 41 of 42 usable. The format is in `docs/architecture.md`, and the counts and time are in `docs/gold.md`. The labelling page is `/court` on the labeller; `?set=redo` opens the second-pass queue.
+- **Not started:** training. There is no `bga train`, no `configs/train/` and no `docs/train.md`.
 
-### M1 (#2): in progress
+### Demo site
 
-- **Decisions:** questions 1, 11, 12 and 14 are answered. The gold games are in `data/labels/gold.json`:
-  - `4XMD9FWmQws` PGE Start – Dziki, 2024/25;
-  - `OSp445e0mXU` Dziki – Legia, 2025/26;
-  - `1jDaJBkUGmc` Energa Trefl – Dziki, 2025/26;
-  - `Tnuscrm9RyU` Dziki – Zastal, 2026/27, held out.
+- **Live:** https://basketball-analyzer-demo.vercel.app hosts these pages:
 
-  That's 12 central shots, 121.7 s in total. All 198 shots of these clips have camera tags.
-- **Rosters:** 19 clubs × 3 seasons in `data/rosters/` (from `scripts/fetch_rosters.py`). Every clip side resolves to a roster file.
-- **Prefill, two stages:**
-  - Skalski's player model (`basketball-player-detection-3-ycjdo/4`) runs locally through Roboflow `inference` (`scripts/prefill_tracks.py`). ByteTrack on its boxes fragments badly: 752 tracklets for about 156 people.
-  - SAM 2.1 hiera-large on Modal fixes most of that, down to 190 tracks. The pieces are `src/bga/remote/sam2_prefill.py`, `scripts/extract_shot_frames.py` and `scripts/sam_to_tracks.py`.
-
-  The SAM tracks are imported into the gold label files with `scripts/import_prefill.py`.
-- **Labeller:** has track-level review. A filmstrip of 8 crops per track, plus these actions:
-
-  | Key | Action |
+  | Path | Page |
   |---|---|
-  | K | confirm |
-  | P | split |
-  | M | merge |
-  | ⇧Del | delete track |
-  | ⇧D | accept shot |
+  | `/`, `/analysis/` | Polish video and analysis pages |
+  | `/en/`, `/en/analysis/` | English editions |
+  | `/coach/`, `/en/coach/` | coach page (simulated data) |
+  | `/roadmap/` | roadmap |
 
-  Clicking a track jumps to it, and active time is logged per day in `meta.review_seconds`. The implementer's first pass is an auditable ops file per clip (`data/labels/review/<id>.ops.txt`, applied by `scripts/review_ops.py`; sheets from `scripts/track_sheets.py`). Only Legia shot 10 has had a first pass.
-- **Dry run:** Tomasz spent 29.9 min on Legia shot 10 and confirmed 9 of 16 tracks (commit `3d9765e`). The 90-minute budget cannot cover track review of 12 shots. Options A, B and C are on #2. **A is the working default but Tomasz has not confirmed it:** Tomasz reviews the held-out game, and the implementer does the full pass on the other 9 shots.
-- **Footage:** Tomasz finds jersey numbers hard to read in the YouTube highlights, which makes plan question 4 (full-game footage) relevant now.
-
-### Client demo
-
-This interrupted M1 on 2026-10-31; the decision is recorded.
-
-- **Live pages:**
-  - https://basketball-analyzer-demo.vercel.app shows two synchronised videos.
-  - https://basketball-analyzer-demo.vercel.app/analysis/ draws a live 2D analysis in the browser: nearest-defender coverage and the most open attacker, team shape and spacing, and player selection with speed and distance.
-
-  Both use three Warsaw shots of `OSp445e0mXU` (s2, s10, s19), each shot with independent control state.
-  An English edition sits at `/en/` and `/en/analysis/`, with a language link on every page (made on 2026-11-11 for Dziki's head coach, Marco Legovich; deployed the same day).
+  How each is built is in `docs/architecture.md`.
 - **Commands:**
-  - Build: `uv run --extra prefill --extra demo scripts/demo_web.py`. It caches number reads and homographies in `runs/demo/cache`, so re-renders take seconds.
-  - Publish: `scripts/deploy_demo.sh`. The Vercel CLI is logged in; the scope is `tomasz-kopackis-projects`.
-  - Serve locally: `uv run scripts/serve_demo.py`.
-  - Check before showing it: `uv run scripts/demo_audit.py` compares the teams and numbers the pages show with gold v0, and lists each wrong number with its frames.
-  - Page templates: `scripts/demo_page_video.html` and `scripts/demo_page_analysis.html`.
-  - Coach page (simulated data, live at https://basketball-analyzer-demo.vercel.app/coach/ and `/en/coach/` since 2026-11-11; `deploy_demo.sh` rebuilds it): `uv run scripts/coach_web.py` writes `/coach/` and `/en/coach/` from `data/fixtures/synthetic/`; regenerate the fixtures with `uv run scripts/synth_plays.py` (deterministic; `tests/test_synthetic_plays.py` fails if they drift). Template `scripts/coach_page.html`, strings `scripts/coach_strings.py`, insights `scripts/coach_insights.py`, format `docs/fixtures.md`.
-- **Status:** a showcase, not a pipeline layer, with no metrics row. Keep both pages working. If you change shared helpers (`scripts/demo_video.py`, `scripts/demo_web.py`), rebuild and check both pages.
+  - Publish: `scripts/deploy_demo.sh`. The Vercel CLI is logged in, with scope `tomasz-kopackis-projects`.
+  - Build the video and analysis pages: `uv run --extra prefill --extra demo scripts/demo_web.py`.
+  - Check before showing anyone: `uv run scripts/demo_audit.py`.
+- **Status:** a showcase, not a pipeline layer, with no metrics row. If you change shared helpers (`scripts/demo_video.py`, `scripts/demo_web.py`), rebuild and check every page.
 
 ## Findings: do not rediscover these
 
 - **Court model:** Skalski's `basketball-court-detection-2/14` maps the Warsaw hall well. It misplaces landmarks in Lublin (a consistent shift that RANSAC cannot catch) and mostly fails in Sopot. Check any hall with `scripts/qa_court_overlay.py`. M3 has to fine-tune it on every PLK hall.
+- **Court keyframes against the NBA model** (`scripts/probe_court_keyframes.py`, 35 usable keyframes, held-out game excluded): the model is a median 1.81 m off. By hall, the median is 0.7 m in Warsaw, 4.2 m in Sopot and 6.4 m at Tasomix Rosiek Stal.
+- **Homography sign:** the labeller saves H with h33 = 1, which flips its overall sign whenever the image origin lies above the floor's horizon. Decide "in front of the camera" at a floor point in the image (`bga.court.propagate.court_to_image`), never by the sign of a stored H or at a court point. From a low camera, part of the court is truly behind the camera (King 822).
+- **Propagation drift:** a keyframe carried through its shot reaches every frame. Round-trip drift is a median 0.25 m over 1 s and 0.47 m over 3 s, with outliers of 3.7 m (Warsaw shot 14, over 1 s) and 5.3 m (Sopot shot 3, over 3 s). Don't take whole propagated shots as labels without a drift gate.
+- **Keyframe residuals:** the saved courts fit Tomasz's dots to a median of 5.6 px rms, with 10–14 px on the worst frames (Lublin, the held-out game, Sopot). That may be lens distortion, which a homography cannot absorb.
 - **SAM drift:** SAM 2.1 drifts once a mask loses its player. The fusion therefore keeps SAM-only boxes only in gaps of up to 3 sampled frames.
 - **Number reader:** `basketball-jersey-numbers-ocr/3` is a SmolVLM fine-tune. Load it with `inference_models.AutoModel` on MPS and `max_new_tokens=4`: that takes it from 8.3 s to 2.0 s per crop. `inference` ≥ 1.8 dropped the notebook's `predict(img, prompt)` call; use `infer(img, prompt=...)`.
 - **Player positions:** the foot point (box bottom-centre) is unreliable when the box touches the bottom edge of the frame. The demo excludes those frames and clamps players, but not referees, to the 28 × 15 m court.
@@ -98,27 +74,19 @@ This interrupted M1 on 2026-10-31; the decision is recorded.
   - Gold labels need human review; prefill from a model under test is only a starting point.
   - No gold frame may appear in any training manifest.
   - No heuristic lands in a pipeline layer without a before/after row in `docs/metrics.md`. Demo and labelling aids are not layers.
-- **Git:** never push to `main` and never merge. Commit freely on `feat/*`.
+- **Git:** never push to `main` and never merge. Commit freely on `feat/*`. Tomasz squash-merges PRs; after each, record `main` into the next branch with a no-change merge (decision 2026-11-17).
+- **`docs/architecture.md`:** update it in the same commit as any change to what it describes, with ground truth only.
 - **Questions:** ask Tomasz only the plan's section 12 questions, as comments on the milestone issue, and proceed with the stated defaults.
 
 ## Next steps, in order
 
-1. **Post one short comment on #2** asking Tomasz three things, then proceed on the defaults:
-   - gold-set scope A, B or C (default A);
-   - plan question 4: does the club have full-game footage (Hudl Instat or Synergy)?
-   - to merge PR #11.
-2. **If A stands**, record it in `docs/decisions.md`, and change plan section 8 only through that dated entry.
-3. **Finish the implementer's pass on the 9 non-held-out shots.** For each shot:
-   - render filmstrip sheets with `scripts/track_sheets.py`;
-   - read them;
-   - write the ops file: merge, split, delete off-court people, team, number when legible, notes, and confirm when sure;
-   - apply it with `scripts/review_ops.py`;
-   - fill short gaps between confirmed boxes by interpolation;
-   - set `num_visible` where a number is legible.
-
-   Keep a ledger row for every sheet in `data/labels/sheet_ledger.tsv`. Also do a first pass on the 3 held-out shots before Tomasz sees them.
-4. **Box gold:** about 100 frames drawn evenly from the 12 shots. Tighten the boxes yourself; Tomasz spot-checks.
-5. **Number crops:** about 300, cut from boxes flagged `num_visible`. Label them on contact sheets of about 20 crops, with the ledger. Tomasz spot-checks 30.
-6. **Landmarks:** 6 frames per arena, prefilled by the court model, with high-RANSAC-residual points flagged. Tomasz corrects only the flagged points (about 20 min). Expect many flags outside Warsaw.
-7. **Tomasz's session or sessions** on the held-out game's track review. Read his time from `meta.review_seconds`.
-8. **Export and commit the gold set:** MOT gt, `identities.csv`, crop labels, landmark labels, with the held-out game marked. Then open the M1 PR with the time log, what fell short, and what M2 needs from Tomasz. Then M2.
+1. **Training setup:**
+   - `bga train --config`;
+   - `configs/train/`;
+   - weights under `weights/<layer>/<backend>/<name>@<hash8>/` with a `train.json`;
+   - `docs/train.md`;
+   - `tests/test_gold_leakage.py`.
+2. **Court training labels** from the 17 usable training keyframes: propagate them with a drift gate, and keep every gold clip out.
+3. **First RF-DETR keypoint fine-tune on Modal,** with the recipe in issue #4. Log the cost in `docs/costs.md`.
+4. **Court backend** with the fine-tuned weights, temporal smoothing within shots, then the per-arena reprojection-error row against the 24 gold keyframes. Score the held-out game once. Then open the M3 PR.
+5. **Waiting on Tomasz:** full-game footage (plan question 4) and the Modal spend cap (question 9).

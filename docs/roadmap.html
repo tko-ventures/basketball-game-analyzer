@@ -89,13 +89,13 @@
   <h1>basketball-game-analyzer: roadmap</h1>
   <p class="lede">The goal: from a PLK broadcast video of a Dziki game, know <strong>who is where on the court, for every frame</strong>.
     That means finding the players, telling the teams apart, following each player without mixing them up, reading their jersey numbers, and drawing everyone on a 2D FIBA court.</p>
-  <p class="sub">A summary of <code>docs/PLAN.md</code> (sections 2, 5, 8, 9 and 12) and <code>docs/decisions.md</code>. Status as of 2026-11-02; scope updated 2026-11-10 (appearance embeddings, layer 3b).</p>
+  <p class="sub">A summary of <code>docs/PLAN.md</code> (sections 2, 5, 8, 9 and 12) and <code>docs/decisions.md</code>. Status as of 2026-11-17; scope updated 2026-11-10 (appearance embeddings, layer 3b) and 2026-11-17 (number reading, M7).</p>
 
   <div class="now" aria-label="Where we are">
-    <div><b>Done</b>M0 repository, M1 gold set v0, client demo on Vercel</div>
-    <div><b>Now</b>M2 baseline scored (HOTA 0.60 dev, 0.65 held-out on gold v0); PR open</div>
-    <div><b>Waiting on you</b>merge PR #11, full-game footage, Modal spend cap</div>
-    <div><b>Next</b>M3: make the 2D court work in every PLK hall, not just Warsaw</div>
+    <div><b>Done</b>M0 repository, M1 gold set v0, M2 baseline (all on <code>main</code>); client demo and coach page on Vercel</div>
+    <div><b>Now</b>M3 court layer: all 42 court keyframes labelled (41 usable); next the training setup and the first court-model fine-tune</div>
+    <div><b>Waiting on you</b>full-game footage, Modal spend cap</div>
+    <div><b>Next</b>M4: detection fine-tuned on PLK frames</div>
   </div>
 
   <h2>The pipeline</h2>
@@ -122,8 +122,8 @@
   </div>
 
   <div class="timeline">
-    <article class="ms wait">
-      <header><h3>M0 · Repository bootstrap</h3><span class="badge wait">✓ Done · ⏳ merge pending</span>
+    <article class="ms done">
+      <header><h3>M0 · Repository bootstrap</h3><span class="badge done">✓ Done · merged</span>
         <span class="links"><a href="https://github.com/tko-ventures/basketball-game-analyzer/issues/1">#1</a> · <a href="https://github.com/tko-ventures/basketball-game-analyzer/pull/11">PR #11</a></span></header>
       <dl class="grid">
         <dt>Why</dt><dd>A clean start that copies no data from the old prototype, so every result can be reproduced from the repo alone.</dd>
@@ -133,7 +133,7 @@
     </article>
 
     <article class="ms done">
-      <header><h3>M1 · Gold set</h3><span class="badge done">✓ Done (v0) · in review</span>
+      <header><h3>M1 · Gold set</h3><span class="badge done">✓ Done (v0) · merged</span>
         <span class="links"><a href="https://github.com/tko-ventures/basketball-game-analyzer/issues/2">#2</a> · <a href="https://github.com/tko-ventures/basketball-game-analyzer/pull/12">PR #12</a></span></header>
       <dl class="grid">
         <dt>Why</dt><dd>Without a fixed answer key, nobody can tell whether a change helps. The old prototype piled up heuristics it never measured, so this plan measures before it changes anything.</dd>
@@ -144,8 +144,8 @@
     </article>
 
     <article class="ms done">
-      <header><h3>M2 · Walking skeleton and baseline</h3><span class="badge done">✓ Done · in review</span>
-        <span class="links"><a href="https://github.com/tko-ventures/basketball-game-analyzer/issues/3">#3</a> · branch <code>feat/m2-baseline</code></span></header>
+      <header><h3>M2 · Walking skeleton and baseline</h3><span class="badge done">✓ Done · merged</span>
+        <span class="links"><a href="https://github.com/tko-ventures/basketball-game-analyzer/issues/3">#3</a> · <a href="https://github.com/tko-ventures/basketball-game-analyzer/pull/13">PR #13</a></span></header>
       <dl class="grid">
         <dt>Why</dt><dd>Run Skalski's published stack end to end, unchanged, and score it. That gives the number every later change has to beat, and the framework to compare approaches.</dd>
         <dt>What</dt><dd>Swappable layers chosen in a config file, <code>bga run</code> and <code>bga eval</code>, metrics written to <code>docs/metrics.md</code>, radar videos, and a runner that sends GPU work to Modal.</dd>
@@ -154,14 +154,15 @@
       <div class="note">First row in <code>docs/metrics.md</code>: HOTA 0.60 on dev, 0.65 on held-out, AP50 0.91, numbers right on 48% of tracks. Tracking breaks people into 2 to 4 times too many identities (that is M6), and in Sopot a third of positions land off the court (that is M3).</div>
     </article>
 
-    <article class="ms">
-      <header><h3>M3 · Court layer</h3><span class="badge">○ Next</span>
+    <article class="ms active">
+      <header><h3>M3 · Court layer</h3><span class="badge active">● In progress</span>
         <span class="links"><a href="https://github.com/tko-ventures/basketball-game-analyzer/issues/4">#4</a></span></header>
       <dl class="grid">
         <dt>Why</dt><dd>The NBA court model works in Warsaw but misplaces lines in Lublin and mostly fails in Sopot, and every 2D position depends on it. This is the biggest visible gap for the client.</dd>
         <dt>What</dt><dd>Label court landmarks on frames from every PLK hall, retrain the court model on a rented GPU, and smooth it within each shot. This is also the first training run, so it brings training configs and the leakage test.</dd>
         <dt>Done when</dt><dd><strong>The reprojection error is reported per arena.</strong> Provisional target: under 0.5 m near the paint.</dd>
       </dl>
+      <div class="note">2026-11-17: you labelled all 42 court keyframes (41 usable) after the labelling page learned to use pins on painted lines and courts partly behind the camera. Against your keyframes the NBA court model is a median 1.8 m off, and 4 to 6 m in Sopot and Ostrów; it does best in Warsaw (0.7 m).</div>
     </article>
 
     <article class="ms">
@@ -239,7 +240,6 @@
   <table>
     <thead><tr><th>Question</th><th>Why it matters</th><th>Default until you answer</th></tr></thead>
     <tbody>
-      <tr><td>Merge PR #11</td><td>M1 and M2 are stacked on M0. Merging lets each later PR land on <code>main</code>.</td><td>Keep stacking branches.</td></tr>
       <tr><td>Full-game footage (Q4)</td><td>Jersey numbers are hard to read in highlights, even for a person. Hudl Instat or Synergy footage would help M7 and the gold set.</td><td>YouTube highlights.</td></tr>
       <tr><td>Modal spend cap (Q9)</td><td>M3 and M4 train on rented GPUs.</td><td>50 USD a month, cost logged per job.</td></tr>
       <tr><td>Re-ID model licence (Q15)</td><td>Roboflow's player-appearance models were trained on research-only datasets, and their weights carry no licence of their own.</td><td>Use them to measure and as a starting point, and train a PLK model alongside from openly licensed weights. Settle before anything is sold.</td></tr>
