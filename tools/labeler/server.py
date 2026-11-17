@@ -292,6 +292,13 @@ def _court_path(labels_dir: Path, stem: str) -> Path:
     return labels_dir / "court" / f"{stem}.json"
 
 
+def court_queue_path(labels_dir: Path, name: str = "") -> Path:
+    """queue.json, or queue_<name>.json for a named re-labelling set (/court?set=<name>)."""
+    if name and not re.fullmatch(r"[a-z0-9_]+", name):
+        raise ValueError(f"bad queue name {name!r}")
+    return labels_dir / "court" / (f"queue_{name}.json" if name else "queue.json")
+
+
 def load_court_labels(labels_dir: Path, stem: str) -> dict:
     """Court keyframe labels of one clip: {"clip", "frames": {frame: {H, fixed, status}}, "meta"}."""
     p = _court_path(labels_dir, stem)
@@ -460,7 +467,7 @@ def make_handler(app: App):
                 if u.path in ("/court", "/court/"):
                     return self._bytes((STATIC / "court.html").read_bytes(), "text/html; charset=utf-8")
                 if u.path == "/api/court/queue":
-                    qp = app.labels_dir / "court" / "queue.json"
+                    qp = court_queue_path(app.labels_dir, q.get("set", ""))
                     return self._json(json.loads(qp.read_text()) if qp.exists() else {"keyframes": []})
                 if u.path == "/api/court/labels":
                     return self._json(load_court_labels(app.labels_dir, q["clip"]))

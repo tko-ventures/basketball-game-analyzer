@@ -29,3 +29,12 @@ def test_safe_path_allows_symlinked_data_but_not_escapes():
         safe_path("../outside.mp4")
     with pytest.raises(PermissionError):
         safe_path("data/../../outside.mp4")
+
+
+def test_court_queue_names(tmp_path):
+    from tools.labeler.server import court_queue_path
+
+    assert court_queue_path(tmp_path).name == "queue.json"
+    assert court_queue_path(tmp_path, "redo").name == "queue_redo.json"
+    with pytest.raises(ValueError):
+        court_queue_path(tmp_path, "../x")
