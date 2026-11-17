@@ -145,3 +145,20 @@ A Game tab adds totals.
 - **Status:** a showcase, not a pipeline layer, so no metrics row. The insight rules (`scripts/coach_insights.py`) are demo rules on simulated data. Before any of them becomes a pipeline layer it needs a before/after row against gold like any other heuristic.
 - **Built:** with the other demo pages, at `/coach/` and `/en/coach/`, linked from both video pages. Deployed to Vercel production at Tomasz's request on 2026-11-11, after a coach-friendliness pass: every number is coloured from Dziki's side and explains itself when tapped, timeline legend, feedback steps, and layouts for a laptop and a tablet.
 
+
+## 2026-11-17: number reading, what M7 takes from an outside review
+
+Tomasz shared a jersey-number pipeline guide he worked out with Google's Gemini assistant (roster-constrained PARSeq scoring, kit-colour clustering, shear and CLAHE preprocessing, per-frame uniqueness). Most of it was already in layer 5. The implementer reviewed it against the plan and the demo's reads, and Tomasz agreed to the following.
+
+- **Adopted, as backends with their own configs and metrics rows in M7** (plan section 5, layer 5):
+  - `roster_logprob`: score roster numbers plus `unreadable` from the reader's probabilities and sum them per track, instead of decoding free text, filtering by roster afterwards and waiting for 3 equal reads. The sequence probability includes the end token and is renormalised over the candidates; the guide's division by length is not used.
+  - `covisible_assign`: teammates' tracks visible in the same frame cannot share a number, solved as an assignment per team and shot with an abstain option for each track. The guide's version runs per frame on already-aggregated scores and always assigns something; a wrong unique number is worse for the coach than none.
+  - `parseq` joins the reader bake-off, after Koshkina and Elder's jersey pipeline (CVPR Workshops 2024), fine-tuned from `baudm` weights on PLK crops. Their released models are trained on SoccerNet and hockey data and are not used.
+- **Not adopted:** kit colour clustering with k-means (the HSV colour cue was left behind with the prior repo; `siglip_kmeans` agrees with gold v0 on 1,513 of 1,515 demo boxes), test-time shear sweeps and CLAHE (the prior repo's crop preprocessing; slant, blur and contrast go into training augmentation), and the guide's football specifics (goalkeepers, 11 players on the floor).
+- **Check on the demo's reads, before building anything.** The demo already applies a greedy one-owner rule per frame (`scripts/demo_web.py`, `numbers_at`). A stricter uniqueness rule fixes none of its three wrong numbers, because the true owner of the wrong number is never confirmed in the same shot:
+  - Edge (#2) read as 8, shot 2: Kempa (#8) is not in the shot. Edge's reads over the game's three demo shots are 8 eleven times and 2 eleven times (shot 2: 8×4, 2×1; shot 10: 2×7, 8×1; shot 19: 8×6, 2×3), so pooling across shots ties as well. The 2/8 confusion is systematic for this kit and font.
+  - Oguama (#25) read as 8, shot 10: his reads are 8×3, 11, 27; 25 is never read. Kempa's track in that shot has no reads at all.
+  - Thompson (#25) shown as #3, shot 10: Pluta's track (#3) has one read, "4". Game-level pooling would fix this one: in shot 2 Thompson's track reads 25 five times out of nine, which the demo's 60% purity bar hid.
+  - In shot 19 two Dziki tracks tie at three reads of 4 each, and the owner rule gave #4 to the player gold has no number for. Per-read probabilities, not counts, are what would break such ties.
+
+  So the main fix stays a reader fine-tuned on PLK crops, with 2/8 well represented in the crop set. The roster vote and the assignment are worth measuring for confirmed fraction and wrong-confirmed count, not as the fix for these errors. This is an inspection of demo output, not a metrics row.
