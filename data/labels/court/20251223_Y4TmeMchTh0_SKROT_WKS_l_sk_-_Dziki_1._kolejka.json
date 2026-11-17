@@ -105,12 +105,15 @@
     ]
    },
    "status": "ok",
-   "saved_at": "2026-11-17T18:52:22"
+   "lines": [],
+   "fit_rms_px": null,
+   "fit_unc_px": null,
+   "saved_at": "2026-11-17T20:01:25"
   }
  },
  "meta": {
   "review_seconds": {
-   "2026-11-17": 130.0
+   "2026-11-17": 146.0
   }
  }
 }
