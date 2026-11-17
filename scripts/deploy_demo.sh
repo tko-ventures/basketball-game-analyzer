@@ -4,6 +4,7 @@
 #   scripts/deploy_demo.sh            # -> https://basketball-analyzer-demo.vercel.app
 #
 # Editions: Polish at / and /analysis/, English at /en/ and /en/analysis/ (both built by demo_web.py).
+# The coach page (/coach/, /en/coach/, simulated data) is rebuilt here by coach_web.py, so it is never stale.
 # Also publishes docs/roadmap.html as /roadmap/ (the plan at a glance; not linked from the demo pages).
 #
 # Uploads only the page, its videos, data and court image, with noindex headers (match footage, client demo).
@@ -13,6 +14,7 @@ cd "$(dirname "$0")/.."
 SCOPE="${VERCEL_SCOPE:-tomasz-kopackis-projects}"
 D=runs/demo/deploy/basketball-analyzer-demo
 mkdir -p "$D"
+uv run scripts/coach_web.py --out runs/demo/web
 rsync -a --delete --exclude .vercel --exclude vercel.json --exclude summary.json runs/demo/web/ "$D/"
 mkdir -p "$D/roadmap" && cp docs/roadmap.html "$D/roadmap/index.html"
 cat > "$D/vercel.json" <<'JSON'
