@@ -1,0 +1,175 @@
+{
+ "version": 2,
+ "clip": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+ "fps": 50.0,
+ "frame_count": 9718,
+ "width": 1920,
+ "height": 1080,
+ "stride": 5,
+ "meta": {
+  "season": "2025/26",
+  "home": {
+   "team": "Arriva LOTTO Twarde Pierniki",
+   "roster": "",
+   "kit": ""
+  },
+  "away": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=zZqAUytpmgc",
+  "title": "SKRÓT | Arriva LOTTO Twarde Pierniki - Dziki | 26. kolejka"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 350,
+   "camera": "unset"
+  },
+  {
+   "start": 351,
+   "end": 770,
+   "camera": "unset"
+  },
+  {
+   "start": 771,
+   "end": 1314,
+   "camera": "unset"
+  },
+  {
+   "start": 1315,
+   "end": 1606,
+   "camera": "unset"
+  },
+  {
+   "start": 1607,
+   "end": 1667,
+   "camera": "unset"
+  },
+  {
+   "start": 1668,
+   "end": 1942,
+   "camera": "unset"
+  },
+  {
+   "start": 1943,
+   "end": 2218,
+   "camera": "unset"
+  },
+  {
+   "start": 2219,
+   "end": 2599,
+   "camera": "unset"
+  },
+  {
+   "start": 2600,
+   "end": 2929,
+   "camera": "unset"
+  },
+  {
+   "start": 2930,
+   "end": 3247,
+   "camera": "unset"
+  },
+  {
+   "start": 3248,
+   "end": 3564,
+   "camera": "unset"
+  },
+  {
+   "start": 3565,
+   "end": 3854,
+   "camera": "unset"
+  },
+  {
+   "start": 3855,
+   "end": 4218,
+   "camera": "unset"
+  },
+  {
+   "start": 4219,
+   "end": 4534,
+   "camera": "unset"
+  },
+  {
+   "start": 4535,
+   "end": 4812,
+   "camera": "unset"
+  },
+  {
+   "start": 4813,
+   "end": 5092,
+   "camera": "unset"
+  },
+  {
+   "start": 5093,
+   "end": 5543,
+   "camera": "unset"
+  },
+  {
+   "start": 5544,
+   "end": 5891,
+   "camera": "unset"
+  },
+  {
+   "start": 5892,
+   "end": 6209,
+   "camera": "unset"
+  },
+  {
+   "start": 6210,
+   "end": 6642,
+   "camera": "unset"
+  },
+  {
+   "start": 6643,
+   "end": 7042,
+   "camera": "unset"
+  },
+  {
+   "start": 7043,
+   "end": 7373,
+   "camera": "unset"
+  },
+  {
+   "start": 7374,
+   "end": 7684,
+   "camera": "unset"
+  },
+  {
+   "start": 7685,
+   "end": 8016,
+   "camera": "unset"
+  },
+  {
+   "start": 8017,
+   "end": 8384,
+   "camera": "unset"
+  },
+  {
+   "start": 8385,
+   "end": 8799,
+   "camera": "unset"
+  },
+  {
+   "start": 8800,
+   "end": 9115,
+   "camera": "unset"
+  },
+  {
+   "start": 9116,
+   "end": 9590,
+   "camera": "unset"
+  },
+  {
+   "start": 9591,
+   "end": 9717,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-10-29T20:46:32"
+}

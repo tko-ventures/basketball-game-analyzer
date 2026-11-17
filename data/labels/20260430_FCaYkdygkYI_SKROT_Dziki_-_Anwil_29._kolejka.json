@@ -1,0 +1,155 @@
+{
+ "version": 2,
+ "clip": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+ "fps": 50.0,
+ "frame_count": 9253,
+ "width": 1920,
+ "height": 1080,
+ "stride": 5,
+ "meta": {
+  "season": "2025/26",
+  "home": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
+  "away": {
+   "team": "Anwil",
+   "roster": "",
+   "kit": ""
+  },
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=FCaYkdygkYI",
+  "title": "SKRÓT | Dziki - Anwil | 29. kolejka"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 318,
+   "camera": "unset"
+  },
+  {
+   "start": 319,
+   "end": 855,
+   "camera": "unset"
+  },
+  {
+   "start": 856,
+   "end": 1166,
+   "camera": "unset"
+  },
+  {
+   "start": 1167,
+   "end": 1639,
+   "camera": "unset"
+  },
+  {
+   "start": 1640,
+   "end": 1957,
+   "camera": "unset"
+  },
+  {
+   "start": 1958,
+   "end": 2307,
+   "camera": "unset"
+  },
+  {
+   "start": 2308,
+   "end": 2719,
+   "camera": "unset"
+  },
+  {
+   "start": 2720,
+   "end": 3114,
+   "camera": "unset"
+  },
+  {
+   "start": 3115,
+   "end": 3491,
+   "camera": "unset"
+  },
+  {
+   "start": 3492,
+   "end": 3799,
+   "camera": "unset"
+  },
+  {
+   "start": 3800,
+   "end": 4093,
+   "camera": "unset"
+  },
+  {
+   "start": 4094,
+   "end": 4470,
+   "camera": "unset"
+  },
+  {
+   "start": 4471,
+   "end": 4879,
+   "camera": "unset"
+  },
+  {
+   "start": 4880,
+   "end": 5310,
+   "camera": "unset"
+  },
+  {
+   "start": 5311,
+   "end": 5360,
+   "camera": "unset"
+  },
+  {
+   "start": 5361,
+   "end": 5699,
+   "camera": "unset"
+  },
+  {
+   "start": 5700,
+   "end": 6168,
+   "camera": "unset"
+  },
+  {
+   "start": 6169,
+   "end": 6451,
+   "camera": "unset"
+  },
+  {
+   "start": 6452,
+   "end": 6852,
+   "camera": "unset"
+  },
+  {
+   "start": 6853,
+   "end": 7207,
+   "camera": "unset"
+  },
+  {
+   "start": 7208,
+   "end": 7631,
+   "camera": "unset"
+  },
+  {
+   "start": 7632,
+   "end": 8127,
+   "camera": "unset"
+  },
+  {
+   "start": 8128,
+   "end": 8505,
+   "camera": "unset"
+  },
+  {
+   "start": 8506,
+   "end": 9102,
+   "camera": "unset"
+  },
+  {
+   "start": 9103,
+   "end": 9252,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-10-29T20:47:11"
+}

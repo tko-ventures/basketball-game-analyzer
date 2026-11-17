@@ -1,0 +1,505 @@
+{
+ "version": 2,
+ "clip": "data/raw/20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu.mp4",
+ "fps": 50.0,
+ "frame_count": 30160,
+ "width": 1920,
+ "height": 1080,
+ "stride": 5,
+ "meta": {
+  "season": "2024/25",
+  "home": {
+   "team": "PGE Start",
+   "roster": "",
+   "kit": ""
+  },
+  "away": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": ""
+  },
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=4XMD9FWmQws",
+  "title": "PGE Start 🆚 Dziki | Skrót meczu"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 607,
+   "camera": "unset"
+  },
+  {
+   "start": 608,
+   "end": 1281,
+   "camera": "unset"
+  },
+  {
+   "start": 1282,
+   "end": 1393,
+   "camera": "unset"
+  },
+  {
+   "start": 1394,
+   "end": 1901,
+   "camera": "unset"
+  },
+  {
+   "start": 1902,
+   "end": 2476,
+   "camera": "unset"
+  },
+  {
+   "start": 2477,
+   "end": 2590,
+   "camera": "unset"
+  },
+  {
+   "start": 2591,
+   "end": 3072,
+   "camera": "unset"
+  },
+  {
+   "start": 3073,
+   "end": 3432,
+   "camera": "unset"
+  },
+  {
+   "start": 3433,
+   "end": 3482,
+   "camera": "unset"
+  },
+  {
+   "start": 3483,
+   "end": 3562,
+   "camera": "unset"
+  },
+  {
+   "start": 3563,
+   "end": 3980,
+   "camera": "unset"
+  },
+  {
+   "start": 3981,
+   "end": 4086,
+   "camera": "unset"
+  },
+  {
+   "start": 4087,
+   "end": 4504,
+   "camera": "unset"
+  },
+  {
+   "start": 4505,
+   "end": 4943,
+   "camera": "unset"
+  },
+  {
+   "start": 4944,
+   "end": 5032,
+   "camera": "unset"
+  },
+  {
+   "start": 5033,
+   "end": 5390,
+   "camera": "unset"
+  },
+  {
+   "start": 5391,
+   "end": 5743,
+   "camera": "unset"
+  },
+  {
+   "start": 5744,
+   "end": 5883,
+   "camera": "unset"
+  },
+  {
+   "start": 5884,
+   "end": 6452,
+   "camera": "unset"
+  },
+  {
+   "start": 6453,
+   "end": 7134,
+   "camera": "unset"
+  },
+  {
+   "start": 7135,
+   "end": 7404,
+   "camera": "unset"
+  },
+  {
+   "start": 7405,
+   "end": 7756,
+   "camera": "unset"
+  },
+  {
+   "start": 7757,
+   "end": 8128,
+   "camera": "unset"
+  },
+  {
+   "start": 8129,
+   "end": 8457,
+   "camera": "unset"
+  },
+  {
+   "start": 8458,
+   "end": 8553,
+   "camera": "unset"
+  },
+  {
+   "start": 8554,
+   "end": 9017,
+   "camera": "unset"
+  },
+  {
+   "start": 9018,
+   "end": 9484,
+   "camera": "unset"
+  },
+  {
+   "start": 9485,
+   "end": 9611,
+   "camera": "unset"
+  },
+  {
+   "start": 9612,
+   "end": 10031,
+   "camera": "unset"
+  },
+  {
+   "start": 10032,
+   "end": 10553,
+   "camera": "unset"
+  },
+  {
+   "start": 10554,
+   "end": 11041,
+   "camera": "unset"
+  },
+  {
+   "start": 11042,
+   "end": 11128,
+   "camera": "unset"
+  },
+  {
+   "start": 11129,
+   "end": 11676,
+   "camera": "unset"
+  },
+  {
+   "start": 11677,
+   "end": 12100,
+   "camera": "unset"
+  },
+  {
+   "start": 12101,
+   "end": 12244,
+   "camera": "unset"
+  },
+  {
+   "start": 12245,
+   "end": 12557,
+   "camera": "unset"
+  },
+  {
+   "start": 12558,
+   "end": 12686,
+   "camera": "unset"
+  },
+  {
+   "start": 12687,
+   "end": 13103,
+   "camera": "unset"
+  },
+  {
+   "start": 13104,
+   "end": 13216,
+   "camera": "unset"
+  },
+  {
+   "start": 13217,
+   "end": 13746,
+   "camera": "unset"
+  },
+  {
+   "start": 13747,
+   "end": 13819,
+   "camera": "unset"
+  },
+  {
+   "start": 13820,
+   "end": 14311,
+   "camera": "unset"
+  },
+  {
+   "start": 14312,
+   "end": 14851,
+   "camera": "unset"
+  },
+  {
+   "start": 14852,
+   "end": 14904,
+   "camera": "unset"
+  },
+  {
+   "start": 14905,
+   "end": 15405,
+   "camera": "unset"
+  },
+  {
+   "start": 15406,
+   "end": 15465,
+   "camera": "unset"
+  },
+  {
+   "start": 15466,
+   "end": 15777,
+   "camera": "unset"
+  },
+  {
+   "start": 15778,
+   "end": 16088,
+   "camera": "unset"
+  },
+  {
+   "start": 16089,
+   "end": 16627,
+   "camera": "unset"
+  },
+  {
+   "start": 16628,
+   "end": 17063,
+   "camera": "unset"
+  },
+  {
+   "start": 17064,
+   "end": 17142,
+   "camera": "unset"
+  },
+  {
+   "start": 17143,
+   "end": 17457,
+   "camera": "unset"
+  },
+  {
+   "start": 17458,
+   "end": 17694,
+   "camera": "unset"
+  },
+  {
+   "start": 17695,
+   "end": 18196,
+   "camera": "unset"
+  },
+  {
+   "start": 18197,
+   "end": 18378,
+   "camera": "unset"
+  },
+  {
+   "start": 18379,
+   "end": 18521,
+   "camera": "unset"
+  },
+  {
+   "start": 18522,
+   "end": 18597,
+   "camera": "unset"
+  },
+  {
+   "start": 18598,
+   "end": 18756,
+   "camera": "unset"
+  },
+  {
+   "start": 18757,
+   "end": 19074,
+   "camera": "unset"
+  },
+  {
+   "start": 19075,
+   "end": 19190,
+   "camera": "unset"
+  },
+  {
+   "start": 19191,
+   "end": 19719,
+   "camera": "unset"
+  },
+  {
+   "start": 19720,
+   "end": 20273,
+   "camera": "unset"
+  },
+  {
+   "start": 20274,
+   "end": 20785,
+   "camera": "unset"
+  },
+  {
+   "start": 20786,
+   "end": 21243,
+   "camera": "unset"
+  },
+  {
+   "start": 21244,
+   "end": 21680,
+   "camera": "unset"
+  },
+  {
+   "start": 21681,
+   "end": 21814,
+   "camera": "unset"
+  },
+  {
+   "start": 21815,
+   "end": 22568,
+   "camera": "unset"
+  },
+  {
+   "start": 22569,
+   "end": 22678,
+   "camera": "unset"
+  },
+  {
+   "start": 22679,
+   "end": 23039,
+   "camera": "unset"
+  },
+  {
+   "start": 23040,
+   "end": 23089,
+   "camera": "unset"
+  },
+  {
+   "start": 23090,
+   "end": 23411,
+   "camera": "unset"
+  },
+  {
+   "start": 23412,
+   "end": 23775,
+   "camera": "unset"
+  },
+  {
+   "start": 23776,
+   "end": 23880,
+   "camera": "unset"
+  },
+  {
+   "start": 23881,
+   "end": 24273,
+   "camera": "unset"
+  },
+  {
+   "start": 24274,
+   "end": 24423,
+   "camera": "unset"
+  },
+  {
+   "start": 24424,
+   "end": 24925,
+   "camera": "unset"
+  },
+  {
+   "start": 24926,
+   "end": 25000,
+   "camera": "unset"
+  },
+  {
+   "start": 25001,
+   "end": 25487,
+   "camera": "unset"
+  },
+  {
+   "start": 25488,
+   "end": 25997,
+   "camera": "unset"
+  },
+  {
+   "start": 25998,
+   "end": 26291,
+   "camera": "unset"
+  },
+  {
+   "start": 26292,
+   "end": 26405,
+   "camera": "unset"
+  },
+  {
+   "start": 26406,
+   "end": 26795,
+   "camera": "unset"
+  },
+  {
+   "start": 26796,
+   "end": 26888,
+   "camera": "unset"
+  },
+  {
+   "start": 26889,
+   "end": 27318,
+   "camera": "unset"
+  },
+  {
+   "start": 27319,
+   "end": 27469,
+   "camera": "unset"
+  },
+  {
+   "start": 27470,
+   "end": 28032,
+   "camera": "unset"
+  },
+  {
+   "start": 28033,
+   "end": 28105,
+   "camera": "unset"
+  },
+  {
+   "start": 28106,
+   "end": 28603,
+   "camera": "unset"
+  },
+  {
+   "start": 28604,
+   "end": 28792,
+   "camera": "unset"
+  },
+  {
+   "start": 28793,
+   "end": 28885,
+   "camera": "unset"
+  },
+  {
+   "start": 28886,
+   "end": 29156,
+   "camera": "unset"
+  },
+  {
+   "start": 29157,
+   "end": 29526,
+   "camera": "unset"
+  },
+  {
+   "start": 29527,
+   "end": 29723,
+   "camera": "unset"
+  },
+  {
+   "start": 29724,
+   "end": 30011,
+   "camera": "unset"
+  },
+  {
+   "start": 30012,
+   "end": 30159,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-10-29T20:47:11"
+}

@@ -1,0 +1,33 @@
+# YouTube ids of the 31 Dziki highlight clips (from the prior repo shot files, 2026-10-29)
+# id	upload_date	title
+d5lCDxjy1R4	20241013	Skrót meczu | Anwil Włocławek - Dziki Warszawa 79:70
+s0Awx_WZCt0	20241028	skrót meczu Anwil Włocławek - Dziki Warszawa 79:70
+OmvWaQKu3rU	20241219	MKS Dąbrowa Górnicza - Dziki Warszawa | Skrót meczu 🎞️
+4XMD9FWmQws	20250213	PGE Start 🆚 Dziki | Skrót meczu
+MbcSmlYfB-8	20251023	Skrót spotkania Górnik Zamek Książ Wałbrzych-Dziki Warszawa
+kW4HG-5MLNM	20251113	SKRÓT | Dziki - King | 8. kolejka
+jXhvXy9iQeQ	20251123	SKRÓT | Legia - Dziki | 9. kolejka
+vevXM24gp3U	20251219	SKRÓT | Energa Czarni - Dziki | 12. kolejka
+Y4TmeMchTh0	20251223	SKRÓT | WKS Śląsk - Dziki | 1. kolejka
+TUtBwzsraKs	20251228	SKRÓT | Dziki - Tasomix Rosiek Stal | 13. kolejka
+SswWgXybNB8	20260117	SKRÓT | Dziki - WKS Śląsk | 16. kolejka
+lwxZaHLNDmU	20260125	SKRÓT | Dziki - Miasto Szkła | 17. kolejka
+sZ5Rab-32uk	20260308	SKRÓT | Dziki - AMW Arka | 21. kolejka
+cG4oqryldrw	20260313	SKRÓT | MKS - Dziki | 22. kolejka
+hFWL47plFQI	20260317	SKRÓT MECZU 13.03.2026 I MKS DG vs DZIKI WARSZAWA
+hUoD7ptXzCE	20260321	SKRÓT | King - Dziki | 23. kolejka
+OSp445e0mXU	20260328	SKRÓT | Dziki - Legia | 24. kolejka
+-MurBVifFFQ	20260404	SKRÓT | Dziki - PGE Start | 25. kolejka
+zZqAUytpmgc	20260410	SKRÓT | Arriva LOTTO Twarde Pierniki - Dziki | 26. kolejka
+xTfkhQ0wO20	20260418	SKRÓT | Dziki - Energa Czarni | 27. kolejka
+enJCkGVWlHI	20260425	SKRÓT | Tasomix Rosiek Stal - Dziki | 28. kolejka
+FCaYkdygkYI	20260430	SKRÓT | Dziki - Anwil | 29. kolejka
+yN_-DqS3Y_s	20260507	SKRÓT | ORLEN Zastal - Dziki | 30. kolejka
+1jDaJBkUGmc	20260514	SKRÓT | Energa Trefl - Dziki | 1. mecz 1/4 play-off
+EExZbLxgez4	20260516	SKRÓT | Energa Trefl - Dziki | 2. mecz 1/4 play-off
+BEFym3rFSOw	20260521	SKRÓT | Dziki - Energa Trefl | 4. mecz 1/4 play-off
+l7VkOarkFZk	20260529	SKRÓT | Legia - Dziki | 2. mecz półfinału
+qb1y4Jz5AkA	20260601	SKRÓT | Dziki - Legia | 3. mecz półfinału
+FbwQDVu5Tw8	20260609	SKRÓT | AMW Arka - Dziki | 1. mecz o 3. miejsce
+DJ6xFaC0Neo	20260612	SKRÓT | Dziki - AMW Arka | 2. mecz o 3. miejsce
+Tnuscrm9RyU	20260926	SKRÓT | Dziki - Zastal | półfinał Superpucharu Polski
