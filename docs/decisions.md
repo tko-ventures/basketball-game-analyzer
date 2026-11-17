@@ -178,3 +178,13 @@ Tomasz shared a jersey-number pipeline guide he worked out with Google's Gemini 
 
   Two fixes followed: pins on painted lines, and a fold check limited to the dots and pins. Tomasz then redid 24 keyframes, and 41 of 42 are usable. These are labelling-aid changes, not a layer, so they need no metrics row.
 - **`docs/architecture.md`** records what is built, ground truth only. Every commit that changes what it describes updates it (`CLAUDE.md`).
+
+## 2026-11-17: M3 lands in two pull requests
+
+Tomasz asked to tidy every branch other than `main`. M3's done-when (a per-arena reprojection-error row) is several days away, so `feat/m3-court` goes to `main` now as **M3 part 1**. That PR references #4 but does not close it. It carries:
+- the court keyframes and the court labelling page;
+- the propagation fixes;
+- the coach page and the M7 scope;
+- the docs, including `docs/architecture.md`.
+
+After the squash, the court-model work continues on a fresh branch from `main`, and its PR closes #4. This bends the one-pull-request-per-milestone rule for M3 only.
