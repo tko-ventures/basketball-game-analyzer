@@ -1,0 +1,34 @@
+name: plk-v1
+layer: court
+backend: rfdetr_keypoint
+description: >
+  First PLK court keypoint model: RF-DETR Keypoint (preview, XLarge) from its COCO-pose checkpoint,
+  fine-tuned on Roboflow's NBA court set (version 20, 576 px, no baked augmentation) plus the 17 PLK
+  training keyframes from 12 halls and the propagated frames next to them that pass the line gate
+  (scripts/court_train_manifest.py). Validation adds three held-out PLK keyframes (King, Legia,
+  WKS Slask) to the NBA valid split. Recipe as in the June 2026 keypoint post. No gold clip is used.
+base_weights:
+  name: rf-detr-keypoint-preview-xlarge.pth
+  url: https://repo.roboflow.com/rfdetr/rf-detr-keypoint-preview-xlarge.pth
+  licence: Apache-2.0
+package: rfdetr[train]==1.12.1
+sources:
+  - kind: roboflow
+    ref: roboflow-jvuqo/basketball-court-detection-2/20
+    licence: CC-BY-4.0
+  - kind: manifest
+    path: data/labels/court/train_manifest_plk-v1.json
+    sha256: a9fbf8cc886e9d67c54df7b1c24f85aca6d28d6799ab6ffed41ecb519e507c24
+    image_width: 1280
+recipe:
+  resolution: 576
+  epochs: 50
+  batch_size: 2
+  grad_accum_steps: 2
+  lr: 0.0001
+  seed: 0
+  select_on: val/keypoint_map_50_95
+platform:
+  name: modal
+  gpu: L40S
+  timeout_h: 6

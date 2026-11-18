@@ -8,6 +8,7 @@ bga backends
 from __future__ import annotations
 
 import datetime as dt
+import json
 import logging
 import math
 from pathlib import Path
@@ -136,6 +137,32 @@ def radar(
     cfg.layers["shots"].params["held_out"] = "only" if held_out else "exclude"
     for s in pipeline.run(cfg, only=seq or None):
         typer.echo(render(cfg, s))
+
+
+@app.command()
+def train(
+    config: Annotated[Path, typer.Option(help="configs/train/<layer>-<backend>-<name>.yaml")],
+    build_only: Annotated[bool, typer.Option(help="build and check the dataset, do not train")] = False,
+    collect: Annotated[bool, typer.Option(help="only pull a finished run's outputs into weights/")] = False,
+    verbose: bool = False,
+) -> None:
+    """Fine-tune on the config's platform; weights land in weights/<layer>/<backend>/<name>@<hash8>/."""
+    from bga.train import run as train_run
+    from bga.train.config import load_train_config
+
+    _setup_logging(verbose)
+    cfg = load_train_config(config)
+    if config.name != f"{cfg.layer}-{cfg.backend}-{cfg.name}.yaml":
+        raise typer.BadParameter(f"file name must be {cfg.layer}-{cfg.backend}-{cfg.name}.yaml")
+    typer.echo(f"weight id {cfg.weight_id()}")
+    if not collect:
+        info = train_run.build(cfg)
+        typer.echo(json.dumps(info["counts"], indent=1))
+        if build_only:
+            return
+        result = train_run.launch(cfg)
+        typer.echo(json.dumps(result, indent=1))
+    typer.echo(f"weights in {train_run.collect(cfg)}")
 
 
 @app.command()
