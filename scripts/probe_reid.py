@@ -20,6 +20,7 @@ Three questions, each answered with rank-1 (is the nearest candidate the same pl
 Runs outside the project environment, so the lock file stays as it is:
 
     uv run --no-project --python 3.12 --with reid==0.1.0 scripts/probe_reid.py
+
 """
 
 from __future__ import annotations
@@ -52,17 +53,15 @@ def load_sequences(gold: Path, raw: Path) -> list[dict]:
             if r["number"]:
                 number[int(r["tid"])] = r["number"]
         rows = np.loadtxt(d / "gt" / "gt.txt", delimiter=",", ndmin=2)
-        out.append(
-            {
-                "name": s["name"],
-                "game": s["clip"],
-                "video": raw / f"{s['clip']}.mp4",
-                "source_frames": [int(x) for x in (d / "frames.txt").read_text().split()],
-                # visibility 0.5 marks interpolated or occluded boxes; they are neither query nor candidate
-                "rows": rows[rows[:, 8] >= 1.0],
-                "number": number,
-            }
-        )
+        out.append({
+            "name": s["name"],
+            "game": s["clip"],
+            "video": raw / f"{s['clip']}.mp4",
+            "source_frames": [int(x) for x in (d / "frames.txt").read_text().split()],
+            # visibility 0.5 marks interpolated or occluded boxes; they are neither query nor candidate
+            "rows": rows[rows[:, 8] >= 1.0],
+            "number": number,
+        })
     return out
 
 
@@ -84,7 +83,11 @@ def read_frames(video: Path, wanted: list[int]) -> dict[int, np.ndarray]:
 
 
 def embed(seqs: list[dict], names: list[str]) -> tuple[dict, dict[str, np.ndarray], dict[str, float]]:
-    """Embed every clean gold box with every model. Returns box metadata, embeddings and ms per crop."""
+    """Embed every clean gold box with every model.
+
+    Returns box metadata, embeddings and ms per crop.
+
+    """
     import supervision as sv
     from reid import ReIDModel
 
@@ -168,10 +171,7 @@ def reassoc(meta: dict, emb: np.ndarray | None, fps: int) -> dict:
                         cand = later if pool == "all" else later[meta["cls"][later] == meta["cls"][q]]
                         if len(cand) < 2:
                             continue
-                        if emb is None:
-                            d = np.linalg.norm(xy[cand] - xy[q], axis=1)
-                        else:
-                            d = 1 - emb[cand] @ emb[q]
+                        d = np.linalg.norm(xy[cand] - xy[q], axis=1) if emb is None else 1 - emb[cand] @ emb[q]
                         scores[(g, pool)].add(d, int(np.flatnonzero(meta["tid"][cand] == meta["tid"][q])[0]))
     return {f"{g}s_{pool}": s.summary() for (g, pool), s in scores.items()}
 

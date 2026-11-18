@@ -1,6 +1,7 @@
 """All gold-set scores for one run config (plan section 8): tracking, detection AP, team, speed.
 
 Reads the run's layer outputs and data/gold/<version>; computes nothing a layer computed itself.
+
 """
 
 from __future__ import annotations
@@ -21,13 +22,32 @@ from bga.stage import Sequence
 
 
 def read_gt(root: Path, name: str) -> tuple[list[int], dict[int, list[tuple]], dict[str, dict]]:
+    """Read one exported gold sequence back from its MOTChallenge files.
+
+    Args:
+        root: Gold version directory (``data/gold/<version>``).
+        name: Sequence name.
+
+    Returns:
+        The source frame grid, gold boxes ``(tid, x1, y1, x2, y2, class)`` per source frame, and the
+        ``identities.csv`` row per track id.
+
+    Examples:
+        >>> import tempfile
+        >>> from bga.eval.gold import Sequence as GoldSequence, write_sequence
+        >>> seq = GoldSequence("s", "c", 0, False, [100, 105], [(2, 4, 1, 0, 10, 20, 1, 1, 1.0)], {"4": {}})
+        >>> with tempfile.TemporaryDirectory() as d:
+        ...     write_sequence(seq, Path(d), {}, 50.0, 5, (1920, 1080))
+        ...     grid, per, ids = read_gt(Path(d), "s")
+        >>> grid, dict(per), sorted(ids)
+        ([100, 105], {105: [(4, 1.0, 0.0, 11.0, 20.0, 1)]}, ['4'])
+
+    """
     grid = [int(x) for x in (root / name / "frames.txt").read_text().split()]
     per = defaultdict(list)
     for line in (root / name / "gt" / "gt.txt").read_text().splitlines():
-        k, tid, x, y, w, h, _, cls, vis = line.split(",")
-        per[grid[int(k) - 1]].append(
-            (int(tid), float(x), float(y), float(x) + float(w), float(y) + float(h), int(cls))
-        )
+        k, tid, x, y, w, h, _, cls, _vis = line.split(",")
+        per[grid[int(k) - 1]].append((int(tid), float(x), float(y), float(x) + float(w), float(y) + float(h), int(cls)))
     ids = {}
     with (root / name / "identities.csv").open() as f:
         for row in csv.DictReader(f):
@@ -36,7 +56,25 @@ def read_gt(root: Path, name: str) -> tuple[list[int], dict[int, list[tuple]], d
 
 
 def match(gt: list[tuple], pred: list[list], thr: float = 0.5) -> list[tuple[int, int]]:
-    """Greedy one-to-one IoU matching (best first) of gold boxes to tracker rows."""
+    """Greedy one-to-one IoU matching (best first) of gold boxes to tracker rows.
+
+    Args:
+        gt: Gold boxes ``(tid, x1, y1, x2, y2, ...)``.
+        pred: Tracker rows ``[track_id, x1, y1, x2, y2, ...]``.
+        thr: Lowest IoU a pair may have.
+
+    Returns:
+        ``(gold index, tracker index)`` pairs, highest IoU first.
+
+    Examples:
+        >>> gt = [(1, 0, 0, 10, 10), (2, 20, 0, 30, 10)]
+        >>> pred = [[9, 21, 0, 31, 10], [8, 0, 0, 10, 10], [7, 100, 0, 110, 10]]
+        >>> match(gt, pred)
+        [(0, 1), (1, 0)]
+        >>> match(gt, [])
+        []
+
+    """
     if not gt or not pred:
         return []
     m = iou_matrix(np.array([g[1:5] for g in gt]), np.array([p[1:5] for p in pred]))
@@ -50,7 +88,22 @@ def match(gt: list[tuple], pred: list[list], thr: float = 0.5) -> list[tuple[int
 
 
 def box_ap50(cfg: RunConfig, runs: Path, seqs: list[Sequence], gold_root: Path) -> dict:
-    """Class-agnostic person AP50 (and AP50:95, unreliable on v0 geometry) on the box-gold frames."""
+    """Class-agnostic person AP50 (and AP50:95, unreliable on v0 geometry) on the box-gold frames.
+
+    Args:
+        cfg: Run config whose ``detect`` output is scored.
+        runs: Root of the run outputs.
+        seqs: Sequences of the run; box-gold frames outside them are skipped.
+        gold_root: Gold version directory holding ``boxes.json``.
+
+    Returns:
+        ``{"AP50", "AP50_95", "box_frames"}``; the APs are NaN when no frame or no detection is scored.
+
+    Examples:
+        >>> box_ap50(cfg, Path("runs"), seqs, Path("data/gold/v0"))  # doctest: +SKIP
+        {'AP50': ..., 'AP50_95': ..., 'box_frames': ...}
+
+    """
     from pycocotools.coco import COCO
     from pycocotools.cocoeval import COCOeval
 
@@ -65,27 +118,25 @@ def box_ap50(cfg: RunConfig, runs: Path, seqs: list[Sequence], gold_root: Path) 
         images.append({"id": img_id, "width": 1920, "height": 1080})
         for b in fr["boxes"]:
             x1, y1, x2, y2 = b["xyxy"]
-            anns.append(
-                {
-                    "id": len(anns) + 1,
-                    "image_id": img_id,
-                    "category_id": 1,
-                    "bbox": [x1, y1, x2 - x1, y2 - y1],
-                    "area": (x2 - x1) * (y2 - y1),
-                    "iscrowd": 0,
-                }
-            )
+            anns.append({
+                "id": len(anns) + 1,
+                "image_id": img_id,
+                "category_id": 1,
+                "bbox": [x1, y1, x2 - x1, y2 - y1],
+                "area": (x2 - x1) * (y2 - y1),
+                "iscrowd": 0,
+            })
         det = load_output(cfg, runs, seq, "detect")["frames"].get(str(fr["frame"]), [])
-        for d in det:
-            if d[5] in PERSON_CLASSES:
-                dets.append(
-                    {
-                        "image_id": img_id,
-                        "category_id": 1,
-                        "bbox": [d[0], d[1], d[2] - d[0], d[3] - d[1]],
-                        "score": d[4],
-                    }
-                )
+        dets.extend(
+            {
+                "image_id": img_id,
+                "category_id": 1,
+                "bbox": [d[0], d[1], d[2] - d[0], d[3] - d[1]],
+                "score": d[4],
+            }
+            for d in det
+            if d[5] in PERSON_CLASSES
+        )
     if not images or not dets:
         return {"AP50": float("nan"), "AP50_95": float("nan"), "box_frames": len(images)}
     gt = COCO()
@@ -104,7 +155,79 @@ def box_ap50(cfg: RunConfig, runs: Path, seqs: list[Sequence], gold_root: Path) 
     return {"AP50": float(ev.stats[1]), "AP50_95": float(ev.stats[0]), "box_frames": len(images)}
 
 
+def _match_votes(
+    grid: list[int], gt_per: dict[int, list[tuple]], tracks: dict, teams: dict
+) -> tuple[defaultdict[int, Counter], defaultdict[int, Counter]]:
+    """Per gold track, count the predicted teams and predicted tracks of its matched tracker rows."""
+    votes = defaultdict(Counter)  # gold track -> predicted team of its matched detections
+    owner = defaultdict(Counter)  # gold track -> predicted tracks it was matched to
+    for f in grid:
+        g, p = gt_per.get(f, []), tracks.get(str(f), [])
+        for gi, pi in match(g, p):
+            owner[g[gi][0]][p[pi][0]] += 1
+            di = p[pi][7]
+            if di >= 0 and str(f) in teams:
+                votes[g[gi][0]][teams[str(f)][di]] += 1
+    return votes, owner
+
+
+def _number_counts(nums: dict, ids: dict[str, dict], owner: defaultdict[int, Counter]) -> tuple[int, int, int]:
+    """Count gold players with a legible number, and how many of their main predicted tracks read it.
+
+    Returns ``(players, right number, any confirmed number)``; a player's main track is the one matched most often.
+
+    """
+    id_n = id_ok = id_confirmed = 0
+    for tid, ident in ids.items():
+        if not ident.get("number") or ident.get("team") not in ("home", "away"):
+            continue
+        id_n += 1
+        best = owner[int(tid)].most_common(1)
+        got = nums.get(str(best[0][0])) if best else None
+        id_confirmed += got is not None
+        id_ok += got == ident["number"]
+    return id_n, id_ok, id_confirmed
+
+
+def _team_counts(votes: defaultdict[int, Counter], ids: dict[str, dict]) -> tuple[int, int]:
+    """Count gold player tracks with team votes, and those whose majority vote is their gold team."""
+    team_n = team_ok = 0
+    for tid, v in votes.items():
+        truth = ids.get(str(tid), {}).get("team", "")
+        if truth in ("home", "away"):
+            team_n += 1
+            team_ok += v.most_common(1)[0][0] == truth
+    return team_n, team_ok
+
+
+def _collect_speeds(cfg: RunConfig, runs: Path, seq: Sequence, speed: defaultdict[str, list]) -> None:
+    """Append each layer's recorded ``ms_per_frame`` for ``seq`` to ``speed``."""
+    for layer in ("court", "detect", "team", "track", "numbers"):
+        if layer in cfg.layers and output_path(cfg, runs, seq, layer).exists():
+            ms = load_output(cfg, runs, seq, layer).get("ms_per_frame")
+            if ms is not None:
+                speed[layer].append(ms)
+
+
 def score(cfg: RunConfig, seqs: list[Sequence], runs: Path = Path("runs"), gold: str = "v0") -> dict:
+    """Compute every gold-set score of one run: tracking, team, numbers, churn, detection AP and speed.
+
+    Args:
+        cfg: Run config whose layer outputs are read.
+        seqs: Gold sequences the run covers.
+        runs: Root of the run outputs.
+        gold: Gold version under ``data/gold``.
+
+    Returns:
+        The :func:`~bga.eval.mot.evaluate` scores plus ``team_acc``, ``team_tracks``, the ``id_*`` scores when the
+        config has a numbers layer, churn summaries, box AP when ``boxes.json`` exists, ``ms`` per layer and the
+        sequence count.
+
+    Examples:
+        >>> sorted(score(cfg, seqs))  # doctest: +SKIP
+        ['AP50', 'AP50_95', 'AssA', 'DetA', 'HOTA', 'IDF1', 'IDSW', 'MOTA', ...]
+
+    """
     root = Path("data/gold") / gold
     mot, team_ok, team_n, churn_rows, speed = {}, 0, 0, [], defaultdict(list)
     id_n = id_ok = id_confirmed = 0
@@ -117,38 +240,18 @@ def score(cfg: RunConfig, seqs: list[Sequence], runs: Path = Path("runs"), gold:
         mot[seq.name] = (gt, pred)
         stride = seq.frames[1] - seq.frames[0] if len(seq.frames) > 1 else 1
         short = max(1, round(0.5 * seq.fps / stride))  # tracks living under 0.5 s
-        churn_rows.append(
-            compute_churn([[r[0] for r in tracks[str(f)]] for f in seq.frames], short_lived_frames=short)
-        )
-        votes = defaultdict(Counter)  # gold track -> predicted team of its matched detections
-        owner = defaultdict(Counter)  # gold track -> predicted tracks it was matched to
-        for f in grid:
-            g, p = gt_per.get(f, []), tracks.get(str(f), [])
-            for gi, pi in match(g, p):
-                owner[g[gi][0]][p[pi][0]] += 1
-                di = p[pi][7]
-                if di >= 0 and str(f) in teams:
-                    votes[g[gi][0]][teams[str(f)][di]] += 1
+        churn_rows.append(compute_churn([[r[0] for r in tracks[str(f)]] for f in seq.frames], short_lived_frames=short))
+        votes, owner = _match_votes(grid, gt_per, tracks, teams)
         if "numbers" in cfg.layers:
             nums = load_output(cfg, runs, seq, "numbers")["tracks"]
-            for tid, ident in ids.items():
-                if not ident.get("number") or ident.get("team") not in ("home", "away"):
-                    continue
-                id_n += 1
-                best = owner[int(tid)].most_common(1)
-                got = nums.get(str(best[0][0])) if best else None
-                id_confirmed += got is not None
-                id_ok += got == ident["number"]
-        for tid, v in votes.items():
-            truth = ids.get(str(tid), {}).get("team", "")
-            if truth in ("home", "away"):
-                team_n += 1
-                team_ok += v.most_common(1)[0][0] == truth
-        for layer in ("court", "detect", "team", "track", "numbers"):
-            if layer in cfg.layers and output_path(cfg, runs, seq, layer).exists():
-                ms = load_output(cfg, runs, seq, layer).get("ms_per_frame")
-                if ms is not None:
-                    speed[layer].append(ms)
+            seq_n, seq_ok, seq_confirmed = _number_counts(nums, ids, owner)
+            id_n += seq_n
+            id_ok += seq_ok
+            id_confirmed += seq_confirmed
+        seq_team_n, seq_team_ok = _team_counts(votes, ids)
+        team_n += seq_team_n
+        team_ok += seq_team_ok
+        _collect_speeds(cfg, runs, seq, speed)
     out = evaluate(mot)
     out["team_acc"] = team_ok / team_n if team_n else float("nan")
     out["team_tracks"] = team_n

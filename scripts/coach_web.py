@@ -11,6 +11,7 @@ watch the possessions, read the insights (scripts/coach_insights.py), give feedb
 notes addressed to players, kept in the browser, exported as text).
 
 The data is simulated (scripts/synth_plays.py) and the page says so. A showcase, not a pipeline layer.
+
 """
 
 from __future__ import annotations
@@ -21,8 +22,8 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from scripts.coach_insights import OPEN_M, analyse, summary  # noqa: E402
-from scripts.coach_strings import T  # noqa: E402
+from scripts.coach_insights import OPEN_M, analyse, summary
+from scripts.coach_strings import T
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURES = ROOT / "data/fixtures/synthetic"
@@ -49,7 +50,8 @@ def main(argv=None):
         base = a.out if lang == "pl" else a.out / lang
         other = "../../en/coach/" if lang == "pl" else "../../coach/"
         html = (
-            template.replace("__DATA__", blob)
+            template
+            .replace("__DATA__", blob)
             .replace("__T__", json.dumps(T[lang], ensure_ascii=False).replace("</", "<\\/"))
             .replace("{{lang}}", lang)
             .replace("{{title}}", T[lang]["title"])

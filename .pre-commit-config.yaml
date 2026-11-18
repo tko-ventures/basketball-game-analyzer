@@ -1,0 +1,42 @@
+# Pinned lint and format hooks, after Borda's pre-commit setups (e.g. Borda/AI-Rig).
+# Run hooks, not bare tools: `uv run pre-commit run --all-files`, or `uv run pre-commit run <hook-id> --files <path>`.
+
+exclude: ^(data|runs|weights|logs)/
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-json
+      - id: check-yaml
+      - id: check-toml
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+      - id: check-case-conflict
+      - id: check-added-large-files
+        args: ["--maxkb=1024"]
+      - id: detect-private-key
+      - id: check-merge-conflict
+      - id: mixed-line-ending
+        args: ["--fix=lf"]
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.5
+    hooks:
+      - id: ruff-check
+        args: ["--fix"]
+      - id: ruff-format
+
+  - repo: https://github.com/PyCQA/docformatter
+    rev: v1.7.8
+    hooks:
+      - id: docformatter
+        args: ["--in-place", "--config=pyproject.toml"]
+
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.3
+    hooks:
+      - id: codespell
+        # Report only: --write-changes once turned `bga.eval.mot` into `bga.eval.not`.

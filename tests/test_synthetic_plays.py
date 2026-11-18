@@ -1,5 +1,5 @@
-"""The synthetic coach-demo fixtures (scripts/synth_plays.py) stay well-formed, physically plausible, and
-keep showing what each play is built to show."""
+"""The synthetic coach-demo fixtures (scripts/synth_plays.py) stay well-formed, physically plausible, and keep showing
+what each play is built to show."""
 
 from __future__ import annotations
 
@@ -16,31 +16,38 @@ FIX = Path(__file__).resolve().parents[1] / "data/fixtures/synthetic"
 BUILT = {p.id: build(p) for p in plays()}
 
 
-def test_committed_fixtures_match_the_generator():
-    on_disk = {p.stem: json.loads(p.read_text()) for p in FIX.glob("*.json")}
-    assert set(on_disk) == set(BUILT)
-    for pid, doc in BUILT.items():
-        assert json.loads(json.dumps(doc, ensure_ascii=False)) == on_disk[pid], (
-            f"rerun scripts/synth_plays.py ({pid})"
-        )
+@pytest.fixture(scope="module")
+def on_disk() -> dict:
+    """The committed fixtures by play id."""
+    return {p.stem: json.loads(p.read_text()) for p in FIX.glob("*.json")}
+
+
+class TestCommittedFixtures:
+    def test_one_per_play(self, on_disk):
+        assert set(on_disk) == set(BUILT)
+
+    @pytest.mark.parametrize("pid", sorted(BUILT))
+    def test_match_the_generator(self, on_disk, pid):
+        doc = BUILT[pid]
+        assert json.loads(json.dumps(doc, ensure_ascii=False)) == on_disk[pid], f"rerun scripts/synth_plays.py ({pid})"
 
 
 @pytest.mark.parametrize("pid", sorted(BUILT))
 def test_schema_and_physics(pid):
     d = BUILT[pid]
     n = len(d["ball"])
-    assert d["schema"] == "bga.tracking2d/v0" and d["synthetic"] is True
+    assert d["schema"] == "bga.tracking2d/v0"
+    assert d["synthetic"] is True
     assert len(d["holder"]) == n
     teams = [p["team"] for p in d["players"]]
-    assert teams.count("home") == 5 and teams.count("away") == 5
+    assert teams.count("home") == 5
+    assert teams.count("away") == 5
     xy = np.stack([np.array(d["tracks"][p["id"]], float) / 100 for p in d["players"]], 1)  # (n, 10, 2)
     assert xy.shape == (n, 10, 2)
-    assert (
-        (xy[..., 0] >= 0).all()
-        and (xy[..., 0] <= 28).all()
-        and (xy[..., 1] >= 0).all()
-        and (xy[..., 1] <= 15).all()
-    )
+    assert (xy[..., 0] >= 0).all()
+    assert (xy[..., 0] <= 28).all()
+    assert (xy[..., 1] >= 0).all()
+    assert (xy[..., 1] <= 15).all()
     # sustained speed (0.4 s window) within what elite players reach, about 9.5 m/s
     step = np.linalg.norm(np.diff(xy, axis=0), axis=2) * d["fps"]
     k = np.ones(10) / 10
@@ -62,12 +69,16 @@ EXPECT = {  # play -> (offence, shot zone, openness at release, an open-player m
 
 @pytest.mark.parametrize("pid", sorted(EXPECT))
 def test_insights_show_the_point_of_the_play(pid):
-    side, zone, openness, moment = EXPECT[pid]
+    side, zone, openness, _ = EXPECT[pid]
     i = analyse(BUILT[pid])
     assert BUILT[pid]["offence"] == side
     assert (i["shot"]["zone"], i["shot"]["open"]) == (zone, openness)
-    if moment:
-        assert any((m["kind"], m.get("by")) == moment for m in i["moments"])
+
+
+@pytest.mark.parametrize("pid", sorted(pid for pid, expect in EXPECT.items() if expect[3]))
+def test_insights_show_the_open_player_moment(pid):
+    moment = EXPECT[pid][3]
+    assert any((m["kind"], m.get("by")) == moment for m in analyse(BUILT[pid])["moments"])
 
 
 def test_horns_shot_is_the_poor_one():

@@ -219,3 +219,19 @@ What changes in M6 (plan sections 2, 5, 9, 11 and 12):
 - the done-when line is unchanged: appearance metrics for the pretrained and the PLK encoder.
 
 If Roboflow publishes different terms for its encoders, question 15 reopens. Any other backbone would come in as a further training config behind the same layer 3b interface.
+
+## 2026-11-18: Python follows Borda's style
+
+Tomasz asked that the project's Python follow the style of Jirka Borovec ([Borda](https://github.com/Borda)), whom he names as the SME. The rules come from Borda's own published sources: his coding and testing rules in `Borda/AI-Rig` (`plugins/cc_foundry/rules/python-code.md` and `python-testing.md`, read at commit `30b7bb97`) and the ruff setups of `Borda/vision-synth` and `Borda/lucid-YOLO`. `CLAUDE.md` now has a "Python style" section that binds all new and changed code.
+
+What changed:
+- lint and format run through pinned pre-commit hooks;
+- ruff selects his rule set, with 120-character lines and Google docstrings;
+- every public function in `src/` has an `Examples:` doctest, and pytest runs them;
+- complexity limits are enforced;
+- the existing code was brought into line in one pass, with no change in behaviour.
+
+Three choices are ours, not his:
+- `scripts/` gets the exemptions he gives example and experiment scripts;
+- codespell only reports, because `--write-changes` rewrote `bga.eval.mot` to `bga.eval.not`;
+- the en dash and the multiplication sign are allowed in strings, for the Polish client text.

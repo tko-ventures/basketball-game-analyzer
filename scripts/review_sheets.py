@@ -12,6 +12,7 @@ Writes to runs/<clip>/review/s<shot>/:
   zoom_<tid>.jpg   (--zoom tid:frame,...) dense crops around a frame to place a split exactly.
 
 A labelling aid, not a pipeline layer: it only decides what the reviewer looks at.
+
 """
 
 from __future__ import annotations
@@ -26,7 +27,7 @@ import cv2
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from bga.review.sheets import contact_sheet  # noqa: E402
+from bga.review.sheets import contact_sheet
 
 TEAM_BGR = {"home": (240, 240, 240), "away": (60, 200, 60), "ref": (0, 200, 255), "other": (200, 0, 200)}
 
@@ -78,14 +79,16 @@ def crop(img: np.ndarray, b: dict, pad: float = 0.25) -> np.ndarray:
     w, h = x2 - x1, y2 - y1
     img = img.copy()  # the box itself is drawn, so the padding never hides whose crop it is
     cv2.rectangle(img, (x1, y1), (x2, y2), (0, 0, 255), max(1, h // 120))
-    return img[
-        max(0, int(y1 - h * pad / 2)) : int(y2 + h * pad / 2), max(0, int(x1 - w * pad)) : int(x2 + w * pad)
-    ]
+    return img[max(0, int(y1 - h * pad / 2)) : int(y2 + h * pad / 2), max(0, int(x1 - w * pad)) : int(x2 + w * pad)]
 
 
 def kit_votes(d: dict, tr: dict, frames: Frames, cache: Path) -> dict[tuple[str, int], str]:
-    """Light/dark kit per box: Skalski's TeamClassifier (SigLIP + UMAP + KMeans) fitted on this shot's
-    central box crops; the brighter cluster is "L". Cached per shot; a review aid, not the team layer."""
+    """Light/dark kit per box: Skalski's TeamClassifier (SigLIP + UMAP + KMeans) fitted on this shot's central box
+    crops; the brighter cluster is "L".
+
+    Cached per shot; a review aid, not the team layer.
+
+    """
     if cache.is_file():
         return {(t, int(f)): v for t, f, v in json.loads(cache.read_text())}
     from sports import TeamClassifier
@@ -143,9 +146,12 @@ def iou(a: dict, b: dict) -> float:
 
 def propose(d: dict, tr: dict, kits: dict, next_id: int, min_run: int = 8) -> list[str]:
     """Ops proposed from kit votes, for the reviewer to check on the sheets before applying:
+
     team by majority kit; an opposite-kit run of >= min_run boxes becomes its own identity (split if
     it runs to the end, move otherwise); a shorter run is cut when it has 3 or more boxes or overlaps
-    another track's box (contact: the box sits on the wrong player), else kept (classifier noise)."""
+    another track's box (contact: the box sits on the wrong player), else kept (classifier noise).
+
+    """
     side = {
         d["meta"]["home"].get("kit", "light")[0].upper(): "home",
         d["meta"]["away"].get("kit", "dark")[0].upper(): "away",
@@ -165,30 +171,35 @@ def propose(d: dict, tr: dict, kits: dict, next_id: int, min_run: int = 8) -> li
             continue
         major = max("LD", key=votes.count)
         ops.append(f"team {tid} {side.get(major, 'other')}  # kit {major} {votes.count(major)}/{len(votes)}")
-        r = runs_of(seq)
-        for i, (v, f0, n, f1) in enumerate(r):
-            if v == major or v == "?":
-                continue
-            if n >= min_run:
-                if i + 1 == len(r):
-                    ops.append(f"split {tid} {f0} {next_id}  # kit {v} x{n} at the end")
-                    ops.append(f"team {next_id} {side.get(v, 'other')}")
-                else:
-                    ops.append(f"move {tid} {f0} {f1} {next_id}  # kit {v} x{n} inside")
-                    ops.append(f"team {next_id} {side.get(v, 'other')}")
-                next_id += 1
-            else:
-                boxes = {fi: b for fi, b in obs}
-                contact = any(
-                    iou(boxes[fi], o) > 0.2
-                    for fi in boxes
-                    if f0 <= fi <= f1
-                    for o in d["frames"][str(fi)]["boxes"]
-                    if str(o["tid"]) != tid
-                )
-                if contact or n >= 3:
-                    ops.append(f"cut {tid} {f0} {f1}  # kit {v} x{n}{' in contact' if contact else ''}")
+        next_id = _odd_kit_runs(d, tid, obs, runs_of(seq), major, side, next_id, min_run, ops)
     return ops
+
+
+def _odd_kit_runs(d, tid, obs, r, major, side, next_id, min_run, ops):
+    """Append split, move or cut ops for one track's opposite-kit runs; returns the next free identity."""
+    for i, (v, f0, n, f1) in enumerate(r):
+        if v == major or v == "?":
+            continue
+        if n >= min_run:
+            if i + 1 == len(r):
+                ops.append(f"split {tid} {f0} {next_id}  # kit {v} x{n} at the end")
+                ops.append(f"team {next_id} {side.get(v, 'other')}")
+            else:
+                ops.append(f"move {tid} {f0} {f1} {next_id}  # kit {v} x{n} inside")
+                ops.append(f"team {next_id} {side.get(v, 'other')}")
+            next_id += 1
+        else:
+            boxes = dict(obs)
+            contact = any(
+                iou(boxes[fi], o) > 0.2
+                for fi in boxes
+                if f0 <= fi <= f1
+                for o in d["frames"][str(fi)]["boxes"]
+                if str(o["tid"]) != tid
+            )
+            if contact or n >= 3:
+                ops.append(f"cut {tid} {f0} {f1}  # kit {v} x{n}{' in contact' if contact else ''}")
+    return next_id
 
 
 def label(d: dict, tid: str) -> str:
@@ -232,73 +243,79 @@ def main(argv=None):
     only = set((a.only or ("zoom" if a.zoom else "overview,tracks")).split(","))
 
     if "overview" in only:
-        step = max(1, round(a.every_s * fps / 5)) * 5
-        picks = [k for k in keys if (k - keys[0]) % step == 0]
-        items = []
-        for k in picks:
-            img = frames(k).copy()
-            for b in d["frames"][str(k)]["boxes"]:
-                tid = str(b["tid"])
-                col = TEAM_BGR.get(d["identities"].get(tid, {}).get("team"), (0, 0, 255))
-                p1, p2 = (int(b["x1"]), int(b["y1"])), (int(b["x2"]), int(b["y2"]))
-                cv2.rectangle(img, p1, p2, col, 3)
-                cv2.putText(img, tid, (p1[0], p1[1] - 8), cv2.FONT_HERSHEY_SIMPLEX, 1.4, (0, 0, 0), 7)
-                cv2.putText(img, tid, (p1[0], p1[1] - 8), cv2.FONT_HERSHEY_SIMPLEX, 1.4, col, 3)
-            items.append((img, f"f{k}"))
-        for n in range(0, len(items), 4):
-            p = out / f"overview_{n // 4:02d}.jpg"
-            cv2.imwrite(
-                str(p),
-                contact_sheet(items[n : n + 4], cols=2, tile_wh=(960, 540)),
-                [cv2.IMWRITE_JPEG_QUALITY, 80],
-            )
-            print(p)
-
+        _overview_sheets(d, keys, frames, fps, a, out)
     if "tracks" in only:
-        rows = sorted(tr.items(), key=lambda kv: (kv[1][0][0], kv[0]))
-        for n in range(0, len(rows), a.tracks_per_sheet):
-            items = []
-            for tid, obs in rows[n : n + a.tracks_per_sheet]:
-                jf = jumps(obs, frames)
-                k = a.per_track
-                idx = sorted(
-                    {round(i * (len(obs) - 1) / (k - 1)) for i in range(k)}
-                    if len(obs) >= k
-                    else range(len(obs))
-                )
-                # Make sure the frames just before and at each jump are shown.
-                fidx = {fi: i for i, (fi, _) in enumerate(obs)}
-                for f in jf:
-                    idx = sorted(set(idx) | {fidx[f], max(0, fidx[f] - 1)})
-                idx = idx[: k + 2 * len(jf)]
-                for j, i in enumerate(idx[: k + 4]):
-                    fi, b = obs[i]
-                    mark = "!" if fi in jf else ""
-                    kit = kits.get((tid, fi), "?")
-                    cap = f"{label(d, tid)} {obs[0][0]}-{obs[-1][0]}" if j == 0 else f"{mark}{fi}{kit}"
-                    items.append((crop(frames(fi), b), cap))
-                for _ in range(len(idx[: k + 4]), k + 4):
-                    items.append((np.zeros((4, 4, 3), np.uint8), ""))
-            p = out / f"tracks_{n // a.tracks_per_sheet:02d}.jpg"
-            cv2.imwrite(
-                str(p),
-                contact_sheet(items, cols=a.per_track + 4, tile_wh=(130, 210), caption_h=18),
-                [cv2.IMWRITE_JPEG_QUALITY, 85],
-            )
-            print(p, [t for t, _ in rows[n : n + a.tracks_per_sheet]])
-
+        _track_sheets(d, tr, frames, kits, a, out)
     if "zoom" in only and a.zoom:
-        for spec in a.zoom.split(","):
-            tid, f = spec.split(":")
-            obs = tr[tid]
-            i0 = min(range(len(obs)), key=lambda i: abs(obs[i][0] - int(f)))
-            sel = obs[max(0, i0 - 6) : i0 + 6]
-            items = [(crop(frames(fi), b, 0.6), f"{tid} f{fi} {kits.get((tid, fi), '?')}") for fi, b in sel]
-            p = out / f"zoom_{tid}_{f}.jpg"
-            cv2.imwrite(
-                str(p), contact_sheet(items, cols=6, tile_wh=(240, 320)), [cv2.IMWRITE_JPEG_QUALITY, 85]
-            )
-            print(p)
+        _zoom_sheets(tr, frames, kits, a, out)
+
+
+def _overview_sheets(d, keys, frames, fps, a, out):
+    """Whole frames every --every-s seconds with each box and its identity, four per sheet."""
+    step = max(1, round(a.every_s * fps / 5)) * 5
+    picks = [k for k in keys if (k - keys[0]) % step == 0]
+    items = []
+    for k in picks:
+        img = frames(k).copy()
+        for b in d["frames"][str(k)]["boxes"]:
+            tid = str(b["tid"])
+            col = TEAM_BGR.get(d["identities"].get(tid, {}).get("team"), (0, 0, 255))
+            p1, p2 = (int(b["x1"]), int(b["y1"])), (int(b["x2"]), int(b["y2"]))
+            cv2.rectangle(img, p1, p2, col, 3)
+            cv2.putText(img, tid, (p1[0], p1[1] - 8), cv2.FONT_HERSHEY_SIMPLEX, 1.4, (0, 0, 0), 7)
+            cv2.putText(img, tid, (p1[0], p1[1] - 8), cv2.FONT_HERSHEY_SIMPLEX, 1.4, col, 3)
+        items.append((img, f"f{k}"))
+    for n in range(0, len(items), 4):
+        p = out / f"overview_{n // 4:02d}.jpg"
+        cv2.imwrite(
+            str(p),
+            contact_sheet(items[n : n + 4], cols=2, tile_wh=(960, 540)),
+            [cv2.IMWRITE_JPEG_QUALITY, 80],
+        )
+        print(p)
+
+
+def _track_sheets(d, tr, frames, kits, a, out):
+    """One row of crops per track, spread over its life and around each jump, --tracks-per-sheet rows per sheet."""
+    rows = sorted(tr.items(), key=lambda kv: (kv[1][0][0], kv[0]))
+    for n in range(0, len(rows), a.tracks_per_sheet):
+        items = []
+        for tid, obs in rows[n : n + a.tracks_per_sheet]:
+            jf = jumps(obs, frames)
+            k = a.per_track
+            idx = sorted({round(i * (len(obs) - 1) / (k - 1)) for i in range(k)} if len(obs) >= k else range(len(obs)))
+            # Make sure the frames just before and at each jump are shown.
+            fidx = {fi: i for i, (fi, _) in enumerate(obs)}
+            for f in jf:
+                idx = sorted(set(idx) | {fidx[f], max(0, fidx[f] - 1)})
+            idx = idx[: k + 2 * len(jf)]
+            for j, i in enumerate(idx[: k + 4]):
+                fi, b = obs[i]
+                mark = "!" if fi in jf else ""
+                kit = kits.get((tid, fi), "?")
+                cap = f"{label(d, tid)} {obs[0][0]}-{obs[-1][0]}" if j == 0 else f"{mark}{fi}{kit}"
+                items.append((crop(frames(fi), b), cap))
+            items.extend((np.zeros((4, 4, 3), np.uint8), "") for _ in range(len(idx[: k + 4]), k + 4))
+        p = out / f"tracks_{n // a.tracks_per_sheet:02d}.jpg"
+        cv2.imwrite(
+            str(p),
+            contact_sheet(items, cols=a.per_track + 4, tile_wh=(130, 210), caption_h=18),
+            [cv2.IMWRITE_JPEG_QUALITY, 85],
+        )
+        print(p, [t for t, _ in rows[n : n + a.tracks_per_sheet]])
+
+
+def _zoom_sheets(tr, frames, kits, a, out):
+    """Dense crops of a track around a frame, one sheet per --zoom tid:frame."""
+    for spec in a.zoom.split(","):
+        tid, f = spec.split(":")
+        obs = tr[tid]
+        i0 = min(range(len(obs)), key=lambda i: abs(obs[i][0] - int(f)))
+        sel = obs[max(0, i0 - 6) : i0 + 6]
+        items = [(crop(frames(fi), b, 0.6), f"{tid} f{fi} {kits.get((tid, fi), '?')}") for fi, b in sel]
+        p = out / f"zoom_{tid}_{f}.jpg"
+        cv2.imwrite(str(p), contact_sheet(items, cols=6, tile_wh=(240, 320)), [cv2.IMWRITE_JPEG_QUALITY, 85])
+        print(p)
 
 
 if __name__ == "__main__":

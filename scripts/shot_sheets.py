@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Contact sheets of a clip's shots for camera tagging: the middle frame of every shot, captioned
-with shot index, frame range and duration.
+"""Contact sheets of a clip's shots for camera tagging: the middle frame of every shot, captioned with shot index, frame
+range and duration.
 
     uv run scripts/shot_sheets.py data/labels/<clip>.json [--per-sheet 24] [--min-s 0]
 
 Writes runs/<clip-stem>/review/shots_NN.jpg and prints their paths.
+
 """
 
 from __future__ import annotations
@@ -17,7 +18,7 @@ from pathlib import Path
 import cv2
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from bga.review.sheets import contact_sheet  # noqa: E402
+from bga.review.sheets import contact_sheet
 
 
 def main(argv=None):
@@ -44,9 +45,7 @@ def main(argv=None):
     out.mkdir(parents=True, exist_ok=True)
     for k in range(0, len(items), a.per_sheet):
         p = out / f"shots_{k // a.per_sheet:02d}.jpg"
-        cv2.imwrite(
-            str(p), contact_sheet(items[k : k + a.per_sheet], cols=a.cols), [cv2.IMWRITE_JPEG_QUALITY, 82]
-        )
+        cv2.imwrite(str(p), contact_sheet(items[k : k + a.per_sheet], cols=a.cols), [cv2.IMWRITE_JPEG_QUALITY, 82])
         print(p)
 
 

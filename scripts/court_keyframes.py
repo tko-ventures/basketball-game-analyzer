@@ -16,6 +16,7 @@ queue: reads runs/court_keyframes/review.txt, one line per candidate number:
     <n> drop      not usable (close-up, replay, no floor)
 Gold candidates are always queued: evaluation frames need a human check even when they look right.
 A candidate without an NBA mapping starts from the hall's best mapping, or a generic broadcast view.
+
 """
 
 from __future__ import annotations
@@ -31,8 +32,8 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from bga.court.propagate import court_to_image  # noqa: E402
-from bga.review.sheets import contact_sheet  # noqa: E402
+from bga.court.propagate import court_to_image
+from bga.review.sheets import contact_sheet
 
 GEO = json.loads((Path(__file__).resolve().parents[1] / "tools/labeler/static/fiba_court.json").read_text())
 OUT = Path("runs/court_keyframes")
@@ -75,6 +76,34 @@ def draw_court(img: np.ndarray, H, color=(255, 0, 255), width=3) -> np.ndarray:
     return img
 
 
+def _choose_shots(gold_game, labels, by_shot, rng, train_per_hall):
+    """Shots to draw keyframes from, how many to take, and their purpose ("gold" or "train")."""
+    if gold_game is not None:
+        shots = [s["shot"] for s in gold_game["shots"]]
+        others = [i for i, s in enumerate(labels["shots"]) if s.get("camera") == "central" and i not in shots]
+        shots += list(rng.permutation(others))[: max(0, 6 - len(shots))]
+        return shots, 6, "gold"
+    long = {si: rows for si, rows in by_shot.items() if len(rows) >= 6}
+    score = {si: np.mean([r["n_conf"] for r in rows]) for si, rows in long.items()}
+    shots = [si for si, rows in long.items() if np.mean([r["n_conf"] >= 4 for r in rows]) >= 0.6]
+    if not shots:  # the NBA model barely sees this hall: take its most court-like long shots
+        shots = sorted(score, key=lambda si: -score[si])[: 2 * train_per_hall]
+    shots = list(rng.permutation(shots))[:train_per_hall]
+    return shots, len(shots), "train"
+
+
+def _cap_train_per_hall(cands, train_per_hall):
+    """Training keyframes: at most train_per_hall per hall over all of its clips; gold ones all stay."""
+    keep, per_hall = [], defaultdict(int)
+    for c in cands:
+        if c["purpose"] == "train":
+            if per_hall[c["hall"]] >= train_per_hall:
+                continue
+            per_hall[c["hall"]] += 1
+        keep.append(c)
+    return keep
+
+
 def pick(train_per_hall: int, seed: int = 7) -> None:
     gold = json.loads(Path("data/labels/gold.json").read_text())
     gold_ids = {g["youtube_id"]: g for g in gold["games"]}
@@ -90,47 +119,24 @@ def pick(train_per_hall: int, seed: int = 7) -> None:
         by_shot = defaultdict(list)
         for r in pre:
             by_shot[r["shot"]].append(r)
-        if yid in gold_ids:
-            shots = [s["shot"] for s in gold_ids[yid]["shots"]]
-            others = [
-                i for i, s in enumerate(labels["shots"]) if s.get("camera") == "central" and i not in shots
-            ]
-            shots += list(rng.permutation(others))[: max(0, 6 - len(shots))]
-            want, purpose = 6, "gold"
-        else:
-            long = {si: rows for si, rows in by_shot.items() if len(rows) >= 6}
-            score = {si: np.mean([r["n_conf"] for r in rows]) for si, rows in long.items()}
-            shots = [si for si, rows in long.items() if np.mean([r["n_conf"] >= 4 for r in rows]) >= 0.6]
-            if not shots:  # the NBA model barely sees this hall: take its most court-like long shots
-                shots = sorted(score, key=lambda si: -score[si])[: 2 * train_per_hall]
-            shots = list(rng.permutation(shots))[:train_per_hall]
-            want, purpose = len(shots), "train"
+        shots, want, purpose = _choose_shots(gold_ids.get(yid), labels, by_shot, rng, train_per_hall)
         for si in shots[:want]:
             rows = by_shot.get(si) or []
             if not rows:
                 continue
             r = min(rows, key=lambda r: abs(r["frame"] - np.median([x["frame"] for x in rows])))
-            cands.append(
-                {
-                    "clip": stem,
-                    "youtube_id": yid,
-                    "hall": hall,
-                    "shot": int(si),
-                    "frame": r["frame"],
-                    "video": labels["clip"],
-                    "purpose": purpose,
-                    "prefill_H": r["H"],
-                    "n_conf": r["n_conf"],
-                }
-            )
-    # Training keyframes: at most train_per_hall per hall over all of its clips.
-    keep, per_hall = [], defaultdict(int)
-    for c in cands:
-        if c["purpose"] == "train":
-            if per_hall[c["hall"]] >= train_per_hall:
-                continue
-            per_hall[c["hall"]] += 1
-        keep.append(c)
+            cands.append({
+                "clip": stem,
+                "youtube_id": yid,
+                "hall": hall,
+                "shot": int(si),
+                "frame": r["frame"],
+                "video": labels["clip"],
+                "purpose": purpose,
+                "prefill_H": r["H"],
+                "n_conf": r["n_conf"],
+            })
+    keep = _cap_train_per_hall(cands, train_per_hall)
     for n, c in enumerate(keep):
         c["n"] = n
     OUT.mkdir(parents=True, exist_ok=True)
@@ -141,13 +147,10 @@ def pick(train_per_hall: int, seed: int = 7) -> None:
         cap.set(cv2.CAP_PROP_POS_FRAMES, c["frame"])
         img = draw_court(cap.read()[1], c["prefill_H"])
         tag = "" if c["prefill_H"] else "  NO MAPPING"
-        items.append(
-            (
-                img,
-                f"#{c['n']} {c['purpose']} {c['hall'][:22]} {c['youtube_id']} "
-                f"s{c['shot']} f{c['frame']}{tag}",
-            )
-        )
+        items.append((
+            img,
+            f"#{c['n']} {c['purpose']} {c['hall'][:22]} {c['youtube_id']} s{c['shot']} f{c['frame']}{tag}",
+        ))
     for k in range(0, len(items), 6):
         cv2.imwrite(
             str(OUT / f"sheet_{k // 6:02d}.jpg"),
@@ -192,13 +195,11 @@ def queue() -> None:
             flags.append("no model mapping: starting from another frame's court, drag 4+ points")
         if verdict == "ok":
             flags.append("looks right: confirm or nudge, then S")
-        q.append(
-            {
-                **{k: c[k] for k in ("clip", "youtube_id", "hall", "shot", "frame", "video", "purpose")},
-                "prefill_H": start,
-                "flags": flags,
-            }
-        )
+        q.append({
+            **{k: c[k] for k in ("clip", "youtube_id", "hall", "shot", "frame", "video", "purpose")},
+            "prefill_H": start,
+            "flags": flags,
+        })
     q.sort(key=lambda k: (k["purpose"] != "gold", k["hall"], k["clip"], k["frame"]))
     QUEUE.parent.mkdir(parents=True, exist_ok=True)
     QUEUE.write_text(
@@ -210,10 +211,7 @@ def queue() -> None:
         + "\n"
     )
     (QUEUE.parent / "accepted_by_implementer.json").write_text(json.dumps(accepted, indent=1) + "\n")
-    print(
-        f"queued {len(q)} keyframes ({sum(k['purpose'] == 'gold' for k in q)} gold), "
-        f"{len(accepted)} accepted as is"
-    )
+    print(f"queued {len(q)} keyframes ({sum(k['purpose'] == 'gold' for k in q)} gold), {len(accepted)} accepted as is")
 
 
 def main(argv=None):

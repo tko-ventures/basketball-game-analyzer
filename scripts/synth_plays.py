@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# ruff: noqa: E501  (play tables: one waypoint list per player per line)
+
 """Write synthetic 2D tracking fixtures for the coach demo: data/fixtures/synthetic/*.json.
 
     uv run scripts/synth_plays.py            # regenerate every fixture (deterministic)
@@ -14,6 +14,7 @@ plus the scripted decisions that make the play what it is (drop, switch, tag, do
 Plays are written in half-court coordinates (u, v): u metres from the baseline behind the attacked
 basket, v metres across the court. The basket is at (1.575, 7.5). They are then placed on the full
 court by the direction the offence attacks in that quarter.
+
 """
 
 from __future__ import annotations
@@ -87,9 +88,9 @@ def pchip(ts, ys, t):
 def path(wps, t, dur):
     wps = sorted(wps)
     if wps[0][0] > 0:
-        wps = [(0.0, *wps[0][1:])] + wps
+        wps = [(0.0, *wps[0][1:]), *wps]
     if wps[-1][0] < dur:
-        wps = wps + [(dur, *wps[-1][1:])]
+        wps = [*wps, (dur, *wps[-1][1:])]
     ts = [w[0] for w in wps]
     return np.stack([pchip(ts, [w[1] for w in wps], t), pchip(ts, [w[2] for w in wps], t)], axis=1)
 
@@ -100,9 +101,7 @@ def sway(key, t, amp=0.06):
     out = np.zeros((len(t), 2))
     for _ in range(3):
         f, ph = rng.uniform(0.15, 0.6), rng.uniform(0, 2 * math.pi, 2)
-        out += (
-            amp / 2 * np.stack([np.sin(2 * math.pi * f * t + ph[0]), np.sin(2 * math.pi * f * t + ph[1])], 1)
-        )
+        out += amp / 2 * np.stack([np.sin(2 * math.pi * f * t + ph[0]), np.sin(2 * math.pi * f * t + ph[1])], 1)
     return out
 
 
@@ -110,14 +109,39 @@ def sway(key, t, amp=0.06):
 
 
 def ball_plan(play, pos, t):
-    """Per frame: holder id or None, and ball (u, v, z). pos maps player id -> (n, 2) array."""
+    """Per frame: holder id or None, and ball (u, v, z).
+
+    pos maps player id -> (n, 2) array.
+
+    """
     n = len(t)
     holder = [None] * n
     ball = np.zeros((n, 3))
-    events = []
-    fr = lambda s: int(round(s * FPS))  # noqa: E731
+    segs, events = _ball_segments(play, pos, n)
+    vel = {p: np.gradient(xy, 1 / FPS, axis=0) for p, xy in pos.items()}
+    for kind, f0, f1, a, b in segs:
+        f1 = min(f1, n)
+        for f in range(f0, f1):
+            if kind == "hold":
+                holder[f] = a
+            _ball_at(ball, kind, f, f0, f1, a, b, pos, vel)
+    # smooth the hand-to-flight joins a little
+    k = np.ones(3) / 3
+    for c in range(2):
+        ball[1:-1, c] = np.convolve(ball[:, c], k, mode="valid")
+    return holder, ball, events
+
+
+def _frame(s):
+    return round(s * FPS)
+
+
+def _ball_segments(play, pos, n):
+    """The ball script as segments (kind, f0, f1, a, b), a and b player ids or None, and its events."""
+    fr = _frame
     cur, t_from = None, 0.0
     segs = []  # (kind, f0, f1, a, b) with a, b player ids or None
+    events = []
     for item in play.ball:
         kind = item[0]
         if kind == "hold":
@@ -138,10 +162,14 @@ def ball_plan(play, pos, t):
             flight = 0.45 + 0.08 * d
             segs.append(("hold", fr(t_from), fr(t_rel), cur, None))
             segs.append(("shot", fr(t_rel), fr(t_rel + flight), cur, None))
-            events.append(
-                {"t": t_rel, "t1": round(t_rel + flight, 2), "type": "shot", "by": cur, "made": made,
-                 "points": 3 if three else 2}
-            )  # fmt: skip
+            events.append({
+                "t": t_rel,
+                "t1": round(t_rel + flight, 2),
+                "type": "shot",
+                "by": cur,
+                "made": made,
+                "points": 3 if three else 2,
+            })
             cur, t_from = None, t_rel + flight
             segs.append(("made" if made else "rim", fr(t_from), n, None, None))
         elif kind == "reb":
@@ -153,38 +181,34 @@ def ball_plan(play, pos, t):
             cur = who
     if cur is not None and not any(s[0] in ("made", "rim", "reb") for s in segs):
         segs.append(("hold", fr(t_from), n, cur, None))
-    vel = {p: np.gradient(xy, 1 / FPS, axis=0) for p, xy in pos.items()}
-    for kind, f0, f1, a, b in segs:
-        f1 = min(f1, n)
-        for f in range(f0, f1):
-            x = (f - f0) / max(1, f1 - f0)
-            if kind == "hold":
-                holder[f] = a
-                v = vel[a][max(0, f - 3) : f + 4].mean(axis=0)
-                sp = np.linalg.norm(v)
-                d = v / sp if sp > 0.8 else (BASKET - pos[a][f]) / (np.linalg.norm(BASKET - pos[a][f]) + 1e-6)
-                ball[f, :2] = pos[a][f] + 0.35 * d
-                ball[f, 2] = 1.0
-            elif kind == "pass":
-                ball[f, :2] = (1 - x) * (pos[a][f0] + 0) + x * pos[b][min(f1, n - 1)]
-                ball[f, 2] = 1.3 + 0.8 * 4 * x * (1 - x)
-            elif kind == "shot":
-                ball[f, :2] = (1 - x) * pos[a][f0] + x * BASKET
-                ball[f, 2] = 2.2 + (3.05 - 2.2) * x + 2.0 * 4 * x * (1 - x)
-            elif kind == "made":
-                ball[f, :2] = BASKET + np.array([0.25, 0.0]) * min(1, x * 6)
-                ball[f, 2] = max(0.2, 3.05 - 9 * (f - f0) / FPS)
-            elif kind == "rim":
-                ball[f, :2] = BASKET
-                ball[f, 2] = 3.05
-            elif kind == "reb":
-                ball[f, :2] = (1 - x) * BASKET + x * pos[b][min(f1, n - 1)]
-                ball[f, 2] = 3.05 - 0.8 * x + 1.2 * 4 * x * (1 - x)
-    # smooth the hand-to-flight joins a little
-    k = np.ones(3) / 3
-    for c in range(2):
-        ball[1:-1, c] = np.convolve(ball[:, c], k, mode="valid")
-    return holder, ball, events
+    return segs, events
+
+
+def _ball_at(ball, kind, f, f0, f1, a, b, pos, vel):
+    """Write the ball's (u, v, z) at frame f of a segment (f1 already clipped to the clip length)."""
+    n = len(ball)
+    x = (f - f0) / max(1, f1 - f0)
+    if kind == "hold":
+        v = vel[a][max(0, f - 3) : f + 4].mean(axis=0)
+        sp = np.linalg.norm(v)
+        d = v / sp if sp > 0.8 else (BASKET - pos[a][f]) / (np.linalg.norm(BASKET - pos[a][f]) + 1e-6)
+        ball[f, :2] = pos[a][f] + 0.35 * d
+        ball[f, 2] = 1.0
+    elif kind == "pass":
+        ball[f, :2] = (1 - x) * (pos[a][f0] + 0) + x * pos[b][min(f1, n - 1)]
+        ball[f, 2] = 1.3 + 0.8 * 4 * x * (1 - x)
+    elif kind == "shot":
+        ball[f, :2] = (1 - x) * pos[a][f0] + x * BASKET
+        ball[f, 2] = 2.2 + (3.05 - 2.2) * x + 2.0 * 4 * x * (1 - x)
+    elif kind == "made":
+        ball[f, :2] = BASKET + np.array([0.25, 0.0]) * min(1, x * 6)
+        ball[f, 2] = max(0.2, 3.05 - 9 * (f - f0) / FPS)
+    elif kind == "rim":
+        ball[f, :2] = BASKET
+        ball[f, 2] = 3.05
+    elif kind == "reb":
+        ball[f, :2] = (1 - x) * BASKET + x * pos[b][min(f1, n - 1)]
+        ball[f, 2] = 3.05 - 0.8 * x + 1.2 * 4 * x * (1 - x)
 
 
 def ball_proxy(play, pos_off, t):
@@ -222,81 +246,73 @@ def zone_target(home, ball, holder_pos, others_home):
     return tgt
 
 
-def simulate_defence(play, off, t, atk, dfn):
-    """off: attacker id -> track. Returns defender id -> track."""
-    n = len(t)
-    holder, ball, _ = ball_proxy(play, off, t)
-    delay = int(0.2 * FPS)
-    vel = {p: np.gradient(xy, 1 / FPS, axis=0) for p, xy in off.items()}
-    out, state = {}, {}
-    scripted = {}
-    for num, spec in play.deff.items():
-        if "path" in spec:
-            scripted[dfn + num] = path(spec["path"], t, play.dur)
-    homes = {dfn + num: np.array(spec["zone"], float) for num, spec in play.deff.items() if "zone" in spec}
+@dataclass
+class _Defence:
+    """What every simulated defender reads: the attackers, the ball as the defence sees it, and the zone homes."""
 
-    def target(num, spec, f):
-        g = max(0, f - delay)
-        tt = t[f]
-        guard = spec.get("guard")
-        cap, tau = 6.6, 0.32
-        fixed = None
-        for op in spec.get("ops", []):
-            if op[0] == "guard" and tt >= op[1]:
-                guard = op[2]
-            elif op[0] == "slow" and op[1] <= tt < op[2]:
-                cap = op[3]
-            elif op[0] == "goto" and op[1] <= tt < op[2]:
-                fixed = np.array(op[3], float)
-            elif op[0] == "ball" and op[1] <= tt < op[2]:
-                h = holder[g]
-                src = off[h][g] if h in off else ball[g, :2]
-                fixed = man_target(src, ball[g, :2], True) if h in off else src
-            elif op[0] == "lazy" and op[1] <= tt < op[2]:
-                tau = op[3]
-        if fixed is not None:
-            return fixed, cap, tau
-        if "zone" in spec:
-            me = dfn + num
-            hp = off[holder[g]][g] if holder[g] in off else None
-            return zone_target(homes[me], ball[g, :2], hp, [h for k, h in homes.items() if k != me]), cap, tau
-        a = off[atk + guard][g]
-        on_ball = holder[g] == atk + guard
-        if not on_ball:  # a defender reads where his man is running and goes with him
-            a = a + 0.3 * vel[atk + guard][g]
-        return man_target(a, ball[g, :2], on_ball), cap, tau
+    t: np.ndarray
+    off: dict
+    vel: dict
+    holder: list
+    ball: np.ndarray
+    homes: dict
+    atk: str
+    dfn: str
+    delay: int
 
-    for num, spec in play.deff.items():
-        pid = dfn + num
-        if pid in scripted:
-            out[pid] = scripted[pid]
-            continue
-        p, _, _ = target(num, spec, 0)
-        state[pid] = (p.copy(), np.zeros(2))
-        out[pid] = np.zeros((n, 2))
+
+def _defender_target(ctx, num, spec, f):
+    """Where defender ``num`` heads at frame f, with his speed cap and reaction time constant."""
+    off, holder, ball = ctx.off, ctx.holder, ctx.ball
+    g = max(0, f - ctx.delay)
+    tt = ctx.t[f]
+    guard = spec.get("guard")
+    cap, tau = 6.6, 0.32
+    fixed = None
+    for op in spec.get("ops", []):
+        if op[0] == "guard" and tt >= op[1]:
+            guard = op[2]
+        elif op[0] == "slow" and op[1] <= tt < op[2]:
+            cap = op[3]
+        elif op[0] == "goto" and op[1] <= tt < op[2]:
+            fixed = np.array(op[3], float)
+        elif op[0] == "ball" and op[1] <= tt < op[2]:
+            h = holder[g]
+            src = off[h][g] if h in off else ball[g, :2]
+            fixed = man_target(src, ball[g, :2], True) if h in off else src
+        elif op[0] == "lazy" and op[1] <= tt < op[2]:
+            tau = op[3]
+    if fixed is not None:
+        return fixed, cap, tau
+    if "zone" in spec:
+        me = ctx.dfn + num
+        hp = off[holder[g]][g] if holder[g] in off else None
+        return zone_target(ctx.homes[me], ball[g, :2], hp, [h for k, h in ctx.homes.items() if k != me]), cap, tau
+    a = off[ctx.atk + guard][g]
+    on_ball = holder[g] == ctx.atk + guard
+    if not on_ball:  # a defender reads where his man is running and goes with him
+        a = a + 0.3 * ctx.vel[ctx.atk + guard][g]
+    return man_target(a, ball[g, :2], on_ball), cap, tau
+
+
+def _limited_step(p, v, tgt, cap, tau):
+    """One frame towards the target under the speed cap and the acceleration limit; new (p, v)."""
     dt, amax = 1 / FPS, 9.0
-    for f in range(n):
-        for num, spec in play.deff.items():
-            pid = dfn + num
-            if pid in scripted:
-                continue
-            p, v = state[pid]
-            tgt, cap, tau = target(num, spec, f)
-            want = (tgt - p) / tau
-            sp = np.linalg.norm(want)
-            if sp > cap:
-                want *= cap / sp
-            dv = want - v
-            na = np.linalg.norm(dv)
-            if na > amax * dt:
-                dv *= amax * dt / na
-            v = v + dv
-            p = p + v * dt
-            state[pid] = (p, v)
-            out[pid][f] = p
-    # bodies do not overlap: push each simulated defender out to 0.75 m from attackers and 0.7 m from
-    # other defenders (both give way), a few relaxation rounds per frame, then smooth the pushes
-    moving = [pid for pid in out if pid not in scripted]
+    want = (tgt - p) / tau
+    sp = np.linalg.norm(want)
+    if sp > cap:
+        want *= cap / sp
+    dv = want - v
+    na = np.linalg.norm(dv)
+    if na > amax * dt:
+        dv *= amax * dt / na
+    v = v + dv
+    p = p + v * dt
+    return p, v
+
+
+def _separate(out, off, moving, n):
+    """Push each simulated defender out of other bodies, in place, a few relaxation rounds per frame."""
     for f in range(n):
         for _ in range(3):
             for pid in moving:
@@ -309,6 +325,55 @@ def simulate_defence(play, off, t, atk, dfn):
                     lim = 0.75 if q in off else 0.7
                     if dist < lim:
                         p += d / (dist + 1e-6) * (lim - dist) * (1.0 if q in off or q not in moving else 0.5)
+
+
+def simulate_defence(play, off, t, atk, dfn):
+    """Off: attacker id -> track.
+
+    Returns defender id -> track.
+
+    """
+    n = len(t)
+    holder, ball, _ = ball_proxy(play, off, t)
+    ctx = _Defence(
+        t=t,
+        off=off,
+        vel={p: np.gradient(xy, 1 / FPS, axis=0) for p, xy in off.items()},
+        holder=holder,
+        ball=ball,
+        homes={dfn + num: np.array(spec["zone"], float) for num, spec in play.deff.items() if "zone" in spec},
+        atk=atk,
+        dfn=dfn,
+        delay=int(0.2 * FPS),
+    )
+    out, state = {}, {}
+    scripted = {}
+    for num, spec in play.deff.items():
+        if "path" in spec:
+            scripted[dfn + num] = path(spec["path"], t, play.dur)
+
+    for num, spec in play.deff.items():
+        pid = dfn + num
+        if pid in scripted:
+            out[pid] = scripted[pid]
+            continue
+        p, _, _ = _defender_target(ctx, num, spec, 0)
+        state[pid] = (p.copy(), np.zeros(2))
+        out[pid] = np.zeros((n, 2))
+    for f in range(n):
+        for num, spec in play.deff.items():
+            pid = dfn + num
+            if pid in scripted:
+                continue
+            p, v = state[pid]
+            tgt, cap, tau = _defender_target(ctx, num, spec, f)
+            p, v = _limited_step(p, v, tgt, cap, tau)
+            state[pid] = (p, v)
+            out[pid][f] = p
+    # bodies do not overlap: push each simulated defender out to 0.75 m from attackers and 0.7 m from
+    # other defenders (both give way), a few relaxation rounds per frame, then smooth the pushes
+    moving = [pid for pid in out if pid not in scripted]
+    _separate(out, off, moving, n)
     for pid in moving:
         xy = out[pid]
         pad = np.pad(xy, ((3, 3), (0, 0)), mode="edge")
@@ -325,7 +390,7 @@ def clock_seconds(s):
 
 
 def build(play: Play) -> dict:
-    n = int(round(play.dur * FPS)) + 1
+    n = round(play.dur * FPS) + 1
     t = np.arange(n) / FPS
     atk, dfn = ("h", "a") if play.offence == "home" else ("a", "h")
     off = {atk + num: path(w, t, play.dur) + sway(play.id + atk + num, t) for num, w in play.off.items()}
@@ -339,11 +404,7 @@ def build(play: Play) -> dict:
     for mt, typ, extra in play.marks:
         ev = {"t": mt, "type": typ}
         for k, v in extra.items():
-            ev[k] = (
-                (atk if k in ("by", "for") else dfn) + v
-                if k in ("by", "for", "on", "from_def", "to_def")
-                else v
-            )
+            ev[k] = (atk if k in ("by", "for") else dfn) + v if k in ("by", "for", "on", "from_def", "to_def") else v
         events.append(ev)
     events.sort(key=lambda e: e["t"])
     # Dziki attack the right basket in the first half, the left one in the second.
@@ -353,7 +414,7 @@ def build(play: Play) -> dict:
     def place(uv):
         return np.stack([L - uv[:, 0], W - uv[:, 1]], 1) if attacks == "right" else uv
 
-    cm = lambda a: np.round(a * 100).astype(int).tolist()  # noqa: E731
+    cm = lambda a: np.round(a * 100).astype(int).tolist()
     players = []
     for pid in sorted(pos, key=lambda p: (p[0] != "h", int(p[1:]))):
         num = pid[1:]
@@ -382,7 +443,7 @@ def build(play: Play) -> dict:
             "shot_clock_start_s": play.shot_clock,
             "score_before": list(play.score),
             "score_after": after,
-        },  # fmt: skip
+        },
         "offence": play.offence,
         "attacks": attacks,
         "labels": play.labels,
@@ -862,11 +923,9 @@ def plays() -> list[Play]:
 
 def faster(p: Play, k: float) -> Play:
     """The same play with every time multiplied by k."""
-    sc = lambda w: [(round(t * k, 2), u, v) for t, u, v in w]  # noqa: E731
+    sc = lambda w: [(round(t * k, 2), u, v) for t, u, v in w]
     p.off = {n: sc(w) for n, w in p.off.items()}
-    p.deff = {
-        n: {**spec, **({"path": sc(spec["path"])} if "path" in spec else {})} for n, spec in p.deff.items()
-    }
+    p.deff = {n: {**spec, **({"path": sc(spec["path"])} if "path" in spec else {})} for n, spec in p.deff.items()}
     p.ball = [
         tuple(round(x * k, 2) if isinstance(x, float | int) and not isinstance(x, bool) else x for x in item)
         for item in p.ball

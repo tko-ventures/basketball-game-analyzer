@@ -3,6 +3,7 @@
 Becomes the ``rfdetr_onnx`` backend of layer 2 once the registry lands in M2. Class names come from
 ``<weights>.meta.json`` (``{"classes": [...]}``) when present, else the export's 10-class schema
 with its leading background logit.
+
 """
 
 from __future__ import annotations
@@ -10,6 +11,7 @@ from __future__ import annotations
 import json
 import logging
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import cv2
 import numpy as np
@@ -17,14 +19,18 @@ import numpy as np
 from bga.detect.nms import nested_box_nms
 from bga.types import DETECTION_CLASSES, Detection
 
+if TYPE_CHECKING:
+    import onnxruntime as ort
+
 log = logging.getLogger(__name__)
 
+#: Class names of a Roboflow RF-DETR ONNX export: a leading background logit, then the 10-class schema.
 ROBOFLOW_EXPORT_CLASSES = ("background", *DETECTION_CLASSES)
 _MEAN = np.array([0.485, 0.456, 0.406], dtype=np.float32)
 _STD = np.array([0.229, 0.224, 0.225], dtype=np.float32)
 
 
-def _session(path: Path, device: str):
+def _session(path: Path, device: str) -> ort.InferenceSession:
     import onnxruntime as ort
 
     opts = ort.SessionOptions()
@@ -57,7 +63,31 @@ def decode(
     confidence: float,
     top_k: int = 100,
 ) -> list[Detection]:
-    """Decode one image's DETR output: ``boxes`` (Q, 4) normalised cxcywh, ``logits`` (Q, C)."""
+    """Decode one image's DETR output: ``boxes`` (Q, 4) normalised cxcywh, ``logits`` (Q, C).
+
+    The ``top_k`` highest sigmoid scores over all (query, class) pairs are kept down to ``confidence``; a leading
+    ``background`` class is dropped and the class ids shifted past it.
+
+    Args:
+        boxes_cxcywh: Boxes per query, normalised to the image.
+        logits: Class logits per query.
+        class_names: Name per logit column, optionally led by ``background``.
+        image_wh: Image width and height in pixels.
+        confidence: Lowest score kept.
+        top_k: Most (query, class) pairs considered.
+
+    Returns:
+        Detections in pixel xyxy, clipped to the image, highest score first.
+
+    Examples:
+        >>> boxes = np.array([[0.5, 0.5, 0.2, 0.4]], dtype=np.float32)
+        >>> logits = np.full((1, len(ROBOFLOW_EXPORT_CLASSES)), -10.0, dtype=np.float32)
+        >>> logits[0, 4] = 5.0
+        >>> dets = decode(boxes, logits, ROBOFLOW_EXPORT_CLASSES, (1000, 500), confidence=0.5)
+        >>> [(d.class_name, d.class_id, tuple(round(v, 1) for v in d.xyxy)) for d in dets]
+        [('player', 3, (400.0, 150.0, 600.0, 350.0))]
+
+    """
     scores = _sigmoid(logits)
     n_cls = scores.shape[-1]
     names = list(class_names)
@@ -92,6 +122,15 @@ def decode(
 
 
 class OnnxRFDETR:
+    """RF-DETR detector on an ONNX export, decoded and filtered by :func:`nested_box_nms`.
+
+    Examples:
+        >>> det = OnnxRFDETR("weights/detect/rfdetr.onnx", device="coreml")  # doctest: +SKIP
+        >>> det.predict(frame_bgr)  # doctest: +SKIP
+        [Detection(xyxy=(...), class_name='player', score=..., class_id=3), ...]
+
+    """
+
     def __init__(
         self,
         weights: str | Path,
@@ -99,7 +138,17 @@ class OnnxRFDETR:
         confidence: float = 0.35,
         nms_iou: float = 0.7,
         nms_containment: float = 0.85,
-    ):
+    ) -> None:
+        """Configure the detector; the ONNX session opens on :meth:`load`.
+
+        Args:
+            weights: Path of the ``.onnx`` file; a sibling ``.meta.json`` may list its class names.
+            device: ``coreml``, ``mps`` or ``auto`` try the CoreML provider, ``cuda`` the CUDA one; CPU otherwise.
+            confidence: Lowest score kept by :func:`decode`.
+            nms_iou: ``iou_threshold`` of :func:`nested_box_nms`.
+            nms_containment: ``containment_threshold`` of :func:`nested_box_nms`.
+
+        """
         self.weights = Path(weights)
         self.device = device
         self.confidence = confidence
@@ -110,6 +159,12 @@ class OnnxRFDETR:
         self.input_size = 0
 
     def load(self) -> None:
+        """Open the ONNX session and read class names and input size.
+
+        Raises:
+            FileNotFoundError: The weights file does not exist.
+
+        """
         if not self.weights.is_file():
             raise FileNotFoundError(self.weights)
         meta = self.weights.with_suffix(".meta.json")
@@ -121,9 +176,19 @@ class OnnxRFDETR:
         log.info("RF-DETR ONNX %s providers=%s", self.weights, self._sess.get_providers())
 
     def unload(self) -> None:
+        """Drop the ONNX session."""
         self._sess = None
 
     def predict(self, frame_bgr: np.ndarray) -> list[Detection]:
+        """Detect on one frame, loading the session first if needed.
+
+        Args:
+            frame_bgr: Frame as an OpenCV BGR image.
+
+        Returns:
+            Detections in the frame's pixel coordinates, after nested-box suppression, highest score first.
+
+        """
         if self._sess is None:
             self.load()
         s = self.input_size

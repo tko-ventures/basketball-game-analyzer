@@ -6,6 +6,7 @@
 
 Per clip: /api/clip returns version-2 labels with home and away teams and more than one shot, and the
 middle frame of the first and of the last shot decodes through /api/frame.
+
 """
 
 from __future__ import annotations

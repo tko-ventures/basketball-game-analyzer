@@ -1,28 +1,40 @@
 import json
 
+import pytest
+
 from scripts.fetch_rosters import json_array_after, rsc_payload, team_name
 from tools.labeler.server import roster_key_for
 
 
 def _roster(tmp_path, stem, team, aliases=(), season_names=()):
     seasons = {f"202{i}/2{i + 1}": {"team_name": n, "players": []} for i, n in enumerate(season_names)}
-    (tmp_path / f"{stem}.json").write_text(
-        json.dumps({"team": team, "aliases": list(aliases), "seasons": seasons})
-    )
+    (tmp_path / f"{stem}.json").write_text(json.dumps({"team": team, "aliases": list(aliases), "seasons": seasons}))
 
 
-def test_roster_key_for_exact_alias_words_and_ambiguity(tmp_path):
+@pytest.fixture
+def rosters(tmp_path):
+    """A roster folder with one alias and two clubs sharing the word GTK."""
     _roster(tmp_path, "legia_warszawa", "Legia Warszawa")
     _roster(tmp_path, "zastal", "Zastal Zielona Góra", aliases=["ORLEN Zastal"])
     _roster(tmp_path, "gtk_a", "Euvic GTK Gliwice")
     _roster(tmp_path, "gtk_b", "Tauron GTK Gliwice")
-    assert roster_key_for("Legia", tmp_path) == "legia_warszawa"
-    assert roster_key_for("legia warszawa", tmp_path) == "legia_warszawa"
-    assert roster_key_for("ORLEN Zastal", tmp_path) == "zastal"
-    assert roster_key_for("GTK", tmp_path) == ""  # two clubs match: refuse to guess
-    assert roster_key_for("Euvic GTK", tmp_path) == "gtk_a"
-    assert roster_key_for("Nobody", tmp_path) == ""
-    assert roster_key_for("", tmp_path) == ""
+    return tmp_path
+
+
+@pytest.mark.parametrize(
+    ("team", "key"),
+    [
+        pytest.param("Legia", "legia_warszawa", id="word"),
+        pytest.param("legia warszawa", "legia_warszawa", id="exact-lower-case"),
+        pytest.param("ORLEN Zastal", "zastal", id="alias"),
+        pytest.param("GTK", "", id="ambiguous"),  # two clubs match: refuse to guess
+        pytest.param("Euvic GTK", "gtk_a", id="disambiguated"),
+        pytest.param("Nobody", "", id="unknown"),
+        pytest.param("", "", id="empty"),
+    ],
+)
+def test_roster_key_for_exact_alias_words_and_ambiguity(rosters, team, key):
+    assert roster_key_for(team, rosters) == key
 
 
 def test_rsc_payload_players_and_team_name():

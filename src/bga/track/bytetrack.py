@@ -1,11 +1,13 @@
 """``track/bytetrack``: supervision ByteTrack on the detector's person boxes, in pixel space.
 
 The baseline of plan section 5 (``bytetrack_court`` later runs the motion model in court metres).
+
 """
 
 from __future__ import annotations
 
 import time
+from typing import Any, ClassVar
 
 import numpy as np
 
@@ -16,7 +18,18 @@ from bga.stage import BaseBackend, FrameReader, Sequence
 
 @register("track", "bytetrack")
 class ByteTrack(BaseBackend):
-    defaults = {
+    """Track backend: ``supervision.ByteTrack`` on person boxes, in pixel space.
+
+    ``lost_track_buffer_s`` is converted to frames at the sequence's processed rate (``fps / stride``).
+
+    Examples:
+        >>> tracker = ByteTrack({"min_score": 0.2})  # doctest: +SKIP
+        >>> tracker.run(seq, {"detect": detect_out}, read)["frames"]  # doctest: +SKIP
+        {'<frame>': [[track_id, x1, y1, x2, y2, score, class_name, det_index], ...], ...}
+
+    """
+
+    defaults: ClassVar[dict[str, Any]] = {
         "min_score": 0.1,
         "track_activation_threshold": 0.25,
         "lost_track_buffer_s": 1.0,
@@ -25,6 +38,18 @@ class ByteTrack(BaseBackend):
     }
 
     def run(self, seq: Sequence, upstream: dict, read: FrameReader) -> dict:
+        """Track the detector's person boxes scoring at least ``min_score`` through the sequence.
+
+        Args:
+            seq: Sequence to track.
+            upstream: ``detect`` output of the sequence.
+            read: Unused; tracking needs no pixels.
+
+        Returns:
+            ``{"frames": {"<frame>": [[track_id, x1, y1, x2, y2, score, class_name, det_index], ...]},
+            "ms_per_frame": float}``.
+
+        """
         import supervision as sv
 
         stride = seq.frames[1] - seq.frames[0] if len(seq.frames) > 1 else 1
@@ -39,9 +64,7 @@ class ByteTrack(BaseBackend):
         dets, out, t = upstream["detect"]["frames"], {}, 0.0
         for f in seq.frames:
             rows = [
-                (i, d)
-                for i, d in enumerate(dets[str(f)])
-                if d[5] in PERSON_CLASSES and d[4] >= self.p["min_score"]
+                (i, d) for i, d in enumerate(dets[str(f)]) if d[5] in PERSON_CLASSES and d[4] >= self.p["min_score"]
             ]
             t0 = time.perf_counter()
             if rows:

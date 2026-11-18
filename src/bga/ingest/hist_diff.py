@@ -3,6 +3,7 @@
 A cut is a mean pixel change far above a 25-frame rolling median baseline (same-court cuts
 barely move the colour histogram), or a very large HSV histogram jump (court to crowd or
 graphics). Shots shorter than ``min_len_s`` are merged into the previous one.
+
 """
 
 from __future__ import annotations
@@ -13,16 +14,34 @@ from pathlib import Path
 import cv2
 import numpy as np
 
+#: HSV histogram Bhattacharyya distance; twice this alone marks a cut.
 DEFAULT_THRESHOLD = 0.25
+#: Shortest shot in seconds; a cut sooner after the previous one is ignored.
 DEFAULT_MIN_LEN_S = 0.4
 
 
 class ShotCutDetector:
-    """Streaming detector: feed frames in order, read ``cuts`` (frame indices that start a shot)."""
+    """Streaming detector: feed frames in order, read ``cuts`` (frame indices that start a shot).
 
-    def __init__(
-        self, fps: float, threshold: float = DEFAULT_THRESHOLD, min_len_s: float = DEFAULT_MIN_LEN_S
-    ):
+    Examples:
+        >>> red, blue = np.full((54, 96, 3), (0, 0, 255), np.uint8), np.full((54, 96, 3), (255, 0, 0), np.uint8)
+        >>> det = ShotCutDetector(fps=25)
+        >>> for frame in [red] * 12 + [blue] * 5 + [red] * 12:
+        ...     det.update(frame)
+        >>> det.cuts
+        [0, 12]
+
+    """
+
+    def __init__(self, fps: float, threshold: float = DEFAULT_THRESHOLD, min_len_s: float = DEFAULT_MIN_LEN_S) -> None:
+        """Start an empty detector; frame 0 always starts a shot.
+
+        Args:
+            fps: Frame rate of the video, to turn ``min_len_s`` into frames.
+            threshold: Histogram distance scale; a distance above twice this is a cut on its own.
+            min_len_s: Shortest shot in seconds.
+
+        """
         self.threshold = threshold
         self.min_len = max(1, int(min_len_s * fps))
         self.cuts = [0]
@@ -32,6 +51,12 @@ class ShotCutDetector:
         self._recent: list[float] = []
 
     def update(self, frame_bgr: np.ndarray) -> None:
+        """Feed the next frame and record a cut if it starts a new shot.
+
+        Args:
+            frame_bgr: The next frame as an OpenCV BGR image.
+
+        """
         small = cv2.resize(frame_bgr, (96, 54), interpolation=cv2.INTER_AREA)
         hsv = cv2.cvtColor(small, cv2.COLOR_BGR2HSV)
         hist = cv2.calcHist([hsv], [0, 1], None, [16, 8], [0, 180, 0, 256])
@@ -51,7 +76,15 @@ class ShotCutDetector:
         self.n += 1
 
     def shots(self) -> list[dict]:
-        """Shots as ``{"start", "end", "camera": "unset"}`` with inclusive frame bounds."""
+        """Shots as ``{"start", "end", "camera": "unset"}`` with inclusive frame bounds.
+
+        Examples:
+            >>> det = ShotCutDetector(fps=25)
+            >>> det.cuts, det.n = [0, 40], 100
+            >>> [(s["start"], s["end"]) for s in det.shots()]
+            [(0, 39), (40, 99)]
+
+        """
         out = []
         for i, s in enumerate(self.cuts):
             e = (self.cuts[i + 1] - 1) if i + 1 < len(self.cuts) else self.n - 1
@@ -65,7 +98,34 @@ def detect_shots(
     min_len_s: float = DEFAULT_MIN_LEN_S,
     progress: Callable[[float], None] | None = None,
 ) -> list[dict]:
-    """Decode every frame of ``video`` and return its shots."""
+    """Decode every frame of ``video`` and return its shots.
+
+    Args:
+        video: Path of the video.
+        threshold: Passed to :class:`ShotCutDetector`.
+        min_len_s: Passed to :class:`ShotCutDetector`.
+        progress: Called with the decoded share (below 1 every 250 frames, then 1.0 at the end).
+
+    Returns:
+        The shots of :meth:`ShotCutDetector.shots`.
+
+    Raises:
+        RuntimeError: The video cannot be opened.
+
+    Examples:
+        >>> import tempfile
+        >>> red, blue = np.full((54, 96, 3), (0, 0, 255), np.uint8), np.full((54, 96, 3), (255, 0, 0), np.uint8)
+        >>> with tempfile.TemporaryDirectory() as d:
+        ...     path = Path(d) / "cut.avi"
+        ...     writer = cv2.VideoWriter(str(path), cv2.VideoWriter_fourcc(*"MJPG"), 25, (96, 54))
+        ...     for frame in [red] * 12 + [blue] * 12:
+        ...         _ = writer.write(frame)
+        ...     writer.release()
+        ...     shots = detect_shots(path)
+        >>> [(s["start"], s["end"]) for s in shots]
+        [(0, 11), (12, 23)]
+
+    """
     cap = cv2.VideoCapture(str(video))
     if not cap.isOpened():
         raise RuntimeError(f"cannot open {video}")

@@ -20,7 +20,7 @@ uv run tools/labeler/prepare_clips.py --jobs 6   # shot cuts and teams -> data/l
 uv run tools/labeler/server.py                   # labeller on http://127.0.0.1:8765 (court keyframes at /court)
 uv run bga run --config configs/baseline.yaml    # the pipeline on the gold shots -> runs/ (needs ROBOFLOW_API_KEY)
 uv run bga eval --config configs/baseline.yaml   # scores against gold v0
-uv run ruff check . && uv run pytest
+uv run pre-commit run --all-files && uv run pytest
 ```
 
 Created in [T3 Code](https://t3.codes).

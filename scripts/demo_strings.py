@@ -1,9 +1,9 @@
-# ruff: noqa: E501  (sentences are kept whole for translation)
 """On-screen text of the web demo (scripts/demo_web.py), one table per language.
 
 Polish is the default edition at /; English is built into /en/. Keys used in the page templates as
 {{key}}; the "js" table goes to the page script as T, with {name} placeholders filled by tr().
 Polish is client-facing text: plain, correct Polish, no calques.
+
 """
 
 from __future__ import annotations

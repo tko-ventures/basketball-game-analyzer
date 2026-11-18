@@ -6,6 +6,7 @@
 Per gold shot: runs/<clip>/sam_frames/shot_<n>/00000.jpg ... (long side 1024, SAM 2's input size) and
 prompts.json with the detector's person boxes (confidence >= 0.4, no wider than tall) on the sampled
 frames, scaled to the JPEG size, keyed by local frame index.
+
 """
 
 from __future__ import annotations

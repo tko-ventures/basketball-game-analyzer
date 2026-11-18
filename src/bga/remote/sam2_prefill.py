@@ -11,28 +11,41 @@ MAX_ROUNDS times). Mask bounding boxes on the sampled frames come back to
 runs/<clip>/prefill/sam21_hiera_large/shot_<n>.json with GPU, wall time and cost; scripts/sam_to_tracks.py
 turns them into a labeller tracks.json. SAM 2.1 weights: facebook/sam2.1-hiera-large, Apache 2.0,
 baked into the image. SAM 3.x is not used anywhere (plan section 2).
+
 """
 
 from __future__ import annotations
 
 import json
 import time
+from collections.abc import Sequence
 from pathlib import Path
 
 import modal
 
+#: facebookresearch/sam2 commit installed in the image.
 SAM2_SHA = "2b90b9f5ceec907a1c18123530e92e794ad901a4"
+#: Hugging Face id of the SAM 2.1 weights (Apache 2.0).
 MODEL_ID = "facebook/sam2.1-hiera-large"
+#: Modal GPU type the tracking runs on.
 GPU = "L40S"
-USD_PER_HOUR = {"L40S": 1.95, "A100-80GB": 2.50, "H100": 3.95, "L4": 0.80}  # Modal list, 2026-10-29
+#: Modal list price per hour by GPU, 2026-10-29.
+USD_PER_HOUR = {"L40S": 1.95, "A100-80GB": 2.50, "H100": 3.95, "L4": 0.80}
+#: Most propagation passes per shot: the first, plus one per batch of added objects.
 MAX_ROUNDS = 12
+#: A detection with an IoU below this against every mask counts as uncovered.
 COVER_IOU = 0.3
+#: Output directory name under ``runs/<clip>/prefill/``.
 OUT_NAME = "sam21_hiera_large"
 
+#: The Modal app of the prefill.
 app = modal.App("bga-sam2-prefill")
+#: Shared volume: shot frames go up under ``frames/<youtube id>/shot_<n>``.
 vol = modal.Volume.from_name("bga-data", create_if_missing=True)
+#: Container image with SAM 2.1 and its weights baked in.
 image = (
-    modal.Image.debian_slim(python_version="3.12")
+    modal.Image
+    .debian_slim(python_version="3.12")
     .pip_install("torch==2.5.1", "torchvision==0.20.1", "numpy<2.3", "huggingface_hub", "pillow", "tqdm")
     .env({"SAM2_BUILD_CUDA": "0", "HF_HOME": "/root/hf"})
     .pip_install(
@@ -46,7 +59,8 @@ image = (
 )
 
 
-def _iou(a, b) -> float:
+def _iou(a: Sequence[float], b: Sequence[float]) -> float:
+    """IoU of two ``[x1, y1, x2, y2, ...]`` boxes; 0 when their union is empty."""
     ix = max(0.0, min(a[2], b[2]) - max(a[0], b[0]))
     iy = max(0.0, min(a[3], b[3]) - max(a[1], b[1]))
     inter = ix * iy
@@ -54,11 +68,39 @@ def _iou(a, b) -> float:
     return inter / union if union > 0 else 0.0
 
 
-def first_persistent_uncovered(prompts, results, sampled, start):
-    """First sampled frame >= start with detections no mask covers that are still uncovered on the next
-    sampled frame (so one-frame junk does not become an object)."""
+def first_persistent_uncovered(
+    prompts: dict[int, list[list[float]]],
+    results: dict[int, dict[int, list | None]],
+    sampled: list[int],
+    start: int,
+) -> tuple[int, list[list[float]]] | None:
+    """Find the next detections no mask covers that stay uncovered on the following sampled frame.
 
-    def uncovered(f):
+    Requiring the next sampled frame to agree (an uncovered detection there with IoU above 0.3) keeps one-frame junk
+    from becoming an object.
+
+    Args:
+        prompts: detector boxes ``[x1, y1, x2, y2]`` per sampled frame.
+        results: mask boxes per sampled frame and object id (None where an object has no mask).
+        sampled: the sampled frames, in order.
+        start: the first frame to look at.
+
+    Returns:
+        The first sampled frame at or after ``start`` with such detections and those detections, or None.
+
+    Examples:
+        >>> prompts = {0: [[0, 0, 10, 10], [50, 50, 60, 60]], 5: [[0, 0, 10, 10], [51, 50, 61, 60]]}
+        >>> first_persistent_uncovered(prompts, {}, [0, 5], 0)
+        (0, [[0, 0, 10, 10], [50, 50, 60, 60]])
+        >>> masks = {0: {1: [0, 0, 10, 10]}, 5: {1: [0, 0, 10, 10]}}
+        >>> first_persistent_uncovered(prompts, masks, [0, 5], 0)
+        (0, [[50, 50, 60, 60]])
+        >>> first_persistent_uncovered(prompts, masks, [0, 5], 1) is None
+        True
+
+    """
+
+    def uncovered(f: int) -> list[list[float]]:
         masks = [b for b in results.get(f, {}).values() if b]
         return [p for p in prompts.get(f, []) if max((_iou(p, m) for m in masks), default=0.0) < COVER_IOU]
 
@@ -74,6 +116,21 @@ def first_persistent_uncovered(prompts, results, sampled, start):
 
 @app.function(image=image, gpu=GPU, volumes={"/data": vol}, timeout=3600)
 def track_shot(shot_dir: str, prompts: dict[str, list]) -> dict:
+    """Track one shot with SAM 2.1 from detector box prompts, adding persistent uncovered detections as new objects.
+
+    Args:
+        shot_dir: the shot's JPEG frames on the volume (``frames/<youtube id>/shot_<n>``).
+        prompts: detector boxes per sampled frame, keyed by the frame index as a string.
+
+    Returns:
+        Model, SAM 2 commit, GPU, rounds, objects, wall time, list-price USD and ``frames``: per sampled frame and
+        object, ``[x1, y1, x2, y2, mask pixels]`` or None.
+
+    Examples:
+        >>> track_shot.remote("frames/OSp445e0mXU/shot_10", prompts)["objects"]  # doctest: +SKIP
+        14
+
+    """
     import numpy as np
     import torch
     from sam2.sam2_video_predictor import SAM2VideoPredictor
@@ -92,9 +149,7 @@ def track_shot(shot_dir: str, prompts: dict[str, list]) -> dict:
         while new:
             f, boxes = new
             for b in boxes:
-                pred.add_new_points_or_box(
-                    state, frame_idx=f, obj_id=next_id, box=np.array(b, dtype=np.float32)
-                )
+                pred.add_new_points_or_box(state, frame_idx=f, obj_id=next_id, box=np.array(b, dtype=np.float32))
                 next_id += 1
             for fidx, obj_ids, masks in pred.propagate_in_video(state, start_frame_idx=f):
                 if fidx not in sampled_set:
@@ -116,9 +171,7 @@ def track_shot(shot_dir: str, prompts: dict[str, list]) -> dict:
                     ]
                 results[fidx] = frame
             rounds += 1
-            new = (
-                first_persistent_uncovered(prompts, results, sampled, f + 1) if rounds < MAX_ROUNDS else None
-            )
+            new = first_persistent_uncovered(prompts, results, sampled, f + 1) if rounds < MAX_ROUNDS else None
     secs = time.time() - t0
     return {
         "shot_dir": shot_dir,
@@ -134,7 +187,17 @@ def track_shot(shot_dir: str, prompts: dict[str, list]) -> dict:
 
 
 @app.local_entrypoint()
-def main(clip_id: str = "", shots: str = ""):
+def main(clip_id: str = "", shots: str = "") -> None:
+    """Upload the gold shots not tracked yet, track them on Modal and write each result and its cost row.
+
+    Args:
+        clip_id: only this YouTube id; empty for every gold game.
+        shots: comma-separated shot numbers; empty for every shot.
+
+    Examples:
+        >>> main(clip_id="OSp445e0mXU", shots="10")  # doctest: +SKIP
+
+    """
     gold = json.loads(Path("data/labels/gold.json").read_text())
     want = {int(s) for s in shots.split(",") if s}
     jobs = []
@@ -154,9 +217,7 @@ def main(clip_id: str = "", shots: str = ""):
                 jobs.append((g, s, meta, remote))
     print(f"uploaded {len(jobs)} shots; tracking on {GPU}")
     t0 = time.time()
-    for (g, s, meta, _), res in zip(
-        jobs, track_shot.starmap([(r, m["prompts"]) for _, _, m, r in jobs]), strict=True
-    ):
+    for (g, s, meta, _), res in zip(jobs, track_shot.starmap([(r, m["prompts"]) for _, _, m, r in jobs]), strict=True):
         res.update({k: meta[k] for k in ("clip", "shot", "start", "end", "scale", "size")})
         out = Path("runs") / g["clip"] / "prefill" / OUT_NAME
         out.mkdir(parents=True, exist_ok=True)

@@ -3,13 +3,14 @@
 
 For every video in data/raw (or given paths) without a label file yet:
   * detect camera cuts with the layer-0 ``hist_diff`` detector,
-  * fill meta.season from the upload date (Sep to Jun season) and meta.home / meta.away from the title,
+  * fill meta.season from the upload date (seasons roll over in August) and meta.home / meta.away from the title,
   * write data/labels/<stem>.json so the labeller opens with shots ready to tag.
 
     uv run tools/labeler/prepare_clips.py                 # all of data/raw
     uv run tools/labeler/prepare_clips.py --force         # redo shots (keeps boxes and camera tags)
     uv run tools/labeler/prepare_clips.py --labels-dir runs/_shots --jobs 6
     uv run tools/labeler/prepare_clips.py --meta-only     # refresh team/roster meta, keep shots
+
 """
 
 from __future__ import annotations
@@ -21,11 +22,28 @@ from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from bga.ingest.hist_diff import DEFAULT_MIN_LEN_S, DEFAULT_THRESHOLD, detect_shots  # noqa: E402
-from tools.labeler import server  # noqa: E402
+from bga.ingest.hist_diff import DEFAULT_MIN_LEN_S, DEFAULT_THRESHOLD, detect_shots
+from tools.labeler import server
 
 
 def season_for(upload_date: str | None) -> str:
+    """Name the PLK season of an upload date; months from August on belong to the next season.
+
+    Args:
+        upload_date: ``YYYYMMDD`` as in yt-dlp's ``upload_date``, or ``None``.
+
+    Returns:
+        The season as ``"2025/26"``, or "" when the date is missing or shorter than six characters.
+
+    Examples:
+        >>> season_for("20251023")
+        '2025/26'
+        >>> season_for("20260315")
+        '2025/26'
+        >>> season_for(None)
+        ''
+
+    """
     if not upload_date or len(upload_date) < 6:
         return ""
     y, m = int(upload_date[:4]), int(upload_date[4:6])
@@ -34,6 +52,27 @@ def season_for(upload_date: str | None) -> str:
 
 
 def prepare(video: Path, labels_dir: Path, force: bool, meta_only: bool = False) -> str:
+    """Write the label file of one video with fresh shots and metadata from its ``.info.json``.
+
+    When the yt-dlp info file next to the video exists, it sets the source URL and title, fills an empty season from
+    the upload date and empty home and away teams from the title, and looks up missing roster stems. Re-detected
+    shots keep the camera tag of the old shot that contains their start, when there was more than one old shot.
+    Boxes and identities are kept.
+
+    Args:
+        video: Video path inside the repo.
+        labels_dir: Output folder for ``<stem>.json``.
+        force: Redo a clip that already has a label file.
+        meta_only: Refresh the metadata only and keep the shots; also applies to clips with a label file.
+
+    Returns:
+        One summary line for the console.
+
+    Examples:
+        >>> prepare(Path("data/raw/x.mp4"), Path("data/labels"), force=False)  # doctest: +SKIP
+        'x.mp4: 42 shots, season 2025/26, Dziki Warszawa - Legia'
+
+    """
     rel = str(video.resolve().relative_to(server.REPO))
     out = labels_dir / f"{video.stem}.json"
     if out.exists() and not (force or meta_only):
@@ -54,9 +93,7 @@ def prepare(video: Path, labels_dir: Path, force: bool, meta_only: bool = False)
                 m[side]["roster"] = server.roster_key_for(m[side]["team"])
     if meta_only:
         server.save_labels(labels_dir, data)
-        return (
-            f"{video.name}: {data['meta']['home']['roster'] or '?'} - {data['meta']['away']['roster'] or '?'}"
-        )
+        return f"{video.name}: {data['meta']['home']['roster'] or '?'} - {data['meta']['away']['roster'] or '?'}"
     old = data.get("shots", [])
     data["shots"] = [
         {
@@ -75,7 +112,16 @@ def prepare(video: Path, labels_dir: Path, force: bool, meta_only: bool = False)
     )
 
 
-def main(argv=None):
+def main(argv: list[str] | None = None) -> None:
+    """Prepare the given videos, or every ``data/raw/*.mp4``, in a process pool and print one line each.
+
+    Args:
+        argv: Arguments without the program name; ``None`` reads ``sys.argv``.
+
+    Examples:
+        >>> main(["--meta-only"])  # doctest: +SKIP
+
+    """
     ap = argparse.ArgumentParser()
     ap.add_argument("videos", nargs="*")
     ap.add_argument("--labels-dir", default="data/labels")

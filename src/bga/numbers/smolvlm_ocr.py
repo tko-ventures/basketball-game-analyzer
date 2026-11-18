@@ -1,25 +1,46 @@
-"""``numbers/smolvlm_ocr``: Skalski's number reader (basketball-jersey-numbers-ocr/3, a SmolVLM2
-fine-tune on NBA crops) on ``number`` boxes matched to tracks, confirmed by consecutive agreement.
+"""``numbers/smolvlm_ocr``: Skalski's jersey-number reader on ``number`` boxes matched to tracks.
 
-Matching (plan section 3): a number box belongs to the track box that contains it with IoS >= 0.9.
-Crops padded 10 px; reads every ``read_every`` frames per track; ``ConsecutiveValueTracker`` with
-``n_consecutive`` equal reads confirms. Runs on MPS with ``max_new_tokens=4`` (2 s per crop instead of
-8 s, docs/handoff.md). Referee tracks are skipped.
+The reader is basketball-jersey-numbers-ocr/3, a SmolVLM2 fine-tune on NBA crops; a track's number is confirmed by
+consecutive agreement.
+
+Matching (plan section 3): a number box belongs to the track box that contains it with IoS >= 0.9. Crops padded 10 px;
+reads every ``read_every`` frames per track; ``ConsecutiveValueTracker`` with ``n_consecutive`` equal reads confirms.
+Runs on MPS with ``max_new_tokens=4`` (2 s per crop instead of 8 s, docs/handoff.md). Referee tracks are skipped.
+
 """
 
 from __future__ import annotations
 
 import re
 import time
+from collections.abc import Sequence as Seq
+from typing import Any, ClassVar
 
 import cv2
+import numpy as np
 
 from bga.detect.roboflow_inference import roboflow_key
 from bga.registry import register
 from bga.stage import BaseBackend, FrameReader, Sequence
 
 
-def ios(inner, outer) -> float:
+def ios(inner: Seq[float], outer: Seq[float]) -> float:
+    """Intersection over the smaller (``inner``) box's area, for xyxy boxes.
+
+    Args:
+        inner: Box whose coverage is measured, as x1, y1, x2, y2 (extra items are ignored).
+        outer: Covering box, as x1, y1, x2, y2 (extra items are ignored).
+
+    Returns:
+        Covered share of ``inner``; 0 when ``inner`` has no area.
+
+    Examples:
+        >>> ios((10, 10, 20, 20), (0, 0, 15, 100))
+        0.5
+        >>> ios((0, 0, 0, 10), (0, 0, 10, 10))
+        0.0
+
+    """
     ix = max(0.0, min(inner[2], outer[2]) - max(inner[0], outer[0]))
     iy = max(0.0, min(inner[3], outer[3]) - max(inner[1], outer[1]))
     area = (inner[2] - inner[0]) * (inner[3] - inner[1])
@@ -28,7 +49,17 @@ def ios(inner, outer) -> float:
 
 @register("numbers", "smolvlm_ocr")
 class SmolVLMOcr(BaseBackend):
-    defaults = {
+    """Numbers backend: SmolVLM2 reads of matched ``number`` crops, confirmed by ``ConsecutiveValueTracker``.
+
+    Examples:
+        >>> ocr = SmolVLMOcr({"read_every": 5})  # doctest: +SKIP
+        >>> ocr.load()  # doctest: +SKIP
+        >>> ocr.run(seq, {"detect": detect_out, "track": track_out}, read)["tracks"]  # doctest: +SKIP
+        {'1': '23', '2': None, ...}
+
+    """
+
+    defaults: ClassVar[dict[str, Any]] = {
         "model_id": "basketball-jersey-numbers-ocr/3",
         "min_score": 0.3,
         "min_ios": 0.9,
@@ -39,6 +70,7 @@ class SmolVLMOcr(BaseBackend):
     }
 
     def load(self) -> None:
+        """Load the reader through ``inference_models`` on MPS when available, else CPU."""
         import os
 
         import torch
@@ -51,16 +83,39 @@ class SmolVLMOcr(BaseBackend):
         )
 
     def unload(self) -> None:
+        """Drop the reader."""
         self.model = None
 
-    def read_crop(self, crop) -> str | None:
-        text = self.model.prompt(
-            images=cv2.resize(crop, (224, 224)), prompt="Read the number.", max_new_tokens=4
-        )[0]
+    def read_crop(self, crop: np.ndarray) -> str | None:
+        """Read the number on one crop.
+
+        Args:
+            crop: BGR crop of a ``number`` box, resized to 224 x 224 for the reader.
+
+        Returns:
+            The digits the reader answered when there are one or two of them, else None.
+
+        """
+        text = self.model.prompt(images=cv2.resize(crop, (224, 224)), prompt="Read the number.", max_new_tokens=4)[0]
         digits = re.sub(r"\D", "", str(text))
         return digits if 0 < len(digits) <= 2 else None
 
     def run(self, seq: Sequence, upstream: dict, read: FrameReader) -> dict:
+        """Read and confirm a number per track over the sequence.
+
+        Each ``read_every``-th frame, every ``number`` box scoring at least ``min_score`` is given to the non-referee
+        track box that contains it best, if its IoS is at least ``min_ios``; tracks already confirmed or read
+        ``max_reads_per_track`` times are skipped.
+
+        Args:
+            seq: Sequence to read.
+            upstream: ``detect`` and ``track`` outputs of the sequence.
+            read: Frame reader of the sequence's video.
+
+        Returns:
+            ``{"tracks": {"<track_id>": "23" | None}, "reads", "ms_per_read", "ms_per_frame"}``.
+
+        """
         from sports.common.temporal import ConsecutiveValueTracker
 
         dets, tracks = upstream["detect"]["frames"], upstream["track"]["frames"]
@@ -81,8 +136,8 @@ class SmolVLMOcr(BaseBackend):
                     continue
                 img = read(f) if img is None else img
                 x1, y1, x2, y2 = (int(v) for v in d[:4])
-                pad, (H, W) = self.p["pad"], img.shape[:2]
-                crop = img[max(0, y1 - pad) : min(H, y2 + pad), max(0, x1 - pad) : min(W, x2 + pad)]
+                pad, (img_h, img_w) = self.p["pad"], img.shape[:2]
+                crop = img[max(0, y1 - pad) : min(img_h, y2 + pad), max(0, x1 - pad) : min(img_w, x2 + pad)]
                 if crop.size == 0:
                     continue
                 t0 = time.perf_counter()
@@ -92,9 +147,7 @@ class SmolVLMOcr(BaseBackend):
                 reads[tid] = reads.get(tid, 0) + 1
                 ids.append(tid)
                 values.append(value)
-            for tid, v in zip(ids, confirm.update(ids, values), strict=True):
-                if v is not None:
-                    done[tid] = v
+            done.update({tid: v for tid, v in zip(ids, confirm.update(ids, values), strict=True) if v is not None})
         all_ids = {r[0] for f in seq.frames for r in tracks[str(f)]}
         return {
             "tracks": {str(tid): done.get(tid) for tid in sorted(all_ids)},

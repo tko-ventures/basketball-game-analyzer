@@ -9,6 +9,7 @@ For every gold box (every 5th frame at 50 fps) that a demo box matches (IoU >= 0
   number   the number the demo shows against the gold number, where gold has one
 It prints per-shot counts and, for each wrong or missing number, the frame span, so the errors can be
 looked at in the video. A demo aid, not a metrics row (the demo is a showcase, docs/decisions.md).
+
 """
 
 from __future__ import annotations
@@ -39,9 +40,11 @@ def load_gold(seq: Path):
         if float(vis) < 1.0:  # interpolated gap, not a reviewed box
             continue
         f = frames[int(fi) - 1]
-        boxes[f].append(
-            (int(tid), GOLD_CLASS[int(cls)], (float(x), float(y), float(x) + float(w), float(y) + float(h)))
-        )
+        boxes[f].append((
+            int(tid),
+            GOLD_CLASS[int(cls)],
+            (float(x), float(y), float(x) + float(w), float(y) + float(h)),
+        ))
     return boxes, ids
 
 
@@ -74,6 +77,25 @@ def spans(frames, gap=20):
     return ", ".join(f"{a}" if a == b else f"{a}-{b}" for a, b in out)
 
 
+def _tally_number(gtid, gcls, s, ids, f, num, wrong):
+    """Count one matched player box's shown number against gold; log wrong ones with their frame."""
+    gnum = ids.get(gtid, {}).get("number") or ""
+    if s[2] and s[1] != gcls:
+        num["number on the wrong team"] += 1
+        wrong[(gtid, f"{gcls} #{gnum or '?'}", f"{s[1]} #{s[2]}")].append(f)
+    elif not gnum:
+        num["gold has no number" + (", demo shows one" if s[2] else "")] += 1
+        if s[2]:
+            wrong[(gtid, f"{gcls} #?", f"{s[1]} #{s[2]}")].append(f)
+    elif not s[2]:
+        num["right player, no number shown"] += 1
+    elif s[2] == gnum:
+        num["correct"] += 1
+    else:
+        num["wrong number"] += 1
+        wrong[(gtid, f"{gcls} #{gnum} {ids[gtid]['name']}", f"#{s[2]}")].append(f)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--gold", default="v0")
@@ -98,23 +120,9 @@ def main(argv=None):
                 if gcls == "other":
                     continue
                 team["agree" if s[1] == gcls else "differ"] += 1
-                gnum = ids.get(gtid, {}).get("number") or ""
                 if gcls == "ref":
                     continue
-                if s[2] and s[1] != gcls:
-                    num["number on the wrong team"] += 1
-                    wrong[(gtid, f"{gcls} #{gnum or '?'}", f"{s[1]} #{s[2]}")].append(f)
-                elif not gnum:
-                    num["gold has no number" + (", demo shows one" if s[2] else "")] += 1
-                    if s[2]:
-                        wrong[(gtid, f"{gcls} #?", f"{s[1]} #{s[2]}")].append(f)
-                elif not s[2]:
-                    num["right player, no number shown"] += 1
-                elif s[2] == gnum:
-                    num["correct"] += 1
-                else:
-                    num["wrong number"] += 1
-                    wrong[(gtid, f"{gcls} #{gnum} {ids[gtid]['name']}", f"#{s[2]}")].append(f)
+                _tally_number(gtid, gcls, s, ids, f, num, wrong)
         print(f"\n{key}  (gold {a.gold}, {sum(team.values())} matched boxes)")
         print(f"  team    {dict(team)}")
         print(f"  number  {dict(num)}")

@@ -12,6 +12,7 @@ puts the visible landmarks.
 Without --check: each keyframe Tomasz saved in data/labels/court/<clip>.json is carried through its
 shot every 5th frame. Output to runs/<clip>/court_labels/propagated.jsonl: frame, H, 33 landmarks
 (x, y, visibility), keyframe, steps from it, inliers.
+
 """
 
 from __future__ import annotations
@@ -25,7 +26,7 @@ import cv2
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from bga.court.propagate import Propagator, landmarks  # noqa: E402
+from bga.court.propagate import Propagator, landmarks
 
 GEO = json.loads((Path(__file__).resolve().parents[1] / "tools/labeler/static/fiba_court.json").read_text())
 VERTS = np.array(GEO["vertices"], dtype=np.float64)
@@ -58,9 +59,7 @@ def disagreement_m(Ha, Hb, wh) -> float | None:
 
 def check(stem: str, shots: list[int]) -> None:
     labels = json.loads(Path(f"data/labels/{stem}.json").read_text())
-    pre = [
-        json.loads(line) for line in (Path("runs") / stem / "court_prefill").glob("*.jsonl").__next__().open()
-    ]
+    pre = [json.loads(line) for line in (Path("runs") / stem / "court_prefill").glob("*.jsonl").__next__().open()]
     read, prop = Reader(labels["clip"]), Propagator()
     wh = (int(read.cap.get(cv2.CAP_PROP_FRAME_WIDTH)), int(read.cap.get(cv2.CAP_PROP_FRAME_HEIGHT)))
     for si in shots:
@@ -112,9 +111,7 @@ def loop_check(stem: str, shots: list[int], spans_s=(1.0, 3.0)) -> None:
                 print(f"shot {si} {span:.0f} s: lost (reached {(last - key) / 50:.1f} s)")
                 continue
             e = disagreement_m(H0, back[key].H, wh)
-            print(
-                f"shot {si} {span:.0f} s: round trip over {(last - key) / 50:.1f} s each way, drift {e:.2f} m"
-            )
+            print(f"shot {si} {span:.0f} s: round trip over {(last - key) / 50:.1f} s each way, drift {e:.2f} m")
 
 
 def propagate(stem: str) -> None:
@@ -133,16 +130,14 @@ def propagate(stem: str) -> None:
         frames = sorted(set(range(fk, s["start"] - 1, -5)) | set(range(fk, s["end"], 5)))
         for f, st in sorted(prop.run(read, frames, fk, np.array(rec["H"])).items()):
             if st.H is not None:
-                rows.append(
-                    {
-                        "frame": f,
-                        "H": np.round(st.H, 8).tolist(),
-                        "kp": landmarks(st.H, VERTS, wh),
-                        "keyframe": fk,
-                        "steps": abs(f - fk) // 5,
-                        "inliers": st.inliers,
-                    }
-                )
+                rows.append({
+                    "frame": f,
+                    "H": np.round(st.H, 8).tolist(),
+                    "kp": landmarks(st.H, VERTS, wh),
+                    "keyframe": fk,
+                    "steps": abs(f - fk) // 5,
+                    "inliers": st.inliers,
+                })
     out.write_text("".join(json.dumps(r) + "\n" for r in rows))
     print(f"{stem}: {len(rows)} labelled frames from {len(court['frames'])} keyframes -> {out}")
 

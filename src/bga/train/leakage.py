@@ -6,22 +6,63 @@ import json
 from collections.abc import Iterable
 from pathlib import Path
 
+#: Repository root; the gold list is ``data/labels/gold.json`` under it.
 ROOT = Path(__file__).resolve().parents[3]
 
 
 def gold_clips(gold_json: Path = ROOT / "data/labels/gold.json") -> set[str]:
-    """Label stems of every gold game, held out or not."""
+    """List the label stems of every gold game, held out or not.
+
+    Args:
+        gold_json: the gold-set index.
+
+    Returns:
+        Label stems (``<date>_<youtube id>_<title>``).
+
+    Examples:
+        >>> "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu" in gold_clips()
+        True
+
+    """
     return {g["clip"] for g in json.loads(gold_json.read_text())["games"]}
 
 
 def gold_ids(gold_json: Path = ROOT / "data/labels/gold.json") -> set[str]:
-    return {
-        g.get("youtube_id") or g["clip"].split("_")[1] for g in json.loads(gold_json.read_text())["games"]
-    }
+    """List the YouTube ids of every gold game (from ``youtube_id``, else the second field of the label stem).
+
+    Args:
+        gold_json: the gold-set index.
+
+    Returns:
+        YouTube video ids.
+
+    Examples:
+        >>> "4XMD9FWmQws" in gold_ids()
+        True
+
+    """
+    return {g.get("youtube_id") or g["clip"].split("_")[1] for g in json.loads(gold_json.read_text())["games"]}
 
 
 def assert_no_gold(clips: Iterable[str]) -> None:
-    """Raise if any clip (label stem, or a path or name containing one) belongs to a gold game."""
+    """Raise if any clip (label stem, or a path or name containing one) belongs to a gold game.
+
+    A clip matches on its file stem being a gold label stem, or on containing a gold YouTube id anywhere.
+
+    Args:
+        clips: label stems, video paths or file names.
+
+    Raises:
+        ValueError: listing the gold clips found, sorted.
+
+    Examples:
+        >>> assert_no_gold(["20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka"])
+        >>> assert_no_gold(["data/clips/20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu.mp4"])
+        Traceback (most recent call last):
+        ...
+        ValueError: gold clips in a training manifest: ['data/clips/20250213_4XMD9FWmQws_...']
+
+    """
     gold, ids = gold_clips(), gold_ids()
     bad = sorted({c for c in clips if Path(c).stem in gold or any(i in c for i in ids)})
     if bad:
@@ -29,6 +70,21 @@ def assert_no_gold(clips: Iterable[str]) -> None:
 
 
 def manifest_clips(manifest: dict) -> set[str]:
+    """Collect every clip a training manifest draws on: frame clips and videos, and keyframe clips.
+
+    Args:
+        manifest: a parsed training manifest (``frames`` and ``keyframes`` lists).
+
+    Returns:
+        The non-empty clip names and video paths.
+
+    Examples:
+        >>> frames = [{"clip": "a", "video": "data/clips/a.mp4"}, {"clip": "b"}]
+        >>> manifest = {"frames": frames, "keyframes": [{"clip": "c"}]}
+        >>> sorted(manifest_clips(manifest))
+        ['a', 'b', 'c', 'data/clips/a.mp4']
+
+    """
     clips = {f["clip"] for f in manifest.get("frames", [])}
     clips |= {f.get("video", "") for f in manifest.get("frames", [])}
     clips |= {k["clip"] for k in manifest.get("keyframes", [])}

@@ -6,6 +6,7 @@
 Vertices (33 landmarks, centimetres, Skalski's order) and edges come from
 ``sports.basketball.CourtConfiguration(League.FIBA)``. The polylines add what the edges do not
 cover: both three-point arcs, the free-throw circles and the centre circle, sampled every 5 degrees.
+
 """
 
 from __future__ import annotations

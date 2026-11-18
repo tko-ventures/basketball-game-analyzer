@@ -2,9 +2,12 @@
 
 Everything is computed from positions, ball possession and the event list; nothing is written by hand
 per play. Used by scripts/coach_web.py. The expected-points table is illustrative, not fitted to PLK.
+
 """
 
 from __future__ import annotations
+
+from dataclasses import dataclass
 
 import numpy as np
 
@@ -43,8 +46,12 @@ def zone_of(p):
 
 
 def seg_dist(p, a, b):
-    """Distance of p from the passing lane a -> b. A defender within 1.2 m of the passer (the pass goes
-    over or around him) or 1.0 m of the receiver (he is guarding the catch, not the lane) does not count."""
+    """Distance of p from the passing lane a -> b.
+
+    A defender within 1.2 m of the passer (the pass goes
+    over or around him) or 1.0 m of the receiver (he is guarding the catch, not the lane) does not count.
+
+    """
     ab = b - a
     length = float(np.linalg.norm(ab)) + 1e-9
     along = float(np.dot(p - a, ab)) / length
@@ -80,7 +87,7 @@ def hull_area(pts):
 
 def runs(mask, fps, min_s):
     out, start = [], None
-    for i, m in enumerate(list(mask) + [False]):
+    for i, m in enumerate([*mask, False]):
         if m and start is None:
             start = i
         elif not m and start is not None:
@@ -104,7 +111,7 @@ def analyse(d: dict) -> dict:
     dist = np.linalg.norm(A[:, :, None, :] - D[:, None, :, :], axis=3)  # attacker x defender
     nearest = dist.min(axis=2)
     shot = next((e for e in d["events"] if e["type"] == "shot"), None)
-    f_shot = int(round(shot["t"] * fps)) if shot else n - 1
+    f_shot = round(shot["t"] * fps) if shot else n - 1
     passes = [e for e in d["events"] if e["type"] == "pass"]
 
     # spacing: mean distance between attackers, while all five are in the front court, before the shot
@@ -131,11 +138,51 @@ def analyse(d: dict) -> dict:
     paint_touches = len(runs(touch, fps, 0.2))
 
     # open team-mates: far from every defender, in range, with a clear passing lane from the ball
-    open_windows = []
     speed = np.linalg.norm(np.gradient(A, 1 / fps, axis=0), axis=2)
     front = next((f for f in range(n) if ball[f][0] < 14), 0)  # the offence needs a moment to set up
     near = next((f for f in range(n) if np.linalg.norm(ball[f] - BASKET) < 9), n)
     f_set = min(front + int(2.5 * fps), near)
+    fr = _Frames(fps=fps, atk=atk, pos=pos, holder=holder, A=A, D=D, dist=dist, nearest=nearest)
+    open_windows = _open_windows(fr, passes, f_set, f_shot, speed)
+    out_shot = _shot_summary(fr, dfn, passes, shot, f_shot)
+    onball = [float(dist[f, atk.index(holder[f])].min()) for f in half if holder[f] in atk]
+    moments = _moments(d["events"], open_windows, out_shot)
+
+    x = out_shot["xpts"] if out_shot else 0
+    return {
+        "duration": round((n - 1) / fps, 1),
+        "time_to_shot": shot["t"] if shot else None,
+        "passes": len(passes),
+        "reversals": reversals,
+        "paint_touches": paint_touches,
+        "spacing": spacing,
+        "shot": out_shot,
+        "quality": "good" if x >= 1.1 else ("average" if x >= 0.9 else "poor"),
+        "onball_def_dist": round(float(np.mean(onball)), 1) if onball else None,
+        "open": open_windows,
+        "moments": moments,
+        "players": {pid: _player_load(xy, pid, holder, fps) for pid, xy in pos.items()},
+    }
+
+
+@dataclass(frozen=True)
+class _Frames:
+    """Per-frame arrays of one possession, shared by the analysis helpers."""
+
+    fps: float
+    atk: list
+    pos: dict
+    holder: list
+    A: np.ndarray  # (n, 5, 2) attackers
+    D: np.ndarray  # (n, 5, 2) defenders
+    dist: np.ndarray  # (n, 5, 5) attacker x defender
+    nearest: np.ndarray  # (n, 5) nearest defender per attacker
+
+
+def _open_windows(fr: _Frames, passes: list, f_set: int, f_shot: int, speed: np.ndarray) -> list:
+    """Windows where a team-mate stood open with a clear lane from the ball; the three most valuable."""
+    fps, atk, pos, holder, A, D, nearest = fr.fps, fr.atk, fr.pos, fr.holder, fr.A, fr.D, fr.nearest
+    open_windows = []
     for i, pid in enumerate(atk):
         mask = []
         for f in range(f_shot + 1):
@@ -154,98 +201,80 @@ def analyse(d: dict) -> dict:
         for f0, f1 in runs(mask, fps, 0.5):
             t0, t1 = f0 / fps, f1 / fps
             found = any(e["to"] == pid and t0 - 0.2 <= e["t"] <= t1 + 0.6 for e in passes)
-            open_windows.append(
-                {
-                    "t0": round(t0, 2),
-                    "t1": round(t1, 2),
-                    "pid": pid,
-                    "found": found,
-                    "dist": round(float(nearest[f0 : f1 + 1, i].max()), 1),
-                }
-            )
+            open_windows.append({
+                "t0": round(t0, 2),
+                "t1": round(t1, 2),
+                "pid": pid,
+                "found": found,
+                "dist": round(float(nearest[f0 : f1 + 1, i].max()), 1),
+            })
     open_windows.sort(key=lambda w: -(w["t1"] - w["t0"]) * w["dist"])
-    open_windows = sorted(open_windows[:3], key=lambda w: w["t0"])
+    return sorted(open_windows[:3], key=lambda w: w["t0"])
 
-    out_shot = None
-    if shot:
-        i = atk.index(shot["by"])
-        p = A[f_shot, i]
-        j = int(dist[f_shot, i].argmin())
-        dd = float(dist[f_shot, i, j])
-        z = zone_of(p)
-        k = 0 if dd < 1.2 else (1 if dd <= 1.8 else 2)
-        catch = max((e for e in passes if e["to"] == shot["by"]), key=lambda e: e["t"], default=None)
-        f_catch = int(catch["t1"] * fps) if catch else f_shot
-        out_shot = {
-            "t": shot["t"],
-            "by": shot["by"],
-            "made": shot["made"],
-            "points": shot["points"],
-            "zone": z,
-            "dist": round(float(np.linalg.norm(p - BASKET)), 1),
-            "def_dist": round(dd, 1),
-            "def_by": dfn[j],
-            "open": OPENNESS[k],
-            "xpts": round(FG[z][k] * shot["points"], 2),
-            "catch_def_dist": round(float(dist[f_catch, i].min()), 1),
-            "catch_to_release": round(shot["t"] - f_catch / fps, 1),
-            "defenders_near": int((dist[f_shot, i] <= 3.0).sum()),
-            "defenders_in_paint": int(sum(in_paint(q) for q in D[f_shot])),
-        }
 
-    onball = [float(dist[f, atk.index(holder[f])].min()) for f in half if holder[f] in atk]
-
-    def load(xy, pid):
-        k = np.ones(5) / 5
-        sm = np.stack([np.convolve(xy[:, c], k, mode="valid") for c in range(2)], 1)
-        v = np.linalg.norm(np.diff(sm, axis=0), axis=1) * fps
-        v10 = np.convolve(v, np.ones(10) / 10, mode="valid")
-        return {
-            "dist_m": round(float(v.sum() / fps), 1),
-            "top_kmh": round(float(v10.max() * 3.6), 1),
-            "avg_kmh": round(float(v.mean() * 3.6), 1),
-            "ball_s": round(sum(1 for h in holder if h == pid) / fps, 1),
-        }
-
-    moments = []
-    for e in d["events"]:
-        if e["type"] in ("pass", "shot", "rebound"):
-            continue
-        moments.append({**e, "kind": e["type"]})
-    for w in open_windows:
-        moments.append(
-            {
-                "t": w["t0"],
-                "kind": "open_found" if w["found"] else "open_missed",
-                "by": w["pid"],
-                "dist": w["dist"],
-                "dur": round(w["t1"] - w["t0"], 1),
-            }
-        )
-    if out_shot:
-        moments.append(
-            {"t": out_shot["t"], "kind": "shot", **{k: v for k, v in out_shot.items() if k != "t"}}
-        )
-    for e in d["events"]:
-        if e["type"] == "rebound":
-            moments.append({"t": e["t"], "kind": "rebound", "by": e["by"]})
-    moments.sort(key=lambda m: m["t"])
-
-    x = out_shot["xpts"] if out_shot else 0
+def _shot_summary(fr: _Frames, dfn: list, passes: list, shot: dict | None, f_shot: int) -> dict | None:
+    """The shot's zone, defender distance, openness and expected points; ``None`` without a shot."""
+    if not shot:
+        return None
+    fps, atk, A, D, dist = fr.fps, fr.atk, fr.A, fr.D, fr.dist
+    i = atk.index(shot["by"])
+    p = A[f_shot, i]
+    j = int(dist[f_shot, i].argmin())
+    dd = float(dist[f_shot, i, j])
+    z = zone_of(p)
+    k = 0 if dd < 1.2 else (1 if dd <= 1.8 else 2)
+    catch = max((e for e in passes if e["to"] == shot["by"]), key=lambda e: e["t"], default=None)
+    f_catch = int(catch["t1"] * fps) if catch else f_shot
     return {
-        "duration": round((n - 1) / fps, 1),
-        "time_to_shot": shot["t"] if shot else None,
-        "passes": len(passes),
-        "reversals": reversals,
-        "paint_touches": paint_touches,
-        "spacing": spacing,
-        "shot": out_shot,
-        "quality": "good" if x >= 1.1 else ("average" if x >= 0.9 else "poor"),
-        "onball_def_dist": round(float(np.mean(onball)), 1) if onball else None,
-        "open": open_windows,
-        "moments": moments,
-        "players": {pid: load(xy, pid) for pid, xy in pos.items()},
+        "t": shot["t"],
+        "by": shot["by"],
+        "made": shot["made"],
+        "points": shot["points"],
+        "zone": z,
+        "dist": round(float(np.linalg.norm(p - BASKET)), 1),
+        "def_dist": round(dd, 1),
+        "def_by": dfn[j],
+        "open": OPENNESS[k],
+        "xpts": round(FG[z][k] * shot["points"], 2),
+        "catch_def_dist": round(float(dist[f_catch, i].min()), 1),
+        "catch_to_release": round(shot["t"] - f_catch / fps, 1),
+        "defenders_near": int((dist[f_shot, i] <= 3.0).sum()),
+        "defenders_in_paint": int(sum(in_paint(q) for q in D[f_shot])),
     }
+
+
+def _player_load(xy: np.ndarray, pid: str, holder: list, fps: float) -> dict:
+    """Distance covered, top and average speed, and time on the ball for one player."""
+    k = np.ones(5) / 5
+    sm = np.stack([np.convolve(xy[:, c], k, mode="valid") for c in range(2)], 1)
+    v = np.linalg.norm(np.diff(sm, axis=0), axis=1) * fps
+    v10 = np.convolve(v, np.ones(10) / 10, mode="valid")
+    return {
+        "dist_m": round(float(v.sum() / fps), 1),
+        "top_kmh": round(float(v10.max() * 3.6), 1),
+        "avg_kmh": round(float(v.mean() * 3.6), 1),
+        "ball_s": round(sum(1 for h in holder if h == pid) / fps, 1),
+    }
+
+
+def _moments(events: list, open_windows: list, out_shot: dict | None) -> list:
+    """Timeline of the possession: plain events, open windows, the shot and rebounds, by time."""
+    moments = [{**e, "kind": e["type"]} for e in events if e["type"] not in ("pass", "shot", "rebound")]
+    moments.extend(
+        {
+            "t": w["t0"],
+            "kind": "open_found" if w["found"] else "open_missed",
+            "by": w["pid"],
+            "dist": w["dist"],
+            "dur": round(w["t1"] - w["t0"], 1),
+        }
+        for w in open_windows
+    )
+    if out_shot:
+        moments.append({"t": out_shot["t"], "kind": "shot", **{k: v for k, v in out_shot.items() if k != "t"}})
+    moments.extend({"t": e["t"], "kind": "rebound", "by": e["by"]} for e in events if e["type"] == "rebound")
+    moments.sort(key=lambda m: m["t"])
+    return moments
 
 
 def summary(plays: list[dict]) -> dict:

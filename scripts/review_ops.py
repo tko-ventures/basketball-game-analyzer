@@ -15,6 +15,7 @@ with ``#`` or text after two or more spaces and ``#``; a ``#`` inside a note is 
     note 1003 switches to another player after ~3340   free text for the human pass (identities.csv)
     confirm 1003               mark the track reviewed
 Operations run in file order, so the file is the audit trail of a review pass.
+
 """
 
 from __future__ import annotations
@@ -26,7 +27,86 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from tools.labeler import server  # noqa: E402
+from tools.labeler import server
+
+
+def _merge(ids, frames, args):
+    src, dst = args
+    for f in frames.values():
+        for b in f["boxes"]:
+            if str(b["tid"]) == src:
+                b["tid"] = int(dst)
+    s, d = ids.pop(src, {}), ids.setdefault(dst, {"team": "", "number": "", "name": ""})
+    d["team"] = d.get("team") or s.get("team", "")
+    d["number"] = d.get("number") or s.get("number", "")
+
+
+def _split(ids, frames, args):
+    src, start, new = args
+    ids.setdefault(new, {**ids[src], "reviewed": False})
+    for k, f in frames.items():
+        if int(k) >= int(start):
+            for b in f["boxes"]:
+                if str(b["tid"]) == src:
+                    b["tid"] = int(new)
+
+
+def _move_or_cut(op, ids, frames, args):
+    src, lo, hi, *dst = args
+    if dst:
+        ids.setdefault(dst[0], {**ids[src], "reviewed": False, "note": ""})
+    for k, f in frames.items():
+        if int(lo) <= int(k) <= int(hi):
+            mine = [b for b in f["boxes"] if str(b["tid"]) == src]
+            if not mine:
+                continue
+            if op == "cut" or any(str(b["tid"]) == dst[0] for b in f["boxes"]):
+                f["boxes"] = [b for b in f["boxes"] if str(b["tid"]) != src]
+            else:
+                for b in mine:
+                    b["tid"] = int(dst[0])
+
+
+def _delete(ids, frames, args):
+    (tid,) = args
+    for f in frames.values():
+        f["boxes"] = [b for b in f["boxes"] if str(b["tid"]) != tid]
+    ids.pop(tid, None)
+
+
+def _team(ids, frames, args):
+    tid, team = args
+    assert team in server.TEAMS, team
+    ids[tid]["team"] = team
+
+
+def _number(ids, frames, args):
+    tid, num = args
+    ids[tid]["number"] = num
+
+
+def _note(ids, frames, args):
+    tid, *text = args
+    ids[tid]["note"] = " ".join(text)
+
+
+def _confirm(ids, frames, args):
+    (tid,) = args
+    ids[tid]["reviewed"] = True
+
+
+# op name -> handler(ids, frames, args); each edits the labels in place
+OPS = {
+    "merge": _merge,
+    "split": _split,
+    "move": lambda ids, frames, args: _move_or_cut("move", ids, frames, args),
+    "cut": lambda ids, frames, args: _move_or_cut("cut", ids, frames, args),
+    "delete": _delete,
+    "team": _team,
+    "number": _number,
+    "note": _note,
+    "confirm": _confirm,
+}
 
 
 def apply_ops(labels: dict, lines: list[str]) -> dict[str, int]:
@@ -35,61 +115,13 @@ def apply_ops(labels: dict, lines: list[str]) -> dict[str, int]:
     for raw in lines:
         # Comments: whole lines starting with "#", or "#" after two or more spaces; "#7" in a note stays.
         line = re.split(r"\s{2,}#", raw, maxsplit=1)[0].strip()
-        if not line or line.startswith("#") or line.startswith("clip "):
+        if not line or line.startswith(("#", "clip ")):
             continue
         op, *args = line.split()
         counts[op] = counts.get(op, 0) + 1
-        if op == "merge":
-            src, dst = args
-            for f in frames.values():
-                for b in f["boxes"]:
-                    if str(b["tid"]) == src:
-                        b["tid"] = int(dst)
-            s, d = ids.pop(src, {}), ids.setdefault(dst, {"team": "", "number": "", "name": ""})
-            d["team"] = d.get("team") or s.get("team", "")
-            d["number"] = d.get("number") or s.get("number", "")
-        elif op == "split":
-            src, start, new = args
-            ids.setdefault(new, {**ids[src], "reviewed": False})
-            for k, f in frames.items():
-                if int(k) >= int(start):
-                    for b in f["boxes"]:
-                        if str(b["tid"]) == src:
-                            b["tid"] = int(new)
-        elif op in ("move", "cut"):
-            src, lo, hi, *dst = args
-            if dst:
-                ids.setdefault(dst[0], {**ids[src], "reviewed": False, "note": ""})
-            for k, f in frames.items():
-                if int(lo) <= int(k) <= int(hi):
-                    mine = [b for b in f["boxes"] if str(b["tid"]) == src]
-                    if not mine:
-                        continue
-                    if op == "cut" or any(str(b["tid"]) == dst[0] for b in f["boxes"]):
-                        f["boxes"] = [b for b in f["boxes"] if str(b["tid"]) != src]
-                    else:
-                        for b in mine:
-                            b["tid"] = int(dst[0])
-        elif op == "delete":
-            (tid,) = args
-            for f in frames.values():
-                f["boxes"] = [b for b in f["boxes"] if str(b["tid"]) != tid]
-            ids.pop(tid, None)
-        elif op == "team":
-            tid, team = args
-            assert team in server.TEAMS, team
-            ids[tid]["team"] = team
-        elif op == "number":
-            tid, num = args
-            ids[tid]["number"] = num
-        elif op == "note":
-            tid, *text = args
-            ids[tid]["note"] = " ".join(text)
-        elif op == "confirm":
-            (tid,) = args
-            ids[tid]["reviewed"] = True
-        else:
+        if op not in OPS:
             raise ValueError(f"unknown op {op!r} in {raw!r}")
+        OPS[op](ids, frames, args)
     return counts
 
 
@@ -108,9 +140,7 @@ def main(argv=None):
         roster = server.REPO / "data/rosters" / f"{side.get('roster', '')}.json"
         if ident.get("number") and roster.is_file():
             season = json.loads(roster.read_text())["seasons"].get(labels["meta"]["season"], {})
-            ident["name"] = next(
-                (p["name"] for p in season.get("players", []) if p["number"] == ident["number"]), ""
-            )
+            ident["name"] = next((p["name"] for p in season.get("players", []) if p["number"] == ident["number"]), "")
     server.save_labels(a.labels_dir, labels)
     print(f"{stem}: {counts}, {len(labels['identities'])} identities")
 

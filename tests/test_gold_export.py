@@ -24,7 +24,9 @@ def test_sequence_grid_classes_and_visibility():
     }
     game = {"youtube_id": "abc", "clip": "c", "held_out": True}
     seq = build_sequence(labels, game, {"shot": 3, "start": 98, "end": 112}, stride=5, max_gap=3)
-    assert seq.name == "abc_s3" and seq.frames == [100, 105, 110] and seq.held_out
+    assert seq.name == "abc_s3"
+    assert seq.frames == [100, 105, 110]
+    assert seq.held_out
     assert seq.rows == [
         (1, 1, 0, 0, 10, 20, 1, 1, 1.0),
         (1, 2, 50, 0, 10, 20, 1, 3, 0.5),

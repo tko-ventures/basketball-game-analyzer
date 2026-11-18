@@ -31,6 +31,7 @@ first demo (scripts/demo_video.py), after Tomasz's review on 2026-10-31:
 from __future__ import annotations
 
 import argparse
+import itertools
 import json
 import math
 import re
@@ -39,14 +40,15 @@ import subprocess
 import sys
 import time
 from collections import Counter, defaultdict
+from dataclasses import dataclass
 from pathlib import Path
 
 import cv2
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from scripts.demo_strings import JS, LANGS, PAGE, VIDEO, surname  # noqa: E402
-from scripts.demo_video import (  # noqa: E402
+from scripts.demo_strings import JS, LANGS, PAGE, VIDEO, surname
+from scripts.demo_video import (
     COURT_MODEL,
     DISPLAY_BGR,
     FONT,
@@ -88,22 +90,18 @@ def read_numbers(tracks_json, shot, dets, is_ref, read, model, max_reads):
         for d in dets.get(fr["frame_idx"], []):
             if d["class"] != "number" or d["score"] < 0.3:
                 continue
-            score, tid = max(
-                ((ios(d["xyxy"], t["xyxy"]), t["track_id"]) for t in fr["tracks"]), default=(0, None)
-            )
+            score, tid = max(((ios(d["xyxy"], t["xyxy"]), t["track_id"]) for t in fr["tracks"]), default=(0, None))
             if score < 0.9 or is_ref.get(tid):
                 continue
             r = reads[tid]
-            top = r.most_common(2) + [("", 0), ("", 0)]
+            top = [*r.most_common(2), ("", 0), ("", 0)]
             if top[0][1] - top[1][1] >= 3 or sum(r.values()) >= max_reads:
                 continue
             frame = read(fr["frame_idx"]) if frame is None else frame
             c = crop(frame, d["xyxy"], pad=10)
             if c.size == 0:
                 continue
-            raw = model.prompt(images=cv2.resize(c, (224, 224)), prompt="Read the number.", max_new_tokens=4)[
-                0
-            ]
+            raw = model.prompt(images=cv2.resize(c, (224, 224)), prompt="Read the number.", max_new_tokens=4)[0]
             digits = re.sub(r"\D", "", str(raw))
             if 0 < len(digits) <= 2:
                 r[digits] += 1
@@ -113,14 +111,17 @@ def read_numbers(tracks_json, shot, dets, is_ref, read, model, max_reads):
 
 def number_segments(reads):
     """[(start, end, number, support)] for one track from its time-ordered reads [(frame, digits)].
-    One change point is allowed when both sides agree internally (>= 2 reads, >= 75% purity)."""
+
+    One change point is allowed when both sides agree internally (>= 2 reads, >= 75% purity).
+
+    """
     vals = [d for _, d in reads]
     best = None
     for k in range(2, len(vals) - 1):
         (lv, lc), (rv, rc) = Counter(vals[:k]).most_common(1)[0], Counter(vals[k:]).most_common(1)[0]
-        if lv != rv and lc >= 2 and rc >= 2 and lc / k >= 0.75 and rc / (len(vals) - k) >= 0.75:
-            if best is None or lc + rc > best[0]:
-                best = (lc + rc, k, lv, lc, rv, rc)
+        agree = lv != rv and lc >= 2 and rc >= 2 and lc / k >= 0.75 and rc / (len(vals) - k) >= 0.75
+        if agree and (best is None or lc + rc > best[0]):
+            best = (lc + rc, k, lv, lc, rv, rc)
     if best:
         _, k, lv, lc, rv, rc = best
         cut = (reads[k - 1][0] + reads[k][0]) // 2
@@ -133,7 +134,7 @@ def number_segments(reads):
 
 
 def numbers_at(frames, tracks_at, segments, side_of):
-    """frame -> {track: number}, with one owner per (side, number) per frame (most agreeing reads wins)."""
+    """Frame -> {track: number}, with one owner per (side, number) per frame (most agreeing reads wins)."""
     out = {}
     for f in frames:
         claims = defaultdict(list)
@@ -147,7 +148,7 @@ def numbers_at(frames, tracks_at, segments, side_of):
 
 # --------------------------------------------------------------------------- court mapping
 def court_mapping(frames, read, court_model, vertices, wh, jump_cm=150.0, window=11):
-    """frame -> smoothed 3x3 image-to-court (cm) homography, or None before the first usable frame."""
+    """Frame -> smoothed 3x3 image-to-court (cm) homography, or None before the first usable frame."""
     from scipy.signal import savgol_filter
 
     w, h = wh
@@ -174,7 +175,7 @@ def court_mapping(frames, read, court_model, vertices, wh, jump_cm=150.0, window
             G[i] = np.nan
     valid = ~np.isnan(G[:, 0, 0])
     if valid.sum() < 2:
-        return {f: None for f in frames}, int(valid.sum())
+        return dict.fromkeys(frames), int(valid.sum())
     idx = np.arange(len(frames))
     for p in range(len(grid)):
         for c in range(2):
@@ -198,6 +199,7 @@ def court_paths(frames, per_frame, H, key_frames, is_ref, img_h, edge_px=3):
     A box that reaches the bottom edge of the frame has no visible feet: such frames do not make key
     positions unless a run has nothing else. Players are kept on the 28 x 15 m court; referees are not
     clamped (they work outside the lines).
+
     """
     from scipy.interpolate import PchipInterpolator
 
@@ -216,7 +218,7 @@ def court_paths(frames, per_frame, H, key_frames, is_ref, img_h, edge_px=3):
         out[t] = {}
         idx = sorted(pos)
         runs, cur = [], [idx[0]] if idx else []
-        for a, b in zip(idx, idx[1:], strict=False):
+        for a, b in itertools.pairwise(idx):
             if b - a > 5:  # out of view or lost for > 0.2 s: separate run
                 runs.append(cur)
                 cur = []
@@ -231,9 +233,7 @@ def court_paths(frames, per_frame, H, key_frames, is_ref, img_h, edge_px=3):
                 keys_t.append(float(np.mean(win)))
                 keys_xy.append(np.median([pos[i][0] for i in win], axis=0))
             keys_xy = np.array(keys_xy)
-            curve = (
-                PchipInterpolator(keys_t, keys_xy, axis=0, extrapolate=False) if len(keys_t) >= 2 else None
-            )
+            curve = PchipInterpolator(keys_t, keys_xy, axis=0, extrapolate=False) if len(keys_t) >= 2 else None
             for i in run:
                 v = curve(min(max(i, keys_t[0]), keys_t[-1])) if curve else keys_xy[0]
                 x, y = float(v[0]), float(v[1])
@@ -246,7 +246,10 @@ def court_paths(frames, per_frame, H, key_frames, is_ref, img_h, edge_px=3):
 # --------------------------------------------------------------------------- analysis for the page
 def kinematics(paths, src_fps, k=3, max_kmh=34.0):
     """Per track and frame: speed (km/h, central difference over +-k frames) and distance so far (m).
-    Steps across a gap or a jump > 0.6 m do not count."""
+
+    Steps across a gap or a jump > 0.6 m do not count.
+
+    """
     speed, dist = {}, {}
     for t, path in paths.items():
         keys = sorted(path)
@@ -261,18 +264,18 @@ def kinematics(paths, src_fps, k=3, max_kmh=34.0):
                 lo -= 1
             while hi < len(keys) - 1 and hi - j < k and keys[hi + 1] - keys[hi] <= 4:
                 hi += 1
-            v = (
-                math.dist(path[keys[hi]], path[keys[lo]]) / ((keys[hi] - keys[lo]) / src_fps) * 3.6
-                if hi > lo
-                else 0.0
-            )
+            v = math.dist(path[keys[hi]], path[keys[lo]]) / ((keys[hi] - keys[lo]) / src_fps) * 3.6 if hi > lo else 0.0
             speed[t][f] = round(min(v, max_kmh), 1)
     return speed, dist
 
 
 def attack_frames(rows, window=12):
-    """Per frame [attacking side, basket 'L'/'R'] or [None, None] in transition. In a half-court set the
-    defence stands closer to the basket it protects, so the attacking side is the one farther from it."""
+    """Per frame [attacking side, basket 'L'/'R'] or [None, None] in transition.
+
+    In a half-court set the
+    defence stands closer to the basket it protects, so the attacking side is the one farther from it.
+
+    """
     raw = []
     for frame_rows in rows:
         sided = [r for r in frame_rows if r[0] in ("home", "away")]
@@ -298,7 +301,7 @@ def hexcol(bgr):
 
 # --------------------------------------------------------------------------- drawing
 def to_px(x_m, y_m):
-    return int(round(x_m * 100 * COURT_SCALE + COURT_PAD)), int(round(y_m * 100 * COURT_SCALE + COURT_PAD))
+    return round(x_m * 100 * COURT_SCALE + COURT_PAD), round(y_m * 100 * COURT_SCALE + COURT_PAD)
 
 
 def ink(bgr):
@@ -427,9 +430,7 @@ def main(argv=None):
     ap.add_argument("--key-s", type=float, default=0.5, help="seconds per key position on the 2D court")
     ap.add_argument("--set", choices=list(DEMO_SETS), default="warsaw")
     ap.add_argument("--cache", type=Path, default=Path("runs/demo/cache"))
-    ap.add_argument(
-        "--langs", default=",".join(LANGS), help="editions: the first at --out, the others in a subfolder"
-    )
+    ap.add_argument("--langs", default=",".join(LANGS), help="editions: the first at --out, the others in a subfolder")
     a = ap.parse_args(argv)
     langs = a.langs.split(",")
     for lang in langs:
@@ -455,7 +456,7 @@ def build(a, lang, out, others):
     cfg = CourtConfiguration(league=League.FIBA)
     vertices = np.array(cfg.vertices, dtype=np.float32)
     base = draw_court(cfg, scale=COURT_SCALE, padding=COURT_PAD, line_thickness=3)
-    court_model = ocr_model = None
+    models = {"court": None, "ocr": None, "get_model": get_model, "vertices": vertices}
     clips, summary, fps = [], [], 25.0
     for old in [*out.glob("*.mp4"), *out.glob("clip_*.json")]:  # drop files of earlier builds
         old.unlink()
@@ -464,186 +465,229 @@ def build(a, lang, out, others):
     shots = DEMO_SETS[a.set]
     same_game = len({y for y, _ in shots}) < len(shots)
     for yid, shot in shots:
-        labels_path, tracks_path, dets_path = clip_files(yid)
-        labels = json.loads(labels_path.read_text())
-        meta = labels["meta"]
-        tracks_json = json.loads(tracks_path.read_text())
-        dets = {r["frame_idx"]: r["detections"] for r in map(json.loads, dets_path.open())}
-        per_frame, obs, is_ref = interpolate(tracks_json, shot, a.step)
-        frames = sorted(per_frame)
-        read = FrameReader(labels["clip"])
-        fps = labels["fps"] / a.step
-        timing = {}
-
-        team_cache = cache_dir / f"{yid}_s{shot}_step{a.step}.json"  # shared with demo_video.py
-        if team_cache.exists():
-            tc = json.loads(team_cache.read_text())
-        else:
-            cl, sc, tb, n = teams(obs, is_ref, read, meta)
-            tc = json.loads(
-                json.dumps({"cluster": cl, "side_of_cluster": sc, "team_bgr": tb, "team_crops": n})
-            )
-            team_cache.write_text(json.dumps(tc))
-        cluster = {int(k): v for k, v in tc["cluster"].items()}
-        side_of_cluster = {int(k): v for k, v in tc["side_of_cluster"].items()}
-        team_bgr = {
-            s: DISPLAY_BGR.get((meta[s]["team"], meta[s].get("kit")), tuple(v))
-            for s, v in tc["team_bgr"].items()
-        }
-
-        def side_of(t, cluster=cluster, side_of_cluster=side_of_cluster):
-            return side_of_cluster.get(cluster.get(t))
-
-        def colour(t, is_ref=is_ref, team_bgr=team_bgr, side_of=side_of):
-            return REF_BGR if is_ref[t] else team_bgr.get(side_of(t), GREY)
-
-        cache = cache_dir / f"{yid}_s{shot}_step{a.step}_web.json"
-        c = {} if a.recompute or not cache.exists() else json.loads(cache.read_text())
-        if "reads" not in c:
-            t0 = time.time()
-            ocr_model = ocr_model or load_ocr()
-            c["reads"] = read_numbers(tracks_json, shot, dets, is_ref, read, ocr_model, a.max_reads)
-            timing["numbers_s"] = round(time.time() - t0, 1)
-        if "H" not in c:
-            t0 = time.time()
-            court_model = court_model or get_model(model_id=COURT_MODEL)
-            H, n_valid = court_mapping(
-                frames, read, court_model, vertices, (labels["width"], labels["height"])
-            )
-            c["H"] = {str(f): (h.tolist() if h is not None else None) for f, h in H.items()}
-            c["court_valid_frames"] = n_valid
-            timing["court_s"] = round(time.time() - t0, 1)
-        cache.write_text(json.dumps(c))
-        H = {int(f): (np.array(h, dtype=np.float32) if h else None) for f, h in c["H"].items()}
-        lo, hi = COURT_WINDOW.get((yid, shot), (-INF, INF))
-        H = {f: (h if lo <= f <= hi else None) for f, h in H.items()}
-
-        by_track = defaultdict(list)
-        for f, t, d in c["reads"]:
-            by_track[t].append((f, d))
-        names = {s: roster_names(labels, s) for s in ("home", "away")}
-        segments = {
-            t: [seg for seg in number_segments(sorted(r)) if seg[2] in names.get(side_of(t), {})]
-            for t, r in by_track.items()
-        }
-        owner = numbers_at(frames, lambda f, pf=per_frame: pf[f].keys(), segments, side_of)
-
-        def number_of(t, f, owner=owner):
-            return owner.get(f, {}).get(t, "")
-
-        # What the pages show per frame (team, number, box), for scripts/demo_audit.py against gold.
-        shown = {
-            str(f): [
-                [t, "ref" if is_ref[t] else side_of(t), number_of(t, f), *[round(float(v)) for v in b]]
-                for t, b in per_frame[f].items()
-            ]
-            for f in frames
-        }
-        (cache_dir / f"{yid}_s{shot}_step{a.step}_shown.json").write_text(json.dumps(shown))
-
-        def label(t, f, is_ref=is_ref, names=names, side_of=side_of, number_of=number_of):
-            if is_ref[t]:
-                return vs["referee"]
-            num = number_of(t, f)
-            name = names.get(side_of(t), {}).get(num, "") if num else ""
-            return f"#{num} {surname(name)}" if name else (f"#{num}" if num else "")
-
-        paths = court_paths(frames, per_frame, H, max(1, round(a.key_s * fps)), is_ref, labels["height"])
-        paths = {t: v for t, v in paths.items() if not is_ref[t]}  # 2D view shows players only (Tomasz)
-        title = f"{meta['home']['team']} – {meta['away']['team']}  ·  {meta['season']}"
         n = len(clips) + 1
-        raw_a, raw_b = out / f"broadcast_{n}_raw.mp4", out / f"court_{n}_raw.mp4"
-        wa = cv2.VideoWriter(str(raw_a), cv2.VideoWriter_fourcc(*"mp4v"), fps, (1920, 1080))
-        wb = cv2.VideoWriter(str(raw_b), cv2.VideoWriter_fourcc(*"mp4v"), fps, (1920, 1080))
-        t0 = time.time()
-        for f in frames:
-            wa.write(draw_broadcast(read(f), f, per_frame, colour, label, title, meta, team_bgr, vs))
-            wb.write(
-                draw_court_frame(
-                    base, f, paths, colour, number_of, title, meta, team_bgr, H[f] is not None, vs
-                )
-            )
-        read.release()
-        wa.release()
-        wb.release()
-        encode(raw_a, out / f"broadcast_{n}.mp4", fps)
-        encode(raw_b, out / f"court_{n}.mp4", fps)
-        timing["render_s"] = round(time.time() - t0, 1)
-        # Data for the live 2D view in the page: one row per player per rendered frame.
-        speed, dist = kinematics(paths, labels["fps"])
-        rows = [
-            [
-                [t, round(x, 2), round(y, 2), number_of(t, f), speed[t][f], dist[t][f]]
-                for t, path in paths.items()
-                if f in path
-                for x, y in [path[f]]
-            ]
-            for f in frames
-        ]
-        sided = [[(side_of(r[0]), r[1], r[2]) for r in fr] for fr in rows]
-        data = {
-            "court": {"scale": COURT_SCALE, "pad": COURT_PAD},
-            "teams": {
-                sd: {"name": meta[sd]["team"], "color": hexcol(team_bgr.get(sd, GREY))}
-                for sd in ("home", "away")
-            },
-            "names": names,
-            "players": {str(t): {"side": side_of(t)} for t in paths},
-            "f": rows,
-            "boxes": [
-                [[t, *[int(v) for v in b]] for t, b in per_frame[f].items() if not is_ref[t]] for f in frames
-            ],
-            "mapped": [H[f] is not None for f in frames],
-            "atk": attack_frames(sided),
-        }
-        (out / f"clip_{n}.json").write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
-        clips.append(
-            {
-                "a": f"broadcast_{n}.mp4",
-                "b": f"court_{n}.mp4",
-                "data": f"clip_{n}.json",
-                "title": title,
-                "short": f"{meta['home']['team'].split()[0]} – {meta['away']['team'].split()[0]}"
-                + (f" · {sum(y == yid for y, _ in shots[:n])}" if same_game else ""),
-            }
-        )
-        numbered = {t for t, s in segments.items() if s}
-        summary.append(
-            {
-                "clip": yid,
-                "shot": shot,
-                "frames": len(frames),
-                "tracks": len(obs),
-                "ocr_reads": len(c["reads"]),
-                "tracks_with_number": len(numbered),
-                "tracks_with_two_numbers": sum(len(s) == 2 for s in segments.values()),
-                "court_valid_frames": c["court_valid_frames"],
-                **timing,
-            }
-        )
+        clip, row, fps = _build_shot(a, vs, out, base, models, yid, shot, n)
+        clip["short"] += f" · {sum(y == yid for y, _ in shots[:n])}" if same_game else ""
+        clips.append(clip)
+        summary.append(row)
         print(json.dumps(summary[-1]), flush=True)
 
     # Two independent pages over the same videos: / (two synced videos) and /analysis/ (live 2D analysis).
-    def page(template, cl, lang_href):
-        html = template
-        for k, v in {**PAGE[lang], "lang_href": lang_href}.items():
-            html = html.replace("{{" + k + "}}", v)
-        return (
-            html.replace("__CLIPS__", json.dumps(cl, ensure_ascii=False))
-            .replace("__T__", json.dumps(JS[lang], ensure_ascii=False))
-            .replace("__FPS__", f"{fps:g}")
-            .replace("__N__", str(len(cl)))
-        )
-
     other = next(iter(others.values()), "")  # link to the other edition (two editions)
-    (out / "index.html").write_text(page(PAGE_VIDEO, clips, other), encoding="utf-8")
+    (out / "index.html").write_text(_page(PAGE_VIDEO, clips, other, lang, fps), encoding="utf-8")
     sub = [{**c, "a": "../" + c["a"], "data": "../" + c["data"]} for c in clips]
     shutil.rmtree(out / "analiza", ignore_errors=True)  # path before 2026-11-01; redirected on Vercel
     (out / "analysis").mkdir(exist_ok=True)
     (out / "analysis" / "index.html").write_text(
-        page(PAGE_ANALYSIS, sub, "../" + other + "analysis/"), encoding="utf-8"
+        _page(PAGE_ANALYSIS, sub, "../" + other + "analysis/", lang, fps), encoding="utf-8"
     )
     (out / "summary.json").write_text(json.dumps(summary, indent=1))
+
+
+def _page(template, cl, lang_href, lang, fps):
+    """Fill one page template with this edition's strings, its clips and the frame rate."""
+    html = template
+    for k, v in {**PAGE[lang], "lang_href": lang_href}.items():
+        html = html.replace("{{" + k + "}}", v)
+    return (
+        html
+        .replace("__CLIPS__", json.dumps(cl, ensure_ascii=False))
+        .replace("__T__", json.dumps(JS[lang], ensure_ascii=False))
+        .replace("__FPS__", f"{fps:g}")
+        .replace("__N__", str(len(cl)))
+    )
+
+
+def _team_cache(team_cache, obs, is_ref, read, meta):
+    """Team clusters for one shot, from the cache shared with demo_video.py or computed and cached."""
+    if team_cache.exists():
+        return json.loads(team_cache.read_text())
+    cl, sc, tb, n = teams(obs, is_ref, read, meta)
+    tc = json.loads(json.dumps({"cluster": cl, "side_of_cluster": sc, "team_bgr": tb, "team_crops": n}))
+    team_cache.write_text(json.dumps(tc))
+    return tc
+
+
+def _reads_and_mapping(a, cache, models, shot_in, timing):
+    """Number reads and the per-frame court mapping of one shot, reused from the cache unless --recompute."""
+    tracks_json, shot, dets, is_ref, read, frames, wh = shot_in
+    c = {} if a.recompute or not cache.exists() else json.loads(cache.read_text())
+    if "reads" not in c:
+        t0 = time.time()
+        models["ocr"] = models["ocr"] or load_ocr()
+        c["reads"] = read_numbers(tracks_json, shot, dets, is_ref, read, models["ocr"], a.max_reads)
+        timing["numbers_s"] = round(time.time() - t0, 1)
+    if "H" not in c:
+        t0 = time.time()
+        models["court"] = models["court"] or models["get_model"](model_id=COURT_MODEL)
+        H, n_valid = court_mapping(frames, read, models["court"], models["vertices"], wh)
+        c["H"] = {str(f): (h.tolist() if h is not None else None) for f, h in H.items()}
+        c["court_valid_frames"] = n_valid
+        timing["court_s"] = round(time.time() - t0, 1)
+    cache.write_text(json.dumps(c))
+    return c
+
+
+@dataclass(frozen=True)
+class _Tracks:
+    """How one shot's tracks are shown: referee flags, sides, team colours, numbers over time and names."""
+
+    is_ref: dict
+    cluster: dict
+    side_of_cluster: dict
+    team_bgr: dict
+    owner: dict
+    names: dict
+    referee: str
+
+    def side_of(self, t):
+        return self.side_of_cluster.get(self.cluster.get(t))
+
+    def colour(self, t):
+        return REF_BGR if self.is_ref[t] else self.team_bgr.get(self.side_of(t), GREY)
+
+    def number_of(self, t, f):
+        return self.owner.get(f, {}).get(t, "")
+
+    def label(self, t, f):
+        if self.is_ref[t]:
+            return self.referee
+        num = self.number_of(t, f)
+        name = self.names.get(self.side_of(t), {}).get(num, "") if num else ""
+        return f"#{num} {surname(name)}" if name else (f"#{num}" if num else "")
+
+
+def _write_videos(out, n, fps, src, paths, H, base, tk, title, meta, vs):
+    """Render the broadcast and the 2D court video of one shot and encode both; returns render seconds."""
+    frames, read, per_frame = src
+    raw_a, raw_b = out / f"broadcast_{n}_raw.mp4", out / f"court_{n}_raw.mp4"
+    wa = cv2.VideoWriter(str(raw_a), cv2.VideoWriter_fourcc(*"mp4v"), fps, (1920, 1080))
+    wb = cv2.VideoWriter(str(raw_b), cv2.VideoWriter_fourcc(*"mp4v"), fps, (1920, 1080))
+    team_bgr = tk.team_bgr
+    t0 = time.time()
+    for f in frames:
+        wa.write(draw_broadcast(read(f), f, per_frame, tk.colour, tk.label, title, meta, team_bgr, vs))
+        wb.write(draw_court_frame(base, f, paths, tk.colour, tk.number_of, title, meta, team_bgr, H[f] is not None, vs))
+    read.release()
+    wa.release()
+    wb.release()
+    encode(raw_a, out / f"broadcast_{n}.mp4", fps)
+    encode(raw_b, out / f"court_{n}.mp4", fps)
+    return round(time.time() - t0, 1)
+
+
+def _clip_data(frames, per_frame, paths, H, tk, meta, src_fps):
+    """Data for the live 2D view in the page: one row per player per rendered frame."""
+    speed, dist = kinematics(paths, src_fps)
+    rows = [
+        [
+            [t, round(x, 2), round(y, 2), tk.number_of(t, f), speed[t][f], dist[t][f]]
+            for t, path in paths.items()
+            if f in path
+            for x, y in [path[f]]
+        ]
+        for f in frames
+    ]
+    sided = [[(tk.side_of(r[0]), r[1], r[2]) for r in fr] for fr in rows]
+    is_ref = tk.is_ref
+    return {
+        "court": {"scale": COURT_SCALE, "pad": COURT_PAD},
+        "teams": {
+            sd: {"name": meta[sd]["team"], "color": hexcol(tk.team_bgr.get(sd, GREY))} for sd in ("home", "away")
+        },
+        "names": tk.names,
+        "players": {str(t): {"side": tk.side_of(t)} for t in paths},
+        "f": rows,
+        "boxes": [[[t, *[int(v) for v in b]] for t, b in per_frame[f].items() if not is_ref[t]] for f in frames],
+        "mapped": [H[f] is not None for f in frames],
+        "atk": attack_frames(sided),
+    }
+
+
+def _build_shot(a, vs, out, base, models, yid, shot, n):
+    """Videos and page data for one shot (clip number n); returns the clip entry, its summary row and fps."""
+    cache_dir = a.cache
+    labels_path, tracks_path, dets_path = clip_files(yid)
+    labels = json.loads(labels_path.read_text())
+    meta = labels["meta"]
+    tracks_json = json.loads(tracks_path.read_text())
+    dets = {r["frame_idx"]: r["detections"] for r in map(json.loads, dets_path.open())}
+    per_frame, obs, is_ref = interpolate(tracks_json, shot, a.step)
+    frames = sorted(per_frame)
+    read = FrameReader(labels["clip"])
+    fps = labels["fps"] / a.step
+    timing = {}
+
+    tc = _team_cache(cache_dir / f"{yid}_s{shot}_step{a.step}.json", obs, is_ref, read, meta)
+    cluster = {int(k): v for k, v in tc["cluster"].items()}
+    side_of_cluster = {int(k): v for k, v in tc["side_of_cluster"].items()}
+    team_bgr = {s: DISPLAY_BGR.get((meta[s]["team"], meta[s].get("kit")), tuple(v)) for s, v in tc["team_bgr"].items()}
+
+    def side_of(t):
+        return side_of_cluster.get(cluster.get(t))
+
+    cache = cache_dir / f"{yid}_s{shot}_step{a.step}_web.json"
+    shot_in = (tracks_json, shot, dets, is_ref, read, frames, (labels["width"], labels["height"]))
+    c = _reads_and_mapping(a, cache, models, shot_in, timing)
+    H = {int(f): (np.array(h, dtype=np.float32) if h else None) for f, h in c["H"].items()}
+    lo, hi = COURT_WINDOW.get((yid, shot), (-INF, INF))
+    H = {f: (h if lo <= f <= hi else None) for f, h in H.items()}
+
+    by_track = defaultdict(list)
+    for f, t, d in c["reads"]:
+        by_track[t].append((f, d))
+    names = {s: roster_names(labels, s) for s in ("home", "away")}
+    segments = {
+        t: [seg for seg in number_segments(sorted(r)) if seg[2] in names.get(side_of(t), {})]
+        for t, r in by_track.items()
+    }
+    owner = numbers_at(frames, lambda f, pf=per_frame: pf[f].keys(), segments, side_of)
+    tk = _Tracks(
+        is_ref=is_ref,
+        cluster=cluster,
+        side_of_cluster=side_of_cluster,
+        team_bgr=team_bgr,
+        owner=owner,
+        names=names,
+        referee=vs["referee"],
+    )
+
+    # What the pages show per frame (team, number, box), for scripts/demo_audit.py against gold.
+    shown = {
+        str(f): [
+            [t, "ref" if is_ref[t] else tk.side_of(t), tk.number_of(t, f), *[round(float(v)) for v in b]]
+            for t, b in per_frame[f].items()
+        ]
+        for f in frames
+    }
+    (cache_dir / f"{yid}_s{shot}_step{a.step}_shown.json").write_text(json.dumps(shown))
+
+    paths = court_paths(frames, per_frame, H, max(1, round(a.key_s * fps)), is_ref, labels["height"])
+    paths = {t: v for t, v in paths.items() if not is_ref[t]}  # 2D view shows players only (Tomasz)
+    title = f"{meta['home']['team']} – {meta['away']['team']}  ·  {meta['season']}"
+    timing["render_s"] = _write_videos(out, n, fps, (frames, read, per_frame), paths, H, base, tk, title, meta, vs)
+    data = _clip_data(frames, per_frame, paths, H, tk, meta, labels["fps"])
+    (out / f"clip_{n}.json").write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
+    clip = {
+        "a": f"broadcast_{n}.mp4",
+        "b": f"court_{n}.mp4",
+        "data": f"clip_{n}.json",
+        "title": title,
+        "short": f"{meta['home']['team'].split()[0]} – {meta['away']['team'].split()[0]}",
+    }
+    numbered = {t for t, s in segments.items() if s}
+    row = {
+        "clip": yid,
+        "shot": shot,
+        "frames": len(frames),
+        "tracks": len(obs),
+        "ocr_reads": len(c["reads"]),
+        "tracks_with_number": len(numbered),
+        "tracks_with_two_numbers": sum(len(s) == 2 for s in segments.values()),
+        "court_valid_frames": c["court_valid_frames"],
+        **timing,
+    }
+    return clip, row, fps
 
 
 if __name__ == "__main__":

@@ -15,7 +15,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from tools.labeler import server  # noqa: E402
+from tools.labeler import server
 
 ID_OFFSET = 1000
 
@@ -33,9 +33,7 @@ def import_tracks(labels: dict, tracks: dict, force: bool = False) -> int:
                 str(tid), {"team": t.get("team", ""), "number": "", "name": "", "source": "prefill"}
             )
             x1, y1, x2, y2 = t["xyxy"]
-            boxes.append(
-                {"tid": tid, "x1": x1, "y1": y1, "x2": x2, "y2": y2, "occluded": False, "num_visible": False}
-            )
+            boxes.append({"tid": tid, "x1": x1, "y1": y1, "x2": x2, "y2": y2, "occluded": False, "num_visible": False})
         labels["frames"][key] = {"done": False, "interp": False, "prefill": True, "boxes": boxes}
         n += 1
     return n
