@@ -35,11 +35,10 @@ You are the implementer for basketball-game-analyzer (https://github.com/tko-ven
 
   | Path | Page |
   |---|---|
-  | `/`, `/analysis/` | Polish video and analysis pages |
-  | `/en/`, `/en/analysis/` | English editions |
-  | `/coach/`, `/en/coach/` | coach page (simulated data) |
+  | `/`, `/analysis/` | video and analysis pages |
+  | `/coach/` | coach page (simulated data) |
 
-  The code now builds an English-only site (2026-11-18), with `/en/` redirecting to `/`. The live site keeps the table above until the next deploy, which first needs `scripts/demo_web.py` rebuilt into `runs/demo/web`.
+  The site is English only since 2026-11-18; the old `/en/...` paths redirect to the same page without the prefix.
   | `/roadmap/` | roadmap |
 
   How each is built is in `docs/architecture.md`.
