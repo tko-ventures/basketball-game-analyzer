@@ -62,6 +62,8 @@ class Recipe(BaseModel):
     lr: float
     seed: int = 0
     select_on: str = "val/keypoint_map_50_95"
+    variant: str | None = None  # rfdetr model class for detection fine-tunes, e.g. RFDETRLarge
+    tiles: int | None = None  # detection: 2 trains and infers on two overlapping square crops per frame
 
 
 class Platform(BaseModel):
@@ -102,7 +104,7 @@ class TrainConfig(BaseModel):
             'c26b7841'
 
         """
-        blob = json.dumps(self.model_dump(), sort_keys=True)
+        blob = json.dumps(self.model_dump(exclude_none=True), sort_keys=True)  # new optional fields keep old ids
         return hashlib.sha256(blob.encode()).hexdigest()[:8]
 
     def weight_id(self) -> str:

@@ -20,7 +20,7 @@ The repository has three parts:
 | `weights/` | trained weights, one directory per weight id | no |
 | `tools/labeler/` | the local labelling server and its three pages | yes |
 | `scripts/` | labelling, gold export, court, probe, demo and coach scripts | yes |
-| `tests/` | 15 test files, 137 tests | yes |
+| `tests/` | 16 test files, 149 tests | yes |
 | `data/clip_ids.txt` | the 31 YouTube highlight clips | yes |
 | `data/labels/` | per-clip labels, the gold manifest, review ops, court keyframes | yes |
 | `data/gold/v0/` | the exported gold set | yes |
@@ -64,7 +64,7 @@ Each layer's output format is documented in its `base.py`:
 
 ### Backends
 
-A backend is a class registered with `@register("<layer>", "<name>")` (`bga.registry`). The registry imports the modules listed in `BACKEND_MODULES` lazily. The court layer has two registered backends and every other layer one. `configs/baseline.yaml` selects the first of each:
+A backend is a class registered with `@register("<layer>", "<name>")` (`bga.registry`). The registry imports the modules listed in `BACKEND_MODULES` lazily. The court and detect layers have two registered backends each, and every other layer one. `configs/baseline.yaml` selects the first of each:
 
 | Layer | Backend | What it does | Model |
 |---|---|---|---|
@@ -74,6 +74,7 @@ A backend is a class registered with `@register("<layer>", "<name>")` (`bga.regi
 | team | `siglip_kmeans` | `sports.TeamClassifier` (SigLIP, UMAP, KMeans) fitted per sequence on crops sampled at 1 fps, referees excluded | `google/siglip-base-patch16-224` |
 | track | `bytetrack` | supervision ByteTrack on person boxes, in pixels | none |
 | numbers | `smolvlm_ocr` | reads `number` boxes lying at least 90% inside a track's box; a number is confirmed after 3 consecutive equal reads; runs on MPS with `max_new_tokens=4` | `basketball-jersey-numbers-ocr/3` (SmolVLM2, NBA crops) |
+| detect | `rfdetr_torch` | RF-DETR weights trained by `bga train`, loaded from their weight id with the class names and tiling recorded in `train.json`; on MPS, confidence 0.05 by default. Weights trained on square tiles run on the same tiles (`bga.detect.tiles`: two overlapping crops of the full frame height), and the per-tile detections are merged with a per-class suppression that prefers boxes not cut by a tile edge. No run config uses it yet | weights `detect/rfdetr_torch/<name>@<hash8>` |
 | court | `rfdetr_keypoint` | a court keypoint model trained by `bga train`, loaded from its weight id on MPS (the class and keypoint counts come from its `train.json`); the most confident court detection gives the landmarks, then the same RANSAC homography as `roboflow_keypoints`. Used by `configs/court-plk-v1*.yaml` | weights `court/rfdetr_keypoint/<name>@<hash8>` |
 | positions | `bbox_bottom` | box bottom-centre through the frame's homography, then `sports` `clean_paths` (jumps over 0.7 m, smoothing window 9) | none |
 
@@ -165,12 +166,14 @@ These are labelling aids, not a layer:
 
   The weight id is `<layer>/<backend>/<name>@<hash8>`, the hash covering the whole config.
 - **Leakage guard** (`bga.train.leakage`): refuses any manifest that names a gold clip, held out or not. `tests/test_gold_leakage.py` checks every committed config and manifest.
-- **Dataset** (`bga.train.court_data`, the only builder so far): merges the Roboflow export and the manifest frames into one COCO-keypoint dataset with `train/`, `valid/` and `test/` folders under `runs/train/<weight id>/dataset/`. Manifest frames are decoded from the local videos and resized to 1280 px wide.
+- **Dataset (detection):** `bga.train.detect_data` builds a COCO detection dataset from Roboflow exports in the 10-class schema (categories matched by name, id 0 the placeholder), optionally cut into square tiles (`recipe.tiles`). It refuses manifest sources for now.
+- **Dataset (court)** (`bga.train.court_data`): merges the Roboflow export and the manifest frames into one COCO-keypoint dataset with `train/`, `valid/` and `test/` folders under `runs/train/<weight id>/dataset/`. Manifest frames are decoded from the local videos and resized to 1280 px wide.
 - **Run** (`bga.train.run`):
   1. Upload the dataset to the Modal volume.
-  2. Train in a detached Modal app: `RFDETRKeypointPreview` with the schema read from the annotations, `KeypointTrainConfig`, and the `rfdetr` Lightning trainer.
+  2. Train in a detached Modal app. Court: `RFDETRKeypointPreview` with the schema read from the annotations, `KeypointTrainConfig`, and the `rfdetr` Lightning trainer. Detection: the `rfdetr` class named by `recipe.variant`, trained with its `train()`.
   3. Collect: the best checkpoint, `metrics.csv` and `result.json` go into `weights/<weight id>/`, with a `train.json` (config, dataset counts and sha256, commit, GPU, time, cost, the trainer's best and last validation rows). A row goes to `docs/train.md` and one to `docs/costs.md`.
-- **Configs:** `court-rfdetr_keypoint-plk-v1.yaml`: RF-DETR Keypoint (preview, XLarge, Apache 2.0) on Roboflow's NBA court set version 20 (CC BY 4.0) plus `train_manifest_plk-v1.json`.
+- **Recipe fields for detection:** `variant` (the `rfdetr` class) and `tiles`. Both are optional and left out of the config hash when unset, so older weight ids are unchanged.
+- **Configs:** `detect-rfdetr_torch-nba-704.yaml`, `-nba-1280.yaml` and `-nba-tile2.yaml`: RF-DETR Large on Skalski's NBA set version 18 (CC BY 4.0) at 704 px, at 1280 px, and at 704 px on two square tiles, the resolution experiment of M4. `court-rfdetr_keypoint-plk-v1.yaml`: RF-DETR Keypoint (preview, XLarge, Apache 2.0) on Roboflow's NBA court set version 20 (CC BY 4.0) plus `train_manifest_plk-v1.json`.
 
 ## Data
 

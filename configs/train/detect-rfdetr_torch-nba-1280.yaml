@@ -1,0 +1,28 @@
+name: nba-1280
+layer: detect
+backend: rfdetr_torch
+description: >
+  Resolution experiment, arm B: RF-DETR Large at 1280 px, still stretched to a square (a 20 px ball becomes about 13x24 px). NBA data only.
+  Source: Skalski's 10-class NBA set, version 18 (unresized frames, CC BY 4.0). No PLK frame, no gold frame.
+base_weights:
+  name: rf-detr-large-2026.pth
+  url: https://repo.roboflow.com/rfdetr/rf-detr-large-2026.pth
+  licence: Apache-2.0
+package: rfdetr[train]==1.12.1
+sources:
+  - kind: roboflow
+    ref: roboflow-jvuqo/basketball-player-detection-3-ycjdo/18
+    licence: CC-BY-4.0
+recipe:
+  variant: RFDETRLarge
+  resolution: 1280
+  epochs: 50
+  batch_size: 2
+  grad_accum_steps: 8
+  lr: 0.0001
+  seed: 0
+  select_on: val/mAP_50_95
+platform:
+  name: modal
+  gpu: H100
+  timeout_h: 8

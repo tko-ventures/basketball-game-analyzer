@@ -117,3 +117,69 @@ def train_keypoint(job: dict) -> dict:
     (out / "result.json").write_text(json.dumps(result, indent=1))
     vol.commit()
     return result
+
+
+@app.function(image=image, volumes={"/data": vol}, gpu="L40S", timeout=6 * 3600)
+def train_detect(job: dict) -> dict:
+    """Fine-tune an RF-DETR detector on a COCO dataset on the volume and write ``result.json`` next to the checkpoints.
+
+    Args:
+        job: As for :func:`train_keypoint`; ``recipe["variant"]`` names the ``rfdetr`` class (e.g. ``RFDETRLarge``).
+
+    Returns:
+        GPU, commit, device name, wall time, list-price USD, the class names in category-id order, trainer package and
+        torch version, and the files in the output directory.
+
+    Examples:
+        >>> train_detect.remote(job)["schema"]["class_names"][1]  # doctest: +SKIP
+        'ball'
+
+    """
+    import json
+    import threading
+    import time
+    from pathlib import Path
+
+    import rfdetr
+    import torch
+
+    t0 = time.time()
+    ds, out = Path("/data") / job["dataset"], Path("/data") / job["output"]
+    out.mkdir(parents=True, exist_ok=True)
+    stop = threading.Event()
+
+    def commit_loop() -> None:  # keep checkpoints even if the run is cut short
+        while not stop.wait(300):
+            vol.commit()
+
+    threading.Thread(target=commit_loop, daemon=True).start()
+    r = job["recipe"]
+    model = getattr(rfdetr, r["variant"])()
+    model.train(
+        dataset_dir=str(ds),
+        output_dir=str(out),
+        resolution=r["resolution"],
+        epochs=r["epochs"],
+        batch_size=r["batch_size"],
+        grad_accum_steps=r["grad_accum_steps"],
+        lr=r["lr"],
+        seed=r["seed"],
+    )
+    stop.set()
+    cats = json.loads((ds / "train" / "_annotations.coco.json").read_text())["categories"]
+    secs = time.time() - t0
+    gpu = job["gpu"]
+    result = {
+        "gpu": gpu,
+        "commit": job.get("commit"),
+        "gpu_name": torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
+        "seconds": round(secs, 1),
+        "usd": round(secs / 3600 * USD_PER_HOUR.get(gpu, 0.0), 4),
+        "schema": {"class_names": [c["name"] for c in sorted(cats, key=lambda c: c["id"])]},
+        "package": RFDETR_PACKAGE,
+        "torch": torch.__version__,
+        "files": sorted(p.name for p in out.iterdir()),
+    }
+    (out / "result.json").write_text(json.dumps(result, indent=1))
+    vol.commit()
+    return result

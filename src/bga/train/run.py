@@ -2,7 +2,8 @@
 
 Steps for ``configs/train/<name>.yaml``:
 
-1. Build the merged dataset under ``runs/train/<weight id>/dataset`` (``bga.train.court_data``); every
+1. Build the merged dataset under ``runs/train/<weight id>/dataset`` (``bga.train.court_data`` or
+   ``bga.train.detect_data``); every
    manifest is checked against its sha256 and against the gold clips.
 2. Upload it to the ``bga-data`` Modal volume and run the trainer there (``bga.remote.modal_train``) in a
    detached app, so the run continues if this process stops.
@@ -65,7 +66,7 @@ def build(cfg: TrainConfig) -> dict:
         Image counts per split and source, and the dataset sha256 (``bga.train.court_data.build``).
 
     Raises:
-        NotImplementedError: for any layer and backend other than ``court/rfdetr_keypoint``.
+        NotImplementedError: for any layer and backend other than ``court/rfdetr_keypoint`` and ``detect/rfdetr_torch``.
 
     Examples:
         >>> from bga.train.config import load_train_config
@@ -74,11 +75,12 @@ def build(cfg: TrainConfig) -> dict:
         '...'
 
     """
-    if cfg.layer != "court" or cfg.backend != "rfdetr_keypoint":
-        raise NotImplementedError(f"no dataset builder for {cfg.layer}/{cfg.backend}")
-    from bga.train import court_data
+    from bga.train import court_data, detect_data
 
-    info = court_data.build(cfg, _work(cfg) / "dataset")
+    builders = {("court", "rfdetr_keypoint"): court_data.build, ("detect", "rfdetr_torch"): detect_data.build}
+    if (cfg.layer, cfg.backend) not in builders:
+        raise NotImplementedError(f"no dataset builder for {cfg.layer}/{cfg.backend}")
+    info = builders[cfg.layer, cfg.backend](cfg, _work(cfg) / "dataset")
     (_work(cfg) / "dataset_info.json").write_text(json.dumps(info, indent=1))
     return info
 
@@ -99,7 +101,7 @@ def launch(cfg: TrainConfig) -> dict:
     """
     import modal
 
-    from bga.remote.modal_train import app, train_keypoint, vol
+    from bga.remote.modal_train import app, train_detect, train_keypoint, vol
 
     ds = _work(cfg) / "dataset"
     remote = _remote(cfg)
@@ -113,7 +115,8 @@ def launch(cfg: TrainConfig) -> dict:
         "recipe": cfg.recipe.model_dump(),
         "gpu": cfg.platform.gpu,
     }
-    fn = train_keypoint.with_options(gpu=cfg.platform.gpu, timeout=int(cfg.platform.timeout_h * 3600))
+    trainer = train_detect if cfg.layer == "detect" else train_keypoint
+    fn = trainer.with_options(gpu=cfg.platform.gpu, timeout=int(cfg.platform.timeout_h * 3600))
     with modal.enable_output(), app.run(detach=True):
         return fn.remote(job)
 
