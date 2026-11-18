@@ -234,4 +234,15 @@ What changed:
 Three choices are ours, not his:
 - `scripts/` gets the exemptions he gives example and experiment scripts;
 - codespell only reports, because `--write-changes` rewrote `bga.eval.mot` to `bga.eval.not`;
-- the en dash and the multiplication sign are allowed in strings, for the Polish client text.
+- the en dash and the multiplication sign are allowed in strings, for the on-screen text.
+
+## 2026-11-18: the codebase and the demo site are English only
+
+Tomasz: "just stick to English language in the codebase". Code, comments, docs and paths were already English, so what changes is the demo site. The Polish edition is dropped, and with it the language switch. `scripts/demo_strings.py` and `coach_strings.py` keep only the English text, which moves from `/en/` to `/`. `deploy_demo.sh` redirects `/en/` and `/en/...` to the same page without the prefix.
+
+Polish stays only where it is data, not wording:
+- team and player names;
+- YouTube titles (the labeller parses "SKRÓT");
+- the plk.pl position labels that `fetch_rosters.py` maps to PG, SG and the rest.
+
+This replaces the 2026-11-01 choice of Polish on-screen text for the client.

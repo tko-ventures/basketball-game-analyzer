@@ -4,13 +4,12 @@
   /analysis/ broadcast and a live 2D court drawn in the browser from per-frame positions: coverage
              (nearest defender, most open attacker), team shape, player selection with speed/distance
 
-    uv run --extra prefill --extra demo scripts/demo_web.py                # -> runs/demo/web/ (pl), web/en/
+    uv run --extra prefill --extra demo scripts/demo_web.py                # -> runs/demo/web/
     uv run --extra prefill --extra demo scripts/demo_web.py --recompute    # redo number reads and court
     uv run scripts/serve_demo.py                                           # http://127.0.0.1:8770
     uv run scripts/demo_audit.py                                           # what the pages show vs gold
 
-Editions: Polish at / and /analysis/, English at /en/ and /en/analysis/ (scripts/demo_strings.py); both
-show the same tracks, teams and numbers, only the text differs.
+The site is English only (text in scripts/demo_strings.py); the Polish edition was dropped on 2026-11-18.
 
 Showcase, not a measured pipeline (no metrics row): automatic and uncorrected. Differences from the
 first demo (scripts/demo_video.py), after Tomasz's review on 2026-10-31:
@@ -47,7 +46,7 @@ import cv2
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from scripts.demo_strings import JS, LANGS, PAGE, VIDEO, surname
+from scripts.demo_strings import JS, PAGE, VIDEO, surname
 from scripts.demo_video import (
     COURT_MODEL,
     DISPLAY_BGR,
@@ -430,26 +429,16 @@ def main(argv=None):
     ap.add_argument("--key-s", type=float, default=0.5, help="seconds per key position on the 2D court")
     ap.add_argument("--set", choices=list(DEMO_SETS), default="warsaw")
     ap.add_argument("--cache", type=Path, default=Path("runs/demo/cache"))
-    ap.add_argument("--langs", default=",".join(LANGS), help="editions: the first at --out, the others in a subfolder")
     a = ap.parse_args(argv)
-    langs = a.langs.split(",")
-    for lang in langs:
-        out = a.out if lang == langs[0] else a.out / lang
-        others = {
-            other: ("../" if lang != langs[0] else "") + ("" if other == langs[0] else f"{other}/")
-            for other in langs
-            if other != lang
-        }
-        build(a, lang, out, others)
-        a.recompute = False  # number reads and court mapping are shared by the editions
+    build(a, a.out)
 
 
-def build(a, lang, out, others):
-    """One edition: videos with this language's text burnt in, the two pages, clip data."""
+def build(a, out):
+    """The site: videos with their text burnt in, the two pages, clip data."""
     from inference import get_model
     from sports.basketball import CourtConfiguration, League, draw_court
 
-    vs = VIDEO[lang]
+    vs = VIDEO
     out.mkdir(parents=True, exist_ok=True)
     cache_dir = a.cache
     cache_dir.mkdir(parents=True, exist_ok=True)
@@ -473,26 +462,24 @@ def build(a, lang, out, others):
         print(json.dumps(summary[-1]), flush=True)
 
     # Two independent pages over the same videos: / (two synced videos) and /analysis/ (live 2D analysis).
-    other = next(iter(others.values()), "")  # link to the other edition (two editions)
-    (out / "index.html").write_text(_page(PAGE_VIDEO, clips, other, lang, fps), encoding="utf-8")
+    (out / "index.html").write_text(_page(PAGE_VIDEO, clips, fps), encoding="utf-8")
     sub = [{**c, "a": "../" + c["a"], "data": "../" + c["data"]} for c in clips]
     shutil.rmtree(out / "analiza", ignore_errors=True)  # path before 2026-11-01; redirected on Vercel
+    shutil.rmtree(out / "en", ignore_errors=True)  # English edition before 2026-11-18; redirected on Vercel
     (out / "analysis").mkdir(exist_ok=True)
-    (out / "analysis" / "index.html").write_text(
-        _page(PAGE_ANALYSIS, sub, "../" + other + "analysis/", lang, fps), encoding="utf-8"
-    )
+    (out / "analysis" / "index.html").write_text(_page(PAGE_ANALYSIS, sub, fps), encoding="utf-8")
     (out / "summary.json").write_text(json.dumps(summary, indent=1))
 
 
-def _page(template, cl, lang_href, lang, fps):
-    """Fill one page template with this edition's strings, its clips and the frame rate."""
+def _page(template, cl, fps):
+    """Fill one page template with the strings, the clips and the frame rate."""
     html = template
-    for k, v in {**PAGE[lang], "lang_href": lang_href}.items():
+    for k, v in PAGE.items():
         html = html.replace("{{" + k + "}}", v)
     return (
         html
         .replace("__CLIPS__", json.dumps(cl, ensure_ascii=False))
-        .replace("__T__", json.dumps(JS[lang], ensure_ascii=False))
+        .replace("__T__", json.dumps(JS, ensure_ascii=False))
         .replace("__FPS__", f"{fps:g}")
         .replace("__N__", str(len(cl)))
     )

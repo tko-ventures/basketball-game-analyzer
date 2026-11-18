@@ -93,7 +93,7 @@ lint.extend-select = [
 lint.ignore = [
   "E731", # Do not assign a lambda expression, use a def
 ]
-# Polish client text uses typographic dashes and the multiplication sign on purpose.
+# On-screen text uses typographic dashes and the multiplication sign on purpose.
 lint.allowed-confusables = ["–", "×"]
 lint.per-file-ignores."scripts/**/*.py" = [
   "ANN", # type annotations not required in one-off scripts
@@ -118,8 +118,8 @@ lint.pylint.max-statements = 50
 
 [tool.codespell]
 skip = "*.json,*.csv,*.lock,*.txt,*.html,data/*,runs/*,weights/*"
-# Polish client text ("Te", "Maks"), FIBA country codes ("NED") and numpy names ("nd") MOT (multi-object tracking) and SME (subject-matter expert).
-ignore-words-list = "mot,te,maks,ned,nd,sme"
+# FIBA country codes ("NED"), numpy names ("nd"), MOT (multi-object tracking) and SME (subject-matter expert).
+ignore-words-list = "mot,ned,nd,sme"
 quiet-level = 3
 
 [tool.docformatter]
