@@ -263,6 +263,7 @@ Paths are confined to the repository by `safe_path`.
 | Review | `track_sheets.py`, `review_sheets.py` (with `--propose` kit-colour ops), `review_ops.py` |
 | Gold export | `export_gold.py`, `box_gold.py`, `box_gold_v1.py` (box gold v1: prefill with SAM merge, crop sheets, ops, candidate refresh, export) |
 | Court | `court_geometry.py`, `court_prefill.py` (the NBA court model over every clip), `court_keyframes.py`, `court_propagate.py`, `qa_court_overlay.py`, `court_train_manifest.py` (training frames from the training keyframes) |
+| Auto-labelling (M4) | `autolabel_r1.py` (round 1: central shots of the non-gold clips by the PLK court model's confident landmark count) |
 | Probes (not metrics rows) | `probe_reid.py` (Roboflow `reid` encoders on gold v0), `probe_court_keyframes.py` (the NBA court model and propagation against the court keyframes) |
 
 Contact sheets for reading by eye come from `bga.review.sheets`.
