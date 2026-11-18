@@ -3,8 +3,8 @@
 #
 #   scripts/deploy_demo.sh            # -> https://basketball-analyzer.demo.tko.ventures (vercel.app redirects there)
 #
-# Editions: Polish at / and /analysis/, English at /en/ and /en/analysis/ (both built by demo_web.py).
-# The coach page (/coach/, /en/coach/, simulated data) is rebuilt here by coach_web.py, so it is never stale.
+# Pages: / and /analysis/ (built by demo_web.py), English only; the old /en/ paths redirect to them.
+# The coach page (/coach/, simulated data) is rebuilt here by coach_web.py, so it is never stale.
 # Also publishes docs/roadmap.html as /roadmap/ (the plan at a glance; not linked from the demo pages).
 #
 # Uploads only the page, its videos, data and court image, with noindex headers (match footage, client demo).
@@ -22,6 +22,10 @@ if [ "${BGA_DEPLOY_ANY_BRANCH:-}" != 1 ]; then
     exit 1
   fi
 fi
+if ! grep -q '<html lang="en">' runs/demo/web/index.html; then
+  echo "deploy_demo.sh: runs/demo/web is an older Polish build; rebuild it with scripts/demo_web.py" >&2
+  exit 1
+fi
 COMMIT=$(git rev-parse --short HEAD)
 SCOPE="${VERCEL_SCOPE:-tomasz-kopackis-projects}"
 D=runs/demo/deploy/basketball-analyzer-demo
@@ -33,7 +37,9 @@ cat > "$D/vercel.json" <<'JSON'
 {
   "redirects": [
     { "source": "/analiza", "destination": "/analysis/", "permanent": true },
-    { "source": "/analiza/(.*)", "destination": "/analysis/$1", "permanent": true }
+    { "source": "/analiza/(.*)", "destination": "/analysis/$1", "permanent": true },
+    { "source": "/en", "destination": "/", "permanent": true },
+    { "source": "/en/(.*)", "destination": "/$1", "permanent": true }
   ],
   "headers": [
     { "source": "/(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] },

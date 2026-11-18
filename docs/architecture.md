@@ -253,11 +253,11 @@ Contact sheets for reading by eye come from `bga.review.sheets`.
 
 The site is published to the Vercel project `basketball-analyzer-demo` by `scripts/deploy_demo.sh`. It is served at https://basketball-analyzer.demo.tko.ventures, and `basketball-analyzer-demo.vercel.app` redirects there. The Vercel project has no Git connection. The script deploys only from a clean `main` that matches `origin/main`, and tags each deployment with the commit (`BGA_DEPLOY_ANY_BRANCH=1` overrides the check). The site is built outside the `bga` pipeline:
 
-- **Video and analysis pages:** `scripts/demo_web.py` builds `/` and `/analysis/`, plus `/en/` and `/en/analysis/`, from three shots of `OSp445e0mXU`. It runs Skalski's models through the helpers in `scripts/demo_video.py` and caches number reads and homographies in `runs/demo/cache`.
+- **Video and analysis pages:** `scripts/demo_web.py` builds `/` and `/analysis/` from three shots of `OSp445e0mXU`. It runs Skalski's models through the helpers in `scripts/demo_video.py` and caches number reads and homographies in `runs/demo/cache`.
   - Templates: `demo_page_video.html` and `demo_page_analysis.html`.
-  - Text: `demo_strings.py` (Polish at `/`, English at `/en/`).
+  - Text: `demo_strings.py`. The site is English only; `deploy_demo.sh` redirects the old `/en/` paths to `/`, and refuses to publish a build whose `index.html` is not English.
   - Check: `demo_audit.py` compares the teams and numbers shown with gold v0.
-- **Coach page:** `scripts/coach_web.py` builds `/coach/` and `/en/coach/` from the synthetic fixtures, using `coach_insights.py` (plays, coverage, shot quality, key moments), `coach_strings.py` and `coach_page.html`. `deploy_demo.sh` rebuilds it on every deploy.
+- **Coach page:** `scripts/coach_web.py` builds `/coach/` from the synthetic fixtures, using `coach_insights.py` (plays, coverage, shot quality, key moments), `coach_strings.py` and `coach_page.html`. `deploy_demo.sh` rebuilds it on every deploy.
 - **Roadmap:** `docs/roadmap.html` is published as `/roadmap/`.
 - **Local serving:** `scripts/serve_demo.py` serves the build with HTTP Range support, which video seeking needs.
 
