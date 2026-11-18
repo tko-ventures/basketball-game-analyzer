@@ -285,3 +285,7 @@ Tomasz agreed to these changes (plan sections 5, 6 and 9):
 - **Footage.** Question 4, full-game footage, is raised with Tomasz now rather than later. Highlights cut every few seconds, which caps tracking and identity across a game. Production also needs licensed, high-quality video (question 13). Getting it is a lead-time item outside M4.
 
 Open: how Skalski's own pipeline handles the ball. It is to be read in his posts before the resolution experiment, per the follow-Skalski rule.
+
+## 2026-11-18: full games will be needed; YouTube highlights until then
+
+Tomasz, on question 4: "I think we will have to have access to the full game recordings, but for now, let's keep pushing with what we've got already: YT videos." M4 and later milestones continue on the 31 highlight clips. The pipeline stays clip-agnostic, so full games can come in as new clips with their own shot files, without a layer change. The source and licence of full games stay open (questions 4 and 13).
