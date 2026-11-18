@@ -6,10 +6,10 @@
 
 Each prefill box becomes a SAM 2.1 box prompt on its still frame (image mode, one mask per box). The mask's bounding
 box is a second geometry, independent of the detector's, that the box page offers next to the prefill: where the two
-agree the box is likely tight, where they differ the page offers it as the alternative. Frames are decoded locally, sent as JPEG
-(quality 95) in batches, and results come back to ``runs/box_gold/v1/sam_boxes.json`` with GPU, wall time and cost,
-each mask next to its prompt box; a row goes to ``docs/costs.md``. SAM 2.1 weights: facebook/sam2.1-hiera-large,
-Apache 2.0, baked into the image. SAM 3.x is not used anywhere (plan section 2).
+agree the box is likely tight, where they differ the page offers it as the alternative. Frames are decoded locally,
+sent as JPEG (quality 95) in batches, and results come back to ``runs/box_gold/v1/sam_boxes.json`` with GPU, wall
+time and cost, each mask next to its prompt box; a row goes to ``docs/costs.md``. SAM 2.1 weights:
+facebook/sam2.1-hiera-large, Apache 2.0, baked into the image. SAM 3.x is not used anywhere (plan section 2).
 
 """
 
