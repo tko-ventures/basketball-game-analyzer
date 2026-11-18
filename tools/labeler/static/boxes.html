@@ -52,8 +52,10 @@
       Orange boxes are flagged: the prefill is unsure, the reason is listed above.<br>
       <kbd>Tab</kbd>/<kbd>⇧Tab</kbd> next/previous box (flagged first) · drag an edge or corner, here or in the loupe ·
       <kbd>←↑→↓</kbd> nudge the highlighted edge 1 px (<kbd>⇧</kbd> 5 px), <kbd>E</kbd> highlight the next edge ·
-      <kbd>1</kbd>–<kbd>0</kbd> class · <kbd>T</kbd> team · <kbd>A</kbd> use the alternative box (SAM or prefill) ·
-      <kbd>⇧</kbd>-drag draw a new box (class of the last key) · <kbd>X</kbd>/<kbd>Del</kbd> delete ·
+      <kbd>1</kbd>–<kbd>0</kbd> class <b>of the selected box</b> · <kbd>T</kbd> team · <kbd>A</kbd> use the alternative box (SAM or prefill) ·
+      <b>new box:</b> <kbd>⇧</kbd>-drag anywhere, even over another box, then press its class key ·
+      <kbd>Esc</kbd> or a click on empty floor deselects · click a box (or its row) to select it; the smallest box under the cursor wins ·
+      <kbd>⌥</kbd>-drag moves the selected box · <kbd>X</kbd>/<kbd>Del</kbd> delete ·
       <kbd>C</kbd> show detector candidates, click one to adopt it · <kbd>Space</kbd> mark the box checked ·
       <kbd>H</kbd> hide boxes · scroll to zoom, drag empty space to pan, <kbd>F</kbd> fit ·
       <kbd>U</kbd>/<kbd>⌘Z</kbd> undo ·
@@ -289,9 +291,9 @@ function onDown(ev, x, y, s, inLoupe) {
     snapshot(); S.sel = h.b; S.edge = h.h < 4 ? h.h : S.edge;
     S.drag = { mode: "resize", b: h.b, h: h.h }; redraw(); return;
   }
-  if (h && h.b === S.sel && !inLoupe) { snapshot(); S.drag = { mode: "move", b: h.b, x0: x, y0: y, o: [...h.b.xyxy] }; return; }
+  if (h && h.b === S.sel && ev.altKey && !inLoupe) { snapshot(); S.drag = { mode: "move", b: h.b, x0: x, y0: y, o: [...h.b.xyxy] }; return; }
   if (h) { select(h.b); return; }
-  if (!inLoupe) S.drag = { mode: "pan", px: toImg(ev)[2], py: toImg(ev)[3], vx: S.view.x, vy: S.view.y };
+  if (!inLoupe) S.drag = { mode: "pan", px: toImg(ev)[2], py: toImg(ev)[3], vx: S.view.x, vy: S.view.y, moved: false };
 }
 function onMove(x, y) {
   const d = S.drag; if (!d) return;
@@ -309,6 +311,7 @@ function onUp() {
     const [x1, y1, x2, y2] = d.b.xyxy;
     if (x2 - x1 >= 2 && y2 - y1 >= 2) { S.fr.boxes.push(d.b); S.sel = d.b; changed(); } else { S.hist.pop(); redraw(); }
   } else if (d.mode === "resize" || d.mode === "move") changed();
+  else if (d.mode === "pan" && !d.moved) select(null);  // a click on empty floor deselects
 }
 $("cv").addEventListener("mousedown", (ev) => { const [x, y] = toImg(ev); onDown(ev, x, y, S.view.s, false); });
 $("loupe").addEventListener("mousedown", (ev) => {
@@ -320,7 +323,12 @@ $("loupe").addEventListener("mousedown", (ev) => {
 });
 window.addEventListener("mousemove", (ev) => {
   const d = S.drag; if (!d) return;
-  if (d.mode === "pan") { const [, , px, py] = toImg(ev); S.view.x = d.vx + px - d.px; S.view.y = d.vy + py - d.py; render(); return; }
+  if (d.mode === "pan") {
+    const [, , px, py] = toImg(ev);
+    if (Math.hypot(px - d.px, py - d.py) > 4) d.moved = true;
+    if (d.moved) { S.view.x = d.vx + px - d.px; S.view.y = d.vy + py - d.py; render(); }
+    return;
+  }
   if (d.loupe) {
     const L = $("loupe"), r = L.getBoundingClientRect(), k = L.width / r.width, v = d.loupe;
     onMove(((ev.clientX - r.left) * k - v.x) / v.s, ((ev.clientY - r.top) * k - v.y) / v.s);
@@ -394,6 +402,7 @@ window.addEventListener("keydown", async (ev) => {
       break;
     case "t": if (b) { snapshot(); b.team = TEAMS[(TEAMS.indexOf(b.team || "") + 1) % TEAMS.length]; changed(); } break;
     case " ": ev.preventDefault(); if (b) { b.checked = true; changed(); step(1); } break;
+    case "escape": select(null); break;
     case "h": S.hide = !S.hide; render(); break;
     case "c": S.cands = !S.cands; render(); break;
     case "f": fit(); render(); break;

@@ -236,7 +236,7 @@ These are labelling aids, not a layer:
 - **`/boxes` (box gold v1):** `static/boxes.html` edits `data/labels/box_gold_v1.json`, one frame at a time.
   - **Display:** boxes are coloured by class. Flagged boxes not yet checked are outlined in orange and come first in the Tab order and the list, with their flags and hints shown.
   - **Loupe:** shows the selected box at up to 8×, without smoothing, with the alternative box (SAM or prefill) dashed.
-  - **Editing:** edges and corners drag on the frame or in the loupe; arrow keys nudge one edge by 1 or 5 px. Keys `1`–`0` set the class, `T` the team, `A` swaps in the alternative box, Shift-drag draws a new box, `X` deletes, and `C` shows the detector candidates (low-score objects, and people no box covers), adopted with a click. Scroll zooms, and dragging empty space pans.
+  - **Editing:** a click selects the smallest box under the cursor; `Esc` or a click on empty floor deselects. Edges and corners drag on the frame or in the loupe; arrow keys nudge one edge by 1 or 5 px; Alt-drag moves the selected box. Keys `1`–`0` set the selected box's class, `T` the team, `A` swaps in the alternative box, Shift-drag draws a new box anywhere, `X` deletes, and `C` shows the detector candidates (low-score objects, and people no box covers), adopted with a click. Scroll zooms, and dragging empty space pans.
   - **Saving:** each change autosaves the frame. Enter marks it done, checks all its boxes and opens the next frame not done.
   - **Time:** active time is logged in `meta.review_seconds`.
 
