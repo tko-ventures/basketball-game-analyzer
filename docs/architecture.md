@@ -8,14 +8,14 @@ The repository has three parts:
 2. **Labelling tools** (`tools/labeler/`, most of `scripts/`). These build and check the gold set and the court keyframes.
 3. **The demo site** (`scripts/demo_*`, `scripts/coach_*`). Web pages published to Vercel. They are built by their own scripts, not by the `bga` pipeline.
 
-Every model the pipeline uses is a public pretrained one. One training setup exists (`bga train`, below); its weights are not yet used by any run config.
+`configs/baseline.yaml` uses only public pretrained models. One training setup exists (`bga train`, below), and `configs/court-plk-v1.yaml` uses its court weights.
 
 ## Repository layout
 
 | Path | Contents | In git |
 |---|---|---|
 | `src/bga/` | the pipeline package, about 2,400 lines | yes |
-| `configs/baseline.yaml` | the only run config | yes |
+| `configs/baseline.yaml`, `configs/court-plk-v1.yaml` | run configs: the public-model baseline, and the baseline with the PLK court model | yes |
 | `configs/train/` | training configs, one per training setup | yes |
 | `weights/` | trained weights, one directory per weight id | no |
 | `tools/labeler/` | the local labelling server and its two pages | yes |
@@ -64,7 +64,7 @@ Each layer's output format is documented in its `base.py`:
 
 ### Backends
 
-A backend is a class registered with `@register("<layer>", "<name>")` (`bga.registry`). The registry imports the modules listed in `BACKEND_MODULES` lazily. Each layer has exactly one registered backend, and `configs/baseline.yaml` selects all of them:
+A backend is a class registered with `@register("<layer>", "<name>")` (`bga.registry`). The registry imports the modules listed in `BACKEND_MODULES` lazily. The court layer has two registered backends and every other layer one. `configs/baseline.yaml` selects the first of each:
 
 | Layer | Backend | What it does | Model |
 |---|---|---|---|
@@ -74,6 +74,7 @@ A backend is a class registered with `@register("<layer>", "<name>")` (`bga.regi
 | team | `siglip_kmeans` | `sports.TeamClassifier` (SigLIP, UMAP, KMeans) fitted per sequence on crops sampled at 1 fps, referees excluded | `google/siglip-base-patch16-224` |
 | track | `bytetrack` | supervision ByteTrack on person boxes, in pixels | none |
 | numbers | `smolvlm_ocr` | reads `number` boxes lying at least 90% inside a track's box; a number is confirmed after 3 consecutive equal reads; runs on MPS with `max_new_tokens=4` | `basketball-jersey-numbers-ocr/3` (SmolVLM2, NBA crops) |
+| court | `rfdetr_keypoint` | a court keypoint model trained by `bga train`, loaded from its weight id on MPS (the class and keypoint counts come from its `train.json`); the most confident court detection gives the landmarks, then the same RANSAC homography as `roboflow_keypoints`. Used by `configs/court-plk-v1.yaml` | weights `court/rfdetr_keypoint/<name>@<hash8>` |
 | positions | `bbox_bottom` | box bottom-centre through the frame's homography, then `sports` `clean_paths` (jumps over 0.7 m, smoothing window 9) | none |
 
 Code that exists but no config uses:
@@ -99,7 +100,8 @@ Both are covered by `tests/test_nms.py`.
 | Command | What it does |
 |---|---|
 | `bga run --config configs/baseline.yaml [--set ...] [--seq ...] [--layer ...] [--force ...] [--remote modal] [--remote-layer ...]` | runs the layers |
-| `bga eval --config a.yaml [--config b.yaml] [--gold v0] [--held-out] [--write]` | runs, reusing cached outputs, and scores each config side by side; `--write` appends rows to `docs/metrics.md` |
+| `bga eval --config a.yaml [--config b.yaml] [--gold v0] [--held-out] [--write]` | runs, reusing cached outputs, and scores each config side by side; `--write` adds rows to the tracking table in `docs/metrics.md` |
+| `bga eval-court --config a.yaml [--config b.yaml] [--held-out] [--write]` | scores each config's court layer on the gold court keyframes; `--write` adds rows to the court table in `docs/metrics.md` |
 | `bga radar --config ...` | renders a radar video per sequence (`bga.export.radar`): the broadcast frame above, the FIBA court with players below |
 | `bga backends` | lists the registered backends |
 | `bga train --config configs/train/<layer>-<backend>-<name>.yaml [--build-only] [--collect]` | builds the dataset, checks it for gold clips, trains on Modal and pulls the weights back (section below) |
@@ -108,6 +110,7 @@ Both are covered by `tests/test_nms.py`.
 
 - **Gold export** (`gold.py`): label files to MOTChallenge sequences, filling gaps of up to 3 sampled frames by interpolation.
 - **Tracking** (`mot.py`): HOTA, DetA, AssA, MOTA, IDF1 and IDSW from TrackEval, pinned to a commit. Players and referees are one class; scored on every 5th frame.
+- **Court** (`court.py`): each gold court keyframe Tomasz labelled `ok` (18 dev, 6 held-out) is mapped by the config's court backend. The court vertices visible under his mapping go through the predicted mapping. Scores per arena and overall: the median over keyframes of the per-frame median error in metres; the same over the paint (key corners, free-throw line ends and centres); the share of keyframes under 0.5 m in the paint; and the unmapped count.
 - **Other scores** (`scores.py`):
   - class-agnostic person AP50 on the 100 box-gold frames;
   - team accuracy per gold track (majority of matched boxes);

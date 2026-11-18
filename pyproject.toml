@@ -29,6 +29,8 @@ eval = [
     "pycocotools>=2.0.8",
     "trackeval @ git+https://github.com/JonathonLuiten/TrackEval.git@12c8791b303e0a0b50f753af204249e622d0281a",
 ]
+# RF-DETR inference on the Mac (MPS) for weights trained by `bga train` (court/rfdetr_keypoint).
+court = ["rfdetr==1.12.1"]
 demo = [
     "scikit-learn>=1.9.1",
     "sentencepiece>=0.2.2",

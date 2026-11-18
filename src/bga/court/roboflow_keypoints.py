@@ -39,20 +39,23 @@ class RoboflowKeypoints(BaseBackend):
     def unload(self) -> None:
         self.model = None
 
+    def homography(self, img: np.ndarray) -> list | None:
+        kp = self.model.infer(img, confidence=self.p["confidence"])[0]
+        if not kp.predictions or len(kp.predictions[0].keypoints) != len(self.vertices):
+            return None
+        pts = kp.predictions[0].keypoints
+        mask = np.array([p.confidence for p in pts]) > self.p["kp_conf"]
+        if mask.sum() < self.p["min_points"]:
+            return None
+        src = np.array([[p.x, p.y] for p in pts], dtype=np.float32)[mask]
+        m, _ = cv2.findHomography(src, self.vertices[mask], cv2.RANSAC, self.p["ransac_cm"])
+        return None if m is None else np.round(m, 8).tolist()
+
     def run(self, seq: Sequence, upstream: dict, read: FrameReader) -> dict:
         out, t = {}, 0.0
         for f in seq.frames:
             img = read(f)
             t0 = time.perf_counter()
-            kp = self.model.infer(img, confidence=self.p["confidence"])[0]
-            H = None
-            if kp.predictions and len(kp.predictions[0].keypoints) == len(self.vertices):
-                pts = kp.predictions[0].keypoints
-                mask = np.array([p.confidence for p in pts]) > self.p["kp_conf"]
-                if mask.sum() >= self.p["min_points"]:
-                    src = np.array([[p.x, p.y] for p in pts], dtype=np.float32)[mask]
-                    m, _ = cv2.findHomography(src, self.vertices[mask], cv2.RANSAC, self.p["ransac_cm"])
-                    H = None if m is None else np.round(m, 8).tolist()
+            out[str(f)] = self.homography(img)
             t += time.perf_counter() - t0
-            out[str(f)] = H
         return {"frames": out, "units": "cm", "ms_per_frame": round(1000 * t / max(1, len(seq.frames)), 1)}

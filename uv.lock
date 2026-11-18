@@ -314,6 +314,9 @@ dependencies = [
 ]
 
 [package.optional-dependencies]
+court = [
+    { name = "rfdetr" },
+]
 demo = [
     { name = "scikit-learn" },
     { name = "sentencepiece" },
@@ -351,6 +354,7 @@ requires-dist = [
     { name = "pycocotools", marker = "extra == 'eval'", specifier = ">=2.0.8" },
     { name = "pydantic", specifier = ">=2.9" },
     { name = "pyyaml", specifier = ">=6.0" },
+    { name = "rfdetr", marker = "extra == 'court'", specifier = "==1.12.1" },
     { name = "scikit-learn", marker = "extra == 'demo'", specifier = ">=1.9.1" },
     { name = "sentencepiece", marker = "extra == 'demo'", specifier = ">=0.2.2" },
     { name = "sports", marker = "extra == 'demo'", git = "https://github.com/roboflow/sports.git?rev=415751384e34f1cb7089a00909e0d7932fe73a75" },
@@ -359,7 +363,7 @@ requires-dist = [
     { name = "typer", specifier = ">=0.12" },
     { name = "umap-learn", marker = "extra == 'demo'", specifier = ">=0.5.12" },
 ]
-provides-extras = ["onnx", "prefill", "remote", "eval", "demo"]
+provides-extras = ["onnx", "prefill", "remote", "eval", "court", "demo"]
 
 [package.metadata.requires-dev]
 dev = [
@@ -2472,11 +2476,11 @@ wheels = [
 
 [[package]]
 name = "pydeprecate"
-version = "0.13.0"
+version = "0.9.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/86/2c/69e32535563642e0af9273947716599a0c684d381300fe0fbe29e7822a4d/pydeprecate-0.13.0.tar.gz", hash = "sha256:9d5549757d3d8180bba24196f9e1b05720f6dc5eeb4e5c707a15e58b61c0a646", size = 272468, upload-time = "2026-09-21T07:24:43.901Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d4/1e/b069ea704e42fefeb523835ba3d712347ff672743e5fa9428f4201525328/pydeprecate-0.9.0.tar.gz", hash = "sha256:ed49a36506f63a8d4ae84ffedff1e2879733d536c7a6aaafdf8bfcd39520059b", size = 151667, upload-time = "2026-06-05T19:51:17.43Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/c6/ed/9d27d62a2d4001bff095ebf930ad3d66714419d5323d73d0f898a324c37a/pydeprecate-0.13.0-py3-none-any.whl", hash = "sha256:b9210b5e36ea38a3c89aaa9579507ef676bfd147ad89184a06e1fd252f34d36c", size = 203981, upload-time = "2026-09-21T07:24:41.759Z" },
+    { url = "https://files.pythonhosted.org/packages/47/87/a155f16c1c17adccaa2ed2256484fe1c6ad37b925e8e39695ed8860bc0b5/pydeprecate-0.9.0-py3-none-any.whl", hash = "sha256:c9501dae1a2567a3c7f7b04221ad5a97d1ad972a02ddb729a04299b435fedd7c", size = 102725, upload-time = "2026-06-05T19:51:16.235Z" },
 ]
 
 [[package]]
@@ -2938,6 +2942,26 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/ee/41/695834cc9c82c04bdb51cf5ac14103bc3fd3d5d4aff1315a422f7a165fac/rf_segment_anything-1.0.tar.gz", hash = "sha256:29aa8ebdf6a821c0583d3fcaa716aa3d2bc75442cd558a88c93f323bf51e067b", size = 31896, upload-time = "2023-05-25T17:56:00.999Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/55/ca/c976a2d52068cb0ab2f9a6656a2881a67030c9aa70549ad1bc9165a15fc5/rf_segment_anything-1.0-py3-none-any.whl", hash = "sha256:8aa3b56bb776f73e3680dd1fd6b905c4e0e8281de71096a26f6d74dd716fad04", size = 36656, upload-time = "2023-05-25T17:55:58.788Z" },
+]
+
+[[package]]
+name = "rfdetr"
+version = "1.12.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+    { name = "pydantic" },
+    { name = "pydeprecate" },
+    { name = "requests" },
+    { name = "supervision" },
+    { name = "torch" },
+    { name = "torchvision" },
+    { name = "tqdm" },
+    { name = "transformers" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/13/23/16fe5e734196efde67a83858adbb6ef415410db8e68a02c6dab9bf5c6d28/rfdetr-1.12.1.tar.gz", hash = "sha256:15649123e9d62cab1df950e761ddc1f6b43ee1b9b4e9540b6a75057d418bd831", size = 981932, upload-time = "2026-11-12T13:25:17.813Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/30/09/12b3c68c04ac38e47befa1a6226421405c58e21562a63447ff7d75ae1614/rfdetr-1.12.1-py3-none-any.whl", hash = "sha256:d4671be83f9633f8f3de1a59ab3f9c25b320705175d93c8c788b8e1e8a401724", size = 1051356, upload-time = "2026-11-12T13:25:15.843Z" },
 ]
 
 [[package]]
