@@ -254,3 +254,14 @@ Tomasz: "Drop two synchronized videos from the demo website, also, update the an
 - The page with two synchronised videos (the broadcast and a rendered 2D court video) is gone, with its template and the court video renders. The analysis page moves from `/analysis/` to `/`; `deploy_demo.sh` redirects `/analysis/` and the older `/analiza/` there.
 - `scripts/demo_web.py` no longer runs the NBA Roboflow court model with a Savitzky-Golay smoothing of its own. It runs the court layer of a bga run config, by default `configs/court-plk-v1-smooth4.yaml`, which is M3's measured court setup (0.21 m in the paint on the dev games against 0.89 m for the NBA model, `docs/metrics.md`). The demo renders every 2nd frame, so the smoothing window of 4 frames each way spans 8 source frames, against 20 at the eval's stride of 5.
 - The demo stays a showcase with no metrics row.
+
+## 2026-11-18: M4 answers: XL licence, footage, spend cap, labelling time
+
+Tomasz answered the questions M4 needs (plan sections 2, 5, 11 and 12):
+- **Question 5, RF-DETR XL licence:** "let's assume it's apache 2.0 — I want to try make things work first, and then make them right". RF-DETR XL and 2XL may enter the M4 bake-off as training configs. They remain under the Roboflow Platform Model Licence 1.0 in fact, so the PML is re-read before anything built on them ships.
+- **Question 13, footage rights:** train on the YouTube highlights. For production the project needs high-quality video under a proper licence.
+- **Question 9, spend cap:** 50 USD per month, which may be raised to 100 USD when needed. The implementer asks before a month crosses 50 USD.
+- **Placement:** what runs better on Modal runs on Modal; what makes sense on the M1 Max stays local.
+- **Labelling time:** "don't worry about my time for now". The 90-minute cap of 2026-10-29 is lifted. The implementer still does every first pass, sends Tomasz only what needs a human (pixel geometry, flagged doubts, conflicts), and logs his time per session.
+
+What this changes first: gold v1 box geometry, which M4's AP50:95 needs, is no longer blocked on his budget. The implementer prefills and flags the 100 box-gold frames, and Tomasz tightens them in a dedicated labeller page.
