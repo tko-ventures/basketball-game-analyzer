@@ -208,3 +208,14 @@ The weights are a separate matter, and the check found nothing new for them:
 - the training data is still research-only. SportsMOT is CC BY-NC 4.0 per its own repository and dataset card. The `trackers` README lists it as CC BY 4.0; that table is wrong, and the plan follows the dataset's own statement.
 
 So question 15 stays open with its default. Use the pretrained encoders for measurement and as one starting point of the PLK fine-tune. Train a second PLK encoder from a backbone with an explicit permissive weight licence. Settle the question before anything is sold. The `reid` trainer is still unreleased (draft pull requests 2 and 31), so the torchreid fallback stands. Plan sections 2, 3, 11, 12 and 13 are updated.
+
+## 2026-11-18: question 15 answered, re-ID weights treated as Apache 2.0
+
+Tomasz answered question 15: assume Apache 2.0. The project treats the pretrained re-ID weights, `osnet_x1_0_sportsmot` among them, as licensed like the `reid` code. This is his ruling, not a published licence: Roboflow's tracking encoders still carry none, and SportsMOT is still CC BY-NC 4.0 (entry above).
+
+What changes in M6 (plan sections 2, 5, 9, 11 and 12):
+- `osnet_x1_0_sportsmot` is a production encoder for layer 3b, not only a measurement;
+- the PLK encoder fine-tune has one starting point, `osnet_x1_0_sportsmot`. The second encoder from a backbone with a permissive weight licence (for example DINOv2) is dropped, since its only purpose was a licence-clean alternative;
+- the done-when line is unchanged: appearance metrics for the pretrained and the PLK encoder.
+
+If Roboflow publishes different terms for its encoders, question 15 reopens. Any other backbone would come in as a further training config behind the same layer 3b interface.
