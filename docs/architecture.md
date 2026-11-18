@@ -15,12 +15,12 @@ The repository has three parts:
 | Path | Contents | In git |
 |---|---|---|
 | `src/bga/` | the pipeline package, about 2,400 lines | yes |
-| `configs/baseline.yaml`, `configs/court-plk-v1.yaml` | run configs: the public-model baseline, and the baseline with the PLK court model | yes |
+| `configs/baseline.yaml`, `configs/court-plk-v1*.yaml` | run configs: the public-model baseline; the baseline with the PLK court model, unsmoothed and with smoothing windows of 2 and 4 | yes |
 | `configs/train/` | training configs, one per training setup | yes |
 | `weights/` | trained weights, one directory per weight id | no |
 | `tools/labeler/` | the local labelling server and its two pages | yes |
 | `scripts/` | labelling, gold export, court, probe, demo and coach scripts | yes |
-| `tests/` | 13 test files, 62 tests | yes |
+| `tests/` | 14 test files, 65 tests | yes |
 | `data/clip_ids.txt` | the 31 YouTube highlight clips | yes |
 | `data/labels/` | per-clip labels, the gold manifest, review ops, court keyframes | yes |
 | `data/gold/v0/` | the exported gold set | yes |
@@ -74,7 +74,7 @@ A backend is a class registered with `@register("<layer>", "<name>")` (`bga.regi
 | team | `siglip_kmeans` | `sports.TeamClassifier` (SigLIP, UMAP, KMeans) fitted per sequence on crops sampled at 1 fps, referees excluded | `google/siglip-base-patch16-224` |
 | track | `bytetrack` | supervision ByteTrack on person boxes, in pixels | none |
 | numbers | `smolvlm_ocr` | reads `number` boxes lying at least 90% inside a track's box; a number is confirmed after 3 consecutive equal reads; runs on MPS with `max_new_tokens=4` | `basketball-jersey-numbers-ocr/3` (SmolVLM2, NBA crops) |
-| court | `rfdetr_keypoint` | a court keypoint model trained by `bga train`, loaded from its weight id on MPS (the class and keypoint counts come from its `train.json`); the most confident court detection gives the landmarks, then the same RANSAC homography as `roboflow_keypoints`. Used by `configs/court-plk-v1.yaml` | weights `court/rfdetr_keypoint/<name>@<hash8>` |
+| court | `rfdetr_keypoint` | a court keypoint model trained by `bga train`, loaded from its weight id on MPS (the class and keypoint counts come from its `train.json`); the most confident court detection gives the landmarks, then the same RANSAC homography as `roboflow_keypoints`. Used by `configs/court-plk-v1*.yaml` | weights `court/rfdetr_keypoint/<name>@<hash8>` |
 | positions | `bbox_bottom` | box bottom-centre through the frame's homography, then `sports` `clean_paths` (jumps over 0.7 m, smoothing window 9) | none |
 
 Code that exists but no config uses:
@@ -110,7 +110,7 @@ Both are covered by `tests/test_nms.py`.
 
 - **Gold export** (`gold.py`): label files to MOTChallenge sequences, filling gaps of up to 3 sampled frames by interpolation.
 - **Tracking** (`mot.py`): HOTA, DetA, AssA, MOTA, IDF1 and IDSW from TrackEval, pinned to a commit. Players and referees are one class; scored on every 5th frame.
-- **Court** (`court.py`): each gold court keyframe Tomasz labelled `ok` (18 dev, 6 held-out) is mapped by the config's court backend. The court vertices visible under his mapping go through the predicted mapping. Scores per arena and overall: the median over keyframes of the per-frame median error in metres; the same over the paint (key corners, free-throw line ends and centres); the share of keyframes under 0.5 m in the paint; and the unmapped count.
+- **Court** (`court.py`): each gold court keyframe Tomasz labelled `ok` (18 dev, 6 held-out) is mapped by the config's court backend, which runs on the shot's frames within 25 frames of the keyframe at a stride of 5, so smoothing has its neighbours. The court vertices visible under his mapping go through the predicted mapping. Scores per arena and overall: the median over keyframes of the per-frame median error in metres; the same over the paint (key corners, free-throw line ends and centres); the share of keyframes under 0.5 m in the paint; and the unmapped count.
 - **Other scores** (`scores.py`):
   - class-agnostic person AP50 on the 100 box-gold frames;
   - team accuracy per gold track (majority of matched boxes);
@@ -118,7 +118,7 @@ Both are covered by `tests/test_nms.py`.
   - milliseconds per frame per layer;
   - churn (`churn.py`): id-set changes and track lifetimes.
 
-`docs/metrics.md` has two tables. The tracking table holds two rows, both for `baseline@70498c00` on gold v0: dev and held-out. The court table holds two dev rows: `baseline` and `court-plk-v1`.
+`docs/metrics.md` has two tables. The tracking table holds two rows, both for `baseline@70498c00` on gold v0: dev and held-out. The court table holds dev rows for `baseline`, `court-plk-v1` and its two smoothing windows, and held-out rows for `baseline` and `court-plk-v1-smooth4`.
 
 ### Remote execution (`bga.remote`)
 
@@ -130,6 +130,15 @@ Both are covered by `tests/test_nms.py`.
 - `modal_train.py` is the `bga-train` Modal app, used by `bga train`. Its image adds `rfdetr[train]==1.12.1`; the trainer reads its dataset from the `bga-data` volume and writes its outputs there, committing them every 5 minutes so a run cut short keeps its checkpoints.
 - `sam2_prefill.py` is a separate Modal app (`bga-sam2-prefill`, L40S). It runs SAM 2.1 hiera-large video propagation for the gold-track prefill, and is a labelling aid, not a layer.
 - Spend is logged by hand in `docs/costs.md`: 3.60 USD of GPU time, all in October 2026.
+
+### Court smoothing (`bga.court.smooth`)
+
+Both court backends take `smooth_window` (default 0, off; the baseline leaves it off). When it is set, the mappings of a sequence, which is one shot, are median-smoothed after the per-frame fits:
+- each frame's mapping is evaluated at a fixed grid of 12 × 8 image points; a point counts only where the mapping puts it on the floor, within 2 m of the court;
+- each point's court position is replaced by its median over the frames within `smooth_window` each way;
+- the frame's homography is refitted from the grid to those medians.
+
+A frame that jumps is outvoted, a frame without a mapping gets one from its neighbours, and nothing crosses a cut. `configs/court-plk-v1-smooth2.yaml` and `-smooth4.yaml` set windows of 2 and 4.
 
 ### Court helpers (`bga.court.propagate`)
 
@@ -270,4 +279,4 @@ The site is published to the Vercel project `basketball-analyzer-demo` by `scrip
 
   `uv sync --all-extras` is needed for the full test suite.
 - **OpenCV:** `opencv-python` and `opencv-contrib-python` are overridden away, leaving one headless cv2.
-- **Checks:** `ruff check .`, `ruff format --check .` and `pytest`, with tests on config hashing, shot cuts, gold export, MOT scoring, churn, NMS, review ops, rosters, the labeller server, court orientation, the synthetic fixtures, and gold leakage in training configs and manifests.
+- **Checks:** `ruff check .`, `ruff format --check .` and `pytest`, with tests on config hashing, shot cuts, gold export, MOT scoring, churn, NMS, review ops, rosters, the labeller server, court orientation, the synthetic fixtures, and gold leakage in training configs and manifests, and court smoothing.

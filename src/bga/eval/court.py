@@ -6,6 +6,9 @@ config's court backend maps the frame, and its homography is compared with Tomas
 vertices visible under his mapping: each vertex's image position goes through the predicted mapping
 and lands some distance in metres from its true court position.
 
+The backend runs on the shot's frames within ``context`` frames of the keyframe, every ``stride``-th
+frame (the stride of a real run), so smoothing has the neighbours it would have in the pipeline.
+
 Reported per arena and overall: the median error per frame (median over frames), the same restricted
 to the paint (vertices of the key and free-throw line, where players stand most), the share of
 frames whose error is under 0.5 m in the paint, and the share of frames the backend could not map.
@@ -18,12 +21,12 @@ import statistics
 import time
 from pathlib import Path
 
-import cv2
 import numpy as np
 
 from bga import registry
 from bga.config import RunConfig
 from bga.court.propagate import landmarks
+from bga.stage import FrameReader, Sequence
 
 ROOT = Path(__file__).resolve().parents[3]
 GEO = json.loads((ROOT / "tools/labeler/static/fiba_court.json").read_text())
@@ -57,22 +60,33 @@ def frame_errors(H_gold, H_pred, wh) -> tuple[list[float], list[float]]:
     return err.tolist(), [float(e) for (i, *_), e in zip(vis, err, strict=True) if i in PAINT]
 
 
-def score(cfg: RunConfig, held_out: bool = False) -> dict:
+def score(cfg: RunConfig, held_out: bool = False, context: int = 25, stride: int = 5) -> dict:
     entry = cfg.layers["court"]
     backend = registry.get("court", entry.backend)(entry.params, entry.weights)
     backend.load()
     rows, t = [], 0.0
     try:
         for k in gold_keyframes(held_out):
-            cap = cv2.VideoCapture(str(ROOT / k["video"]))
-            cap.set(cv2.CAP_PROP_POS_FRAMES, k["frame"])
-            ok, img = cap.read()
-            cap.release()
-            if not ok:
-                raise IndexError(f"{k['video']} frame {k['frame']}")
-            t0 = time.perf_counter()
-            H = backend.homography(img)
-            t += time.perf_counter() - t0
+            # The backend sees a stretch of the shot around the keyframe, as in a real run, so smoothing
+            # can use neighbours; without smoothing the keyframe's mapping is the single-frame one.
+            shot = json.loads((ROOT / "data/labels" / f"{k['clip']}.json").read_text())["shots"][k["shot"]]
+            frames = [f for f in range(k["frame"] - context, k["frame"] + context + 1, stride)]
+            frames = [f for f in frames if shot["start"] <= f < shot["end"]]
+            seq = Sequence(
+                f"{k['youtube_id']}_kf{k['frame']}", k["clip"], str(ROOT / k["video"]), k["shot"], frames, 0.0
+            )
+            read = FrameReader(seq.video)
+            try:
+                img = read(k["frame"])
+                t0 = time.perf_counter()
+                H = (
+                    backend.run(seq, {}, read)["frames"][str(k["frame"])]
+                    if context
+                    else backend.homography(img)
+                )
+                t += (time.perf_counter() - t0) / max(1, len(frames) if context else 1)
+            finally:
+                read.close()
             allv, paint = frame_errors(k["H"], H, (img.shape[1], img.shape[0]))
             rows.append(
                 {

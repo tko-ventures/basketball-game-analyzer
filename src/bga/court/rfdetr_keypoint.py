@@ -4,7 +4,8 @@ Weights are a trained weight id (``court/rfdetr_keypoint/<name>@<hash8>``, whose
 class and keypoint counts the model was built with). Per frame, the most confident court detection
 gives 33 landmarks; those with confidence above ``kp_conf`` (at least ``min_points``) map to the FIBA
 vertices in centimetres (``tools/labeler/static/fiba_court.json``, the same order as the model's
-keypoints) with RANSAC, as in ``court/roboflow_keypoints``. No smoothing. Runs on MPS on the Mac.
+keypoints) with RANSAC, as in ``court/roboflow_keypoints``. ``smooth_window`` > 0 median-smooths the
+mappings within the shot (``bga.court.smooth``). Runs on MPS on the Mac.
 """
 
 from __future__ import annotations
@@ -16,6 +17,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 
+from bga.court.smooth import smooth_homographies
 from bga.registry import register
 from bga.stage import BaseBackend, FrameReader, Sequence
 
@@ -24,7 +26,14 @@ ROOT = Path(__file__).resolve().parents[3]
 
 @register("court", "rfdetr_keypoint")
 class RFDETRKeypoint(BaseBackend):
-    defaults = {"threshold": 0.3, "kp_conf": 0.5, "min_points": 4, "ransac_cm": 40.0, "device": "mps"}
+    defaults = {
+        "threshold": 0.3,
+        "kp_conf": 0.5,
+        "min_points": 4,
+        "ransac_cm": 40.0,
+        "device": "mps",
+        "smooth_window": 0,
+    }
 
     def load(self) -> None:
         from rfdetr import RFDETRKeypointPreview
@@ -66,4 +75,7 @@ class RFDETRKeypoint(BaseBackend):
             t0 = time.perf_counter()
             out[str(f)] = self.homography(img)
             t += time.perf_counter() - t0
+        if self.p.get("smooth_window", 0) and seq.frames:
+            h, w = read(seq.frames[0]).shape[:2]
+            out = smooth_homographies(seq.frames, out, (w, h), int(self.p["smooth_window"]))
         return {"frames": out, "units": "cm", "ms_per_frame": round(1000 * t / max(1, len(seq.frames)), 1)}
