@@ -171,8 +171,9 @@ def eval_court(
         train_cfg = "pretrained"
         tj = Path("weights") / (entry.weights or "") / "train.json"
         if entry.weights and not entry.weights.startswith("pretrained:") and tj.exists():
-            c = json.loads(tj.read_text())["config"]
-            train_cfg = f"`configs/train/{c['layer']}-{c['backend']}-{c['name']}.yaml`"
+            c = json.loads(tj.read_text()).get("config")
+            if c:
+                train_cfg = f"`configs/train/{c['layer']}-{c['backend']}-{c['name']}.yaml`"
         arenas = "; ".join(f"{h} {_fmt(v['paint_m'], 2)}" for h, v in s["summary"].items() if h != "all")
         rows.append(
             f"| {dt.date.today().isoformat()} | {pipeline.git_commit()} | `{path.stem}`@{cfg.config_hash()} "

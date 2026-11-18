@@ -263,6 +263,7 @@ The site is published to the Vercel project `basketball-analyzer-demo` by `scrip
   | `onnx` | onnxruntime |
   | `prefill` | Roboflow `inference` |
   | `remote` | modal |
+  | `court` | `rfdetr==1.12.1`, for running trained court weights on the Mac |
   | (Modal image only) | `rfdetr[train]==1.12.1`, torch 2.15 |
   | `eval` | TrackEval, pycocotools |
   | `demo` | `sports`, transformers, umap-learn, scikit-learn, sentencepiece |

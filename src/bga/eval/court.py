@@ -54,7 +54,7 @@ def frame_errors(H_gold, H_pred, wh) -> tuple[list[float], list[float]]:
     p = np.array([[x, y, 1.0] for _, x, y in vis]) @ np.asarray(H_pred, dtype=np.float64).T
     court = p[:, :2] / p[:, 2:3]
     err = np.linalg.norm(court - VERTS[[i for i, *_ in vis]], axis=1) / 100.0
-    return err.tolist(), [e for (i, *_), e in zip(vis, err, strict=True) if i in PAINT]
+    return err.tolist(), [float(e) for (i, *_), e in zip(vis, err, strict=True) if i in PAINT]
 
 
 def score(cfg: RunConfig, held_out: bool = False) -> dict:
