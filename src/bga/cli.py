@@ -305,6 +305,8 @@ def train(
     config: Annotated[Path, typer.Option(help="configs/train/<layer>-<backend>-<name>.yaml")],
     build_only: Annotated[bool, typer.Option(help="build and check the dataset, do not train")] = False,
     collect: Annotated[bool, typer.Option(help="only pull a finished run's outputs into weights/")] = False,
+    wait: Annotated[bool, typer.Option(help="wait for the run already spawned (call.json), then collect")] = False,
+    resume: Annotated[bool, typer.Option(help="continue a run cut short from its last.ckpt on the volume")] = True,
     verbose: bool = False,
 ) -> None:
     """Fine-tune on the config's platform; weights land in weights/<layer>/<backend>/<name>@<hash8>/."""
@@ -316,12 +318,14 @@ def train(
     if config.name != f"{cfg.layer}-{cfg.backend}-{cfg.name}.yaml":
         raise typer.BadParameter(f"file name must be {cfg.layer}-{cfg.backend}-{cfg.name}.yaml")
     typer.echo(f"weight id {cfg.weight_id()}")
-    if not collect:
+    if wait:
+        typer.echo(json.dumps(train_run.wait(cfg), indent=1))
+    elif not collect:
         info = train_run.build(cfg)
         typer.echo(json.dumps(info["counts"], indent=1))
         if build_only:
             return
-        result = train_run.launch(cfg)
+        result = train_run.launch(cfg, resume=resume)
         typer.echo(json.dumps(result, indent=1))
     typer.echo(f"weights in {train_run.collect(cfg)}")
 

@@ -3,6 +3,9 @@
 
     uv run --extra court scripts/autolabel_r1.py central     # court-landmark score per shot, all clips
     uv run --extra court scripts/autolabel_r1.py check       # the central rule against the shots tagged by hand
+    uv run scripts/autolabel_r1.py sample                    # training frames from central shots, gold clips excluded
+    uv run --extra prefill scripts/autolabel_r1.py prefill   # NBA detector v16 (all but ball) and v6 (ball), conf 0.1
+    uv run --extra court scripts/autolabel_r1.py draft       # keep >= 0.3, NMS, drop people off the court
 
 Step 1, central shots. The non-gold clips have no camera tags. A shot from the main camera shows the court, so the
 PLK court model (court/rfdetr_keypoint/plk-v1) finds many confident landmarks there; replays, close-ups and graphics
@@ -94,12 +97,142 @@ def check() -> None:
         print(f"untagged shots with median >= {k}: {sum(s['median'] >= k for s in untagged)} of {len(untagged)}")
 
 
+def sample(per_clip: int, seed: int) -> None:
+    """Pick training frames from the central shots of the non-gold clips, at least 1 s apart within a shot."""
+    import random
+
+    gold = {g["youtube_id"] for g in json.loads(Path("data/labels/gold.json").read_text())["games"]}
+    res = json.loads((OUT / "central.json").read_text())
+    rng = random.Random(seed)
+    frames = []
+    for stem, c in sorted(res.items()):
+        if any(g in stem for g in gold):
+            continue
+        step = int(c["fps"])
+        pool = []
+        for s in c["shots"]:
+            if s["median"] >= CENTRAL_K:
+                pool += [(s["shot"], f) for f in range(s["start"] + 5, s["end"] - 5, step)]
+        for shot, f in sorted(rng.sample(pool, min(per_clip, len(pool)))):
+            frames.append({"clip": stem, "video": c["clip"], "shot": shot, "frame": f})
+    (OUT / "frames.json").write_text(json.dumps({"seed": seed, "per_clip": per_clip, "frames": frames}, indent=1))
+    print(f"{len(frames)} frames from {len({f['clip'] for f in frames})} clips -> {OUT / 'frames.json'}")
+
+
+#: Prefill models: version 16 for every class but the ball, version 6 for the ball (docs/decisions.md, 2026-11-18).
+PREFILL_MODELS = {"basketball-player-detection-3-ycjdo/16": "not-ball", "basketball-player-detection-3-ycjdo/6": "ball"}
+
+
+def prefill() -> None:
+    """Run both prefill models at confidence 0.1 on the sampled frames; raw detections to prefill_raw.json."""
+    from inference import get_model
+
+    from bga.detect.roboflow_inference import roboflow_key
+
+    roboflow_key()
+    frames = json.loads((OUT / "frames.json").read_text())["frames"]
+    raw = {}
+    for model_id, keep in PREFILL_MODELS.items():
+        model = get_model(model_id=model_id)
+        caps = {}
+        for fr in frames:
+            cap = caps.setdefault(fr["video"], cv2.VideoCapture(fr["video"]))
+            cap.set(cv2.CAP_PROP_POS_FRAMES, fr["frame"])
+            img = cap.read()[1]
+            r = model.infer(img, confidence=0.1, iou_threshold=0.5)[0]
+            dets = raw.setdefault(f"{fr['clip']}|{fr['frame']}", [])
+            for q in r.predictions:
+                if (q.class_name == "ball") == (keep == "ball"):
+                    dets.append([
+                        round(q.x - q.width / 2, 1),
+                        round(q.y - q.height / 2, 1),
+                        round(q.x + q.width / 2, 1),
+                        round(q.y + q.height / 2, 1),
+                        round(float(q.confidence), 4),
+                        q.class_name,
+                        model_id,
+                    ])
+        print(model_id, "done")
+    (OUT / "prefill_raw.json").write_text(json.dumps(raw))
+    print(f"{sum(len(v) for v in raw.values())} detections on {len(raw)} frames -> {OUT / 'prefill_raw.json'}")
+
+
+PERSON = {"player", "player-in-possession", "player-jump-shot", "player-layup-dunk", "player-shot-block", "referee"}
+KEEP, NMS_IOU, MARGIN_CM = 0.3, 0.5, 100.0
+
+
+def _iou(a, b) -> float:
+    ix = max(0.0, min(a[2], b[2]) - max(a[0], b[0]))
+    iy = max(0.0, min(a[3], b[3]) - max(a[1], b[1]))
+    u = (a[2] - a[0]) * (a[3] - a[1]) + (b[2] - b[0]) * (b[3] - b[1]) - ix * iy
+    return ix * iy / u if u > 0 else 0.0
+
+
+def draft() -> None:
+    """Boxes at score >= KEEP after per-class NMS, the rest as candidates; people off the court (foot point more than
+    MARGIN_CM outside, under the PLK court model's mapping of the frame) and numbers outside every kept person
+    dropped."""
+    from bga.court.rfdetr_keypoint import RFDETRKeypoint
+
+    frames = json.loads((OUT / "frames.json").read_text())["frames"]
+    raw = json.loads((OUT / "prefill_raw.json").read_text())
+    court = RFDETRKeypoint({}, COURT_WEIGHTS)
+    court.load()
+    caps, out, stats = {}, [], {"off_court": 0, "orphan_numbers": 0, "unmapped_frames": 0}
+    for fr in frames:
+        cap = caps.setdefault(fr["video"], cv2.VideoCapture(fr["video"]))
+        cap.set(cv2.CAP_PROP_POS_FRAMES, fr["frame"])
+        img = cap.read()[1]
+        h = court.homography(img)
+        stats["unmapped_frames"] += h is None
+        kept, cands = [], []
+        for d in sorted(raw[f"{fr['clip']}|{fr['frame']}"], key=lambda d: -d[4]):
+            if any(k[5] == d[5] and _iou(k, d) >= NMS_IOU for k in kept + cands):
+                continue
+            (kept if d[4] >= KEEP else cands).append(d)
+        if h is not None:
+            H = np.array(h)
+
+            def on_court(d, H=H):
+                w = H @ np.array([(d[0] + d[2]) / 2, d[3], 1.0])  # foot point: bottom centre of the box
+                cx, cy = w[0] / w[2], w[1] / w[2]
+                return -MARGIN_CM <= cx <= 2800 + MARGIN_CM and -MARGIN_CM <= cy <= 1500 + MARGIN_CM
+
+            n0 = len(kept)
+            kept = [d for d in kept if d[5] not in PERSON or on_court(d)]
+            stats["off_court"] += n0 - len(kept)
+        people = [d for d in kept if d[5] in PERSON]
+        n0 = len(kept)
+        kept = [
+            d
+            for d in kept
+            if d[5] != "number"
+            or any(d[0] >= p[0] - 5 and d[2] <= p[2] + 5 and d[1] >= p[1] - 5 and d[3] <= p[3] + 5 for p in people)
+        ]
+        stats["orphan_numbers"] += n0 - len(kept)
+        out.append({**fr, "mapped": h is not None, "boxes": kept, "candidates": cands})
+    court.unload()
+    (OUT / "draft.json").write_text(json.dumps({"frames": out}, indent=1))
+    from collections import Counter
+
+    c = Counter(d[5] for f in out for d in f["boxes"])
+    print(stats, dict(c), "frames with a ball box:", sum(any(d[5] == "ball" for d in f["boxes"]) for f in out))
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["central", "check"])
+    ap.add_argument("cmd", choices=["central", "check", "sample", "prefill", "draft"])
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--per-clip", type=int, default=12)
+    ap.add_argument("--seed", type=int, default=0)
     a = ap.parse_args(argv)
-    {"central": lambda: central(a.force), "check": check}[a.cmd]()
+    {
+        "central": lambda: central(a.force),
+        "check": check,
+        "sample": lambda: sample(a.per_clip, a.seed),
+        "prefill": prefill,
+        "draft": draft,
+    }[a.cmd]()
 
 
 if __name__ == "__main__":

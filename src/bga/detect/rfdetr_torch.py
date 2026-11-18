@@ -14,6 +14,7 @@ import time
 from typing import Any, ClassVar
 
 import cv2
+import numpy as np
 
 from bga.detect.tiles import merge, square_tiles
 from bga.registry import register
@@ -70,7 +71,7 @@ class RFDETRTorch(BaseBackend):
         """
         self.model = None
 
-    def _predict(self, rgb: Any) -> list[list]:
+    def _predict(self, rgb: np.ndarray) -> list[list]:
         """Detections ``[x1, y1, x2, y2, score, class name]`` of one RGB image."""
         d = self.model.predict(rgb, threshold=self.p["confidence"])
         return [

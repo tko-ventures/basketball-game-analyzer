@@ -164,6 +164,7 @@ def train_detect(job: dict) -> dict:
         grad_accum_steps=r["grad_accum_steps"],
         lr=r["lr"],
         seed=r["seed"],
+        resume=str(Path("/data") / job["resume"]) if job.get("resume") else None,
     )
     stop.set()
     cats = json.loads((ds / "train" / "_annotations.coco.json").read_text())["categories"]

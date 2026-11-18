@@ -116,13 +116,21 @@ def build(cfg: TrainConfig, out: Path) -> dict:
                     coco["images"].append({"id": iid, "file_name": fn, "width": w, "height": h, "source": tag})
                     for (x, y, bw, bh), cid in bs:
                         coco["annotations"].append({
-                            "id": len(coco["annotations"]), "image_id": iid, "category_id": cid,
-                            "bbox": [round(v, 2) for v in (x, y, bw, bh)], "area": round(bw * bh, 2), "iscrowd": 0,
+                            "id": len(coco["annotations"]),
+                            "image_id": iid,
+                            "category_id": cid,
+                            "bbox": [round(v, 2) for v in (x, y, bw, bh)],
+                            "area": round(bw * bh, 2),
+                            "iscrowd": 0,
                         })
                         boxes[s][DETECTION_CLASSES[cid - 1]] += 1
                 counts[s][tag] = counts[s].get(tag, 0) + len(written)
         p = out / s / "_annotations.coco.json"
         p.write_text(json.dumps(coco, separators=(",", ":")))
         digest.update(p.read_bytes())
-    return {"counts": counts, "boxes": {s: dict(b) for s, b in boxes.items()}, "tiles": cfg.recipe.tiles,
-            "sha256": digest.hexdigest()}
+    return {
+        "counts": counts,
+        "boxes": {s: dict(b) for s, b in boxes.items()},
+        "tiles": cfg.recipe.tiles,
+        "sha256": digest.hexdigest(),
+    }

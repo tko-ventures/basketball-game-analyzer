@@ -106,7 +106,7 @@ Both are covered by `tests/test_nms.py`.
 | `bga eval-detect --config a.yaml [--set ...] [--gold v1] [--held-out] [--write]` | runs the detect layer (reusing cached outputs) and scores per-class AP on the box-gold frames; `--write` adds rows to the detection table in `docs/metrics.md` |
 | `bga radar --config ...` | renders a radar video per sequence (`bga.export.radar`): the broadcast frame above, the FIBA court with players below |
 | `bga backends` | lists the registered backends |
-| `bga train --config configs/train/<layer>-<backend>-<name>.yaml [--build-only] [--collect]` | builds the dataset, checks it for gold clips, trains on Modal and pulls the weights back (section below) |
+| `bga train --config configs/train/<layer>-<backend>-<name>.yaml [--build-only] [--collect] [--wait] [--no-resume]` | builds the dataset, checks it for gold clips, trains on Modal and pulls the weights back (section below) |
 
 ### Evaluation (`bga.eval`)
 
@@ -170,7 +170,7 @@ These are labelling aids, not a layer:
 - **Dataset (court)** (`bga.train.court_data`): merges the Roboflow export and the manifest frames into one COCO-keypoint dataset with `train/`, `valid/` and `test/` folders under `runs/train/<weight id>/dataset/`. Manifest frames are decoded from the local videos and resized to 1280 px wide.
 - **Run** (`bga.train.run`):
   1. Upload the dataset to the Modal volume.
-  2. Train in a detached Modal app. Court: `RFDETRKeypointPreview` with the schema read from the annotations, `KeypointTrainConfig`, and the `rfdetr` Lightning trainer. Detection: the `rfdetr` class named by `recipe.variant`, trained with its `train()`.
+  2. Train in a detached Modal app. The call is spawned and its id saved to `call.json` in the working directory; the local process polls for the result in two-minute waits, which survive Modal's auth token expiring, and `--wait` resumes waiting after a restart. A run cut short continues from the `last.ckpt` its trainer left on the volume, unless `--no-resume` is given. Court: `RFDETRKeypointPreview` with the schema read from the annotations, `KeypointTrainConfig`, and the `rfdetr` Lightning trainer. Detection: the `rfdetr` class named by `recipe.variant`, trained with its `train()`.
   3. Collect: the best checkpoint, `metrics.csv` and `result.json` go into `weights/<weight id>/`, with a `train.json` (config, dataset counts and sha256, commit, GPU, time, cost, the trainer's best and last validation rows). A row goes to `docs/train.md` and one to `docs/costs.md`.
 - **Recipe fields for detection:** `variant` (the `rfdetr` class) and `tiles`. Both are optional and left out of the config hash when unset, so older weight ids are unchanged.
 - **Configs:** `detect-rfdetr_torch-nba-704.yaml`, `-nba-1280.yaml` and `-nba-tile2.yaml`: RF-DETR Large on Skalski's NBA set version 18 (CC BY 4.0) at 704 px, at 1280 px, and at 704 px on two square tiles, the resolution experiment of M4. `court-rfdetr_keypoint-plk-v1.yaml`: RF-DETR Keypoint (preview, XLarge, Apache 2.0) on Roboflow's NBA court set version 20 (CC BY 4.0) plus `train_manifest_plk-v1.json`.

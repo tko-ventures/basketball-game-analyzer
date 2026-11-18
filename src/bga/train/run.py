@@ -85,14 +85,29 @@ def build(cfg: TrainConfig) -> dict:
     return info
 
 
-def launch(cfg: TrainConfig) -> dict:
-    """Upload the built dataset to the ``bga-data`` volume and train on Modal in a detached app.
+def _remote_exists(path: str) -> bool:
+    """Whether a file exists on the ``bga-data`` volume."""
+    from bga.remote.modal_train import vol
+
+    try:
+        return any(e.path == path for e in vol.listdir(str(Path(path).parent)))
+    except Exception:  # a missing directory raises; it means the file is not there either
+        return False
+
+
+def launch(cfg: TrainConfig, resume: bool = True) -> dict:
+    """Upload the built dataset to the ``bga-data`` volume, start training on Modal and wait for the result.
+
+    The call is spawned in a detached app and its id saved to ``call.json`` in the working directory, so the run goes
+    on if this process stops; :func:`wait` picks it up again. With ``resume``, a run cut short continues from the
+    ``last.ckpt`` its trainer left on the volume.
 
     Args:
         cfg: the training config; its dataset must be built (``build``).
+        resume: Continue from ``output/last.ckpt`` when the volume has one.
 
     Returns:
-        The trainer's result: GPU, commit, wall time, cost, schema and output files (``train_keypoint``).
+        The trainer's result: GPU, commit, wall time, cost, schema and output files.
 
     Examples:
         >>> launch(cfg)["gpu"]  # doctest: +SKIP
@@ -105,20 +120,59 @@ def launch(cfg: TrainConfig) -> dict:
 
     ds = _work(cfg) / "dataset"
     remote = _remote(cfg)
-    log.info("uploading %s to bga-data:/%s/dataset", ds, remote)
-    with vol.batch_upload(force=True) as up:
-        up.put_directory(str(ds), f"{remote}/dataset")
+    ckpt = f"{remote}/output/last.ckpt"
+    resume_from = ckpt if resume and _remote_exists(ckpt) else None
+    if resume_from is None:
+        log.info("uploading %s to bga-data:/%s/dataset", ds, remote)
+        with vol.batch_upload(force=True) as up:
+            up.put_directory(str(ds), f"{remote}/dataset")
+    else:
+        log.info("resuming from bga-data:/%s", resume_from)
     job = {
         "commit": _commit(),  # the code that trains; HEAD may move before collect
         "dataset": f"{remote}/dataset",
         "output": f"{remote}/output",
         "recipe": cfg.recipe.model_dump(),
         "gpu": cfg.platform.gpu,
+        "resume": resume_from,
     }
     trainer = train_detect if cfg.layer == "detect" else train_keypoint
     fn = trainer.with_options(gpu=cfg.platform.gpu, timeout=int(cfg.platform.timeout_h * 3600))
     with modal.enable_output(), app.run(detach=True):
-        return fn.remote(job)
+        call = fn.spawn(job)
+    (_work(cfg) / "call.json").write_text(json.dumps({"call_id": call.object_id, "resume": resume_from}))
+    log.info("spawned %s; waiting (bga train --wait picks it up again)", call.object_id)
+    return wait(cfg)
+
+
+def wait(cfg: TrainConfig, poll_s: float = 120.0) -> dict:
+    """Wait for the spawned training call of a config, polling in short calls that survive expired auth tokens.
+
+    Args:
+        cfg: the training config; ``call.json`` in its working directory names the call.
+        poll_s: Seconds per poll.
+
+    Returns:
+        The trainer's result.
+
+    Examples:
+        >>> wait(cfg)["gpu"]  # doctest: +SKIP
+        'L40S'
+
+    """
+    import time
+
+    import modal
+
+    cid = json.loads((_work(cfg) / "call.json").read_text())["call_id"]
+    while True:
+        try:
+            return modal.FunctionCall.from_id(cid).get(timeout=poll_s)
+        except (TimeoutError, modal.exception.TimeoutError):
+            continue
+        except modal.exception.AuthError as e:  # long waits outlive the client's token; a fresh poll gets a new one
+            log.warning("auth expired while waiting (%s); polling again", e)
+            time.sleep(5)
 
 
 def _read_remote(path: str) -> bytes:
