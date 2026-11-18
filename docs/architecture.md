@@ -1,6 +1,6 @@
 # Architecture: what is built
 
-This page describes the code and data that exist on `main`, as of 2026-11-17 (M0 to M2, and M3 part 1). It records only what is in the repository. Intentions, targets and milestones are in `docs/PLAN.md`, decisions in `docs/decisions.md`, and scores in `docs/metrics.md`.
+This page describes the code and data that exist in the repository, as of 2026-11-18 (M0 to M3, and the box gold v1 queue of M4). It records only what is in the repository. Intentions, targets and milestones are in `docs/PLAN.md`, decisions in `docs/decisions.md`, and scores in `docs/metrics.md`.
 
 The repository has three parts:
 
@@ -18,9 +18,9 @@ The repository has three parts:
 | `configs/baseline.yaml`, `configs/court-plk-v1*.yaml` | run configs: the public-model baseline; the baseline with the PLK court model, unsmoothed and with smoothing windows of 2 and 4 | yes |
 | `configs/train/` | training configs, one per training setup | yes |
 | `weights/` | trained weights, one directory per weight id | no |
-| `tools/labeler/` | the local labelling server and its two pages | yes |
+| `tools/labeler/` | the local labelling server and its three pages | yes |
 | `scripts/` | labelling, gold export, court, probe, demo and coach scripts | yes |
-| `tests/` | 14 test files, 65 tests | yes |
+| `tests/` | 14 test files, 130 tests | yes |
 | `data/clip_ids.txt` | the 31 YouTube highlight clips | yes |
 | `data/labels/` | per-clip labels, the gold manifest, review ops, court keyframes | yes |
 | `data/gold/v0/` | the exported gold set | yes |
@@ -129,7 +129,8 @@ Both are covered by `tests/test_nms.py`.
   - cost per call comes from a list-price table.
 - `modal_train.py` is the `bga-train` Modal app, used by `bga train`. Its image adds `rfdetr[train]==1.12.1`; the trainer reads its dataset from the `bga-data` volume and writes its outputs there, committing them every 5 minutes so a run cut short keeps its checkpoints.
 - `sam2_prefill.py` is a separate Modal app (`bga-sam2-prefill`, L40S). It runs SAM 2.1 hiera-large video propagation for the gold-track prefill, and is a labelling aid, not a layer.
-- Spend is logged by hand in `docs/costs.md`: 3.60 USD of GPU time, all in October 2026.
+- `sam2_boxmask.py` is another labelling aid (`bga-sam2-boxmask`, L40S). It masks each box of the box gold v1 prefill with SAM 2.1 hiera-large in image mode, one box prompt per box, and returns each mask's bounding box next to its prompt box in `runs/box_gold/v1/sam_boxes.json`.
+- Spend goes to `docs/costs.md`: `modal_runner.append_cost_rows` inserts rows above the summary line, which is updated by hand. 3.60 USD of GPU time in October 2026, 3.01 USD in November to date.
 
 ### Court smoothing (`bga.court.smooth`)
 
@@ -189,6 +190,12 @@ These are labelling aids, not a layer:
   - `data/labels/review/*.ops.txt` holds every review operation, applied in order by `scripts/review_ops.py`;
   - `data/labels/sheet_ledger.tsv` logs every contact sheet read;
   - `data/labels/box_gold.json` lists the 100 box-gold frames.
+- **Box gold v1 queue:** `data/labels/box_gold_v1.json` is written by `scripts/box_gold_v1.py prefill` and edited at `/boxes`.
+  - **Top level:** `version`, `classes`, the SAM model, `frames` and `meta.review_seconds`.
+  - **Each frame:** `youtube_id`, `clip`, `video`, `shot`, `frame`, `status` (`todo` or `done`), `note`, `boxes` and `candidates`.
+  - **Each box:** `id`, `xyxy`, `cls`, `team`, `tid`, `src`, `flags`, `hints`, `alt` (SAM or prefill geometry), `checked` and `edited`.
+
+  `data/labels/review/box_gold_v1.ops.txt` holds the implementer's first pass, applied by `box_gold_v1.py apply`. `box_gold_v1.py export` writes `data/gold/v1/boxes.json` from the frames marked done; it does not exist yet. Conventions and counts are in `docs/gold.md`.
 
 ### Court keyframes
 
@@ -216,7 +223,7 @@ These are labelling aids, not a layer:
 
 ### Labeller server
 
-`tools/labeler/server.py` is a stdlib HTTP server on port 8765, serving two pages:
+`tools/labeler/server.py` is a stdlib HTTP server on port 8765, serving three pages:
 
 - **`/` (track labeller):** `static/index.html` and `app.js`. Shot tagging, boxes, identities, and track-level review: K confirm, P split, M merge, ⇧Del delete a track, ⇧D accept a shot. A filmstrip shows 8 crops per track, and active time is logged in `meta.review_seconds`.
 - **`/court` (court keyframes):** `static/court.html`.
@@ -226,13 +233,19 @@ These are labelling aids, not a layer:
   - **Uncertainty:** the top bar shows the fit's rms and how far the lines in view could move given 2 px click error. It warns above 15 px.
   - **Folds:** a fit is refused if it folds between the dots and pins or mirrors the court there; parts of the court may be behind the camera.
   - **Queues:** `?set=<name>` opens `queue_<name>.json`.
+- **`/boxes` (box gold v1):** `static/boxes.html` edits `data/labels/box_gold_v1.json`, one frame at a time.
+  - **Display:** boxes are coloured by class. Flagged boxes not yet checked are outlined in orange and come first in the Tab order and the list, with their flags and hints shown.
+  - **Loupe:** shows the selected box at up to 8×, without smoothing, with the alternative box (SAM or prefill) dashed.
+  - **Editing:** edges and corners drag on the frame or in the loupe; arrow keys nudge one edge by 1 or 5 px. Keys `1`–`0` set the class, `T` the team, `A` swaps in the alternative box, Shift-drag draws a new box, `X` deletes, and `C` shows the detector candidates, adopted with a click. Scroll zooms, and dragging empty space pans.
+  - **Saving:** each change autosaves the frame. Enter marks it done, checks all its boxes and opens the next frame not done.
+  - **Time:** active time is logged in `meta.review_seconds`.
 
 API endpoints:
 
 | Method | Path |
 |---|---|
-| GET | `/api/clips`, `/api/clip`, `/api/frame`, `/api/shots`, `/api/pipeline`, `/api/court/queue`, `/api/court/labels` |
-| POST | `/api/labels`, `/api/shots`, `/api/court/labels` |
+| GET | `/api/clips`, `/api/clip`, `/api/frame`, `/api/shots`, `/api/pipeline`, `/api/court/queue`, `/api/court/labels`, `/api/boxes/queue` |
+| POST | `/api/labels`, `/api/shots`, `/api/court/labels`, `/api/boxes/frame` (rejects classes outside the schema, empty boxes, and a record for another frame) |
 
 Paths are confined to the repository by `safe_path`.
 
@@ -243,7 +256,7 @@ Paths are confined to the repository by `safe_path`.
 | Clips and shots | `fetch_highlights.sh`, `transcode_h264.sh`, `fetch_rosters.py`, `compare_shots.py`, `shot_diff_sheet.py`, `shot_sheets.py`, `check_labeller.py` |
 | Track prefill | `prefill_tracks.py` (Skalski's detector plus ByteTrack), `link_prefill.py`, `extract_shot_frames.py`, `sam_to_tracks.py` (SAM 2.1 identities fused with detector boxes), `import_prefill.py` |
 | Review | `track_sheets.py`, `review_sheets.py` (with `--propose` kit-colour ops), `review_ops.py` |
-| Gold export | `export_gold.py`, `box_gold.py` |
+| Gold export | `export_gold.py`, `box_gold.py`, `box_gold_v1.py` (box gold v1: prefill with SAM merge, crop sheets, ops, export) |
 | Court | `court_geometry.py`, `court_prefill.py` (the NBA court model over every clip), `court_keyframes.py`, `court_propagate.py`, `qa_court_overlay.py`, `court_train_manifest.py` (training frames from the training keyframes) |
 | Probes (not metrics rows) | `probe_reid.py` (Roboflow `reid` encoders on gold v0), `probe_court_keyframes.py` (the NBA court model and propagation against the court keyframes) |
 

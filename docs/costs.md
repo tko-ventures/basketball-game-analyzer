@@ -22,5 +22,7 @@ image builds are not included, so the Modal invoice is the authority.
 | 2026-11-02 | modal | cpu | bga run track/bytetrack OSp445e0mXU_s19 | 3.1 | 0.0 |
 | 2026-11-02 | modal | cpu | bga run track/bytetrack OSp445e0mXU_s19 | 1.5 | 0.0 |
 | 2026-11-18 | modal | L40S | bga train court/rfdetr_keypoint/plk-v1@c26b7841 | 5510.3 | 2.9848 |
+| 2026-11-18 | modal | L40S | sam2_boxmask box gold v1 (100 frames) | 32.7 | 0.0177 |
+| 2026-11-18 | modal | L40S | sam2_boxmask box gold v1 (100 frames) | 27.2 | 0.0147 |
 
-Month to date (2026-11): 2.98 USD of GPU time. October 2026: 3.60 USD.
+Month to date (2026-11): 3.01 USD of GPU time. October 2026: 3.60 USD.

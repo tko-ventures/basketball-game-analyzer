@@ -48,3 +48,10 @@ identity in the list (click it) before drawing the box, so the ID stays the same
 
 Version 1 files (team `dziki` / `opp`) are migrated to version 2 on load. Frame JPEGs are cached
 under `data/labels/.cache/` (gitignored, safe to delete).
+
+## Box gold v1 (`/boxes`)
+
+http://127.0.0.1:8765/boxes edits `data/labels/box_gold_v1.json`: tight boxes in the 10-class schema on the 100
+box-gold frames, prefilled by `scripts/box_gold_v1.py`. Flagged boxes come first (Tab), a loupe on the right shows the
+selected box at up to 8×, and Enter marks the frame done. Keys are listed under the loupe; conventions are in
+`docs/gold.md`, "Box gold v1".

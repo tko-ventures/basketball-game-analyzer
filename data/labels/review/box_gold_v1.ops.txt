@@ -1,0 +1,210 @@
+# Implementer's first pass, 2026-11-18: crop sheets runs/box_gold/v1/crops (ledger rows), then the one-ball rule.
+drop 4XMD9FWmQws 1935 14  # crowd, not a ball
+drop 4XMD9FWmQws 2000 16  # stanchion sponsor logo, not a number
+drop 4XMD9FWmQws 2060 14  # shorts, no ball
+noflag 4XMD9FWmQws 14585 14  # checked on crop sheet
+noflag 4XMD9FWmQws 14705 13  # checked on crop sheet
+drop 4XMD9FWmQws 14705 14  # shorts, no ball
+drop 4XMD9FWmQws 14705 15  # scoreboard graphic
+drop 4XMD9FWmQws 14705 16  # stanchion logo
+noflag 4XMD9FWmQws 14765 18  # checked on crop sheet
+drop 4XMD9FWmQws 14825 12  # stanchion logo
+noflag 4XMD9FWmQws 25575 13  # checked on crop sheet
+noflag 4XMD9FWmQws 25575 14  # checked on crop sheet
+drop 4XMD9FWmQws 25685 19  # stanchion logo
+noflag 4XMD9FWmQws 25685 20  # checked on crop sheet
+noflag 4XMD9FWmQws 25800 15  # checked on crop sheet
+noflag 4XMD9FWmQws 25800 16  # checked on crop sheet
+noflag 4XMD9FWmQws 25800 17  # checked on crop sheet
+noflag 4XMD9FWmQws 25970 12  # checked on crop sheet
+noflag OSp445e0mXU 580 14  # checked on crop sheet
+drop OSp445e0mXU 580 15  # crowd
+noflag OSp445e0mXU 640 14  # checked on crop sheet
+noflag OSp445e0mXU 640 15  # checked on crop sheet
+noflag OSp445e0mXU 700 13  # checked on crop sheet
+noflag OSp445e0mXU 760 14  # checked on crop sheet
+noflag OSp445e0mXU 820 14  # checked on crop sheet
+drop OSp445e0mXU 940 16  # shorts, no ball
+drop OSp445e0mXU 940 17  # shorts, no ball
+noflag OSp445e0mXU 1000 13  # checked on crop sheet
+noflag OSp445e0mXU 1120 12  # checked on crop sheet
+noflag OSp445e0mXU 3050 13  # checked on crop sheet
+noflag OSp445e0mXU 3115 8  # checked on crop sheet
+noflag OSp445e0mXU 3115 9  # checked on crop sheet
+noflag OSp445e0mXU 6410 13  # checked on crop sheet
+noflag OSp445e0mXU 6410 14  # checked on crop sheet
+drop OSp445e0mXU 6640 14  # crowd, no rim visible
+noflag OSp445e0mXU 6640 15  # checked on crop sheet
+noflag OSp445e0mXU 6750 13  # checked on crop sheet
+noflag 1jDaJBkUGmc 975 14  # checked on crop sheet
+noflag 1jDaJBkUGmc 975 15  # checked on crop sheet
+drop 1jDaJBkUGmc 1035 16  # crowd
+noflag 1jDaJBkUGmc 1220 10  # checked on crop sheet
+noflag 1jDaJBkUGmc 1345 14  # checked on crop sheet
+drop 1jDaJBkUGmc 1345 15  # sponsor board, not a number
+noflag 1jDaJBkUGmc 1345 16  # checked on crop sheet
+drop 1jDaJBkUGmc 1465 17  # empty floor between players
+drop 1jDaJBkUGmc 2520 13  # crowd
+drop 1jDaJBkUGmc 2520 14  # chest sponsor, not the number
+noflag 1jDaJBkUGmc 2585 13  # checked on crop sheet
+noflag 1jDaJBkUGmc 2585 14  # checked on crop sheet
+drop 1jDaJBkUGmc 2715 15  # sponsor under the number; the 13 above may need its own box
+noflag 1jDaJBkUGmc 2715 16  # checked on crop sheet
+noflag 1jDaJBkUGmc 2840 16  # checked on crop sheet
+noflag 1jDaJBkUGmc 2840 17  # checked on crop sheet
+noflag 1jDaJBkUGmc 2905 15  # checked on crop sheet
+noflag 1jDaJBkUGmc 2905 16  # checked on crop sheet
+drop 1jDaJBkUGmc 2970 13  # crowd
+noflag 1jDaJBkUGmc 6200 15  # checked on crop sheet
+drop 1jDaJBkUGmc 6200 16  # crowd
+noflag 1jDaJBkUGmc 6385 17  # checked on crop sheet
+noflag 1jDaJBkUGmc 6445 14  # checked on crop sheet
+noflag 1jDaJBkUGmc 6510 17  # checked on crop sheet
+noflag Tnuscrm9RyU 435 13  # checked on crop sheet
+noflag Tnuscrm9RyU 435 15  # checked on crop sheet
+drop Tnuscrm9RyU 435 16  # shorts, no ball
+noflag Tnuscrm9RyU 790 12  # checked on crop sheet
+noflag Tnuscrm9RyU 3860 14  # checked on crop sheet
+drop Tnuscrm9RyU 3920 13  # shorts, no ball
+drop Tnuscrm9RyU 4035 15  # spare ball off court; gold boxes the game ball only
+noflag Tnuscrm9RyU 4095 12  # checked on crop sheet
+drop Tnuscrm9RyU 4095 13  # chest sponsor; the 25 below may need its own box
+drop Tnuscrm9RyU 4210 13  # crowd
+drop Tnuscrm9RyU 4210 14  # chest logo
+noflag Tnuscrm9RyU 4210 15  # checked on crop sheet
+noflag Tnuscrm9RyU 4270 15  # checked on crop sheet
+noflag Tnuscrm9RyU 6910 17  # checked on crop sheet
+noflag Tnuscrm9RyU 6970 15  # checked on crop sheet
+noflag Tnuscrm9RyU 6970 16  # checked on crop sheet
+drop Tnuscrm9RyU 7035 15  # shorts, no ball
+drop Tnuscrm9RyU 7035 16  # chest logo
+drop Tnuscrm9RyU 7035 17  # shorts, no ball
+drop Tnuscrm9RyU 7035 18  # chest logo; the 10 beside it may need its own box
+drop Tnuscrm9RyU 7095 12  # red seats
+drop Tnuscrm9RyU 7220 14  # shorts, no ball
+noflag Tnuscrm9RyU 7220 15  # checked on crop sheet
+drop Tnuscrm9RyU 7220 16  # shorts, no ball
+noflag Tnuscrm9RyU 7280 15  # checked on crop sheet
+noflag 4XMD9FWmQws 1935 6  # checked on crop sheet
+noflag 4XMD9FWmQws 2060 10  # checked on crop sheet
+noflag 4XMD9FWmQws 2060 11  # checked on crop sheet
+noflag 4XMD9FWmQws 2125 4  # checked on crop sheet
+noflag 4XMD9FWmQws 2125 11  # checked on crop sheet
+noflag 4XMD9FWmQws 14405 9  # checked on crop sheet
+noflag 4XMD9FWmQws 14465 10  # checked on crop sheet
+noflag 4XMD9FWmQws 14525 8  # checked on crop sheet
+noflag 4XMD9FWmQws 14525 9  # checked on crop sheet
+noflag 4XMD9FWmQws 14525 10  # checked on crop sheet
+noflag 4XMD9FWmQws 14585 11  # checked on crop sheet
+noflag 4XMD9FWmQws 14705 11  # checked on crop sheet
+noflag 4XMD9FWmQws 14765 12  # checked on crop sheet
+noflag 4XMD9FWmQws 25515 9  # a player, not a referee
+noflag 4XMD9FWmQws 25745 10  # checked on crop sheet
+noflag OSp445e0mXU 880 5  # checked on crop sheet
+noflag OSp445e0mXU 1120 10  # checked on crop sheet
+noflag OSp445e0mXU 1120 11  # checked on crop sheet
+noflag OSp445e0mXU 3050 0  # checked on crop sheet
+noflag OSp445e0mXU 3050 10  # checked on crop sheet
+noflag OSp445e0mXU 3115 7  # checked on crop sheet
+noflag OSp445e0mXU 6410 9  # checked on crop sheet
+noflag OSp445e0mXU 6525 10  # checked on crop sheet
+noflag 1jDaJBkUGmc 975 11  # checked on crop sheet
+adopt 4XMD9FWmQws 1935 c0 number
+adopt 4XMD9FWmQws 2060 c0 number
+adopt 4XMD9FWmQws 2060 c1 number
+adopt 4XMD9FWmQws 14705 c0 number
+adopt 4XMD9FWmQws 14765 c0 number
+adopt 4XMD9FWmQws 25515 c0 number
+adopt 4XMD9FWmQws 25515 c1 number
+adopt 4XMD9FWmQws 25630 c1 number
+adopt 4XMD9FWmQws 25855 c0 number
+adopt 4XMD9FWmQws 25855 c1 number
+adopt OSp445e0mXU 1000 c0 number
+adopt OSp445e0mXU 3115 c0 number
+adopt OSp445e0mXU 3115 c2 number
+adopt OSp445e0mXU 3180 c0 ball  # blurred, near the dribbler's foot: check it is the ball
+flag OSp445e0mXU 3180 - blurred, near the dribbler's foot: check it is the ball (adopted c0)
+adopt OSp445e0mXU 3380 c0 rim
+adopt OSp445e0mXU 3445 c0 rim
+adopt OSp445e0mXU 6410 c0 number
+adopt OSp445e0mXU 6525 c1 rim
+adopt OSp445e0mXU 6580 c1 rim
+adopt OSp445e0mXU 6695 c0 number
+adopt OSp445e0mXU 6695 c1 rim
+adopt 1jDaJBkUGmc 975 c0 number
+adopt 1jDaJBkUGmc 1035 c1 number
+adopt 1jDaJBkUGmc 1095 c0 number
+adopt 1jDaJBkUGmc 2520 c0 number
+adopt 1jDaJBkUGmc 2520 c1 number
+adopt 1jDaJBkUGmc 2775 c0 number
+adopt 1jDaJBkUGmc 6260 c0 number
+adopt 1jDaJBkUGmc 6325 c0 number
+adopt 1jDaJBkUGmc 6325 c1 number
+adopt 1jDaJBkUGmc 6510 c0 number
+adopt Tnuscrm9RyU 435 c0 number
+adopt Tnuscrm9RyU 555 c0 number
+adopt Tnuscrm9RyU 790 c0 ball  # ball in the shooter's hand
+flag Tnuscrm9RyU 790 - ball in the shooter's hand (adopted c0)
+adopt Tnuscrm9RyU 3980 c0 number
+adopt Tnuscrm9RyU 4095 c0 number
+adopt Tnuscrm9RyU 7160 c0 number
+adopt Tnuscrm9RyU 7160 c1 number
+adopt Tnuscrm9RyU 7280 c0 number
+adopt Tnuscrm9RyU 7405 c0 number
+# one ball per frame: a proposed possessor whose box does not hold a kept ball box goes back to player
+cls 4XMD9FWmQws 2125 1 player  # ball box elsewhere in frame
+cls 4XMD9FWmQws 2190 10 player  # ball box elsewhere in frame
+cls 4XMD9FWmQws 14765 8 player  # ball box elsewhere in frame
+cls OSp445e0mXU 940 5 player  # ball box elsewhere in frame
+cls OSp445e0mXU 1000 8 player  # ball box elsewhere in frame
+cls 1jDaJBkUGmc 1095 5 player  # ball box elsewhere in frame
+cls 1jDaJBkUGmc 1220 3 player  # ball box elsewhere in frame
+cls 1jDaJBkUGmc 6260 3 player  # ball box elsewhere in frame
+cls 1jDaJBkUGmc 6385 8 player  # ball box elsewhere in frame
+cls 1jDaJBkUGmc 6385 12 player  # ball box elsewhere in frame
+cls 1jDaJBkUGmc 6445 3 player  # ball box elsewhere in frame
+cls Tnuscrm9RyU 435 9 player  # ball box elsewhere in frame
+cls Tnuscrm9RyU 495 3 player  # ball box elsewhere in frame
+cls Tnuscrm9RyU 615 6 player  # ball box elsewhere in frame
+cls Tnuscrm9RyU 3920 2 player  # ball box elsewhere in frame
+# boxes added in the v0 review were checked then; clear only that flag
+noflag 4XMD9FWmQws 2060 10 added in v0 review
+noflag 4XMD9FWmQws 2060 11 added in v0 review
+noflag 4XMD9FWmQws 2125 11 added in v0 review
+noflag 4XMD9FWmQws 14405 9 added in v0 review
+noflag 4XMD9FWmQws 14465 10 added in v0 review
+noflag 4XMD9FWmQws 14525 8 added in v0 review
+noflag 4XMD9FWmQws 14525 9 added in v0 review
+noflag 4XMD9FWmQws 14525 10 added in v0 review
+noflag 4XMD9FWmQws 14585 11 added in v0 review
+noflag 4XMD9FWmQws 14705 11 added in v0 review
+noflag 4XMD9FWmQws 14765 12 added in v0 review
+noflag 4XMD9FWmQws 25515 9 added in v0 review
+noflag 4XMD9FWmQws 25745 10 added in v0 review
+noflag OSp445e0mXU 1120 10 added in v0 review
+noflag OSp445e0mXU 1120 11 added in v0 review
+noflag OSp445e0mXU 3050 10 added in v0 review
+noflag OSp445e0mXU 3115 7 added in v0 review
+noflag OSp445e0mXU 3250 7 added in v0 review
+noflag 1jDaJBkUGmc 975 11 added in v0 review
+noflag 1jDaJBkUGmc 1095 10 added in v0 review
+noflag 1jDaJBkUGmc 1220 9 added in v0 review
+noflag 1jDaJBkUGmc 1280 9 added in v0 review
+noflag 1jDaJBkUGmc 1465 12 added in v0 review
+noflag 1jDaJBkUGmc 2650 11 added in v0 review
+noflag 1jDaJBkUGmc 6200 11 added in v0 review
+noflag 1jDaJBkUGmc 6570 12 added in v0 review
+noflag Tnuscrm9RyU 790 9 added in v0 review
+noflag Tnuscrm9RyU 4210 10 added in v0 review
+noflag Tnuscrm9RyU 6970 12 added in v0 review
+noflag Tnuscrm9RyU 7345 9 added in v0 review
+noflag Tnuscrm9RyU 7405 9 added in v0 review
+# frames with more than one proposed possessor: one ball, so at most one is right
+flag OSp445e0mXU 820 - 2 possessors proposed (boxes 5, 8): keep at most one
+flag OSp445e0mXU 3180 - 2 possessors proposed (boxes 0, 4): keep at most one
+flag OSp445e0mXU 3250 - 3 possessors proposed (boxes 1, 5, 7): keep at most one
+flag OSp445e0mXU 6580 - 3 possessors proposed (boxes 1, 2, 5): keep at most one
+flag OSp445e0mXU 6695 - 2 possessors proposed (boxes 9, 11): keep at most one
+flag 1jDaJBkUGmc 1160 - 2 possessors proposed (boxes 3, 6): keep at most one
+flag 1jDaJBkUGmc 1280 - 2 possessors proposed (boxes 2, 6): keep at most one
+flag Tnuscrm9RyU 3920 - 2 possessors proposed (boxes 4, 6): keep at most one
