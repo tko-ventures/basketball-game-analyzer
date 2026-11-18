@@ -236,7 +236,7 @@ These are labelling aids, not a layer:
 - **`/boxes` (box gold v1):** `static/boxes.html` edits `data/labels/box_gold_v1.json`, one frame at a time.
   - **Display:** boxes are coloured by class. Flagged boxes not yet checked are outlined in orange and come first in the Tab order and the list, with their flags and hints shown.
   - **Loupe:** shows the selected box at up to 8×, without smoothing, with the alternative box (SAM or prefill) dashed.
-  - **Editing:** edges and corners drag on the frame or in the loupe; arrow keys nudge one edge by 1 or 5 px. Keys `1`–`0` set the class, `T` the team, `A` swaps in the alternative box, Shift-drag draws a new box, `X` deletes, and `C` shows the detector candidates, adopted with a click. Scroll zooms, and dragging empty space pans.
+  - **Editing:** edges and corners drag on the frame or in the loupe; arrow keys nudge one edge by 1 or 5 px. Keys `1`–`0` set the class, `T` the team, `A` swaps in the alternative box, Shift-drag draws a new box, `X` deletes, and `C` shows the detector candidates (low-score objects, and people no box covers), adopted with a click. Scroll zooms, and dragging empty space pans.
   - **Saving:** each change autosaves the frame. Enter marks it done, checks all its boxes and opens the next frame not done.
   - **Time:** active time is logged in `meta.review_seconds`.
 
@@ -256,7 +256,7 @@ Paths are confined to the repository by `safe_path`.
 | Clips and shots | `fetch_highlights.sh`, `transcode_h264.sh`, `fetch_rosters.py`, `compare_shots.py`, `shot_diff_sheet.py`, `shot_sheets.py`, `check_labeller.py` |
 | Track prefill | `prefill_tracks.py` (Skalski's detector plus ByteTrack), `link_prefill.py`, `extract_shot_frames.py`, `sam_to_tracks.py` (SAM 2.1 identities fused with detector boxes), `import_prefill.py` |
 | Review | `track_sheets.py`, `review_sheets.py` (with `--propose` kit-colour ops), `review_ops.py` |
-| Gold export | `export_gold.py`, `box_gold.py`, `box_gold_v1.py` (box gold v1: prefill with SAM merge, crop sheets, ops, export) |
+| Gold export | `export_gold.py`, `box_gold.py`, `box_gold_v1.py` (box gold v1: prefill with SAM merge, crop sheets, ops, candidate refresh, export) |
 | Court | `court_geometry.py`, `court_prefill.py` (the NBA court model over every clip), `court_keyframes.py`, `court_propagate.py`, `qa_court_overlay.py`, `court_train_manifest.py` (training frames from the training keyframes) |
 | Probes (not metrics rows) | `probe_reid.py` (Roboflow `reid` encoders on gold v0), `probe_court_keyframes.py` (the NBA court model and propagation against the court keyframes) |
 

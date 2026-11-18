@@ -79,7 +79,7 @@ These follow Roboflow's training set `basketball-player-detection-3-ycjdo` (vers
 
 `scripts/box_gold_v1.py` builds the queue `data/labels/box_gold_v1.json`, which the labeller's `/boxes` page edits:
 1. **People:** the v0 person boxes, with track id and team. The class is an action class where the best-matching prefill detection says so at score ≥ 0.3, else `player`, or `referee` for referee tracks.
-2. **Objects:** the prefill detector's ball, ball-in-basket, rim and number boxes at score ≥ 0.3, after per-class NMS at IoU 0.5 (the prefill ran with IoU 0.9 and put up to three boxes on one ball). Scores from 0.1 to 0.3 are kept as candidates the page can show and adopt.
+2. **Objects:** the prefill detector's ball, ball-in-basket, rim and number boxes at score ≥ 0.3, after per-class NMS at IoU 0.5 (the prefill ran with IoU 0.9 and put up to three boxes on one ball). Scores from 0.1 to 0.3 are kept as candidates the page can show and adopt. So are the detector's player and referee boxes that overlap no person box (IoU < 0.3), for people the tracks missed; `box_gold_v1.py candidates` recomputes them on the frames not done without touching boxes (added 2026-11-18 after Tomasz's first frame, 199 candidates).
 3. **SAM 2.1 geometry** (`src/bga/remote/sam2_boxmask.py`, one box prompt per box on Modal, 0.03 USD):
    - where SAM's mask box agrees with the prefill box (IoU ≥ 0.85), the mask box is used;
    - elsewhere the prefill box stays and the mask box is offered as the alternative.

@@ -7,6 +7,7 @@
     uv run scripts/box_gold_v1.py crops              # runs/box_gold/v1/crops/*.jpg for the implementer's first pass
     uv run scripts/box_gold_v1.py sheets             # runs/box_gold/v1/sheets/*.jpg, whole frames with numbered boxes
     uv run scripts/box_gold_v1.py apply              # applies data/labels/review/box_gold_v1.ops.txt to the queue
+    uv run scripts/box_gold_v1.py candidates         # recompute candidates (incl. missed people) on frames not done
     uv run scripts/box_gold_v1.py export             # data/gold/v1/boxes.json from the frames Tomasz marked done
 
 The queue (data/labels/box_gold_v1.json) is what the labeller's /boxes page edits. Each frame starts from:
@@ -14,7 +15,8 @@ The queue (data/labels/box_gold_v1.json) is what the labeller's /boxes page edit
 - the class of the best-matching prefill detection when it is an action class (possession, jump shot, layup or dunk,
   shot block), else player, or referee for referee tracks;
 - the prefill detector's ball, ball-in-basket, rim and number boxes at score >= KEEP; lower ones down to 0.1 are
-  candidates the page can show and adopt with one click.
+  candidates the page can show and adopt with one click, as are its player and referee boxes that overlap no person
+  box (IoU < PERSON_FREE), for people the tracks missed.
 
 Geometry: where SAM 2.1's mask box agrees with the prefill box (IoU >= SAM_AGREE) the mask box is used, being the
 tighter of the two; otherwise the prefill box stays, with the mask box offered as the alternative and a hint (not a
@@ -57,6 +59,7 @@ SURE = 0.6  # objects below this score are flagged
 ACTION_MIN = 0.3
 SAM_AGREE = 0.85
 NMS_IOU = 0.5
+PERSON_FREE = 0.3  # a person detection overlapping no person box below this IoU is a candidate
 SAM_CLASSES = PERSON | {"ball", "ball-in-basket", "rim"}  # SAM does not separate digits from the shirt
 CLS_BGR = {
     "player": (80, 220, 80),
@@ -112,8 +115,16 @@ def draft_frame(sel: dict, v0: dict, dets: list[dict]) -> dict:
                 flags.append("detector says referee")
         if b["src"] == "detector-added":
             flags.append("added in v0 review")
-        boxes.append({"xyxy": [round(v, 1) for v in b["xyxy"]], "cls": cls, "team": b["team"], "tid": b["tid"],
-                      "src": "v0", "flags": flags, "hints": [], "alt": {}})
+        boxes.append({
+            "xyxy": [round(v, 1) for v in b["xyxy"]],
+            "cls": cls,
+            "team": b["team"],
+            "tid": b["tid"],
+            "src": "v0",
+            "flags": flags,
+            "hints": [],
+            "alt": {},
+        })
     kept: list[dict] = []  # per-class NMS: the prefill ran with IoU 0.9, so one ball can carry three boxes
     for d in sorted((d for d in dets if d["class"] in OBJECTS), key=lambda d: -d["score"]):
         if any(k["class"] == d["class"] and iou(k["xyxy"], d["xyxy"]) >= NMS_IOU for k in kept):
@@ -125,11 +136,24 @@ def draft_frame(sel: dict, v0: dict, dets: list[dict]) -> dict:
             boxes.append({**rec, "team": "", "tid": None, "src": "det", "flags": flags, "hints": [], "alt": {}})
         else:
             cands.append(rec)
+    taken = [b["xyxy"] for b in boxes if b["cls"] in PERSON]
+    for d in sorted(people, key=lambda d: -d["score"]):  # people the tracks missed, one click to adopt
+        if all(iou(d["xyxy"], x) < PERSON_FREE for x in taken):
+            taken.append(d["xyxy"])
+            cls = "referee" if d["class"] == "referee" else "player"
+            cands.append({"xyxy": [round(v, 1) for v in d["xyxy"]], "cls": cls, "score": round(d["score"], 3)})
     for i, b in enumerate(boxes):
         b["id"] = i
     return {
-        "youtube_id": sel["youtube_id"], "clip": sel["clip"], "video": video_of(sel["clip"]), "shot": sel["shot"],
-        "frame": sel["frame"], "status": "todo", "note": "", "boxes": boxes, "candidates": cands,
+        "youtube_id": sel["youtube_id"],
+        "clip": sel["clip"],
+        "video": video_of(sel["clip"]),
+        "shot": sel["shot"],
+        "frame": sel["frame"],
+        "status": "todo",
+        "note": "",
+        "boxes": boxes,
+        "candidates": cands,
     }
 
 
@@ -173,11 +197,19 @@ def prefill(force: bool) -> None:
     dets = {c: detections(c, fr) for c, fr in by_clip.items()}
     frames = [draft_frame(s, v0[key(s["youtube_id"], s["frame"])], dets[s["clip"]][s["frame"]]) for s in sels]
     OUT.mkdir(parents=True, exist_ok=True)
-    SAM_IN.write_text(json.dumps({"frames": [
-        {"key": key(f["youtube_id"], f["frame"]), "video": f["video"], "frame": f["frame"],
-         "boxes": [b["xyxy"] for b in f["boxes"] if b["cls"] in SAM_CLASSES]}
-        for f in frames
-    ]}))
+    SAM_IN.write_text(
+        json.dumps({
+            "frames": [
+                {
+                    "key": key(f["youtube_id"], f["frame"]),
+                    "video": f["video"],
+                    "frame": f["frame"],
+                    "boxes": [b["xyxy"] for b in f["boxes"] if b["cls"] in SAM_CLASSES],
+                }
+                for f in frames
+            ]
+        })
+    )
     n = sum(len(f["boxes"]) for f in frames)
     print(f"{len(frames)} frames, {n} boxes -> {SAM_IN}")
     if not SAM_OUT.exists():
@@ -225,8 +257,11 @@ def sheets() -> None:
         head = f"{n:02d} {fr['youtube_id']} s{fr['shot']} f{fr['frame']}"
         # whole frame, then the two halves at full resolution, so small objects stay legible
         tiles = [(img, head), (img[:, :960], head + " left"), (img[:, 960:], head + " right")]
-        cv2.imwrite(str(out / f"{n:02d}.jpg"), contact_sheet(tiles, cols=1, tile_wh=(1920, 1080)),
-                    [cv2.IMWRITE_JPEG_QUALITY, 80])
+        cv2.imwrite(
+            str(out / f"{n:02d}.jpg"),
+            contact_sheet(tiles, cols=1, tile_wh=(1920, 1080)),
+            [cv2.IMWRITE_JPEG_QUALITY, 80],
+        )
     print(f"{len(doc['frames'])} sheets -> {out}")
 
 
@@ -237,8 +272,13 @@ def crop_tile(img, b: dict, label: str, ctx: float, tile: int = 300):
     c = img[Y1 : y2 + p, X1 : x2 + p].copy()
     s = tile / max(c.shape[:2])
     c = cv2.resize(c, None, fx=s, fy=s, interpolation=cv2.INTER_NEAREST if s > 1 else cv2.INTER_AREA)
-    cv2.rectangle(c, (int((x1 - X1) * s), int((y1 - Y1) * s)), (int((x2 - X1) * s), int((y2 - Y1) * s)),
-                  CLS_BGR.get(b["cls"], (255, 255, 255)), 2)
+    cv2.rectangle(
+        c,
+        (int((x1 - X1) * s), int((y1 - Y1) * s)),
+        (int((x2 - X1) * s), int((y2 - Y1) * s)),
+        CLS_BGR.get(b["cls"], (255, 255, 255)),
+        2,
+    )
     return c, label
 
 
@@ -264,8 +304,11 @@ def crops() -> None:
             groups["candidates"].append(crop_tile(img, c, f"{n}:c{k} {c['cls'][:13]} {c['score']}", 1.5))
     for g, items in groups.items():
         for s in range(0, len(items), 30):
-            cv2.imwrite(str(out / f"{g}_{s // 30:02d}.jpg"), contact_sheet(items[s : s + 30], cols=6, tile_wh=(300, 300)),
-                        [cv2.IMWRITE_JPEG_QUALITY, 85])
+            cv2.imwrite(
+                str(out / f"{g}_{s // 30:02d}.jpg"),
+                contact_sheet(items[s : s + 30], cols=6, tile_wh=(300, 300)),
+                [cv2.IMWRITE_JPEG_QUALITY, 85],
+            )
         print(f"{g}: {len(items)} crops")
 
 
@@ -292,8 +335,17 @@ def apply_ops() -> None:
         elif op == "adopt":
             c = fr["candidates"][int(ref.lstrip("c"))]
             nid = max((b["id"] for b in fr["boxes"]), default=-1) + 1
-            fr["boxes"].append({"xyxy": c["xyxy"], "cls": rest[0], "team": "", "tid": None, "src": "det-candidate",
-                                "flags": [], "hints": [f"adopted candidate ({c['score']:.2f})"], "alt": {}, "id": nid})
+            fr["boxes"].append({
+                "xyxy": c["xyxy"],
+                "cls": rest[0],
+                "team": "",
+                "tid": None,
+                "src": "det-candidate",
+                "flags": [],
+                "hints": [f"adopted candidate ({c['score']:.2f})"],
+                "alt": {},
+                "id": nid,
+            })
         elif op == "flag":
             note = "implementer: " + " ".join(rest)
             if ref == "-":
@@ -309,6 +361,36 @@ def apply_ops() -> None:
     print(f"{n} ops applied -> {QUEUE}")
 
 
+def refresh_candidates() -> None:
+    """Recompute the candidates of every frame not done, leaving boxes untouched (reload the /boxes page after)."""
+    doc = json.loads(QUEUE.read_text())
+    sels = json.loads(SEL.read_text())["frames"]
+    v0 = {key(f["youtube_id"], f["frame"]): f for f in json.loads(V0.read_text())["frames"]}
+    by_clip: dict[str, set[int]] = {}
+    for s in sels:
+        by_clip.setdefault(s["clip"], set()).add(s["frame"])
+    dets = {c: detections(c, fr) for c, fr in by_clip.items()}
+    n = 0
+    for fr in doc["frames"]:
+        if fr["status"] == "done":
+            continue
+        sel = {k: fr[k] for k in ("youtube_id", "clip", "shot", "frame")}
+        cands = draft_frame(sel, v0[key(fr["youtube_id"], fr["frame"])], dets[fr["clip"]][fr["frame"]])["candidates"]
+
+        def free(c, boxes=fr["boxes"]):
+            person = c["cls"] in PERSON
+            return all(
+                iou(c["xyxy"], b["xyxy"]) < (PERSON_FREE if person else NMS_IOU)
+                for b in boxes
+                if (b["cls"] in PERSON) == person and (person or b["cls"] == c["cls"])
+            )
+
+        fr["candidates"] = [c for c in cands if free(c)]
+        n += len(fr["candidates"])
+    QUEUE.write_text(json.dumps(doc, indent=1) + "\n")
+    print(f"{n} candidates over the frames not done -> {QUEUE}")
+
+
 def export(version: str) -> None:
     doc = json.loads(QUEUE.read_text())
     done = [f for f in doc["frames"] if f["status"] == "done"]
@@ -319,24 +401,35 @@ def export(version: str) -> None:
     ]
     out = Path("data/gold") / version
     out.mkdir(parents=True, exist_ok=True)
-    (out / "boxes.json").write_text(json.dumps({
-        "version": version,
-        "geometry": "reviewed by hand (labeller /boxes); visible extent, conventions in docs/gold.md",
-        "classes": doc["classes"],
-        "frames": frames,
-    }, indent=1) + "\n")
+    (out / "boxes.json").write_text(
+        json.dumps(
+            {
+                "version": version,
+                "geometry": "reviewed by hand (labeller /boxes); visible extent, conventions in docs/gold.md",
+                "classes": doc["classes"],
+                "frames": frames,
+            },
+            indent=1,
+        )
+        + "\n"
+    )
     print(f"{len(frames)} of {len(doc['frames'])} frames done -> {out / 'boxes.json'}")
 
 
 def main(argv=None):
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["prefill", "sheets", "crops", "apply", "export"])
+    ap.add_argument("cmd", choices=["prefill", "sheets", "crops", "apply", "candidates", "export"])
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--version", default="v1")
     a = ap.parse_args(argv)
-    {"prefill": lambda: prefill(a.force), "sheets": sheets, "crops": crops, "apply": apply_ops, "export": lambda: export(a.version)}[
-        a.cmd
-    ]()
+    {
+        "prefill": lambda: prefill(a.force),
+        "sheets": sheets,
+        "crops": crops,
+        "apply": apply_ops,
+        "candidates": refresh_candidates,
+        "export": lambda: export(a.version),
+    }[a.cmd]()
 
 
 if __name__ == "__main__":
