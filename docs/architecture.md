@@ -20,7 +20,7 @@ The repository has three parts:
 | `weights/` | trained weights, one directory per weight id | no |
 | `tools/labeler/` | the local labelling server and its three pages | yes |
 | `scripts/` | labelling, gold export, court, probe, demo and coach scripts | yes |
-| `tests/` | 14 test files, 130 tests | yes |
+| `tests/` | 15 test files, 137 tests | yes |
 | `data/clip_ids.txt` | the 31 YouTube highlight clips | yes |
 | `data/labels/` | per-clip labels, the gold manifest, review ops, court keyframes | yes |
 | `data/gold/v0/` | the exported gold set | yes |
@@ -102,6 +102,7 @@ Both are covered by `tests/test_nms.py`.
 | `bga run --config configs/baseline.yaml [--set ...] [--seq ...] [--layer ...] [--force ...] [--remote modal] [--remote-layer ...]` | runs the layers |
 | `bga eval --config a.yaml [--config b.yaml] [--gold v0] [--held-out] [--write]` | runs, reusing cached outputs, and scores each config side by side; `--write` adds rows to the tracking table in `docs/metrics.md` |
 | `bga eval-court --config a.yaml [--config b.yaml] [--held-out] [--write]` | scores each config's court layer on the gold court keyframes; `--write` adds rows to the court table in `docs/metrics.md` |
+| `bga eval-detect --config a.yaml [--set ...] [--gold v1] [--held-out] [--write]` | runs the detect layer (reusing cached outputs) and scores per-class AP on the box-gold frames; `--write` adds rows to the detection table in `docs/metrics.md` |
 | `bga radar --config ...` | renders a radar video per sequence (`bga.export.radar`): the broadcast frame above, the FIBA court with players below |
 | `bga backends` | lists the registered backends |
 | `bga train --config configs/train/<layer>-<backend>-<name>.yaml [--build-only] [--collect]` | builds the dataset, checks it for gold clips, trains on Modal and pulls the weights back (section below) |
@@ -110,6 +111,7 @@ Both are covered by `tests/test_nms.py`.
 
 - **Gold export** (`gold.py`): label files to MOTChallenge sequences, filling gaps of up to 3 sampled frames by interpolation.
 - **Tracking** (`mot.py`): HOTA, DetA, AssA, MOTA, IDF1 and IDSW from TrackEval, pinned to a commit. Players and referees are one class; scored on every 5th frame.
+- **Detection** (`detect.py`): COCO AP50:95 and AP50 per class of the 10-class schema on the box-gold frames of gold v1 inside the run's sequences, plus `people`, with the six person classes merged on both sides. Each result carries its gold box count.
 - **Court** (`court.py`): each gold court keyframe Tomasz labelled `ok` (18 dev, 6 held-out) is mapped by the config's court backend, which runs on the shot's frames within 25 frames of the keyframe at a stride of 5, so smoothing has its neighbours. The court vertices visible under his mapping go through the predicted mapping. Scores per arena and overall: the median over keyframes of the per-frame median error in metres; the same over the paint (key corners, free-throw line ends and centres); the share of keyframes under 0.5 m in the paint; and the unmapped count.
 - **Other scores** (`scores.py`):
   - class-agnostic person AP50 on the 100 box-gold frames;
@@ -118,7 +120,10 @@ Both are covered by `tests/test_nms.py`.
   - milliseconds per frame per layer;
   - churn (`churn.py`): id-set changes and track lifetimes.
 
-`docs/metrics.md` has two tables. The tracking table holds two rows, both for `baseline@70498c00` on gold v0: dev and held-out. The court table holds dev rows for `baseline`, `court-plk-v1` and its two smoothing windows, and held-out rows for `baseline` and `court-plk-v1-smooth4`.
+`docs/metrics.md` has three tables:
+- **Tracking:** two rows, both for `baseline@70498c00` on gold v0, dev and held-out.
+- **Court:** dev rows for `baseline`, `court-plk-v1` and its two smoothing windows, and held-out rows for `baseline` and `court-plk-v1-smooth4`.
+- **Detection:** two dev rows on gold v1, for `baseline` at its confidence of 0.4 and at 0.05.
 
 ### Remote execution (`bga.remote`)
 

@@ -146,6 +146,95 @@ def eval_(
         METRICS_MD.write_text(_insert_rows(text, HEADER, rows))
 
 
+def _weights_cell(weights: str | None) -> str:
+    """Metrics cell naming a layer's weights and, for trained weights, the training config from their train.json.
+
+    Examples:
+        >>> _weights_cell("pretrained:roboflow/x/6"), _weights_cell(None)
+        ('`pretrained:roboflow/x/6` (pretrained)', '`None` (pretrained)')
+
+    """
+    train_cfg = "pretrained"
+    tj = Path("weights") / (weights or "") / "train.json"
+    if weights and not weights.startswith("pretrained:") and tj.exists():
+        c = json.loads(tj.read_text()).get("config")
+        if c:
+            train_cfg = f"`configs/train/{c['layer']}-{c['backend']}-{c['name']}.yaml`"
+    return f"`{weights}` ({train_cfg})"
+
+
+#: Header of the detection table in ``docs/metrics.md`` written by ``bga eval-detect``.
+DETECT_HEADER = (
+    "| date | commit | config | detect weights (training config) | gold | split (frames) | people | ball | number "
+    "| rim | player | referee | in possession | rare classes | ms/frame | notes |\n"
+    "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n"
+)
+#: Section heading and explanation placed above the detection table when it is first added.
+DETECT_INTRO = (
+    "## Detection layer\n\n"
+    "Scored by `bga eval-detect` on the box-gold frames of gold v1 (`data/gold/v1/boxes.json`: every object of the"
+    " 10-class schema boxed and tightened by Tomasz), dev frames unless `--held-out`. Each cell is COCO **AP50:95 /"
+    " AP50 (gold boxes)** for one class. **people** merges the six person classes on both sides, so it measures"
+    " finding people whatever their action class. **rare classes:** jump shot, layup or dunk, shot block and"
+    " ball in basket, each too small for a stable AP on its own. **ms/frame:** the detect layer on the M1 Max.\n\n"
+)
+#: Rare classes, shown together in one cell.
+RARE = {
+    "player-jump-shot": "jump",
+    "player-layup-dunk": "layup",
+    "player-shot-block": "block",
+    "ball-in-basket": "in basket",
+}
+
+
+def _ap_cell(c: object) -> str:
+    """Metrics cell ``AP50:95 / AP50 (n)`` of one :class:`bga.eval.detect.ClassAP`.
+
+    Examples:
+        >>> from bga.eval.detect import ClassAP
+        >>> _ap_cell(ClassAP(0.41234, 0.7, 58)), _ap_cell(ClassAP(float("nan"), float("nan"), 0))
+        ('0.412 / 0.700 (58)', '– / – (0)')
+
+    """
+    return f"{_fmt(c.ap)} / {_fmt(c.ap50)} ({c.n})"
+
+
+@app.command("eval-detect")
+def eval_detect(
+    config: Annotated[list[Path], typer.Option(help="one or more run configs; their detect layer is scored")],
+    set_: Annotated[list[str], typer.Option("--set", help="override applied to every config")] = [],  # noqa: B006
+    gold: str = "v1",
+    held_out: Annotated[bool, typer.Option(help="score the held-out game instead (once per milestone)")] = False,
+    write: Annotated[bool, typer.Option(help="append rows to docs/metrics.md")] = False,
+    note: str = "",
+    verbose: bool = False,
+) -> None:
+    """Run the detect layer (reusing cached outputs) and score per-class AP on the box-gold frames."""
+    from bga.eval.detect import PEOPLE
+    from bga.eval.detect import score as detect_score
+
+    _setup_logging(verbose)
+    rows = []
+    for path in config:
+        cfg = load_config(path, set_)
+        cfg.layers["shots"].params["held_out"] = "only" if held_out else "exclude"
+        seqs = pipeline.run(cfg, layers=["shots", "detect"])
+        s = detect_score(cfg, seqs, Path("runs"), Path("data/gold") / gold / "boxes.json")
+        c = s["classes"]
+        rare = "; ".join(f"{short} {_ap_cell(c[k])}" for k, short in RARE.items())
+        rows.append(
+            f"| {dt.date.today().isoformat()} | {pipeline.git_commit()} | `{cfg.name}`@{cfg.config_hash()} "
+            f"| {_weights_cell(cfg.layers['detect'].weights)} | {gold} "
+            f"| {'held-out' if held_out else 'dev'} ({s['frames']}) "
+            + "".join(f"| {_ap_cell(c[k])} " for k in (PEOPLE, "ball", "number", "rim", "player", "referee"))
+            + f"| {_ap_cell(c['player-in-possession'])} | {rare} | {_fmt(s['ms_per_frame'], 0)} | {note} |"
+        )
+        typer.echo(f"{cfg.name}@{cfg.config_hash()}: " + ", ".join(f"{k} {_ap_cell(v)}" for k, v in c.items()))
+    typer.echo(DETECT_HEADER + "\n".join(rows))
+    if write:
+        METRICS_MD.write_text(_insert_rows(METRICS_MD.read_text(), DETECT_HEADER, rows, DETECT_INTRO))
+
+
 #: Header of the court table in ``docs/metrics.md`` written by ``bga eval-court``.
 COURT_HEADER = (
     "| date | commit | config | court weights (training config) | split | keyframes (unmapped) "
@@ -181,16 +270,10 @@ def eval_court(
         entry = cfg.layers["court"]
         s = court_score(cfg, held_out=held_out)
         a = s["summary"]["all"]
-        train_cfg = "pretrained"
-        tj = Path("weights") / (entry.weights or "") / "train.json"
-        if entry.weights and not entry.weights.startswith("pretrained:") and tj.exists():
-            c = json.loads(tj.read_text()).get("config")
-            if c:
-                train_cfg = f"`configs/train/{c['layer']}-{c['backend']}-{c['name']}.yaml`"
         arenas = "; ".join(f"{h} {_fmt(v['paint_m'], 2)}" for h, v in s["summary"].items() if h != "all")
         rows.append(
             f"| {dt.date.today().isoformat()} | {pipeline.git_commit()} | `{path.stem}`@{cfg.config_hash()} "
-            f"| `{entry.weights}` ({train_cfg}) | {'held-out' if held_out else 'dev'} "
+            f"| {_weights_cell(entry.weights)} | {'held-out' if held_out else 'dev'} "
             f"| {a['n']} ({a['unmapped']}) "
             f"| {_fmt(a['median_m'], 2)} | {_fmt(a['paint_m'], 2)} | {_fmt(a['paint_under_0_5'], 2)} "
             f"| {arenas} | {s['ms_per_frame']:.0f} | {note} |"
