@@ -4,12 +4,12 @@
     uv run --extra remote modal run src/bga/remote/sam2_boxmask.py           # SAM 2.1 on Modal
     uv run scripts/box_gold_v1.py prefill                                   # merges the masks into the queue
 
-Each prefill box becomes a SAM 2.1 box prompt on its still frame (image mode, one mask per box). The mask's
-bounding box is a second geometry, independent of the detector's, that the box page offers next to the prefill:
-where the two agree the box is likely tight, where they differ the reviewer looks. Frames are decoded locally,
-sent as JPEG (quality 95) in batches, and results come back to ``runs/box_gold/v1/sam_boxes.json`` with GPU, wall
-time and cost, each mask next to its prompt box; a row goes to ``docs/costs.md``. SAM 2.1 weights: facebook/sam2.1-hiera-large, Apache 2.0, baked
-into the image. SAM 3.x is not used anywhere (plan section 2).
+Each prefill box becomes a SAM 2.1 box prompt on its still frame (image mode, one mask per box). The mask's bounding
+box is a second geometry, independent of the detector's, that the box page offers next to the prefill: where the two
+agree the box is likely tight, where they differ the page offers it as the alternative. Frames are decoded locally, sent as JPEG
+(quality 95) in batches, and results come back to ``runs/box_gold/v1/sam_boxes.json`` with GPU, wall time and cost,
+each mask next to its prompt box; a row goes to ``docs/costs.md``. SAM 2.1 weights: facebook/sam2.1-hiera-large,
+Apache 2.0, baked into the image. SAM 3.x is not used anywhere (plan section 2).
 
 """
 
@@ -138,8 +138,9 @@ def main() -> None:
         secs += res["seconds"]
         usd += res["usd"]
     OUTPUT.write_text(json.dumps({"model": MODEL_ID, "sam2_sha": SAM2_SHA, "gpu": GPU, "frames": frames}))
-    append_cost_rows([
+    row = (
         f"| {time.strftime('%Y-%m-%d')} | modal | {GPU} | sam2_boxmask box gold v1 ({len(items)} frames) "
         f"| {round(secs, 1)} | {round(usd, 4)} |"
-    ])
+    )
+    append_cost_rows([row])
     print(f"{OUTPUT}: {round(secs, 1)} GPU s, {round(usd, 4)} USD")

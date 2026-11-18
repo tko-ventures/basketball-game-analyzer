@@ -27,7 +27,7 @@ first. Ops file lines (applied in order, only to frames still "todo"):
     drop <youtube_id> <frame> <box id>               remove a box that is not an object of the schema
     adopt <youtube_id> <frame> c<k> <class>          promote candidate k to a box
     flag <youtube_id> <frame> <box id|-> <note...>   add a note for the reviewer, to a box or ("-") the frame
-    noflag <youtube_id> <frame> <box id> [words]     clear a box's flags after checking it, or only those starting with words
+    noflag <youtube_id> <frame> <box id> [words]     clear a box's flags, or only those starting with words
 
 """
 
