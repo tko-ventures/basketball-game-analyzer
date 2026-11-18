@@ -113,7 +113,7 @@ Initial backends. Defaults follow Skalski's stack; candidates are compared only 
 |---|---|---|
 | L0 shots | `hist_diff` (prior repo detector) | `pyscenedetect` |
 | L1 court | `rfdetr_keypoint` | none planned |
-| L2 detect | `rfdetr_onnx` (CoreML provider) | `rfdetr_torch` (MPS), `yolo26`, `deim`, `d1_boxes` (labelling cross-check only, see layer 2) |
+| L2 detect | `rfdetr_onnx` (CoreML provider) | `rfdetr_torch` (MPS), `deim`, `d1_boxes` (labelling cross-check only, see layer 2) |
 | L2 segment | `none` | `rfdetr_seg`, `sam21_boxmask` (SAM 2.1 masks from detector boxes, `requires: cuda`; mask labelling and mask source) |
 | L3 team | `siglip_kmeans` (`sports.TeamClassifier`) | `d1_choice` (kit descriptions as options) |
 | L3b appearance | `none` | `reid` (Roboflow `reid` encoders: `osnet_x1_0_sportsmot` pretrained, then the PLK fine-tune) |
@@ -165,7 +165,7 @@ A fine-tune is reproducible and evaluable only if its setup is recorded the same
 - **Input:** central frames. **Output:** boxes with the 10-class schema, 17-point COCO pose per player, optional masks.
 - **Approach:** RF-DETR Large for boxes, PLK fine-tuned. RF-DETR Keypoint default COCO-pose checkpoint for ankles and torso. RF-DETR Seg only if masks are needed for a downstream consumer; team colour and number reads work from pose-derived torso crops.
 - **Filtering:** drop any detection whose projected foot point lies outside the court polygon plus a margin. This replaces the old fixed trapezoid.
-- **Resolution:** small objects (ball, numbers, far-side players) matter more than architecture. Train and infer at a higher input size than default, or tile. Measure per-class AP at two resolutions before choosing.
+- **Resolution:** small objects (ball, numbers, far-side players) matter more than architecture. Train and infer at a higher input size than default, or tile. Measure per-class AP at two resolutions before choosing. On gold v1 dev the NBA detector finds 19% of balls and 66% of numbers against 89% of people (2026-11-18, `docs/decisions.md`), so resolution is M4's first experiment, before any architecture comparison.
 - **Liquid d1-2B is not a detector or segmenter here (checked 2026-10-28).** Its `boxes` answer returns at most 16 boxes per question as fractions of the image, with no masks, at about 100 ms per frame on an Apple M5 Pro, and it cannot be fine-tuned without Liquid. Keep it as the `d1_boxes` backend for labelling cross-checks and never for production frames. Masks, when needed, come from RF-DETR Seg or SAM 2.1.
 - **SAM 3.x is not available (2026-10-29).** Meta declined Tomasz's Hugging Face access request for `facebook/sam3.1`, and the SAM 3 weights are gated the same way. Neither model, nor any third-party re-upload or Core ML conversion of them, is used anywhere in this project. SAM 3 remains reachable only as a hosted labelling option inside Roboflow Auto Label, if a workspace is ever set up. Masks come from RF-DETR Seg trained on masks that SAM 2.1 (Apache 2.0, open download) draws from detector boxes on Modal, backend `sam21_boxmask`.
 - **Done when:** per-class AP50:95 on the gold set is tabulated, with `ball` and `number` reported separately, plus ms per frame on the Mac.
@@ -235,7 +235,7 @@ Per frame per player: `game_id, clip, frame_idx, t_video_s, shot_id, camera, gam
 | Detection, if licence allows | RF-DETR XL / 2XL | PML 1.0 | COCO 58.6 / 60.1 AP, RF100-VL 62.9 / 63.2 |
 | Segmentation | RF-DETR Seg Nano to 2XL | Apache 2.0 | COCO mask 40.3 to 49.9 AP, 3.4 to 21.8 ms T4 |
 | Keypoints | RF-DETR Keypoint (preview) | Apache 2.0 | COCO keypoint 71.8 AP, 9.7 ms T4, 40.7M params |
-| Bake-off alternatives | YOLO26-L (AGPL-3.0), DEIM-D-FINE-L (Apache 2.0) | see licence | COCO comparable; no published RF100-VL transfer numbers |
+| Bake-off alternatives | DEIM-D-FINE-L (Apache 2.0), RF-DETR XL (PML 1.0, treated as Apache 2.0 by question 5). YOLO26-L (AGPL-3.0) dropped on 2026-11-18 | see licence | COCO comparable; no published RF100-VL transfer numbers |
 | Excluded | DEIMv2 (non-commercial) | | |
 | Not available (2026-10-29) | SAM 3 and SAM 3.1 (`facebook/sam3`, `facebook/sam3.1`) | SAM License, gated; Meta declined Tomasz's access request. Third-party re-uploads and Core ML conversions are not used either. | Assessed before the refusal: SAM 3.1 (2026-03-27) adds Object Multiplex, up to 16 objects per pass, 16 to 32 fps on an H100. Kept here so nobody re-adds it. SAM 3 stays usable only as a hosted option inside Roboflow Auto Label. |
 | Tracking and mask candidates (checked 2026-10-29) | SAM 2.1 (`facebook/sam2.1-hiera-large`, 0.2B) through Skalski's real-time fork; EdgeTAM (Meta, CVPR 2025) | Apache 2.0, open downloads | SAM 2.1: Skalski's path, 1 to 2 fps on a T4 with his settings, CUDA only. EdgeTAM: SA-V val J&F 72.3 against 76.8 for SAM 2.1-B+, 16 fps on an iPhone 15 Pro Max, Core ML export script in the repo, so it can run on the Mac. |
@@ -325,7 +325,7 @@ RF-DETR NBA weights, ByteTrack, NBA court keypoint model with `League.FIBA` targ
 Landmark dataset across arenas, RF-DETR Keypoint fine-tune per section 5 layer 1, temporal smoothing within shots. As the first fine-tune, this milestone lands `bga train`, `configs/train/`, `docs/train.md` and the gold-leakage test. Done: reprojection error per arena in the metrics table, the row citing both configs.
 
 **M4. Detection fine-tune.**
-Auto-label per section 7, review, fine-tune RF-DETR Large on the 10-class schema. Bake-off against YOLO26-L and DEIM-L on the same split, one training config each, trained on Modal. Export ONNX, run on the Mac. Done: per-class AP and ms per frame.
+Auto-label per section 7, review, fine-tune RF-DETR Large on the 10-class schema. Success is judged on `ball` and `number` first; people are filtered by the court polygon. Input resolution (higher training size, or tiling) is the first experiment. Then a bake-off against DEIM-L and RF-DETR XL on the same split, one training config each, trained on Modal. YOLO26 is out (AGPL-3.0, decision 2026-11-18). Export ONNX, run on the Mac. Done: per-class AP and ms per frame.
 
 **M5. Team layer.**
 `TeamClassifier` per clip with separation check. Done: team accuracy.

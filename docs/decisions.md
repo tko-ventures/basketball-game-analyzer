@@ -265,3 +265,23 @@ Tomasz answered the questions M4 needs (plan sections 2, 5, 11 and 12):
 - **Labelling time:** "don't worry about my time for now". The 90-minute cap of 2026-10-29 is lifted. The implementer still does every first pass, sends Tomasz only what needs a human (pixel geometry, flagged doubts, conflicts), and logs his time per session.
 
 What this changes first: gold v1 box geometry, which M4's AP50:95 needs, is no longer blocked on his budget. The implementer prefills and flags the 100 box-gold frames, and Tomasz tightens them in a dedicated labeller page.
+
+## 2026-11-18: M4 refocused on balls and numbers; YOLO26 dropped
+
+Tomasz asked whether the planned M4 steps were the best focus. The implementer measured the NBA prefill detector against gold v1 on the 76 dev frames: the share of gold boxes found at IoU 0.5 and score ≥ 0.3. These come from version 4 of Skalski's model at a 0.1 cut, not the baseline config, so the figures are indicative.
+
+| Class | Found | False boxes |
+|---|---|---|
+| people | 89% (818 of 916) | 347, mostly bench, coaches and crowd |
+| rims | 82% (59 of 72) | 13 |
+| numbers | 66% (142 of 215) | 62 |
+| balls | 19% (11 of 58) | 43 |
+
+Tomasz agreed to these changes (plan sections 5, 6 and 9):
+- **What M4 is judged on.** Per-class AP for `ball` and `number` comes first. People are already found. Their false boxes are mostly off court, which the court-polygon filter on the M4 checklist removes without training.
+- **First experiment.** Input resolution: a higher training size, or tiling. A 15 to 25 px ball shrinks to about 6 to 8 px at a 560 to 640 px model input. This comes before any architecture comparison.
+- **Bake-off.** It runs after the data and the resolution are settled, and compares RF-DETR L, RF-DETR XL and DEIM-L.
+- **YOLO26 is dropped** (Tomasz: "let's drop yolo26"). It is AGPL-3.0, and shipping it in a closed product would need a commercial Ultralytics licence.
+- **Footage.** Question 4, full-game footage, is raised with Tomasz now rather than later. Highlights cut every few seconds, which caps tracking and identity across a game. Production also needs licensed, high-quality video (question 13). Getting it is a lead-time item outside M4.
+
+Open: how Skalski's own pipeline handles the ball. It is to be read in his posts before the resolution experiment, per the follow-Skalski rule.
