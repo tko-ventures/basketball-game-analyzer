@@ -289,3 +289,23 @@ Open: how Skalski's own pipeline handles the ball. It is to be read in his posts
 ## 2026-11-18: full games will be needed; YouTube highlights until then
 
 Tomasz, on question 4: "I think we will have to have access to the full game recordings, but for now, let's keep pushing with what we've got already: YT videos." M4 and later milestones continue on the 31 highlight clips. The pipeline stays clip-agnostic, so full games can come in as new clips with their own shot files, without a layer change. The source and licence of full games stay open (questions 4 and 13).
+
+## 2026-11-18: no public NBA detector version finds PLK balls; v16 reads numbers better
+
+Before the resolution experiment, the implementer checked Skalski's post and the dataset metadata, per the follow-Skalski rule.
+- **Skalski's post** gives no ball accuracy, limitations or training resolution.
+- **The dataset:** the baseline detector (`basketball-player-detection-3-ycjdo/6`) was trained on 654 NBA frames, each 1920×1080 frame stretched to 640×640. That squashes a 20 px ball to about 7×12 px.
+- **Other versions:** Roboflow has trained the same dataset several times. Versions 8 and 11 to 16 download for local inference; 17 and 18 return 404, 18 being the one trained without the resize.
+
+Scored on gold v1 dev at confidence 0.05 (`docs/metrics.md`, detection table), AP50:95 / AP50:
+
+| Version | ball | number | people |
+|---|---|---|---|
+| 6 | 0.176 / 0.289 | 0.202 / 0.559 | 0.642 / 0.934 |
+| 13 | 0.159 / 0.259 | 0.203 / 0.581 | 0.652 / 0.926 |
+| 16 | 0.112 / 0.207 | 0.372 / 0.695 | 0.662 / 0.912 |
+
+Consequences:
+- No public version fixes the ball, which confirms the refocus above: PLK training data and input resolution have to.
+- Round-1 auto-labelling, a labelling aid, takes numbers, people and rims from version 16 and balls from version 6.
+- `configs/baseline.yaml` stays on version 6 as the M2 reference.
