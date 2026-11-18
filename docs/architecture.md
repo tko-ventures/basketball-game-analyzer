@@ -253,9 +253,9 @@ Contact sheets for reading by eye come from `bga.review.sheets`.
 
 The site is published to the Vercel project `basketball-analyzer-demo` by `scripts/deploy_demo.sh`. It is served at https://basketball-analyzer.demo.tko.ventures, and `basketball-analyzer-demo.vercel.app` redirects there. The Vercel project has no Git connection. The script deploys only from a clean `main` that matches `origin/main`, and tags each deployment with the commit (`BGA_DEPLOY_ANY_BRANCH=1` overrides the check). The site is built outside the `bga` pipeline:
 
-- **Video and analysis pages:** `scripts/demo_web.py` builds `/` and `/analysis/` from three shots of `OSp445e0mXU`. It runs Skalski's models through the helpers in `scripts/demo_video.py` and caches number reads and homographies in `runs/demo/cache`.
-  - Templates: `demo_page_video.html` and `demo_page_analysis.html`.
-  - Text: `demo_strings.py`. The site is English only; `deploy_demo.sh` redirects the old `/en/` paths to `/`, and refuses to publish a build whose `index.html` is not English.
+- **Analysis page:** `scripts/demo_web.py` builds `/` from three shots of `OSp445e0mXU`: the broadcast video with labels burnt in, beside a 2D court the page draws from per-frame positions (coverage, spacing, trails, player selection). It runs Skalski's detector, team and number models through the helpers in `scripts/demo_video.py`. The court mapping comes from the court layer of a run config, `--court-config`, by default `configs/court-plk-v1-smooth4.yaml` (the PLK court model with smoothing), run on the rendered frames of each shot as one sequence. Number reads and homographies are cached in `runs/demo/cache`, and the homographies are redone when the court config changes.
+  - Template: `demo_page_analysis.html`.
+  - Text: `demo_strings.py`. The site is English only; `deploy_demo.sh` redirects the old `/analysis/`, `/analiza/` and `/en/` paths to `/`, and refuses to publish a build whose `index.html` is not English.
   - Check: `demo_audit.py` compares the teams and numbers shown with gold v0.
 - **Coach page:** `scripts/coach_web.py` builds `/coach/` from the synthetic fixtures, using `coach_insights.py` (plays, coverage, shot quality, key moments), `coach_strings.py` and `coach_page.html`. `deploy_demo.sh` rebuilds it on every deploy.
 - **Roadmap:** `docs/roadmap.html` is published as `/roadmap/`.

@@ -3,7 +3,8 @@
 #
 #   scripts/deploy_demo.sh            # -> https://basketball-analyzer.demo.tko.ventures (vercel.app redirects there)
 #
-# Pages: / and /analysis/ (built by demo_web.py), English only; the old /en/ paths redirect to them.
+# Pages: / (the analysis page, built by demo_web.py), English only; the old /analysis/, /analiza/ and /en/
+# paths redirect to it. The page with two synchronised videos was dropped on 2026-11-18.
 # The coach page (/coach/, simulated data) is rebuilt here by coach_web.py, so it is never stale.
 # Also publishes docs/roadmap.html as /roadmap/ (the plan at a glance; not linked from the demo pages).
 #
@@ -36,8 +37,10 @@ mkdir -p "$D/roadmap" && cp docs/roadmap.html "$D/roadmap/index.html"
 cat > "$D/vercel.json" <<'JSON'
 {
   "redirects": [
-    { "source": "/analiza", "destination": "/analysis/", "permanent": true },
-    { "source": "/analiza/(.*)", "destination": "/analysis/$1", "permanent": true },
+    { "source": "/analysis", "destination": "/", "permanent": true },
+    { "source": "/analysis/(.*)", "destination": "/$1", "permanent": true },
+    { "source": "/analiza", "destination": "/", "permanent": true },
+    { "source": "/analiza/(.*)", "destination": "/$1", "permanent": true },
     { "source": "/en", "destination": "/", "permanent": true },
     { "source": "/en/(.*)", "destination": "/$1", "permanent": true }
   ],

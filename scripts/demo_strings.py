@@ -11,23 +11,16 @@ from __future__ import annotations
 VIDEO = {
     "referee": "REFEREE",
     "automatic": "automatic, uncorrected",
-    "no_calibration": "no reliable camera calibration in this segment",
-    "court_caption": "positions on a FIBA 28 x 15 m court, automatic",
 }
 
 PAGE = {
     "lang": "en",
     "title": "Video analysis – demo",
     "h1": "Game video analysis – demo",
-    "sub_video": "Player detection and tracking, teams, jersey numbers, positions on a 2D court. "
-    "Fully automatic, no manual correction.",
     "sub_analysis": "Player detection and tracking, teams, jersey numbers, positions on a 2D court, "
     "coverage and spacing. Fully automatic, no manual correction.",
-    "to_analysis": "Analysis view (coverage, spacing) →",
-    "to_video": "← Two synchronised videos",
     "to_coach": "Coach view (simulated data) →",
     "camera": "Broadcast camera",
-    "court": "2D court",
     "court_analysis": "2D court · analysis",
     "fullscreen": "Full screen",
     "click_hint": "Click a player to highlight him",
@@ -42,8 +35,6 @@ PAGE = {
     "shape_tip": "Each team's shape, its area and the mean distance between attackers",
     "trails": "Trails",
     "trails_tip": "Movement in the last second",
-    "footer_video": "Space: play/pause · ←/→: one frame (with Shift: 1 s) · 1–__N__: clip (each keeps its "
-    "own position and speed) · ⛶: full screen for one view; the controls drive both.",
     "footer_analysis": "Click a player in the video or on the court to highlight him in both views (Esc: "
     "clear). Space: play/pause · ←/→: one frame (with Shift: 1 s) · 1–__N__: clip (each keeps its own "
     "position, speed and selected player) · ⛶: full screen for one view.<br>Coverage: a line from each "
@@ -53,7 +44,7 @@ PAGE = {
 }
 
 JS = {
-    "no_calibration": VIDEO["no_calibration"],
+    "no_calibration": "no reliable camera calibration in this segment",
     "no_calibration_info": "2D positions return once the camera shows enough court lines.",
     "no_number": "{team} (no number)",
     "attack": "Attacking: {team} → {side} basket",

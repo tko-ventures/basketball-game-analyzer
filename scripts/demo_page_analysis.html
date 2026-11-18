@@ -33,7 +33,7 @@ h1{font-size:18px;margin:0}.switch{margin-left:auto;color:var(--ink);font-size:1
 .chapters button.on,.tog.on{background:var(--accent);border-color:var(--accent)}
 footer{padding:4px 20px 20px;color:var(--muted);font-size:13px;line-height:1.6}
 </style></head><body>
-<header><h1>{{h1}}</h1><span class="muted">{{sub_analysis}}</span><a class="switch" href="../">{{to_video}}</a><a class="switch lang" href="../coach/">{{to_coach}}</a></header>
+<header><h1>{{h1}}</h1><span class="muted">{{sub_analysis}}</span><a class="switch" href="coach/">{{to_coach}}</a></header>
 <div class="grid">
  <div class="cell"><h2>{{camera}}</h2><div class="panel" id="pA"><video id="vA" muted playsinline preload="auto"></video><canvas id="ov" title="{{click_hint}}"></canvas><button class="fs" data-p="pA" title="{{fullscreen}}">⛶</button></div></div>
  <div class="cell"><h2>{{court_analysis}}</h2><div class="panel map" id="pB"><canvas id="map" title="{{click_hint}}"></canvas><button class="fs" data-p="pB" title="{{fullscreen}}">⛶</button></div></div>
@@ -59,7 +59,7 @@ const A = $('vA'), map = $('map'), mc = map.getContext('2d'), ov = $('ov'), oc =
 const INFO_H = 185;  // strip under the court for the situation summary
 const bg = new Image();
 bg.onload = () => { map.width = bg.width; map.height = bg.height + INFO_H; };
-bg.src = '../court_bg.png';
+bg.src = 'court_bg.png';
 const layers = { cover: true, shape: false, trails: true };
 let D = null, sel = null, rate = 1, cur = -1;
 const state = CLIPS.map(() => ({ t: 0, rate: 1, playing: false, sel: null }));
