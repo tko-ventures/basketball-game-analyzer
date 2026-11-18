@@ -1,0 +1,27 @@
+name: court-plk-v1-smooth4
+description: >
+  court-plk-v1 with the court mappings median-smoothed within each shot over 4 frames each way
+  (bga.court.smooth): one setting of the M3 smoothing step, compared with court-plk-v1 by bga eval-court.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: rfdetr_keypoint
+    params: {smooth_window: 4}
+    weights: court/rfdetr_keypoint/plk-v1@c26b7841
+  detect:
+    backend: roboflow_inference
+    params: {model_id: basketball-player-detection-3-ycjdo/6, confidence: 0.4}
+    weights: pretrained:roboflow/basketball-player-detection-3-ycjdo/6
+  team:
+    backend: siglip_kmeans
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  track:
+    backend: bytetrack
+  positions:
+    backend: bbox_bottom
+  numbers:
+    backend: smolvlm_ocr
+    params: {model_id: basketball-jersey-numbers-ocr/3}
+    weights: pretrained:roboflow/basketball-jersey-numbers-ocr/3

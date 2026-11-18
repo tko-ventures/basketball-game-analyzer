@@ -188,3 +188,34 @@ Tomasz asked to tidy every branch other than `main`. M3's done-when (a per-arena
 - the docs, including `docs/architecture.md`.
 
 After the squash, the court-model work continues on a fresh branch from `main`, and its PR closes #4. This bends the one-pull-request-per-milestone rule for M3 only.
+
+## 2026-11-17: training runs on Modal
+
+Tomasz chose Modal (modal.com) for training. Every fine-tune runs through `bga train --remote modal`, starting with the M3 court keypoint model; RunPod and Roboflow Train are not used for training. The rules from `CLAUDE.md` still apply:
+- each run starts from a committed `configs/train/*.yaml`;
+- weights and `train.json` sync back into `weights/`;
+- the cost of every job goes in `docs/costs.md`;
+- spend stays within the proposed cap of 50 USD per month until Tomasz confirms a figure.
+
+## 2026-11-18: re-ID licences re-checked; question 15 stays open
+
+Tomasz noted that https://github.com/roboflow/re-ID is Apache 2.0 and asked for a check. Confirmed: the repository's LICENSE, its `pyproject.toml` and the PyPI metadata of `reid` 0.1.0 all say Apache 2.0, and so do those of `trackers` 2.7.0. The `reid` README limits the grant to the code ("The code is released under the Apache 2.0 license"), and the plan has recorded the code as Apache 2.0 since 2026-11-10. Nothing in M6 changes for the libraries.
+
+The weights are a separate matter, and the check found nothing new for them:
+- the torchreid OSNet weights on Hugging Face are tagged MIT;
+- `fastreid_mot17_sbs50` comes from the BoT-SORT model zoo, whose repository is MIT;
+- Roboflow's four tracking encoders, `osnet_x1_0_sportsmot` among them, are served from a Roboflow storage bucket with no licence file, and their `reid_config.json` has no licence field;
+- the training data is still research-only. SportsMOT is CC BY-NC 4.0 per its own repository and dataset card. The `trackers` README lists it as CC BY 4.0; that table is wrong, and the plan follows the dataset's own statement.
+
+So question 15 stays open with its default. Use the pretrained encoders for measurement and as one starting point of the PLK fine-tune. Train a second PLK encoder from a backbone with an explicit permissive weight licence. Settle the question before anything is sold. The `reid` trainer is still unreleased (draft pull requests 2 and 31), so the torchreid fallback stands. Plan sections 2, 3, 11, 12 and 13 are updated.
+
+## 2026-11-18: question 15 answered, re-ID weights treated as Apache 2.0
+
+Tomasz answered question 15: assume Apache 2.0. The project treats the pretrained re-ID weights, `osnet_x1_0_sportsmot` among them, as licensed like the `reid` code. This is his ruling, not a published licence: Roboflow's tracking encoders still carry none, and SportsMOT is still CC BY-NC 4.0 (entry above).
+
+What changes in M6 (plan sections 2, 5, 9, 11 and 12):
+- `osnet_x1_0_sportsmot` is a production encoder for layer 3b, not only a measurement;
+- the PLK encoder fine-tune has one starting point, `osnet_x1_0_sportsmot`. The second encoder from a backbone with a permissive weight licence (for example DINOv2) is dropped, since its only purpose was a licence-clean alternative;
+- the done-when line is unchanged: appearance metrics for the pretrained and the PLK encoder.
+
+If Roboflow publishes different terms for its encoders, question 15 reopens. Any other backbone would come in as a further training config behind the same layer 3b interface.

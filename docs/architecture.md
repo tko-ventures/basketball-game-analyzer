@@ -8,17 +8,19 @@ The repository has three parts:
 2. **Labelling tools** (`tools/labeler/`, most of `scripts/`). These build and check the gold set and the court keyframes.
 3. **The demo site** (`scripts/demo_*`, `scripts/coach_*`). Web pages published to Vercel. They are built by their own scripts, not by the `bga` pipeline.
 
-Every model in use is a public pretrained one. There is no training code: no `bga train`, no `configs/train/` and no `weights/` directory.
+`configs/baseline.yaml` uses only public pretrained models. One training setup exists (`bga train`, below), and `configs/court-plk-v1.yaml` uses its court weights.
 
 ## Repository layout
 
 | Path | Contents | In git |
 |---|---|---|
 | `src/bga/` | the pipeline package, about 2,400 lines | yes |
-| `configs/baseline.yaml` | the only run config | yes |
+| `configs/baseline.yaml`, `configs/court-plk-v1*.yaml` | run configs: the public-model baseline; the baseline with the PLK court model, unsmoothed and with smoothing windows of 2 and 4 | yes |
+| `configs/train/` | training configs, one per training setup | yes |
+| `weights/` | trained weights, one directory per weight id | no |
 | `tools/labeler/` | the local labelling server and its two pages | yes |
 | `scripts/` | labelling, gold export, court, probe, demo and coach scripts | yes |
-| `tests/` | 12 test files, 57 tests | yes |
+| `tests/` | 14 test files, 65 tests | yes |
 | `data/clip_ids.txt` | the 31 YouTube highlight clips | yes |
 | `data/labels/` | per-clip labels, the gold manifest, review ops, court keyframes | yes |
 | `data/gold/v0/` | the exported gold set | yes |
@@ -26,7 +28,7 @@ Every model in use is a public pretrained one. There is no training code: no `bg
 | `data/fixtures/synthetic/` | 8 simulated possessions for the coach page | yes |
 | `data/raw/` | downloaded videos | no |
 | `runs/` | every stage output, probe, sheet and demo build | no |
-| `docs/` | plan, decisions, metrics, costs, gold set, fixtures, roadmap, this page | yes |
+| `docs/` | plan, decisions, metrics, training runs, costs, gold set, fixtures, roadmap, this page | yes |
 
 ## The `bga` pipeline
 
@@ -62,7 +64,7 @@ Each layer's output format is documented in its `base.py`:
 
 ### Backends
 
-A backend is a class registered with `@register("<layer>", "<name>")` (`bga.registry`). The registry imports the modules listed in `BACKEND_MODULES` lazily. Each layer has exactly one registered backend, and `configs/baseline.yaml` selects all of them:
+A backend is a class registered with `@register("<layer>", "<name>")` (`bga.registry`). The registry imports the modules listed in `BACKEND_MODULES` lazily. The court layer has two registered backends and every other layer one. `configs/baseline.yaml` selects the first of each:
 
 | Layer | Backend | What it does | Model |
 |---|---|---|---|
@@ -72,6 +74,7 @@ A backend is a class registered with `@register("<layer>", "<name>")` (`bga.regi
 | team | `siglip_kmeans` | `sports.TeamClassifier` (SigLIP, UMAP, KMeans) fitted per sequence on crops sampled at 1 fps, referees excluded | `google/siglip-base-patch16-224` |
 | track | `bytetrack` | supervision ByteTrack on person boxes, in pixels | none |
 | numbers | `smolvlm_ocr` | reads `number` boxes lying at least 90% inside a track's box; a number is confirmed after 3 consecutive equal reads; runs on MPS with `max_new_tokens=4` | `basketball-jersey-numbers-ocr/3` (SmolVLM2, NBA crops) |
+| court | `rfdetr_keypoint` | a court keypoint model trained by `bga train`, loaded from its weight id on MPS (the class and keypoint counts come from its `train.json`); the most confident court detection gives the landmarks, then the same RANSAC homography as `roboflow_keypoints`. Used by `configs/court-plk-v1*.yaml` | weights `court/rfdetr_keypoint/<name>@<hash8>` |
 | positions | `bbox_bottom` | box bottom-centre through the frame's homography, then `sports` `clean_paths` (jumps over 0.7 m, smoothing window 9) | none |
 
 Code that exists but no config uses:
@@ -97,14 +100,17 @@ Both are covered by `tests/test_nms.py`.
 | Command | What it does |
 |---|---|
 | `bga run --config configs/baseline.yaml [--set ...] [--seq ...] [--layer ...] [--force ...] [--remote modal] [--remote-layer ...]` | runs the layers |
-| `bga eval --config a.yaml [--config b.yaml] [--gold v0] [--held-out] [--write]` | runs, reusing cached outputs, and scores each config side by side; `--write` appends rows to `docs/metrics.md` |
+| `bga eval --config a.yaml [--config b.yaml] [--gold v0] [--held-out] [--write]` | runs, reusing cached outputs, and scores each config side by side; `--write` adds rows to the tracking table in `docs/metrics.md` |
+| `bga eval-court --config a.yaml [--config b.yaml] [--held-out] [--write]` | scores each config's court layer on the gold court keyframes; `--write` adds rows to the court table in `docs/metrics.md` |
 | `bga radar --config ...` | renders a radar video per sequence (`bga.export.radar`): the broadcast frame above, the FIBA court with players below |
 | `bga backends` | lists the registered backends |
+| `bga train --config configs/train/<layer>-<backend>-<name>.yaml [--build-only] [--collect]` | builds the dataset, checks it for gold clips, trains on Modal and pulls the weights back (section below) |
 
 ### Evaluation (`bga.eval`)
 
 - **Gold export** (`gold.py`): label files to MOTChallenge sequences, filling gaps of up to 3 sampled frames by interpolation.
 - **Tracking** (`mot.py`): HOTA, DetA, AssA, MOTA, IDF1 and IDSW from TrackEval, pinned to a commit. Players and referees are one class; scored on every 5th frame.
+- **Court** (`court.py`): each gold court keyframe Tomasz labelled `ok` (18 dev, 6 held-out) is mapped by the config's court backend, which runs on the shot's frames within 25 frames of the keyframe at a stride of 5, so smoothing has its neighbours. The court vertices visible under his mapping go through the predicted mapping. Scores per arena and overall: the median over keyframes of the per-frame median error in metres; the same over the paint (key corners, free-throw line ends and centres); the share of keyframes under 0.5 m in the paint; and the unmapped count.
 - **Other scores** (`scores.py`):
   - class-agnostic person AP50 on the 100 box-gold frames;
   - team accuracy per gold track (majority of matched boxes);
@@ -112,7 +118,7 @@ Both are covered by `tests/test_nms.py`.
   - milliseconds per frame per layer;
   - churn (`churn.py`): id-set changes and track lifetimes.
 
-`docs/metrics.md` holds two rows, both for `baseline@70498c00` on gold v0: dev and held-out.
+`docs/metrics.md` has two tables. The tracking table holds two rows, both for `baseline@70498c00` on gold v0: dev and held-out. The court table holds dev rows for `baseline`, `court-plk-v1` and its two smoothing windows, and held-out rows for `baseline` and `court-plk-v1-smooth4`.
 
 ### Remote execution (`bga.remote`)
 
@@ -121,8 +127,18 @@ Both are covered by `tests/test_nms.py`.
   - clips go up once to the `bga-data` volume;
   - it runs one layer per sequence and returns the outputs, which the pipeline writes into local `runs/`;
   - cost per call comes from a list-price table.
+- `modal_train.py` is the `bga-train` Modal app, used by `bga train`. Its image adds `rfdetr[train]==1.12.1`; the trainer reads its dataset from the `bga-data` volume and writes its outputs there, committing them every 5 minutes so a run cut short keeps its checkpoints.
 - `sam2_prefill.py` is a separate Modal app (`bga-sam2-prefill`, L40S). It runs SAM 2.1 hiera-large video propagation for the gold-track prefill, and is a labelling aid, not a layer.
 - Spend is logged by hand in `docs/costs.md`: 3.60 USD of GPU time, all in October 2026.
+
+### Court smoothing (`bga.court.smooth`)
+
+Both court backends take `smooth_window` (default 0, off; the baseline leaves it off). When it is set, the mappings of a sequence, which is one shot, are median-smoothed after the per-frame fits:
+- each frame's mapping is evaluated at a fixed grid of 12 × 8 image points; a point counts only where the mapping puts it on the floor, within 2 m of the court;
+- each point's court position is replaced by its median over the frames within `smooth_window` each way;
+- the frame's homography is refitted from the grid to those medians.
+
+A frame that jumps is outvoted, a frame without a mapping gets one from its neighbours, and nothing crosses a cut. `configs/court-plk-v1-smooth2.yaml` and `-smooth4.yaml` set windows of 2 and 4.
 
 ### Court helpers (`bga.court.propagate`)
 
@@ -130,6 +146,25 @@ These are labelling aids, not a layer:
 - `Propagator` carries a keyframe's homography through its shot. It chains frame-to-frame homographies from SIFT matches inside the court area, and stops when RANSAC inliers drop below 40.
 - `court_to_image` inverts an image→court homography. It fixes the sign at a floor point in the image, not at a court point, so a court partly behind the camera still projects correctly.
 - `court_mask` and `landmarks` project the court outline and its 33 vertices into the image.
+- `disagreement_m` and `round_trip_m` measure drift in metres: between two mappings, and after carrying a keyframe away and back.
+- `court_line_points` and `line_support` measure how well a mapping fits the frame: the share of projected line points within 2 px of a painted line (white top-hat), compared with the keyframe's own share.
+
+### Training (`bga.train`)
+
+- **Config:** `configs/train/<layer>-<backend>-<name>.yaml`, a pydantic `TrainConfig` (`bga.train.config`):
+  - `base_weights` (name, URL, licence) and `package` (the trainer, pinned);
+  - `sources`: Roboflow dataset versions (`workspace/project/version`, exported as COCO) and committed label manifests pinned by sha256;
+  - `recipe`: resolution, epochs, batch size, gradient accumulation, learning rate, seed, and the trainer metric used to select the checkpoint;
+  - `platform`: `modal`, with GPU and timeout.
+
+  The weight id is `<layer>/<backend>/<name>@<hash8>`, the hash covering the whole config.
+- **Leakage guard** (`bga.train.leakage`): refuses any manifest that names a gold clip, held out or not. `tests/test_gold_leakage.py` checks every committed config and manifest.
+- **Dataset** (`bga.train.court_data`, the only builder so far): merges the Roboflow export and the manifest frames into one COCO-keypoint dataset with `train/`, `valid/` and `test/` folders under `runs/train/<weight id>/dataset/`. Manifest frames are decoded from the local videos and resized to 1280 px wide.
+- **Run** (`bga.train.run`):
+  1. Upload the dataset to the Modal volume.
+  2. Train in a detached Modal app: `RFDETRKeypointPreview` with the schema read from the annotations, `KeypointTrainConfig`, and the `rfdetr` Lightning trainer.
+  3. Collect: the best checkpoint, `metrics.csv` and `result.json` go into `weights/<weight id>/`, with a `train.json` (config, dataset counts and sha256, commit, GPU, time, cost, the trainer's best and last validation rows). A row goes to `docs/train.md` and one to `docs/costs.md`.
+- **Configs:** `court-rfdetr_keypoint-plk-v1.yaml`: RF-DETR Keypoint (preview, XLarge, Apache 2.0) on Roboflow's NBA court set version 20 (CC BY 4.0) plus `train_manifest_plk-v1.json`.
 
 ## Data
 
@@ -167,6 +202,10 @@ These are labelling aids, not a layer:
   - `saved_at`.
 
   Plus `meta.review_seconds`. 41 of the 42 are `ok`.
+- **Training manifest:** `data/labels/court/train_manifest_<name>.json`, written by `scripts/court_train_manifest.py` from the usable training keyframes.
+  - **Frames:** each keyframe is propagated every 5th frame, up to 1.5 s each way. A frame is kept only while its line support stays at or above 85% of the keyframe's; where the keyframe's own support is under 0.4, only frames within 0.1 s are kept. One keyframe each from King, Legia and WKS Śląsk is held out as validation.
+  - **Fields:** per frame, the clip, video, frame, keyframe, split, size, H, line support and the 33 projected landmarks (visibility 2 inside the frame, 0 outside); plus per-keyframe summaries and the sha256 of every source label file.
+  - **`plk-v1`:** 77 frames, 71 train and 6 valid.
 - **Geometry:** `tools/labeler/static/fiba_court.json` is written by `scripts/court_geometry.py`. It has 33 vertices, labelled `01` to `41` in `sports`' numbering, plus edges and the arcs as polylines, in cm on a 2800 × 1500 court with vertex `01` at (0, 0).
 
 ### Synthetic fixtures
@@ -205,7 +244,7 @@ Paths are confined to the repository by `safe_path`.
 | Track prefill | `prefill_tracks.py` (Skalski's detector plus ByteTrack), `link_prefill.py`, `extract_shot_frames.py`, `sam_to_tracks.py` (SAM 2.1 identities fused with detector boxes), `import_prefill.py` |
 | Review | `track_sheets.py`, `review_sheets.py` (with `--propose` kit-colour ops), `review_ops.py` |
 | Gold export | `export_gold.py`, `box_gold.py` |
-| Court | `court_geometry.py`, `court_prefill.py` (the NBA court model over every clip), `court_keyframes.py`, `court_propagate.py`, `qa_court_overlay.py` |
+| Court | `court_geometry.py`, `court_prefill.py` (the NBA court model over every clip), `court_keyframes.py`, `court_propagate.py`, `qa_court_overlay.py`, `court_train_manifest.py` (training frames from the training keyframes) |
 | Probes (not metrics rows) | `probe_reid.py` (Roboflow `reid` encoders on gold v0), `probe_court_keyframes.py` (the NBA court model and propagation against the court keyframes) |
 
 Contact sheets for reading by eye come from `bga.review.sheets`.
@@ -233,9 +272,11 @@ The site is published to the Vercel project `basketball-analyzer-demo` by `scrip
   | `onnx` | onnxruntime |
   | `prefill` | Roboflow `inference` |
   | `remote` | modal |
+  | `court` | `rfdetr==1.12.1`, for running trained court weights on the Mac |
+  | (Modal image only) | `rfdetr[train]==1.12.1`, torch 2.15 |
   | `eval` | TrackEval, pycocotools |
   | `demo` | `sports`, transformers, umap-learn, scikit-learn, sentencepiece |
 
   `uv sync --all-extras` is needed for the full test suite.
 - **OpenCV:** `opencv-python` and `opencv-contrib-python` are overridden away, leaving one headless cv2.
-- **Checks:** `ruff check .`, `ruff format --check .` and `pytest`, with tests on config hashing, shot cuts, gold export, MOT scoring, churn, NMS, review ops, rosters, the labeller server, court orientation and the synthetic fixtures.
+- **Checks:** `ruff check .`, `ruff format --check .` and `pytest`, with tests on config hashing, shot cuts, gold export, MOT scoring, churn, NMS, review ops, rosters, the labeller server, court orientation, the synthetic fixtures, and gold leakage in training configs and manifests, and court smoothing.

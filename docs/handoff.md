@@ -22,10 +22,12 @@ You are the implementer for basketball-game-analyzer (https://github.com/tko-ven
 - `main` holds M0, M1, M2 and M3 part 1, squash-merged from PRs #11 to #14. Issues #1 to #3 are closed.
 - `feat/m3-court-model` is the working branch for the court model, cut from `main`. Its PR closes #4.
 
-### M3 (#4): in progress
+### M3 (#4): done, PR open
 
-- **Court keyframes:** labelled, 41 of 42 usable. The format is in `docs/architecture.md`, and the counts and time are in `docs/gold.md`. The labelling page is `/court` on the labeller; `?set=redo` opens the second-pass queue.
-- **Not started:** training. There is no `bga train`, no `configs/train/` and no `docs/train.md`.
+- **Court keyframes:** 41 of 42 usable; format in `docs/architecture.md`, counts and time in `docs/gold.md`.
+- **Model:** `court/rfdetr_keypoint/plk-v1@c26b7841`, trained with `bga train` on Modal (`docs/train.md`).
+- **Config:** `configs/court-plk-v1-smooth4.yaml` is M3's court setup: the model plus median smoothing within the shot.
+- **Scores** (`docs/metrics.md`, court table): 0.21 m in the paint on the dev games against 0.89 m for the NBA model; 0.20 m on the held-out game, which has been scored for M3 and must not be scored again before M4.
 
 ### Demo site
 

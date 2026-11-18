@@ -128,3 +128,74 @@ def landmarks(H: np.ndarray, vertices: np.ndarray, wh: tuple[int, int], margin: 
         vis = 2 if -margin <= x < wh[0] + margin and -margin <= y < wh[1] + margin else 0
         out.append([round(float(x), 1), round(float(y), 1), vis])
     return out
+
+
+def disagreement_m(Ha: np.ndarray, Hb: np.ndarray, vertices: np.ndarray, wh: tuple[int, int]) -> float | None:
+    """Median distance in metres between where Ha and Hb put the court vertices visible under Ha."""
+    pts = [(x, y) for x, y, v in landmarks(Ha, vertices, wh) if v]
+    if len(pts) < 4:
+        return None
+    p = np.c_[np.array(pts), np.ones(len(pts))]
+    a, b = p @ np.asarray(Ha).T, p @ np.asarray(Hb).T
+    a, b = a[:, :2] / a[:, 2:3], b[:, :2] / b[:, 2:3]
+    return float(np.median(np.linalg.norm(a - b, axis=1)) / 100.0)
+
+
+def round_trip_m(
+    prop: Propagator, read, key: int, H_key: np.ndarray, far: int, vertices: np.ndarray, wh: tuple[int, int]
+) -> float | None:
+    """Drift of carrying H_key from ``key`` to ``far`` in steps of 5 frames and back in steps of 10.
+
+    The way back uses other frame pairs, so errors do not cancel. Returns the court distance in metres
+    between H_key and the mapping that comes back, or None when the chain is lost on the way.
+    """
+    sgn = 1 if far >= key else -1
+    fwd = prop.run(read, sorted(range(key, far + sgn, 5 * sgn)), key, H_key)
+    if any(st.H is None for st in fwd.values()):
+        return None
+    last = max(fwd) if sgn > 0 else min(fwd)
+    if last == key:
+        return 0.0
+    back = prop.run(read, sorted({key, last} | set(range(last, key, -10 * sgn))), last, fwd[last].H)
+    if back.get(key) is None or back[key].H is None:
+        return None
+    return disagreement_m(H_key, back[key].H, vertices, wh)
+
+
+def court_line_points(geo: dict, step_cm: float = 10.0) -> np.ndarray:
+    """Points every ``step_cm`` along the painted lines and arcs of the court geometry (fiba_court.json)."""
+    verts = np.asarray(geo["vertices"], dtype=np.float64)
+    segs = [(verts[a], verts[b]) for a, b in geo["edges"]]
+    for pl in geo["polylines"]:
+        pl = np.asarray(pl, dtype=np.float64)
+        segs += list(zip(pl[:-1], pl[1:], strict=True))
+    pts = []
+    for a, b in segs:
+        n = max(2, int(np.linalg.norm(b - a) / step_cm))
+        pts += [a + (b - a) * t for t in np.linspace(0, 1, n)]
+    return np.array(pts)
+
+
+def line_support(
+    img: np.ndarray, H: np.ndarray, line_pts: np.ndarray, tol_px: float = 2.0, bottom: float = 0.83
+) -> float | None:
+    """Share of the projected court line points that fall within ``tol_px`` of a painted line in the frame.
+
+    Painted lines are bright thin structures, found with a white top-hat (15 px ellipse, threshold 25).
+    Players and the score bug (the bottom ``1 - bottom`` of the frame, skipped) hide some lines, and floors
+    with faint or coloured lines score low even when H is right, so compare a frame with its keyframe:
+    a court that has drifted by tens of pixels loses most of its support. None when fewer than 50 line
+    points are in view.
+    """
+    h, w = img.shape[:2]
+    G = court_to_image(H, (w / 2, h * 0.6))
+    p = np.c_[line_pts, np.ones(len(line_pts))] @ G.T
+    p = p[p[:, 2] > 1e-9]
+    p = p[:, :2] / p[:, 2:3]
+    p = p[(p[:, 0] >= 0) & (p[:, 0] < w) & (p[:, 1] >= 0) & (p[:, 1] < h * bottom)]
+    if len(p) < 50:
+        return None
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    tophat = cv2.morphologyEx(gray, cv2.MORPH_TOPHAT, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (15, 15)))
+    dist = cv2.distanceTransform((tophat <= 25).astype(np.uint8), cv2.DIST_L2, 3)
+    return float((dist[p[:, 1].astype(int), p[:, 0].astype(int)] <= tol_px).mean())

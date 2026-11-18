@@ -89,11 +89,11 @@
   <h1>basketball-game-analyzer: roadmap</h1>
   <p class="lede">The goal: from a PLK broadcast video of a Dziki game, know <strong>who is where on the court, for every frame</strong>.
     That means finding the players, telling the teams apart, following each player without mixing them up, reading their jersey numbers, and drawing everyone on a 2D FIBA court.</p>
-  <p class="sub">A summary of <code>docs/PLAN.md</code> (sections 2, 5, 8, 9 and 12) and <code>docs/decisions.md</code>. Status as of 2026-11-17; scope updated 2026-11-10 (appearance embeddings, layer 3b) and 2026-11-17 (number reading, M7).</p>
+  <p class="sub">A summary of <code>docs/PLAN.md</code> (sections 2, 5, 8, 9 and 12) and <code>docs/decisions.md</code>. Status as of 2026-11-18; scope updated 2026-11-10 (appearance embeddings, layer 3b) and 2026-11-17 (number reading, M7).</p>
 
   <div class="now" aria-label="Where we are">
     <div><b>Done</b>M0 repository, M1 gold set v0, M2 baseline (all on <code>main</code>); client demo and coach page on Vercel</div>
-    <div><b>Now</b>M3 court layer: all 42 court keyframes labelled (41 usable); next the training setup and the first court-model fine-tune</div>
+    <div><b>Now</b>M3 done: the PLK court model maps every hall within about 0.2 m near the paint; PR waiting for your review</div>
     <div><b>Waiting on you</b>full-game footage, Modal spend cap</div>
     <div><b>Next</b>M4: detection fine-tuned on PLK frames</div>
   </div>
@@ -154,15 +154,15 @@
       <div class="note">First row in <code>docs/metrics.md</code>: HOTA 0.60 on dev, 0.65 on held-out, AP50 0.91, numbers right on 48% of tracks. Tracking breaks people into 2 to 4 times too many identities (that is M6), and in Sopot a third of positions land off the court (that is M3).</div>
     </article>
 
-    <article class="ms active">
-      <header><h3>M3 · Court layer</h3><span class="badge active">● In progress</span>
+    <article class="ms done">
+      <header><h3>M3 · Court layer</h3><span class="badge done">✓ Done · in review</span>
         <span class="links"><a href="https://github.com/tko-ventures/basketball-game-analyzer/issues/4">#4</a></span></header>
       <dl class="grid">
         <dt>Why</dt><dd>The NBA court model works in Warsaw but misplaces lines in Lublin and mostly fails in Sopot, and every 2D position depends on it. This is the biggest visible gap for the client.</dd>
         <dt>What</dt><dd>Label court landmarks on frames from every PLK hall, retrain the court model on a rented GPU, and smooth it within each shot. This is also the first training run, so it brings training configs and the leakage test.</dd>
         <dt>Done when</dt><dd><strong>The reprojection error is reported per arena.</strong> Provisional target: under 0.5 m near the paint.</dd>
       </dl>
-      <div class="note">2026-11-17: you labelled all 42 court keyframes (41 usable) after the labelling page learned to use pins on painted lines and courts partly behind the camera. Against your keyframes the NBA court model is a median 1.8 m off, and 4 to 6 m in Sopot and Ostrów; it does best in Warsaw (0.7 m).</div>
+      <div class="note">2026-11-18: the first PLK court model is trained (RF-DETR Keypoint on Modal, 92 minutes, 3 USD) from your 42 keyframes plus Roboflow's NBA court set. Near the paint the typical error drops from 0.89 m to 0.21 m on the development games (Sopot from 5.5 m to 0.4 m, Lublin, a hall it never saw, from 0.9 m to 0.2 m) and to 0.20 m on the held-out game. The plan's target was under 0.5 m.</div>
     </article>
 
     <article class="ms">
