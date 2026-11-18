@@ -118,7 +118,7 @@ Both are covered by `tests/test_nms.py`.
   - milliseconds per frame per layer;
   - churn (`churn.py`): id-set changes and track lifetimes.
 
-`docs/metrics.md` holds two rows, both for `baseline@70498c00` on gold v0: dev and held-out.
+`docs/metrics.md` has two tables. The tracking table holds two rows, both for `baseline@70498c00` on gold v0: dev and held-out. The court table holds two dev rows: `baseline` and `court-plk-v1`.
 
 ### Remote execution (`bga.remote`)
 

@@ -81,6 +81,7 @@ def train_keypoint(job: dict) -> dict:
     gpu = job["gpu"]
     result = {
         "gpu": gpu,
+        "commit": job.get("commit"),
         "gpu_name": torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
         "seconds": round(secs, 1),
         "usd": round(secs / 3600 * USD_PER_HOUR.get(gpu, 0.0), 4),

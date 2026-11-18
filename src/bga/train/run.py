@@ -67,6 +67,7 @@ def launch(cfg: TrainConfig) -> dict:
     with vol.batch_upload(force=True) as up:
         up.put_directory(str(ds), f"{remote}/dataset")
     job = {
+        "commit": _commit(),  # the code that trains; HEAD may move before collect
         "dataset": f"{remote}/dataset",
         "output": f"{remote}/output",
         "recipe": cfg.recipe.model_dump(),
@@ -108,7 +109,7 @@ def collect(cfg: TrainConfig) -> Path:
         "config": cfg.model_dump(),
         "config_hash": cfg.config_hash(),
         "dataset": info,
-        "commit": _commit(),
+        "commit": result.get("commit") or _commit(),
         "platform": cfg.platform.name,
         "gpu": result.get("gpu"),
         "seconds": result.get("seconds"),
