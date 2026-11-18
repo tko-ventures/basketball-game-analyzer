@@ -7,6 +7,7 @@
     uv run scripts/box_gold_v1.py crops              # runs/box_gold/v1/crops/*.jpg for the implementer's first pass
     uv run scripts/box_gold_v1.py sheets             # runs/box_gold/v1/sheets/*.jpg, whole frames with numbered boxes
     uv run scripts/box_gold_v1.py apply              # applies data/labels/review/box_gold_v1.ops.txt to the queue
+    uv run scripts/box_gold_v1.py apply --ops data/labels/review/box_gold_v1.qa.ops.txt --include-done   # QA fixes
     uv run scripts/box_gold_v1.py candidates         # recompute candidates (incl. missed people) on frames not done
     uv run scripts/box_gold_v1.py export             # data/gold/v1/boxes.json from the frames Tomasz marked done
 
@@ -312,17 +313,17 @@ def crops() -> None:
         print(f"{g}: {len(items)} crops")
 
 
-def apply_ops() -> None:
+def apply_ops(ops: Path = OPS, include_done: bool = False) -> None:
     doc = json.loads(QUEUE.read_text())
     frames = {key(f["youtube_id"], f["frame"]): f for f in doc["frames"]}
     n = 0
-    for raw in OPS.read_text().splitlines() if OPS.exists() else []:
+    for raw in ops.read_text().splitlines() if ops.exists() else []:
         line = raw.split("  #", 1)[0].strip()
         if not line or line.startswith("#"):
             continue
         op, yid, frame, ref, *rest = line.split()
         fr = frames[key(yid, int(frame))]
-        if fr["status"] != "todo":
+        if fr["status"] != "todo" and not include_done:
             continue
         box = next((b for b in fr["boxes"] if str(b["id"]) == ref), None)
         if op == "cls":
@@ -421,12 +422,14 @@ def main(argv=None):
     ap.add_argument("cmd", choices=["prefill", "sheets", "crops", "apply", "candidates", "export"])
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--version", default="v1")
+    ap.add_argument("--ops", type=Path, default=OPS, help="ops file for apply")
+    ap.add_argument("--include-done", action="store_true", help="apply also to frames marked done (QA fixes)")
     a = ap.parse_args(argv)
     {
         "prefill": lambda: prefill(a.force),
         "sheets": sheets,
         "crops": crops,
-        "apply": apply_ops,
+        "apply": lambda: apply_ops(a.ops, a.include_done),
         "candidates": refresh_candidates,
         "export": lambda: export(a.version),
     }[a.cmd]()

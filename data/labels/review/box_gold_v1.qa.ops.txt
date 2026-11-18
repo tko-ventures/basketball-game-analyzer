@@ -1,0 +1,23 @@
+# QA after Tomasz's review, 2026-11-18: detector boxes scored >= 0.6 that no first pass had checked
+# (crop sheets runs/box_gold/v1/qa_hi_*.jpg, ledger rows). 32 balls: 20 false; 72 rims: all real; 166 numbers: 1 false.
+drop 4XMD9FWmQws 14345 12  # ball box on Eurobasket graphic by the shot clock, not the game ball
+drop 4XMD9FWmQws 14405 12  # ball box on Eurobasket graphic by the shot clock, not the game ball
+drop 4XMD9FWmQws 14465 14  # ball box on Eurobasket graphic by the shot clock, not the game ball
+drop OSp445e0mXU 6810 10  # ball box on the crowd or a fan item, not the game ball
+drop 1jDaJBkUGmc 1095 13  # ball box on the crowd or a fan item, not the game ball
+drop 1jDaJBkUGmc 1095 15  # ball box on the crowd or a fan item, not the game ball
+drop 1jDaJBkUGmc 1405 14  # ball box on the crowd or a fan item, not the game ball
+drop 1jDaJBkUGmc 2775 13  # ball box on the crowd or a fan item, not the game ball
+drop 1jDaJBkUGmc 2840 13  # ball box on the crowd or a fan item, not the game ball
+drop 1jDaJBkUGmc 6260 13  # ball box on the crowd or a fan item, not the game ball
+drop 1jDaJBkUGmc 6325 16  # ball box on the crowd or a fan item, not the game ball
+drop 1jDaJBkUGmc 6385 14  # ball box on the crowd or a fan item, not the game ball
+drop 1jDaJBkUGmc 6445 12  # ball box on the crowd or a fan item, not the game ball
+drop 1jDaJBkUGmc 6510 16  # ball box on the crowd or a fan item, not the game ball
+drop 1jDaJBkUGmc 6570 13  # ball box on the crowd or a fan item, not the game ball
+drop Tnuscrm9RyU 6910 15  # ball box on the crowd or a fan item, not the game ball
+drop Tnuscrm9RyU 6970 14  # ball box on the crowd or a fan item, not the game ball
+drop Tnuscrm9RyU 7035 14  # ball box on the crowd or a fan item, not the game ball
+drop Tnuscrm9RyU 7220 11  # ball box on the crowd or a fan item, not the game ball
+drop Tnuscrm9RyU 7280 14  # ball box on the crowd or a fan item, not the game ball
+drop 4XMD9FWmQws 14765 16  # stanchion sponsor logo, not a number

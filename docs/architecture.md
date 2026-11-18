@@ -195,7 +195,7 @@ These are labelling aids, not a layer:
   - **Each frame:** `youtube_id`, `clip`, `video`, `shot`, `frame`, `status` (`todo` or `done`), `note`, `boxes` and `candidates`.
   - **Each box:** `id`, `xyxy`, `cls`, `team`, `tid`, `src`, `flags`, `hints`, `alt` (SAM or prefill geometry), `checked` and `edited`.
 
-  `data/labels/review/box_gold_v1.ops.txt` holds the implementer's first pass, applied by `box_gold_v1.py apply`. `box_gold_v1.py export` writes `data/gold/v1/boxes.json` from the frames marked done; it does not exist yet. Conventions and counts are in `docs/gold.md`.
+  `data/labels/review/box_gold_v1.ops.txt` holds the implementer's first pass, applied by `box_gold_v1.py apply`. `data/labels/review/box_gold_v1.qa.ops.txt` holds the QA fixes after Tomasz's review, applied with `apply --include-done`. `box_gold_v1.py export` writes `data/gold/v1/boxes.json` (100 frames, 1,669 boxes, each with `xyxy`, `cls`, `team`, `tid`) from the frames marked done. Conventions and counts are in `docs/gold.md`.
 
 ### Court keyframes
 

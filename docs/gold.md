@@ -7,7 +7,7 @@ Plan section 8, as amended by the 2026-11-02 decision (`docs/decisions.md`).
 | Version | Who reviewed | What it supports | Status |
 |---|---|---|---|
 | v0 | Implementer, full pass on all 12 shots; Tomasz's dry-run labels on Legia shot 10 kept as they are | Comparing backends; HOTA, IDF1, MOTA, team and number accuracy, AP50 | Committed 2026-11-02 |
-| v1 | Tomasz reviews at least the held-out game; boxes tightened by hand | Absolute numbers for the client; AP50:95 | Box gold queue prefilled and given the implementer's first pass on 2026-11-18; Tomasz's review not started |
+| v1 | Tomasz reviews at least the held-out game; boxes tightened by hand | Absolute numbers for the client; AP50:95 | Box gold done 2026-11-18: `data/gold/v1/boxes.json`, 100 frames reviewed by Tomasz (151 min). Track gold v1 not started |
 
 v0 was prefilled by the public models the baseline uses (Skalski's player detector, SAM 2.1), so v0 absolute scores are biased upwards. Every row in `docs/metrics.md` names its gold version.
 
@@ -115,6 +115,58 @@ Result: 1,475 boxes:
 
 8 frames carry a note with more than one proposed possessor.
 
-### Tomasz's review
+### Tomasz's review (2026-11-18)
+
+Tomasz reviewed all 100 frames at `/boxes` in 151 minutes of active time.
+
+| Against the prefill | Boxes |
+|---|---|
+| geometry kept | 1,174 |
+| geometry changed (median 13.5 px on the largest edge, p90 50 px) | 281 |
+| added: 84 players, 60 balls, 56 numbers, 19 referees, 8 rims, 7 others | 234 |
+| deleted | 20 |
+| class changed (mostly possession and the other action classes) | about 90 |
+
+The prefill missed many people and nearly all balls: track gold v0 had left out players and referees at the frame edges and behind others, and the detector misses small, blurred balls.
+
+### QA after the review
+
+A sanity check looked for:
+- boxes moved more than 120 px or changed between person and object classes: all were boxes Tomasz had reused;
+- tiny boxes, persons without a team, and duplicates: none;
+- frames with more than one ball: 14.
+
+In every multi-ball frame the real ball was the one Tomasz drew. The other was a detector box scored at 0.6 or more, which no first pass had checked: the implementer's pass covered only scores below 0.6, and the page did not flag them.
+
+All 270 such object boxes were then checked on crop sheets (ledger rows of 2026-11-18):
+
+| Class | Checked | False |
+|---|---|---|
+| ball | 32 | 20 (crowd, fan items, the Eurobasket graphic by the shot clock) |
+| number | 166 | 1 (the stanchion logo) |
+| rim | 72 | 0 |
+
+The 21 false boxes were dropped (`data/labels/review/box_gold_v1.qa.ops.txt`, applied with `apply --include-done`). Every frame now has one ball, or none where it is out of view (20 frames).
+
+### Export
+
+`scripts/box_gold_v1.py export` wrote `data/gold/v1/boxes.json`: 100 frames, 24 of them from the held-out game, and 1,669 boxes.
+
+| Class | Boxes |
+|---|---|
+| player | 900 |
+| number | 287 |
+| referee | 233 |
+| rim | 96 |
+| ball | 80 |
+| player-in-possession | 50 |
+| player-shot-block | 10 |
+| player-jump-shot | 7 |
+| ball-in-basket | 3 |
+| player-layup-dunk | 3 |
+
+Classes with fewer than about 20 boxes are too small for a stable AP of their own. They are reported with their counts.
+
+### How to review again
 
 Tomasz reviews in the labeller at `/boxes`. Each frame shows flagged boxes first, and a loupe shows the selected box at up to 8× for pixel-level edges. Enter marks the frame done. `scripts/box_gold_v1.py export` writes `data/gold/v1/boxes.json` from the frames marked done.

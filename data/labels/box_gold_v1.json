@@ -4542,37 +4542,6 @@
      "checked": true
     },
     {
-     "xyxy": [
-      419,
-      33,
-      462,
-      76
-     ],
-     "cls": "ball",
-     "score": 0.692,
-     "team": "",
-     "tid": null,
-     "src": "det+sam",
-     "flags": [],
-     "hints": [],
-     "alt": {
-      "sam": [
-       419,
-       33,
-       462,
-       76
-      ],
-      "prefill": [
-       421,
-       32,
-       465,
-       76
-      ]
-     },
-     "id": 12,
-     "checked": true
-    },
-    {
      "id": 13,
      "xyxy": [
       1424,
@@ -5013,37 +4982,6 @@
       ]
      },
      "id": 11,
-     "checked": true
-    },
-    {
-     "xyxy": [
-      292,
-      31,
-      335,
-      75
-     ],
-     "cls": "ball",
-     "score": 0.691,
-     "team": "",
-     "tid": null,
-     "src": "det+sam",
-     "flags": [],
-     "hints": [],
-     "alt": {
-      "sam": [
-       292,
-       31,
-       335,
-       75
-      ],
-      "prefill": [
-       291,
-       31,
-       337,
-       74
-      ]
-     },
-     "id": 12,
      "checked": true
     },
     {
@@ -5539,37 +5477,6 @@
       ]
      },
      "id": 13,
-     "checked": true
-    },
-    {
-     "xyxy": [
-      125,
-      43,
-      167,
-      86
-     ],
-     "cls": "ball",
-     "score": 0.75,
-     "team": "",
-     "tid": null,
-     "src": "det+sam",
-     "flags": [],
-     "hints": [],
-     "alt": {
-      "sam": [
-       125,
-       43,
-       167,
-       86
-      ],
-      "prefill": [
-       125,
-       42,
-       169,
-       87
-      ]
-     },
-     "id": 14,
      "checked": true
     },
     {
@@ -8015,24 +7922,6 @@
       ]
      },
      "id": 15,
-     "checked": true
-    },
-    {
-     "xyxy": [
-      180,
-      485,
-      209,
-      520
-     ],
-     "cls": "number",
-     "score": 0.638,
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [],
-     "alt": {},
-     "id": 16,
      "checked": true
     },
     {
@@ -23387,33 +23276,6 @@
      "checked": true
     },
     {
-     "xyxy": [
-      343,
-      15,
-      381,
-      54
-     ],
-     "cls": "ball",
-     "score": 0.651,
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [
-      "SAM box differs (IoU 0.72): A swaps"
-     ],
-     "alt": {
-      "sam": [
-       345,
-       7,
-       384,
-       55
-      ]
-     },
-     "id": 10,
-     "checked": true
-    },
-    {
      "id": 11,
      "xyxy": [
       1326.5,
@@ -24850,37 +24712,6 @@
     },
     {
      "xyxy": [
-      255,
-      76,
-      289,
-      105
-     ],
-     "cls": "ball",
-     "score": 0.75,
-     "team": "",
-     "tid": null,
-     "src": "det+sam",
-     "flags": [],
-     "hints": [],
-     "alt": {
-      "sam": [
-       255,
-       76,
-       289,
-       105
-      ],
-      "prefill": [
-       256,
-       75,
-       288,
-       105
-      ]
-     },
-     "id": 13,
-     "checked": true
-    },
-    {
-     "xyxy": [
       719,
       574,
       730,
@@ -24895,33 +24726,6 @@
      "hints": [],
      "alt": {},
      "id": 14,
-     "checked": true
-    },
-    {
-     "xyxy": [
-      773,
-      46,
-      802,
-      77
-     ],
-     "cls": "ball",
-     "score": 0.723,
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [
-      "SAM box differs (IoU 0.81): A swaps"
-     ],
-     "alt": {
-      "sam": [
-       774,
-       44,
-       801,
-       80
-      ]
-     },
-     "id": 15,
      "checked": true
     },
     {
@@ -27176,33 +26980,6 @@
       ]
      },
      "id": 13,
-     "checked": true
-    },
-    {
-     "xyxy": [
-      718,
-      217,
-      748,
-      247
-     ],
-     "cls": "ball",
-     "score": 0.643,
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [
-      "SAM box differs (IoU 0.83): A swaps"
-     ],
-     "alt": {
-      "sam": [
-       718,
-       217,
-       752,
-       249
-      ]
-     },
-     "id": 14,
      "checked": true
     },
     {
@@ -30175,33 +29952,6 @@
     },
     {
      "xyxy": [
-      1706,
-      115,
-      1746,
-      156
-     ],
-     "cls": "ball",
-     "score": 0.707,
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [
-      "SAM box differs (IoU 0.81): A swaps"
-     ],
-     "alt": {
-      "sam": [
-       1701,
-       114,
-       1745,
-       158
-      ]
-     },
-     "id": 13,
-     "checked": true
-    },
-    {
-     "xyxy": [
       1740,
       632,
       1754,
@@ -30657,33 +30407,6 @@
      "hints": [],
      "alt": {},
      "id": 12,
-     "checked": true
-    },
-    {
-     "xyxy": [
-      1711,
-      80,
-      1749,
-      124
-     ],
-     "cls": "ball",
-     "score": 0.74,
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [
-      "SAM box differs (IoU 0.71): A swaps"
-     ],
-     "alt": {
-      "sam": [
-       1705,
-       76,
-       1750,
-       128
-      ]
-     },
-     "id": 13,
      "checked": true
     },
     {
@@ -32621,37 +32344,6 @@
     },
     {
      "xyxy": [
-      1527,
-      134,
-      1566,
-      176
-     ],
-     "cls": "ball",
-     "score": 0.812,
-     "team": "",
-     "tid": null,
-     "src": "det+sam",
-     "flags": [],
-     "hints": [],
-     "alt": {
-      "sam": [
-       1527,
-       134,
-       1566,
-       176
-      ],
-      "prefill": [
-       1530,
-       134,
-       1565,
-       174
-      ]
-     },
-     "id": 13,
-     "checked": true
-    },
-    {
-     "xyxy": [
       1389,
       642,
       1411,
@@ -33275,33 +32967,6 @@
     },
     {
      "xyxy": [
-      1668,
-      105,
-      1703,
-      142
-     ],
-     "cls": "ball",
-     "score": 0.728,
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [
-      "SAM box differs (IoU 0.77): A swaps"
-     ],
-     "alt": {
-      "sam": [
-       1663,
-       102,
-       1703,
-       144
-      ]
-     },
-     "id": 16,
-     "checked": true
-    },
-    {
-     "xyxy": [
       1080,
       382,
       1094,
@@ -33796,37 +33461,6 @@
     },
     {
      "xyxy": [
-      1666,
-      97,
-      1704,
-      135
-     ],
-     "cls": "ball",
-     "score": 0.815,
-     "team": "",
-     "tid": null,
-     "src": "det+sam",
-     "flags": [],
-     "hints": [],
-     "alt": {
-      "sam": [
-       1666,
-       97,
-       1704,
-       135
-      ],
-      "prefill": [
-       1669,
-       98,
-       1704,
-       135
-      ]
-     },
-     "id": 14,
-     "checked": true
-    },
-    {
-     "xyxy": [
       913,
       429,
       929,
@@ -34301,33 +33935,6 @@
      },
      "id": 11,
      "edited": true,
-     "checked": true
-    },
-    {
-     "xyxy": [
-      1670,
-      99,
-      1705,
-      136
-     ],
-     "cls": "ball",
-     "score": 0.79,
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [
-      "SAM box differs (IoU 0.83): A swaps"
-     ],
-     "alt": {
-      "sam": [
-       1667,
-       97,
-       1706,
-       137
-      ]
-     },
-     "id": 12,
      "checked": true
     },
     {
@@ -34881,33 +34488,6 @@
     },
     {
      "xyxy": [
-      1671,
-      98,
-      1705,
-      134
-     ],
-     "cls": "ball",
-     "score": 0.732,
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [
-      "SAM box differs (IoU 0.85): A swaps"
-     ],
-     "alt": {
-      "sam": [
-       1668,
-       97,
-       1706,
-       135
-      ]
-     },
-     "id": 16,
-     "checked": true
-    },
-    {
-     "xyxy": [
       729,
       279,
       780,
@@ -35405,37 +34985,6 @@
       ]
      },
      "id": 12,
-     "checked": true
-    },
-    {
-     "xyxy": [
-      1669,
-      94,
-      1705,
-      135
-     ],
-     "cls": "ball",
-     "score": 0.723,
-     "team": "",
-     "tid": null,
-     "src": "det+sam",
-     "flags": [],
-     "hints": [],
-     "alt": {
-      "sam": [
-       1669,
-       94,
-       1705,
-       135
-      ],
-      "prefill": [
-       1670,
-       96,
-       1706,
-       134
-      ]
-     },
-     "id": 13,
      "checked": true
     },
     {
@@ -43052,33 +42601,6 @@
     },
     {
      "xyxy": [
-      995,
-      108,
-      1026,
-      140
-     ],
-     "cls": "ball",
-     "score": 0.722,
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [
-      "SAM box differs (IoU 0.84): A swaps"
-     ],
-     "alt": {
-      "sam": [
-       994,
-       107,
-       1027,
-       143
-      ]
-     },
-     "id": 15,
-     "checked": true
-    },
-    {
-     "xyxy": [
       1507,
       494,
       1540,
@@ -43544,37 +43066,6 @@
     },
     {
      "xyxy": [
-      1005,
-      80,
-      1036,
-      111
-     ],
-     "cls": "ball",
-     "score": 0.747,
-     "team": "",
-     "tid": null,
-     "src": "det+sam",
-     "flags": [],
-     "hints": [],
-     "alt": {
-      "sam": [
-       1005,
-       80,
-       1036,
-       111
-      ],
-      "prefill": [
-       1004,
-       80,
-       1036,
-       110
-      ]
-     },
-     "id": 14,
-     "checked": true
-    },
-    {
-     "xyxy": [
       363,
       758,
       388,
@@ -44032,37 +43523,6 @@
       ]
      },
      "id": 13,
-     "checked": true
-    },
-    {
-     "xyxy": [
-      1035,
-      77,
-      1069,
-      112
-     ],
-     "cls": "ball",
-     "score": 0.648,
-     "team": "",
-     "tid": null,
-     "src": "det+sam",
-     "flags": [],
-     "hints": [],
-     "alt": {
-      "sam": [
-       1035,
-       77,
-       1069,
-       112
-      ],
-      "prefill": [
-       1035,
-       78,
-       1068,
-       110
-      ]
-     },
-     "id": 14,
      "checked": true
     }
    ],
@@ -45320,37 +44780,6 @@
     },
     {
      "xyxy": [
-      1073,
-      3,
-      1114,
-      42
-     ],
-     "cls": "ball",
-     "score": 0.781,
-     "team": "",
-     "tid": null,
-     "src": "det+sam",
-     "flags": [],
-     "hints": [],
-     "alt": {
-      "sam": [
-       1073,
-       3,
-       1114,
-       42
-      ],
-      "prefill": [
-       1071,
-       3,
-       1112,
-       40
-      ]
-     },
-     "id": 11,
-     "checked": true
-    },
-    {
-     "xyxy": [
       702,
       403,
       724,
@@ -45859,37 +45288,6 @@
      "hints": [],
      "alt": {},
      "id": 13,
-     "checked": true
-    },
-    {
-     "xyxy": [
-      886,
-      24,
-      924,
-      65
-     ],
-     "cls": "ball",
-     "score": 0.709,
-     "team": "",
-     "tid": null,
-     "src": "det+sam",
-     "flags": [],
-     "hints": [],
-     "alt": {
-      "sam": [
-       886,
-       24,
-       924,
-       65
-      ],
-      "prefill": [
-       885,
-       24,
-       926,
-       62
-      ]
-     },
-     "id": 14,
      "checked": true
     },
     {
