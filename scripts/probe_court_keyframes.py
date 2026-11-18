@@ -13,6 +13,7 @@ frame. Per usable keyframe (held-out games skipped) this reports:
   with a different step, and compare with his mapping.
 
 A probe for M3's labelling aid, not a metrics row. Output: runs/_probe/court_keyframes.tsv.
+
 """
 
 from __future__ import annotations
@@ -29,9 +30,9 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
-from court_propagate import Reader, disagreement_m  # noqa: E402
+from court_propagate import Reader, disagreement_m  # noqa: E402  # after the sys.path insert
 
-from bga.court.propagate import Propagator  # noqa: E402
+from bga.court.propagate import Propagator  # noqa: E402  # after the sys.path insert
 
 
 def round_trip(prop, read, key, H0, lo, hi, span_f, wh) -> float | None:
@@ -79,27 +80,24 @@ def main(argv=None) -> None:
         frames = sorted(set(range(key, lo - 1, -5)) | set(range(key, hi + 1, 5)))
         reach = sum(st.H is not None for st in prop.run(read, frames, key, H).values()) / len(frames)
         loops = [round_trip(prop, read, key, H, lo, hi, int(s * fps), wh) for s in spans]
-        rows.append(
-            {
-                "hall": k["hall"],
-                "purpose": k["purpose"],
-                "clip": k["youtube_id"],
-                "shot": k["shot"],
-                "frame": key,
-                "points": len(rec.get("fixed", {})),
-                "nba_m": nba,
-                "reach": reach,
-                **{f"loop_{s:g}s": v for s, v in zip(spans, loops, strict=True)},
-            }
-        )
+        rows.append({
+            "hall": k["hall"],
+            "purpose": k["purpose"],
+            "clip": k["youtube_id"],
+            "shot": k["shot"],
+            "frame": key,
+            "points": len(rec.get("fixed", {})),
+            "nba_m": nba,
+            "reach": reach,
+            **{f"loop_{s:g}s": v for s, v in zip(spans, loops, strict=True)},
+        })
         r = rows[-1]
         print(
             f"{r['hall'][:24]:24} {r['purpose']:5} s{r['shot']:<3} nba "
             + (f"{nba:6.2f} m" if nba is not None else "     -  ")
             + f"  reach {reach:4.0%}  "
             + "  ".join(
-                f"loop {s:g}s " + (f"{v:.2f} m" if v is not None else "-")
-                for s, v in zip(spans, loops, strict=True)
+                f"loop {s:g}s " + (f"{v:.2f} m" if v is not None else "-") for s, v in zip(spans, loops, strict=True)
             ),
             flush=True,
         )

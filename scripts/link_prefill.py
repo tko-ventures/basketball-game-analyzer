@@ -9,6 +9,7 @@ extrapolated with A's recent velocity (distance in box heights), and the box hei
 links are taken one-to-one, cheapest first. The output is a review_ops.py file of ``merge`` lines,
 which the implementer checks on filmstrip sheets before anything reaches the gold set. It never
 merges tracklets that overlap in time.
+
 """
 
 from __future__ import annotations

@@ -4,6 +4,7 @@ The backend code ships as the local ``bga`` package; clips go up once to the ``b
 ``clips/`` and stay there. Each sequence is one function call, so ``.map`` runs them in parallel.
 Every call reports GPU, wall time and list-price cost; the pipeline writes them into the layer's
 ``meta.json`` and appends a row to docs/costs.md. Credentials come from ~/.modal.toml, never the repo.
+
 """
 
 from __future__ import annotations
@@ -16,6 +17,7 @@ from pathlib import Path
 
 import modal
 
+#: Modal list price per hour by GPU (None: CPU only), for the cost logged with every job.
 USD_PER_HOUR = {
     None: 0.047,
     "T4": 0.59,
@@ -25,12 +27,17 @@ USD_PER_HOUR = {
     "A100-80GB": 2.50,
     "H100": 3.95,
 }
+#: Cost per remote job, relative to the working directory (the repository root under ``bga``).
 COSTS_MD = Path("docs/costs.md")
 
+#: The Modal app every remote layer run belongs to.
 app = modal.App("bga-runner")
+#: Shared volume: clips under ``clips/``, training runs under ``train/``.
 vol = modal.Volume.from_name("bga-data", create_if_missing=True)
+#: Container image with the Mac's pinned versions and the local ``bga`` package.
 image = (
-    modal.Image.debian_slim(python_version="3.12")
+    modal.Image
+    .debian_slim(python_version="3.12")
     # Same versions as the Mac's uv.lock, so a layer gives the same output wherever it runs.
     .pip_install(
         "numpy==2.3.5",
@@ -52,6 +59,23 @@ image = (
 
 @app.function(image=image, volumes={"/data": vol}, timeout=3600)
 def run_sequence(layer: str, entry: dict, seq: dict, upstream: dict, gpu: str | None) -> dict:
+    """Run one layer's backend on one sequence inside Modal, reading the clip from the volume.
+
+    Args:
+        layer: the layer name.
+        entry: the layer's config entry (``backend``, ``params``, ``weights``).
+        seq: the sequence as a dict (``dataclasses.asdict`` of ``bga.stage.Sequence``).
+        upstream: upstream layer outputs for the sequence.
+        gpu: the Modal GPU type the call runs on, or None for CPU; prices the run.
+
+    Returns:
+        The backend's output with ``remote``: platform, GPU, seconds and list-price USD.
+
+    Examples:
+        >>> run_sequence.remote("court", {"backend": "roboflow_keypoints"}, seq, {}, None)  # doctest: +SKIP
+        {'frames': {...}, 'units': 'cm', ..., 'remote': {'platform': 'modal', 'gpu': None, ...}}
+
+    """
     from bga import registry
     from bga.stage import FrameReader, Sequence
 
@@ -76,6 +100,15 @@ def run_sequence(layer: str, entry: dict, seq: dict, upstream: dict, gpu: str | 
 
 
 def upload_clips(videos: set[str]) -> None:
+    """Upload the clips the volume does not have yet to ``clips/<file name>``.
+
+    Args:
+        videos: local video paths.
+
+    Examples:
+        >>> upload_clips({"data/clips/example.mp4"})  # doctest: +SKIP
+
+    """
     have = {Path(e.path).name for e in vol.listdir("clips")} if _exists("clips") else set()
     missing = [v for v in videos if Path(v).name not in have]
     if missing:
@@ -85,6 +118,7 @@ def upload_clips(videos: set[str]) -> None:
 
 
 def _exists(path: str) -> bool:
+    """Whether a path exists on the volume."""
     try:
         vol.listdir(path)
         return True
@@ -93,7 +127,22 @@ def _exists(path: str) -> bool:
 
 
 def run_layer(layer: str, entry: dict, seqs: list, upstream: list[dict], gpu: str | None) -> list[dict]:
-    """Run one layer for ``seqs`` (with their upstream outputs) on Modal; returns outputs in order."""
+    """Run one layer for ``seqs`` (with their upstream outputs) on Modal, one parallel call per sequence.
+
+    Args:
+        layer: the layer name.
+        entry: the layer's config entry (``backend``, ``params``, ``weights``).
+        seqs: the sequences (``bga.stage.Sequence``).
+        upstream: upstream outputs, one per sequence.
+        gpu: Modal GPU type, or None for CPU.
+
+    Returns:
+        The outputs in the order of ``seqs``; their costs are appended to docs/costs.md.
+
+    Examples:
+        >>> outs = run_layer("court", {"backend": "roboflow_keypoints"}, seqs, [{}] * len(seqs), None)  # doctest: +SKIP
+
+    """
     fn = run_sequence.with_options(gpu=gpu) if gpu else run_sequence
     with modal.enable_output(), app.run():
         upload_clips({s.video for s in seqs})
@@ -104,6 +153,18 @@ def run_layer(layer: str, entry: dict, seqs: list, upstream: list[dict], gpu: st
 
 
 def log_costs(layer: str, backend: str, seqs: list, outs: list[dict]) -> None:
+    """Add a docs/costs.md row per remote sequence run, after the last table row; nothing when the file is absent.
+
+    Args:
+        layer: the layer name.
+        backend: the backend name.
+        seqs: the sequences (``bga.stage.Sequence``), for their names.
+        outs: their outputs, each with a ``remote`` cost record.
+
+    Examples:
+        >>> log_costs("court", "roboflow_keypoints", seqs, outs)  # doctest: +SKIP
+
+    """
     if not COSTS_MD.exists():
         return
     rows = [

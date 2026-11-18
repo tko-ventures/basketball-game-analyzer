@@ -4,6 +4,7 @@
 The whole table goes to the page script as T; {name} placeholders are filled by tr(). Elements in the
 template carry data-t="key" (text) or data-tip="key" (tooltip). Polish is client-facing text: plain,
 correct Polish, no calques.
+
 """
 
 from __future__ import annotations

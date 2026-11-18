@@ -20,6 +20,7 @@ Validation is held out by shot: the keyframes in VAL (one per hall that has two)
 No frame of a gold clip may appear (data/labels/gold.json); the script refuses if one would.
 
 Writes data/labels/court/train_manifest_<name>.json.
+
 """
 
 from __future__ import annotations
@@ -35,8 +36,8 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from bga.court.propagate import Propagator, court_line_points, landmarks, line_support  # noqa: E402
-from bga.train.leakage import assert_no_gold  # noqa: E402
+from bga.court.propagate import Propagator, court_line_points, landmarks, line_support  # noqa: E402  # after the sys.path insert
+from bga.train.leakage import assert_no_gold  # noqa: E402  # after the sys.path insert
 
 GEO = json.loads((ROOT / "tools/labeler/static/fiba_court.json").read_text())
 VERTS = np.array(GEO["vertices"], dtype=np.float64)
@@ -70,9 +71,7 @@ def val_keys(train: list[dict]) -> set[tuple[str, int]]:
     return out
 
 
-def line_gate(
-    support: dict[int, float | None], key: int, min_ratio: float, min_support: float, faint: int
-) -> set[int]:
+def line_gate(support: dict[int, float | None], key: int, min_ratio: float, min_support: float, faint: int) -> set[int]:
     """Frames kept by the line gate (see the module docstring); ``faint`` is in frames."""
     s0 = support.get(key)
     if s0 is None or s0 < min_support:
@@ -107,9 +106,7 @@ def main(argv=None) -> None:
     queue = json.loads((ROOT / "data/labels/court/queue.json").read_text())["keyframes"]
     train = []
     for k in queue:
-        rec = json.loads((ROOT / "data/labels/court" / f"{k['clip']}.json").read_text())["frames"].get(
-            str(k["frame"])
-        )
+        rec = json.loads((ROOT / "data/labels/court" / f"{k['clip']}.json").read_text())["frames"].get(str(k["frame"]))
         if k["purpose"] == "train" and rec and rec.get("status") == "ok" and rec.get("H"):
             train.append({**k, "H": rec["H"]})
     assert_no_gold({k["clip"] for k in train})
@@ -136,33 +133,29 @@ def main(argv=None) -> None:
             kp = landmarks(steps[f].H, VERTS, wh)
             if sum(1 for *_, v in kp if v) < 4:
                 continue
-            frames.append(
-                {
-                    "clip": k["clip"],
-                    "video": labels["clip"],
-                    "frame": f,
-                    "keyframe": key,
-                    "split": split,
-                    "size": list(wh),
-                    "H": np.round(steps[f].H, 10).tolist(),
-                    "line_support": None if scores[f] is None else round(scores[f], 3),
-                    "kp": kp,
-                }
-            )
+            frames.append({
+                "clip": k["clip"],
+                "video": labels["clip"],
+                "frame": f,
+                "keyframe": key,
+                "split": split,
+                "size": list(wh),
+                "H": np.round(steps[f].H, 10).tolist(),
+                "line_support": None if scores[f] is None else round(scores[f], 3),
+                "kp": kp,
+            })
             kept.append(f)
         s0 = scores.get(key)
-        keyframes.append(
-            {
-                "clip": k["clip"],
-                "hall": k["hall"],
-                "frame": key,
-                "split": split,
-                "line_support": None if s0 is None else round(s0, 3),
-                "from_s": round((min(kept) - key) / fps, 2) if kept else None,
-                "to_s": round((max(kept) - key) / fps, 2) if kept else None,
-                "frames": len(kept),
-            }
-        )
+        keyframes.append({
+            "clip": k["clip"],
+            "hall": k["hall"],
+            "frame": key,
+            "split": split,
+            "line_support": None if s0 is None else round(s0, 3),
+            "from_s": round((min(kept) - key) / fps, 2) if kept else None,
+            "to_s": round((max(kept) - key) / fps, 2) if kept else None,
+            "frames": len(kept),
+        })
         print(
             f"{k['hall'][:24]:24} f{key:<6} {split:5} key support {_m(s0)}, kept "
             f"{(min(kept) - key) / fps:+.2f}s..{(max(kept) - key) / fps:+.2f}s -> {len(kept)} frames",

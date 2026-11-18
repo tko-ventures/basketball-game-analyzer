@@ -12,6 +12,7 @@ Steps for ``configs/train/<name>.yaml``:
    cost to docs/costs.md.
 
 ``--collect`` repeats step 3 alone, for a run whose local process ended early.
+
 """
 
 from __future__ import annotations
@@ -27,26 +28,52 @@ from pathlib import Path
 from bga.train.config import ROOT, TrainConfig
 
 log = logging.getLogger("bga")
+#: Trainer validation numbers, one row per collected run.
 TRAIN_MD = ROOT / "docs/train.md"
+#: Cost per remote job.
 COSTS_MD = ROOT / "docs/costs.md"
+#: Files collected from the trainer's output on the volume into ``weights/<weight id>/``.
 PULL = ("checkpoint_best_total.pth", "metrics.csv", "result.json")
 
 
 def _work(cfg: TrainConfig) -> Path:
+    """Local working directory of a training run: ``runs/train/<weight id with / as __>``."""
     return ROOT / "runs/train" / cfg.weight_id().replace("/", "__")
 
 
 def _remote(cfg: TrainConfig) -> str:
+    """Directory of a training run on the ``bga-data`` volume."""
     return f"train/{cfg.weight_id().replace('/', '__')}"
 
 
 def _commit() -> str:
+    """Short hash of the checked-out commit; empty outside a git checkout."""
     return subprocess.run(
-        ["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True
+        ["git", "rev-parse", "--short", "HEAD"],  # noqa: S607  # git from PATH on purpose, as on the command line
+        capture_output=True,
+        text=True,
     ).stdout.strip()
 
 
 def build(cfg: TrainConfig) -> dict:
+    """Build a config's dataset under its working directory and record ``dataset_info.json`` beside it.
+
+    Args:
+        cfg: the training config.
+
+    Returns:
+        Image counts per split and source, and the dataset sha256 (``bga.train.court_data.build``).
+
+    Raises:
+        NotImplementedError: for any layer and backend other than ``court/rfdetr_keypoint``.
+
+    Examples:
+        >>> from bga.train.config import load_train_config
+        >>> cfg = load_train_config(ROOT / "configs/train/court-rfdetr_keypoint-plk-v1.yaml")
+        >>> build(cfg)["sha256"]  # doctest: +SKIP
+        '...'
+
+    """
     if cfg.layer != "court" or cfg.backend != "rfdetr_keypoint":
         raise NotImplementedError(f"no dataset builder for {cfg.layer}/{cfg.backend}")
     from bga.train import court_data
@@ -57,6 +84,19 @@ def build(cfg: TrainConfig) -> dict:
 
 
 def launch(cfg: TrainConfig) -> dict:
+    """Upload the built dataset to the ``bga-data`` volume and train on Modal in a detached app.
+
+    Args:
+        cfg: the training config; its dataset must be built (``build``).
+
+    Returns:
+        The trainer's result: GPU, commit, wall time, cost, schema and output files (``train_keypoint``).
+
+    Examples:
+        >>> launch(cfg)["gpu"]  # doctest: +SKIP
+        'L40S'
+
+    """
     import modal
 
     from bga.remote.modal_train import app, train_keypoint, vol
@@ -79,6 +119,7 @@ def launch(cfg: TrainConfig) -> dict:
 
 
 def _read_remote(path: str) -> bytes:
+    """Read a whole file from the ``bga-data`` volume."""
     from bga.remote.modal_train import vol
 
     buf = io.BytesIO()
@@ -88,6 +129,7 @@ def _read_remote(path: str) -> bytes:
 
 
 def _best_row(metrics_csv: str, key: str) -> tuple[dict, dict]:
+    """Rows of the trainer's metrics CSV with the highest ``key`` and the last with any ``key``; empty when none."""
     rows = [r for r in csv.DictReader(io.StringIO(metrics_csv)) if r.get(key) not in (None, "")]
     if not rows:
         return {}, {}
@@ -96,6 +138,19 @@ def _best_row(metrics_csv: str, key: str) -> tuple[dict, dict]:
 
 
 def collect(cfg: TrainConfig) -> Path:
+    """Pull a finished run's files into ``weights/<weight id>/``, write ``train.json`` and log the docs rows.
+
+    Args:
+        cfg: the training config.
+
+    Returns:
+        The weights directory.
+
+    Examples:
+        >>> collect(cfg).name  # doctest: +SKIP
+        'plk-v1@c26b7841'
+
+    """
     remote, wdir = _remote(cfg), cfg.weights_dir()
     wdir.mkdir(parents=True, exist_ok=True)
     for name in PULL:
@@ -130,6 +185,7 @@ def collect(cfg: TrainConfig) -> Path:
 
 
 def _fmt(row: dict, key: str) -> str:
+    """``row[key]`` to three decimals, or ``n/a``."""
     try:
         return f"{float(row[key]):.3f}"
     except (KeyError, TypeError, ValueError):
@@ -137,12 +193,14 @@ def _fmt(row: dict, key: str) -> str:
 
 
 def _append_row(path: Path, row: str) -> None:
+    """Insert a table row after the last table row of a Markdown file, above any text that follows the table."""
     lines = path.read_text().rstrip("\n").split("\n")
     last = max(i for i, line in enumerate(lines) if line.startswith("|"))
-    path.write_text("\n".join(lines[: last + 1] + [row] + lines[last + 1 :]) + "\n")
+    path.write_text("\n".join([*lines[: last + 1], row, *lines[last + 1 :]]) + "\n")
 
 
 def _log_rows(cfg: TrainConfig, t: dict) -> None:
+    """Append the run's row to docs/train.md and, when it exists, its cost to docs/costs.md."""
     counts = t["dataset"].get("counts", {})
     n = {s: sum(counts.get(s, {}).values()) for s in ("train", "valid")}
     epoch = t["best"].get("epoch", "?")

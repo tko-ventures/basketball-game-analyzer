@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Filmstrip contact sheets for the first review pass: one row per track of a shot, 8 crops spread
-over the track's life, captioned with track id, team, frame span and box source.
+"""Filmstrip contact sheets for the first review pass: one row per track of a shot, 8 crops spread over the track's
+life, captioned with track id, team, frame span and box source.
 
     uv run scripts/track_sheets.py data/labels/<clip>.json --shot 10 [--tracks-per-sheet 16]
 
 Writes runs/<clip>/review/tracks_s<shot>_NN.jpg. Crops come from the label file's current boxes, so
 rerunning after review_ops.py shows the corrected tracks.
+
 """
 
 from __future__ import annotations
@@ -19,7 +20,7 @@ from pathlib import Path
 import cv2
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from bga.review.sheets import contact_sheet  # noqa: E402
+from bga.review.sheets import contact_sheet
 
 
 def main(argv=None):

@@ -51,9 +51,7 @@ def main(argv=None):
     ap.add_argument("--git-rev")
     ap.add_argument("--tol", type=int, default=2)
     a = ap.parse_args(argv)
-    print(
-        f"| clip | frames old/new | shots old | shots new | cuts matched (±{a.tol}) | only old | only new |"
-    )
+    print(f"| clip | frames old/new | shots old | shots new | cuts matched (±{a.tol}) | only old | only new |")
     print("|---|---|---|---|---|---|---|")
     tot = [0, 0, 0]
     for p in sorted(a.new.glob("*.json")):

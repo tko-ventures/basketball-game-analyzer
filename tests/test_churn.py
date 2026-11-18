@@ -3,7 +3,9 @@ from bga.eval.churn import compute_churn, format_churn, id_set_change_events, tr
 
 def test_empty():
     c = compute_churn([])
-    assert c["unique_track_ids"] == 0 and c["frame_count"] == 0 and c["id_set_delta_rate"] == 0.0
+    assert c["unique_track_ids"] == 0
+    assert c["frame_count"] == 0
+    assert c["id_set_delta_rate"] == 0.0
 
 
 def test_set_delta_ignores_sentinel():

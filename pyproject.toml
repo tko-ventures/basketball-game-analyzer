@@ -40,7 +40,7 @@ demo = [
 ]
 
 [dependency-groups]
-dev = ["pytest>=8.3", "ruff>=0.7"]
+dev = ["pre-commit>=4.0", "pytest>=8.3", "ruff==0.17.5"]
 
 [build-system]
 requires = ["hatchling"]
@@ -50,16 +50,90 @@ build-backend = "hatchling.build"
 packages = ["src/bga"]
 
 [tool.ruff]
-line-length = 110
+# Lint and format follow Jirka Borovec's (Borda) configs, e.g. Borda/vision-synth; see CLAUDE.md "Python style".
+line-length = 120
 target-version = "py312"
 extend-exclude = ["data", "runs", "weights"]
+format.preview = true
+lint.select = [
+  "D",  # see: https://pypi.org/project/pydocstyle
+  "E",  # see: https://pypi.org/project/pycodestyle
+  "F",  # see: https://pypi.org/project/pyflakes
+  "I",  # see: https://pypi.org/project/isort/
+  "N",  # see: https://pypi.org/project/pep8-naming
+  "S",  # see: https://pypi.org/project/flake8-bandit
+  "UP", # see: https://docs.astral.sh/ruff/rules/#pyupgrade-up
+  "W",  # see: https://pypi.org/project/pycodestyle
+]
+lint.extend-select = [
+  "A",    # see: https://pypi.org/project/flake8-builtins
+  "ANN",  # see: https://pypi.org/project/flake8-annotations
+  "B",    # see: https://pypi.org/project/flake8-bugbear
+  "C4",   # see: https://pypi.org/project/flake8-comprehensions
+  "C90",  # see: https://docs.astral.sh/ruff/rules/complex-structure
+  "EXE",  # see: https://pypi.org/project/flake8-executable
+  "ISC",  # see: https://pypi.org/project/flake8-implicit-str-concat
+  "PERF", # see: https://pypi.org/project/perflint/
+  "PIE",  # see: https://pypi.org/project/flake8-pie
+  "PLE",  # see: https://pypi.org/project/pylint/
+  "PLR0911", # too-many-return-statements, see lint.pylint below
+  "PLR0912", # too-many-branches
+  "PLR0913", # too-many-arguments
+  "PLR0915", # too-many-statements
+  "PT",   # see: https://pypi.org/project/flake8-pytest-style
+  "PYI",  # see: https://pypi.org/project/flake8-pyi/
+  "Q",    # see: https://pypi.org/project/flake8-quotes
+  "RET",  # see: https://pypi.org/project/flake8-return
+  "RUF",  # Ruff-specific rules
+  "SIM",  # see: https://pypi.org/project/flake8-simplify
+  "T10",  # see: https://pypi.org/project/flake8-debugger
+  "TID",  # see: https://pypi.org/project/flake8-tidy-imports/
+  "YTT",  # see: https://pypi.org/project/flake8-2020
+]
+lint.ignore = [
+  "E731", # Do not assign a lambda expression, use a def
+]
+# Polish client text uses typographic dashes and the multiplication sign on purpose.
+lint.allowed-confusables = ["–", "×"]
+lint.per-file-ignores."scripts/**/*.py" = [
+  "ANN", # type annotations not required in one-off scripts
+  "D",   # module docstring covers the script; per-function docs not required
+  "N",   # relaxed naming (H, K, X etc. are idiomatic in image and geometry code)
+  "S",   # security rules relaxed for local scripts
+]
+lint.per-file-ignores."tests/**/*.py" = [
+  "ANN",   # No type annotations required in tests
+  "D",     # No docstrings required in tests
+  "E741",  # Ambiguous variable name (I for identity matrix)
+  "N",     # Naming conventions relaxed in tests (H, W, B, etc.)
+  "PT006", # parametrize argument style is relaxed
+  "S101",  # Use of `assert` detected
+]
+lint.mccabe.max-complexity = 12
+lint.pydocstyle.convention = "google"
+lint.pylint.max-args = 12
+lint.pylint.max-branches = 12
+lint.pylint.max-returns = 6
+lint.pylint.max-statements = 50
 
-[tool.ruff.lint]
-select = ["E", "F", "W", "I", "B", "UP"]
+[tool.codespell]
+skip = "*.json,*.csv,*.lock,*.txt,*.html,data/*,runs/*,weights/*"
+# Polish client text ("Te", "Maks"), FIBA country codes ("NED") and numpy names ("nd") MOT (multi-object tracking) and SME (subject-matter expert).
+ignore-words-list = "mot,te,maks,ned,nd,sme"
+quiet-level = 3
+
+[tool.docformatter]
+recursive = true
+wrap-summaries = 120
+# 0 leaves description paragraphs alone: wrapping them flattened usage blocks and tables into prose.
+wrap-descriptions = 0
+blank = true
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["src", "tools", "tests"]
 pythonpath = ["."]
+addopts = "--doctest-modules"
+doctest_optionflags = "NORMALIZE_WHITESPACE ELLIPSIS"
 
 [tool.uv]
 # One OpenCV only: `inference` also pulls opencv-python and opencv-contrib-python, which share the cv2

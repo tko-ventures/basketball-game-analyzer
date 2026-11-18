@@ -53,10 +53,16 @@ def test_save_writes_json_mot_and_identities(tmp_path):
     assert ids[3] == "3,ref,,,,"
 
 
-def test_label_progress_counts_done_only(tmp_path):
+@pytest.mark.parametrize(
+    ("clip", "expected"),
+    [
+        pytest.param("data/clips/x.mp4", {"done": 1, "boxes": 2}, id="labelled"),
+        pytest.param("data/clips/missing.mp4", {"done": 0, "boxes": 0}, id="missing"),
+    ],
+)
+def test_label_progress_counts_done_only(tmp_path, clip, expected):
     server.save_labels(tmp_path, _labels())
-    assert server.label_progress(tmp_path, "data/clips/x.mp4") == {"done": 1, "boxes": 2}
-    assert server.label_progress(tmp_path, "data/clips/missing.mp4") == {"done": 0, "boxes": 0}
+    assert server.label_progress(tmp_path, clip) == expected
 
 
 def test_safe_path_rejects_escape():
@@ -67,19 +73,34 @@ def test_safe_path_rejects_escape():
 @pytest.mark.parametrize(
     "title,home,away",
     [
-        ("SKRÓT | Dziki - Legia | 24. kolejka", "Dziki Warszawa", "Legia"),
-        ("SKRÓT | Energa Trefl - Dziki | 1. mecz 1/4 play-off", "Energa Trefl", "Dziki Warszawa"),
-        ("Skrót meczu | Anwil Włocławek - Dziki Warszawa 79:70", "Anwil Włocławek", "Dziki Warszawa"),
-        ("MKS Dąbrowa Górnicza - Dziki Warszawa | Skrót meczu 🎞️", "MKS Dąbrowa Górnicza", "Dziki Warszawa"),
-        ("PGE Start 🆚 Dziki | Skrót meczu", "PGE Start", "Dziki Warszawa"),
-        (
+        pytest.param("SKRÓT | Dziki - Legia | 24. kolejka", "Dziki Warszawa", "Legia", id="short-dziki-home"),
+        pytest.param(
+            "SKRÓT | Energa Trefl - Dziki | 1. mecz 1/4 play-off", "Energa Trefl", "Dziki Warszawa", id="playoff"
+        ),
+        pytest.param(
+            "Skrót meczu | Anwil Włocławek - Dziki Warszawa 79:70",
+            "Anwil Włocławek",
+            "Dziki Warszawa",
+            id="with-score",
+        ),
+        pytest.param(
+            "MKS Dąbrowa Górnicza - Dziki Warszawa | Skrót meczu 🎞️",
+            "MKS Dąbrowa Górnicza",
+            "Dziki Warszawa",
+            id="teams-first-emoji",
+        ),
+        pytest.param("PGE Start 🆚 Dziki | Skrót meczu", "PGE Start", "Dziki Warszawa", id="vs-emoji"),
+        pytest.param(
             "Skrót spotkania Górnik Zamek Książ Wałbrzych-Dziki Warszawa",
             "Górnik Zamek Książ Wałbrzych",
             "Dziki Warszawa",
+            id="unspaced-dash",
         ),
-        ("SKRÓT MECZU 13.03.2026 I MKS DG vs DZIKI WARSZAWA", "MKS DG", "Dziki Warszawa"),
-        ("SKRÓT | Dziki - Legia\xa0| 3. mecz półfinału", "Dziki Warszawa", "Legia"),
-        ("Season preview", "", ""),
+        pytest.param(
+            "SKRÓT MECZU 13.03.2026 I MKS DG vs DZIKI WARSZAWA", "MKS DG", "Dziki Warszawa", id="upper-case-vs"
+        ),
+        pytest.param("SKRÓT | Dziki - Legia\xa0| 3. mecz półfinału", "Dziki Warszawa", "Legia", id="nbsp"),
+        pytest.param("Season preview", "", "", id="no-teams"),
     ],
 )
 def test_teams_from_title(title, home, away):
@@ -102,12 +123,19 @@ def test_migrate_v1_maps_dziki_and_opp_to_sides():
     assert v2["version"] == 2
     assert v2["meta"]["home"] == {"team": "Legia", "roster": "legia_warszawa", "kit": ""}
     assert v2["meta"]["away"] == {"team": "Dziki Warszawa", "roster": "dziki_warszawa", "kit": "dark"}
-    assert "opponent" not in v2["meta"] and "dziki_kit" not in v2["meta"]
+    assert "opponent" not in v2["meta"]
+    assert "dziki_kit" not in v2["meta"]
     assert [v2["identities"][k]["team"] for k in "123"] == ["away", "home", "ref"]
 
 
-def test_season_for():
-    assert season_for("20251023") == "2025/26"
-    assert season_for("20260514") == "2025/26"
-    assert season_for("20260926") == "2026/27"
-    assert season_for(None) == ""
+@pytest.mark.parametrize(
+    ("date", "season"),
+    [
+        pytest.param("20251023", "2025/26", id="autumn"),
+        pytest.param("20260514", "2025/26", id="spring"),
+        pytest.param("20260926", "2026/27", id="next-autumn"),
+        pytest.param(None, "", id="no-date"),
+    ],
+)
+def test_season_for(date, season):
+    assert season_for(date) == season

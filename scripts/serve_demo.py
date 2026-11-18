@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Serve the demo page locally with HTTP Range support (browsers need it to seek in videos; Python's
-plain http.server does not provide it).
+"""Serve the demo page locally with HTTP Range support (browsers need it to seek in videos; Python's plain http.server
+does not provide it).
 
-    uv run scripts/serve_demo.py [runs/demo/web] [--port 8770]   # then open http://127.0.0.1:8770
+uv run scripts/serve_demo.py [runs/demo/web] [--port 8770]   # then open http://127.0.0.1:8770
+
 """
 
 from __future__ import annotations
@@ -50,6 +51,7 @@ class RangeHandler(SimpleHTTPRequestHandler):
                 break
             n -= len(chunk)
         self._remaining = None
+        return None
 
 
 def main(argv=None):

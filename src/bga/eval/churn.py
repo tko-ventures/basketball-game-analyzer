@@ -2,6 +2,7 @@
 
 Ground-truth-free: computed from the per-frame sets of active track ids, so they can be reported
 next to HOTA and IDF1 and on clips without gold labels.
+
 """
 
 from __future__ import annotations
@@ -9,7 +10,8 @@ from __future__ import annotations
 from collections.abc import Iterable, Sequence
 from statistics import mean, median
 
-DEFAULT_SHORT_LIVED_FRAMES = 25  # 0.5 s at 50 fps
+#: Tracks living fewer frames than this count as short-lived (0.5 s at 50 fps).
+DEFAULT_SHORT_LIVED_FRAMES = 25
 
 
 def _ids(frame_ids: Iterable[int], ignore: frozenset[int]) -> set[int]:
@@ -17,7 +19,20 @@ def _ids(frame_ids: Iterable[int], ignore: frozenset[int]) -> set[int]:
 
 
 def id_set_change_events(per_frame_ids: Sequence[Iterable[int]], ignore: Iterable[int] = (-1,)) -> int:
-    """Number of frames whose active id set differs from the previous frame's."""
+    """Count the frames whose active id set differs from the previous frame's.
+
+    Args:
+        per_frame_ids: Active track ids of each frame, in frame order.
+        ignore: Ids left out of every set (``-1`` marks an untracked box).
+
+    Returns:
+        The number of set changes; the first frame never counts.
+
+    Examples:
+        >>> id_set_change_events([[1, 2], [1, 2], [1, 3], [1, 3, -1]])
+        1
+
+    """
     skip = frozenset(int(x) for x in ignore)
     events, prev = 0, None
     for frame_ids in per_frame_ids:
@@ -29,7 +44,20 @@ def id_set_change_events(per_frame_ids: Sequence[Iterable[int]], ignore: Iterabl
 
 
 def track_lifetimes(per_frame_ids: Sequence[Iterable[int]], ignore: Iterable[int] = (-1,)) -> dict[int, int]:
-    """Span (last - first + 1) per track id, in positions of ``per_frame_ids``."""
+    """Measure each track's span (last - first + 1), in positions of ``per_frame_ids``.
+
+    Args:
+        per_frame_ids: Active track ids of each frame, in frame order.
+        ignore: Ids left out (``-1`` marks an untracked box).
+
+    Returns:
+        Span in frames per track id; gaps inside a track count towards its span.
+
+    Examples:
+        >>> track_lifetimes([[1], [1, 2], [], [1]])
+        {1: 4, 2: 1}
+
+    """
     skip = frozenset(int(x) for x in ignore)
     first: dict[int, int] = {}
     last: dict[int, int] = {}
@@ -45,6 +73,24 @@ def compute_churn(
     short_lived_frames: int = DEFAULT_SHORT_LIVED_FRAMES,
     ignore: Iterable[int] = (-1,),
 ) -> dict[str, float | int]:
+    """Summarise tracker health without ground truth: id churn and track survival.
+
+    Args:
+        per_frame_ids: Active track ids of each frame, in frame order.
+        short_lived_frames: Tracks spanning fewer frames than this are short-lived (at least 1).
+        ignore: Ids left out (``-1`` marks an untracked box).
+
+    Returns:
+        Counts, rates and survival statistics keyed by metric name, plus the threshold and frame count used.
+
+    Examples:
+        >>> c = compute_churn([[1, 2], [1, 2], [1], [1, 3]], short_lived_frames=2)
+        >>> c["unique_track_ids"], c["id_set_change_events"], c["short_lived_id_count"]
+        (3, 2, 1)
+        >>> round(c["id_set_delta_rate"], 3)
+        0.667
+
+    """
     per_frame_ids = list(per_frame_ids)
     t = max(1, int(short_lived_frames))
     n = len(per_frame_ids)
@@ -66,6 +112,19 @@ def compute_churn(
 
 
 def format_churn(c: dict) -> str:
+    """Format a :func:`compute_churn` result as one log line.
+
+    Args:
+        c: The dict returned by :func:`compute_churn`.
+
+    Returns:
+        A single line with every churn metric.
+
+    Examples:
+        >>> format_churn(compute_churn([[1], [1], [2]], short_lived_frames=2))
+        'churn unique=2 setΔ=1 setΔ_rate=0.5000 short_lived=1/2(0.500) mean_surv=1.5 med_surv=1.5 T=2 frames=3'
+
+    """
     return (
         f"churn unique={c['unique_track_ids']} setΔ={c['id_set_change_events']} "
         f"setΔ_rate={c['id_set_delta_rate']:.4f} "

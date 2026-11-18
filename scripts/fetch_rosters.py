@@ -9,6 +9,7 @@ as JSON; nothing is executed. One file per club (keyed by the PLK team id, named
 one entry per season, same schema as the original ``dziki_warszawa.json``. Squad pages list the
 squad at the end of a season (archive) or today (current season): players who left mid-season may be
 missing, so gold-set numbers outside the roster are flagged as conflicts, not trusted.
+
 """
 
 from __future__ import annotations
@@ -125,19 +126,15 @@ def squad(season_prefix: str, team_id: int, slug: str) -> dict:
     players = []
     for p in json_array_after(payload, "players"):
         num = (p.get("shirtNumber") or "").strip() or None
-        players.append(
-            {
-                "number": num,
-                "name": f"{p.get('firstName', '').strip()} {p.get('lastName', '').strip()}".strip(),
-                "pos": "/".join(POS.get(x, x) for x in p.get("positions") or []),
-                "height_cm": p.get("height"),
-                "nat": NAT.get(p.get("passport") or "", p.get("passport") or ""),
-                "id_plk": p.get("id"),
-            }
-        )
-    players.sort(
-        key=lambda p: (p["number"] is None, int(p["number"]) if (p["number"] or "").isdigit() else 999)
-    )
+        players.append({
+            "number": num,
+            "name": f"{p.get('firstName', '').strip()} {p.get('lastName', '').strip()}".strip(),
+            "pos": "/".join(POS.get(x, x) for x in p.get("positions") or []),
+            "height_cm": p.get("height"),
+            "nat": NAT.get(p.get("passport") or "", p.get("passport") or ""),
+            "id_plk": p.get("id"),
+        })
+    players.sort(key=lambda p: (p["number"] is None, int(p["number"]) if (p["number"] or "").isdigit() else 999))
     coaches = json_array_after(payload, "coaches")
     head = next((c for c in coaches if c.get("function") == "Trener"), None)
     return {

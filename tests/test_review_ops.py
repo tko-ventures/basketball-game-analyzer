@@ -1,8 +1,12 @@
+import pytest
+
 from scripts.import_prefill import import_tracks
 from scripts.review_ops import apply_ops
 
 
-def _labels():
+@pytest.fixture
+def labels():
+    """Labels prefilled from tracks 1 to 4 (ids 1001 to 1004) over frames 0, 5 and 10; track 2 is a referee."""
     labels = {"identities": {}, "frames": {}, "meta": {}}
     tracks = {
         "frames": [
@@ -30,15 +34,14 @@ def _labels():
     return labels
 
 
-def test_import_marks_prefill_and_referees():
-    labels = _labels()
-    assert labels["frames"]["0"]["prefill"] and not labels["frames"]["0"]["done"]
+def test_import_marks_prefill_and_referees(labels):
+    assert labels["frames"]["0"]["prefill"]
+    assert not labels["frames"]["0"]["done"]
     assert labels["identities"]["1002"]["team"] == "ref"
     assert labels["identities"]["1001"]["team"] == ""
 
 
-def test_merge_split_delete_assign_confirm():
-    labels = _labels()
+def test_merge_split_delete_assign_confirm(labels):
     counts = apply_ops(
         labels,
         [
@@ -61,12 +64,13 @@ def test_merge_split_delete_assign_confirm():
         "source": "prefill",
         "reviewed": True,
     }
-    assert labels["identities"]["1005"]["team"] == "home" and not labels["identities"]["1005"]["reviewed"]
-    assert "1003" not in labels["identities"] and "1004" not in labels["identities"]
+    assert labels["identities"]["1005"]["team"] == "home"
+    assert not labels["identities"]["1005"]["reviewed"]
+    assert "1003" not in labels["identities"]
+    assert "1004" not in labels["identities"]
 
 
-def test_note_keeps_hash_and_inline_comments_are_stripped():
-    labels = _labels()
+def test_note_keeps_hash_and_inline_comments_are_stripped(labels):
     apply_ops(
         labels,
         ["# whole-line comment", "note 1001 possibly #7, not legible   # my comment", "team 1001 away  # x"],
@@ -75,8 +79,7 @@ def test_note_keeps_hash_and_inline_comments_are_stripped():
     assert labels["identities"]["1001"]["team"] == "away"
 
 
-def test_move_and_cut_ranges():
-    labels = _labels()
+def test_move_and_cut_ranges(labels):
     counts = apply_ops(labels, ["move 1003 5 5 1001", "move 1003 10 10 1009", "cut 1002 5 10"])
     assert counts == {"move": 2, "cut": 1}
     tids = {k: sorted(b["tid"] for b in f["boxes"]) for k, f in labels["frames"].items()}
@@ -84,8 +87,7 @@ def test_move_and_cut_ranges():
     assert labels["identities"]["1009"]["source"] == "prefill"
 
 
-def test_move_onto_an_existing_box_keeps_the_target():
-    labels = _labels()
+def test_move_onto_an_existing_box_keeps_the_target(labels):
     apply_ops(labels, ["move 1003 5 5 1002"])
     assert [b["tid"] for b in labels["frames"]["5"]["boxes"]] == [1002]
     assert labels["frames"]["5"]["boxes"][0]["x1"] == 51

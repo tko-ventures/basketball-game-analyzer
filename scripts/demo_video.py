@@ -27,6 +27,7 @@ import os
 import re
 import time
 from collections import Counter, defaultdict
+from dataclasses import dataclass
 from pathlib import Path
 
 import cv2
@@ -90,7 +91,7 @@ def interpolate(tracks_json, shot, step, max_gap=15):
     per_frame = defaultdict(dict)
     for tid, seq in obs.items():
         seq.sort(key=lambda x: x[0])
-        for (f0, b0), (f1, b1) in zip(seq, seq[1:] + [seq[-1]], strict=True):
+        for (f0, b0), (f1, b1) in zip(seq, [*seq[1:], seq[-1]], strict=True):
             if f1 - f0 > max_gap:
                 f1, b1 = f0, b0
             for f in range(f0 + (-f0) % step, max(f1, f0) + 1, step):
@@ -141,9 +142,7 @@ def teams(obs, is_ref, read, meta):
         votes[tid][p] += 1
     cluster = {tid: v.most_common(1)[0][0] for tid, v in votes.items()}
     of = {k: [c for c, p in zip(crops, pred, strict=True) if p == k] for k in (0, 1)}
-    bright = [
-        np.mean([cv2.cvtColor(c, cv2.COLOR_BGR2HSV)[..., 2].mean() for c in of[k]] or [0]) for k in (0, 1)
-    ]
+    bright = [np.mean([cv2.cvtColor(c, cv2.COLOR_BGR2HSV)[..., 2].mean() for c in of[k]] or [0]) for k in (0, 1)]
     light = "home" if meta["home"].get("kit") == "light" else "away"
     dark = "away" if light == "home" else "home"
     side_of_cluster = {int(np.argmax(bright)): light, int(np.argmin(bright)): dark}
@@ -173,9 +172,7 @@ def numbers(tracks_json, shot, dets, is_ref, read, model, max_reads):
         for d in dets.get(fr["frame_idx"], []):
             if d["class"] != "number" or d["score"] < 0.3:
                 continue
-            score, tid = max(
-                ((ios(d["xyxy"], t["xyxy"]), t["track_id"]) for t in fr["tracks"]), default=(0, None)
-            )
+            score, tid = max(((ios(d["xyxy"], t["xyxy"]), t["track_id"]) for t in fr["tracks"]), default=(0, None))
             if score < 0.9 or is_ref.get(tid):
                 continue
             r = reads[tid]
@@ -185,9 +182,7 @@ def numbers(tracks_json, shot, dets, is_ref, read, model, max_reads):
             c = crop(frame, d["xyxy"], pad=10)
             if c.size == 0:
                 continue
-            text = model.prompt(
-                images=cv2.resize(c, (224, 224)), prompt="Read the number.", max_new_tokens=4
-            )[0]
+            text = model.prompt(images=cv2.resize(c, (224, 224)), prompt="Read the number.", max_new_tokens=4)[0]
             digits = re.sub(r"\D", "", str(text))
             n += 1
             if 0 < len(digits) <= 2:
@@ -224,6 +219,141 @@ def text(frame, s, org, size=0.6, color=(255, 255, 255), thick=2):
     cv2.putText(frame, s, org, FONT, size, color, thick, cv2.LINE_AA)
 
 
+@dataclass(frozen=True)
+class _Look:
+    """How one shot's tracks are drawn: referee flags, team colours, numbers and roster names."""
+
+    is_ref: dict
+    cluster: dict
+    side_of_cluster: dict
+    team_bgr: dict
+    number: dict
+    names: dict
+
+    def colour(self, t):
+        return REF_BGR if self.is_ref[t] else self.team_bgr.get(self.side_of_cluster.get(self.cluster.get(t)), GREY)
+
+    def label(self, t):
+        if self.is_ref[t]:
+            return "REF"
+        num = self.number.get(t)
+        if not num:
+            return ""
+        name = self.names.get(self.side_of_cluster.get(self.cluster.get(t)), {}).get(num, "")
+        return f"#{num} {name.split()[-1] if name else ''}".strip()
+
+
+def ink(bgr):  # readable text on a team colour
+    return (20, 20, 20) if sum(bgr) > 500 else (255, 255, 255)
+
+
+@dataclass(frozen=True)
+class _Court:
+    """The FIBA court drawing: configuration, its vertices, the empty court and its scale, and the drawing API."""
+
+    sv: object  # the supervision module
+    draw_points: object  # sports.basketball.draw_points_on_court
+    cfg: object
+    vertices: np.ndarray
+    base: np.ndarray
+    scale: float
+    padding: int
+
+
+def _shot_cache(cache, a, models, shot_in):
+    """Teams, numbers and homographies for one shot: read from the cache, or computed and cached, plus timings."""
+    timing = {}
+    if cache.exists() and not a.recompute:
+        return json.loads(cache.read_text()), timing
+    obs, is_ref, read, meta, tracks_json, shot, dets, frames, vertices = shot_in
+    c = {}
+    t0 = time.time()
+    cluster, side_of_cluster, team_bgr, c["team_crops"] = teams(obs, is_ref, read, meta)
+    c.update(cluster=cluster, side_of_cluster=side_of_cluster, team_bgr=team_bgr)
+    timing["teams_s"] = round(time.time() - t0, 1)
+    t0 = time.time()
+    models["ocr"] = models["ocr"] or load_ocr()
+    c["number"], c["ocr_reads"] = numbers(tracks_json, shot, dets, is_ref, read, models["ocr"], a.max_reads)
+    timing["numbers_s"] = round(time.time() - t0, 1)
+    t0 = time.time()
+    models["court"] = models["court"] or models["get_model"](model_id=COURT_MODEL)
+    c["H"] = homographies(frames, read, models["court"], vertices)
+    timing["court_s"] = round(time.time() - t0, 1)
+    cache.write_text(json.dumps(c))
+    return json.loads(cache.read_text()), timing  # one code path: JSON keys are strings from here on
+
+
+def _draw_points(court, smooth, tids, xyxy, H_last, look, ct):
+    """Project the tracks' foot points through the homography, smooth them, and draw them on the court."""
+    sv = ct.sv
+    feet = np.stack([(xyxy[:, 0] + xyxy[:, 2]) / 2, xyxy[:, 3]], axis=1).astype(np.float32)
+    xy = cv2.perspectiveTransform(feet[None], H_last.astype(np.float32))[0]
+    for t, p in zip(tids, xy, strict=True):
+        smooth[t] = p if t not in smooth else 0.6 * smooth[t] + 0.4 * p
+        if -200 < smooth[t][0] < 3000 and -200 < smooth[t][1] < 1700:
+            bgr = look.colour(t)
+            court = ct.draw_points(
+                ct.cfg,
+                xy=smooth[t][None],
+                labels=["" if look.is_ref[t] else look.number.get(t, "")],
+                fill_color=sv.Color(bgr[2], bgr[1], bgr[0]),
+                text_color=sv.Color(*ink(bgr)[::-1]),
+                edge_color=sv.Color.BLACK if sum(bgr) > 500 else sv.Color.WHITE,
+                size=14,
+                scale=ct.scale,
+                padding=ct.padding,
+                line_thickness=2,
+                court=court,
+            )
+    return court
+
+
+def _draw_boxes(frame, tids, xyxy, look):
+    """Team-coloured ellipse at each player's feet and a number-and-name tag above the box."""
+    for t, b in zip(tids, xyxy, strict=True):
+        bgr = look.colour(t)
+        x1, y1, x2, y2 = b.astype(int)
+        cx, w = (x1 + x2) // 2, max(12, (x2 - x1) // 2)
+        cv2.ellipse(frame, (cx, y2), (w, max(5, w // 3)), 0, -45, 235, (255, 255, 255), 5, cv2.LINE_AA)
+        cv2.ellipse(frame, (cx, y2), (w, max(5, w // 3)), 0, -45, 235, bgr, 3, cv2.LINE_AA)
+        s = look.label(t)
+        if s:
+            (tw, th), _ = cv2.getTextSize(s, FONT, 0.6, 2)
+            cv2.rectangle(frame, (cx - tw // 2 - 4, y1 - th - 12), (cx + tw // 2 + 4, y1 - 4), bgr, -1)
+            text(frame, s, (cx - tw // 2, y1 - 8), color=ink(bgr))
+
+
+def _draw_overlay(frame, court, title, meta, team_bgr):
+    """Court map top right, and the title bar with the team legend top left."""
+    ch, cw = court.shape[:2]
+    x0, y0 = 1920 - cw - 24, 24
+    frame[y0 : y0 + ch, x0 : x0 + cw] = cv2.addWeighted(frame[y0 : y0 + ch, x0 : x0 + cw], 0.15, court, 0.85, 0)
+    cv2.rectangle(frame, (20, 20), (760, 112), (20, 20, 20), -1)
+    text(frame, title, (34, 54), 0.8)
+    lx = 34
+    for side in ("home", "away"):
+        cv2.circle(frame, (lx + 8, 88), 9, team_bgr.get(side, GREY), -1)
+        text(frame, meta[side]["team"], (lx + 24, 95))
+        lx += 54 + cv2.getTextSize(meta[side]["team"], FONT, 0.6, 2)[0][0]
+    text(frame, "automatic, uncorrected", (lx + 10, 95), 0.5, (180, 180, 180), 1)
+
+
+def _render(writer, frames, read, per_frame, H, look, ct, title, meta):
+    """Draw and write every rendered frame of one shot."""
+    smooth, H_last = {}, None
+    for f in frames:
+        frame = read(f)
+        tids = list(per_frame[f])
+        xyxy = np.array([per_frame[f][t] for t in tids]).reshape(-1, 4)
+        H_last = H.get(f) if H.get(f) is not None else H_last
+        court = ct.base.copy()
+        if H_last is not None and tids:
+            court = _draw_points(court, smooth, tids, xyxy, H_last, look, ct)
+        _draw_boxes(frame, tids, xyxy, look)
+        _draw_overlay(frame, court, title, meta, look.team_bgr)
+        writer.write(frame)
+
+
 def main(argv=None):
     import supervision as sv
     from inference import get_model
@@ -238,10 +368,18 @@ def main(argv=None):
     cache_dir = a.out.parent / "cache"
     cache_dir.mkdir(parents=True, exist_ok=True)
     cfg = CourtConfiguration(league=League.FIBA)
-    vertices = np.array(cfg.vertices, dtype=np.float32)
     scale, padding = 0.25, 20
-    base_court = draw_court(cfg, scale=scale, padding=padding, line_thickness=2)
-    court_model = ocr_model = writer = None
+    ct = _Court(
+        sv=sv,
+        draw_points=draw_points_on_court,
+        cfg=cfg,
+        vertices=np.array(cfg.vertices, dtype=np.float32),
+        base=draw_court(cfg, scale=scale, padding=padding, line_thickness=2),
+        scale=scale,
+        padding=padding,
+    )
+    models = {"court": None, "ocr": None, "get_model": get_model}
+    writer = None
     summary = []
 
     for yid, shot in SHOTS:
@@ -254,53 +392,21 @@ def main(argv=None):
         frames = sorted(per_frame)
         read = FrameReader(labels["clip"])
         cache = cache_dir / f"{yid}_s{shot}_step{a.step}.json"
-        timing = {}
-        if cache.exists() and not a.recompute:
-            c = json.loads(cache.read_text())
-        else:
-            c = {}
-            t0 = time.time()
-            cluster, side_of_cluster, team_bgr, c["team_crops"] = teams(obs, is_ref, read, meta)
-            c.update(cluster=cluster, side_of_cluster=side_of_cluster, team_bgr=team_bgr)
-            timing["teams_s"] = round(time.time() - t0, 1)
-            t0 = time.time()
-            ocr_model = ocr_model or load_ocr()
-            c["number"], c["ocr_reads"] = numbers(
-                tracks_json, shot, dets, is_ref, read, ocr_model, a.max_reads
-            )
-            timing["numbers_s"] = round(time.time() - t0, 1)
-            t0 = time.time()
-            court_model = court_model or get_model(model_id=COURT_MODEL)
-            c["H"] = homographies(frames, read, court_model, vertices)
-            timing["court_s"] = round(time.time() - t0, 1)
-            cache.write_text(json.dumps(c))
-            c = json.loads(cache.read_text())  # one code path: JSON keys are strings from here on
-        cluster = {int(k): v for k, v in c["cluster"].items()}
-        side_of_cluster = {int(k): v for k, v in c["side_of_cluster"].items()}
-        team_bgr = {
-            side: DISPLAY_BGR.get((meta[side]["team"], meta[side].get("kit")), tuple(v))
-            for side, v in c["team_bgr"].items()
-        }
+        shot_in = (obs, is_ref, read, meta, tracks_json, shot, dets, frames, ct.vertices)
+        c, timing = _shot_cache(cache, a, models, shot_in)
         number = {int(k): v for k, v in c["number"].items()}
+        look = _Look(
+            is_ref=is_ref,
+            cluster={int(k): v for k, v in c["cluster"].items()},
+            side_of_cluster={int(k): v for k, v in c["side_of_cluster"].items()},
+            team_bgr={
+                side: DISPLAY_BGR.get((meta[side]["team"], meta[side].get("kit")), tuple(v))
+                for side, v in c["team_bgr"].items()
+            },
+            number=number,
+            names={side: roster_names(labels, side) for side in ("home", "away")},
+        )
         H = {int(k): (np.array(v) if v else None) for k, v in c["H"].items()}
-        names = {side: roster_names(labels, side) for side in ("home", "away")}
-
-        def colour(t, is_ref=is_ref, side_of_cluster=side_of_cluster, cluster=cluster, team_bgr=team_bgr):
-            return REF_BGR if is_ref[t] else team_bgr.get(side_of_cluster.get(cluster.get(t)), GREY)
-
-        def label(
-            t, is_ref=is_ref, side_of_cluster=side_of_cluster, cluster=cluster, number=number, names=names
-        ):
-            if is_ref[t]:
-                return "REF"
-            num = number.get(t)
-            if not num:
-                return ""
-            name = names.get(side_of_cluster.get(cluster.get(t)), {}).get(num, "")
-            return f"#{num} {name.split()[-1] if name else ''}".strip()
-
-        def ink(bgr):  # readable text on a team colour
-            return (20, 20, 20) if sum(bgr) > 500 else (255, 255, 255)
 
         t0 = time.time()
         title = f"{meta['home']['team']} – {meta['away']['team']}  ·  {meta['season']}"
@@ -308,77 +414,20 @@ def main(argv=None):
             a.out.parent.mkdir(parents=True, exist_ok=True)
             fps = labels["fps"] / a.step
             writer = cv2.VideoWriter(str(a.out), cv2.VideoWriter_fourcc(*"mp4v"), fps, (1920, 1080))
-        smooth, H_last = {}, None
-        for f in frames:
-            frame = read(f)
-            tids = list(per_frame[f])
-            xyxy = np.array([per_frame[f][t] for t in tids]).reshape(-1, 4)
-            H_last = H.get(f) if H.get(f) is not None else H_last
-            court = base_court.copy()
-            if H_last is not None and tids:
-                feet = np.stack([(xyxy[:, 0] + xyxy[:, 2]) / 2, xyxy[:, 3]], axis=1).astype(np.float32)
-                xy = cv2.perspectiveTransform(feet[None], H_last.astype(np.float32))[0]
-                for t, p in zip(tids, xy, strict=True):
-                    smooth[t] = p if t not in smooth else 0.6 * smooth[t] + 0.4 * p
-                    if -200 < smooth[t][0] < 3000 and -200 < smooth[t][1] < 1700:
-                        bgr = colour(t)
-                        court = draw_points_on_court(
-                            cfg,
-                            xy=smooth[t][None],
-                            labels=["" if is_ref[t] else number.get(t, "")],
-                            fill_color=sv.Color(bgr[2], bgr[1], bgr[0]),
-                            text_color=sv.Color(*ink(bgr)[::-1]),
-                            edge_color=sv.Color.BLACK if sum(bgr) > 500 else sv.Color.WHITE,
-                            size=14,
-                            scale=scale,
-                            padding=padding,
-                            line_thickness=2,
-                            court=court,
-                        )
-            for t, b in zip(tids, xyxy, strict=True):
-                bgr = colour(t)
-                x1, y1, x2, y2 = b.astype(int)
-                cx, w = (x1 + x2) // 2, max(12, (x2 - x1) // 2)
-                cv2.ellipse(
-                    frame, (cx, y2), (w, max(5, w // 3)), 0, -45, 235, (255, 255, 255), 5, cv2.LINE_AA
-                )
-                cv2.ellipse(frame, (cx, y2), (w, max(5, w // 3)), 0, -45, 235, bgr, 3, cv2.LINE_AA)
-                s = label(t)
-                if s:
-                    (tw, th), _ = cv2.getTextSize(s, FONT, 0.6, 2)
-                    cv2.rectangle(
-                        frame, (cx - tw // 2 - 4, y1 - th - 12), (cx + tw // 2 + 4, y1 - 4), bgr, -1
-                    )
-                    text(frame, s, (cx - tw // 2, y1 - 8), color=ink(bgr))
-            ch, cw = court.shape[:2]
-            x0, y0 = 1920 - cw - 24, 24
-            frame[y0 : y0 + ch, x0 : x0 + cw] = cv2.addWeighted(
-                frame[y0 : y0 + ch, x0 : x0 + cw], 0.15, court, 0.85, 0
-            )
-            cv2.rectangle(frame, (20, 20), (760, 112), (20, 20, 20), -1)
-            text(frame, title, (34, 54), 0.8)
-            lx = 34
-            for side in ("home", "away"):
-                cv2.circle(frame, (lx + 8, 88), 9, team_bgr.get(side, GREY), -1)
-                text(frame, meta[side]["team"], (lx + 24, 95))
-                lx += 54 + cv2.getTextSize(meta[side]["team"], FONT, 0.6, 2)[0][0]
-            text(frame, "automatic, uncorrected", (lx + 10, 95), 0.5, (180, 180, 180), 1)
-            writer.write(frame)
+        _render(writer, frames, read, per_frame, H, look, ct, title, meta)
         read.release()
         timing["render_s"] = round(time.time() - t0, 1)
-        summary.append(
-            {
-                "clip": yid,
-                "shot": shot,
-                "frames": len(frames),
-                "tracks": len(obs),
-                "numbers": {str(t): v for t, v in number.items()},
-                "ocr_reads": c["ocr_reads"],
-                "homography_frames": sum(v is not None for v in H.values()),
-                "team_crops": c["team_crops"],
-                **timing,
-            }
-        )
+        summary.append({
+            "clip": yid,
+            "shot": shot,
+            "frames": len(frames),
+            "tracks": len(obs),
+            "numbers": {str(t): v for t, v in number.items()},
+            "ocr_reads": c["ocr_reads"],
+            "homography_frames": sum(v is not None for v in H.values()),
+            "team_crops": c["team_crops"],
+            **timing,
+        })
         print(json.dumps(summary[-1]), flush=True)
     writer.release()
     a.out.with_suffix(".json").write_text(json.dumps(summary, indent=1))

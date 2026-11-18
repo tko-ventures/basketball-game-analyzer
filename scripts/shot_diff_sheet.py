@@ -4,6 +4,7 @@
     uv run scripts/shot_diff_sheet.py --git-rev c8ef83f data/labels runs/_shots_regen/diff.jpg
 
 One row per disagreeing cut: frames c-2 .. c+1, captioned with clip, frame and which side has it.
+
 """
 
 from __future__ import annotations
@@ -17,8 +18,8 @@ from pathlib import Path
 import cv2
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from bga.review.sheets import contact_sheet  # noqa: E402
-from scripts.compare_shots import cuts  # noqa: E402
+from bga.review.sheets import contact_sheet
+from scripts.compare_shots import cuts
 
 
 def unmatched(a: list[int], b: list[int], tol: int) -> list[int]:

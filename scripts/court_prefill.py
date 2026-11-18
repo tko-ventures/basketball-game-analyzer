@@ -7,6 +7,7 @@ Samples every ``--every`` frames inside each detected shot (not across cuts) and
 33 FIBA-ordered keypoints with confidences, plus a RANSAC homography and its inlier count, to
 runs/<clip>/court_prefill/<model>.jsonl. A shot with many frames of >= 4 confident points is a
 main-camera candidate for keyframes; the homography is only a starting point for the reviewer.
+
 """
 
 from __future__ import annotations
@@ -23,7 +24,7 @@ import cv2
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from bga.detect.roboflow_inference import roboflow_key  # noqa: E402
+from bga.detect.roboflow_inference import roboflow_key
 
 MODEL = "basketball-court-detection-2/14"
 
@@ -63,10 +64,7 @@ def main(argv=None):
                 kp = model.infer(img, confidence=0.3)[0]
                 pts = []
                 if kp.predictions and len(kp.predictions[0].keypoints) == len(vertices):
-                    pts = [
-                        [round(p.x, 1), round(p.y, 1), round(p.confidence, 3)]
-                        for p in kp.predictions[0].keypoints
-                    ]
+                    pts = [[round(p.x, 1), round(p.y, 1), round(p.confidence, 3)] for p in kp.predictions[0].keypoints]
                 H, inliers = None, 0
                 if pts:
                     arr = np.array(pts, dtype=np.float32)
@@ -75,16 +73,14 @@ def main(argv=None):
                         Hm, mask = cv2.findHomography(arr[m, :2], vertices[m], cv2.RANSAC, 40.0)
                         if Hm is not None:
                             H, inliers = np.round(Hm, 8).tolist(), int(mask.sum())
-                rows.append(
-                    {
-                        "frame": f,
-                        "shot": si,
-                        "kp": pts,
-                        "H": H,
-                        "inliers": inliers,
-                        "n_conf": int(sum(p[2] > a.kp_conf for p in pts)),
-                    }
-                )
+                rows.append({
+                    "frame": f,
+                    "shot": si,
+                    "kp": pts,
+                    "H": H,
+                    "inliers": inliers,
+                    "n_conf": int(sum(p[2] > a.kp_conf for p in pts)),
+                })
                 n += 1
         cap.release()
         out.write_text("".join(json.dumps(r) + "\n" for r in rows))

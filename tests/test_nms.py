@@ -1,15 +1,22 @@
 import numpy as np
+import pytest
 
 from bga.detect.nms import nested_box_nms
 from bga.detect.onnx_rfdetr import ROBOFLOW_EXPORT_CLASSES, decode
 from bga.types import Detection, class_name_to_role
 
 
-def test_role_map():
-    assert class_name_to_role("player-in-possession") == "player"
-    assert class_name_to_role("number") == "number"
-    assert class_name_to_role("referee") == "other"
-    assert class_name_to_role("ball") == "other"
+@pytest.mark.parametrize(
+    ("class_name", "role"),
+    [
+        pytest.param("player-in-possession", "player", id="player-in-possession"),
+        pytest.param("number", "number", id="number"),
+        pytest.param("referee", "other", id="referee"),
+        pytest.param("ball", "other", id="ball"),
+    ],
+)
+def test_role_map(class_name, role):
+    assert class_name_to_role(class_name) == role
 
 
 def test_nested_child_is_suppressed():
@@ -32,5 +39,6 @@ def test_decode_drops_background_and_scales_boxes():
     dets = decode(boxes, logits, ROBOFLOW_EXPORT_CLASSES, (1000, 500), confidence=0.5)
     assert len(dets) == 1
     d = dets[0]
-    assert d.class_name == "player" and d.class_id == 3
+    assert d.class_name == "player"
+    assert d.class_id == 3
     assert np.allclose(d.xyxy, (400, 150, 600, 350))

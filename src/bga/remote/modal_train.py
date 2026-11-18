@@ -5,6 +5,7 @@ The dataset goes up to the ``bga-data`` volume under ``train/<weight id>/dataset
 short keeps its checkpoints. The function follows the June 2026 keypoint post: schema from the COCO
 annotations, ``RFDETRKeypointPreview`` with that schema, ``KeypointTrainConfig``, the Lightning modules,
 ``trainer.fit``. It returns GPU, wall time and list-price cost; ``bga train`` logs them.
+
 """
 
 from __future__ import annotations
@@ -13,12 +14,17 @@ import modal
 
 from bga.remote.modal_runner import USD_PER_HOUR
 
+#: The trainer package pinned in the image and recorded in every result.
 RFDETR_PACKAGE = "rfdetr[train]==1.12.1"
 
+#: The Modal app of every training run.
 app = modal.App("bga-train")
+#: Shared volume: datasets and trainer outputs under ``train/<weight id>/``.
 vol = modal.Volume.from_name("bga-data", create_if_missing=True)
+#: Container image with torch, the pinned trainer and the local ``bga`` package.
 image = (
-    modal.Image.debian_slim(python_version="3.12")
+    modal.Image
+    .debian_slim(python_version="3.12")
     .pip_install("torch==2.15.0", "torchvision==0.29.2", RFDETR_PACKAGE)
     # supervision pulls the GUI OpenCV, which needs libGL; swap in the headless wheel (no apt on bullseye).
     .run_commands(
@@ -31,6 +37,21 @@ image = (
 
 @app.function(image=image, volumes={"/data": vol}, gpu="L40S", timeout=6 * 3600)
 def train_keypoint(job: dict) -> dict:
+    """Fine-tune RF-DETR Keypoint on a dataset on the volume and write ``result.json`` next to the checkpoints.
+
+    Args:
+        job: ``dataset`` and ``output`` (paths on the volume), ``recipe`` (``bga.train.config.Recipe`` as a dict),
+            ``gpu`` (prices the run) and ``commit`` (recorded).
+
+    Returns:
+        GPU, commit, device name, wall time, list-price USD, keypoint schema, trainer package and torch version, and
+        the files in the output directory (without ``result.json``, which is written last).
+
+    Examples:
+        >>> "checkpoint_best_total.pth" in train_keypoint.remote(job)["files"]  # doctest: +SKIP
+        True
+
+    """
     import json
     import threading
     import time

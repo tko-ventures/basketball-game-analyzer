@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Visual check of the court mapping: FIBA lines drawn back into broadcast frames through the inverse
-of the cached image-to-court homography (scripts/demo_web.py cache). Lines on the painted lines mean
-the mapping is right; offset, mirrored or tilted lines show where it is not.
+"""Visual check of the court mapping: FIBA lines drawn back into broadcast frames through the inverse of the cached
+image-to-court homography (scripts/demo_web.py cache). Lines on the painted lines mean the mapping is right; offset,
+mirrored or tilted lines show where it is not.
 
-    uv run --extra demo scripts/qa_court_overlay.py OSp445e0mXU 10 --n 6
+uv run --extra demo scripts/qa_court_overlay.py OSp445e0mXU 10 --n 6
+
 """
 
 from __future__ import annotations
@@ -17,8 +18,8 @@ import cv2
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from bga.review.sheets import contact_sheet  # noqa: E402
-from scripts.demo_video import FrameReader, clip_files  # noqa: E402
+from bga.review.sheets import contact_sheet
+from scripts.demo_video import FrameReader, clip_files
 
 
 def main(argv=None):

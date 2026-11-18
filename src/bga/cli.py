@@ -1,10 +1,12 @@
 """``bga`` command line (plan section 5): run configs, score them on the gold set, list backends.
 
-bga run  --config configs/baseline.yaml [--set track.params.lost_track_buffer_s=2] [--seq OSp445e0mXU_s2]
-bga eval --config configs/baseline.yaml [--config other.yaml] [--gold v0] [--held-out] [--write]
-bga eval-court --config configs/baseline.yaml [--config other.yaml] [--held-out] [--write]
-bga train --config configs/train/<layer>-<backend>-<name>.yaml [--build-only] [--collect]
-bga backends
+Usage:
+    bga run --config configs/baseline.yaml [--set track.params.lost_track_buffer_s=2] [--seq OSp445e0mXU_s2]
+    bga eval --config configs/baseline.yaml [--config other.yaml] [--gold v0] [--held-out] [--write]
+    bga eval-court --config configs/baseline.yaml [--config other.yaml] [--held-out] [--write]
+    bga train --config configs/train/<layer>-<backend>-<name>.yaml [--build-only] [--collect]
+    bga backends
+
 """
 
 from __future__ import annotations
@@ -21,8 +23,11 @@ import typer
 from bga import pipeline, registry
 from bga.config import load_config
 
+#: The ``bga`` Typer application, installed as the ``bga`` console script.
 app = typer.Typer(add_completion=False, no_args_is_help=True)
+#: Metrics file that ``--write`` appends rows to.
 METRICS_MD = Path("docs/metrics.md")
+#: Header of the gold-set table in ``docs/metrics.md`` written by ``bga eval``.
 HEADER = (
     "| date | commit | config | gold | split | HOTA | DetA | AssA | IDF1 | MOTA | IDSW | AP50 | team acc "
     "| number acc (confirmed, wrong) | ms/frame detect, team, court, numbers | notes |\n"
@@ -38,9 +43,7 @@ def _setup_logging(verbose: bool) -> None:
 @app.command()
 def run(
     config: Annotated[Path, typer.Option(help="configs/<name>.yaml")],
-    set_: Annotated[
-        list[str], typer.Option("--set", help="override, e.g. detect.params.confidence=0.3")
-    ] = [],  # noqa: B006
+    set_: Annotated[list[str], typer.Option("--set", help="override, e.g. detect.params.confidence=0.3")] = [],  # noqa: B006
     seq: Annotated[list[str], typer.Option(help="only these sequences")] = [],  # noqa: B006
     layer: Annotated[list[str], typer.Option(help="only these layers")] = [],  # noqa: B006
     force: Annotated[list[str], typer.Option(help="recompute these layers")] = [],  # noqa: B006
@@ -62,7 +65,14 @@ def run(
     typer.echo(f"{cfg.name}@{cfg.config_hash()}: {len(seqs)} sequences")
 
 
-def _fmt(v, nd=3) -> str:
+def _fmt(v: object, nd: int = 3) -> str:
+    """Format a metrics cell: ``–`` for missing or NaN, ``nd`` decimals for floats, ``str`` otherwise.
+
+    Examples:
+        >>> _fmt(None), _fmt(float("nan")), _fmt(0.12345), _fmt(0.5, 0), _fmt(7)
+        ('–', '–', '0.123', '0', '7')
+
+    """
     return (
         "–"
         if v is None or (isinstance(v, float) and math.isnan(v))
@@ -73,7 +83,14 @@ def _fmt(v, nd=3) -> str:
 
 
 def _insert_rows(text: str, header: str, rows: list[str], intro: str = "") -> str:
-    """Insert rows at the end of the table with this header; add the table (after ``intro``) if absent."""
+    r"""Insert rows at the end of the table with this header; add the table (after ``intro``) if absent.
+
+    Examples:
+        >>> header = "| a |\n|---|\n"
+        >>> _insert_rows("# M\n\n| a |\n|---|\n| 1 |\n\nafter\n", header, ["| 2 |"])
+        '# M\n\n| a |\n|---|\n| 1 |\n| 2 |\n\nafter\n'
+
+    """
     lines = text.rstrip("\n").split("\n")
     head = header.splitlines()[0]
     if head not in lines:
@@ -89,9 +106,7 @@ def eval_(
     config: Annotated[list[Path], typer.Option(help="one or more configs, scored side by side")],
     set_: Annotated[list[str], typer.Option("--set", help="override applied to every config")] = [],  # noqa: B006
     gold: str = "v0",
-    held_out: Annotated[
-        bool, typer.Option(help="score the held-out game instead (once per milestone)")
-    ] = False,
+    held_out: Annotated[bool, typer.Option(help="score the held-out game instead (once per milestone)")] = False,
     write: Annotated[bool, typer.Option(help="append rows to docs/metrics.md")] = False,
     note: str = "",
     verbose: bool = False,
@@ -127,19 +142,17 @@ def eval_(
         )
     typer.echo(HEADER + "\n".join(rows))
     if write:
-        text = (
-            METRICS_MD.read_text()
-            if METRICS_MD.exists()
-            else "# Metrics\n\nGold-set scores from `bga eval`.\n\n"
-        )
+        text = METRICS_MD.read_text() if METRICS_MD.exists() else "# Metrics\n\nGold-set scores from `bga eval`.\n\n"
         METRICS_MD.write_text(_insert_rows(text, HEADER, rows))
 
 
+#: Header of the court table in ``docs/metrics.md`` written by ``bga eval-court``.
 COURT_HEADER = (
     "| date | commit | config | court weights (training config) | split | keyframes (unmapped) "
     "| median error m | paint m | paint < 0.5 m | paint m per arena | ms/frame | notes |\n"
     "|---|---|---|---|---|---|---|---|---|---|---|---|\n"
 )
+#: Section heading and explanation placed above the court table when it is first added.
 COURT_INTRO = (
     "## Court layer\n\n"
     "Scored by `bga eval-court` on the gold court keyframes (`data/labels/court/queue.json`, purpose gold,"

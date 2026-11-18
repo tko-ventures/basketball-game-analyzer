@@ -2,6 +2,7 @@
 
 Team colour per track is the majority of its boxes' team labels; referees are drawn grey. Written to
 ``runs/<clip>/radar/<config>@<hash8>/<sequence>.mp4`` at the sequence's frame rate.
+
 """
 
 from __future__ import annotations
@@ -16,10 +17,28 @@ from bga.config import RunConfig
 from bga.pipeline import load_output
 from bga.stage import FrameReader, Sequence
 
+#: Dot colour per team label in BGR; ``""`` (unknown) is magenta.
 TEAM_BGR = {"home": (235, 235, 235), "away": (40, 40, 200), "ref": (120, 120, 120), "": (200, 0, 200)}
 
 
 def track_teams(tracks: dict, teams: dict) -> dict[int, str]:
+    """Give each track the majority team label of its detected boxes.
+
+    Args:
+        tracks: Track output frames, ``{"<frame>": [[track_id, ..., det_index], ...]}``.
+        teams: Team output frames, ``{"<frame>": [label per detect box]}``.
+
+    Returns:
+        Team label per track id; tracks with no detected box in a labelled frame are absent.
+
+    Examples:
+        >>> tracks = {"0": [[1, 0, 0, 1, 1, 0.9, "player", 0], [2, 0, 0, 1, 1, 0.9, "player", -1]],
+        ...           "5": [[1, 0, 0, 1, 1, 0.9, "player", 1]], "10": [[1, 0, 0, 1, 1, 0.9, "player", 0]]}
+        >>> teams = {"0": ["home"], "5": ["away", "home"], "10": ["home"]}
+        >>> track_teams(tracks, teams)
+        {1: 'home'}
+
+    """
     votes = defaultdict(Counter)
     for f, rows in tracks.items():
         for r in rows:
@@ -29,6 +48,22 @@ def track_teams(tracks: dict, teams: dict) -> dict[int, str]:
 
 
 def render(cfg: RunConfig, seq: Sequence, runs: Path = Path("runs"), width: int = 960) -> Path:
+    """Write the radar video of one sequence: broadcast frame above, FIBA court with track dots below.
+
+    Args:
+        cfg: Run config whose ``track``, ``team`` (optional) and ``positions`` outputs are drawn.
+        seq: Sequence to render.
+        runs: Root of the run outputs.
+        width: Video width in pixels.
+
+    Returns:
+        Path of the written ``.mp4``.
+
+    Examples:
+        >>> render(cfg, seq)  # doctest: +SKIP
+        PosixPath('runs/<clip>/radar/<config>@<hash8>/<sequence>.mp4')
+
+    """
     from sports.basketball import CourtConfiguration, League, draw_court
 
     court_cfg = CourtConfiguration(league=League.FIBA)
@@ -60,9 +95,7 @@ def render(cfg: RunConfig, seq: Sequence, runs: Path = Path("runs"), width: int 
         frame = np.vstack([top, cv2.resize(rad, (width, round(rad.shape[0] * width / rad.shape[1])))])
         cv2.putText(frame, f"{seq.name} f{f}", (10, 24), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
         if writer is None:
-            writer = cv2.VideoWriter(
-                str(out), cv2.VideoWriter_fourcc(*"avc1"), seq.fps / stride, frame.shape[1::-1]
-            )
+            writer = cv2.VideoWriter(str(out), cv2.VideoWriter_fourcc(*"avc1"), seq.fps / stride, frame.shape[1::-1])
         writer.write(frame)
     read.close()
     if writer is not None:

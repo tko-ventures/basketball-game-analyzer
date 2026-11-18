@@ -12,6 +12,7 @@ minus track boxes the reviewer drops, both listed in data/labels/review/box_gold
 Candidates are the prefill detector's person boxes at confidence >= 0.1 that overlap no gold box
 (IoU < 0.3), so people the tracks miss can be added without drawing. Box geometry stays the
 prefill's (detector, or SAM mask box): tightening by hand is gold v1 work, so v0 supports AP50 only.
+
 """
 
 from __future__ import annotations
@@ -25,7 +26,7 @@ import cv2
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from bga.review.sheets import contact_sheet  # noqa: E402
+from bga.review.sheets import contact_sheet
 
 GOLD = Path("data/labels/gold.json")
 SEL = Path("data/labels/box_gold.json")
@@ -99,9 +100,7 @@ def sheets() -> None:
     for sel in json.loads(SEL.read_text())["frames"]:
         clip = sel["clip"]
         if clip not in caps:
-            caps[clip] = cv2.VideoCapture(
-                json.loads((Path("data/labels") / f"{clip}.json").read_text())["clip"]
-            )
+            caps[clip] = cv2.VideoCapture(json.loads((Path("data/labels") / f"{clip}.json").read_text())["clip"])
         cap = caps[clip]
         cap.set(cv2.CAP_PROP_POS_FRAMES, sel["frame"])
         img = cap.read()[1]
@@ -133,9 +132,7 @@ def export(version: str) -> None:
             continue
         op, yid, frame, ref, *rest = line.split()
         if op == "add":
-            adds.setdefault((yid, int(frame)), []).append(
-                (int(ref.lstrip("c")), rest[0] if rest else "other")
-            )
+            adds.setdefault((yid, int(frame)), []).append((int(ref.lstrip("c")), rest[0] if rest else "other"))
         elif op == "drop":
             drops.add((yid, int(frame), int(ref)))
         else:

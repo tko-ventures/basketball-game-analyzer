@@ -10,6 +10,7 @@ its mask box and is marked ``src: sam``, but only inside a gap of at most --max-
 between matched boxes of the same track. Two SAM objects whose boxes overlap (IoU > --dup-iou) on
 most frames where both exist are one person prompted twice and are merged. A track is a referee
 when most of its matched detector boxes are referee boxes.
+
 """
 
 from __future__ import annotations
@@ -84,9 +85,7 @@ def fuse(
             and d["score"] >= det_conf
             and d["xyxy"][2] - d["xyxy"][0] <= d["xyxy"][3] - d["xyxy"][1]
         ]
-        pairs = sorted(
-            ((iou(b, d["xyxy"]), o, j) for o, b in boxes.items() for j, d in enumerate(cands)), reverse=True
-        )
+        pairs = sorted(((iou(b, d["xyxy"]), o, j) for o, b in boxes.items() for j, d in enumerate(cands)), reverse=True)
         used_o, used_d, tracks = set(), set(), []
         for v, o, j in pairs:
             if v < match_iou or o in used_o or j in used_d:
@@ -99,8 +98,17 @@ def fuse(
             if o not in used_o:
                 tracks.append({"track_id": o, "xyxy": [round(x, 1) for x in b], "src": "sam"})
         out.append({"frame_idx": g, "shot": res["shot"], "tracks": tracks})
-    # A SAM-only box survives only inside a short gap between detector-matched boxes of the same track;
-    # longer runs are where a lost mask drifts onto legs, other players or the bench.
+    _drop_long_sam_runs(out, max_gap)
+    _mark_referees(out, ref_votes)
+    return out
+
+
+def _drop_long_sam_runs(out, max_gap):
+    """Keep a SAM-only box only inside a short gap between detector-matched boxes of its track, in place.
+
+    Longer runs are where a lost mask drifts onto legs, other players or the bench.
+
+    """
     matched = defaultdict(list)
     for i, fr in enumerate(out):
         for t in fr["tracks"]:
@@ -116,12 +124,15 @@ def fuse(
                 and any(i < j <= i + max_gap for j in matched[t["track_id"]])
             )
         ]
+
+
+def _mark_referees(out, ref_votes):
+    """Label a track "ref" in place where most of its matched detector boxes were referee boxes."""
     for fr in out:
         for t in fr["tracks"]:
             v = ref_votes.get(t["track_id"])
             if v and v[True] > v[False]:
                 t["team"] = "ref"
-    return out
 
 
 def main(argv=None):
@@ -151,18 +162,16 @@ def main(argv=None):
         frames += fused
         sam_boxes = sum(t.get("src") == "sam" for f in fused for t in f["tracks"])
         total = sum(len(f["tracks"]) for f in fused)
-        meta.append(
-            {
-                "shot": res["shot"],
-                "objects": res["objects"],
-                "tracks": len(ids),
-                "boxes": total,
-                "sam_only_boxes": sam_boxes,
-                "seconds": res["seconds"],
-                "usd": res["usd"],
-                "gpu": res["gpu"],
-            }
-        )
+        meta.append({
+            "shot": res["shot"],
+            "objects": res["objects"],
+            "tracks": len(ids),
+            "boxes": total,
+            "sam_only_boxes": sam_boxes,
+            "seconds": res["seconds"],
+            "usd": res["usd"],
+            "gpu": res["gpu"],
+        })
         print(json.dumps(meta[-1]))
     clip = json.loads((Path("data/labels") / f"{clip_dir.name}.json").read_text())
     doc = {"clip_path": clip["clip"], "model": "sam2.1-hiera-large + " + a.prefill, "frames": frames}

@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import pytest
 
 from bga.ingest.hist_diff import detect_shots
 
@@ -14,7 +15,9 @@ def _scene(seed: int, n: int) -> list[np.ndarray]:
     return [base[:, i : i + 192].copy() for i in range(n)]
 
 
-def test_detects_hard_cuts_between_scenes(tmp_path):
+@pytest.fixture
+def three_scenes(tmp_path):
+    """A video of three panning scenes of 40, 30 and 50 frames, so hard cuts at 40 and 70."""
     path = tmp_path / "cuts.avi"
     lengths = [40, 30, 50]  # cuts at 40 and 70
     w = cv2.VideoWriter(str(path), cv2.VideoWriter_fourcc(*"MJPG"), FPS, (192, 160))
@@ -22,6 +25,13 @@ def test_detects_hard_cuts_between_scenes(tmp_path):
         for f in _scene(seed + 1, n):
             w.write(f)
     w.release()
-    shots = detect_shots(path)
-    assert [(s["start"], s["end"]) for s in shots] == [(0, 39), (40, 69), (70, 119)]
-    assert {s["camera"] for s in shots} == {"unset"}
+    return path
+
+
+class TestDetectShots:
+    def test_detects_hard_cuts_between_scenes(self, three_scenes):
+        shots = detect_shots(three_scenes)
+        assert [(s["start"], s["end"]) for s in shots] == [(0, 39), (40, 69), (70, 119)]
+
+    def test_camera_tag_unset(self, three_scenes):
+        assert {s["camera"] for s in detect_shots(three_scenes)} == {"unset"}

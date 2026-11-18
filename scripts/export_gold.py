@@ -5,6 +5,7 @@
 
 Writes data/gold/<version>/<youtube_id>_s<shot>/{gt/gt.txt,frames.txt,seqinfo.ini,identities.csv} and
 data/gold/<version>/manifest.json (sequences, held-out flags, label-file hashes, counts).
+
 """
 
 from __future__ import annotations
@@ -19,7 +20,7 @@ from pathlib import Path
 import cv2
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from bga.eval.gold import build_sequence, load_manifest, write_sequence  # noqa: E402
+from bga.eval.gold import build_sequence, load_manifest, write_sequence
 
 
 def main(argv=None):
@@ -50,19 +51,17 @@ def main(argv=None):
             seq = build_sequence(labels, game, shot, gold["stride"], a.max_gap)
             write_sequence(seq, out, labels.get("meta", {}), game["fps"], gold["stride"], wh)
             filled = sum(1 for r in seq.rows if r[8] == 0.5)
-            manifest["sequences"].append(
-                {
-                    "name": seq.name,
-                    "clip": seq.clip,
-                    "shot": seq.shot,
-                    "held_out": seq.held_out,
-                    "frames": len(seq.frames),
-                    "boxes": len(seq.rows),
-                    "boxes_interpolated_or_occluded": filled,
-                    "identities": len(seq.identities),
-                    "labels_sha256_8": hashlib.sha256(raw).hexdigest()[:8],
-                }
-            )
+            manifest["sequences"].append({
+                "name": seq.name,
+                "clip": seq.clip,
+                "shot": seq.shot,
+                "held_out": seq.held_out,
+                "frames": len(seq.frames),
+                "boxes": len(seq.rows),
+                "boxes_interpolated_or_occluded": filled,
+                "identities": len(seq.identities),
+                "labels_sha256_8": hashlib.sha256(raw).hexdigest()[:8],
+            })
             print(f"{seq.name}: {len(seq.frames)} frames, {len(seq.rows)} boxes, {len(seq.identities)} ids")
     (out / "manifest.json").write_text(json.dumps(manifest, indent=1) + "\n")
 
