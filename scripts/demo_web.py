@@ -1,22 +1,24 @@
 #!/usr/bin/env python3
-"""Client demo as two web pages over the same broadcast videos (one video per shot, labels burnt in):
-  /          broadcast and a 2D FIBA court video side by side, one set of controls, full screen per panel
-  /analysis/ broadcast and a live 2D court drawn in the browser from per-frame positions: coverage
+"""Client demo: one web page over the broadcast videos (one video per shot, labels burnt in):
+  /          broadcast and a live 2D court drawn in the browser from per-frame positions: coverage
              (nearest defender, most open attacker), team shape, player selection with speed/distance
 
-    uv run --extra prefill --extra demo scripts/demo_web.py                # -> runs/demo/web/
-    uv run --extra prefill --extra demo scripts/demo_web.py --recompute    # redo number reads and court
+    uv run --extra prefill --extra demo --extra court scripts/demo_web.py              # -> runs/demo/web/
+    uv run --extra prefill --extra demo --extra court scripts/demo_web.py --recompute  # redo reads and court
     uv run scripts/serve_demo.py                                           # http://127.0.0.1:8770
     uv run scripts/demo_audit.py                                           # what the pages show vs gold
 
 The site is English only (text in scripts/demo_strings.py); the Polish edition was dropped on 2026-11-18.
+On 2026-11-18 the page with two synchronised videos (broadcast and a rendered 2D court video) was dropped;
+/analysis/ moved to / and the old path redirects there on Vercel.
 
 Showcase, not a measured pipeline (no metrics row): automatic and uncorrected. Differences from the
 first demo (scripts/demo_video.py), after Tomasz's review on 2026-10-31:
-  court    homography per frame with RANSAC (>= 5 confident landmarks, 40 cm threshold); frames whose
-           mapping jumps against their neighbours are dropped; the camera mapping is smoothed in time
-           (a grid of image points is projected, smoothed with Savitzky-Golay, and the homography refit);
-           a player's 2D path is one key position per --key-s seconds (median of the projected foot
+  court    the court layer of a bga run config (--court-config, default configs/court-plk-v1-smooth4.yaml:
+           the PLK fine-tuned RF-DETR Keypoint model with median smoothing within the shot, scored in
+           docs/metrics.md), run on the rendered frames; until 2026-11-18 the NBA Roboflow court model
+           with a Savitzky-Golay smoothing of the demo's own
+  paths    a player's 2D path is one key position per --key-s seconds (median of the projected foot
            points in that window) joined by a monotone cubic, after Tomasz's suggestion
   2D view  players only; referees appear in the broadcast view but not on the court map
   numbers  more reads per track (up to --max-reads, stop once a value leads by 3); a track's number can
@@ -48,7 +50,6 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from scripts.demo_strings import JS, PAGE, VIDEO, surname
 from scripts.demo_video import (
-    COURT_MODEL,
     DISPLAY_BGR,
     FONT,
     GREY,
@@ -66,14 +67,15 @@ from scripts.demo_video import (
 )
 
 INF = 10**9
-# Shot sets. The NBA-trained court keypoint model maps the Warsaw hall (blue keys) well and misplaces
-# landmarks in Lublin (red keys) and Sopot (orange floor), checked with scripts/qa_court_overlay.py on
-# 2026-10-31; PLK halls need the M3 court fine-tune. The default demo therefore uses Warsaw shots.
+# Shot sets. The default is three Warsaw shots; three-halls adds Lublin and Sopot, which the NBA court
+# model mapped badly (scripts/qa_court_overlay.py, 2026-10-31) and the PLK court model was trained for.
 DEMO_SETS = {
     "warsaw": [("OSp445e0mXU", 2), ("OSp445e0mXU", 10), ("OSp445e0mXU", 19)],
     "three-halls": SHOTS,
 }
-# Court mapping shown only inside these frame windows (visual QA); elsewhere the 2D panel says so.
+# Court mapping shown only inside these frame windows (visual QA); elsewhere the 2D panel says so. Rechecked
+# with the PLK court model on 2026-11-18 (scripts/qa_court_overlay.py): shot 10 is still off before 3130, a
+# mid-court view with few landmarks; shots 2 and 19 sit on the painted lines throughout.
 COURT_WINDOW = {("OSp445e0mXU", 10): (3130, 10**9)}
 COURT_SCALE, COURT_PAD = 0.6, 40  # court video: px per cm, padding px
 
@@ -146,47 +148,26 @@ def numbers_at(frames, tracks_at, segments, side_of):
 
 
 # --------------------------------------------------------------------------- court mapping
-def court_mapping(frames, read, court_model, vertices, wh, jump_cm=150.0, window=11):
-    """Frame -> smoothed 3x3 image-to-court (cm) homography, or None before the first usable frame."""
-    from scipy.signal import savgol_filter
+def court_mapping(frames, read, court_cfg, seq_name, wh):
+    """Frame -> 3x3 image-to-court (cm) homography or None, from the court layer of a bga run config.
 
-    w, h = wh
-    gx, gy = np.meshgrid(np.linspace(0.1 * w, 0.9 * w, 5), np.linspace(0.45 * h, 0.95 * h, 3))
-    grid = np.stack([gx.ravel(), gy.ravel()], 1).astype(np.float32)
-    G = np.full((len(frames), len(grid), 2), np.nan)
-    for i, f in enumerate(frames):
-        kp = court_model.infer(read(f), confidence=0.3)[0]
-        if not kp.predictions or len(kp.predictions[0].keypoints) != len(vertices):
-            continue
-        pts = kp.predictions[0].keypoints
-        mask = np.array([p.confidence for p in pts]) > 0.5
-        if mask.sum() < 5:
-            continue
-        src = np.array([[p.x, p.y] for p in pts], dtype=np.float32)[mask]
-        H, inl = cv2.findHomography(src, vertices[mask], cv2.RANSAC, 40.0)
-        if H is not None and inl is not None and inl.sum() >= 5:
-            G[i] = cv2.perspectiveTransform(grid[None], H)[0]
-    valid = ~np.isnan(G[:, 0, 0])
-    # Drop frames whose mapped grid jumps away from the median of their neighbours.
-    for i in np.flatnonzero(valid):
-        nb = [j for j in range(max(0, i - 3), min(len(frames), i + 4)) if j != i and valid[j]]
-        if len(nb) >= 2 and np.median(np.linalg.norm(G[i] - np.median(G[nb], 0), axis=1)) > jump_cm:
-            G[i] = np.nan
-    valid = ~np.isnan(G[:, 0, 0])
-    if valid.sum() < 2:
-        return dict.fromkeys(frames), int(valid.sum())
-    idx = np.arange(len(frames))
-    for p in range(len(grid)):
-        for c in range(2):
-            G[:, p, c] = np.interp(idx, idx[valid], G[valid, p, c])
-    win = min(window, (len(frames) // 2) * 2 - 1)
-    if win >= 5:
-        G = savgol_filter(G, win, 2, axis=0)
-    first = int(np.flatnonzero(valid)[0])
-    out = {}
-    for i, f in enumerate(frames):
-        out[f] = None if i < first else cv2.findHomography(grid, G[i].astype(np.float32))[0]
-    return out, int(valid.sum())
+    The backend runs on the rendered frames of one shot as one sequence, so its smoothing (if any) stays
+    inside the shot. Returns the mapping and the number of mapped frames.
+
+    """
+    from bga import registry
+    from bga.stage import Sequence
+
+    entry = court_cfg.layers["court"]
+    backend = registry.get("court", entry.backend)(entry.params, entry.weights)
+    backend.load()
+    try:
+        seq = Sequence(seq_name, seq_name, "", 0, list(frames), 0.0)
+        out = backend.run(seq, {}, read)["frames"]
+    finally:
+        backend.unload()
+    H = {f: (None if out.get(str(f)) is None else np.array(out[str(f)], dtype=np.float64)) for f in frames}
+    return H, sum(h is not None for h in H.values())
 
 
 def court_paths(frames, per_frame, H, key_frames, is_ref, img_h, edge_px=3):
@@ -299,10 +280,6 @@ def hexcol(bgr):
 
 
 # --------------------------------------------------------------------------- drawing
-def to_px(x_m, y_m):
-    return round(x_m * 100 * COURT_SCALE + COURT_PAD), round(y_m * 100 * COURT_SCALE + COURT_PAD)
-
-
 def ink(bgr):
     return (20, 20, 20) if sum(bgr) > 500 else (255, 255, 255)
 
@@ -335,58 +312,7 @@ def draw_broadcast(frame, f, per_frame, colour, label, title, meta, team_bgr, vs
     return frame
 
 
-def draw_court_frame(base, f, paths, colour, number_of, title, meta, team_bgr, mapped, vs, trail=25):
-    canvas = np.full((1080, 1920, 3), 24, np.uint8)
-    court = base.copy()
-    if not mapped:
-        court = cv2.addWeighted(court, 0.35, np.zeros_like(court), 0.65, 0)
-        msg = vs["no_calibration"]
-        (tw, _), _ = cv2.getTextSize(msg, FONT, 1.0, 2)
-        text(court, msg, ((court.shape[1] - tw) // 2, court.shape[0] // 2), 1.0)
-    trails = court.copy()
-    for t, path in paths.items():
-        if f not in path:
-            continue
-        keys = list(path)
-        k = keys.index(f)
-        recent = keys[max(0, k - trail) : k + 1]
-        # Draw only the continuous tail: stop at a gap (player out of view or lost) or a jump > 0.6 m.
-        start = len(recent) - 1
-        while start > 0:
-            g0, g1 = recent[start - 1], recent[start]
-            (x0, y0), (x1, y1) = path[g0], path[g1]
-            if g1 - g0 > 4 or np.hypot(x1 - x0, y1 - y0) > 0.6:
-                break
-            start -= 1
-        pts = [to_px(*path[g]) for g in recent[start:]]
-        if len(pts) > 1:
-            cv2.polylines(trails, [np.array(pts, np.int32)], False, colour(t), 4, cv2.LINE_AA)
-    court = cv2.addWeighted(trails, 0.55, court, 0.45, 0)
-    for t, path in paths.items():
-        if f not in path:
-            continue
-        x, y = path[f]
-        if not (-1.0 < x < 29.0 and -1.0 < y < 16.0):
-            continue
-        cx, cy = to_px(x, y)
-        bgr = colour(t)
-        cv2.circle(court, (cx, cy), 22, bgr, -1, cv2.LINE_AA)
-        cv2.circle(court, (cx, cy), 22, (0, 0, 0) if sum(bgr) > 500 else (255, 255, 255), 2, cv2.LINE_AA)
-        num = number_of(t, f)
-        if num:
-            (tw, th), _ = cv2.getTextSize(num, FONT, 0.75, 2)
-            text(court, num, (cx - tw // 2, cy + th // 2), 0.75, ink(bgr))
-    ch, cw = court.shape[:2]
-    y0, x0 = 1080 - ch - 10, (1920 - cw) // 2
-    canvas[y0 : y0 + ch, x0 : x0 + cw] = court
-    text(canvas, title, (x0, 52), 0.9)
-    x = legend(canvas, x0 + 760, 52, meta, team_bgr, 0.7)
-    text(canvas, vs["court_caption"], (x + 10, 52), 0.55, (170, 170, 170), 1)
-    return canvas
-
-
 # --------------------------------------------------------------------------- page
-PAGE_VIDEO = Path(__file__).with_name("demo_page_video.html").read_text(encoding="utf-8")
 PAGE_ANALYSIS = Path(__file__).with_name("demo_page_analysis.html").read_text(encoding="utf-8")
 
 
@@ -429,25 +355,27 @@ def main(argv=None):
     ap.add_argument("--key-s", type=float, default=0.5, help="seconds per key position on the 2D court")
     ap.add_argument("--set", choices=list(DEMO_SETS), default="warsaw")
     ap.add_argument("--cache", type=Path, default=Path("runs/demo/cache"))
+    ap.add_argument("--court-config", type=Path, default=Path("configs/court-plk-v1-smooth4.yaml"))
     a = ap.parse_args(argv)
     build(a, a.out)
 
 
 def build(a, out):
-    """The site: videos with their text burnt in, the two pages, clip data."""
-    from inference import get_model
+    """The site: broadcast videos with their text burnt in, the analysis page, clip data."""
     from sports.basketball import CourtConfiguration, League, draw_court
+
+    from bga.config import load_config
 
     vs = VIDEO
     out.mkdir(parents=True, exist_ok=True)
     cache_dir = a.cache
     cache_dir.mkdir(parents=True, exist_ok=True)
     cfg = CourtConfiguration(league=League.FIBA)
-    vertices = np.array(cfg.vertices, dtype=np.float32)
     base = draw_court(cfg, scale=COURT_SCALE, padding=COURT_PAD, line_thickness=3)
-    models = {"court": None, "ocr": None, "get_model": get_model, "vertices": vertices}
+    court_cfg = load_config(a.court_config)
+    models = {"ocr": None, "court_cfg": court_cfg, "court_id": f"{court_cfg.name}@{court_cfg.layer_hash('court')}"}
     clips, summary, fps = [], [], 25.0
-    for old in [*out.glob("*.mp4"), *out.glob("clip_*.json")]:  # drop files of earlier builds
+    for old in [*out.glob("*.mp4"), *out.glob("clip_*.json")]:  # drop files of earlier builds (and court videos)
         old.unlink()
     cv2.imwrite(str(out / "court_bg.png"), base)
 
@@ -455,19 +383,17 @@ def build(a, out):
     same_game = len({y for y, _ in shots}) < len(shots)
     for yid, shot in shots:
         n = len(clips) + 1
-        clip, row, fps = _build_shot(a, vs, out, base, models, yid, shot, n)
+        clip, row, fps = _build_shot(a, vs, out, models, yid, shot, n)
         clip["short"] += f" · {sum(y == yid for y, _ in shots[:n])}" if same_game else ""
         clips.append(clip)
         summary.append(row)
         print(json.dumps(summary[-1]), flush=True)
 
-    # Two independent pages over the same videos: / (two synced videos) and /analysis/ (live 2D analysis).
-    (out / "index.html").write_text(_page(PAGE_VIDEO, clips, fps), encoding="utf-8")
-    sub = [{**c, "a": "../" + c["a"], "data": "../" + c["data"]} for c in clips]
-    shutil.rmtree(out / "analiza", ignore_errors=True)  # path before 2026-11-01; redirected on Vercel
-    shutil.rmtree(out / "en", ignore_errors=True)  # English edition before 2026-11-18; redirected on Vercel
-    (out / "analysis").mkdir(exist_ok=True)
-    (out / "analysis" / "index.html").write_text(_page(PAGE_ANALYSIS, sub, fps), encoding="utf-8")
+    # One page at /: the broadcast with a live 2D analysis. Older paths are redirected on Vercel.
+    (out / "index.html").write_text(_page(PAGE_ANALYSIS, clips, fps), encoding="utf-8")
+    shutil.rmtree(out / "analiza", ignore_errors=True)  # path before 2026-11-01
+    shutil.rmtree(out / "en", ignore_errors=True)  # English edition before 2026-11-18
+    shutil.rmtree(out / "analysis", ignore_errors=True)  # analysis page before it moved to / on 2026-11-18
     (out / "summary.json").write_text(json.dumps(summary, indent=1))
 
 
@@ -504,12 +430,11 @@ def _reads_and_mapping(a, cache, models, shot_in, timing):
         models["ocr"] = models["ocr"] or load_ocr()
         c["reads"] = read_numbers(tracks_json, shot, dets, is_ref, read, models["ocr"], a.max_reads)
         timing["numbers_s"] = round(time.time() - t0, 1)
-    if "H" not in c:
+    if c.get("court") != models["court_id"]:  # mappings of another court config (or the NBA model) are redone
         t0 = time.time()
-        models["court"] = models["court"] or models["get_model"](model_id=COURT_MODEL)
-        H, n_valid = court_mapping(frames, read, models["court"], models["vertices"], wh)
+        H, n_valid = court_mapping(frames, read, models["court_cfg"], cache.stem, wh)
         c["H"] = {str(f): (h.tolist() if h is not None else None) for f, h in H.items()}
-        c["court_valid_frames"] = n_valid
+        c["court"], c["court_valid_frames"] = models["court_id"], n_valid
         timing["court_s"] = round(time.time() - t0, 1)
     cache.write_text(json.dumps(c))
     return c
@@ -544,22 +469,17 @@ class _Tracks:
         return f"#{num} {surname(name)}" if name else (f"#{num}" if num else "")
 
 
-def _write_videos(out, n, fps, src, paths, H, base, tk, title, meta, vs):
-    """Render the broadcast and the 2D court video of one shot and encode both; returns render seconds."""
+def _write_video(out, n, fps, src, tk, title, meta, vs):
+    """Render the broadcast video of one shot with its labels and encode it; returns render seconds."""
     frames, read, per_frame = src
-    raw_a, raw_b = out / f"broadcast_{n}_raw.mp4", out / f"court_{n}_raw.mp4"
-    wa = cv2.VideoWriter(str(raw_a), cv2.VideoWriter_fourcc(*"mp4v"), fps, (1920, 1080))
-    wb = cv2.VideoWriter(str(raw_b), cv2.VideoWriter_fourcc(*"mp4v"), fps, (1920, 1080))
-    team_bgr = tk.team_bgr
+    raw = out / f"broadcast_{n}_raw.mp4"
+    writer = cv2.VideoWriter(str(raw), cv2.VideoWriter_fourcc(*"mp4v"), fps, (1920, 1080))
     t0 = time.time()
     for f in frames:
-        wa.write(draw_broadcast(read(f), f, per_frame, tk.colour, tk.label, title, meta, team_bgr, vs))
-        wb.write(draw_court_frame(base, f, paths, tk.colour, tk.number_of, title, meta, team_bgr, H[f] is not None, vs))
+        writer.write(draw_broadcast(read(f), f, per_frame, tk.colour, tk.label, title, meta, tk.team_bgr, vs))
     read.release()
-    wa.release()
-    wb.release()
-    encode(raw_a, out / f"broadcast_{n}.mp4", fps)
-    encode(raw_b, out / f"court_{n}.mp4", fps)
+    writer.release()
+    encode(raw, out / f"broadcast_{n}.mp4", fps)
     return round(time.time() - t0, 1)
 
 
@@ -591,7 +511,7 @@ def _clip_data(frames, per_frame, paths, H, tk, meta, src_fps):
     }
 
 
-def _build_shot(a, vs, out, base, models, yid, shot, n):
+def _build_shot(a, vs, out, models, yid, shot, n):
     """Videos and page data for one shot (clip number n); returns the clip entry, its summary row and fps."""
     cache_dir = a.cache
     labels_path, tracks_path, dets_path = clip_files(yid)
@@ -652,12 +572,11 @@ def _build_shot(a, vs, out, base, models, yid, shot, n):
     paths = court_paths(frames, per_frame, H, max(1, round(a.key_s * fps)), is_ref, labels["height"])
     paths = {t: v for t, v in paths.items() if not is_ref[t]}  # 2D view shows players only (Tomasz)
     title = f"{meta['home']['team']} – {meta['away']['team']}  ·  {meta['season']}"
-    timing["render_s"] = _write_videos(out, n, fps, (frames, read, per_frame), paths, H, base, tk, title, meta, vs)
+    timing["render_s"] = _write_video(out, n, fps, (frames, read, per_frame), tk, title, meta, vs)
     data = _clip_data(frames, per_frame, paths, H, tk, meta, labels["fps"])
     (out / f"clip_{n}.json").write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
     clip = {
         "a": f"broadcast_{n}.mp4",
-        "b": f"court_{n}.mp4",
         "data": f"clip_{n}.json",
         "title": title,
         "short": f"{meta['home']['team'].split()[0]} – {meta['away']['team'].split()[0]}",
@@ -671,6 +590,7 @@ def _build_shot(a, vs, out, base, models, yid, shot, n):
         "ocr_reads": len(c["reads"]),
         "tracks_with_number": len(numbered),
         "tracks_with_two_numbers": sum(len(s) == 2 for s in segments.values()),
+        "court": c["court"],
         "court_valid_frames": c["court_valid_frames"],
         **timing,
     }

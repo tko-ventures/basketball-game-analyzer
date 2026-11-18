@@ -35,16 +35,16 @@ You are the implementer for basketball-game-analyzer (https://github.com/tko-ven
 
   | Path | Page |
   |---|---|
-  | `/`, `/analysis/` | video and analysis pages |
+  | `/` | analysis page (broadcast and live 2D court) |
   | `/coach/` | coach page (simulated data) |
-
-  The site is English only since 2026-11-18; the old `/en/...` paths redirect to the same page without the prefix.
   | `/roadmap/` | roadmap |
+
+  The site is English only since 2026-11-18; the old `/en/...` paths redirect to the same page without the prefix. The page with two synchronised videos was dropped on 2026-11-18, and `/analysis/` redirects to `/`. The analysis page maps the court with the PLK court model (`configs/court-plk-v1-smooth4.yaml`).
 
   How each is built is in `docs/architecture.md`.
 - **Commands:**
   - Publish: `scripts/deploy_demo.sh`, from a clean `main` only; the script refuses otherwise. The Vercel CLI is logged in, with scope `tomasz-kopackis-projects`.
-  - Build the video and analysis pages: `uv run --extra prefill --extra demo scripts/demo_web.py`.
+  - Build the analysis page: `uv run --extra prefill --extra demo --extra court scripts/demo_web.py`.
   - Check before showing anyone: `uv run scripts/demo_audit.py`.
 - **Status:** a showcase, not a pipeline layer, with no metrics row. If you change shared helpers (`scripts/demo_video.py`, `scripts/demo_web.py`), rebuild and check every page.
 

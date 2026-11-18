@@ -246,3 +246,11 @@ Polish stays only where it is data, not wording:
 - the plk.pl position labels that `fetch_rosters.py` maps to PG, SG and the rest.
 
 This replaces the 2026-11-01 choice of Polish on-screen text for the client.
+
+## 2026-11-18: one demo page, with the PLK court model
+
+Tomasz: "Drop two synchronized videos from the demo website, also, update the analysis view to use fine tuned court detection model."
+
+- The page with two synchronised videos (the broadcast and a rendered 2D court video) is gone, with its template and the court video renders. The analysis page moves from `/analysis/` to `/`; `deploy_demo.sh` redirects `/analysis/` and the older `/analiza/` there.
+- `scripts/demo_web.py` no longer runs the NBA Roboflow court model with a Savitzky-Golay smoothing of its own. It runs the court layer of a bga run config, by default `configs/court-plk-v1-smooth4.yaml`, which is M3's measured court setup (0.21 m in the paint on the dev games against 0.89 m for the NBA model, `docs/metrics.md`). The demo renders every 2nd frame, so the smoothing window of 4 frames each way spans 8 source frames, against 20 at the eval's stride of 5.
+- The demo stays a showcase with no metrics row.
