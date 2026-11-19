@@ -29,5 +29,8 @@ image builds are not included, so the Modal invoice is the authority.
 | 2026-11-18 | modal | L40S | bga train detect/rfdetr_torch/nba-tile2@bcf7b985, part 1 (19:12-20:31, cut short at epoch 8; time from the log) | 4706 | 2.5491 |
 | 2026-11-18 | modal | L40S + H100 + L40S | the three runs resumed 22:25, stopped 22:28 to stay inside the spend cap (estimate) | 450 | 0.4 |
 | 2026-11-19 | modal | L40S | probe: nba-704 2 epochs, 8 workers, 8 CPUs (28 s per epoch incl. start-up) | 55.7 | 0.0302 |
+| 2026-11-19 | modal | L40S | bga train detect/rfdetr_torch/nba-704@9039f787 | 318.7 | 0.1726 |
+| 2026-11-19 | modal | L40S | bga train detect/rfdetr_torch/nba-tile2@bcf7b985 | 460.2 | 0.2493 |
+| 2026-11-19 | modal | H100 | bga train detect/rfdetr_torch/nba-1280@37e7c0f7 | 1512.5 | 1.6595 |
 
-Month to date (2026-11): 23.39 USD of GPU time. October 2026: 3.60 USD.
+Month to date (2026-11): 25.50 USD of GPU time, list price. Since 2026-11-19 training containers also reserve 8 CPUs and 32 GB, billed by Modal on top at roughly 0.6 USD per run-hour and not in the rows above. October 2026: 3.60 USD.
