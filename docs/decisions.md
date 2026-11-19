@@ -309,3 +309,25 @@ Consequences:
 - No public version fixes the ball, which confirms the refocus above: PLK training data and input resolution have to.
 - Round-1 auto-labelling, a labelling aid, takes numbers, people and rims from version 16 and balls from version 6.
 - `configs/baseline.yaml` stays on version 6 as the M2 reference.
+
+## 2026-11-19: resolution helps balls and numbers; the next fine-tune runs at 1280 px with PLK data
+
+The M4 resolution experiment trained RF-DETR Large on Skalski's NBA set alone, so the three arms differ only in input scale. They were scored on gold v1 dev (`docs/metrics.md`, detection table). AP50:95 / AP50:
+
+| Arm | Input | ball (58) | number (215) | people (916) | ms per frame on the M1 Max |
+|---|---|---|---|---|---|
+| A | 704 px, stretched to a square (stock) | 0.165 / 0.258 | 0.263 / 0.680 | 0.670 / 0.937 | 70 |
+| B | 1280 px, stretched | 0.234 / 0.373 | 0.423 / 0.796 | 0.694 / 0.938 | 201 |
+| C | 704 px on two square tiles of the full frame height | 0.233 / 0.340 | 0.382 / 0.748 | 0.680 / 0.928 | 130 |
+
+Findings:
+- Input scale is a real lever: from A to B, ball AP50 goes from 0.26 to 0.37 and numbers from 0.68 to 0.80, with people unchanged.
+- B and C are close on the ball. With 58 gold balls, their difference is within noise.
+- B is better on numbers and rims; C is 35% faster on the Mac.
+- On NBA data alone, no arm passes 0.4 AP50 on PLK balls. The domain gap remains, and the round-1 PLK labels are meant to close it: Tomasz placed 199 balls on 264 frames, 120 of them by hand where the detector had none.
+
+Decisions:
+- The next fine-tune adds the round-1 PLK frames at 1280 px (arm B's setting).
+- Tiling stays as the fallback if Mac inference speed becomes the constraint. The production config is chosen on the held-out game at M4 close.
+
+The experiment also found why training on Modal was slow: Modal's default CPU reservation starved data loading. With 8 CPUs and 8 loader workers an epoch takes 28 s instead of about 360 s, so the three arms cost about 22 USD, most of it before the fix.
