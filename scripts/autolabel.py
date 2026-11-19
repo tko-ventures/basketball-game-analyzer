@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
-"""M4 auto-label round 1 (plan section 7): training frames from the non-gold clips, prefilled for review.
+"""M4 auto-labelling rounds (plan section 7): training frames from the non-gold clips, prefilled for review.
 
-    uv run --extra court scripts/autolabel_r1.py central     # court-landmark score per shot, all clips
-    uv run --extra court scripts/autolabel_r1.py check       # the central rule against the shots tagged by hand
-    uv run scripts/autolabel_r1.py sample                    # training frames from central shots, gold clips excluded
-    uv run --extra prefill scripts/autolabel_r1.py prefill   # NBA detector v16 (all but ball) and v6 (ball), conf 0.1
-    uv run --extra court scripts/autolabel_r1.py draft       # keep >= 0.3, NMS, drop people off the court
-    uv run scripts/autolabel_r1.py ballqueue                 # data/labels/box_queue_r1balls.json for Tomasz
-    uv run scripts/autolabel_r1.py manifest                  # data/labels/detect/train_manifest_r1.json for bga train
+Every step takes ``--round N`` (default 1): round 1 prefills with Roboflow's NBA detectors, round 2 on with the
+previous round's PLK detector, skips frames within 1 s of earlier rounds' frames, and accepts clear balls without
+review.
+
+    uv run --extra court scripts/autolabel.py central     # court-landmark score per shot, all clips
+    uv run --extra court scripts/autolabel.py check       # the central rule against the shots tagged by hand
+    uv run scripts/autolabel.py sample                    # training frames from central shots, gold clips excluded
+    uv run --extra prefill scripts/autolabel.py prefill   # NBA detector v16 (all but ball) and v6 (ball), conf 0.1
+    uv run --extra court scripts/autolabel.py draft       # keep >= 0.3, NMS, drop people off the court
+    uv run scripts/autolabel.py ballqueue                 # data/labels/box_queue_r1balls.json for Tomasz
+    uv run scripts/autolabel.py manifest                  # data/labels/detect/train_manifest_r1.json for bga train
 
 Step 1, central shots. The non-gold clips have no camera tags. A shot from the main camera shows the court, so the
 PLK court model (court/rfdetr_keypoint/plk-v1) finds many confident landmarks there; replays, close-ups and graphics
@@ -34,6 +38,29 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 OUT = Path("runs/autolabel/r1")
+#: Shot scores of every clip, computed once (round 1) and shared by every round.
+CENTRAL = Path("runs/autolabel/r1/central.json")
+ROUND = 1
+#: Round 2 on: the prefill is the previous round's PLK detector (docs/metrics.md, detection table).
+PREFILL_WEIGHTS = {2: "detect/rfdetr_torch/plk-r1@7ab3f6fa"}
+#: Score at which a draft box is kept: 0.3 for the NBA detectors of round 1, 0.5 for the PLK detector.
+KEEP_BY_ROUND = {1: 0.3}
+#: A frame's ball is accepted without review when one ball scores at least AUTO_HI and no other ball AUTO_LO: on gold
+#: v1 dev that rule picked 22 of 76 frames for plk-r1, all with the right ball (2026-11-19).
+AUTO_HI, AUTO_LO = 0.7, 0.2
+
+
+def configure(rnd: int) -> None:
+    """Point every step at round ``rnd``: its run folder, ball queue, manifest and keep threshold."""
+    global OUT, BALL_QUEUE, MANIFEST, KEEP, ROUND
+    ROUND = rnd
+    OUT = Path(f"runs/autolabel/r{rnd}")
+    OUT.mkdir(parents=True, exist_ok=True)
+    BALL_QUEUE = Path(f"data/labels/box_queue_r{rnd}balls.json")
+    MANIFEST = Path(f"data/labels/detect/train_manifest_r{rnd}.json")
+    KEEP = KEEP_BY_ROUND.get(rnd, 0.5)
+
+
 COURT_WEIGHTS = "court/rfdetr_keypoint/plk-v1@c26b7841"
 SKIP = {"gold.json", "box_gold.json", "box_gold_v1.json"}
 MIN_SHOT_S = 1.0
@@ -53,7 +80,7 @@ def central(force: bool) -> None:
     from bga.court.rfdetr_keypoint import RFDETRKeypoint
 
     OUT.mkdir(parents=True, exist_ok=True)
-    path = OUT / "central.json"
+    path = CENTRAL
     res = json.loads(path.read_text()) if path.exists() and not force else {}
     court = RFDETRKeypoint({}, COURT_WEIGHTS)
     court.load()
@@ -86,7 +113,7 @@ def central(force: bool) -> None:
 
 
 def check() -> None:
-    res = json.loads((OUT / "central.json").read_text())
+    res = json.loads(CENTRAL.read_text())
     tagged = [s for c in res.values() for s in c["shots"] if s["camera"] in ("central", "other") and s["counts"]]
     print(f"{len(tagged)} tagged shots: {sum(s['camera'] == 'central' for s in tagged)} central")
     for k in (4, 6, 8, 10, 12, 14):
@@ -104,8 +131,13 @@ def sample(per_clip: int, seed: int) -> None:
     import random
 
     gold = {g["youtube_id"] for g in json.loads(Path("data/labels/gold.json").read_text())["games"]}
-    res = json.loads((OUT / "central.json").read_text())
-    rng = random.Random(seed)
+    res = json.loads(CENTRAL.read_text())
+    rng = random.Random(seed + 1000 * (ROUND - 1))
+    taken = {
+        (f["clip"], f["frame"])
+        for k in range(1, ROUND)
+        for f in json.loads(Path(f"runs/autolabel/r{k}/frames.json").read_text())["frames"]
+    }
     frames = []
     for stem, c in sorted(res.items()):
         if any(g in stem for g in gold):
@@ -114,7 +146,11 @@ def sample(per_clip: int, seed: int) -> None:
         pool = []
         for s in c["shots"]:
             if s["median"] >= CENTRAL_K:
-                pool += [(s["shot"], f) for f in range(s["start"] + 5, s["end"] - 5, step)]
+                pool += [
+                    (s["shot"], f)
+                    for f in range(s["start"] + 5, s["end"] - 5, step)
+                    if all(abs(f - g) >= step for c2, g in taken if c2 == stem)  # 1 s from earlier rounds' frames
+                ]
         for shot, f in sorted(rng.sample(pool, min(per_clip, len(pool)))):
             frames.append({"clip": stem, "video": c["clip"], "shot": shot, "frame": f})
     (OUT / "frames.json").write_text(json.dumps({"seed": seed, "per_clip": per_clip, "frames": frames}, indent=1))
@@ -126,7 +162,14 @@ PREFILL_MODELS = {"basketball-player-detection-3-ycjdo/16": "not-ball", "basketb
 
 
 def prefill() -> None:
-    """Run both prefill models at confidence 0.1 on the sampled frames; raw detections to prefill_raw.json."""
+    """Prefill the sampled frames at confidence 0.1; raw detections to prefill_raw.json.
+
+    Round 1 runs Roboflow's NBA detectors (PREFILL_MODELS); later rounds run the previous round's PLK detector.
+
+    """
+    if ROUND >= 2:
+        _prefill_plk()
+        return
     from inference import get_model
 
     from bga.detect.roboflow_inference import roboflow_key
@@ -155,6 +198,23 @@ def prefill() -> None:
                         model_id,
                     ])
         print(model_id, "done")
+    (OUT / "prefill_raw.json").write_text(json.dumps(raw))
+    print(f"{sum(len(v) for v in raw.values())} detections on {len(raw)} frames -> {OUT / 'prefill_raw.json'}")
+
+
+def _prefill_plk() -> None:
+    from bga.detect.rfdetr_torch import RFDETRTorch
+
+    det = RFDETRTorch({"confidence": 0.1}, PREFILL_WEIGHTS[ROUND])
+    det.load()
+    frames = json.loads((OUT / "frames.json").read_text())["frames"]
+    raw, caps = {}, {}
+    for fr in frames:
+        cap = caps.setdefault(fr["video"], cv2.VideoCapture(fr["video"]))
+        cap.set(cv2.CAP_PROP_POS_FRAMES, fr["frame"])
+        rgb = cv2.cvtColor(cap.read()[1], cv2.COLOR_BGR2RGB)
+        raw[f"{fr['clip']}|{fr['frame']}"] = [[*d, PREFILL_WEIGHTS[ROUND]] for d in det._predict(rgb)]
+    det.unload()
     (OUT / "prefill_raw.json").write_text(json.dumps(raw))
     print(f"{sum(len(v) for v in raw.values())} detections on {len(raw)} frames -> {OUT / 'prefill_raw.json'}")
 
@@ -236,7 +296,12 @@ INSTRUCTIONS = (
 
 
 def ball_queue(force: bool) -> None:
-    """Write the round-1 ball queue for the labeller (/boxes?set=r1balls): each frame's ball guesses, nothing else."""
+    """Write the round's ball queue for the labeller (/boxes?set=r<N>balls): each frame's ball guesses, nothing else.
+
+    From round 2, a frame whose ball is clear by the AUTO_HI / AUTO_LO rule is written as done, with that ball and a
+    note, so the reviewer only sees the rest (``]`` and ``[`` still reach it).
+
+    """
     if BALL_QUEUE.exists() and not force:
         q = json.loads(BALL_QUEUE.read_text())
         raise SystemExit(f"{BALL_QUEUE} exists ({sum(f['status'] != 'todo' for f in q['frames'])} finished); --force")
@@ -246,6 +311,10 @@ def ball_queue(force: bool) -> None:
             continue
         balls = [b for b in f["boxes"] if b[5] == "ball"]
         cands = sorted((b for b in f["candidates"] if b[5] == "ball"), key=lambda b: -b[4])[:3]
+        every = sorted(balls + [b for b in f["candidates"] if b[5] == "ball"], key=lambda b: -b[4])
+        auto = ROUND >= 2 and every and every[0][4] >= AUTO_HI and (len(every) < 2 or every[1][4] < AUTO_LO)
+        if auto:
+            balls, cands = every[:1], []
         clip_id = f["clip"]
         frames.append({
             "youtube_id": clip_id,
@@ -253,8 +322,8 @@ def ball_queue(force: bool) -> None:
             "video": f["video"],
             "shot": f["shot"],
             "frame": f["frame"],
-            "status": "todo",
-            "note": "",
+            "status": "done" if auto else "todo",
+            "note": f"accepted without review: one ball at {every[0][4]:.2f}" if auto else "",
             "boxes": [
                 {
                     "id": i,
@@ -263,7 +332,7 @@ def ball_queue(force: bool) -> None:
                     "score": b[4],
                     "team": "",
                     "tid": None,
-                    "src": "det",
+                    "src": "auto" if auto else "det",
                     "flags": [],
                     "hints": [],
                     "alt": {},
@@ -275,9 +344,9 @@ def ball_queue(force: bool) -> None:
     BALL_QUEUE.write_text(
         json.dumps(
             {
-                "version": "r1balls",
+                "version": f"r{ROUND}balls",
                 "mode": "ball",
-                "title": "Ball queue, round 1",
+                "title": f"Ball queue, round {ROUND}",
                 "instructions": INSTRUCTIONS,
                 "classes": ["ball"],
                 "frames": frames,
@@ -288,7 +357,8 @@ def ball_queue(force: bool) -> None:
         + "\n"
     )
     print(
-        f"{len(frames)} frames, {sum(len(f['boxes']) for f in frames)} guesses, "
+        f"{len(frames)} frames ({sum(f['status'] == 'done' for f in frames)} accepted without review), "
+        f"{sum(len(f['boxes']) for f in frames)} guesses, "
         f"{sum(len(f['candidates']) for f in frames)} weaker guesses -> {BALL_QUEUE}"
     )
 
@@ -332,12 +402,12 @@ def manifest() -> None:
     MANIFEST.write_text(
         json.dumps(
             {
-                "name": "r1",
+                "name": f"r{ROUND}",
                 "kind": "detect",
                 "params": {
-                    "ball": "Tomasz's ball queue (done frames)",
+                    "ball": "Tomasz's ball queue (done frames; from round 2, also balls accepted by AUTO_HI / AUTO_LO)",
                     "other": f"draft boxes at score >= {KEEP}",
-                    "prefill": PREFILL_MODELS,
+                    "prefill": PREFILL_WEIGHTS.get(ROUND, PREFILL_MODELS),
                     "valid_clips": sorted(valid),
                 },
                 "source_labels": {str(BALL_QUEUE): hashlib.sha256(BALL_QUEUE.read_bytes()).hexdigest()},
@@ -359,7 +429,9 @@ def main(argv=None):
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--per-clip", type=int, default=12)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--round", type=int, default=1)
     a = ap.parse_args(argv)
+    configure(a.round)
     {
         "central": lambda: central(a.force),
         "check": check,
