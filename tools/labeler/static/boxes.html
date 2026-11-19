@@ -75,6 +75,9 @@ const CLASSES = [
 const KEYS = "1234567890";
 const COLOR = Object.fromEntries(CLASSES);
 const TEAMS = ["home", "away", "ref", "other", ""];
+const SET = new URLSearchParams(location.search).get("set") || "";
+const QS = SET ? `?set=${encodeURIComponent(SET)}` : "";
+const ballMode = () => S.q && S.q.mode === "ball";
 const S = {
   q: null, i: 0, fr: null, img: new Image(), imgOk: false, sel: null, edge: 0, view: { s: 1, x: 0, y: 0 },
   drag: null, hide: false, cands: false, drawCls: "player", hist: [], active: 0, lastInput: 0, saveTimer: null, dirty: false,
@@ -197,8 +200,9 @@ function renderSide() {
   const fr = S.fr, b = S.sel;
   $("pos").textContent = `${S.i + 1} / ${S.q.frames.length}`;
   $("where").textContent = `${fr.youtube_id} shot ${fr.shot} frame ${fr.frame}`;
-  const done = S.q.frames.filter((f) => f.status === "done").length;
-  $("state").innerHTML = (fr.status === "done" ? '<span class="ok">done</span>' : "to do") + ` <span class="muted">(${done} done)</span>`;
+  const done = S.q.frames.filter((f) => f.status !== "todo").length;
+  const st = { done: '<span class="ok">done</span>', skip: '<span class="flag">skipped</span>', todo: "to do" }[fr.status];
+  $("state").innerHTML = st + ` <span class="muted">(${done} of ${S.q.frames.length} finished)</span>`;
   const todo = fr.boxes.filter(isTodo).length;
   $("left").textContent = todo ? `${todo} flagged left` : "";
   $("note").textContent = fr.note || "";
@@ -242,7 +246,7 @@ async function save() {
   if (!S.dirty && !S.active) return;
   const secs = Math.round(S.active); S.active = 0;
   try {
-    await api("/api/boxes/frame", { index: S.i, frame: S.fr, active_seconds: secs });
+    await api("/api/boxes/frame" + QS, { index: S.i, frame: S.fr, active_seconds: secs });
     S.dirty = false; $("save").textContent = "saved";
   } catch (e) { S.active += secs; $("save").textContent = "SAVE FAILED: " + e.message; toast("Save failed: " + e.message); }
 }
@@ -251,7 +255,7 @@ async function go(i) {
   await save();
   S.i = Math.max(0, Math.min(S.q.frames.length - 1, i));
   S.fr = S.q.frames[S.i]; S.sel = null; S.hist = []; S.imgOk = false;
-  history.replaceState(null, "", `?i=${S.i}`);
+  history.replaceState(null, "", `?${SET ? `set=${encodeURIComponent(SET)}&` : ""}i=${S.i}`);
   S.img = new Image();
   S.img.onload = () => { S.imgOk = true; fit(); step(1); redraw(); };
   S.img.src = `/api/frame?path=${encodeURIComponent(S.fr.video)}&idx=${S.fr.frame}`;
@@ -260,9 +264,18 @@ async function go(i) {
 }
 function nextTodo() {
   const n = S.q.frames.length;
-  for (let k = 1; k <= n; k++) { const j = (S.i + k) % n; if (S.q.frames[j].status !== "done") return j; }
+  for (let k = 1; k <= n; k++) { const j = (S.i + k) % n; if (S.q.frames[j].status === "todo") return j; }
   return -1;
 }
+
+// ---------- ball mode ----------
+async function finish(status, keep) {  // keep: the boxes that stay; the rest of the detector's guesses are dropped
+  if (keep) S.fr.boxes = keep;
+  S.fr.boxes.forEach((x) => { x.checked = true; });
+  S.fr.status = status; S.dirty = true; await save();
+  const j = nextTodo(); if (j < 0) { toast("All frames finished."); redraw(); } else go(j);
+}
+function chooseBall(b) { snapshot(); b.cls = "ball"; finish("done", [b]); }
 
 // ---------- mouse ----------
 function hit(x, y, s) {
@@ -278,7 +291,7 @@ function onDown(ev, x, y, s, inLoupe) {
   if (ev.button !== 0) return;
   if (S.cands && !inLoupe) {
     const k = (S.fr.candidates || []).findIndex((cd) => inside(cd, x, y));
-    if (k >= 0) { adopt(k); return; }
+    if (k >= 0) { adopt(k); if (ballMode()) chooseBall(S.sel); return; }
   }
   if (ev.shiftKey && !inLoupe) {
     snapshot();
@@ -289,15 +302,19 @@ function onDown(ev, x, y, s, inLoupe) {
   const h = hit(x, y, s);
   if (h && h.h >= 0) {
     snapshot(); S.sel = h.b; S.edge = h.h < 4 ? h.h : S.edge;
-    S.drag = { mode: "resize", b: h.b, h: h.h }; redraw(); return;
+    S.drag = { mode: "resize", b: h.b, h: h.h, x0: x, y0: y, moved: false }; redraw(); return;
   }
+  if (h && ballMode() && !inLoupe) { chooseBall(h.b); return; }
   if (h && h.b === S.sel && ev.altKey && !inLoupe) { snapshot(); S.drag = { mode: "move", b: h.b, x0: x, y0: y, o: [...h.b.xyxy] }; return; }
   if (h) { select(h.b); return; }
   if (!inLoupe) S.drag = { mode: "pan", px: toImg(ev)[2], py: toImg(ev)[3], vx: S.view.x, vy: S.view.y, moved: false };
 }
 function onMove(x, y) {
   const d = S.drag; if (!d) return;
-  if (d.mode === "resize") { applyHandle(d.b, d.h, x, y); markEdited(d.b); }
+  if (d.mode === "resize") {
+    if (!d.moved && Math.hypot(x - d.x0, y - d.y0) * S.view.s < 4) return;  // not a drag yet: maybe a click
+    d.moved = true; applyHandle(d.b, d.h, x, y); markEdited(d.b);
+  }
   else if (d.mode === "move") {
     const dx = x - d.x0, dy = y - d.y0; d.b.xyxy = [d.o[0] + dx, d.o[1] + dy, d.o[2] + dx, d.o[3] + dy]; markEdited(d.b);
   } else if (d.mode === "new") {
@@ -310,6 +327,9 @@ function onUp() {
   if (d.mode === "new") {
     const [x1, y1, x2, y2] = d.b.xyxy;
     if (x2 - x1 >= 2 && y2 - y1 >= 2) { S.fr.boxes.push(d.b); S.sel = d.b; changed(); } else { S.hist.pop(); redraw(); }
+  } else if (d.mode === "resize" && !d.moved) {
+    S.hist.pop();
+    if (ballMode() && !d.loupe) chooseBall(d.b);  // a click on a small box lands on its edge: still a choice
   } else if (d.mode === "resize" || d.mode === "move") changed();
   else if (d.mode === "pan" && !d.moved) select(null);  // a click on empty floor deselects
 }
@@ -401,14 +421,21 @@ window.addEventListener("keydown", async (ev) => {
       }
       break;
     case "t": if (b) { snapshot(); b.team = TEAMS[(TEAMS.indexOf(b.team || "") + 1) % TEAMS.length]; changed(); } break;
-    case " ": ev.preventDefault(); if (b) { b.checked = true; changed(); step(1); } break;
+    case " ":
+      ev.preventDefault();
+      if (ballMode()) { if (b) chooseBall(b); break; }
+      if (b) { b.checked = true; changed(); step(1); }
+      break;
     case "escape": select(null); break;
     case "h": S.hide = !S.hide; render(); break;
     case "c": S.cands = !S.cands; render(); break;
     case "f": fit(); render(); break;
     case "u": undo(); break;
+    case "n": if (ballMode()) finish("done", []); break;
+    case "s": if (ballMode()) finish("skip", []); break;
     case "enter":
       ev.preventDefault();
+      if (ballMode()) { finish("done", S.fr.boxes.filter((x) => x.checked)); break; }
       S.fr.boxes.forEach((x) => { x.checked = true; });
       S.fr.status = "done"; S.dirty = true; await save();
       { const j = nextTodo(); if (j < 0) toast("All frames done."); else go(j); }
@@ -432,14 +459,20 @@ setInterval(() => {
   const today = Object.values((S.q.meta || {}).review_seconds || {}).reduce((a, v) => a + v, 0);
   $("timer").textContent = `active ${Math.round(S.active)} s unsaved · ${Math.round(today / 60)} min logged before this load`;
 }, 1000);
-window.addEventListener("beforeunload", () => { if (S.dirty || S.active) navigator.sendBeacon("/api/boxes/frame", new Blob([JSON.stringify({ index: S.i, frame: S.fr, active_seconds: Math.round(S.active) })], { type: "application/json" })); });
+window.addEventListener("beforeunload", () => { if (S.dirty || S.active) navigator.sendBeacon("/api/boxes/frame" + QS, new Blob([JSON.stringify({ index: S.i, frame: S.fr, active_seconds: Math.round(S.active) })], { type: "application/json" })); });
 window.addEventListener("resize", () => { if (S.imgOk) { fit(); render(); } });
 
 (async () => {
-  S.q = await api("/api/boxes/queue");
+  S.q = await api("/api/boxes/queue" + QS);
+  if (ballMode()) {
+    S.cands = true; S.drawCls = "ball";
+    document.querySelector("header b").textContent = S.q.title || "Ball queue";
+    $("help").innerHTML = S.q.instructions || "";
+    $("classes").style.display = "none";
+  }
   if (!S.q.frames.length) { $("where").textContent = "No queue: run scripts/box_gold_v1.py prefill."; return; }
   const i = Number(new URLSearchParams(location.search).get("i"));
-  go(Number.isFinite(i) && i > 0 ? i : Math.max(0, S.q.frames.findIndex((f) => f.status !== "done")));
+  go(Number.isFinite(i) && i > 0 ? i : Math.max(0, S.q.frames.findIndex((f) => f.status === "todo")));
 })();
 </script>
 </body>

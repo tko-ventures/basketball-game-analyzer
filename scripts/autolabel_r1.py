@@ -6,6 +6,7 @@
     uv run scripts/autolabel_r1.py sample                    # training frames from central shots, gold clips excluded
     uv run --extra prefill scripts/autolabel_r1.py prefill   # NBA detector v16 (all but ball) and v6 (ball), conf 0.1
     uv run --extra court scripts/autolabel_r1.py draft       # keep >= 0.3, NMS, drop people off the court
+    uv run scripts/autolabel_r1.py ballqueue                 # data/labels/box_queue_r1balls.json for Tomasz
 
 Step 1, central shots. The non-gold clips have no camera tags. A shot from the main camera shows the court, so the
 PLK court model (court/rfdetr_keypoint/plk-v1) finds many confident landmarks there; replays, close-ups and graphics
@@ -219,9 +220,81 @@ def draft() -> None:
     print(stats, dict(c), "frames with a ball box:", sum(any(d[5] == "ball" for d in f["boxes"]) for f in out))
 
 
+BALL_QUEUE = Path("data/labels/box_queue_r1balls.json")
+MIN_PEOPLE = 4  # frames with fewer person boxes are close-ups that passed the central rule
+INSTRUCTIONS = (
+    "<b>One question per frame: where is the game ball?</b><br>"
+    "The loupe above shows the detector's best guess. <kbd>Space</kbd>: yes, that is the ball (frame done, next). "
+    "<kbd>Tab</kbd>: show the next guess. Or <b>click</b> any guess on the frame (orange, or dashed: weaker).<br>"
+    "No guess on the ball: <kbd>⇧</kbd>-drag a tight box around it, then <kbd>Enter</kbd>. "
+    "A guess on the ball but loose: drag its edges in the loupe, then <kbd>Enter</kbd>.<br>"
+    "<kbd>N</kbd> no ball visible · <kbd>S</kbd> can't tell, skip · <kbd>[</kbd> <kbd>]</kbd> previous / next frame "
+    "· scroll to zoom, <kbd>F</kbd> fit · <kbd>U</kbd> undo.<br>"
+    "Game ball only: in hands, in the air, on the floor. Nothing in the crowd, on boards or on shorts."
+)
+
+
+def ball_queue(force: bool) -> None:
+    """Write the round-1 ball queue for the labeller (/boxes?set=r1balls): each frame's ball guesses, nothing else."""
+    if BALL_QUEUE.exists() and not force:
+        q = json.loads(BALL_QUEUE.read_text())
+        raise SystemExit(f"{BALL_QUEUE} exists ({sum(f['status'] != 'todo' for f in q['frames'])} finished); --force")
+    frames = []
+    for f in json.loads((OUT / "draft.json").read_text())["frames"]:
+        if sum(b[5] in PERSON for b in f["boxes"]) < MIN_PEOPLE:
+            continue
+        balls = [b for b in f["boxes"] if b[5] == "ball"]
+        cands = sorted((b for b in f["candidates"] if b[5] == "ball"), key=lambda b: -b[4])[:3]
+        clip_id = f["clip"]
+        frames.append({
+            "youtube_id": clip_id,
+            "clip": clip_id,
+            "video": f["video"],
+            "shot": f["shot"],
+            "frame": f["frame"],
+            "status": "todo",
+            "note": "",
+            "boxes": [
+                {
+                    "id": i,
+                    "xyxy": b[:4],
+                    "cls": "ball",
+                    "score": b[4],
+                    "team": "",
+                    "tid": None,
+                    "src": "det",
+                    "flags": [],
+                    "hints": [],
+                    "alt": {},
+                }
+                for i, b in enumerate(balls)
+            ],
+            "candidates": [{"xyxy": b[:4], "cls": "ball", "score": b[4]} for b in cands],
+        })
+    BALL_QUEUE.write_text(
+        json.dumps(
+            {
+                "version": "r1balls",
+                "mode": "ball",
+                "title": "Ball queue, round 1",
+                "instructions": INSTRUCTIONS,
+                "classes": ["ball"],
+                "frames": frames,
+                "meta": {"review_seconds": {}},
+            },
+            indent=1,
+        )
+        + "\n"
+    )
+    print(
+        f"{len(frames)} frames, {sum(len(f['boxes']) for f in frames)} guesses, "
+        f"{sum(len(f['candidates']) for f in frames)} weaker guesses -> {BALL_QUEUE}"
+    )
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["central", "check", "sample", "prefill", "draft"])
+    ap.add_argument("cmd", choices=["central", "check", "sample", "prefill", "draft", "ballqueue"])
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--per-clip", type=int, default=12)
     ap.add_argument("--seed", type=int, default=0)
@@ -232,6 +305,7 @@ def main(argv=None):
         "sample": lambda: sample(a.per_clip, a.seed),
         "prefill": prefill,
         "draft": draft,
+        "ballqueue": lambda: ball_queue(a.force),
     }[a.cmd]()
 
 

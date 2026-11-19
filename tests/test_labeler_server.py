@@ -175,3 +175,16 @@ class TestSaveBoxFrame:
         with pytest.raises(ValueError, match="does not match"):
             server.save_box_frame(root, {"index": 0, "frame": {**rec, "frame": 6}})
         assert (root / server.BOX_QUEUE).read_text() == before
+
+
+class TestBoxQueueSets:
+    def test_named_queue_is_separate_from_box_gold(self, tmp_path):
+        rec = {"youtube_id": "y", "frame": 5, "status": "todo", "boxes": []}
+        (tmp_path / "box_queue_r1balls.json").write_text(json.dumps({"frames": [rec], "meta": {}}))
+        server.save_box_frame(tmp_path, {"index": 0, "frame": {**rec, "status": "skip"}}, "r1balls")
+        assert server.load_box_queue(tmp_path, "r1balls")["frames"][0]["status"] == "skip"
+
+    @pytest.mark.parametrize("name", [pytest.param("../x", id="path"), pytest.param("R1", id="upper-case")])
+    def test_rejects_bad_names(self, tmp_path, name):
+        with pytest.raises(ValueError, match="bad queue name"):
+            server.box_queue_path(tmp_path, name)

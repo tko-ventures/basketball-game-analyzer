@@ -198,6 +198,7 @@ These are labelling aids, not a layer:
   - `data/labels/review/*.ops.txt` holds every review operation, applied in order by `scripts/review_ops.py`;
   - `data/labels/sheet_ledger.tsv` logs every contact sheet read;
   - `data/labels/box_gold.json` lists the 100 box-gold frames.
+- **Ball queue, round 1:** `data/labels/box_queue_r1balls.json`, in the box-queue format with `mode: ball`, `title` and `instructions`; each frame holds the draft's ball boxes and its three best weaker ball guesses as candidates.
 - **Box gold v1 queue:** `data/labels/box_gold_v1.json` is written by `scripts/box_gold_v1.py prefill` and edited at `/boxes`.
   - **Top level:** `version`, `classes`, the SAM model, `frames` and `meta.review_seconds`.
   - **Each frame:** `youtube_id`, `clip`, `video`, `shot`, `frame`, `status` (`todo` or `done`), `note`, `boxes` and `candidates`.
@@ -241,7 +242,8 @@ These are labelling aids, not a layer:
   - **Uncertainty:** the top bar shows the fit's rms and how far the lines in view could move given 2 px click error. It warns above 15 px.
   - **Folds:** a fit is refused if it folds between the dots and pins or mirrors the court there; parts of the court may be behind the camera.
   - **Queues:** `?set=<name>` opens `queue_<name>.json`.
-- **`/boxes` (box gold v1):** `static/boxes.html` edits `data/labels/box_gold_v1.json`, one frame at a time.
+- **`/boxes` (box gold v1 and other box queues):** `static/boxes.html` edits `data/labels/box_gold_v1.json`, one frame at a time; `?set=<name>` opens `data/labels/box_queue_<name>.json` instead. A frame's status is `todo`, `done` or `skip` (the reviewer could not decide; left out of every export).
+  - **Ball mode** (a queue with `mode: ball`, such as `r1balls`): only ball boxes, the queue's own instructions, and one decision per frame. `Space` or a click on a guess makes it the frame's ball and moves on; `Shift`-drag then `Enter` keeps only the boxes drawn or adjusted; `N` records no visible ball and `S` skips the frame.
   - **Display:** boxes are coloured by class. Flagged boxes not yet checked are outlined in orange and come first in the Tab order and the list, with their flags and hints shown.
   - **Loupe:** shows the selected box at up to 8×, without smoothing, with the alternative box (SAM or prefill) dashed.
   - **Editing:** a click selects the smallest box under the cursor; `Esc` or a click on empty floor deselects. Edges and corners drag on the frame or in the loupe; arrow keys nudge one edge by 1 or 5 px; Alt-drag moves the selected box. Keys `1`–`0` set the selected box's class, `T` the team, `A` swaps in the alternative box, Shift-drag draws a new box anywhere, `X` deletes, and `C` shows the detector candidates (low-score objects, and people no box covers), adopted with a click. Scroll zooms, and dragging empty space pans.
@@ -252,8 +254,8 @@ API endpoints:
 
 | Method | Path |
 |---|---|
-| GET | `/api/clips`, `/api/clip`, `/api/frame`, `/api/shots`, `/api/pipeline`, `/api/court/queue`, `/api/court/labels`, `/api/boxes/queue` |
-| POST | `/api/labels`, `/api/shots`, `/api/court/labels`, `/api/boxes/frame` (rejects classes outside the schema, empty boxes, and a record for another frame) |
+| GET | `/api/clips`, `/api/clip`, `/api/frame`, `/api/shots`, `/api/pipeline`, `/api/court/queue`, `/api/court/labels`, `/api/boxes/queue[?set=]` |
+| POST | `/api/labels`, `/api/shots`, `/api/court/labels`, `/api/boxes/frame[?set=]` (rejects classes outside the schema, empty boxes, and a record for another frame) |
 
 Paths are confined to the repository by `safe_path`.
 
@@ -266,7 +268,7 @@ Paths are confined to the repository by `safe_path`.
 | Review | `track_sheets.py`, `review_sheets.py` (with `--propose` kit-colour ops), `review_ops.py` |
 | Gold export | `export_gold.py`, `box_gold.py`, `box_gold_v1.py` (box gold v1: prefill with SAM merge, crop sheets, ops, candidate refresh, export) |
 | Court | `court_geometry.py`, `court_prefill.py` (the NBA court model over every clip), `court_keyframes.py`, `court_propagate.py`, `qa_court_overlay.py`, `court_train_manifest.py` (training frames from the training keyframes) |
-| Auto-labelling (M4) | `autolabel_r1.py` (round 1: central shots of the non-gold clips by the PLK court model's confident landmark count) |
+| Auto-labelling (M4) | `autolabel_r1.py`, round 1: central shots of the non-gold clips by the PLK court model's confident landmark count; 275 frames sampled, 12 per clip at most and 1 s apart; prefill by Roboflow's detector versions 16 (all but the ball) and 6 (the ball) at confidence 0.1; draft at score 0.3 with per-class NMS, people off the court and numbers outside every person dropped; the ball queue `data/labels/box_queue_r1balls.json` (264 frames, close-ups with fewer than 4 people left out) |
 | Probes (not metrics rows) | `probe_reid.py` (Roboflow `reid` encoders on gold v0), `probe_court_keyframes.py` (the NBA court model and propagation against the court keyframes) |
 
 Contact sheets for reading by eye come from `bga.review.sheets`.
