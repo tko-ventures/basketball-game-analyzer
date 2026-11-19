@@ -18,3 +18,4 @@ used in the court keypoint runs. Base weights: RF-DETR Keypoint preview by Robof
 | 2026-11-19 | 0bd7ba4 | `configs/train/detect-rfdetr_torch-nba-704.yaml` | `detect/rfdetr_torch/nba-704@9039f787` | 464 / 96 | val/mAP_50_95 0.653 (epoch 45) | L40S, 318.7 s, 0.1726 USD |  |
 | 2026-11-19 | 0bd7ba4 | `configs/train/detect-rfdetr_torch-nba-tile2.yaml` | `detect/rfdetr_torch/nba-tile2@bcf7b985` | 928 / 192 | val/mAP_50_95 0.661 (epoch 30) | L40S, 460.2 s, 0.2493 USD |  |
 | 2026-11-19 | 0bd7ba4 | `configs/train/detect-rfdetr_torch-nba-1280.yaml` | `detect/rfdetr_torch/nba-1280@37e7c0f7` | 464 / 96 | val/mAP_50_95 0.671 (epoch 45) | H100, 1512.5 s, 1.6595 USD |  |
+| 2026-11-19 | 8e9129e | `configs/train/detect-rfdetr_torch-plk-r1.yaml` | `detect/rfdetr_torch/plk-r1@7ab3f6fa` | 662 / 129 | val/mAP_50_95 0.592 (epoch 28) | H100, 2099.1 s, 2.3031 USD |  |
