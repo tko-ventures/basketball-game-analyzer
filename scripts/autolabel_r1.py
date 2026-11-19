@@ -7,6 +7,7 @@
     uv run --extra prefill scripts/autolabel_r1.py prefill   # NBA detector v16 (all but ball) and v6 (ball), conf 0.1
     uv run --extra court scripts/autolabel_r1.py draft       # keep >= 0.3, NMS, drop people off the court
     uv run scripts/autolabel_r1.py ballqueue                 # data/labels/box_queue_r1balls.json for Tomasz
+    uv run scripts/autolabel_r1.py manifest                  # data/labels/detect/train_manifest_r1.json for bga train
 
 Step 1, central shots. The non-gold clips have no camera tags. A shot from the main camera shows the court, so the
 PLK court model (court/rfdetr_keypoint/plk-v1) finds many confident landmarks there; replays, close-ups and graphics
@@ -292,9 +293,69 @@ def ball_queue(force: bool) -> None:
     )
 
 
+MANIFEST = Path("data/labels/detect/train_manifest_r1.json")
+VALID_CLIPS = 3  # whole clips held out as the trainer's PLK validation frames
+
+
+def manifest() -> None:
+    """The round-1 training manifest: Tomasz's ball decisions plus the draft's other boxes, finished frames only.
+
+    A frame enters when its ball-queue status is ``done`` (a ball boxed, or none in view); skipped frames stay out.
+    Its boxes are the draft's non-ball boxes (people on the court, numbers inside them, rims and the rest at score
+    >= KEEP) and the ball box from the queue, if any. Every VALID_CLIPS-th clip, in name order, goes to validation.
+
+    """
+    import hashlib
+
+    from bga.train.leakage import assert_no_gold
+
+    q = json.loads(BALL_QUEUE.read_text())
+    draft = {(f["clip"], f["frame"]): f for f in json.loads((OUT / "draft.json").read_text())["frames"]}
+    done = [f for f in q["frames"] if f["status"] == "done"]
+    clips = sorted({f["clip"] for f in done})
+    valid = set(clips[:: max(1, len(clips) // VALID_CLIPS)][:VALID_CLIPS])
+    frames = []
+    for f in done:
+        d = draft[(f["clip"], f["frame"])]
+        boxes = [[*b[:4], b[5]] for b in d["boxes"] if b[5] != "ball"] + [[*b["xyxy"], "ball"] for b in f["boxes"]]
+        frames.append({
+            "clip": f["clip"],
+            "video": f["video"],
+            "frame": f["frame"],
+            "shot": f["shot"],
+            "split": "valid" if f["clip"] in valid else "train",
+            "size": [1920, 1080],
+            "boxes": [[round(v, 1) for v in b[:4]] + [b[4]] for b in boxes],
+        })
+    assert_no_gold({f["clip"] for f in frames} | {f["video"] for f in frames})
+    MANIFEST.parent.mkdir(parents=True, exist_ok=True)
+    MANIFEST.write_text(
+        json.dumps(
+            {
+                "name": "r1",
+                "kind": "detect",
+                "params": {
+                    "ball": "Tomasz's ball queue (done frames)",
+                    "other": f"draft boxes at score >= {KEEP}",
+                    "prefill": PREFILL_MODELS,
+                    "valid_clips": sorted(valid),
+                },
+                "source_labels": {str(BALL_QUEUE): hashlib.sha256(BALL_QUEUE.read_bytes()).hexdigest()},
+                "frames": frames,
+            },
+            indent=1,
+        )
+        + "\n"
+    )
+    from collections import Counter
+
+    c = Counter(b[4] for f in frames for b in f["boxes"])
+    print(f"{len(frames)} frames ({sum(f['split'] == 'valid' for f in frames)} valid) -> {MANIFEST}; {dict(c)}")
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["central", "check", "sample", "prefill", "draft", "ballqueue"])
+    ap.add_argument("cmd", choices=["central", "check", "sample", "prefill", "draft", "ballqueue", "manifest"])
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--per-clip", type=int, default=12)
     ap.add_argument("--seed", type=int, default=0)
@@ -306,6 +367,7 @@ def main(argv=None):
         "prefill": prefill,
         "draft": draft,
         "ballqueue": lambda: ball_queue(a.force),
+        "manifest": manifest,
     }[a.cmd]()
 
 

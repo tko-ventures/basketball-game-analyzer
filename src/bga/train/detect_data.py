@@ -5,7 +5,9 @@ images and ``_annotations.coco.json``. Categories are id 0, the supercategory pl
 10 classes of ``bga.types.DETECTION_CLASSES`` as ids 1 to 10, matched by name in every source. With ``recipe.tiles``
 set, each image becomes that many overlapping square crops (``bga.detect.tiles``), keeping boxes at least half inside.
 
-Manifest sources (PLK auto-labels) are not supported yet; the builder refuses them rather than skip them silently.
+Manifest sources (PLK auto-labels, ``data/labels/detect/train_manifest_*.json``) are checked against their sha256 and
+the gold clips, and their frames are decoded from the local videos at full size: ``boxes`` as ``[x1, y1, x2, y2,
+class]`` per frame, and the split each frame names.
 
 """
 
@@ -18,10 +20,12 @@ from collections import Counter
 from pathlib import Path
 
 import cv2
+import numpy as np
 
 from bga.detect.tiles import crop_box, square_tiles
-from bga.train.config import ManifestSource, RoboflowSource, TrainConfig
+from bga.train.config import ROOT, ManifestSource, RoboflowSource, TrainConfig, file_sha256
 from bga.train.court_data import SPLITS, fetch_roboflow
+from bga.train.leakage import assert_no_gold, manifest_clips
 from bga.types import DETECTION_CLASSES
 
 #: COCO categories written to every split: the placeholder, then the schema.
@@ -49,13 +53,22 @@ def category_map(categories: list[dict]) -> dict[int, int]:
     return {c["id"]: ids[c["name"].lower()] for c in categories if c["name"].lower() in ids}
 
 
-def _write_image(src: Path, dst_dir: Path, im: dict, anns: list[dict], tiles: int | None) -> list[tuple]:
-    """Copy one image (or write its tiles) and return ``(file name, width, height, boxes)`` per written image."""
-    name, w, h = f"rf_{im['file_name']}", im["width"], im["height"]
+def _write_image(
+    src: Path | np.ndarray, dst_dir: Path, name: str, size: tuple[int, int], anns: list[dict], tiles: int | None
+) -> list[tuple]:
+    """Write one image (a file to copy, or a decoded frame) or its tiles; ``(file name, width, height, boxes)`` each.
+
+    ``anns`` carry COCO ``bbox`` (x, y, w, h) and the schema's ``category_id``.
+
+    """
+    w, h = size
     if not tiles or tiles <= 1:
-        shutil.copyfile(src, dst_dir / name)
+        if isinstance(src, Path):
+            shutil.copyfile(src, dst_dir / name)
+        else:
+            cv2.imwrite(str(dst_dir / name), src, [cv2.IMWRITE_JPEG_QUALITY, 95])
         return [(name, w, h, [(a["bbox"], a["category_id"]) for a in anns])]
-    img = cv2.imread(str(src))
+    img = cv2.imread(str(src)) if isinstance(src, Path) else src
     out = []
     for k, tile in enumerate(square_tiles(w, h, tiles)):
         boxes = []
@@ -70,18 +83,91 @@ def _write_image(src: Path, dst_dir: Path, im: dict, anns: list[dict], tiles: in
     return out
 
 
+class _Coco:
+    """One split's COCO detection annotations, with box counts per class."""
+
+    def __init__(self) -> None:
+        self.coco: dict = {"images": [], "annotations": [], "categories": CATEGORIES}
+        self.boxes: Counter = Counter()
+
+    def add(self, written: list[tuple], source: str) -> None:
+        for fn, w, h, bs in written:
+            iid = len(self.coco["images"])
+            self.coco["images"].append({"id": iid, "file_name": fn, "width": w, "height": h, "source": source})
+            for (x, y, bw, bh), cid in bs:
+                self.coco["annotations"].append({
+                    "id": len(self.coco["annotations"]),
+                    "image_id": iid,
+                    "category_id": cid,
+                    "bbox": [round(v, 2) for v in (x, y, bw, bh)],
+                    "area": round(bw * bh, 2),
+                    "iscrowd": 0,
+                })
+                self.boxes[DETECTION_CLASSES[cid - 1]] += 1
+
+
+def _add_roboflow(src: RoboflowSource, split: str, out: Path, coco: _Coco, tiles: int | None) -> int:
+    """Add a Roboflow export's images of one split; return how many images were written."""
+    d = fetch_roboflow(src)
+    sc = json.loads((d / split / "_annotations.coco.json").read_text())
+    cmap = category_map(sc["categories"])
+    by_img: dict[int, list[dict]] = {}
+    for a in sc["annotations"]:
+        if a["category_id"] in cmap:
+            by_img.setdefault(a["image_id"], []).append({**a, "category_id": cmap[a["category_id"]]})
+    n = 0
+    for im in sc["images"]:
+        written = _write_image(
+            d / split / im["file_name"],
+            out,
+            f"rf_{im['file_name']}",
+            (im["width"], im["height"]),
+            by_img.get(im["id"], []),
+            tiles,
+        )
+        coco.add(written, src.ref.replace("/", "_"))
+        n += len(written)
+    return n
+
+
+def _add_manifest(src: ManifestSource, split: str, out: Path, coco: _Coco, tiles: int | None) -> int:
+    """Decode a detection manifest's frames of one split from the local videos and add them at full size."""
+    path = ROOT / src.path
+    if file_sha256(path) != src.sha256:
+        raise ValueError(f"{src.path}: sha256 differs from the config; rebuild the config or the manifest")
+    man = json.loads(path.read_text())
+    assert_no_gold(manifest_clips(man))
+    ids = {c["name"]: c["id"] for c in CATEGORIES[1:]}
+    caps: dict[str, cv2.VideoCapture] = {}
+    n = 0
+    for f in (f for f in man["frames"] if f["split"] == split):
+        cap = caps.setdefault(f["video"], cv2.VideoCapture(str(ROOT / f["video"])))
+        cap.set(cv2.CAP_PROP_POS_FRAMES, f["frame"])
+        ok, img = cap.read()
+        if not ok:
+            raise IndexError(f"{f['video']} frame {f['frame']}")
+        anns = [{"bbox": [x1, y1, x2 - x1, y2 - y1], "category_id": ids[c]} for x1, y1, x2, y2, c in f["boxes"]]
+        name = f"plk_{f['clip'].split('_')[1]}_{f['frame']:06d}.jpg"
+        coco.add(_write_image(img, out, name, (img.shape[1], img.shape[0]), anns, tiles), src.path)
+        n += 1
+    for cap in caps.values():
+        cap.release()
+    return n
+
+
 def build(cfg: TrainConfig, out: Path) -> dict:
     """Build the COCO detection dataset of a training config under ``out``, replacing what is there.
 
     Args:
-        cfg: The training config; its Roboflow sources are fetched and merged, keeping their own splits.
+        cfg: The training config; Roboflow exports keep their own splits, manifest frames go to the split they name.
         out: Dataset directory.
 
     Returns:
         ``{"counts": {split: {source: images}}, "boxes": {split: {class: n}}, "tiles": n or None, "sha256": hex}``.
 
     Raises:
-        NotImplementedError: For a manifest source.
+        ValueError: When a manifest's sha256 differs from the config, or it names a gold clip.
+        IndexError: When a manifest frame cannot be decoded.
 
     Examples:
         >>> from bga.train.config import ROOT, load_train_config
@@ -90,47 +176,25 @@ def build(cfg: TrainConfig, out: Path) -> dict:
         432
 
     """
-    if any(isinstance(s, ManifestSource) for s in cfg.sources):
-        raise NotImplementedError("detection manifests (PLK auto-labels) are not supported yet")
     if out.exists():
         shutil.rmtree(out)
     counts: dict[str, dict[str, int]] = {s: {} for s in SPLITS}
-    boxes: dict[str, Counter] = {s: Counter() for s in SPLITS}
+    boxes: dict[str, dict[str, int]] = {}
     digest = hashlib.sha256()
     for s in SPLITS:
-        coco = {"images": [], "annotations": [], "categories": CATEGORIES}
+        coco = _Coco()
         (out / s).mkdir(parents=True)
-        for src in (x for x in cfg.sources if isinstance(x, RoboflowSource)):
-            d = fetch_roboflow(src)
-            tag = src.ref.replace("/", "_")
-            sc = json.loads((d / s / "_annotations.coco.json").read_text())
-            cmap = category_map(sc["categories"])
-            by_img: dict[int, list[dict]] = {}
-            for a in sc["annotations"]:
-                if a["category_id"] in cmap:
-                    by_img.setdefault(a["image_id"], []).append({**a, "category_id": cmap[a["category_id"]]})
-            for im in sc["images"]:
-                written = _write_image(d / s / im["file_name"], out / s, im, by_img.get(im["id"], []), cfg.recipe.tiles)
-                for fn, w, h, bs in written:
-                    iid = len(coco["images"])
-                    coco["images"].append({"id": iid, "file_name": fn, "width": w, "height": h, "source": tag})
-                    for (x, y, bw, bh), cid in bs:
-                        coco["annotations"].append({
-                            "id": len(coco["annotations"]),
-                            "image_id": iid,
-                            "category_id": cid,
-                            "bbox": [round(v, 2) for v in (x, y, bw, bh)],
-                            "area": round(bw * bh, 2),
-                            "iscrowd": 0,
-                        })
-                        boxes[s][DETECTION_CLASSES[cid - 1]] += 1
-                counts[s][tag] = counts[s].get(tag, 0) + len(written)
+        for src in cfg.sources:
+            tag = src.ref.replace("/", "_") if isinstance(src, RoboflowSource) else src.path
+            add = _add_roboflow if isinstance(src, RoboflowSource) else _add_manifest
+            counts[s][tag] = add(src, s, out / s, coco, cfg.recipe.tiles)
         p = out / s / "_annotations.coco.json"
-        p.write_text(json.dumps(coco, separators=(",", ":")))
+        p.write_text(json.dumps(coco.coco, separators=(",", ":")))
         digest.update(p.read_bytes())
+        boxes[s] = dict(coco.boxes)
     return {
         "counts": counts,
-        "boxes": {s: dict(b) for s, b in boxes.items()},
+        "boxes": boxes,
         "tiles": cfg.recipe.tiles,
         "sha256": digest.hexdigest(),
     }

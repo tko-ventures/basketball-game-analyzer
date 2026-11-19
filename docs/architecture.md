@@ -166,14 +166,14 @@ These are labelling aids, not a layer:
 
   The weight id is `<layer>/<backend>/<name>@<hash8>`, the hash covering the whole config.
 - **Leakage guard** (`bga.train.leakage`): refuses any manifest that names a gold clip, held out or not. `tests/test_gold_leakage.py` checks every committed config and manifest.
-- **Dataset (detection):** `bga.train.detect_data` builds a COCO detection dataset from Roboflow exports in the 10-class schema (categories matched by name, id 0 the placeholder), optionally cut into square tiles (`recipe.tiles`). It refuses manifest sources for now.
+- **Dataset (detection):** `bga.train.detect_data` builds a COCO detection dataset from Roboflow exports in the 10-class schema (categories matched by name, id 0 the placeholder), optionally cut into square tiles (`recipe.tiles`). Detection manifests (`data/labels/detect/train_manifest_<name>.json`) are checked against their sha256 and the gold clips, and their frames decoded from the local videos at full size into the split each frame names.
 - **Dataset (court)** (`bga.train.court_data`): merges the Roboflow export and the manifest frames into one COCO-keypoint dataset with `train/`, `valid/` and `test/` folders under `runs/train/<weight id>/dataset/`. Manifest frames are decoded from the local videos and resized to 1280 px wide.
 - **Run** (`bga.train.run`):
   1. Upload the dataset to the Modal volume.
   2. Train in a detached Modal app. The call is spawned and its id saved to `call.json` in the working directory; the local process polls for the result in two-minute waits, which survive Modal's auth token expiring, and `--wait` resumes waiting after a restart. A run cut short continues from the `last.ckpt` its trainer left on the volume, unless `--no-resume` is given. Court: `RFDETRKeypointPreview` with the schema read from the annotations, `KeypointTrainConfig`, and the `rfdetr` Lightning trainer. Detection: the `rfdetr` class named by `recipe.variant`, trained with its `train()`.
   3. Collect (`--partial` takes a cut-short run's best EMA checkpoint so far and records the last epoch done in `train.json`): the best checkpoint, `metrics.csv` and `result.json` go into `weights/<weight id>/`, with a `train.json` (config, dataset counts and sha256, commit, GPU, time, cost, the trainer's best and last validation rows). A row goes to `docs/train.md` and one to `docs/costs.md`.
 - **Recipe fields for detection:** `variant` (the `rfdetr` class) and `tiles`. Both are optional and left out of the config hash when unset, so older weight ids are unchanged.
-- **Configs:** `detect-rfdetr_torch-nba-704.yaml`, `-nba-1280.yaml` and `-nba-tile2.yaml`: RF-DETR Large on Skalski's NBA set version 18 (CC BY 4.0) at 704 px, at 1280 px, and at 704 px on two square tiles, the resolution experiment of M4. `court-rfdetr_keypoint-plk-v1.yaml`: RF-DETR Keypoint (preview, XLarge, Apache 2.0) on Roboflow's NBA court set version 20 (CC BY 4.0) plus `train_manifest_plk-v1.json`.
+- **Configs:** `detect-rfdetr_torch-nba-704.yaml`, `-nba-1280.yaml` and `-nba-tile2.yaml`: RF-DETR Large on Skalski's NBA set version 18 (CC BY 4.0) at 704 px, at 1280 px, and at 704 px on two square tiles, the resolution experiment of M4. `detect-rfdetr_torch-plk-r1.yaml`: the 1280 px setting plus `train_manifest_r1.json`. `court-rfdetr_keypoint-plk-v1.yaml`: RF-DETR Keypoint (preview, XLarge, Apache 2.0) on Roboflow's NBA court set version 20 (CC BY 4.0) plus `train_manifest_plk-v1.json`.
 
 ## Data
 
@@ -198,6 +198,7 @@ These are labelling aids, not a layer:
   - `data/labels/review/*.ops.txt` holds every review operation, applied in order by `scripts/review_ops.py`;
   - `data/labels/sheet_ledger.tsv` logs every contact sheet read;
   - `data/labels/box_gold.json` lists the 100 box-gold frames.
+- **Detection manifest, round 1:** `data/labels/detect/train_manifest_r1.json`, written by `autolabel_r1.py manifest`: the 231 finished frames of the ball queue, each with `clip`, `video`, `frame`, `split` (3 whole clips are `valid`), `size` and `boxes` as `[x1, y1, x2, y2, class]` (Tomasz's ball, if any, plus the draft's other boxes), and the sha256 of the ball queue it was built from.
 - **Ball queue, round 1:** `data/labels/box_queue_r1balls.json`, in the box-queue format with `mode: ball`, `title` and `instructions`; each frame holds the draft's ball boxes and its three best weaker ball guesses as candidates.
 - **Box gold v1 queue:** `data/labels/box_gold_v1.json` is written by `scripts/box_gold_v1.py prefill` and edited at `/boxes`.
   - **Top level:** `version`, `classes`, the SAM model, `frames` and `meta.review_seconds`.
