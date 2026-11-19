@@ -342,3 +342,33 @@ Tomasz pointed out that Modal's dashboard showed 10.70 USD used of the month's 3
 What changes:
 - `docs/costs.md` cites Modal's billing for those runs and for the month. November: 10.86 USD metered, all covered by credits, 0 billed.
 - Spend is checked against `modal billing summary` rather than the sum of estimated rows.
+
+## 2026-11-19: no court-polygon filter for detections; the Mac keeps PyTorch on MPS
+
+Two M4 checklist items were measured on `plk-r2@b13bfb19`, with gold v1 dev and the M1 Max. Both are probes, not pipeline changes, so neither has a metrics row.
+
+**Court-polygon filter.** People whose foot point the PLK court model (`court-plk-v1-smooth4`) maps more than a margin outside the court were dropped, and AP was recomputed. People AP50:95 / AP50:
+
+| Margin | people | referee |
+|---|---|---|
+| none | 0.732 / 0.962 | 0.629 / 0.859 |
+| 2 m | 0.732 / 0.962 | 0.629 / 0.859 |
+| 1 m | 0.712 / 0.934 | 0.540 / 0.734 |
+| 0.5 m | 0.688 / 0.898 | 0.446 / 0.608 |
+
+The filter never helps. The PLK-trained detector already leaves bench, coaches and crowd unboxed (the gold set boxes none of them), and the referees on the sideline are what a tight margin cuts. Per the plan's rule, the heuristic is not added. The filter could still serve 2D positions later (M8), where an off-court foot point is a different question.
+
+**Mac speed.** `plk-r2` at 1280 px, one frame, after warm-up:
+
+| Runtime | ms per frame |
+|---|---|
+| PyTorch on MPS (the `rfdetr_torch` backend) | 192 |
+| ONNX Runtime, CPU | 2,108 |
+| ONNX Runtime, CoreML provider | fails: the CoreML runtime cannot execute part of the 1280 px graph |
+| Native Core ML export, fp16, CPU and GPU | 134 |
+| Native Core ML export, fp16, all units including the Neural Engine | 274 |
+
+Decisions:
+- The plan's "ONNX export, CoreML provider on the Mac" does not work at 1280 px. The Mac keeps PyTorch on MPS.
+- A native Core ML backend would save about 30% but needs its own decoder and an fp16 accuracy row. It waits until Mac speed matters.
+- Full-game runs can use a cloud GPU (decision of 2026-11-19 on fast feedback).
