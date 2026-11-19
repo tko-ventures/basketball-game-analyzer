@@ -194,11 +194,16 @@ def _best_row(metrics_csv: str, key: str) -> tuple[dict, dict]:
     return best, rows[-1]
 
 
-def collect(cfg: TrainConfig) -> Path:
+def collect(cfg: TrainConfig, partial: bool = False) -> Path:
     """Pull a finished run's files into ``weights/<weight id>/``, write ``train.json`` and log the docs rows.
+
+    With ``partial``, a run that was cut short is collected as it stands: its best EMA checkpoint so far, the class
+    names from the local dataset, and ``partial`` in ``train.json`` with the last epoch done. Its cost is not logged
+    again (it was logged by hand when the run stopped).
 
     Args:
         cfg: the training config.
+        partial: Collect a run that never returned a result.
 
     Returns:
         The weights directory.
@@ -210,9 +215,28 @@ def collect(cfg: TrainConfig) -> Path:
     """
     remote, wdir = _remote(cfg), cfg.weights_dir()
     wdir.mkdir(parents=True, exist_ok=True)
-    for name in PULL:
-        (wdir / name).write_bytes(_read_remote(f"{remote}/output/{name}"))
-    result = json.loads((wdir / "result.json").read_text())
+    if partial:
+        (wdir / PULL[0]).write_bytes(_read_remote(f"{remote}/output/checkpoint_best_ema.pth"))
+        (wdir / "metrics.csv").write_bytes(_read_remote(f"{remote}/output/metrics.csv"))
+        cats = json.loads((_work(cfg) / "dataset/train/_annotations.coco.json").read_text())["categories"]
+        epochs = [
+            int(float(r["epoch"]))
+            for r in csv.DictReader(io.StringIO((wdir / "metrics.csv").read_text()))
+            if r.get("epoch")
+        ]
+        result = {
+            "schema": {"class_names": [c["name"] for c in sorted(cats, key=lambda c: c["id"])]},
+            "partial": {
+                "last_epoch": max(epochs, default=None),
+                "of": cfg.recipe.epochs,
+                "checkpoint": "checkpoint_best_ema.pth",
+            },
+        }
+        (wdir / "result.json").write_text(json.dumps(result, indent=1))
+    else:
+        for name in PULL:
+            (wdir / name).write_bytes(_read_remote(f"{remote}/output/{name}"))
+        result = json.loads((wdir / "result.json").read_text())
     best, last = _best_row((wdir / "metrics.csv").read_text(), cfg.recipe.select_on)
     info_path = _work(cfg) / "dataset_info.json"
     info = json.loads(info_path.read_text()) if info_path.exists() else {}
@@ -232,12 +256,13 @@ def collect(cfg: TrainConfig) -> Path:
             "schema": result.get("schema"),
         },
         "select_on": cfg.recipe.select_on,
+        "partial": result.get("partial"),
         "best": best,
         "last": last,
         "collected": dt.datetime.now().isoformat(timespec="seconds"),
     }
     (wdir / "train.json").write_text(json.dumps(train_json, indent=1))
-    _log_rows(cfg, train_json)
+    _log_rows(cfg, train_json, cost=not partial)
     return wdir
 
 
@@ -256,20 +281,22 @@ def _append_row(path: Path, row: str) -> None:
     path.write_text("\n".join([*lines[: last + 1], row, *lines[last + 1 :]]) + "\n")
 
 
-def _log_rows(cfg: TrainConfig, t: dict) -> None:
+def _log_rows(cfg: TrainConfig, t: dict, cost: bool = True) -> None:
     """Append the run's row to docs/train.md and, when it exists, its cost to docs/costs.md."""
     counts = t["dataset"].get("counts", {})
     n = {s: sum(counts.get(s, {}).values()) for s in ("train", "valid")}
     epoch = t["best"].get("epoch", "?")
     cfg_file = f"configs/train/{cfg.layer}-{cfg.backend}-{cfg.name}.yaml"
     score = f"{cfg.recipe.select_on} {_fmt(t['best'], cfg.recipe.select_on)} (epoch {epoch})"
-    cost = f"{t['gpu']}, {t['seconds']} s, {t['usd']} USD"
+    spent = f"{t['gpu']}, {t['seconds']} s, {t['usd']} USD" if cost else "cut short; cost in docs/costs.md"
+    part = t.get("partial")
+    note = f"partial: best of epochs 0 to {part['last_epoch']} of {part['of']}" if part else ""
     _append_row(
         TRAIN_MD,
         f"| {dt.date.today().isoformat()} | {t['commit']} | `{cfg_file}` | `{cfg.weight_id()}` "
-        f"| {n['train']} / {n['valid']} | {score} | {cost} | |",
+        f"| {n['train']} / {n['valid']} | {score} | {spent} | {note} |",
     )
-    if COSTS_MD.exists():
+    if cost and COSTS_MD.exists():
         _append_row(
             COSTS_MD,
             f"| {dt.date.today().isoformat()} | modal | {t['gpu']} | bga train {cfg.weight_id()} "

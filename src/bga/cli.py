@@ -306,6 +306,9 @@ def train(
     build_only: Annotated[bool, typer.Option(help="build and check the dataset, do not train")] = False,
     collect: Annotated[bool, typer.Option(help="only pull a finished run's outputs into weights/")] = False,
     wait: Annotated[bool, typer.Option(help="wait for the run already spawned (call.json), then collect")] = False,
+    partial: Annotated[
+        bool, typer.Option(help="with --collect: take a cut-short run's best checkpoint so far")
+    ] = False,
     resume: Annotated[bool, typer.Option(help="continue a run cut short from its last.ckpt on the volume")] = True,
     verbose: bool = False,
 ) -> None:
@@ -327,7 +330,7 @@ def train(
             return
         result = train_run.launch(cfg, resume=resume)
         typer.echo(json.dumps(result, indent=1))
-    typer.echo(f"weights in {train_run.collect(cfg)}")
+    typer.echo(f"weights in {train_run.collect(cfg, partial=partial)}")
 
 
 @app.command()

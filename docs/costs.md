@@ -28,5 +28,6 @@ image builds are not included, so the Modal invoice is the authority.
 | 2026-11-18 | modal | H100 | bga train detect/rfdetr_torch/nba-1280@37e7c0f7, part 1 (19:11-22:07, cut short at epoch 8; time from the log) | 10577 | 11.6053 |
 | 2026-11-18 | modal | L40S | bga train detect/rfdetr_torch/nba-tile2@bcf7b985, part 1 (19:12-20:31, cut short at epoch 8; time from the log) | 4706 | 2.5491 |
 | 2026-11-18 | modal | L40S + H100 + L40S | the three runs resumed 22:25, stopped 22:28 to stay inside the spend cap (estimate) | 450 | 0.4 |
+| 2026-11-19 | modal | L40S | probe: nba-704 2 epochs, 8 workers, 8 CPUs (28 s per epoch incl. start-up) | 55.7 | 0.0302 |
 
 Month to date (2026-11): 23.39 USD of GPU time. October 2026: 3.60 USD.

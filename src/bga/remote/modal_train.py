@@ -17,6 +17,9 @@ from bga.remote.modal_runner import USD_PER_HOUR
 #: The trainer package pinned in the image and recorded in every result.
 RFDETR_PACKAGE = "rfdetr[train]==1.12.1"
 
+#: CPU cores and memory per training container: data loading and augmentation run on the CPU, and Modal's default
+#: reservation (a fraction of a core) starved the GPU in the first detection runs (2026-11-18).
+CPUS, MEMORY_MB = 8.0, 32768
 #: The Modal app of every training run.
 app = modal.App("bga-train")
 #: Shared volume: datasets and trainer outputs under ``train/<weight id>/``.
@@ -35,7 +38,7 @@ image = (
 )
 
 
-@app.function(image=image, volumes={"/data": vol}, gpu="L40S", timeout=6 * 3600)
+@app.function(image=image, volumes={"/data": vol}, gpu="L40S", cpu=CPUS, memory=MEMORY_MB, timeout=6 * 3600)
 def train_keypoint(job: dict) -> dict:
     """Fine-tune RF-DETR Keypoint on a dataset on the volume and write ``result.json`` next to the checkpoints.
 
@@ -119,7 +122,7 @@ def train_keypoint(job: dict) -> dict:
     return result
 
 
-@app.function(image=image, volumes={"/data": vol}, gpu="L40S", timeout=6 * 3600)
+@app.function(image=image, volumes={"/data": vol}, gpu="L40S", cpu=CPUS, memory=MEMORY_MB, timeout=6 * 3600)
 def train_detect(job: dict) -> dict:
     """Fine-tune an RF-DETR detector on a COCO dataset on the volume and write ``result.json`` next to the checkpoints.
 
@@ -164,6 +167,7 @@ def train_detect(job: dict) -> dict:
         grad_accum_steps=r["grad_accum_steps"],
         lr=r["lr"],
         seed=r["seed"],
+        num_workers=job.get("num_workers", int(CPUS)),
         resume=str(Path("/data") / job["resume"]) if job.get("resume") else None,
     )
     stop.set()

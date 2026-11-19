@@ -1,8 +1,8 @@
 """Detector backend over RF-DETR weights trained by ``bga train`` (plan section 5, layer 2), run with PyTorch.
 
 The weight id names ``weights/detect/rfdetr_torch/<name>@<hash8>/`` with ``checkpoint_best_total.pth`` and the
-``train.json`` written by ``bga train``. The class names come from that ``train.json``, and so does the tiling: weights
-trained on square tiles (``recipe.tiles``) are run on the same tiles and their detections merged
+``train.json`` written by ``bga train``. The class names come from the checkpoint, the tiling from ``train.json``:
+weights trained on square tiles (``recipe.tiles``) are run on the same tiles and their detections merged
 (``bga.detect.tiles``), so training and inference see objects at the same scale.
 
 """
@@ -53,11 +53,13 @@ class RFDETRTorch(BaseBackend):
             raise ValueError("needs a trained weight id: detect/rfdetr_torch/<name>@<hash8>")
         wdir = ROOT / "weights" / self.weights
         tj = json.loads((wdir / "train.json").read_text())
-        self.class_names = tj["trainer"]["schema"]["class_names"]
         self.tiles = tj["config"]["recipe"].get("tiles") or 1
         self.model = RFDETR.from_checkpoint(
             str(wdir / "checkpoint_best_total.pth"), device=self.p["device"], trust_checkpoint=True
         )
+        # the checkpoint's own names, indexed by class id; the COCO categories in train.json start with the
+        # "basketball" placeholder, which the model drops, so indexing those would shift every class by one
+        self.class_names = self.model.class_names
 
     def unload(self) -> None:
         """Drop the model so the next layer has the memory.
