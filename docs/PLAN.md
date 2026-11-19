@@ -325,7 +325,7 @@ RF-DETR NBA weights, ByteTrack, NBA court keypoint model with `League.FIBA` targ
 Landmark dataset across arenas, RF-DETR Keypoint fine-tune per section 5 layer 1, temporal smoothing within shots. As the first fine-tune, this milestone lands `bga train`, `configs/train/`, `docs/train.md` and the gold-leakage test. Done: reprojection error per arena in the metrics table, the row citing both configs.
 
 **M4. Detection fine-tune.**
-Auto-label per section 7, review, fine-tune RF-DETR Large on the 10-class schema. Success is judged on `ball` and `number` first; people are filtered by the court polygon. Input resolution (higher training size, or tiling) is the first experiment. Then a bake-off against DEIM-L and RF-DETR XL on the same split, one training config each, trained on Modal. YOLO26 is out (AGPL-3.0, decision 2026-11-18). Export ONNX, run on the Mac. Done: per-class AP and ms per frame.
+Auto-label per section 7, review, fine-tune RF-DETR Large on the 10-class schema. Success is judged on `ball` and `number` first; people are filtered by the court polygon. Input resolution (higher training size, or tiling) is the first experiment. Then a bake-off against DEIM-L and RF-DETR XL on the same split, one training config each, trained on Modal. YOLO26 is out (AGPL-3.0, decision 2026-11-18). Done 2026-11-19: XL matched Large within noise, so Large stays and DEIM-L is not run (`docs/decisions.md`). Export ONNX, run on the Mac. Done: per-class AP and ms per frame.
 
 **M5. Team layer.**
 `TeamClassifier` per clip with separation check. Done: team accuracy.

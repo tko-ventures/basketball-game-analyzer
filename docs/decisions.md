@@ -372,3 +372,31 @@ Decisions:
 - The plan's "ONNX export, CoreML provider on the Mac" does not work at 1280 px. The Mac keeps PyTorch on MPS.
 - A native Core ML backend would save about 30% but needs its own decoder and an fp16 accuracy row. It waits until Mac speed matters.
 - Full-game runs can use a cloud GPU (decision of 2026-11-19 on fast feedback).
+
+## 2026-11-19: faster training settings adopted; RF-DETR Large stays, XL and DEIM dropped
+
+Tomasz asked to shorten Modal training. Five options were tested on `plk-r2`'s data. The speed probes are 5 epochs on an H100, with Modal's billed seconds, all at an effective batch of 16 images:
+
+| Setup | Seconds | USD |
+|---|---|---|
+| batch 2 x 8 steps (the recipe so far) | 288 | 0.32 |
+| batch 8 x 2 | 178 | 0.19 |
+| batch 16 x 1 | 140 | 0.15 |
+| batch 8 x 2, validating every 5 epochs | 141 | 0.16 |
+| 4 x H100, batch 4 x 1, 32 CPUs | 235 | 1.03 |
+
+Two full runs then checked accuracy against `plk-r2` on gold v1 dev (`docs/metrics.md`). Ball AP50:95 / AP50:
+- `plk-r2`, 53 min: 0.487 / 0.798.
+- `plk-r2-fast`, batch 16 and validation every 5 epochs, 18 min: 0.482 / 0.769.
+- `plk-r2-fast-es`, the same plus early stopping, which stopped at epoch 44, 18 min: 0.480 / 0.768.
+
+Numbers, people and rims are within noise as well. The ball difference is one or two of the 58 gold balls.
+
+Decisions:
+- **Every detection fine-tune from here on** uses batch 16 without accumulation, validation every 5 epochs, and early stopping after 2 validations without improvement: 3 times faster for the same accuracy. Early stopping saved little here, but it is a free stop for runs that plateau earlier.
+- **Multi-GPU is dropped for now.** At about 865 training images, four processes cost more in start-up and syncing than they save. The `devices` option stays in the code for full-game datasets.
+- **Warm start** (`init_weights`) is in place and is first tested at round 3, the first new data to start from `plk-r2`.
+
+**Bake-off.** RF-DETR XL (`plk-r2-xl`, same data and resolution as `plk-r2`, 64 min, 4.18 USD) scored 0.486 / 0.783 on balls and 0.733 / 0.955 on people, the same as Large within noise. It is several times slower on the Mac and carries the Platform Model Licence. RF-DETR Large stays. DEIM-L is not run: it needs its own trainer integration, and the Large against XL result says model size is not the lever on this data; labelled PLK frames are.
+
+**Spend:** Modal billing for November is 28.08 USD metered, against 30 USD of monthly credits.

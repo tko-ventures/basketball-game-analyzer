@@ -20,3 +20,6 @@ used in the court keypoint runs. Base weights: RF-DETR Keypoint preview by Robof
 | 2026-11-19 | 0bd7ba4 | `configs/train/detect-rfdetr_torch-nba-1280.yaml` | `detect/rfdetr_torch/nba-1280@37e7c0f7` | 464 / 96 | val/mAP_50_95 0.671 (epoch 45) | H100, 1512.5 s, 1.6595 USD |  |
 | 2026-11-19 | 8e9129e | `configs/train/detect-rfdetr_torch-plk-r1.yaml` | `detect/rfdetr_torch/plk-r1@7ab3f6fa` | 662 / 129 | val/mAP_50_95 0.592 (epoch 28) | H100, 2099.1 s, 2.3031 USD |  |
 | 2026-11-19 | de9d970 | `configs/train/detect-rfdetr_torch-plk-r2.yaml` | `detect/rfdetr_torch/plk-r2@b13bfb19` | 865 / 164 | val/mAP_50_95 0.609 (epoch 43) | H100, 3201.1 s, 3.5123 USD |  |
+| 2026-11-19 | 667db51 | `configs/train/detect-rfdetr_torch-plk-r2-fast-es.yaml` | `detect/rfdetr_torch/plk-r2-fast-es@3888eea6` | 865 / 164 | val/mAP_50_95 0.603 (epoch 34) | H100, 1056.0 s, 1.1586 USD |  |
+| 2026-11-19 | 667db51 | `configs/train/detect-rfdetr_torch-plk-r2-fast.yaml` | `detect/rfdetr_torch/plk-r2-fast@7eae6b7c` | 865 / 164 | val/mAP_50_95 0.604 (epoch 49) | H100, 1080.2 s, 1.1852 USD |  |
+| 2026-11-19 | b6b9d2e | `configs/train/detect-rfdetr_torch-plk-r2-xl.yaml` | `detect/rfdetr_torch/plk-r2-xl@646266cd` | 865 / 164 | val/mAP_50_95 0.640 (epoch 49) | H100, 3814.1 s, 4.1849 USD |  |
