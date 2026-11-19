@@ -16,6 +16,8 @@ from bga.remote.modal_runner import USD_PER_HOUR
 
 #: The trainer package pinned in the image and recorded in every result.
 RFDETR_PACKAGE = "rfdetr[train]==1.12.1"
+#: RF-DETR XL and 2XL (Platform Model Licence 1.0, treated as Apache 2.0 by Tomasz's ruling of 2026-11-18, question 5).
+RFDETR_PLUS_PACKAGE = "rfdetr_plus==1.3.0"
 
 #: CPU cores and memory per training container, for data loading and augmentation: about 20% faster epochs than
 #: Modal's default reservation on RF-DETR Large at 704 px, for about 30% more cost (Modal billing, 2026-11-19).
@@ -28,7 +30,7 @@ vol = modal.Volume.from_name("bga-data", create_if_missing=True)
 image = (
     modal.Image
     .debian_slim(python_version="3.12")
-    .pip_install("torch==2.15.0", "torchvision==0.29.2", RFDETR_PACKAGE)
+    .pip_install("torch==2.15.0", "torchvision==0.29.2", RFDETR_PACKAGE, RFDETR_PLUS_PACKAGE)
     # supervision pulls the GUI OpenCV, which needs libGL; swap in the headless wheel (no apt on bullseye).
     .run_commands(
         "pip uninstall -y opencv-python opencv-contrib-python",

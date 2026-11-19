@@ -331,6 +331,9 @@ eval = [
 onnx = [
     { name = "onnxruntime" },
 ]
+plus = [
+    { name = "rfdetr-plus" },
+]
 prefill = [
     { name = "inference" },
 ]
@@ -356,6 +359,7 @@ requires-dist = [
     { name = "pydantic", specifier = ">=2.9" },
     { name = "pyyaml", specifier = ">=6.0" },
     { name = "rfdetr", marker = "extra == 'court'", specifier = "==1.12.1" },
+    { name = "rfdetr-plus", marker = "extra == 'plus'", specifier = "==1.3.0" },
     { name = "scikit-learn", marker = "extra == 'demo'", specifier = ">=1.9.1" },
     { name = "sentencepiece", marker = "extra == 'demo'", specifier = ">=0.2.2" },
     { name = "sports", marker = "extra == 'demo'", git = "https://github.com/roboflow/sports.git?rev=415751384e34f1cb7089a00909e0d7932fe73a75" },
@@ -364,7 +368,7 @@ requires-dist = [
     { name = "typer", specifier = ">=0.12" },
     { name = "umap-learn", marker = "extra == 'demo'", specifier = ">=0.5.12" },
 ]
-provides-extras = ["onnx", "prefill", "remote", "eval", "court", "demo"]
+provides-extras = ["onnx", "prefill", "remote", "eval", "court", "demo", "plus"]
 
 [package.metadata.requires-dev]
 dev = [
@@ -3028,6 +3032,19 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/13/23/16fe5e734196efde67a83858adbb6ef415410db8e68a02c6dab9bf5c6d28/rfdetr-1.12.1.tar.gz", hash = "sha256:15649123e9d62cab1df950e761ddc1f6b43ee1b9b4e9540b6a75057d418bd831", size = 981932, upload-time = "2026-11-12T13:25:17.813Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/30/09/12b3c68c04ac38e47befa1a6226421405c58e21562a63447ff7d75ae1614/rfdetr-1.12.1-py3-none-any.whl", hash = "sha256:d4671be83f9633f8f3de1a59ab3f9c25b320705175d93c8c788b8e1e8a401724", size = 1051356, upload-time = "2026-11-12T13:25:15.843Z" },
+]
+
+[[package]]
+name = "rfdetr-plus"
+version = "1.3.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "rfdetr" },
+    { name = "timm" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/07/e6/163ce3e45290744e7c2af308081f7abef2e7ad0bfe3c1104c00bff126d94/rfdetr_plus-1.3.0.tar.gz", hash = "sha256:85c7ad6a2f75dc01bd3b62a42aa36684b2ae6eecf54a3bbe6f568b91cbd8413b", size = 33736, upload-time = "2026-11-18T17:46:52.039Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/43/16/1a403a7b8788bd87b7af2eaeef87d3a658e9a0cd26930e14210b05a5a06e/rfdetr_plus-1.3.0-py3-none-any.whl", hash = "sha256:8bb57dece9cf082cebdf466b567754fcfed2f6c980e48ae74b2088cae3259ed0", size = 31600, upload-time = "2026-11-18T17:46:50.756Z" },
 ]
 
 [[package]]
