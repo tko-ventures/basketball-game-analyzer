@@ -116,7 +116,7 @@ def launch(cfg: TrainConfig, resume: bool = True) -> dict:
     """
     import modal
 
-    from bga.remote.modal_train import app, train_detect, train_keypoint, vol
+    from bga.remote.modal_train import CPUS, MEMORY_MB, app, train_detect, train_keypoint, vol
 
     ds = _work(cfg) / "dataset"
     remote = _remote(cfg)
@@ -128,6 +128,11 @@ def launch(cfg: TrainConfig, resume: bool = True) -> dict:
             up.put_directory(str(ds), f"{remote}/dataset")
     else:
         log.info("resuming from bga-data:/%s", resume_from)
+    init = None
+    if cfg.recipe.init_weights:  # warm start: the earlier model's checkpoint goes up next to the dataset
+        init = f"{remote}/init.pth"
+        with vol.batch_upload(force=True) as up:
+            up.put_file(str(ROOT / "weights" / cfg.recipe.init_weights / "checkpoint_best_total.pth"), init)
     job = {
         "commit": _commit(),  # the code that trains; HEAD may move before collect
         "dataset": f"{remote}/dataset",
@@ -135,9 +140,14 @@ def launch(cfg: TrainConfig, resume: bool = True) -> dict:
         "recipe": cfg.recipe.model_dump(),
         "gpu": cfg.platform.gpu,
         "resume": resume_from,
+        "init": init,
     }
     trainer = train_detect if cfg.layer == "detect" else train_keypoint
-    fn = trainer.with_options(gpu=cfg.platform.gpu, timeout=int(cfg.platform.timeout_h * 3600))
+    n = cfg.recipe.devices or 1
+    gpu = f"{cfg.platform.gpu}:{n}" if n > 1 else cfg.platform.gpu
+    fn = trainer.with_options(  # CPU and memory scale with the GPUs: each DDP process runs its own data loaders
+        gpu=gpu, cpu=CPUS * n, memory=MEMORY_MB * n, timeout=int(cfg.platform.timeout_h * 3600)
+    )
     with modal.enable_output(), app.run(detach=True):
         call = fn.spawn(job)
     (_work(cfg) / "call.json").write_text(json.dumps({"call_id": call.object_id, "resume": resume_from}))

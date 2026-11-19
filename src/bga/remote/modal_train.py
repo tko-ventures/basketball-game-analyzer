@@ -159,7 +159,18 @@ def train_detect(job: dict) -> dict:
 
     threading.Thread(target=commit_loop, daemon=True).start()
     r = job["recipe"]
-    model = getattr(rfdetr, r["variant"])()
+    devices = r.get("devices") or 1
+    init = {"pretrain_weights": str(Path("/data") / job["init"])} if job.get("init") else {}
+    model = getattr(rfdetr, r["variant"])(**init)
+    extra = {}
+    if devices > 1:
+        extra.update(devices=devices, strategy=r.get("strategy") or "ddp_spawn")
+    if r.get("eval_interval"):
+        extra["eval_interval"] = r["eval_interval"]
+    if r.get("early_stopping_patience"):
+        extra.update(
+            early_stopping=True, early_stopping_patience=r["early_stopping_patience"], early_stopping_use_ema=True
+        )
     model.train(
         dataset_dir=str(ds),
         output_dir=str(out),
@@ -171,17 +182,18 @@ def train_detect(job: dict) -> dict:
         seed=r["seed"],
         num_workers=job.get("num_workers", int(CPUS)),
         resume=str(Path("/data") / job["resume"]) if job.get("resume") else None,
+        **extra,
     )
     stop.set()
     cats = json.loads((ds / "train" / "_annotations.coco.json").read_text())["categories"]
     secs = time.time() - t0
     gpu = job["gpu"]
     result = {
-        "gpu": gpu,
+        "gpu": f"{gpu}:{devices}" if devices > 1 else gpu,
         "commit": job.get("commit"),
         "gpu_name": torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
         "seconds": round(secs, 1),
-        "usd": round(secs / 3600 * USD_PER_HOUR.get(gpu, 0.0), 4),
+        "usd": round(secs / 3600 * USD_PER_HOUR.get(gpu, 0.0) * devices, 4),  # GPU list price only
         "schema": {"class_names": [c["name"] for c in sorted(cats, key=lambda c: c["id"])]},
         "package": RFDETR_PACKAGE,
         "torch": torch.__version__,

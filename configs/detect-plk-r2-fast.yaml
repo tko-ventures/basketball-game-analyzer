@@ -1,0 +1,28 @@
+name: detect-plk-r2-fast
+description: >
+  The baseline with the detect layer swapped for plk-r2's speed check (fast), RF-DETR Large at 1280 px trained on NBA
+  data plus both PLK rounds by configs/train/detect-rfdetr_torch-plk-r2-fast.yaml. Scored against
+  detect-plk-r2.yaml, which differs only by the speed settings.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: roboflow_keypoints
+    params: {model_id: basketball-court-detection-2/14}
+    weights: pretrained:roboflow/basketball-court-detection-2/14
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r2-fast@7eae6b7c
+  team:
+    backend: siglip_kmeans
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  track:
+    backend: bytetrack
+  positions:
+    backend: bbox_bottom
+  numbers:
+    backend: smolvlm_ocr
+    params: {model_id: basketball-jersey-numbers-ocr/3}
+    weights: pretrained:roboflow/basketball-jersey-numbers-ocr/3

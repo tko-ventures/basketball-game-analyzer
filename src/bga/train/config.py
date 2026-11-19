@@ -64,6 +64,11 @@ class Recipe(BaseModel):
     select_on: str = "val/keypoint_map_50_95"
     variant: str | None = None  # rfdetr model class for detection fine-tunes, e.g. RFDETRLarge
     tiles: int | None = None  # detection: 2 trains and infers on two overlapping square crops per frame
+    devices: int | None = None  # GPUs per run (spawn-based DDP); the effective batch is devices x batch x accumulation
+    strategy: str | None = None  # Lightning strategy for devices > 1; ddp_spawn when unset
+    eval_interval: int | None = None  # validate every n epochs (1 when unset)
+    early_stopping_patience: int | None = None  # stop after this many validations without improvement (off when unset)
+    init_weights: str | None = None  # warm start: a trained weight id whose checkpoint replaces the COCO weights
 
 
 class Platform(BaseModel):
