@@ -17,8 +17,8 @@ from bga.remote.modal_runner import USD_PER_HOUR
 #: The trainer package pinned in the image and recorded in every result.
 RFDETR_PACKAGE = "rfdetr[train]==1.12.1"
 
-#: CPU cores and memory per training container: data loading and augmentation run on the CPU, and Modal's default
-#: reservation (a fraction of a core) starved the GPU in the first detection runs (2026-11-18).
+#: CPU cores and memory per training container, for data loading and augmentation: about 20% faster epochs than
+#: Modal's default reservation on RF-DETR Large at 704 px, for about 30% more cost (Modal billing, 2026-11-19).
 CPUS, MEMORY_MB = 8.0, 32768
 #: The Modal app of every training run.
 app = modal.App("bga-train")

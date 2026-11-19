@@ -330,4 +330,15 @@ Decisions:
 - The next fine-tune adds the round-1 PLK frames at 1280 px (arm B's setting).
 - Tiling stays as the fallback if Mac inference speed becomes the constraint. The production config is chosen on the held-out game at M4 close.
 
-The experiment also found why training on Modal was slow: Modal's default CPU reservation starved data loading. With 8 CPUs and 8 loader workers an epoch takes 28 s instead of about 360 s, so the three arms cost about 22 USD, most of it before the fix.
+(Corrected the same day, see the next entry. The sentence that stood here claimed a 13-fold speed-up from more CPUs and a cost of about 22 USD; both came from local wait times, not from the remote runs.)
+
+## 2026-11-19: correction: Modal costs and the CPU speed-up came from local wait times
+
+Tomasz pointed out that Modal's dashboard showed 10.70 USD used of the month's 30 USD credits, while `docs/costs.md` said 27.80 USD. The implementer read the per-app figures with `modal billing report`.
+- **The cut-short runs were short.** On 2026-11-18 the three resolution-experiment runs trained for about 6 to 10 minutes of GPU time each and stopped: arm A reached epoch 29, B epoch 9, C epoch 8. The local `bga train` processes kept waiting until their Modal token expired at 22:07, three hours later. The implementer took that wait for training time and logged about 20 USD; the billed cost was 0.99 USD.
+- **No 13-fold speed-up.** The "about 360 s per epoch" came from the same wait. The billed GPU time gives about 20 s per epoch for arm A with Modal's default CPU reservation, against about 16 s with 8 CPUs and 8 loader workers. The 8 CPUs and 32 GB stay, for about 20% more speed at about 30% more cost (CPU and memory are billed on top of the GPU), and can be cut if cost matters more than wall time.
+- **Unknown:** why the first runs stopped after a few minutes. The spawn-and-poll launcher has finished every run since.
+
+What changes:
+- `docs/costs.md` cites Modal's billing for those runs and for the month. November: 10.86 USD metered, all covered by credits, 0 billed.
+- Spend is checked against `modal billing summary` rather than the sum of estimated rows.

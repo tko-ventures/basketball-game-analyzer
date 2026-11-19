@@ -133,10 +133,10 @@ Both are covered by `tests/test_nms.py`.
   - clips go up once to the `bga-data` volume;
   - it runs one layer per sequence and returns the outputs, which the pipeline writes into local `runs/`;
   - cost per call comes from a list-price table.
-- `modal_train.py` is the `bga-train` Modal app, used by `bga train`. Each training container gets 8 CPU cores and 32 GB of memory, and the detection trainer 8 data-loader workers: with Modal's default CPU reservation, data loading starved the GPU (360 s per epoch against 28 s, measured by `scripts/probe_train_speed.py`). Its image adds `rfdetr[train]==1.12.1`; the trainer reads its dataset from the `bga-data` volume and writes its outputs there, committing them every 5 minutes so a run cut short keeps its checkpoints.
+- `modal_train.py` is the `bga-train` Modal app, used by `bga train`. Each training container gets 8 CPU cores and 32 GB of memory, and the detection trainer 8 data-loader workers: about 16 s per epoch for RF-DETR Large at 704 px on the NBA set on an L40S, against about 20 s with Modal's default reservation (from Modal's billed GPU time). CPU and memory are billed on top of the GPU.
 - `sam2_prefill.py` is a separate Modal app (`bga-sam2-prefill`, L40S). It runs SAM 2.1 hiera-large video propagation for the gold-track prefill, and is a labelling aid, not a layer.
 - `sam2_boxmask.py` is another labelling aid (`bga-sam2-boxmask`, L40S). It masks each box of the box gold v1 prefill with SAM 2.1 hiera-large in image mode, one box prompt per box, and returns each mask's bounding box next to its prompt box in `runs/box_gold/v1/sam_boxes.json`.
-- Spend goes to `docs/costs.md`: `modal_runner.append_cost_rows` inserts rows above the summary line, which is updated by hand. 3.60 USD of GPU time in October 2026, 3.01 USD in November to date.
+- Spend goes to `docs/costs.md` as per-job estimates: `modal_runner.append_cost_rows` inserts rows above the summary line, which is updated by hand from Modal's own figures (`modal billing summary`, `modal billing report --show-resources`). Per Modal: 4.18 USD in October 2026, 10.86 USD in November to 2026-11-19, all within credits.
 
 ### Court smoothing (`bga.court.smooth`)
 
