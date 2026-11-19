@@ -384,6 +384,8 @@ def manifest() -> None:
     done = [f for f in q["frames"] if f["status"] == "done"]
     clips = sorted({f["clip"] for f in done})
     valid = set(clips[:: max(1, len(clips) // VALID_CLIPS)][:VALID_CLIPS])
+    if ROUND >= 2:  # the same validation clips in every round, so no clip trains in one round and validates in another
+        valid = set(json.loads(Path("data/labels/detect/train_manifest_r1.json").read_text())["params"]["valid_clips"])
     frames = []
     for f in done:
         d = draft[(f["clip"], f["frame"])]
