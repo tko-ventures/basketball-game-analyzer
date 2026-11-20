@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Box gold v1</title>
+<style>
+  body { margin: 0; background: #1a1a19; color: #f0efec; font: 14px/1.4 -apple-system, Helvetica, Arial, sans-serif; overflow: hidden; }
+  header { display: flex; flex-wrap: wrap; gap: 4px 18px; align-items: baseline; padding: 7px 14px; background: #232322; border-bottom: 1px solid #3a3a38; }
+  header b { font-size: 15px; }
+  .muted { color: #9a998f; }
+  .flag { color: #fab219; }
+  .ok { color: #5fd35f; }
+  #main { display: flex; height: calc(100vh - 40px); }
+  #stage { flex: 1; position: relative; min-width: 0; }
+  #cv { display: block; width: 100%; height: 100%; cursor: crosshair; }
+  #side { width: 440px; flex: none; overflow-y: auto; padding: 8px 12px; background: #20201f; border-left: 1px solid #3a3a38; }
+  #loupe { display: block; width: 416px; height: 416px; background: #000; cursor: crosshair; image-rendering: pixelated; }
+  #info { margin: 6px 0; min-height: 3.6em; }
+  #info .flag div { margin-left: 8px; }
+  #classes { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 10px; margin: 6px 0 10px; font-size: 13px; }
+  #classes span.on { background: #3a3a38; border-radius: 3px; }
+  #list { font-size: 13px; }
+  #list div { padding: 1px 4px; cursor: pointer; border-radius: 3px; }
+  #list div.sel { background: #3987e5; color: #fff; }
+  #list div.todo { color: #fab219; }
+  #help { font-size: 12px; color: #c3c2b7; margin-top: 10px; }
+  kbd { background: #3a3a38; border-radius: 3px; padding: 0 4px; font-size: 11px; }
+  .sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; }
+  #toast { position: fixed; bottom: 16px; left: 16px; background: #3987e5; color: #fff; padding: 6px 12px; border-radius: 6px; opacity: 0; transition: opacity .2s; }
+</style>
+</head>
+<body>
+<header>
+  <b>Box gold v1</b>
+  <span id="pos"></span>
+  <span id="where" class="muted"></span>
+  <span id="state"></span>
+  <span id="left" class="flag"></span>
+  <span id="note" class="flag"></span>
+  <span id="timer" class="muted"></span>
+  <span id="save" class="muted"></span>
+</header>
+<div id="main">
+  <div id="stage"><canvas id="cv"></canvas></div>
+  <div id="side">
+    <canvas id="loupe" width="832" height="832"></canvas>
+    <div id="info"></div>
+    <div id="classes"></div>
+    <div id="list"></div>
+    <div id="help">
+      <b>Goal:</b> every object of the 10 classes boxed, each box tight to its <b>visible</b> extent (docs/gold.md, "Box gold v1").
+      Orange boxes are flagged: the prefill is unsure, the reason is listed above.<br>
+      <kbd>Tab</kbd>/<kbd>⇧Tab</kbd> next/previous box (flagged first) · drag an edge or corner, here or in the loupe ·
+      <kbd>←↑→↓</kbd> nudge the highlighted edge 1 px (<kbd>⇧</kbd> 5 px), <kbd>E</kbd> highlight the next edge ·
+      <kbd>1</kbd>–<kbd>0</kbd> class <b>of the selected box</b> · <kbd>T</kbd> team · <kbd>A</kbd> use the alternative box (SAM or prefill) ·
+      <b>new box:</b> <kbd>⇧</kbd>-drag anywhere, even over another box, then press its class key ·
+      <kbd>Esc</kbd> or a click on empty floor deselects · click a box (or its row) to select it; the smallest box under the cursor wins ·
+      <kbd>⌥</kbd>-drag moves the selected box · <kbd>X</kbd>/<kbd>Del</kbd> delete ·
+      <kbd>C</kbd> show detector candidates, click one to adopt it · <kbd>Space</kbd> mark the box checked ·
+      <kbd>H</kbd> hide boxes · scroll to zoom, drag empty space to pan, <kbd>F</kbd> fit ·
+      <kbd>U</kbd>/<kbd>⌘Z</kbd> undo ·
+      <kbd>Enter</kbd> frame done, next · <kbd>[</kbd>/<kbd>]</kbd> previous/next frame without marking.
+    </div>
+  </div>
+</div>
+<div id="toast"></div>
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+const CLASSES = [
+  ["player", "#50dc50"], ["player-in-possession", "#ff8c00"], ["player-jump-shot", "#0078ff"],
+  ["player-layup-dunk", "#a000ff"], ["player-shot-block", "#ff00a0"], ["referee", "#00ffff"],
+  ["ball", "#ff6400"], ["ball-in-basket", "#ff0000"], ["rim", "#ffff00"], ["number", "#ff00ff"],
+];
+const KEYS = "1234567890";
+const COLOR = Object.fromEntries(CLASSES);
+const TEAMS = ["home", "away", "ref", "other", ""];
+const SET = new URLSearchParams(location.search).get("set") || "";
+const QS = SET ? `?set=${encodeURIComponent(SET)}` : "";
+const ballMode = () => S.q && S.q.mode === "ball";
+const S = {
+  q: null, i: 0, fr: null, img: new Image(), imgOk: false, sel: null, edge: 0, view: { s: 1, x: 0, y: 0 },
+  drag: null, hide: false, cands: false, drawCls: "player", hist: [], active: 0, lastInput: 0, saveTimer: null, dirty: false,
+};
+
+// ---------- geometry ----------
+const W = () => (S.img.naturalWidth || 1920), Hh = () => (S.img.naturalHeight || 1080);
+function cvs() { const c = $("cv"); return c; }
+function fit() {
+  const c = cvs(), r = c.getBoundingClientRect(), dpr = devicePixelRatio || 1;
+  c.width = r.width * dpr; c.height = r.height * dpr;
+  const s = Math.min(c.width / W(), c.height / Hh());
+  S.view = { s, x: (c.width - W() * s) / 2, y: (c.height - Hh() * s) / 2 };
+}
+function toImg(ev) {
+  const c = cvs(), r = c.getBoundingClientRect(), dpr = c.width / r.width;
+  const px = (ev.clientX - r.left) * dpr, py = (ev.clientY - r.top) * dpr;
+  return [(px - S.view.x) / S.view.s, (py - S.view.y) / S.view.s, px, py];
+}
+const area = (b) => (b.xyxy[2] - b.xyxy[0]) * (b.xyxy[3] - b.xyxy[1]);
+const inside = (b, x, y) => x >= b.xyxy[0] && x <= b.xyxy[2] && y >= b.xyxy[1] && y <= b.xyxy[3];
+const isTodo = (b) => b.flags && b.flags.length && !b.checked;
+function order() {  // flagged and unchecked first, then by id
+  return [...S.fr.boxes].sort((a, b) => (isTodo(b) - isTodo(a)) || (a.id - b.id));
+}
+// handles: 0 top, 1 right, 2 bottom, 3 left edges; 4..7 corners tl, tr, br, bl
+function handleAt(b, x, y, tol) {
+  const [x1, y1, x2, y2] = b.xyxy, near = (a, v) => Math.abs(a - v) <= tol;
+  const inX = x >= x1 - tol && x <= x2 + tol, inY = y >= y1 - tol && y <= y2 + tol;
+  if (near(x, x1) && near(y, y1)) return 4; if (near(x, x2) && near(y, y1)) return 5;
+  if (near(x, x2) && near(y, y2)) return 6; if (near(x, x1) && near(y, y2)) return 7;
+  if (near(y, y1) && inX) return 0; if (near(x, x2) && inY) return 1;
+  if (near(y, y2) && inX) return 2; if (near(x, x1) && inY) return 3;
+  return -1;
+}
+function applyHandle(b, h, x, y) {
+  const r = b.xyxy, X = Math.round(x * 2) / 2, Y = Math.round(y * 2) / 2;
+  if (h === 0 || h === 4 || h === 5) r[1] = Math.min(Y, r[3] - 1);
+  if (h === 2 || h === 6 || h === 7) r[3] = Math.max(Y, r[1] + 1);
+  if (h === 3 || h === 4 || h === 7) r[0] = Math.min(X, r[2] - 1);
+  if (h === 1 || h === 5 || h === 6) r[2] = Math.max(X, r[0] + 1);
+  r[0] = Math.max(0, r[0]); r[1] = Math.max(0, r[1]); r[2] = Math.min(W(), r[2]); r[3] = Math.min(Hh(), r[3]);
+}
+
+// ---------- drawing ----------
+function drawBox(ctx, b, s, ox, oy, opts) {
+  const [x1, y1, x2, y2] = b.xyxy, sel = b === S.sel;
+  ctx.save();
+  ctx.strokeStyle = COLOR[b.cls] || "#fff";
+  ctx.lineWidth = sel ? 2.5 : (isTodo(b) ? 2.5 : 1.25);
+  if (opts.dim) ctx.globalAlpha = 0.45;
+  ctx.strokeRect(x1 * s + ox, y1 * s + oy, (x2 - x1) * s, (y2 - y1) * s);
+  if (isTodo(b) && !sel) {
+    ctx.setLineDash([6, 4]); ctx.strokeStyle = "#fab219"; ctx.lineWidth = 1.5;
+    ctx.strokeRect(x1 * s + ox - 3, y1 * s + oy - 3, (x2 - x1) * s + 6, (y2 - y1) * s + 6);
+  }
+  if (sel && opts.edges) {
+    const pts = [[(x1 + x2) / 2, y1], [x2, (y1 + y2) / 2], [(x1 + x2) / 2, y2], [x1, (y1 + y2) / 2]];
+    pts.forEach(([px, py], k) => {
+      ctx.fillStyle = k === S.edge ? "#fab219" : "#fff";
+      ctx.fillRect(px * s + ox - 4, py * s + oy - 4, 8, 8);
+    });
+    // highlight the nudge edge
+    ctx.strokeStyle = "#fab219"; ctx.lineWidth = 3; ctx.beginPath();
+    const e = [[x1, y1, x2, y1], [x2, y1, x2, y2], [x1, y2, x2, y2], [x1, y1, x1, y2]][S.edge];
+    ctx.moveTo(e[0] * s + ox, e[1] * s + oy); ctx.lineTo(e[2] * s + ox, e[3] * s + oy); ctx.stroke();
+  }
+  if (opts.tags) {
+    ctx.font = `${Math.round(11 * (devicePixelRatio || 1))}px -apple-system, sans-serif`;
+    ctx.fillStyle = COLOR[b.cls] || "#fff";
+    ctx.fillText(`${b.id}`, x1 * s + ox + 2, y1 * s + oy - 3);
+  }
+  ctx.restore();
+}
+function render() {
+  const c = cvs(), ctx = c.getContext("2d"), v = S.view;
+  ctx.fillStyle = "#111"; ctx.fillRect(0, 0, c.width, c.height);
+  if (!S.imgOk) return;
+  ctx.imageSmoothingEnabled = v.s < 2;
+  ctx.drawImage(S.img, v.x, v.y, W() * v.s, Hh() * v.s);
+  if (S.cands) {
+    (S.fr.candidates || []).forEach((cd, k) => {
+      const [x1, y1, x2, y2] = cd.xyxy;
+      ctx.save(); ctx.setLineDash([3, 3]); ctx.strokeStyle = "#ddd"; ctx.lineWidth = 1.5;
+      ctx.strokeRect(x1 * v.s + v.x, y1 * v.s + v.y, (x2 - x1) * v.s, (y2 - y1) * v.s);
+      ctx.fillStyle = "#ddd"; ctx.font = `${Math.round(11 * (devicePixelRatio || 1))}px sans-serif`;
+      ctx.fillText(`c${k} ${cd.cls} ${cd.score.toFixed(2)}`, x1 * v.s + v.x, y2 * v.s + v.y + 12);
+      ctx.restore();
+    });
+  }
+  if (!S.hide) for (const b of S.fr.boxes) drawBox(ctx, b, v.s, v.x, v.y, { tags: true, edges: true });
+  if (S.drag && S.drag.mode === "new") drawBox(ctx, S.drag.b, v.s, v.x, v.y, {});
+  renderLoupe();
+}
+function loupeView() {
+  const b = S.sel, [x1, y1, x2, y2] = b.xyxy, w = x2 - x1, h = y2 - y1;
+  const pad = Math.max(12, 0.25 * Math.max(w, h)), side = Math.max(w, h) + 2 * pad;
+  const s = Math.min(8, $("loupe").width / side);
+  const cx = (x1 + x2) / 2, cy = (y1 + y2) / 2, L = $("loupe").width;
+  return { s, x: L / 2 - cx * s, y: L / 2 - cy * s };
+}
+function renderLoupe() {
+  const L = $("loupe"), ctx = L.getContext("2d");
+  ctx.fillStyle = "#000"; ctx.fillRect(0, 0, L.width, L.height);
+  if (!S.sel || !S.imgOk) return;
+  const v = loupeView();
+  ctx.imageSmoothingEnabled = false;
+  ctx.drawImage(S.img, v.x, v.y, W() * v.s, Hh() * v.s);
+  if (S.hide) return;
+  for (const b of S.fr.boxes) if (b !== S.sel) drawBox(ctx, b, v.s, v.x, v.y, { dim: true });
+  const alt = S.sel.alt && (S.sel.alt.sam || S.sel.alt.prefill);
+  if (alt) {
+    ctx.save(); ctx.setLineDash([4, 4]); ctx.strokeStyle = "rgba(255,255,255,.7)"; ctx.lineWidth = 1;
+    ctx.strokeRect(alt[0] * v.s + v.x, alt[1] * v.s + v.y, (alt[2] - alt[0]) * v.s, (alt[3] - alt[1]) * v.s);
+    ctx.restore();
+  }
+  drawBox(ctx, S.sel, v.s, v.x, v.y, { edges: true });
+}
+function renderSide() {
+  const fr = S.fr, b = S.sel;
+  $("pos").textContent = `${S.i + 1} / ${S.q.frames.length}`;
+  $("where").textContent = `${fr.youtube_id} shot ${fr.shot} frame ${fr.frame}`;
+  const done = S.q.frames.filter((f) => f.status !== "todo").length;
+  const st = { done: '<span class="ok">done</span>', skip: '<span class="flag">skipped</span>', todo: "to do" }[fr.status];
+  $("state").innerHTML = st + ` <span class="muted">(${done} of ${S.q.frames.length} finished)</span>`;
+  const todo = fr.boxes.filter(isTodo).length;
+  $("left").textContent = todo ? `${todo} flagged left` : "";
+  $("note").textContent = fr.note || "";
+  if (b) {
+    const altKind = b.alt && b.alt.sam ? (sameBox(b.xyxy, b.alt.sam) ? "prefill" : "SAM") : (b.alt && b.alt.prefill ? "prefill" : "");
+    const [x1, y1, x2, y2] = b.xyxy;
+    $("info").innerHTML = `<b>box ${b.id}</b> <span class="sw" style="background:${COLOR[b.cls]}"></span>${b.cls}` +
+      (b.team ? ` · ${b.team}` : "") + (b.tid != null ? ` · track ${b.tid}` : "") +
+      ` <span class="muted">· ${b.src}${b.score != null ? " " + b.score.toFixed(2) : ""} · ${Math.round(x2 - x1)}×${Math.round(y2 - y1)} px` +
+      (altKind ? ` · <kbd>A</kbd> ${altKind} box (dashed)` : "") + `</span>` +
+      (b.flags && b.flags.length ? `<div class="${b.checked ? "muted" : "flag"}">${b.flags.map((f) => `<div>• ${f}</div>`).join("")}</div>` : "") +
+      (b.hints && b.hints.length ? `<div class="muted">${b.hints.map((f) => `<div>· ${f}</div>`).join("")}</div>` : "");
+  } else $("info").innerHTML = '<span class="muted">No box selected: Tab.</span>';
+  const cur = b ? b.cls : S.drawCls;
+  $("classes").innerHTML = CLASSES.map(([n, c], k) =>
+    `<span class="${n === cur ? "on" : ""}"><kbd>${KEYS[k]}</kbd> <span class="sw" style="background:${c}"></span>${n}</span>`).join("");
+  $("list").innerHTML = order().map((x) =>
+    `<div data-id="${x.id}" class="${x === b ? "sel" : ""} ${isTodo(x) ? "todo" : ""}">${x.id} · ${x.cls}${x.team ? " · " + x.team : ""}${isTodo(x) ? " · " + x.flags[0] : ""}</div>`).join("");
+}
+const sameBox = (a, b) => a && b && a.every((v, k) => Math.abs(v - b[k]) < 0.01);
+function redraw() { render(); renderSide(); }
+
+// ---------- state changes ----------
+function snapshot() { S.hist.push(JSON.stringify(S.fr.boxes)); if (S.hist.length > 200) S.hist.shift(); }
+function changed() { S.dirty = true; $("save").textContent = "unsaved"; clearTimeout(S.saveTimer); S.saveTimer = setTimeout(save, 800); redraw(); }
+function select(b) { S.sel = b; if (b) S.edge = S.edge % 4; redraw(); }
+function step(d) {
+  const o = order(); if (!o.length) return;
+  const k = S.sel ? o.indexOf(S.sel) : -1;
+  select(o[(k + d + o.length) % o.length]);
+}
+function markEdited(b) { b.edited = true; b.checked = true; }
+
+// ---------- server ----------
+async function api(path, body) {
+  const r = await fetch(path, body ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) } : {});
+  const j = await r.json(); if (!r.ok) throw new Error(j.error || r.status); return j;
+}
+async function save() {
+  clearTimeout(S.saveTimer);
+  if (!S.dirty && !S.active) return;
+  const secs = Math.round(S.active); S.active = 0;
+  try {
+    await api("/api/boxes/frame" + QS, { index: S.i, frame: S.fr, active_seconds: secs });
+    S.dirty = false; $("save").textContent = "saved";
+  } catch (e) { S.active += secs; $("save").textContent = "SAVE FAILED: " + e.message; toast("Save failed: " + e.message); }
+}
+function toast(msg) { const t = $("toast"); t.textContent = msg; t.style.opacity = 1; setTimeout(() => { t.style.opacity = 0; }, 1600); }
+async function go(i) {
+  await save();
+  S.i = Math.max(0, Math.min(S.q.frames.length - 1, i));
+  S.fr = S.q.frames[S.i]; S.sel = null; S.hist = []; S.imgOk = false;
+  history.replaceState(null, "", `?${SET ? `set=${encodeURIComponent(SET)}&` : ""}i=${S.i}`);
+  S.img = new Image();
+  S.img.onload = () => { S.imgOk = true; fit(); step(1); redraw(); };
+  S.img.src = `/api/frame?path=${encodeURIComponent(S.fr.video)}&idx=${S.fr.frame}`;
+  const nx = S.q.frames[S.i + 1]; if (nx) new Image().src = `/api/frame?path=${encodeURIComponent(nx.video)}&idx=${nx.frame}`;
+  redraw();
+}
+function nextTodo() {
+  const n = S.q.frames.length;
+  for (let k = 1; k <= n; k++) { const j = (S.i + k) % n; if (S.q.frames[j].status === "todo") return j; }
+  return -1;
+}
+
+// ---------- ball mode ----------
+async function finish(status, keep) {  // keep: the boxes that stay; the rest of the detector's guesses are dropped
+  if (keep) S.fr.boxes = keep;
+  S.fr.boxes.forEach((x) => { x.checked = true; });
+  S.fr.status = status; S.dirty = true; await save();
+  const j = nextTodo(); if (j < 0) { toast("All frames finished."); redraw(); } else go(j);
+}
+function chooseBall(b) { snapshot(); b.cls = "ball"; finish("done", [b]); }
+
+// ---------- mouse ----------
+function hit(x, y, s) {
+  const tol = 6 / s;
+  if (S.sel && !S.hide) { const h = handleAt(S.sel, x, y, tol); if (h >= 0) return { b: S.sel, h }; }
+  if (S.hide) return null;
+  for (const b of S.fr.boxes) { const h = handleAt(b, x, y, tol); if (h >= 0) return { b, h }; }
+  const under = S.fr.boxes.filter((b) => inside(b, x, y)).sort((a, b) => area(a) - area(b));
+  return under.length ? { b: under[0], h: -1 } : null;
+}
+function onDown(ev, x, y, s, inLoupe) {
+  touch();
+  if (ev.button !== 0) return;
+  if (S.cands && !inLoupe) {
+    const k = (S.fr.candidates || []).findIndex((cd) => inside(cd, x, y));
+    if (k >= 0) { adopt(k); if (ballMode()) chooseBall(S.sel); return; }
+  }
+  if (ev.shiftKey && !inLoupe) {
+    snapshot();
+    const id = Math.max(-1, ...S.fr.boxes.map((b) => b.id)) + 1;
+    S.drag = { mode: "new", x0: x, y0: y, b: { id, xyxy: [x, y, x + 1, y + 1], cls: S.drawCls, team: "", tid: null, src: "human", flags: [], hints: [], alt: {}, checked: true } };
+    return;
+  }
+  const h = hit(x, y, s);
+  if (h && h.h >= 0) {
+    snapshot(); S.sel = h.b; S.edge = h.h < 4 ? h.h : S.edge;
+    S.drag = { mode: "resize", b: h.b, h: h.h, x0: x, y0: y, moved: false }; redraw(); return;
+  }
+  if (h && ballMode() && !inLoupe) { chooseBall(h.b); return; }
+  if (h && h.b === S.sel && ev.altKey && !inLoupe) { snapshot(); S.drag = { mode: "move", b: h.b, x0: x, y0: y, o: [...h.b.xyxy] }; return; }
+  if (h) { select(h.b); return; }
+  if (!inLoupe) S.drag = { mode: "pan", px: toImg(ev)[2], py: toImg(ev)[3], vx: S.view.x, vy: S.view.y, moved: false };
+}
+function onMove(x, y) {
+  const d = S.drag; if (!d) return;
+  if (d.mode === "resize") {
+    if (!d.moved && Math.hypot(x - d.x0, y - d.y0) * S.view.s < 4) return;  // not a drag yet: maybe a click
+    d.moved = true; applyHandle(d.b, d.h, x, y); markEdited(d.b);
+  }
+  else if (d.mode === "move") {
+    const dx = x - d.x0, dy = y - d.y0; d.b.xyxy = [d.o[0] + dx, d.o[1] + dy, d.o[2] + dx, d.o[3] + dy]; markEdited(d.b);
+  } else if (d.mode === "new") {
+    d.b.xyxy = [Math.min(d.x0, x), Math.min(d.y0, y), Math.max(d.x0, x), Math.max(d.y0, y)].map((v) => Math.round(v * 2) / 2);
+  }
+  render();
+}
+function onUp() {
+  const d = S.drag; S.drag = null; if (!d) return;
+  if (d.mode === "new") {
+    const [x1, y1, x2, y2] = d.b.xyxy;
+    if (x2 - x1 >= 2 && y2 - y1 >= 2) { S.fr.boxes.push(d.b); S.sel = d.b; changed(); } else { S.hist.pop(); redraw(); }
+  } else if (d.mode === "resize" && !d.moved) {
+    S.hist.pop();
+    if (ballMode() && !d.loupe) chooseBall(d.b);  // a click on a small box lands on its edge: still a choice
+  } else if (d.mode === "resize" || d.mode === "move") changed();
+  else if (d.mode === "pan" && !d.moved) select(null);  // a click on empty floor deselects
+}
+$("cv").addEventListener("mousedown", (ev) => { const [x, y] = toImg(ev); onDown(ev, x, y, S.view.s, false); });
+$("loupe").addEventListener("mousedown", (ev) => {
+  if (!S.sel) return;
+  const L = $("loupe"), r = L.getBoundingClientRect(), k = L.width / r.width, v = loupeView();
+  const x = ((ev.clientX - r.left) * k - v.x) / v.s, y = ((ev.clientY - r.top) * k - v.y) / v.s;
+  S.drag = null; onDown(ev, x, y, v.s, true);
+  if (S.drag) S.drag.loupe = v;  // keep the loupe's view fixed while dragging in it
+});
+window.addEventListener("mousemove", (ev) => {
+  const d = S.drag; if (!d) return;
+  if (d.mode === "pan") {
+    const [, , px, py] = toImg(ev);
+    if (Math.hypot(px - d.px, py - d.py) > 4) d.moved = true;
+    if (d.moved) { S.view.x = d.vx + px - d.px; S.view.y = d.vy + py - d.py; render(); }
+    return;
+  }
+  if (d.loupe) {
+    const L = $("loupe"), r = L.getBoundingClientRect(), k = L.width / r.width, v = d.loupe;
+    onMove(((ev.clientX - r.left) * k - v.x) / v.s, ((ev.clientY - r.top) * k - v.y) / v.s);
+  } else { const [x, y] = toImg(ev); onMove(x, y); }
+});
+window.addEventListener("mouseup", onUp);
+$("cv").addEventListener("wheel", (ev) => {
+  ev.preventDefault(); touch();
+  const [x, y, px, py] = toImg(ev), f = Math.exp(-ev.deltaY * 0.0015);
+  const fitS = Math.min(cvs().width / W(), cvs().height / Hh());
+  S.view.s = Math.max(fitS, Math.min(fitS * 12, S.view.s * f));
+  S.view.x = px - x * S.view.s; S.view.y = py - y * S.view.s; render();
+}, { passive: false });
+$("list").addEventListener("click", (ev) => {
+  const id = ev.target.closest("div[data-id]"); if (!id) return;
+  select(S.fr.boxes.find((b) => String(b.id) === id.dataset.id));
+});
+
+// ---------- keys ----------
+function adopt(k) {
+  snapshot();
+  const cd = S.fr.candidates.splice(k, 1)[0];
+  const id = Math.max(-1, ...S.fr.boxes.map((b) => b.id)) + 1;
+  const b = { id, xyxy: [...cd.xyxy], cls: cd.cls, score: cd.score, team: "", tid: null, src: "det-candidate", flags: [], hints: [], alt: {}, checked: true };
+  S.fr.boxes.push(b); S.sel = b; changed();
+}
+function nudge(dx, dy, big) {
+  const b = S.sel; if (!b) return;
+  snapshot();
+  const n = big ? 5 : 1, r = b.xyxy;
+  if (S.edge === 0) r[1] = Math.min(r[1] + dy * n, r[3] - 1);
+  if (S.edge === 2) r[3] = Math.max(r[3] + dy * n, r[1] + 1);
+  if (S.edge === 3) r[0] = Math.min(r[0] + dx * n, r[2] - 1);
+  if (S.edge === 1) r[2] = Math.max(r[2] + dx * n, r[0] + 1);
+  markEdited(b); changed();
+}
+window.addEventListener("keydown", async (ev) => {
+  if (!S.fr) return;
+  touch();
+  const k = ev.key, b = S.sel;
+  if ((ev.metaKey || ev.ctrlKey) && k.toLowerCase() === "z") { ev.preventDefault(); undo(); return; }
+  if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
+  if (k === "Tab") { ev.preventDefault(); step(ev.shiftKey ? -1 : 1); return; }
+  const ci = KEYS.indexOf(k);
+  if (ci >= 0) {
+    S.drawCls = CLASSES[ci][0];
+    if (b) { snapshot(); b.cls = S.drawCls; if (b.cls === "referee") b.team = "ref"; b.checked = true; changed(); } else renderSide();
+    return;
+  }
+  if (k.startsWith("Arrow")) {
+    ev.preventDefault();
+    const [dx, dy] = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] }[k];
+    if (b && ((S.edge % 2 === 0 && dy) || (S.edge % 2 === 1 && dx))) nudge(dx, dy, ev.shiftKey);
+    else if (b) { S.edge = dx ? (dx > 0 ? 1 : 3) : (dy > 0 ? 2 : 0); redraw(); }  // arrow across the edge picks that edge
+    return;
+  }
+  switch (k.toLowerCase()) {
+    case "e": S.edge = (S.edge + 1) % 4; redraw(); break;
+    case "x": case "delete": case "backspace":
+      if (b) { ev.preventDefault(); snapshot(); S.fr.boxes.splice(S.fr.boxes.indexOf(b), 1); S.sel = null; step(0); changed(); }
+      break;
+    case "a":
+      if (b && b.alt) {
+        const alt = b.alt.sam && !sameBox(b.alt.sam, b.xyxy) ? b.alt.sam : b.alt.prefill;
+        if (alt && !sameBox(alt, b.xyxy)) {
+          snapshot();
+          if (!b.alt.prefill) b.alt.prefill = [...b.xyxy];
+          b.xyxy = [...alt]; b.checked = true; changed();
+        }
+      }
+      break;
+    case "t": if (b) { snapshot(); b.team = TEAMS[(TEAMS.indexOf(b.team || "") + 1) % TEAMS.length]; changed(); } break;
+    case " ":
+      ev.preventDefault();
+      if (ballMode()) { if (b) chooseBall(b); break; }
+      if (b) { b.checked = true; changed(); step(1); }
+      break;
+    case "escape": select(null); break;
+    case "h": S.hide = !S.hide; render(); break;
+    case "c": S.cands = !S.cands; render(); break;
+    case "f": fit(); render(); break;
+    case "u": undo(); break;
+    case "n": if (ballMode()) finish("done", []); break;
+    case "s": if (ballMode()) finish("skip", []); break;
+    case "enter":
+      ev.preventDefault();
+      if (ballMode()) { finish("done", S.fr.boxes.filter((x) => x.checked)); break; }
+      S.fr.boxes.forEach((x) => { x.checked = true; });
+      S.fr.status = "done"; S.dirty = true; await save();
+      { const j = nextTodo(); if (j < 0) toast("All frames done."); else go(j); }
+      break;
+    case "[": go(S.i - 1); break;
+    case "]": go(S.i + 1); break;
+    default: break;
+  }
+});
+function undo() {
+  const h = S.hist.pop(); if (!h) return;
+  const id = S.sel && S.sel.id;
+  S.fr.boxes = JSON.parse(h); S.sel = S.fr.boxes.find((b) => b.id === id) || null; changed();
+}
+
+// ---------- time ----------
+function touch() { const now = Date.now(); if (S.lastInput && now - S.lastInput < 60000) S.active += (now - S.lastInput) / 1000; S.lastInput = now; }
+window.addEventListener("mousemove", () => { if (S.drag) touch(); });
+setInterval(() => {
+  if (!S.q) return;
+  const today = Object.values((S.q.meta || {}).review_seconds || {}).reduce((a, v) => a + v, 0);
+  $("timer").textContent = `active ${Math.round(S.active)} s unsaved · ${Math.round(today / 60)} min logged before this load`;
+}, 1000);
+window.addEventListener("beforeunload", () => { if (S.dirty || S.active) navigator.sendBeacon("/api/boxes/frame" + QS, new Blob([JSON.stringify({ index: S.i, frame: S.fr, active_seconds: Math.round(S.active) })], { type: "application/json" })); });
+window.addEventListener("resize", () => { if (S.imgOk) { fit(); render(); } });
+
+(async () => {
+  S.q = await api("/api/boxes/queue" + QS);
+  if (ballMode()) {
+    S.cands = true; S.drawCls = "ball";
+    document.querySelector("header b").textContent = S.q.title || "Ball queue";
+    $("help").innerHTML = S.q.instructions || "";
+    $("classes").style.display = "none";
+  }
+  if (!S.q.frames.length) { $("where").textContent = "No queue: run scripts/box_gold_v1.py prefill."; return; }
+  const i = Number(new URLSearchParams(location.search).get("i"));
+  go(Number.isFinite(i) && i > 0 ? i : Math.max(0, S.q.frames.findIndex((f) => f.status === "todo")));
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+name: detect-plk-r1
+description: >
+  The baseline with the detect layer swapped for the first PLK detector, RF-DETR Large at 1280 px trained on NBA
+  data plus the round-1 PLK frames by configs/train/detect-rfdetr_torch-plk-r1.yaml. Scored against
+  detect-nba-1280.yaml, which differs only by the PLK frames.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: roboflow_keypoints
+    params: {model_id: basketball-court-detection-2/14}
+    weights: pretrained:roboflow/basketball-court-detection-2/14
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r1@7ab3f6fa
+  team:
+    backend: siglip_kmeans
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  track:
+    backend: bytetrack
+  positions:
+    backend: bbox_bottom
+  numbers:
+    backend: smolvlm_ocr
+    params: {model_id: basketball-jersey-numbers-ocr/3}
+    weights: pretrained:roboflow/basketball-jersey-numbers-ocr/3

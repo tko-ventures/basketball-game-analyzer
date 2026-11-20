@@ -16,7 +16,12 @@ from bga.remote.modal_runner import USD_PER_HOUR
 
 #: The trainer package pinned in the image and recorded in every result.
 RFDETR_PACKAGE = "rfdetr[train]==1.12.1"
+#: RF-DETR XL and 2XL (Platform Model Licence 1.0, treated as Apache 2.0 by Tomasz's ruling of 2026-11-18, question 5).
+RFDETR_PLUS_PACKAGE = "rfdetr_plus==1.3.0"
 
+#: CPU cores and memory per training container, for data loading and augmentation: about 20% faster epochs than
+#: Modal's default reservation on RF-DETR Large at 704 px, for about 30% more cost (Modal billing, 2026-11-19).
+CPUS, MEMORY_MB = 8.0, 32768
 #: The Modal app of every training run.
 app = modal.App("bga-train")
 #: Shared volume: datasets and trainer outputs under ``train/<weight id>/``.
@@ -25,7 +30,7 @@ vol = modal.Volume.from_name("bga-data", create_if_missing=True)
 image = (
     modal.Image
     .debian_slim(python_version="3.12")
-    .pip_install("torch==2.15.0", "torchvision==0.29.2", RFDETR_PACKAGE)
+    .pip_install("torch==2.15.0", "torchvision==0.29.2", RFDETR_PACKAGE, RFDETR_PLUS_PACKAGE)
     # supervision pulls the GUI OpenCV, which needs libGL; swap in the headless wheel (no apt on bullseye).
     .run_commands(
         "pip uninstall -y opencv-python opencv-contrib-python",
@@ -35,7 +40,7 @@ image = (
 )
 
 
-@app.function(image=image, volumes={"/data": vol}, gpu="L40S", timeout=6 * 3600)
+@app.function(image=image, volumes={"/data": vol}, gpu="L40S", cpu=CPUS, memory=MEMORY_MB, timeout=6 * 3600)
 def train_keypoint(job: dict) -> dict:
     """Fine-tune RF-DETR Keypoint on a dataset on the volume and write ``result.json`` next to the checkpoints.
 
@@ -110,6 +115,86 @@ def train_keypoint(job: dict) -> dict:
             "class_names": schema.class_names,
             "num_keypoints_per_class": schema.num_keypoints_per_class,
         },
+        "package": RFDETR_PACKAGE,
+        "torch": torch.__version__,
+        "files": sorted(p.name for p in out.iterdir()),
+    }
+    (out / "result.json").write_text(json.dumps(result, indent=1))
+    vol.commit()
+    return result
+
+
+@app.function(image=image, volumes={"/data": vol}, gpu="L40S", cpu=CPUS, memory=MEMORY_MB, timeout=6 * 3600)
+def train_detect(job: dict) -> dict:
+    """Fine-tune an RF-DETR detector on a COCO dataset on the volume and write ``result.json`` next to the checkpoints.
+
+    Args:
+        job: As for :func:`train_keypoint`; ``recipe["variant"]`` names the ``rfdetr`` class (e.g. ``RFDETRLarge``).
+
+    Returns:
+        GPU, commit, device name, wall time, list-price USD, the class names in category-id order, trainer package and
+        torch version, and the files in the output directory.
+
+    Examples:
+        >>> train_detect.remote(job)["schema"]["class_names"][1]  # doctest: +SKIP
+        'ball'
+
+    """
+    import json
+    import threading
+    import time
+    from pathlib import Path
+
+    import rfdetr
+    import torch
+
+    t0 = time.time()
+    ds, out = Path("/data") / job["dataset"], Path("/data") / job["output"]
+    out.mkdir(parents=True, exist_ok=True)
+    stop = threading.Event()
+
+    def commit_loop() -> None:  # keep checkpoints even if the run is cut short
+        while not stop.wait(300):
+            vol.commit()
+
+    threading.Thread(target=commit_loop, daemon=True).start()
+    r = job["recipe"]
+    devices = r.get("devices") or 1
+    init = {"pretrain_weights": str(Path("/data") / job["init"])} if job.get("init") else {}
+    model = getattr(rfdetr, r["variant"])(**init)
+    extra = {}
+    if devices > 1:
+        extra.update(devices=devices, strategy=r.get("strategy") or "ddp_spawn")
+    if r.get("eval_interval"):
+        extra["eval_interval"] = r["eval_interval"]
+    if r.get("early_stopping_patience"):
+        extra.update(
+            early_stopping=True, early_stopping_patience=r["early_stopping_patience"], early_stopping_use_ema=True
+        )
+    model.train(
+        dataset_dir=str(ds),
+        output_dir=str(out),
+        resolution=r["resolution"],
+        epochs=r["epochs"],
+        batch_size=r["batch_size"],
+        grad_accum_steps=r["grad_accum_steps"],
+        lr=r["lr"],
+        seed=r["seed"],
+        num_workers=job.get("num_workers", int(CPUS)),
+        resume=str(Path("/data") / job["resume"]) if job.get("resume") else None,
+        **extra,
+    )
+    stop.set()
+    cats = json.loads((ds / "train" / "_annotations.coco.json").read_text())["categories"]
+    secs = time.time() - t0
+    gpu = job["gpu"]
+    result = {
+        "gpu": f"{gpu}:{devices}" if devices > 1 else gpu,
+        "commit": job.get("commit"),
+        "gpu_name": torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
+        "seconds": round(secs, 1),
+        "usd": round(secs / 3600 * USD_PER_HOUR.get(gpu, 0.0) * devices, 4),  # GPU list price only
+        "schema": {"class_names": [c["name"] for c in sorted(cats, key=lambda c: c["id"])]},
         "package": RFDETR_PACKAGE,
         "torch": torch.__version__,
         "files": sorted(p.name for p in out.iterdir()),

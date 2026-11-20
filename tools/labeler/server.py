@@ -27,6 +27,7 @@ import sys
 import threading
 import time
 from collections.abc import Callable
+from enum import StrEnum
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import ClassVar
@@ -36,6 +37,7 @@ import cv2
 import numpy as np
 
 from bga.ingest.hist_diff import DEFAULT_MIN_LEN_S, DEFAULT_THRESHOLD, detect_shots
+from bga.types import DETECTION_CLASSES
 
 #: Repository root; clip, label and roster paths in requests are relative to it.
 REPO = Path(__file__).resolve().parents[2]
@@ -622,6 +624,127 @@ def save_court_record(labels_dir: Path, body: dict) -> None:
     os.replace(tmp, p)
 
 
+#: Box gold v1 queue, edited by the /boxes page and written by ``scripts/box_gold_v1.py``.
+BOX_QUEUE = "box_gold_v1.json"
+
+
+class BoxStatus(StrEnum):
+    """Status of a box-queue frame; ``skip`` keeps a frame the reviewer could not decide out of every export.
+
+    Examples:
+        >>> BoxStatus("skip") is BoxStatus.SKIP, BoxStatus.DONE == "done"
+        (True, True)
+
+    """
+
+    TODO = "todo"
+    DONE = "done"
+    SKIP = "skip"
+
+
+def box_queue_path(labels_dir: Path, name: str = "") -> Path:
+    """The box gold v1 queue, or ``box_queue_<name>.json`` for another queue on the same page (/boxes?set=<name>).
+
+    Args:
+        labels_dir: Label folder.
+        name: Queue name of lower-case letters, digits and underscores, or "" for box gold v1.
+
+    Returns:
+        Path of the queue file (it may not exist).
+
+    Raises:
+        ValueError: When the name has other characters.
+
+    Examples:
+        >>> box_queue_path(Path("data/labels")).name, box_queue_path(Path("data/labels"), "r1balls").name
+        ('box_gold_v1.json', 'box_queue_r1balls.json')
+
+    """
+    if name and not re.fullmatch(r"[a-z0-9_]+", name):
+        raise ValueError(f"bad queue name {name!r}")
+    return labels_dir / (f"box_queue_{name}.json" if name else BOX_QUEUE)
+
+
+#: Serialises read-modify-write of the box queue across request threads.
+_BOX_LOCK = threading.Lock()
+
+
+def load_box_queue(labels_dir: Path, name: str = "") -> dict:
+    """A box queue: ``{"frames": [...], "classes", "meta"}``, box gold v1 unless ``name`` is given.
+
+    Args:
+        labels_dir: Label folder holding the queue.
+        name: Queue name (:func:`box_queue_path`).
+
+    Returns:
+        The stored queue, or an empty one when the file does not exist.
+
+    Examples:
+        >>> load_box_queue(Path("/nonexistent"))
+        {'frames': [], 'classes': [], 'meta': {}}
+
+    """
+    p = box_queue_path(labels_dir, name)
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {"frames": [], "classes": [], "meta": {}}
+
+
+def save_box_frame(labels_dir: Path, body: dict, name: str = "") -> dict:
+    """Replace one frame of the box queue and add the reviewer's active seconds to today's total.
+
+    Args:
+        labels_dir: Label folder holding the queue, rewritten atomically.
+        body: ``{"index", "frame", "active_seconds"}`` as posted by the /boxes page; ``frame`` is the whole record.
+        name: Queue name (:func:`box_queue_path`); "" for box gold v1.
+
+    Returns:
+        ``{"done": frames marked done, "total": frames}``.
+
+    Raises:
+        ValueError: When the record is for another frame than the stored one at ``index``, its status is not
+            ``todo``, ``done`` or ``skip``, or a box has a class outside the 10-class schema or a malformed ``xyxy``.
+        KeyError: When ``index`` or ``frame`` is missing.
+
+    Examples:
+        >>> import tempfile
+        >>> rec = {"youtube_id": "y", "frame": 5, "status": "todo", "boxes": []}
+        >>> with tempfile.TemporaryDirectory() as tmp:
+        ...     _ = (Path(tmp) / BOX_QUEUE).write_text(json.dumps({"frames": [rec], "meta": {}}))
+        ...     box = {"xyxy": [1, 2, 30, 40], "cls": "ball"}
+        ...     done = {**rec, "status": "done", "boxes": [box]}
+        ...     res = save_box_frame(Path(tmp), {"index": 0, "frame": done, "active_seconds": 9})
+        ...     q = load_box_queue(Path(tmp))
+        >>> res, q["frames"][0]["boxes"][0]["cls"], sum(q["meta"]["review_seconds"].values())
+        ({'done': 1, 'total': 1}, 'ball', 9.0)
+
+    """
+    i, rec = int(body["index"]), body["frame"]
+    try:
+        status = BoxStatus(rec.get("status"))
+    except ValueError:
+        raise ValueError("status must be todo, done or skip") from None
+    rec = {**rec, "status": status.value}
+    for b in rec.get("boxes", []):
+        if b.get("cls") not in DETECTION_CLASSES:
+            raise ValueError(f"unknown class {b.get('cls')!r}")
+        x1, y1, x2, y2 = (float(v) for v in b["xyxy"])
+        if not (x2 > x1 and y2 > y1):
+            raise ValueError(f"empty box {b['xyxy']}")
+    with _BOX_LOCK:
+        q = load_box_queue(labels_dir, name)
+        old = q["frames"][i]
+        if (old["youtube_id"], old["frame"]) != (rec.get("youtube_id"), rec.get("frame")):
+            raise ValueError("frame record does not match the queue at this index")
+        q["frames"][i] = {**rec, "saved_at": time.strftime("%Y-%m-%dT%H:%M:%S")}
+        secs = q.setdefault("meta", {}).setdefault("review_seconds", {})
+        day = time.strftime("%Y-%m-%d")
+        secs[day] = round(secs.get(day, 0) + float(body.get("active_seconds") or 0), 1)
+        p = box_queue_path(labels_dir, name)
+        tmp = p.with_suffix(".json.tmp")
+        tmp.write_text(json.dumps(q, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        os.replace(tmp, p)
+    return {"done": sum(f["status"] == BoxStatus.DONE for f in q["frames"]), "total": len(q["frames"])}
+
+
 def label_progress(labels_dir: Path, rel: str) -> dict:
     """Count the done frames of a clip and the boxes on them.
 
@@ -794,7 +917,7 @@ type _PostRoute = Callable[[LabelerHandler, dict, dict[str, str]], None]
 
 
 class LabelerHandler(BaseHTTPRequestHandler):
-    """Request handler of the labeller and court pages and their JSON API.
+    """Request handler of the labeller, court and box pages and their JSON API.
 
     The :class:`App` is set as the ``app`` class attribute by :func:`make_handler`. Bad query or body values answer 400
     on GET, paths outside the repo 403, unknown routes 404, and other errors 500, all as ``{"error": ...}``.
@@ -852,6 +975,12 @@ class LabelerHandler(BaseHTTPRequestHandler):
     def _get_court_labels(self, q: dict[str, str]) -> None:
         self._json(load_court_labels(self.app.labels_dir, q["clip"]))
 
+    def _get_boxes_page(self, q: dict[str, str]) -> None:
+        self._bytes((STATIC / "boxes.html").read_bytes(), "text/html; charset=utf-8")
+
+    def _get_box_queue(self, q: dict[str, str]) -> None:
+        self._json(load_box_queue(self.app.labels_dir, q.get("set", "")))
+
     def _get_clips(self, q: dict[str, str]) -> None:
         self._json({
             "clips": self.app.list_clips(),
@@ -885,6 +1014,9 @@ class LabelerHandler(BaseHTTPRequestHandler):
         "/court/": _get_court_page,
         "/api/court/queue": _get_court_queue,
         "/api/court/labels": _get_court_labels,
+        "/boxes": _get_boxes_page,
+        "/boxes/": _get_boxes_page,
+        "/api/boxes/queue": _get_box_queue,
         "/api/clips": _get_clips,
         "/api/clip": _get_clip,
         "/api/frame": _get_frame,
@@ -905,6 +1037,9 @@ class LabelerHandler(BaseHTTPRequestHandler):
         save_court_record(self.app.labels_dir, body)
         self._json({"ok": True})
 
+    def _post_box_frame(self, body: dict, q: dict[str, str]) -> None:
+        self._json({"ok": True, **save_box_frame(self.app.labels_dir, body, q.get("set", ""))})
+
     def _post_shots(self, body: dict, q: dict[str, str]) -> None:
         self.app.shots.start(q["path"], float(body.get("threshold", DEFAULT_THRESHOLD)))
         self._json({"started": True})
@@ -912,6 +1047,7 @@ class LabelerHandler(BaseHTTPRequestHandler):
     _POST_ROUTES: ClassVar[dict[str, _PostRoute]] = {
         "/api/labels": _post_labels,
         "/api/court/labels": _post_court_labels,
+        "/api/boxes/frame": _post_box_frame,
         "/api/shots": _post_shots,
     }
 
@@ -935,7 +1071,7 @@ class LabelerHandler(BaseHTTPRequestHandler):
             self._err(500, repr(e))
 
     def do_POST(self) -> None:
-        """Save clip labels or a court keyframe record, or start shot detection, from a JSON body."""
+        """Save clip labels, a court keyframe record or a box gold frame, or start shot detection, from a JSON body."""
         u = urlparse(self.path)
         q = {k: v[0] for k, v in parse_qs(u.query).items()}
         try:

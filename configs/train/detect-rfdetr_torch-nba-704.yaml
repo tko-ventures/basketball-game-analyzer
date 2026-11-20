@@ -1,0 +1,28 @@
+name: nba-704
+layer: detect
+backend: rfdetr_torch
+description: >
+  Resolution experiment, arm A: RF-DETR Large at its stock 704 px, every frame stretched to the square input as RF-DETR does by default (a 20 px ball becomes about 7x13 px). NBA data only, so the three arms differ in input scale alone.
+  Source: Skalski's 10-class NBA set, version 18 (unresized frames, CC BY 4.0). No PLK frame, no gold frame.
+base_weights:
+  name: rf-detr-large-2026.pth
+  url: https://repo.roboflow.com/rfdetr/rf-detr-large-2026.pth
+  licence: Apache-2.0
+package: rfdetr[train]==1.12.1
+sources:
+  - kind: roboflow
+    ref: roboflow-jvuqo/basketball-player-detection-3-ycjdo/18
+    licence: CC-BY-4.0
+recipe:
+  variant: RFDETRLarge
+  resolution: 704
+  epochs: 50
+  batch_size: 4
+  grad_accum_steps: 4
+  lr: 0.0001
+  seed: 0
+  select_on: val/mAP_50_95
+platform:
+  name: modal
+  gpu: L40S
+  timeout_h: 8

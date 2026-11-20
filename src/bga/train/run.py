@@ -2,7 +2,8 @@
 
 Steps for ``configs/train/<name>.yaml``:
 
-1. Build the merged dataset under ``runs/train/<weight id>/dataset`` (``bga.train.court_data``); every
+1. Build the merged dataset under ``runs/train/<weight id>/dataset`` (``bga.train.court_data`` or
+   ``bga.train.detect_data``); every
    manifest is checked against its sha256 and against the gold clips.
 2. Upload it to the ``bga-data`` Modal volume and run the trainer there (``bga.remote.modal_train``) in a
    detached app, so the run continues if this process stops.
@@ -19,6 +20,7 @@ from __future__ import annotations
 
 import csv
 import datetime as dt
+import importlib
 import io
 import json
 import logging
@@ -34,6 +36,25 @@ TRAIN_MD = ROOT / "docs/train.md"
 COSTS_MD = ROOT / "docs/costs.md"
 #: Files collected from the trainer's output on the volume into ``weights/<weight id>/``.
 PULL = ("checkpoint_best_total.pth", "metrics.csv", "result.json")
+#: Training setups by (layer, backend): the ``bga.train`` dataset module and the ``bga.remote.modal_train`` trainer.
+SETUPS = {
+    ("court", "rfdetr_keypoint"): ("court_data", "train_keypoint"),
+    ("detect", "rfdetr_torch"): ("detect_data", "train_detect"),
+}
+
+
+def _setup(cfg: TrainConfig) -> tuple[str, str]:
+    """Dataset module and trainer function names of a config's layer and backend.
+
+    Examples:
+        >>> from types import SimpleNamespace
+        >>> _setup(SimpleNamespace(layer="detect", backend="rfdetr_torch"))
+        ('detect_data', 'train_detect')
+
+    """
+    if (cfg.layer, cfg.backend) not in SETUPS:
+        raise NotImplementedError(f"no training setup for {cfg.layer}/{cfg.backend}")
+    return SETUPS[cfg.layer, cfg.backend]
 
 
 def _work(cfg: TrainConfig) -> Path:
@@ -65,7 +86,7 @@ def build(cfg: TrainConfig) -> dict:
         Image counts per split and source, and the dataset sha256 (``bga.train.court_data.build``).
 
     Raises:
-        NotImplementedError: for any layer and backend other than ``court/rfdetr_keypoint``.
+        NotImplementedError: for any layer and backend other than ``court/rfdetr_keypoint`` and ``detect/rfdetr_torch``.
 
     Examples:
         >>> from bga.train.config import load_train_config
@@ -74,23 +95,50 @@ def build(cfg: TrainConfig) -> dict:
         '...'
 
     """
-    if cfg.layer != "court" or cfg.backend != "rfdetr_keypoint":
-        raise NotImplementedError(f"no dataset builder for {cfg.layer}/{cfg.backend}")
-    from bga.train import court_data
-
-    info = court_data.build(cfg, _work(cfg) / "dataset")
+    builder = importlib.import_module(f"bga.train.{_setup(cfg)[0]}").build
+    info = builder(cfg, _work(cfg) / "dataset")
     (_work(cfg) / "dataset_info.json").write_text(json.dumps(info, indent=1))
     return info
 
 
-def launch(cfg: TrainConfig) -> dict:
-    """Upload the built dataset to the ``bga-data`` volume and train on Modal in a detached app.
+def _remote_exists(path: str) -> bool:
+    """Whether a file exists on the ``bga-data`` volume.
+
+    Args:
+        path: file path on the volume.
+
+    Returns:
+        True when the file is listed in its directory; False when it or its directory is missing. Any other error
+        (auth, network) propagates, so a run is never restarted from scratch because the volume could not be read.
+
+    Examples:
+        >>> _remote_exists("train/detect/rfdetr_torch/plk-r2@b13bfb19/output/last.ckpt")  # doctest: +SKIP
+        True
+
+    """
+    from modal.exception import NotFoundError
+
+    from bga.remote.modal_train import vol
+
+    try:
+        return any(e.path == path for e in vol.listdir(str(Path(path).parent)))
+    except NotFoundError:  # the directory is missing, so the file is too
+        return False
+
+
+def launch(cfg: TrainConfig, resume: bool = True) -> dict:
+    """Upload the built dataset to the ``bga-data`` volume, start training on Modal and wait for the result.
+
+    The call is spawned in a detached app and its id saved to ``call.json`` in the working directory, so the run goes
+    on if this process stops; :func:`wait` picks it up again. With ``resume``, a run cut short continues from the
+    ``last.ckpt`` its trainer left on the volume.
 
     Args:
         cfg: the training config; its dataset must be built (``build``).
+        resume: Continue from ``output/last.ckpt`` when the volume has one.
 
     Returns:
-        The trainer's result: GPU, commit, wall time, cost, schema and output files (``train_keypoint``).
+        The trainer's result: GPU, commit, wall time, cost, schema and output files.
 
     Examples:
         >>> launch(cfg)["gpu"]  # doctest: +SKIP
@@ -99,23 +147,74 @@ def launch(cfg: TrainConfig) -> dict:
     """
     import modal
 
-    from bga.remote.modal_train import app, train_keypoint, vol
+    from bga.remote import modal_train
+    from bga.remote.modal_train import CPUS, MEMORY_MB, app, vol
 
     ds = _work(cfg) / "dataset"
     remote = _remote(cfg)
-    log.info("uploading %s to bga-data:/%s/dataset", ds, remote)
-    with vol.batch_upload(force=True) as up:
-        up.put_directory(str(ds), f"{remote}/dataset")
+    ckpt = f"{remote}/output/last.ckpt"
+    resume_from = ckpt if resume and _remote_exists(ckpt) else None
+    if resume_from is None:
+        log.info("uploading %s to bga-data:/%s/dataset", ds, remote)
+        with vol.batch_upload(force=True) as up:
+            up.put_directory(str(ds), f"{remote}/dataset")
+    else:
+        log.info("resuming from bga-data:/%s", resume_from)
+    init = None
+    if cfg.recipe.init_weights:  # warm start: the earlier model's checkpoint goes up next to the dataset
+        init = f"{remote}/init.pth"
+        with vol.batch_upload(force=True) as up:
+            up.put_file(str(ROOT / "weights" / cfg.recipe.init_weights / "checkpoint_best_total.pth"), init)
     job = {
         "commit": _commit(),  # the code that trains; HEAD may move before collect
         "dataset": f"{remote}/dataset",
         "output": f"{remote}/output",
         "recipe": cfg.recipe.model_dump(),
         "gpu": cfg.platform.gpu,
+        "resume": resume_from,
+        "init": init,
     }
-    fn = train_keypoint.with_options(gpu=cfg.platform.gpu, timeout=int(cfg.platform.timeout_h * 3600))
+    trainer = getattr(modal_train, _setup(cfg)[1])
+    n = cfg.recipe.devices or 1
+    gpu = f"{cfg.platform.gpu}:{n}" if n > 1 else cfg.platform.gpu
+    fn = trainer.with_options(  # CPU and memory scale with the GPUs: each DDP process runs its own data loaders
+        gpu=gpu, cpu=CPUS * n, memory=MEMORY_MB * n, timeout=int(cfg.platform.timeout_h * 3600)
+    )
     with modal.enable_output(), app.run(detach=True):
-        return fn.remote(job)
+        call = fn.spawn(job)
+    (_work(cfg) / "call.json").write_text(json.dumps({"call_id": call.object_id, "resume": resume_from}))
+    log.info("spawned %s; waiting (bga train --wait picks it up again)", call.object_id)
+    return wait(cfg)
+
+
+def wait(cfg: TrainConfig, poll_s: float = 120.0) -> dict:
+    """Wait for the spawned training call of a config, polling in short calls that survive expired auth tokens.
+
+    Args:
+        cfg: the training config; ``call.json`` in its working directory names the call.
+        poll_s: Seconds per poll.
+
+    Returns:
+        The trainer's result.
+
+    Examples:
+        >>> wait(cfg)["gpu"]  # doctest: +SKIP
+        'L40S'
+
+    """
+    import time
+
+    import modal
+
+    cid = json.loads((_work(cfg) / "call.json").read_text())["call_id"]
+    while True:
+        try:
+            return modal.FunctionCall.from_id(cid).get(timeout=poll_s)
+        except (TimeoutError, modal.exception.TimeoutError):
+            continue
+        except modal.exception.AuthError as e:  # long waits outlive the client's token; a fresh poll gets a new one
+            log.warning("auth expired while waiting (%s); polling again", e)
+            time.sleep(5)
 
 
 def _read_remote(path: str) -> bytes:
@@ -137,11 +236,16 @@ def _best_row(metrics_csv: str, key: str) -> tuple[dict, dict]:
     return best, rows[-1]
 
 
-def collect(cfg: TrainConfig) -> Path:
+def collect(cfg: TrainConfig, partial: bool = False) -> Path:
     """Pull a finished run's files into ``weights/<weight id>/``, write ``train.json`` and log the docs rows.
+
+    With ``partial``, a run that was cut short is collected as it stands: its best EMA checkpoint so far, the class
+    names from the local dataset, and ``partial`` in ``train.json`` with the last epoch done. Its cost is not logged
+    again (it was logged by hand when the run stopped).
 
     Args:
         cfg: the training config.
+        partial: Collect a run that never returned a result.
 
     Returns:
         The weights directory.
@@ -153,9 +257,28 @@ def collect(cfg: TrainConfig) -> Path:
     """
     remote, wdir = _remote(cfg), cfg.weights_dir()
     wdir.mkdir(parents=True, exist_ok=True)
-    for name in PULL:
-        (wdir / name).write_bytes(_read_remote(f"{remote}/output/{name}"))
-    result = json.loads((wdir / "result.json").read_text())
+    if partial:
+        (wdir / PULL[0]).write_bytes(_read_remote(f"{remote}/output/checkpoint_best_ema.pth"))
+        (wdir / "metrics.csv").write_bytes(_read_remote(f"{remote}/output/metrics.csv"))
+        cats = json.loads((_work(cfg) / "dataset/train/_annotations.coco.json").read_text())["categories"]
+        epochs = [
+            int(float(r["epoch"]))
+            for r in csv.DictReader(io.StringIO((wdir / "metrics.csv").read_text()))
+            if r.get("epoch")
+        ]
+        result = {
+            "schema": {"class_names": [c["name"] for c in sorted(cats, key=lambda c: c["id"])]},
+            "partial": {
+                "last_epoch": max(epochs, default=None),
+                "of": cfg.recipe.epochs,
+                "checkpoint": "checkpoint_best_ema.pth",
+            },
+        }
+        (wdir / "result.json").write_text(json.dumps(result, indent=1))
+    else:
+        for name in PULL:
+            (wdir / name).write_bytes(_read_remote(f"{remote}/output/{name}"))
+        result = json.loads((wdir / "result.json").read_text())
     best, last = _best_row((wdir / "metrics.csv").read_text(), cfg.recipe.select_on)
     info_path = _work(cfg) / "dataset_info.json"
     info = json.loads(info_path.read_text()) if info_path.exists() else {}
@@ -175,12 +298,13 @@ def collect(cfg: TrainConfig) -> Path:
             "schema": result.get("schema"),
         },
         "select_on": cfg.recipe.select_on,
+        "partial": result.get("partial"),
         "best": best,
         "last": last,
         "collected": dt.datetime.now().isoformat(timespec="seconds"),
     }
     (wdir / "train.json").write_text(json.dumps(train_json, indent=1))
-    _log_rows(cfg, train_json)
+    _log_rows(cfg, train_json, cost=not partial)
     return wdir
 
 
@@ -199,20 +323,22 @@ def _append_row(path: Path, row: str) -> None:
     path.write_text("\n".join([*lines[: last + 1], row, *lines[last + 1 :]]) + "\n")
 
 
-def _log_rows(cfg: TrainConfig, t: dict) -> None:
+def _log_rows(cfg: TrainConfig, t: dict, cost: bool = True) -> None:
     """Append the run's row to docs/train.md and, when it exists, its cost to docs/costs.md."""
     counts = t["dataset"].get("counts", {})
     n = {s: sum(counts.get(s, {}).values()) for s in ("train", "valid")}
     epoch = t["best"].get("epoch", "?")
     cfg_file = f"configs/train/{cfg.layer}-{cfg.backend}-{cfg.name}.yaml"
     score = f"{cfg.recipe.select_on} {_fmt(t['best'], cfg.recipe.select_on)} (epoch {epoch})"
-    cost = f"{t['gpu']}, {t['seconds']} s, {t['usd']} USD"
+    spent = f"{t['gpu']}, {t['seconds']} s, {t['usd']} USD" if cost else "cut short; cost in docs/costs.md"
+    part = t.get("partial")
+    note = f"partial: best of epochs 0 to {part['last_epoch']} of {part['of']}" if part else ""
     _append_row(
         TRAIN_MD,
         f"| {dt.date.today().isoformat()} | {t['commit']} | `{cfg_file}` | `{cfg.weight_id()}` "
-        f"| {n['train']} / {n['valid']} | {score} | {cost} | |",
+        f"| {n['train']} / {n['valid']} | {score} | {spent} | {note} |",
     )
-    if COSTS_MD.exists():
+    if cost and COSTS_MD.exists():
         _append_row(
             COSTS_MD,
             f"| {dt.date.today().isoformat()} | modal | {t['gpu']} | bga train {cfg.weight_id()} "

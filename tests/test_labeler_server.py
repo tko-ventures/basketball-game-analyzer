@@ -139,3 +139,52 @@ def test_migrate_v1_maps_dziki_and_opp_to_sides():
 )
 def test_season_for(date, season):
     assert season_for(date) == season
+
+
+@pytest.fixture
+def box_queue(tmp_path):
+    rec = {"youtube_id": "y", "frame": 5, "status": "todo", "boxes": [{"xyxy": [1, 2, 30, 40], "cls": "player"}]}
+    (tmp_path / server.BOX_QUEUE).write_text(json.dumps({"frames": [rec], "meta": {}}))
+    return tmp_path, rec
+
+
+class TestSaveBoxFrame:
+    def test_replaces_the_frame_and_logs_time(self, box_queue):
+        root, rec = box_queue
+        server.save_box_frame(root, {"index": 0, "frame": {**rec, "status": "done"}, "active_seconds": 4})
+        q = server.load_box_queue(root)
+        assert (q["frames"][0]["status"], sum(q["meta"]["review_seconds"].values())) == ("done", 4.0)
+
+    @pytest.mark.parametrize(
+        ("change", "message"),
+        [
+            pytest.param({"status": "maybe"}, "status must be", id="bad-status"),
+            pytest.param({"boxes": [{"xyxy": [1, 2, 30, 40], "cls": "coach"}]}, "unknown class", id="unknown-class"),
+            pytest.param({"boxes": [{"xyxy": [30, 2, 1, 40], "cls": "ball"}]}, "empty box", id="empty-box"),
+            pytest.param({"frame": 6}, "does not match", id="other-frame"),
+        ],
+    )
+    def test_rejects_bad_records(self, box_queue, change, message):
+        root, rec = box_queue
+        with pytest.raises(ValueError, match=message):
+            server.save_box_frame(root, {"index": 0, "frame": {**rec, **change}})
+
+    def test_rejected_record_leaves_queue_unchanged(self, box_queue):
+        root, rec = box_queue
+        before = (root / server.BOX_QUEUE).read_text()
+        with pytest.raises(ValueError, match="does not match"):
+            server.save_box_frame(root, {"index": 0, "frame": {**rec, "frame": 6}})
+        assert (root / server.BOX_QUEUE).read_text() == before
+
+
+class TestBoxQueueSets:
+    def test_named_queue_is_separate_from_box_gold(self, tmp_path):
+        rec = {"youtube_id": "y", "frame": 5, "status": "todo", "boxes": []}
+        (tmp_path / "box_queue_r1balls.json").write_text(json.dumps({"frames": [rec], "meta": {}}))
+        server.save_box_frame(tmp_path, {"index": 0, "frame": {**rec, "status": "skip"}}, "r1balls")
+        assert server.load_box_queue(tmp_path, "r1balls")["frames"][0]["status"] == "skip"
+
+    @pytest.mark.parametrize("name", [pytest.param("../x", id="path"), pytest.param("R1", id="upper-case")])
+    def test_rejects_bad_names(self, tmp_path, name):
+        with pytest.raises(ValueError, match="bad queue name"):
+            server.box_queue_path(tmp_path, name)

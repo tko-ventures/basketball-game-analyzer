@@ -1,6 +1,6 @@
 # Architecture: what is built
 
-This page describes the code and data that exist on `main`, as of 2026-11-17 (M0 to M2, and M3 part 1). It records only what is in the repository. Intentions, targets and milestones are in `docs/PLAN.md`, decisions in `docs/decisions.md`, and scores in `docs/metrics.md`.
+This page describes the code and data that exist in the repository, as of 2026-11-20 (M0 to M4). It records only what is in the repository. Intentions, targets and milestones are in `docs/PLAN.md`, decisions in `docs/decisions.md`, and scores in `docs/metrics.md`.
 
 The repository has three parts:
 
@@ -8,19 +8,19 @@ The repository has three parts:
 2. **Labelling tools** (`tools/labeler/`, most of `scripts/`). These build and check the gold set and the court keyframes.
 3. **The demo site** (`scripts/demo_*`, `scripts/coach_*`). Web pages published to Vercel. They are built by their own scripts, not by the `bga` pipeline.
 
-`configs/baseline.yaml` uses only public pretrained models. One training setup exists (`bga train`, below), and `configs/court-plk-v1.yaml` uses its court weights.
+`configs/baseline.yaml` uses only public pretrained models. Two training setups exist (`bga train`, below): court keypoints, whose weights `configs/court-plk-v1*.yaml` use, and detection, whose weights the eight `configs/detect-*.yaml` use.
 
 ## Repository layout
 
 | Path | Contents | In git |
 |---|---|---|
-| `src/bga/` | the pipeline package, about 2,400 lines | yes |
-| `configs/baseline.yaml`, `configs/court-plk-v1*.yaml` | run configs: the public-model baseline; the baseline with the PLK court model, unsmoothed and with smoothing windows of 2 and 4 | yes |
+| `src/bga/` | the pipeline package, about 6,600 lines | yes |
+| `configs/baseline.yaml`, `configs/court-plk-v1*.yaml`, `configs/detect-*.yaml` | run configs: the public-model baseline; the baseline with the PLK court model, unsmoothed and with smoothing windows of 2 and 4; the baseline with the detect layer swapped for one trained detector each (`rfdetr_torch` at confidence 0.05: `nba-704`, `nba-1280`, `nba-tile2`, `plk-r1`, `plk-r2`, `plk-r2-fast`, `plk-r2-fast-es`, `plk-r2-xl`) | yes |
 | `configs/train/` | training configs, one per training setup | yes |
 | `weights/` | trained weights, one directory per weight id | no |
-| `tools/labeler/` | the local labelling server and its two pages | yes |
+| `tools/labeler/` | the local labelling server and its three pages | yes |
 | `scripts/` | labelling, gold export, court, probe, demo and coach scripts | yes |
-| `tests/` | 14 test files, 65 tests | yes |
+| `tests/` | 16 test files, 177 tests | yes |
 | `data/clip_ids.txt` | the 31 YouTube highlight clips | yes |
 | `data/labels/` | per-clip labels, the gold manifest, review ops, court keyframes | yes |
 | `data/gold/v0/` | the exported gold set | yes |
@@ -64,7 +64,7 @@ Each layer's output format is documented in its `base.py`:
 
 ### Backends
 
-A backend is a class registered with `@register("<layer>", "<name>")` (`bga.registry`). The registry imports the modules listed in `BACKEND_MODULES` lazily. The court layer has two registered backends and every other layer one. `configs/baseline.yaml` selects the first of each:
+A backend is a class registered with `@register("<layer>", "<name>")` (`bga.registry`). The registry imports the modules listed in `BACKEND_MODULES` lazily. The court and detect layers have two registered backends each, and every other layer one. `configs/baseline.yaml` selects the first of each:
 
 | Layer | Backend | What it does | Model |
 |---|---|---|---|
@@ -74,12 +74,13 @@ A backend is a class registered with `@register("<layer>", "<name>")` (`bga.regi
 | team | `siglip_kmeans` | `sports.TeamClassifier` (SigLIP, UMAP, KMeans) fitted per sequence on crops sampled at 1 fps, referees excluded | `google/siglip-base-patch16-224` |
 | track | `bytetrack` | supervision ByteTrack on person boxes, in pixels | none |
 | numbers | `smolvlm_ocr` | reads `number` boxes lying at least 90% inside a track's box; a number is confirmed after 3 consecutive equal reads; runs on MPS with `max_new_tokens=4` | `basketball-jersey-numbers-ocr/3` (SmolVLM2, NBA crops) |
+| detect | `rfdetr_torch` | RF-DETR weights trained by `bga train`, loaded from their weight id; class names from the checkpoint, tiling from `train.json`; on MPS, confidence 0.05 by default. Weights trained on square tiles run on the same tiles (`bga.detect.tiles`: two overlapping crops of the full frame height), and the per-tile detections are merged with a per-class suppression that prefers boxes not cut by a tile edge. Used by `configs/detect-*.yaml` | weights `detect/rfdetr_torch/<name>@<hash8>` |
 | court | `rfdetr_keypoint` | a court keypoint model trained by `bga train`, loaded from its weight id on MPS (the class and keypoint counts come from its `train.json`); the most confident court detection gives the landmarks, then the same RANSAC homography as `roboflow_keypoints`. Used by `configs/court-plk-v1*.yaml` | weights `court/rfdetr_keypoint/<name>@<hash8>` |
 | positions | `bbox_bottom` | box bottom-centre through the frame's homography, then `sports` `clean_paths` (jumps over 0.7 m, smoothing window 9) | none |
 
 Code that exists but no config uses:
 - `bga.detect.onnx_rfdetr`, an RF-DETR decoder on ONNX Runtime with the CoreML provider. It is not registered.
-- `bga.detect.nms`, nested-box suppression, used only by `onnx_rfdetr`.
+- `bga.detect.nms`, nested-box suppression, used by `onnx_rfdetr`; its `iou` is also used by `bga.detect.tiles`.
 
 Both are covered by `tests/test_nms.py`.
 
@@ -102,14 +103,18 @@ Both are covered by `tests/test_nms.py`.
 | `bga run --config configs/baseline.yaml [--set ...] [--seq ...] [--layer ...] [--force ...] [--remote modal] [--remote-layer ...]` | runs the layers |
 | `bga eval --config a.yaml [--config b.yaml] [--gold v0] [--held-out] [--write]` | runs, reusing cached outputs, and scores each config side by side; `--write` adds rows to the tracking table in `docs/metrics.md` |
 | `bga eval-court --config a.yaml [--config b.yaml] [--held-out] [--write]` | scores each config's court layer on the gold court keyframes; `--write` adds rows to the court table in `docs/metrics.md` |
+| `bga eval-detect --config a.yaml [--set ...] [--gold v1] [--held-out] [--write]` | runs the detect layer (reusing cached outputs) and scores per-class AP on the box-gold frames; `--write` adds rows to the detection table in `docs/metrics.md` |
 | `bga radar --config ...` | renders a radar video per sequence (`bga.export.radar`): the broadcast frame above, the FIBA court with players below |
 | `bga backends` | lists the registered backends |
-| `bga train --config configs/train/<layer>-<backend>-<name>.yaml [--build-only] [--collect]` | builds the dataset, checks it for gold clips, trains on Modal and pulls the weights back (section below) |
+| `bga train --config configs/train/<layer>-<backend>-<name>.yaml [--build-only] [--collect [--partial]] [--wait] [--no-resume]` | builds the dataset, checks it for gold clips, trains on Modal and pulls the weights back (section below) |
+
+The three `eval` commands refuse a config whose layer weights are neither a `pretrained:` id nor a weight id with a `weights/<id>/train.json`.
 
 ### Evaluation (`bga.eval`)
 
 - **Gold export** (`gold.py`): label files to MOTChallenge sequences, filling gaps of up to 3 sampled frames by interpolation.
 - **Tracking** (`mot.py`): HOTA, DetA, AssA, MOTA, IDF1 and IDSW from TrackEval, pinned to a commit. Players and referees are one class; scored on every 5th frame.
+- **Detection** (`detect.py`): COCO AP50:95 and AP50 per class of the 10-class schema on the box-gold frames of gold v1 inside the run's sequences, plus `people`, with the six person classes merged on both sides. Each result carries its gold box count.
 - **Court** (`court.py`): each gold court keyframe Tomasz labelled `ok` (18 dev, 6 held-out) is mapped by the config's court backend, which runs on the shot's frames within 25 frames of the keyframe at a stride of 5, so smoothing has its neighbours. The court vertices visible under his mapping go through the predicted mapping. Scores per arena and overall: the median over keyframes of the per-frame median error in metres; the same over the paint (key corners, free-throw line ends and centres); the share of keyframes under 0.5 m in the paint; and the unmapped count.
 - **Other scores** (`scores.py`):
   - class-agnostic person AP50 on the 100 box-gold frames;
@@ -118,7 +123,10 @@ Both are covered by `tests/test_nms.py`.
   - milliseconds per frame per layer;
   - churn (`churn.py`): id-set changes and track lifetimes.
 
-`docs/metrics.md` has two tables. The tracking table holds two rows, both for `baseline@70498c00` on gold v0: dev and held-out. The court table holds dev rows for `baseline`, `court-plk-v1` and its two smoothing windows, and held-out rows for `baseline` and `court-plk-v1-smooth4`.
+`docs/metrics.md` has three tables:
+- **Tracking:** two rows, both for `baseline@70498c00` on gold v0, dev and held-out.
+- **Court:** dev rows for `baseline`, `court-plk-v1` and its two smoothing windows, and held-out rows for `baseline` and `court-plk-v1-smooth4`.
+- **Detection:** on gold v1, 12 dev rows (`baseline` at its confidence of 0.4 and at 0.05, Roboflow's NBA detector versions 13 and 16, and the eight `configs/detect-*.yaml`) and 2 held-out rows (`baseline` at 0.05 and `detect-plk-r2`).
 
 ### Remote execution (`bga.remote`)
 
@@ -127,9 +135,10 @@ Both are covered by `tests/test_nms.py`.
   - clips go up once to the `bga-data` volume;
   - it runs one layer per sequence and returns the outputs, which the pipeline writes into local `runs/`;
   - cost per call comes from a list-price table.
-- `modal_train.py` is the `bga-train` Modal app, used by `bga train`. Its image adds `rfdetr[train]==1.12.1`; the trainer reads its dataset from the `bga-data` volume and writes its outputs there, committing them every 5 minutes so a run cut short keeps its checkpoints.
-- `sam2_prefill.py` is a separate Modal app (`bga-sam2-prefill`, L40S). It runs SAM 2.1 hiera-large video propagation for the gold-track prefill, and is a labelling aid, not a layer.
-- Spend is logged by hand in `docs/costs.md`: 3.60 USD of GPU time, all in October 2026.
+- `modal_train.py` is the `bga-train` Modal app, used by `bga train`. Each training container gets 8 CPU cores and 32 GB of memory, and the detection trainer 8 data-loader workers: about 16 s per epoch for RF-DETR Large at 704 px on the NBA set on an L40S, against about 20 s with Modal's default reservation (from Modal's billed GPU time). CPU and memory are billed on top of the GPU.
+- `sam2_prefill.py` is a separate Modal app (`bga-sam2-prefill`, L40S). It runs SAM 2.1 hiera-large video propagation for the gold-track prefill, and is a labelling aid, not a layer. Its image does not hold `bga`, so the remote call returns seconds and the local entrypoint prices them from `modal_runner.USD_PER_HOUR`, as `sam2_boxmask.py` does.
+- `sam2_boxmask.py` is another labelling aid (`bga-sam2-boxmask`, L40S). It masks each box of the box gold v1 prefill with SAM 2.1 hiera-large in image mode, one box prompt per box, and returns each mask's bounding box next to its prompt box in `runs/box_gold/v1/sam_boxes.json`.
+- Spend goes to `docs/costs.md` as per-job estimates: `modal_runner.append_cost_rows` inserts rows above the summary line, which is updated by hand from Modal's own figures (`modal billing summary`, `modal billing report --show-resources`). Per Modal: 4.18 USD in October 2026, 10.86 USD in November to 2026-11-19, all within credits.
 
 ### Court smoothing (`bga.court.smooth`)
 
@@ -159,12 +168,15 @@ These are labelling aids, not a layer:
 
   The weight id is `<layer>/<backend>/<name>@<hash8>`, the hash covering the whole config.
 - **Leakage guard** (`bga.train.leakage`): refuses any manifest that names a gold clip, held out or not. `tests/test_gold_leakage.py` checks every committed config and manifest.
-- **Dataset** (`bga.train.court_data`, the only builder so far): merges the Roboflow export and the manifest frames into one COCO-keypoint dataset with `train/`, `valid/` and `test/` folders under `runs/train/<weight id>/dataset/`. Manifest frames are decoded from the local videos and resized to 1280 px wide.
+- **Dataset (detection):** `bga.train.detect_data` builds a COCO detection dataset from Roboflow exports in the 10-class schema (categories matched by name, id 0 the placeholder), optionally cut into square tiles (`recipe.tiles`). Detection manifests (`data/labels/detect/train_manifest_<name>.json`) are checked against their sha256 and the gold clips, and their frames decoded from the local videos, resized with their boxes to the source's `image_width` (every detection config sets 1920, the clips' width, so frames stay at full size), into the split each frame names.
+- **Dataset (court)** (`bga.train.court_data`): merges the Roboflow export and the manifest frames into one COCO-keypoint dataset with `train/`, `valid/` and `test/` folders under `runs/train/<weight id>/dataset/`. Manifest frames are decoded from the local videos and resized to 1280 px wide.
+- **Setups:** `bga.train.run.SETUPS` maps each trainable layer and backend to its dataset module and Modal trainer: `court/rfdetr_keypoint` to `court_data` and `train_keypoint`, `detect/rfdetr_torch` to `detect_data` and `train_detect`. Any other pair raises `NotImplementedError`.
 - **Run** (`bga.train.run`):
   1. Upload the dataset to the Modal volume.
-  2. Train in a detached Modal app: `RFDETRKeypointPreview` with the schema read from the annotations, `KeypointTrainConfig`, and the `rfdetr` Lightning trainer.
-  3. Collect: the best checkpoint, `metrics.csv` and `result.json` go into `weights/<weight id>/`, with a `train.json` (config, dataset counts and sha256, commit, GPU, time, cost, the trainer's best and last validation rows). A row goes to `docs/train.md` and one to `docs/costs.md`.
-- **Configs:** `court-rfdetr_keypoint-plk-v1.yaml`: RF-DETR Keypoint (preview, XLarge, Apache 2.0) on Roboflow's NBA court set version 20 (CC BY 4.0) plus `train_manifest_plk-v1.json`.
+  2. Train in a detached Modal app. The call is spawned and its id saved to `call.json` in the working directory; the local process polls for the result in two-minute waits, which survive Modal's auth token expiring, and `--wait` resumes waiting after a restart. A run cut short continues from the `last.ckpt` its trainer left on the volume, unless `--no-resume` is given; only Modal's `NotFoundError` counts as no checkpoint, and any other volume error stops the launch. Court: `RFDETRKeypointPreview` with the schema read from the annotations, `KeypointTrainConfig`, and the `rfdetr` Lightning trainer. Detection: the `rfdetr` class named by `recipe.variant`, trained with its `train()`.
+  3. Collect (`--partial` takes a cut-short run's best EMA checkpoint so far and records the last epoch done in `train.json`): the best checkpoint, `metrics.csv` and `result.json` go into `weights/<weight id>/`, with a `train.json` (config, dataset counts and sha256, commit, GPU, time, cost, the trainer's best and last validation rows). A row goes to `docs/train.md` and one to `docs/costs.md`.
+- **Recipe fields for detection:** `variant` (the `rfdetr` class), `tiles`, `devices` (GPUs per run, spawn-based DDP; CPU and memory scale with them), `strategy`, `eval_interval`, `early_stopping_patience` (in validations) and `init_weights` (warm start from a trained weight id, whose checkpoint is uploaded next to the dataset). All are optional and left out of the config hash when unset, so older weight ids are unchanged.
+- **Configs:** `detect-rfdetr_torch-nba-704.yaml`, `-nba-1280.yaml` and `-nba-tile2.yaml`: RF-DETR Large on Skalski's NBA set version 18 (CC BY 4.0) at 704 px, at 1280 px, and at 704 px on two square tiles, the resolution experiment of M4. `detect-rfdetr_torch-plk-r1.yaml`: the 1280 px setting plus `train_manifest_r1.json`; `-plk-r2.yaml`: the same plus `train_manifest_r2.json` (238 frames, validation clips the same as round 1's); `-plk-r2-xl.yaml`: `plk-r2` with RF-DETR XL, the M4 bake-off; `-plk-r2-fast.yaml` and `-plk-r2-fast-es.yaml`: `plk-r2` with batch 16 and validation every 5 epochs, the second also with early stopping (speed check). `court-rfdetr_keypoint-plk-v1.yaml`: RF-DETR Keypoint (preview, XLarge, Apache 2.0) on Roboflow's NBA court set version 20 (CC BY 4.0) plus `train_manifest_plk-v1.json`.
 
 ## Data
 
@@ -189,6 +201,15 @@ These are labelling aids, not a layer:
   - `data/labels/review/*.ops.txt` holds every review operation, applied in order by `scripts/review_ops.py`;
   - `data/labels/sheet_ledger.tsv` logs every contact sheet read;
   - `data/labels/box_gold.json` lists the 100 box-gold frames.
+- **Detection manifest, round 1:** `data/labels/detect/train_manifest_r1.json`, written by `autolabel.py manifest`: the 231 finished frames of the ball queue, each with `clip`, `video`, `frame`, `split` (3 whole clips are `valid`), `size` and `boxes` as `[x1, y1, x2, y2, class]` (Tomasz's ball, if any, plus the draft's other boxes), and the sha256 of the ball queue it was built from.
+- **Ball queue, round 2:** `data/labels/box_queue_r2balls.json`: 261 frames from 22 clips, 115 balls accepted without review (status `done`, source `auto`), 146 frames for review.
+- **Ball queue, round 1:** `data/labels/box_queue_r1balls.json`, in the box-queue format with `mode: ball`, `title` and `instructions`; each frame holds the draft's ball boxes and its three best weaker ball guesses as candidates.
+- **Box gold v1 queue:** `data/labels/box_gold_v1.json` is written by `scripts/box_gold_v1.py prefill` and edited at `/boxes`.
+  - **Top level:** `version`, `classes`, the SAM model, `frames` and `meta.review_seconds`.
+  - **Each frame:** `youtube_id`, `clip`, `video`, `shot`, `frame`, `status` (`todo`, `done` or `skip`), `note`, `boxes` and `candidates`.
+  - **Each box:** `id`, `xyxy`, `cls`, `team`, `tid`, `src`, `flags`, `hints`, `alt` (SAM or prefill geometry), `checked` and `edited`.
+
+  `data/labels/review/box_gold_v1.ops.txt` holds the implementer's first pass, applied by `box_gold_v1.py apply`. `data/labels/review/box_gold_v1.qa.ops.txt` holds the QA fixes after Tomasz's review, applied with `apply --include-done`. `box_gold_v1.py export` writes `data/gold/v1/boxes.json` (100 frames, 1,669 boxes, each with `xyxy`, `cls`, `team`, `tid`) from the frames marked done. Conventions and counts are in `docs/gold.md`.
 
 ### Court keyframes
 
@@ -216,7 +237,7 @@ These are labelling aids, not a layer:
 
 ### Labeller server
 
-`tools/labeler/server.py` is a stdlib HTTP server on port 8765, serving two pages:
+`tools/labeler/server.py` is a stdlib HTTP server on port 8765, serving three pages:
 
 - **`/` (track labeller):** `static/index.html` and `app.js`. Shot tagging, boxes, identities, and track-level review: K confirm, P split, M merge, ⇧Del delete a track, ⇧D accept a shot. A filmstrip shows 8 crops per track, and active time is logged in `meta.review_seconds`.
 - **`/court` (court keyframes):** `static/court.html`.
@@ -226,13 +247,20 @@ These are labelling aids, not a layer:
   - **Uncertainty:** the top bar shows the fit's rms and how far the lines in view could move given 2 px click error. It warns above 15 px.
   - **Folds:** a fit is refused if it folds between the dots and pins or mirrors the court there; parts of the court may be behind the camera.
   - **Queues:** `?set=<name>` opens `queue_<name>.json`.
+- **`/boxes` (box gold v1 and other box queues):** `static/boxes.html` edits `data/labels/box_gold_v1.json`, one frame at a time; `?set=<name>` opens `data/labels/box_queue_<name>.json` instead. A frame's status is `todo`, `done` or `skip` (the reviewer could not decide; left out of every export), checked against `BoxStatus` in `server.py` when a frame is saved.
+  - **Ball mode** (a queue with `mode: ball`, such as `r1balls`): only ball boxes, the queue's own instructions, and one decision per frame. `Space` or a click on a guess makes it the frame's ball and moves on; `Shift`-drag then `Enter` keeps only the boxes drawn or adjusted; `N` records no visible ball and `S` skips the frame.
+  - **Display:** boxes are coloured by class. Flagged boxes not yet checked are outlined in orange and come first in the Tab order and the list, with their flags and hints shown.
+  - **Loupe:** shows the selected box at up to 8×, without smoothing, with the alternative box (SAM or prefill) dashed.
+  - **Editing:** a click selects the smallest box under the cursor; `Esc` or a click on empty floor deselects. Edges and corners drag on the frame or in the loupe; arrow keys nudge one edge by 1 or 5 px; Alt-drag moves the selected box. Keys `1`–`0` set the selected box's class, `T` the team, `A` swaps in the alternative box, Shift-drag draws a new box anywhere, `X` deletes, and `C` shows the detector candidates (low-score objects, and people no box covers), adopted with a click. Scroll zooms, and dragging empty space pans.
+  - **Saving:** each change autosaves the frame. Enter marks it done, checks all its boxes and opens the next frame not done.
+  - **Time:** active time is logged in `meta.review_seconds`.
 
 API endpoints:
 
 | Method | Path |
 |---|---|
-| GET | `/api/clips`, `/api/clip`, `/api/frame`, `/api/shots`, `/api/pipeline`, `/api/court/queue`, `/api/court/labels` |
-| POST | `/api/labels`, `/api/shots`, `/api/court/labels` |
+| GET | `/api/clips`, `/api/clip`, `/api/frame`, `/api/shots`, `/api/pipeline`, `/api/court/queue`, `/api/court/labels`, `/api/boxes/queue[?set=]` |
+| POST | `/api/labels`, `/api/shots`, `/api/court/labels`, `/api/boxes/frame[?set=]` (rejects classes outside the schema, empty boxes, and a record for another frame) |
 
 Paths are confined to the repository by `safe_path`.
 
@@ -243,9 +271,10 @@ Paths are confined to the repository by `safe_path`.
 | Clips and shots | `fetch_highlights.sh`, `transcode_h264.sh`, `fetch_rosters.py`, `compare_shots.py`, `shot_diff_sheet.py`, `shot_sheets.py`, `check_labeller.py` |
 | Track prefill | `prefill_tracks.py` (Skalski's detector plus ByteTrack), `link_prefill.py`, `extract_shot_frames.py`, `sam_to_tracks.py` (SAM 2.1 identities fused with detector boxes), `import_prefill.py` |
 | Review | `track_sheets.py`, `review_sheets.py` (with `--propose` kit-colour ops), `review_ops.py` |
-| Gold export | `export_gold.py`, `box_gold.py` |
+| Gold export | `export_gold.py`, `box_gold.py`, `box_gold_v1.py` (box gold v1: prefill with SAM merge, crop sheets, ops, candidate refresh, export) |
 | Court | `court_geometry.py`, `court_prefill.py` (the NBA court model over every clip), `court_keyframes.py`, `court_propagate.py`, `qa_court_overlay.py`, `court_train_manifest.py` (training frames from the training keyframes) |
-| Probes (not metrics rows) | `probe_reid.py` (Roboflow `reid` encoders on gold v0), `probe_court_keyframes.py` (the NBA court model and propagation against the court keyframes) |
+| Auto-labelling (M4) | `autolabel.py --round N`; each step gets the round's files from a `Round` record. Round 2 on: frames at least 1 s from earlier rounds' frames, prefill by the previous round's PLK detector (`plk-r1`) at confidence 0.1, draft at score 0.5, and a frame's ball accepted without review when one ball scores at least 0.7 and no other 0.2. Round 1: central shots of the non-gold clips by the PLK court model's confident landmark count; 275 frames sampled, 12 per clip at most and 1 s apart; prefill by Roboflow's detector versions 16 (all but the ball) and 6 (the ball) at confidence 0.1; draft at score 0.3 with per-class NMS, people off the court and numbers outside every person dropped; the ball queue `data/labels/box_queue_r1balls.json` (264 frames, close-ups with fewer than 4 people left out) |
+| Probes (not metrics rows) | `probe_train_speed.py` (seconds per epoch of a detection fine-tune on Modal), `probe_reid.py` (Roboflow `reid` encoders on gold v0), `probe_court_keyframes.py` (the NBA court model and propagation against the court keyframes) |
 
 Contact sheets for reading by eye come from `bga.review.sheets`.
 
@@ -272,12 +301,13 @@ The site is published to the Vercel project `basketball-analyzer-demo` by `scrip
   | `onnx` | onnxruntime |
   | `prefill` | Roboflow `inference` |
   | `remote` | modal |
-  | `court` | `rfdetr==1.12.1`, for running trained court weights on the Mac |
-  | (Modal image only) | `rfdetr[train]==1.12.1`, torch 2.15 |
+  | `court` | `rfdetr==1.12.1`, for running trained court and detection weights on the Mac |
+  | `plus` | `rfdetr_plus==1.3.0`: RF-DETR XL and 2XL, under Roboflow's Platform Model Licence 1.0 (treated as Apache 2.0 by Tomasz's ruling, plan question 5) |
+  | (Modal image only) | `rfdetr[train]==1.12.1`, `rfdetr_plus==1.3.0`, torch 2.15 |
   | `eval` | TrackEval, pycocotools |
   | `demo` | `sports`, transformers, umap-learn, scikit-learn, sentencepiece |
 
   `uv sync --all-extras` is needed for the full test suite.
 - **OpenCV:** `opencv-python` and `opencv-contrib-python` are overridden away, leaving one headless cv2.
 - **Lint and format:** `.pre-commit-config.yaml` pins the hooks: pre-commit-hooks file hygiene, ruff check and format (ruff 0.17.5), docformatter and codespell (report only). `pyproject.toml` `[tool.ruff]` follows Borda's vision repos: 120-character lines, Google docstrings (`D`), annotations (`ANN`), naming (`N`), bandit (`S`) and complexity limits (McCabe 12, branches 12, statements 50, returns 6, arguments 12). `scripts/` is exempt from `ANN`, `D`, `N` and `S`, and `tests/` from `ANN`, `D`, `N` and `S101`. The dev group has pre-commit, pytest and ruff.
-- **Checks:** `uv run pre-commit run --all-files` and `pytest`, which runs the doctests in `src/` and `tools/` (`--doctest-modules`) as well as the tests in `tests/`, with tests on config hashing, shot cuts, gold export, MOT scoring, churn, NMS, review ops, rosters, the labeller server, court orientation, the synthetic fixtures, and gold leakage in training configs and manifests, and court smoothing.
+- **Checks:** `uv run pre-commit run --all-files` and `pytest`, which runs the doctests in `src/` and `tools/` (`--doctest-modules`) as well as the tests in `tests/`, with tests on config hashing, shot cuts, gold export, MOT scoring, churn, NMS, review ops, rosters, the labeller server, court orientation, the synthetic fixtures, gold leakage in training configs and manifests, court smoothing, square tiles and their merge (`test_tiles.py`), and per-class detection AP (`test_eval_detect.py`).

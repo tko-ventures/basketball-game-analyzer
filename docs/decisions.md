@@ -254,3 +254,160 @@ Tomasz: "Drop two synchronized videos from the demo website, also, update the an
 - The page with two synchronised videos (the broadcast and a rendered 2D court video) is gone, with its template and the court video renders. The analysis page moves from `/analysis/` to `/`; `deploy_demo.sh` redirects `/analysis/` and the older `/analiza/` there.
 - `scripts/demo_web.py` no longer runs the NBA Roboflow court model with a Savitzky-Golay smoothing of its own. It runs the court layer of a bga run config, by default `configs/court-plk-v1-smooth4.yaml`, which is M3's measured court setup (0.21 m in the paint on the dev games against 0.89 m for the NBA model, `docs/metrics.md`). The demo renders every 2nd frame, so the smoothing window of 4 frames each way spans 8 source frames, against 20 at the eval's stride of 5.
 - The demo stays a showcase with no metrics row.
+
+## 2026-11-18: M4 answers: XL licence, footage, spend cap, labelling time
+
+Tomasz answered the questions M4 needs (plan sections 2, 5, 11 and 12):
+- **Question 5, RF-DETR XL licence:** "let's assume it's apache 2.0 — I want to try make things work first, and then make them right". RF-DETR XL and 2XL may enter the M4 bake-off as training configs. They remain under the Roboflow Platform Model Licence 1.0 in fact, so the PML is re-read before anything built on them ships.
+- **Question 13, footage rights:** train on the YouTube highlights. For production the project needs high-quality video under a proper licence.
+- **Question 9, spend cap:** 50 USD per month, which may be raised to 100 USD when needed. The implementer asks before a month crosses 50 USD.
+- **Placement:** what runs better on Modal runs on Modal; what makes sense on the M1 Max stays local.
+- **Labelling time:** "don't worry about my time for now". The 90-minute cap of 2026-10-29 is lifted. The implementer still does every first pass, sends Tomasz only what needs a human (pixel geometry, flagged doubts, conflicts), and logs his time per session.
+
+What this changes first: gold v1 box geometry, which M4's AP50:95 needs, is no longer blocked on his budget. The implementer prefills and flags the 100 box-gold frames, and Tomasz tightens them in a dedicated labeller page.
+
+## 2026-11-18: M4 refocused on balls and numbers; YOLO26 dropped
+
+Tomasz asked whether the planned M4 steps were the best focus. The implementer measured the NBA prefill detector against gold v1 on the 76 dev frames: the share of gold boxes found at IoU 0.5 and score ≥ 0.3. These come from version 4 of Skalski's model at a 0.1 cut, not the baseline config, so the figures are indicative.
+
+| Class | Found | False boxes |
+|---|---|---|
+| people | 89% (818 of 916) | 347, mostly bench, coaches and crowd |
+| rims | 82% (59 of 72) | 13 |
+| numbers | 66% (142 of 215) | 62 |
+| balls | 19% (11 of 58) | 43 |
+
+Tomasz agreed to these changes (plan sections 5, 6 and 9):
+- **What M4 is judged on.** Per-class AP for `ball` and `number` comes first. People are already found. Their false boxes are mostly off court, which the court-polygon filter on the M4 checklist removes without training.
+- **First experiment.** Input resolution: a higher training size, or tiling. A 15 to 25 px ball shrinks to about 6 to 8 px at a 560 to 640 px model input. This comes before any architecture comparison.
+- **Bake-off.** It runs after the data and the resolution are settled, and compares RF-DETR L, RF-DETR XL and DEIM-L.
+- **YOLO26 is dropped** (Tomasz: "let's drop yolo26"). It is AGPL-3.0, and shipping it in a closed product would need a commercial Ultralytics licence.
+- **Footage.** Question 4, full-game footage, is raised with Tomasz now rather than later. Highlights cut every few seconds, which caps tracking and identity across a game. Production also needs licensed, high-quality video (question 13). Getting it is a lead-time item outside M4.
+
+Open: how Skalski's own pipeline handles the ball. It is to be read in his posts before the resolution experiment, per the follow-Skalski rule.
+
+## 2026-11-18: full games will be needed; YouTube highlights until then
+
+Tomasz, on question 4: "I think we will have to have access to the full game recordings, but for now, let's keep pushing with what we've got already: YT videos." M4 and later milestones continue on the 31 highlight clips. The pipeline stays clip-agnostic, so full games can come in as new clips with their own shot files, without a layer change. The source and licence of full games stay open (questions 4 and 13).
+
+## 2026-11-18: no public NBA detector version finds PLK balls; v16 reads numbers better
+
+Before the resolution experiment, the implementer checked Skalski's post and the dataset metadata, per the follow-Skalski rule.
+- **Skalski's post** gives no ball accuracy, limitations or training resolution.
+- **The dataset:** the baseline detector (`basketball-player-detection-3-ycjdo/6`) was trained on 654 NBA frames, each 1920×1080 frame stretched to 640×640. That squashes a 20 px ball to about 7×12 px.
+- **Other versions:** Roboflow has trained the same dataset several times. Versions 8 and 11 to 16 download for local inference; 17 and 18 return 404, 18 being the one trained without the resize.
+
+Scored on gold v1 dev at confidence 0.05 (`docs/metrics.md`, detection table), AP50:95 / AP50:
+
+| Version | ball | number | people |
+|---|---|---|---|
+| 6 | 0.176 / 0.289 | 0.202 / 0.559 | 0.642 / 0.934 |
+| 13 | 0.159 / 0.259 | 0.203 / 0.581 | 0.652 / 0.926 |
+| 16 | 0.112 / 0.207 | 0.372 / 0.695 | 0.662 / 0.912 |
+
+Consequences:
+- No public version fixes the ball, which confirms the refocus above: PLK training data and input resolution have to.
+- Round-1 auto-labelling, a labelling aid, takes numbers, people and rims from version 16 and balls from version 6.
+- `configs/baseline.yaml` stays on version 6 as the M2 reference.
+
+## 2026-11-19: resolution helps balls and numbers; the next fine-tune runs at 1280 px with PLK data
+
+The M4 resolution experiment trained RF-DETR Large on Skalski's NBA set alone, so the three arms differ only in input scale. They were scored on gold v1 dev (`docs/metrics.md`, detection table). AP50:95 / AP50:
+
+| Arm | Input | ball (58) | number (215) | people (916) | ms per frame on the M1 Max |
+|---|---|---|---|---|---|
+| A | 704 px, stretched to a square (stock) | 0.165 / 0.258 | 0.263 / 0.680 | 0.670 / 0.937 | 70 |
+| B | 1280 px, stretched | 0.234 / 0.373 | 0.423 / 0.796 | 0.694 / 0.938 | 201 |
+| C | 704 px on two square tiles of the full frame height | 0.233 / 0.340 | 0.382 / 0.748 | 0.680 / 0.928 | 130 |
+
+Findings:
+- Input scale is a real lever: from A to B, ball AP50 goes from 0.26 to 0.37 and numbers from 0.68 to 0.80, with people unchanged.
+- B and C are close on the ball. With 58 gold balls, their difference is within noise.
+- B is better on numbers and rims; C is 35% faster on the Mac.
+- On NBA data alone, no arm passes 0.4 AP50 on PLK balls. The domain gap remains, and the round-1 PLK labels are meant to close it: Tomasz placed 199 balls on 264 frames, 120 of them by hand where the detector had none.
+
+Decisions:
+- The next fine-tune adds the round-1 PLK frames at 1280 px (arm B's setting).
+- Tiling stays as the fallback if Mac inference speed becomes the constraint. The production config is chosen on the held-out game at M4 close.
+
+(Corrected the same day, see the next entry. The sentence that stood here claimed a 13-fold speed-up from more CPUs and a cost of about 22 USD; both came from local wait times, not from the remote runs.)
+
+## 2026-11-19: correction: Modal costs and the CPU speed-up came from local wait times
+
+Tomasz pointed out that Modal's dashboard showed 10.70 USD used of the month's 30 USD credits, while `docs/costs.md` said 27.80 USD. The implementer read the per-app figures with `modal billing report`.
+- **The cut-short runs were short.** On 2026-11-18 the three resolution-experiment runs trained for about 6 to 10 minutes of GPU time each and stopped: arm A reached epoch 29, B epoch 9, C epoch 8. The local `bga train` processes kept waiting until their Modal token expired at 22:07, three hours later. The implementer took that wait for training time and logged about 20 USD; the billed cost was 0.99 USD.
+- **No 13-fold speed-up.** The "about 360 s per epoch" came from the same wait. The billed GPU time gives about 20 s per epoch for arm A with Modal's default CPU reservation, against about 16 s with 8 CPUs and 8 loader workers. The 8 CPUs and 32 GB stay, for about 20% more speed at about 30% more cost (CPU and memory are billed on top of the GPU), and can be cut if cost matters more than wall time.
+- **Unknown:** why the first runs stopped after a few minutes. The spawn-and-poll launcher has finished every run since.
+
+What changes:
+- `docs/costs.md` cites Modal's billing for those runs and for the month. November: 10.86 USD metered, all covered by credits, 0 billed.
+- Spend is checked against `modal billing summary` rather than the sum of estimated rows.
+
+## 2026-11-19: no court-polygon filter for detections; the Mac keeps PyTorch on MPS
+
+Two M4 checklist items were measured on `plk-r2@b13bfb19`, with gold v1 dev and the M1 Max. Both are probes, not pipeline changes, so neither has a metrics row.
+
+**Court-polygon filter.** People whose foot point the PLK court model (`court-plk-v1-smooth4`) maps more than a margin outside the court were dropped, and AP was recomputed. People AP50:95 / AP50:
+
+| Margin | people | referee |
+|---|---|---|
+| none | 0.732 / 0.962 | 0.629 / 0.859 |
+| 2 m | 0.732 / 0.962 | 0.629 / 0.859 |
+| 1 m | 0.712 / 0.934 | 0.540 / 0.734 |
+| 0.5 m | 0.688 / 0.898 | 0.446 / 0.608 |
+
+The filter never helps. The PLK-trained detector already leaves bench, coaches and crowd unboxed (the gold set boxes none of them), and the referees on the sideline are what a tight margin cuts. Per the plan's rule, the heuristic is not added. The filter could still serve 2D positions later (M8), where an off-court foot point is a different question.
+
+**Mac speed.** `plk-r2` at 1280 px, one frame, after warm-up:
+
+| Runtime | ms per frame |
+|---|---|
+| PyTorch on MPS (the `rfdetr_torch` backend) | 192 |
+| ONNX Runtime, CPU | 2,108 |
+| ONNX Runtime, CoreML provider | fails: the CoreML runtime cannot execute part of the 1280 px graph |
+| Native Core ML export, fp16, CPU and GPU | 134 |
+| Native Core ML export, fp16, all units including the Neural Engine | 274 |
+
+Decisions:
+- The plan's "ONNX export, CoreML provider on the Mac" does not work at 1280 px. The Mac keeps PyTorch on MPS.
+- A native Core ML backend would save about 30% but needs its own decoder and an fp16 accuracy row. It waits until Mac speed matters.
+- Full-game runs can use a cloud GPU (decision of 2026-11-19 on fast feedback).
+
+## 2026-11-19: faster training settings adopted; RF-DETR Large stays, XL and DEIM dropped
+
+Tomasz asked to shorten Modal training. Five options were tested on `plk-r2`'s data. The speed probes are 5 epochs on an H100, with Modal's billed seconds, all at an effective batch of 16 images:
+
+| Setup | Seconds | USD |
+|---|---|---|
+| batch 2 x 8 steps (the recipe so far) | 288 | 0.32 |
+| batch 8 x 2 | 178 | 0.19 |
+| batch 16 x 1 | 140 | 0.15 |
+| batch 8 x 2, validating every 5 epochs | 141 | 0.16 |
+| 4 x H100, batch 4 x 1, 32 CPUs | 235 | 1.03 |
+
+Two full runs then checked accuracy against `plk-r2` on gold v1 dev (`docs/metrics.md`). Ball AP50:95 / AP50:
+- `plk-r2`, 53 min: 0.487 / 0.798.
+- `plk-r2-fast`, batch 16 and validation every 5 epochs, 18 min: 0.482 / 0.769.
+- `plk-r2-fast-es`, the same plus early stopping, which stopped at epoch 44, 18 min: 0.480 / 0.768.
+
+Numbers, people and rims are within noise as well. The ball difference is one or two of the 58 gold balls.
+
+Decisions:
+- **Every detection fine-tune from here on** uses batch 16 without accumulation, validation every 5 epochs, and early stopping after 2 validations without improvement: 3 times faster for the same accuracy. Early stopping saved little here, but it is a free stop for runs that plateau earlier.
+- **Multi-GPU is dropped for now.** At about 865 training images, four processes cost more in start-up and syncing than they save. The `devices` option stays in the code for full-game datasets.
+- **Warm start** (`init_weights`) is in place and is first tested at round 3, the first new data to start from `plk-r2`.
+
+**Bake-off.** RF-DETR XL (`plk-r2-xl`, same data and resolution as `plk-r2`, 64 min, 4.18 USD) scored 0.486 / 0.783 on balls and 0.733 / 0.955 on people, the same as Large within noise. It is several times slower on the Mac and carries the Platform Model Licence. RF-DETR Large stays. DEIM-L is not run: it needs its own trainer integration, and the Large against XL result says model size is not the lever on this data; labelled PLK frames are.
+
+**Spend:** Modal billing for November is 28.08 USD metered, against 30 USD of monthly credits.
+
+## 2026-11-20: PR #22 review: the plan's text brought in line with what M4 did
+
+A two-axis review of PR #22 (coding standards, and spec against issue #5 and the plan) found places where the plan still described work M4 did differently. The code findings are fixed in the same change; these are the plan's.
+
+- **Section 7 review was done for the ball only.** The manifests of rounds 1 and 2 (231 and 238 frames) carry Tomasz's ball decisions and the draft's other boxes unreviewed: people, numbers, rims and action classes as the detector left them at the round's keep threshold. Round 2 drafted with `plk-r1` alone, not with the NBA model as a second opinion, and added hundreds of frames, not the few thousand of the bootstrap loop. The gold v1 rows in `docs/metrics.md` are what shows the shortcut was good enough for M4: people AP50 0.93 to 0.96, numbers 0.82 dev and 0.90 held-out. Section 7 now records the deviation; its rules are unchanged.
+- **Pose is not part of M4.** Layer 2 lists 17-point COCO pose as an output, but nothing in M4 consumes it and M4's done-when does not score it. It lands with the ankle ground point in M8.
+- **The court-polygon filter** stays out per the decision of 2026-11-19. Layer 2 and the M4 paragraph still prescribed it, and now say it was measured and not adopted.
+- **ms per frame for M4 is the metrics row: 351 ms for `detect-plk-r2` on gold v1 dev, 331 ms on the held-out game.** That is the mean of the timed predict calls over every frame of the shots, including the first, cold calls after loading. The 192 ms of 2026-11-19 is a one-frame probe after warm-up, used only to compare runtimes. The two numbers measure different things and the row is the one the done-when cites.
+- **Training-speed options are in M4 but the shipped weights predate them.** `recipe.devices`, `eval_interval`, `early_stopping_patience` and `init_weights`, `plk-r2-fast`, `plk-r2-fast-es` and `scripts/probe_train_speed.py` came from Tomasz's request of 2026-11-19 to shorten training. They are adopted for every later fine-tune (decision of 2026-11-19), while the weights M4 ships, `plk-r2@b13bfb19`, were trained before them with batch 2 and 8 accumulation steps.
+- **`bga eval`, `eval-court` and `eval-detect` now refuse unproven weights**, as section 5 requires: a layer whose weights are neither a `pretrained:` id nor a weight id with `weights/<id>/train.json` stops the command. Before, such weights were written to the metrics table as pretrained. Every committed config passes.

@@ -165,16 +165,35 @@ def log_costs(layer: str, backend: str, seqs: list, outs: list[dict]) -> None:
         >>> log_costs("court", "roboflow_keypoints", seqs, outs)  # doctest: +SKIP
 
     """
-    if not COSTS_MD.exists():
-        return
-    rows = [
+    append_cost_rows([
         f"| {dt.date.today().isoformat()} | modal | {o['remote']['gpu'] or 'cpu'} "
         f"| bga run {layer}/{backend} {s.name} | {o['remote']['seconds']} | {o['remote']['usd']} |"
         for s, o in zip(seqs, outs, strict=True)
-    ]
-    lines = COSTS_MD.read_text().rstrip("\n").split("\n")
+    ])
+
+
+def append_cost_rows(rows: list[str], path: Path = COSTS_MD) -> None:
+    r"""Insert table rows after the last table row of the cost log, above any summary; nothing when it is absent.
+
+    Args:
+        rows: Markdown table rows, each starting with ``|``.
+        path: The cost log.
+
+    Examples:
+        >>> import tempfile
+        >>> with tempfile.TemporaryDirectory() as tmp:
+        ...     log = Path(tmp) / "costs.md"
+        ...     _ = log.write_text("| a |\n|---|\n| 1 |\n\nMonth to date: 1 USD.\n")
+        ...     append_cost_rows(["| 2 |"], log)
+        ...     log.read_text().split("\n")[2:4]
+        ['| 1 |', '| 2 |']
+
+    """
+    if not path.exists():
+        return
+    lines = path.read_text().rstrip("\n").split("\n")
     last_row = max(i for i, line in enumerate(lines) if line.startswith("|"))  # rows go above any summary
-    COSTS_MD.write_text("\n".join(lines[: last_row + 1] + rows + lines[last_row + 1 :]) + "\n")
+    path.write_text("\n".join(lines[: last_row + 1] + rows + lines[last_row + 1 :]) + "\n")
 
 
 if __name__ == "__main__":  # pragma: no cover

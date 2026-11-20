@@ -1,0 +1,28 @@
+name: detect-nba-704
+description: >
+  M4 resolution experiment, arm A, 704 px stretched: the baseline with the detect layer swapped for RF-DETR Large trained on
+  Skalski's NBA set by configs/train/detect-rfdetr_torch-nba-704.yaml. Scored with bga eval-detect against
+  the confidence-0.05 row of the baseline, so the rows compare input scale alone.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: roboflow_keypoints
+    params: {model_id: basketball-court-detection-2/14}
+    weights: pretrained:roboflow/basketball-court-detection-2/14
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/nba-704@9039f787
+  team:
+    backend: siglip_kmeans
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  track:
+    backend: bytetrack
+  positions:
+    backend: bbox_bottom
+  numbers:
+    backend: smolvlm_ocr
+    params: {model_id: basketball-jersey-numbers-ocr/3}
+    weights: pretrained:roboflow/basketball-jersey-numbers-ocr/3

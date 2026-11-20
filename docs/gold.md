@@ -7,7 +7,7 @@ Plan section 8, as amended by the 2026-11-02 decision (`docs/decisions.md`).
 | Version | Who reviewed | What it supports | Status |
 |---|---|---|---|
 | v0 | Implementer, full pass on all 12 shots; Tomasz's dry-run labels on Legia shot 10 kept as they are | Comparing backends; HOTA, IDF1, MOTA, team and number accuracy, AP50 | Committed 2026-11-02 |
-| v1 | Tomasz reviews at least the held-out game; boxes tightened by hand | Absolute numbers for the client; AP50:95 | Not started |
+| v1 | Tomasz reviews at least the held-out game; boxes tightened by hand | Absolute numbers for the client; AP50:95 | Box gold done 2026-11-18: `data/gold/v1/boxes.json`, 100 frames reviewed by Tomasz (151 min). Track gold v1 not started |
 
 v0 was prefilled by the public models the baseline uses (Skalski's player detector, SAM 2.1), so v0 absolute scores are biased upwards. Every row in `docs/metrics.md` names its gold version.
 
@@ -51,3 +51,122 @@ Every sheet that was read has a row in `data/labels/sheet_ledger.tsv`. The ops f
 - **Short contact moments.** Boxes that briefly sit on the wrong player were cut, which leaves short gaps rather than errors.
 - **Loose boxes.** Some boxes in scrums cover two people; they carry notes in `identities.csv`.
 - **Numbers.** Numbers are set only where legible on 1080p highlights; many tracks have none.
+
+## Box gold v1
+
+The 100 box-gold frames of `data/labels/box_gold.json`, with every object of the 10-class schema (`bga.types.DETECTION_CLASSES`) boxed tight by hand, so detection can be scored per class at AP50:95.
+
+### Conventions
+
+These follow Roboflow's training set `basketball-player-detection-3-ycjdo` (version 18, CC BY 4.0), checked on crops of its annotations on 2026-11-18, so that gold and training data draw boxes the same way.
+
+- **Visible extent.** A box runs to the outermost visible pixel of the object: hair, fingers, shoes, an outstretched arm. Occluded parts are not guessed, and a box cut by the frame edge ends at the edge.
+- **People:**
+  - `player`, or one of the four action classes:
+    - `player-in-possession`: holding or dribbling the ball. One ball, so at most one per frame.
+    - `player-jump-shot`: in the shooting motion, including just after release.
+    - `player-layup-dunk`: finishing at the rim.
+    - `player-shot-block`: contesting a shot with a raised arm.
+  - The box includes the ball when it is in the hands.
+  - `referee` for the referees.
+  - Coaches, bench and fans get no box.
+- **`ball`:** the game ball only, tight, also when held. A spare ball off court gets no box.
+- **`ball-in-basket`:** one box over the rim and the net around the ball while it is in the basket; the ball also gets its own `ball` box.
+- **`rim`:** the metal ring only, not the net, bracket or backboard. Every visible rim, including the far one.
+- **`number`:** each jersey number, front or back, tight around all its digits, also when partly hidden. Sponsor logos, chest badges, the stanchion logo and score graphics are not numbers.
+
+### Prefill and first pass (2026-11-18)
+
+`scripts/box_gold_v1.py` builds the queue `data/labels/box_gold_v1.json`, which the labeller's `/boxes` page edits:
+1. **People:** the v0 person boxes, with track id and team. The class is an action class where the best-matching prefill detection says so at score ≥ 0.3, else `player`, or `referee` for referee tracks.
+2. **Objects:** the prefill detector's ball, ball-in-basket, rim and number boxes at score ≥ 0.3, after per-class NMS at IoU 0.5 (the prefill ran with IoU 0.9 and put up to three boxes on one ball). Scores from 0.1 to 0.3 are kept as candidates the page can show and adopt. So are the detector's player and referee boxes that overlap no person box (IoU < 0.3), for people the tracks missed; `box_gold_v1.py candidates` recomputes them on the frames not done without touching boxes (added 2026-11-18 after Tomasz's first frame, 199 candidates).
+3. **SAM 2.1 geometry** (`src/bga/remote/sam2_boxmask.py`, one box prompt per box on Modal, 0.03 USD):
+   - where SAM's mask box agrees with the prefill box (IoU ≥ 0.85), the mask box is used;
+   - elsewhere the prefill box stays and the mask box is offered as the alternative.
+
+   On crops of 24 disagreements, SAM mostly cut off arms and feet or took in rim brackets, so a disagreement is a hint, not a flag.
+4. **Implementer's first pass** on crop sheets (ledger rows of 2026-11-18), recorded in `data/labels/review/box_gold_v1.ops.txt`:
+   - 91 low-score objects: 33 dropped, 53 confirmed, 5 left flagged as unclear;
+   - 89 candidates: 40 adopted (33 numbers, 5 rims, 2 balls);
+   - 24 flagged people confirmed as they are;
+   - 15 proposed possessors that do not hold the frame's ball box set back to `player`.
+
+   Most rejected balls were beige or white shorts, the crowd or seats. Most rejected numbers were the stanchion's sponsor logo or chest sponsors. Both are PLK confusions for M4 to learn.
+
+Result: 1,475 boxes:
+
+| Class | Boxes |
+|---|---|
+| player | 834 |
+| number | 242 |
+| referee | 213 |
+| rim | 88 |
+| ball | 50 |
+| player-in-possession | 44 |
+| player-jump-shot | 1 |
+| player-layup-dunk | 1 |
+| player-shot-block | 1 |
+| ball-in-basket | 1 |
+
+147 boxes in 61 frames are flagged for Tomasz:
+- 110 people that overlap another person, whose geometry needs a human eye;
+- 43 action classes;
+- a few low-score objects and class conflicts.
+
+8 frames carry a note with more than one proposed possessor.
+
+### Tomasz's review (2026-11-18)
+
+Tomasz reviewed all 100 frames at `/boxes` in 151 minutes of active time.
+
+| Against the prefill | Boxes |
+|---|---|
+| geometry kept | 1,174 |
+| geometry changed (median 13.5 px on the largest edge, p90 50 px) | 281 |
+| added: 84 players, 60 balls, 56 numbers, 19 referees, 8 rims, 7 others | 234 |
+| deleted | 20 |
+| class changed (mostly possession and the other action classes) | about 90 |
+
+The prefill missed many people and nearly all balls: track gold v0 had left out players and referees at the frame edges and behind others, and the detector misses small, blurred balls.
+
+### QA after the review
+
+A sanity check looked for:
+- boxes moved more than 120 px or changed between person and object classes: all were boxes Tomasz had reused;
+- tiny boxes, persons without a team, and duplicates: none;
+- frames with more than one ball: 14.
+
+In every multi-ball frame the real ball was the one Tomasz drew. The other was a detector box scored at 0.6 or more, which no first pass had checked: the implementer's pass covered only scores below 0.6, and the page did not flag them.
+
+All 270 such object boxes were then checked on crop sheets (ledger rows of 2026-11-18):
+
+| Class | Checked | False |
+|---|---|---|
+| ball | 32 | 20 (crowd, fan items, the Eurobasket graphic by the shot clock) |
+| number | 166 | 1 (the stanchion logo) |
+| rim | 72 | 0 |
+
+The 21 false boxes were dropped (`data/labels/review/box_gold_v1.qa.ops.txt`, applied with `apply --include-done`). Every frame now has one ball, or none where it is out of view (20 frames).
+
+### Export
+
+`scripts/box_gold_v1.py export` wrote `data/gold/v1/boxes.json`: 100 frames, 24 of them from the held-out game, and 1,669 boxes.
+
+| Class | Boxes |
+|---|---|
+| player | 900 |
+| number | 287 |
+| referee | 233 |
+| rim | 96 |
+| ball | 80 |
+| player-in-possession | 50 |
+| player-shot-block | 10 |
+| player-jump-shot | 7 |
+| ball-in-basket | 3 |
+| player-layup-dunk | 3 |
+
+Classes with fewer than about 20 boxes are too small for a stable AP of their own. They are reported with their counts.
+
+### How to review again
+
+Tomasz reviews in the labeller at `/boxes`. Each frame shows flagged boxes first, and a loupe shows the selected box at up to 8× for pixel-level edges. Enter marks the frame done. `scripts/box_gold_v1.py export` writes `data/gold/v1/boxes.json` from the frames marked done.

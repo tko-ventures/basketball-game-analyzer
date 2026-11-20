@@ -1,0 +1,40 @@
+name: plk-r2-xl
+layer: detect
+backend: rfdetr_torch
+description: >
+  M4 bake-off: RF-DETR XL (rfdetr_plus 1.3.0, Platform Model Licence 1.0, treated as Apache 2.0 by Tomasz's
+  ruling on question 5) on exactly plk-r2's data and resolution, so the rows compare model size alone.
+  plk-r2's description: Second PLK detector, plk-r1's setup (RF-DETR Large at 1280 px from COCO weights, NBA set version 18) plus
+  both auto-labelling rounds. Round 1: 231 frames, balls placed by Tomasz. Round 2: 238 frames prefilled by
+  plk-r1, clear balls accepted by rule, the rest placed by Tomasz. The same three PLK clips are validation
+  frames in both rounds. No gold clip.
+base_weights:
+  name: rf-detr-xlarge.pth
+  url: https://repo.roboflow.com/rfdetr/platform-licensed/rf-detr-xlarge.pth
+  licence: PML-1.0
+package: rfdetr[train]==1.12.1 + rfdetr_plus==1.3.0
+sources:
+  - kind: roboflow
+    ref: roboflow-jvuqo/basketball-player-detection-3-ycjdo/18
+    licence: CC-BY-4.0
+  - kind: manifest
+    path: data/labels/detect/train_manifest_r1.json
+    sha256: e0d576369effbd5b4967995d1639c57fd364999784a0effe4e489a23a22c6c65
+    image_width: 1920
+  - kind: manifest
+    path: data/labels/detect/train_manifest_r2.json
+    sha256: a237c081b901a7e003fb66e54b0aac0be17262d253c0a02da2da8f477e7fb543
+    image_width: 1920
+recipe:
+  variant: RFDETRXLarge
+  resolution: 1280
+  epochs: 50
+  batch_size: 2
+  grad_accum_steps: 8
+  lr: 0.0001
+  seed: 0
+  select_on: val/mAP_50_95
+platform:
+  name: modal
+  gpu: H100
+  timeout_h: 4

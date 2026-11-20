@@ -1,0 +1,34 @@
+name: plk-r1
+layer: detect
+backend: rfdetr_torch
+description: >
+  First PLK detector: RF-DETR Large at 1280 px (the setting of the resolution experiment's arm B) on Skalski's
+  NBA set version 18 plus the round-1 PLK frames (scripts/autolabel_r1.py manifest): 231 frames from 25 non-gold
+  clips, balls placed by Tomasz in the ball queue, people, numbers and rims from the NBA detector's draft. Three
+  whole PLK clips are validation frames. No gold clip.
+base_weights:
+  name: rf-detr-large-2026.pth
+  url: https://repo.roboflow.com/rfdetr/rf-detr-large-2026.pth
+  licence: Apache-2.0
+package: rfdetr[train]==1.12.1
+sources:
+  - kind: roboflow
+    ref: roboflow-jvuqo/basketball-player-detection-3-ycjdo/18
+    licence: CC-BY-4.0
+  - kind: manifest
+    path: data/labels/detect/train_manifest_r1.json
+    sha256: e0d576369effbd5b4967995d1639c57fd364999784a0effe4e489a23a22c6c65
+    image_width: 1920
+recipe:
+  variant: RFDETRLarge
+  resolution: 1280
+  epochs: 50
+  batch_size: 2
+  grad_accum_steps: 8
+  lr: 0.0001
+  seed: 0
+  select_on: val/mAP_50_95
+platform:
+  name: modal
+  gpu: H100
+  timeout_h: 4
