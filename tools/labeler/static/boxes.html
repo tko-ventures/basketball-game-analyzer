@@ -78,6 +78,11 @@ const TEAMS = ["home", "away", "ref", "other", ""];
 const SET = new URLSearchParams(location.search).get("set") || "";
 const QS = SET ? `?set=${encodeURIComponent(SET)}` : "";
 const ballMode = () => S.q && S.q.mode === "ball";
+const possMode = () => S.q && S.q.mode === "possession";
+const choiceMode = () => ballMode() || possMode();  // one decision per frame: a click or Space chooses and moves on
+const PEOPLE = ["player", "player-in-possession", "player-jump-shot", "player-layup-dunk", "player-shot-block", "referee"];
+const selectable = (b) => !possMode() || PEOPLE.includes(b.cls);  // in possession mode the ball is shown, not chosen
+const centre = (b) => [(b.xyxy[0] + b.xyxy[2]) / 2, (b.xyxy[1] + b.xyxy[3]) / 2];
 const S = {
   q: null, i: 0, fr: null, img: new Image(), imgOk: false, sel: null, edge: 0, view: { s: 1, x: 0, y: 0 },
   drag: null, hide: false, cands: false, drawCls: "player", hist: [], active: 0, lastInput: 0, saveTimer: null, dirty: false,
@@ -100,7 +105,14 @@ function toImg(ev) {
 const area = (b) => (b.xyxy[2] - b.xyxy[0]) * (b.xyxy[3] - b.xyxy[1]);
 const inside = (b, x, y) => x >= b.xyxy[0] && x <= b.xyxy[2] && y >= b.xyxy[1] && y <= b.xyxy[3];
 const isTodo = (b) => b.flags && b.flags.length && !b.checked;
-function order() {  // flagged and unchecked first, then by id
+function order() {  // flagged and unchecked first, then by id; in possession mode the people nearest the ball
+  if (possMode()) {
+    const ball = S.fr.boxes.find((b) => b.cls === "ball");
+    const [bx, by] = ball ? centre(ball) : [0, 0];
+    const dist = (b) => { const [x, y] = centre(b); return Math.hypot(x - bx, y - by); };
+    return S.fr.boxes.filter((b) => PEOPLE.includes(b.cls) && b.cls !== "referee")
+      .sort((a, b) => ((b.cls === "player-in-possession") - (a.cls === "player-in-possession")) || (dist(a) - dist(b)));
+  }
   return [...S.fr.boxes].sort((a, b) => (isTodo(b) - isTodo(a)) || (a.id - b.id));
 }
 // handles: 0 top, 1 right, 2 bottom, 3 left edges; 4..7 corners tl, tr, br, bl
@@ -276,14 +288,28 @@ async function finish(status, keep) {  // keep: the boxes that stay; the rest of
   const j = nextTodo(); if (j < 0) { toast("All frames finished."); redraw(); } else go(j);
 }
 function chooseBall(b) { snapshot(); b.cls = "ball"; finish("done", [b]); }
+const SHOOTING = ["player-jump-shot", "player-layup-dunk"];  // a shooter with the ball keeps the shot class
+function choosePossessor(b) {
+  if (!PEOPLE.includes(b.cls) || b.cls === "referee") { toast("Choose a player, or N for nobody."); return; }
+  snapshot();
+  S.fr.boxes.forEach((x) => { if (x !== b && x.cls === "player-in-possession") x.cls = "player"; });
+  if (!SHOOTING.includes(b.cls)) b.cls = "player-in-possession";
+  finish("done");
+}
+function choose(b) { if (possMode()) choosePossessor(b); else chooseBall(b); }
+function nobody() {  // possession mode: no player holds the ball (a pass, a shot in flight, a loose ball)
+  snapshot();
+  S.fr.boxes.forEach((x) => { if (x.cls === "player-in-possession") x.cls = "player"; });
+  finish("done");
+}
 
 // ---------- mouse ----------
 function hit(x, y, s) {
   const tol = 6 / s;
   if (S.sel && !S.hide) { const h = handleAt(S.sel, x, y, tol); if (h >= 0) return { b: S.sel, h }; }
   if (S.hide) return null;
-  for (const b of S.fr.boxes) { const h = handleAt(b, x, y, tol); if (h >= 0) return { b, h }; }
-  const under = S.fr.boxes.filter((b) => inside(b, x, y)).sort((a, b) => area(a) - area(b));
+  for (const b of S.fr.boxes) { if (!selectable(b)) continue; const h = handleAt(b, x, y, tol); if (h >= 0) return { b, h }; }
+  const under = S.fr.boxes.filter((b) => selectable(b) && inside(b, x, y)).sort((a, b) => area(a) - area(b));
   return under.length ? { b: under[0], h: -1 } : null;
 }
 function onDown(ev, x, y, s, inLoupe) {
@@ -304,7 +330,7 @@ function onDown(ev, x, y, s, inLoupe) {
     snapshot(); S.sel = h.b; S.edge = h.h < 4 ? h.h : S.edge;
     S.drag = { mode: "resize", b: h.b, h: h.h, x0: x, y0: y, moved: false }; redraw(); return;
   }
-  if (h && ballMode() && !inLoupe) { chooseBall(h.b); return; }
+  if (h && choiceMode() && !inLoupe) { choose(h.b); return; }
   if (h && h.b === S.sel && ev.altKey && !inLoupe) { snapshot(); S.drag = { mode: "move", b: h.b, x0: x, y0: y, o: [...h.b.xyxy] }; return; }
   if (h) { select(h.b); return; }
   if (!inLoupe) S.drag = { mode: "pan", px: toImg(ev)[2], py: toImg(ev)[3], vx: S.view.x, vy: S.view.y, moved: false };
@@ -329,7 +355,7 @@ function onUp() {
     if (x2 - x1 >= 2 && y2 - y1 >= 2) { S.fr.boxes.push(d.b); S.sel = d.b; changed(); } else { S.hist.pop(); redraw(); }
   } else if (d.mode === "resize" && !d.moved) {
     S.hist.pop();
-    if (ballMode() && !d.loupe) chooseBall(d.b);  // a click on a small box lands on its edge: still a choice
+    if (choiceMode() && !d.loupe) choose(d.b);  // a click on a small box lands on its edge: still a choice
   } else if (d.mode === "resize" || d.mode === "move") changed();
   else if (d.mode === "pan" && !d.moved) select(null);  // a click on empty floor deselects
 }
@@ -423,7 +449,7 @@ window.addEventListener("keydown", async (ev) => {
     case "t": if (b) { snapshot(); b.team = TEAMS[(TEAMS.indexOf(b.team || "") + 1) % TEAMS.length]; changed(); } break;
     case " ":
       ev.preventDefault();
-      if (ballMode()) { if (b) chooseBall(b); break; }
+      if (choiceMode()) { if (b) choose(b); break; }
       if (b) { b.checked = true; changed(); step(1); }
       break;
     case "escape": select(null); break;
@@ -431,11 +457,17 @@ window.addEventListener("keydown", async (ev) => {
     case "c": S.cands = !S.cands; render(); break;
     case "f": fit(); render(); break;
     case "u": undo(); break;
-    case "n": if (ballMode()) finish("done", []); break;
-    case "s": if (ballMode()) finish("skip", []); break;
+    case "n": if (ballMode()) finish("done", []); else if (possMode()) nobody(); break;
+    case "s": if (choiceMode()) finish("skip"); break;
     case "enter":
       ev.preventDefault();
       if (ballMode()) { finish("done", S.fr.boxes.filter((x) => x.checked)); break; }
+      if (possMode()) {  // a holder drawn by hand (Shift-drag) is the one; any other holder goes back to player
+        const drawn = S.fr.boxes.find((x) => x.src === "human" && x.cls === "player-in-possession");
+        if (drawn) S.fr.boxes.forEach((x) => { if (x !== drawn && x.cls === "player-in-possession") x.cls = "player"; });
+        finish("done");
+        break;
+      }
       S.fr.boxes.forEach((x) => { x.checked = true; });
       S.fr.status = "done"; S.dirty = true; await save();
       { const j = nextTodo(); if (j < 0) toast("All frames done."); else go(j); }
@@ -464,6 +496,12 @@ window.addEventListener("resize", () => { if (S.imgOk) { fit(); render(); } });
 
 (async () => {
   S.q = await api("/api/boxes/queue" + QS);
+  if (possMode()) {
+    S.cands = false; S.drawCls = "player-in-possession";
+    document.querySelector("header b").textContent = S.q.title || "Possession queue";
+    $("help").innerHTML = S.q.instructions || "";
+    $("classes").style.display = "none";
+  }
   if (ballMode()) {
     S.cands = true; S.drawCls = "ball";
     document.querySelector("header b").textContent = S.q.title || "Ball queue";

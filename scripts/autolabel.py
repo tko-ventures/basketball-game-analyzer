@@ -12,6 +12,7 @@ review.
     uv run --extra court scripts/autolabel.py draft       # keep >= 0.3, NMS, drop people off the court
     uv run scripts/autolabel.py ballqueue                 # data/labels/box_queue_r1balls.json for Tomasz
     uv run scripts/autolabel.py manifest                  # data/labels/detect/train_manifest_r1.json for bga train
+    uv run scripts/autolabel.py possqueue --rounds 1 2    # data/labels/box_queue_possession.json for Tomasz
 
 Step 1, central shots. The non-gold clips have no camera tags. A shot from the main camera shows the court, so the
 PLK court model (court/rfdetr_keypoint/plk-v1) finds many confident landmarks there; replays, close-ups and graphics
@@ -42,12 +43,13 @@ OUT = Path("runs/autolabel/r1")
 CENTRAL = Path("runs/autolabel/r1/central.json")
 ROUND = 1
 #: Round 2 on: the prefill is the previous round's PLK detector (docs/metrics.md, detection table).
-PREFILL_WEIGHTS = {2: "detect/rfdetr_torch/plk-r1@7ab3f6fa"}
+PREFILL_WEIGHTS = {2: "detect/rfdetr_torch/plk-r1@7ab3f6fa", 3: "detect/rfdetr_torch/plk-r2@b13bfb19"}
 #: Score at which a draft box is kept: 0.3 for the NBA detectors of round 1, 0.5 for the PLK detector.
 KEEP_BY_ROUND = {1: 0.3}
-#: A frame's ball is accepted without review when one ball scores at least AUTO_HI and no other ball AUTO_LO: on gold
-#: v1 dev that rule picked 22 of 76 frames for plk-r1, all with the right ball (2026-11-19).
-AUTO_HI, AUTO_LO = 0.7, 0.2
+#: A frame's ball is accepted without review when one ball scores at least AUTO_HI[round] and no other ball AUTO_LO,
+#: calibrated on gold v1 dev for each round's prefill model: plk-r1 at 0.7 picked 22 of 76 frames, all right
+#: (2026-11-19); plk-r2 at 0.7 picked 35 with 3 wrong, at 0.85 24 with 1 wrong (2026-11-20).
+AUTO_HI_BY_ROUND, AUTO_LO = {2: 0.7, 3: 0.85}, 0.2
 
 
 def configure(rnd: int) -> None:
@@ -298,7 +300,8 @@ INSTRUCTIONS = (
 def ball_queue(force: bool) -> None:
     """Write the round's ball queue for the labeller (/boxes?set=r<N>balls): each frame's ball guesses, nothing else.
 
-    From round 2, a frame whose ball is clear by the AUTO_HI / AUTO_LO rule is written as done, with that ball and a
+    From round 2, a frame whose ball is clear by the AUTO_HI_BY_ROUND / AUTO_LO rule is written as done, with that
+    ball and a
     note, so the reviewer only sees the rest (``]`` and ``[`` still reach it).
 
     """
@@ -312,7 +315,8 @@ def ball_queue(force: bool) -> None:
         balls = [b for b in f["boxes"] if b[5] == "ball"]
         cands = sorted((b for b in f["candidates"] if b[5] == "ball"), key=lambda b: -b[4])[:3]
         every = sorted(balls + [b for b in f["candidates"] if b[5] == "ball"], key=lambda b: -b[4])
-        auto = ROUND >= 2 and every and every[0][4] >= AUTO_HI and (len(every) < 2 or every[1][4] < AUTO_LO)
+        hi = AUTO_HI_BY_ROUND.get(ROUND)
+        auto = hi is not None and every and every[0][4] >= hi and (len(every) < 2 or every[1][4] < AUTO_LO)
         if auto:
             balls, cands = every[:1], []
         clip_id = f["clip"]
@@ -407,7 +411,7 @@ def manifest() -> None:
                 "name": f"r{ROUND}",
                 "kind": "detect",
                 "params": {
-                    "ball": "Tomasz's ball queue (done frames; from round 2, also balls accepted by AUTO_HI / AUTO_LO)",
+                    "ball": "Tomasz's ball queue (done frames; from round 2, also balls accepted by rule)",
                     "other": f"draft boxes at score >= {KEEP}",
                     "prefill": PREFILL_WEIGHTS.get(ROUND, PREFILL_MODELS),
                     "valid_clips": sorted(valid),
@@ -425,13 +429,89 @@ def manifest() -> None:
     print(f"{len(frames)} frames ({sum(f['split'] == 'valid' for f in frames)} valid) -> {MANIFEST}; {dict(c)}")
 
 
+POSS_QUEUE = Path("data/labels/box_queue_possession.json")
+POSS_INSTRUCTIONS = (
+    "<b>One question per frame: who has the ball?</b> The ball is the orange box.<br>"
+    "The loupe shows the most likely holder (the model's guess, else the player nearest the ball). "
+    "<kbd>Space</kbd>: yes, that player holds or dribbles the ball (frame done, next). "
+    "<kbd>Tab</kbd>: the next player, nearest the ball first. Or <b>click</b> the player on the frame.<br>"
+    "<kbd>N</kbd>: nobody has it (a pass or shot in the air, a loose ball) · <kbd>S</kbd>: can't tell, skip · "
+    "<kbd>[</kbd> <kbd>]</kbd> previous / next frame · scroll to zoom, <kbd>F</kbd> fit · <kbd>U</kbd> undo.<br>"
+    "The holder has no box: <kbd>⇧</kbd>-drag a box around him, then <kbd>Enter</kbd>. "
+    "A shooter with the ball still in his hands counts as the holder."
+)
+
+
+def possession_queue(rounds: list[int]) -> None:
+    """Add the finished frames with a ball of the given rounds to the possession queue (/boxes?set=possession).
+
+    Each frame holds the round manifest's people boxes and its ball. Frames already in the queue keep their status
+    and boxes, so later rounds can be added without touching decisions made.
+
+    """
+    q = (
+        json.loads(POSS_QUEUE.read_text())
+        if POSS_QUEUE.exists()
+        else {
+            "version": "possession",
+            "mode": "possession",
+            "title": "Possession queue",
+            "instructions": POSS_INSTRUCTIONS,
+            "classes": [*sorted(PERSON), "ball"],
+            "frames": [],
+            "meta": {"review_seconds": {}},
+        }
+    )
+    have = {(f["clip"], f["frame"]) for f in q["frames"]}
+    added = 0
+    for rnd in rounds:
+        man = json.loads(Path(f"data/labels/detect/train_manifest_r{rnd}.json").read_text())
+        for f in man["frames"]:
+            balls = [b for b in f["boxes"] if b[4] == "ball"]
+            if not balls or (f["clip"], f["frame"]) in have:
+                continue
+            boxes = [b for b in f["boxes"] if b[4] in PERSON] + balls[:1]
+            q["frames"].append({
+                "youtube_id": f["clip"],
+                "clip": f["clip"],
+                "video": f["video"],
+                "shot": f["shot"],
+                "frame": f["frame"],
+                "round": rnd,
+                "status": "todo",
+                "note": "",
+                "candidates": [],
+                "boxes": [
+                    {
+                        "id": i,
+                        "xyxy": b[:4],
+                        "cls": b[4],
+                        "team": "",
+                        "tid": None,
+                        "src": "ball-queue" if b[4] == "ball" else "draft",
+                        "flags": [],
+                        "hints": [],
+                        "alt": {},
+                    }
+                    for i, b in enumerate(boxes)
+                ],
+            })
+            added += 1
+    POSS_QUEUE.write_text(json.dumps(q, indent=1) + "\n")
+    todo = sum(f["status"] == "todo" for f in q["frames"])
+    print(f"{added} frames added; {len(q['frames'])} in {POSS_QUEUE}, {todo} to do")
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["central", "check", "sample", "prefill", "draft", "ballqueue", "manifest"])
+    ap.add_argument(
+        "cmd", choices=["central", "check", "sample", "prefill", "draft", "ballqueue", "manifest", "possqueue"]
+    )
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--per-clip", type=int, default=12)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--round", type=int, default=1)
+    ap.add_argument("--rounds", type=int, nargs="*", help="possqueue: rounds whose manifests to add (default 1 2)")
     a = ap.parse_args(argv)
     configure(a.round)
     {
@@ -442,6 +522,7 @@ def main(argv=None):
         "draft": draft,
         "ballqueue": lambda: ball_queue(a.force),
         "manifest": manifest,
+        "possqueue": lambda: possession_queue(a.rounds or [1, 2]),
     }[a.cmd]()
 
 
