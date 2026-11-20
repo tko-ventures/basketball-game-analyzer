@@ -48,7 +48,7 @@ class ManifestSource(BaseModel):
     kind: Literal["manifest"] = "manifest"
     path: str
     sha256: str
-    image_width: int = 1280  # frames are resized to this width for upload; keypoints scale with them
+    image_width: int = 1280  # frames are resized to this width for upload; keypoints and boxes scale with them
 
 
 class Recipe(BaseModel):

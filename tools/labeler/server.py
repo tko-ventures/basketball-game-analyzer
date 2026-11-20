@@ -27,6 +27,7 @@ import sys
 import threading
 import time
 from collections.abc import Callable
+from enum import StrEnum
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import ClassVar
@@ -625,8 +626,20 @@ def save_court_record(labels_dir: Path, body: dict) -> None:
 
 #: Box gold v1 queue, edited by the /boxes page and written by ``scripts/box_gold_v1.py``.
 BOX_QUEUE = "box_gold_v1.json"
-#: Statuses a box-queue frame may have; ``skip`` keeps a frame the reviewer could not decide out of every export.
-BOX_STATUSES = ("todo", "done", "skip")
+
+
+class BoxStatus(StrEnum):
+    """Status of a box-queue frame; ``skip`` keeps a frame the reviewer could not decide out of every export.
+
+    Examples:
+        >>> BoxStatus("skip") is BoxStatus.SKIP, BoxStatus.DONE == "done"
+        (True, True)
+
+    """
+
+    TODO = "todo"
+    DONE = "done"
+    SKIP = "skip"
 
 
 def box_queue_path(labels_dir: Path, name: str = "") -> Path:
@@ -705,8 +718,11 @@ def save_box_frame(labels_dir: Path, body: dict, name: str = "") -> dict:
 
     """
     i, rec = int(body["index"]), body["frame"]
-    if rec.get("status") not in BOX_STATUSES:
-        raise ValueError("status must be todo, done or skip")
+    try:
+        status = BoxStatus(rec.get("status"))
+    except ValueError:
+        raise ValueError("status must be todo, done or skip") from None
+    rec = {**rec, "status": status.value}
     for b in rec.get("boxes", []):
         if b.get("cls") not in DETECTION_CLASSES:
             raise ValueError(f"unknown class {b.get('cls')!r}")
@@ -726,7 +742,7 @@ def save_box_frame(labels_dir: Path, body: dict, name: str = "") -> dict:
         tmp = p.with_suffix(".json.tmp")
         tmp.write_text(json.dumps(q, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
         os.replace(tmp, p)
-    return {"done": sum(f["status"] == "done" for f in q["frames"]), "total": len(q["frames"])}
+    return {"done": sum(f["status"] == BoxStatus.DONE for f in q["frames"]), "total": len(q["frames"])}
 
 
 def label_progress(labels_dir: Path, rel: str) -> dict:

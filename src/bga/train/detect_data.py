@@ -6,8 +6,9 @@ images and ``_annotations.coco.json``. Categories are id 0, the supercategory pl
 set, each image becomes that many overlapping square crops (``bga.detect.tiles``), keeping boxes at least half inside.
 
 Manifest sources (PLK auto-labels, ``data/labels/detect/train_manifest_*.json``) are checked against their sha256 and
-the gold clips, and their frames are decoded from the local videos at full size: ``boxes`` as ``[x1, y1, x2, y2,
-class]`` per frame, and the split each frame names.
+the gold clips, and their frames are decoded from the local videos and resized to the source's ``image_width`` (no
+resize when the video already has that width): ``boxes`` as ``[x1, y1, x2, y2, class]`` per frame, scaled with the
+frame, and the split each frame names.
 
 """
 
@@ -131,7 +132,7 @@ def _add_roboflow(src: RoboflowSource, split: str, out: Path, coco: _Coco, tiles
 
 
 def _add_manifest(src: ManifestSource, split: str, out: Path, coco: _Coco, tiles: int | None) -> int:
-    """Decode a detection manifest's frames of one split from the local videos and add them at full size."""
+    """Decode a detection manifest's frames of one split from the local videos and add them at ``image_width``."""
     path = ROOT / src.path
     if file_sha256(path) != src.sha256:
         raise ValueError(f"{src.path}: sha256 differs from the config; rebuild the config or the manifest")
@@ -146,7 +147,13 @@ def _add_manifest(src: ManifestSource, split: str, out: Path, coco: _Coco, tiles
         ok, img = cap.read()
         if not ok:
             raise IndexError(f"{f['video']} frame {f['frame']}")
-        anns = [{"bbox": [x1, y1, x2 - x1, y2 - y1], "category_id": ids[c]} for x1, y1, x2, y2, c in f["boxes"]]
+        k = src.image_width / img.shape[1]
+        if k != 1:
+            img = cv2.resize(img, (src.image_width, round(img.shape[0] * k)), interpolation=cv2.INTER_AREA)
+        anns = [
+            {"bbox": [x1 * k, y1 * k, (x2 - x1) * k, (y2 - y1) * k], "category_id": ids[c]}
+            for x1, y1, x2, y2, c in f["boxes"]
+        ]
         name = f"plk_{f['clip'].split('_')[1]}_{f['frame']:06d}.jpg"
         coco.add(_write_image(img, out, name, (img.shape[1], img.shape[0]), anns, tiles), src.path)
         n += 1

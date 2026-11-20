@@ -27,8 +27,6 @@ SAM2_SHA = "2b90b9f5ceec907a1c18123530e92e794ad901a4"
 MODEL_ID = "facebook/sam2.1-hiera-large"
 #: Modal GPU type.
 GPU = "L40S"
-#: Modal list price per hour by GPU, 2026-10-29.
-USD_PER_HOUR = {"L40S": 1.95, "A100-80GB": 2.50, "H100": 3.95, "L4": 0.80}
 #: Frames per remote call.
 BATCH = 10
 #: Input and output files, relative to the repository root.
@@ -61,7 +59,7 @@ def box_masks(items: list[tuple[str, bytes, list[list[float]]]]) -> dict:
         items: ``(key, jpeg bytes, boxes)`` per frame, boxes as ``[x1, y1, x2, y2]`` in pixels.
 
     Returns:
-        ``{"seconds", "usd", "gpu", "frames": {key: [[x1, y1, x2, y2, mask pixels, predicted IoU] or None, ...]}}``,
+        ``{"seconds", "gpu", "frames": {key: [[x1, y1, x2, y2, mask pixels, predicted IoU] or None, ...]}}``,
         one entry per input box in input order; None where the mask is empty.
 
     Examples:
@@ -104,7 +102,7 @@ def box_masks(items: list[tuple[str, bytes, list[list[float]]]]) -> dict:
                 ])
             out[key] = res
     secs = time.time() - t0
-    return {"seconds": round(secs, 1), "usd": round(secs / 3600 * USD_PER_HOUR[GPU], 4), "gpu": GPU, "frames": out}
+    return {"seconds": round(secs, 1), "gpu": GPU, "frames": out}  # priced locally: the image has no bga
 
 
 @app.local_entrypoint()
@@ -117,7 +115,7 @@ def main() -> None:
     """
     import cv2
 
-    from bga.remote.modal_runner import append_cost_rows
+    from bga.remote.modal_runner import USD_PER_HOUR, append_cost_rows
 
     req = json.loads(INPUT.read_text())
     items, caps = [], {}
@@ -131,12 +129,12 @@ def main() -> None:
         items.append((f["key"], jpeg, f["boxes"]))
     batches = [items[i : i + BATCH] for i in range(0, len(items), BATCH)]
     print(f"{len(items)} frames, {sum(len(i[2]) for i in items)} boxes, {len(batches)} calls on {GPU}")
-    frames, secs, usd = {}, 0.0, 0.0
+    frames, secs = {}, 0.0
     prompts = {k: boxes for k, _, boxes in items}
     for res in box_masks.map(batches):
         frames.update({k: {"boxes": prompts[k], "masks": m} for k, m in res["frames"].items()})
         secs += res["seconds"]
-        usd += res["usd"]
+    usd = secs / 3600 * USD_PER_HOUR[GPU]
     OUTPUT.write_text(json.dumps({"model": MODEL_ID, "sam2_sha": SAM2_SHA, "gpu": GPU, "frames": frames}))
     row = (
         f"| {time.strftime('%Y-%m-%d')} | modal | {GPU} | sam2_boxmask box gold v1 ({len(items)} frames) "

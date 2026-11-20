@@ -4,6 +4,7 @@ Usage:
     bga run --config configs/baseline.yaml [--set track.params.lost_track_buffer_s=2] [--seq OSp445e0mXU_s2]
     bga eval --config configs/baseline.yaml [--config other.yaml] [--gold v0] [--held-out] [--write]
     bga eval-court --config configs/baseline.yaml [--config other.yaml] [--held-out] [--write]
+    bga eval-detect --config configs/detect-plk-r2.yaml [--set ...] [--gold v1] [--held-out] [--write]
     bga train --config configs/train/<layer>-<backend>-<name>.yaml [--build-only] [--collect]
     bga backends
 
@@ -35,23 +36,71 @@ HEADER = (
 )
 
 
+#: Where trained weights live, one directory per weight id with its ``train.json``.
+WEIGHTS = Path("weights")
+
+
+def _require_provenance(cfg: object, root: Path = WEIGHTS) -> None:
+    """Refuse a config whose layer weights have neither a ``pretrained:`` declaration nor a ``train.json`` (plan 5).
+
+    Args:
+        cfg: A run config (anything with ``layers``, each with ``weights``).
+        root: Weights directory.
+
+    Raises:
+        typer.BadParameter: When a trained weight id has no ``<root>/<id>/train.json``.
+
+    Examples:
+        >>> from types import SimpleNamespace as N
+        >>> _require_provenance(N(layers={"detect": N(weights="pretrained:roboflow/x/6"), "track": N(weights=None)}))
+        >>> _require_provenance(N(layers={"detect": N(weights="detect/rfdetr_torch/x@00000000")}), Path("/nonexistent"))
+        Traceback (most recent call last):
+        ...
+        click.exceptions.BadParameter: detect weights detect/rfdetr_torch/x@00000000 have no train.json ...
+
+    """
+    for name, entry in cfg.layers.items():
+        w = entry.weights
+        if w and not w.startswith("pretrained:") and not (root / w / "train.json").exists():
+            raise typer.BadParameter(
+                f"{name} weights {w} have no train.json under {root}/ and no pretrained: declaration;"
+                " collect them with bga train --collect"
+            )
+
+
 def _setup_logging(verbose: bool) -> None:
     logging.basicConfig(level=logging.INFO if verbose else logging.WARNING, format="%(message)s")
     logging.getLogger("bga").setLevel(logging.INFO)
 
 
-@app.command()
+@app.command(help="Run every layer of a config over its sequences into runs/<clip>/<layer>/<backend>@<hash8>/.")
 def run(
     config: Annotated[Path, typer.Option(help="configs/<name>.yaml")],
-    set_: Annotated[list[str], typer.Option("--set", help="override, e.g. detect.params.confidence=0.3")] = [],  # noqa: B006
-    seq: Annotated[list[str], typer.Option(help="only these sequences")] = [],  # noqa: B006
-    layer: Annotated[list[str], typer.Option(help="only these layers")] = [],  # noqa: B006
-    force: Annotated[list[str], typer.Option(help="recompute these layers")] = [],  # noqa: B006
+    set_: Annotated[list[str], typer.Option("--set", help="override, e.g. detect.params.confidence=0.3")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
+    seq: Annotated[list[str], typer.Option(help="only these sequences")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
+    layer: Annotated[list[str], typer.Option(help="only these layers")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
+    force: Annotated[list[str], typer.Option(help="recompute these layers")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
     remote: Annotated[str | None, typer.Option(help="modal: run CUDA backends on Modal")] = None,
-    remote_layer: Annotated[list[str], typer.Option(help="also run these layers remotely")] = [],  # noqa: B006
+    remote_layer: Annotated[list[str], typer.Option(help="also run these layers remotely")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
     verbose: bool = False,
 ) -> None:
-    """Run every layer of a config over its sequences into runs/<clip>/<layer>/<backend>@<hash8>/."""
+    """Run every layer of a config over its sequences into runs/<clip>/<layer>/<backend>@<hash8>/.
+
+    Args:
+        config: Run config.
+        set_: ``layer.params.key=value`` overrides.
+        seq: Only these sequences.
+        layer: Only these layers.
+        force: Recompute these layers instead of reusing their cached outputs.
+        remote: ``modal`` to run CUDA backends on Modal.
+        remote_layer: Also run these layers remotely.
+        verbose: Log progress.
+
+    Examples:
+        >>> run(Path("configs/baseline.yaml"), seq=["OSp445e0mXU_s2"])  # doctest: +SKIP
+        baseline@70498c00: 1 sequences
+
+    """
     _setup_logging(verbose)
     cfg = load_config(config, set_)
     seqs = pipeline.run(
@@ -101,23 +150,41 @@ def _insert_rows(text: str, header: str, rows: list[str], intro: str = "") -> st
     return "\n".join(lines[:i] + rows + lines[i:]) + "\n"
 
 
-@app.command("eval")
+@app.command("eval", help="Run (reusing cached layer outputs) and score each config on the gold set.")
 def eval_(
     config: Annotated[list[Path], typer.Option(help="one or more configs, scored side by side")],
-    set_: Annotated[list[str], typer.Option("--set", help="override applied to every config")] = [],  # noqa: B006
+    set_: Annotated[list[str], typer.Option("--set", help="override applied to every config")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
     gold: str = "v0",
     held_out: Annotated[bool, typer.Option(help="score the held-out game instead (once per milestone)")] = False,
     write: Annotated[bool, typer.Option(help="append rows to docs/metrics.md")] = False,
     note: str = "",
     verbose: bool = False,
 ) -> None:
-    """Run (reusing cached layer outputs) and score each config on the gold set."""
+    """Run (reusing cached layer outputs) and score each config on the gold set.
+
+    Args:
+        config: Run configs, scored side by side.
+        set_: Overrides applied to every config.
+        gold: Gold set version.
+        held_out: Score the held-out game instead of the dev shots (once per milestone).
+        write: Add the rows to the tracking table in ``docs/metrics.md``.
+        note: Text for the notes column.
+        verbose: Log progress.
+
+    Raises:
+        typer.BadParameter: When a layer's trained weights have no ``train.json``.
+
+    Examples:
+        >>> eval_([Path("configs/baseline.yaml")])  # doctest: +SKIP
+
+    """
     from bga.eval.scores import score
 
     _setup_logging(verbose)
     rows = []
     for path in config:
         cfg = load_config(path, set_)
+        _require_provenance(cfg)
         cfg.layers["shots"].params["held_out"] = "only" if held_out else "exclude"
         cfg.layers["shots"].params["version"] = gold
         seqs = pipeline.run(cfg)
@@ -199,17 +266,36 @@ def _ap_cell(c: object) -> str:
     return f"{_fmt(c.ap)} / {_fmt(c.ap50)} ({c.n})"
 
 
-@app.command("eval-detect")
+@app.command(
+    "eval-detect", help="Run the detect layer (reusing cached outputs) and score per-class AP on the box-gold frames."
+)
 def eval_detect(
     config: Annotated[list[Path], typer.Option(help="one or more run configs; their detect layer is scored")],
-    set_: Annotated[list[str], typer.Option("--set", help="override applied to every config")] = [],  # noqa: B006
+    set_: Annotated[list[str], typer.Option("--set", help="override applied to every config")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
     gold: str = "v1",
     held_out: Annotated[bool, typer.Option(help="score the held-out game instead (once per milestone)")] = False,
     write: Annotated[bool, typer.Option(help="append rows to docs/metrics.md")] = False,
     note: str = "",
     verbose: bool = False,
 ) -> None:
-    """Run the detect layer (reusing cached outputs) and score per-class AP on the box-gold frames."""
+    """Run the detect layer (reusing cached outputs) and score per-class AP on the box-gold frames.
+
+    Args:
+        config: Run configs; only their shots and detect layers run.
+        set_: Overrides applied to every config.
+        gold: Gold set version holding ``boxes.json``.
+        held_out: Score the held-out game instead of the dev frames (once per milestone).
+        write: Add the rows to the detection table in ``docs/metrics.md``.
+        note: Text for the notes column.
+        verbose: Log progress.
+
+    Raises:
+        typer.BadParameter: When a layer's trained weights have no ``train.json``.
+
+    Examples:
+        >>> eval_detect([Path("configs/detect-plk-r2.yaml")])  # doctest: +SKIP
+
+    """
     from bga.eval.detect import PEOPLE
     from bga.eval.detect import score as detect_score
 
@@ -217,6 +303,7 @@ def eval_detect(
     rows = []
     for path in config:
         cfg = load_config(path, set_)
+        _require_provenance(cfg)
         cfg.layers["shots"].params["held_out"] = "only" if held_out else "exclude"
         seqs = pipeline.run(cfg, layers=["shots", "detect"])
         s = detect_score(cfg, seqs, Path("runs"), Path("data/gold") / gold / "boxes.json")
@@ -254,19 +341,36 @@ COURT_INTRO = (
 )
 
 
-@app.command("eval-court")
+@app.command(
+    "eval-court", help="Score each config's court layer on the gold court keyframes (reprojection error per arena)."
+)
 def eval_court(
     config: Annotated[list[Path], typer.Option(help="one or more run configs; their court layer is scored")],
     held_out: Annotated[bool, typer.Option(help="score the held-out game (once per milestone)")] = False,
     write: Annotated[bool, typer.Option(help="append rows to docs/metrics.md")] = False,
     note: str = "",
 ) -> None:
-    """Score each config's court layer on the gold court keyframes (reprojection error per arena)."""
+    """Score each config's court layer on the gold court keyframes (reprojection error per arena).
+
+    Args:
+        config: Run configs; only their court layers are scored.
+        held_out: Score the held-out game (once per milestone).
+        write: Add the rows to the court table in ``docs/metrics.md``.
+        note: Text for the notes column.
+
+    Raises:
+        typer.BadParameter: When a layer's trained weights have no ``train.json``.
+
+    Examples:
+        >>> eval_court([Path("configs/court-plk-v1-smooth4.yaml")])  # doctest: +SKIP
+
+    """
     from bga.eval.court import score as court_score
 
     rows = []
     for path in config:
         cfg = load_config(path)
+        _require_provenance(cfg)
         entry = cfg.layers["court"]
         s = court_score(cfg, held_out=held_out)
         a = s["summary"]["all"]
@@ -284,14 +388,25 @@ def eval_court(
         METRICS_MD.write_text(_insert_rows(METRICS_MD.read_text(), COURT_HEADER, rows, COURT_INTRO))
 
 
-@app.command()
+@app.command(help="Render the radar video (broadcast above, 2D court below) for each sequence of a run.")
 def radar(
     config: Annotated[Path, typer.Option(help="configs/<name>.yaml")],
-    set_: Annotated[list[str], typer.Option("--set")] = [],  # noqa: B006
-    seq: Annotated[list[str], typer.Option(help="only these sequences")] = [],  # noqa: B006
+    set_: Annotated[list[str], typer.Option("--set")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
+    seq: Annotated[list[str], typer.Option(help="only these sequences")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
     held_out: bool = False,
 ) -> None:
-    """Render the radar video (broadcast above, 2D court below) for each sequence of a run."""
+    """Render the radar video (broadcast above, 2D court below) for each sequence of a run.
+
+    Args:
+        config: Run config.
+        set_: ``layer.params.key=value`` overrides.
+        seq: Only these sequences.
+        held_out: Render the held-out game's sequences.
+
+    Examples:
+        >>> radar(Path("configs/court-plk-v1-smooth4.yaml"), seq=["OSp445e0mXU_s2"])  # doctest: +SKIP
+
+    """
     from bga.export.radar import render
 
     cfg = load_config(config, set_)
@@ -300,7 +415,7 @@ def radar(
         typer.echo(render(cfg, s))
 
 
-@app.command()
+@app.command(help="Fine-tune on the config's platform; weights land in weights/<layer>/<backend>/<name>@<hash8>/.")
 def train(
     config: Annotated[Path, typer.Option(help="configs/train/<layer>-<backend>-<name>.yaml")],
     build_only: Annotated[bool, typer.Option(help="build and check the dataset, do not train")] = False,
@@ -312,7 +427,24 @@ def train(
     resume: Annotated[bool, typer.Option(help="continue a run cut short from its last.ckpt on the volume")] = True,
     verbose: bool = False,
 ) -> None:
-    """Fine-tune on the config's platform; weights land in weights/<layer>/<backend>/<name>@<hash8>/."""
+    """Fine-tune on the config's platform; weights land in weights/<layer>/<backend>/<name>@<hash8>/.
+
+    Args:
+        config: Training config, named ``<layer>-<backend>-<name>.yaml``.
+        build_only: Build and check the dataset, then stop.
+        collect: Only pull a finished run's outputs into ``weights/``.
+        wait: Wait for the run already spawned (``call.json``), then collect.
+        partial: With ``collect``, take a cut-short run's best checkpoint so far.
+        resume: Continue a run cut short from its ``last.ckpt`` on the volume.
+        verbose: Log progress.
+
+    Raises:
+        typer.BadParameter: When the file name does not match the config's layer, backend and name.
+
+    Examples:
+        >>> train(Path("configs/train/detect-rfdetr_torch-plk-r2.yaml"), build_only=True)  # doctest: +SKIP
+
+    """
     from bga.train import run as train_run
     from bga.train.config import load_train_config
 
@@ -333,9 +465,15 @@ def train(
     typer.echo(f"weights in {train_run.collect(cfg, partial=partial)}")
 
 
-@app.command()
+@app.command(help="List registered backends per layer.")
 def backends() -> None:
-    """List registered backends per layer."""
+    """List registered backends per layer.
+
+    Examples:
+        >>> backends()  # doctest: +SKIP
+        shots: gold
+
+    """
     for layer, names in registry.available().items():
         typer.echo(f"{layer}: {', '.join(names)}")
 

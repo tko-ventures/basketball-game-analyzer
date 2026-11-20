@@ -162,9 +162,9 @@ A fine-tune is reproducible and evaluable only if its setup is recorded the same
 - **Done when:** median reprojection error on held-out PLK frames is reported per arena. Provisional target under 0.5 m near the paint.
 
 ### Layer 2: detection, pose, segmentation
-- **Input:** central frames. **Output:** boxes with the 10-class schema, 17-point COCO pose per player, optional masks.
+- **Input:** central frames. **Output:** boxes with the 10-class schema, 17-point COCO pose per player, optional masks. M4 delivers the boxes; pose lands with its first consumer, the ankle ground point of M8 (decision 2026-11-20).
 - **Approach:** RF-DETR Large for boxes, PLK fine-tuned. RF-DETR Keypoint default COCO-pose checkpoint for ankles and torso. RF-DETR Seg only if masks are needed for a downstream consumer; team colour and number reads work from pose-derived torso crops.
-- **Filtering:** drop any detection whose projected foot point lies outside the court polygon plus a margin. This replaces the old fixed trapezoid.
+- **Filtering:** a court-polygon filter (drop people whose projected foot point lies outside the court plus a margin) was measured in M4 and not adopted: it never raised AP on gold v1, because the PLK-trained detector already leaves bench and crowd unboxed and a tight margin cuts sideline referees (decision 2026-11-19). It is used only while drafting training boxes, and may return for 2D positions (M8). The old fixed trapezoid stays out.
 - **Resolution:** small objects (ball, numbers, far-side players) matter more than architecture. Train and infer at a higher input size than default, or tile. Measure per-class AP at two resolutions before choosing. On gold v1 dev the NBA detector finds 19% of balls and 66% of numbers against 89% of people (2026-11-18, `docs/decisions.md`), so resolution is M4's first experiment, before any architecture comparison.
 - **Liquid d1-2B is not a detector or segmenter here (checked 2026-10-28).** Its `boxes` answer returns at most 16 boxes per question as fractions of the image, with no masks, at about 100 ms per frame on an Apple M5 Pro, and it cannot be fine-tuned without Liquid. Keep it as the `d1_boxes` backend for labelling cross-checks and never for production frames. Masks, when needed, come from RF-DETR Seg or SAM 2.1.
 - **SAM 3.x is not available (2026-10-29).** Meta declined Tomasz's Hugging Face access request for `facebook/sam3.1`, and the SAM 3 weights are gated the same way. Neither model, nor any third-party re-upload or Core ML conversion of them, is used anywhere in this project. SAM 3 remains reachable only as a hosted labelling option inside Roboflow Auto Label, if a workspace is ever set up. Masks come from RF-DETR Seg trained on masks that SAM 2.1 (Apache 2.0, open download) draws from detector boxes on Modal, backend `sam21_boxmask`.
@@ -268,6 +268,8 @@ Roboflow Auto Label is optional (no workspace confirmed, no third-party VLM keys
 
 Bootstrap loop: auto-label a few hundred frames, review, train RF-DETR v0; use v0 as the labeller on a few thousand more, review only what it is unsure about, train v1. Each round shrinks the review queue.
 
+M4 ran two rounds that fell short of this table (decision 2026-11-20): only the ball was reviewed, by Tomasz; people, numbers and rims went into training as the draft left them; round 2 drafted with `plk-r1` alone, without the NBA model as second opinion; and round 2 added 238 frames, not a few thousand. Gold v1 is the check on that shortcut, not the review.
+
 Cautions: VLM boxes are loose at mAP@50, so let the detector or SAM 2.1 set geometry and use vision review for class and number value. Reading images through Claude Code spends context and subscription limits per image, so always batch crops into contact sheets and keep a ledger of sheets read. Confusions 6/9 and 1/7 and sponsor logos must be in the gold crops. The gold set must never be produced by the model under test.
 
 ## 8. Evaluation
@@ -325,7 +327,7 @@ RF-DETR NBA weights, ByteTrack, NBA court keypoint model with `League.FIBA` targ
 Landmark dataset across arenas, RF-DETR Keypoint fine-tune per section 5 layer 1, temporal smoothing within shots. As the first fine-tune, this milestone lands `bga train`, `configs/train/`, `docs/train.md` and the gold-leakage test. Done: reprojection error per arena in the metrics table, the row citing both configs.
 
 **M4. Detection fine-tune.**
-Auto-label per section 7, review, fine-tune RF-DETR Large on the 10-class schema. Success is judged on `ball` and `number` first; people are filtered by the court polygon. Input resolution (higher training size, or tiling) is the first experiment. Then a bake-off against DEIM-L and RF-DETR XL on the same split, one training config each, trained on Modal. YOLO26 is out (AGPL-3.0, decision 2026-11-18). Done 2026-11-19: XL matched Large within noise, so Large stays and DEIM-L is not run (`docs/decisions.md`). Export ONNX, run on the Mac. Done: per-class AP and ms per frame.
+Auto-label per section 7, review, fine-tune RF-DETR Large on the 10-class schema. Success is judged on `ball` and `number` first; a court-polygon filter for people was measured and not adopted (decision 2026-11-19). Input resolution (higher training size, or tiling) is the first experiment. Then a bake-off against DEIM-L and RF-DETR XL on the same split, one training config each, trained on Modal. YOLO26 is out (AGPL-3.0, decision 2026-11-18). Done 2026-11-19: XL matched Large within noise, so Large stays and DEIM-L is not run (`docs/decisions.md`). Export ONNX, run on the Mac: the CoreML provider fails at 1280 px, so the Mac keeps PyTorch on MPS (decision 2026-11-19). Done: per-class AP and ms per frame, both from the `bga eval-detect` row (decision 2026-11-20).
 
 **M5. Team layer.**
 `TeamClassifier` per clip with separation check. Done: team accuracy.

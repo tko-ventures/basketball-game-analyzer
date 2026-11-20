@@ -41,5 +41,6 @@ class TestMerge:
         assert merge(dets, square_tiles(1920, 1080, 1)) == [[10, 10, 50, 90, 0.7, "player"]]
 
 
-def test_category_map_matches_names_case_insensitively():
-    assert category_map([{"id": 3, "name": "Number"}, {"id": 0, "name": "basketball"}]) == {3: 3}
+class TestCategoryMap:
+    def test_matches_names_case_insensitively(self):
+        assert category_map([{"id": 3, "name": "Number"}, {"id": 0, "name": "basketball"}]) == {3: 3}

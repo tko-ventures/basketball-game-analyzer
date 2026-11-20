@@ -31,6 +31,7 @@ import argparse
 import json
 import statistics
 import sys
+from dataclasses import dataclass
 from pathlib import Path
 
 import cv2
@@ -38,10 +39,8 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-OUT = Path("runs/autolabel/r1")
 #: Shot scores of every clip, computed once (round 1) and shared by every round.
 CENTRAL = Path("runs/autolabel/r1/central.json")
-ROUND = 1
 #: Round 2 on: the prefill is the previous round's PLK detector (docs/metrics.md, detection table).
 PREFILL_WEIGHTS = {2: "detect/rfdetr_torch/plk-r1@7ab3f6fa", 3: "detect/rfdetr_torch/plk-r2@b13bfb19"}
 #: Score at which a draft box is kept: 0.3 for the NBA detectors of round 1, 0.5 for the PLK detector.
@@ -52,15 +51,31 @@ KEEP_BY_ROUND = {1: 0.3}
 AUTO_HI_BY_ROUND, AUTO_LO = {2: 0.7, 3: 0.85}, 0.2
 
 
-def configure(rnd: int) -> None:
-    """Point every step at round ``rnd``: its run folder, ball queue, manifest and keep threshold."""
-    global OUT, BALL_QUEUE, MANIFEST, KEEP, ROUND
-    ROUND = rnd
-    OUT = Path(f"runs/autolabel/r{rnd}")
-    OUT.mkdir(parents=True, exist_ok=True)
-    BALL_QUEUE = Path(f"data/labels/box_queue_r{rnd}balls.json")
-    MANIFEST = Path(f"data/labels/detect/train_manifest_r{rnd}.json")
-    KEEP = KEEP_BY_ROUND.get(rnd, 0.5)
+@dataclass(frozen=True)
+class Round:
+    """One auto-labelling round: every step reads and writes the files of its round."""
+
+    n: int
+
+    @property
+    def out(self) -> Path:
+        """The round's run folder (frames, prefill and draft)."""
+        return Path(f"runs/autolabel/r{self.n}")
+
+    @property
+    def ball_queue(self) -> Path:
+        """The round's ball queue for the labeller."""
+        return Path(f"data/labels/box_queue_r{self.n}balls.json")
+
+    @property
+    def manifest(self) -> Path:
+        """The round's training manifest for ``bga train``."""
+        return Path(f"data/labels/detect/train_manifest_r{self.n}.json")
+
+    @property
+    def keep(self) -> float:
+        """Score at which a draft box is kept."""
+        return KEEP_BY_ROUND.get(self.n, 0.5)
 
 
 COURT_WEIGHTS = "court/rfdetr_keypoint/plk-v1@c26b7841"
@@ -81,7 +96,7 @@ def label_files():
 def central(force: bool) -> None:
     from bga.court.rfdetr_keypoint import RFDETRKeypoint
 
-    OUT.mkdir(parents=True, exist_ok=True)
+    CENTRAL.parent.mkdir(parents=True, exist_ok=True)
     path = CENTRAL
     res = json.loads(path.read_text()) if path.exists() and not force else {}
     court = RFDETRKeypoint({}, COURT_WEIGHTS)
@@ -128,16 +143,16 @@ def check() -> None:
         print(f"untagged shots with median >= {k}: {sum(s['median'] >= k for s in untagged)} of {len(untagged)}")
 
 
-def sample(per_clip: int, seed: int) -> None:
+def sample(r: Round, per_clip: int, seed: int) -> None:
     """Pick training frames from the central shots of the non-gold clips, at least 1 s apart within a shot."""
     import random
 
     gold = {g["youtube_id"] for g in json.loads(Path("data/labels/gold.json").read_text())["games"]}
     res = json.loads(CENTRAL.read_text())
-    rng = random.Random(seed + 1000 * (ROUND - 1))
+    rng = random.Random(seed + 1000 * (r.n - 1))
     taken = {
         (f["clip"], f["frame"])
-        for k in range(1, ROUND)
+        for k in range(1, r.n)
         for f in json.loads(Path(f"runs/autolabel/r{k}/frames.json").read_text())["frames"]
     }
     frames = []
@@ -155,29 +170,29 @@ def sample(per_clip: int, seed: int) -> None:
                 ]
         for shot, f in sorted(rng.sample(pool, min(per_clip, len(pool)))):
             frames.append({"clip": stem, "video": c["clip"], "shot": shot, "frame": f})
-    (OUT / "frames.json").write_text(json.dumps({"seed": seed, "per_clip": per_clip, "frames": frames}, indent=1))
-    print(f"{len(frames)} frames from {len({f['clip'] for f in frames})} clips -> {OUT / 'frames.json'}")
+    (r.out / "frames.json").write_text(json.dumps({"seed": seed, "per_clip": per_clip, "frames": frames}, indent=1))
+    print(f"{len(frames)} frames from {len({f['clip'] for f in frames})} clips -> {r.out / 'frames.json'}")
 
 
 #: Prefill models: version 16 for every class but the ball, version 6 for the ball (docs/decisions.md, 2026-11-18).
 PREFILL_MODELS = {"basketball-player-detection-3-ycjdo/16": "not-ball", "basketball-player-detection-3-ycjdo/6": "ball"}
 
 
-def prefill() -> None:
+def prefill(r: Round) -> None:
     """Prefill the sampled frames at confidence 0.1; raw detections to prefill_raw.json.
 
     Round 1 runs Roboflow's NBA detectors (PREFILL_MODELS); later rounds run the previous round's PLK detector.
 
     """
-    if ROUND >= 2:
-        _prefill_plk()
+    if r.n >= 2:
+        _prefill_plk(r)
         return
     from inference import get_model
 
     from bga.detect.roboflow_inference import roboflow_key
 
     roboflow_key()
-    frames = json.loads((OUT / "frames.json").read_text())["frames"]
+    frames = json.loads((r.out / "frames.json").read_text())["frames"]
     raw = {}
     for model_id, keep in PREFILL_MODELS.items():
         model = get_model(model_id=model_id)
@@ -186,9 +201,9 @@ def prefill() -> None:
             cap = caps.setdefault(fr["video"], cv2.VideoCapture(fr["video"]))
             cap.set(cv2.CAP_PROP_POS_FRAMES, fr["frame"])
             img = cap.read()[1]
-            r = model.infer(img, confidence=0.1, iou_threshold=0.5)[0]
+            res = model.infer(img, confidence=0.1, iou_threshold=0.5)[0]
             dets = raw.setdefault(f"{fr['clip']}|{fr['frame']}", [])
-            for q in r.predictions:
+            for q in res.predictions:
                 if (q.class_name == "ball") == (keep == "ball"):
                     dets.append([
                         round(q.x - q.width / 2, 1),
@@ -200,29 +215,29 @@ def prefill() -> None:
                         model_id,
                     ])
         print(model_id, "done")
-    (OUT / "prefill_raw.json").write_text(json.dumps(raw))
-    print(f"{sum(len(v) for v in raw.values())} detections on {len(raw)} frames -> {OUT / 'prefill_raw.json'}")
+    (r.out / "prefill_raw.json").write_text(json.dumps(raw))
+    print(f"{sum(len(v) for v in raw.values())} detections on {len(raw)} frames -> {r.out / 'prefill_raw.json'}")
 
 
-def _prefill_plk() -> None:
+def _prefill_plk(r: Round) -> None:
     from bga.detect.rfdetr_torch import RFDETRTorch
 
-    det = RFDETRTorch({"confidence": 0.1}, PREFILL_WEIGHTS[ROUND])
+    det = RFDETRTorch({"confidence": 0.1}, PREFILL_WEIGHTS[r.n])
     det.load()
-    frames = json.loads((OUT / "frames.json").read_text())["frames"]
+    frames = json.loads((r.out / "frames.json").read_text())["frames"]
     raw, caps = {}, {}
     for fr in frames:
         cap = caps.setdefault(fr["video"], cv2.VideoCapture(fr["video"]))
         cap.set(cv2.CAP_PROP_POS_FRAMES, fr["frame"])
         rgb = cv2.cvtColor(cap.read()[1], cv2.COLOR_BGR2RGB)
-        raw[f"{fr['clip']}|{fr['frame']}"] = [[*d, PREFILL_WEIGHTS[ROUND]] for d in det._predict(rgb)]
+        raw[f"{fr['clip']}|{fr['frame']}"] = [[*d, PREFILL_WEIGHTS[r.n]] for d in det._predict(rgb)]
     det.unload()
-    (OUT / "prefill_raw.json").write_text(json.dumps(raw))
-    print(f"{sum(len(v) for v in raw.values())} detections on {len(raw)} frames -> {OUT / 'prefill_raw.json'}")
+    (r.out / "prefill_raw.json").write_text(json.dumps(raw))
+    print(f"{sum(len(v) for v in raw.values())} detections on {len(raw)} frames -> {r.out / 'prefill_raw.json'}")
 
 
 PERSON = {"player", "player-in-possession", "player-jump-shot", "player-layup-dunk", "player-shot-block", "referee"}
-KEEP, NMS_IOU, MARGIN_CM = 0.3, 0.5, 100.0
+NMS_IOU, MARGIN_CM = 0.5, 100.0
 
 
 def _iou(a, b) -> float:
@@ -232,14 +247,14 @@ def _iou(a, b) -> float:
     return ix * iy / u if u > 0 else 0.0
 
 
-def draft() -> None:
-    """Boxes at score >= KEEP after per-class NMS, the rest as candidates; people off the court (foot point more than
-    MARGIN_CM outside, under the PLK court model's mapping of the frame) and numbers outside every kept person
-    dropped."""
+def draft(r: Round) -> None:
+    """Boxes at score >= the round's keep threshold after per-class NMS, the rest as candidates; people off the court
+    (foot point more than MARGIN_CM outside, under the PLK court model's mapping of the frame) and numbers outside every
+    kept person dropped."""
     from bga.court.rfdetr_keypoint import RFDETRKeypoint
 
-    frames = json.loads((OUT / "frames.json").read_text())["frames"]
-    raw = json.loads((OUT / "prefill_raw.json").read_text())
+    frames = json.loads((r.out / "frames.json").read_text())["frames"]
+    raw = json.loads((r.out / "prefill_raw.json").read_text())
     court = RFDETRKeypoint({}, COURT_WEIGHTS)
     court.load()
     caps, out, stats = {}, [], {"off_court": 0, "orphan_numbers": 0, "unmapped_frames": 0}
@@ -253,7 +268,7 @@ def draft() -> None:
         for d in sorted(raw[f"{fr['clip']}|{fr['frame']}"], key=lambda d: -d[4]):
             if any(k[5] == d[5] and _iou(k, d) >= NMS_IOU for k in kept + cands):
                 continue
-            (kept if d[4] >= KEEP else cands).append(d)
+            (kept if d[4] >= r.keep else cands).append(d)
         if h is not None:
             H = np.array(h)
 
@@ -276,14 +291,13 @@ def draft() -> None:
         stats["orphan_numbers"] += n0 - len(kept)
         out.append({**fr, "mapped": h is not None, "boxes": kept, "candidates": cands})
     court.unload()
-    (OUT / "draft.json").write_text(json.dumps({"frames": out}, indent=1))
+    (r.out / "draft.json").write_text(json.dumps({"frames": out}, indent=1))
     from collections import Counter
 
     c = Counter(d[5] for f in out for d in f["boxes"])
     print(stats, dict(c), "frames with a ball box:", sum(any(d[5] == "ball" for d in f["boxes"]) for f in out))
 
 
-BALL_QUEUE = Path("data/labels/box_queue_r1balls.json")
 MIN_PEOPLE = 4  # frames with fewer person boxes are close-ups that passed the central rule
 INSTRUCTIONS = (
     "<b>One question per frame: where is the game ball?</b><br>"
@@ -297,7 +311,7 @@ INSTRUCTIONS = (
 )
 
 
-def ball_queue(force: bool) -> None:
+def ball_queue(r: Round, force: bool) -> None:
     """Write the round's ball queue for the labeller (/boxes?set=r<N>balls): each frame's ball guesses, nothing else.
 
     From round 2, a frame whose ball is clear by the AUTO_HI_BY_ROUND / AUTO_LO rule is written as done, with that
@@ -305,17 +319,17 @@ def ball_queue(force: bool) -> None:
     note, so the reviewer only sees the rest (``]`` and ``[`` still reach it).
 
     """
-    if BALL_QUEUE.exists() and not force:
-        q = json.loads(BALL_QUEUE.read_text())
-        raise SystemExit(f"{BALL_QUEUE} exists ({sum(f['status'] != 'todo' for f in q['frames'])} finished); --force")
+    if r.ball_queue.exists() and not force:
+        q = json.loads(r.ball_queue.read_text())
+        raise SystemExit(f"{r.ball_queue} exists ({sum(f['status'] != 'todo' for f in q['frames'])} finished); --force")
     frames = []
-    for f in json.loads((OUT / "draft.json").read_text())["frames"]:
+    for f in json.loads((r.out / "draft.json").read_text())["frames"]:
         if sum(b[5] in PERSON for b in f["boxes"]) < MIN_PEOPLE:
             continue
         balls = [b for b in f["boxes"] if b[5] == "ball"]
         cands = sorted((b for b in f["candidates"] if b[5] == "ball"), key=lambda b: -b[4])[:3]
         every = sorted(balls + [b for b in f["candidates"] if b[5] == "ball"], key=lambda b: -b[4])
-        hi = AUTO_HI_BY_ROUND.get(ROUND)
+        hi = AUTO_HI_BY_ROUND.get(r.n)
         auto = hi is not None and every and every[0][4] >= hi and (len(every) < 2 or every[1][4] < AUTO_LO)
         if auto:
             balls, cands = every[:1], []
@@ -345,12 +359,12 @@ def ball_queue(force: bool) -> None:
             ],
             "candidates": [{"xyxy": b[:4], "cls": "ball", "score": b[4]} for b in cands],
         })
-    BALL_QUEUE.write_text(
+    r.ball_queue.write_text(
         json.dumps(
             {
-                "version": f"r{ROUND}balls",
+                "version": f"r{r.n}balls",
                 "mode": "ball",
-                "title": f"Ball queue, round {ROUND}",
+                "title": f"Ball queue, round {r.n}",
                 "instructions": INSTRUCTIONS,
                 "classes": ["ball"],
                 "frames": frames,
@@ -363,32 +377,32 @@ def ball_queue(force: bool) -> None:
     print(
         f"{len(frames)} frames ({sum(f['status'] == 'done' for f in frames)} accepted without review), "
         f"{sum(len(f['boxes']) for f in frames)} guesses, "
-        f"{sum(len(f['candidates']) for f in frames)} weaker guesses -> {BALL_QUEUE}"
+        f"{sum(len(f['candidates']) for f in frames)} weaker guesses -> {r.ball_queue}"
     )
 
 
-MANIFEST = Path("data/labels/detect/train_manifest_r1.json")
 VALID_CLIPS = 3  # whole clips held out as the trainer's PLK validation frames
 
 
-def manifest() -> None:
-    """The round-1 training manifest: Tomasz's ball decisions plus the draft's other boxes, finished frames only.
+def manifest(r: Round) -> None:
+    """The round's training manifest: Tomasz's ball decisions plus the draft's other boxes, finished frames only.
 
     A frame enters when its ball-queue status is ``done`` (a ball boxed, or none in view); skipped frames stay out.
     Its boxes are the draft's non-ball boxes (people on the court, numbers inside them, rims and the rest at score
-    >= KEEP) and the ball box from the queue, if any. Every VALID_CLIPS-th clip, in name order, goes to validation.
+    >= the round's keep threshold) and the ball box from the queue, if any. Every VALID_CLIPS-th clip, in name
+    order, goes to validation.
 
     """
     import hashlib
 
     from bga.train.leakage import assert_no_gold
 
-    q = json.loads(BALL_QUEUE.read_text())
-    draft = {(f["clip"], f["frame"]): f for f in json.loads((OUT / "draft.json").read_text())["frames"]}
+    q = json.loads(r.ball_queue.read_text())
+    draft = {(f["clip"], f["frame"]): f for f in json.loads((r.out / "draft.json").read_text())["frames"]}
     done = [f for f in q["frames"] if f["status"] == "done"]
     clips = sorted({f["clip"] for f in done})
     valid = set(clips[:: max(1, len(clips) // VALID_CLIPS)][:VALID_CLIPS])
-    if ROUND >= 2:  # the same validation clips in every round, so no clip trains in one round and validates in another
+    if r.n >= 2:  # the same validation clips in every round, so no clip trains in one round and validates in another
         valid = set(json.loads(Path("data/labels/detect/train_manifest_r1.json").read_text())["params"]["valid_clips"])
     frames = []
     for f in done:
@@ -404,19 +418,19 @@ def manifest() -> None:
             "boxes": [[round(v, 1) for v in b[:4]] + [b[4]] for b in boxes],
         })
     assert_no_gold({f["clip"] for f in frames} | {f["video"] for f in frames})
-    MANIFEST.parent.mkdir(parents=True, exist_ok=True)
-    MANIFEST.write_text(
+    r.manifest.parent.mkdir(parents=True, exist_ok=True)
+    r.manifest.write_text(
         json.dumps(
             {
-                "name": f"r{ROUND}",
+                "name": f"r{r.n}",
                 "kind": "detect",
                 "params": {
                     "ball": "Tomasz's ball queue (done frames; from round 2, also balls accepted by rule)",
-                    "other": f"draft boxes at score >= {KEEP}",
-                    "prefill": PREFILL_WEIGHTS.get(ROUND, PREFILL_MODELS),
+                    "other": f"draft boxes at score >= {r.keep}",
+                    "prefill": PREFILL_WEIGHTS.get(r.n, PREFILL_MODELS),
                     "valid_clips": sorted(valid),
                 },
-                "source_labels": {str(BALL_QUEUE): hashlib.sha256(BALL_QUEUE.read_bytes()).hexdigest()},
+                "source_labels": {str(r.ball_queue): hashlib.sha256(r.ball_queue.read_bytes()).hexdigest()},
                 "frames": frames,
             },
             indent=1,
@@ -426,7 +440,7 @@ def manifest() -> None:
     from collections import Counter
 
     c = Counter(b[4] for f in frames for b in f["boxes"])
-    print(f"{len(frames)} frames ({sum(f['split'] == 'valid' for f in frames)} valid) -> {MANIFEST}; {dict(c)}")
+    print(f"{len(frames)} frames ({sum(f['split'] == 'valid' for f in frames)} valid) -> {r.manifest}; {dict(c)}")
 
 
 POSS_QUEUE = Path("data/labels/box_queue_possession.json")
@@ -513,15 +527,16 @@ def main(argv=None):
     ap.add_argument("--round", type=int, default=1)
     ap.add_argument("--rounds", type=int, nargs="*", help="possqueue: rounds whose manifests to add (default 1 2)")
     a = ap.parse_args(argv)
-    configure(a.round)
+    r = Round(a.round)
+    r.out.mkdir(parents=True, exist_ok=True)
     {
         "central": lambda: central(a.force),
         "check": check,
-        "sample": lambda: sample(a.per_clip, a.seed),
-        "prefill": prefill,
-        "draft": draft,
-        "ballqueue": lambda: ball_queue(a.force),
-        "manifest": manifest,
+        "sample": lambda: sample(r, a.per_clip, a.seed),
+        "prefill": lambda: prefill(r),
+        "draft": lambda: draft(r),
+        "ballqueue": lambda: ball_queue(r, a.force),
+        "manifest": lambda: manifest(r),
         "possqueue": lambda: possession_queue(a.rounds or [1, 2]),
     }[a.cmd]()
 
