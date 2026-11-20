@@ -438,3 +438,13 @@ Tomasz approved the class review of 2026-11-20. Three levels, each decided when 
 - **Dead ball is independent of the holder.** A player can hold or dribble a dead ball (#22, #100, #108: the shot clock stopped at 0.0 or a static 24).
 
 His review of the 31 frames had answered nobody on 11 dribbles; `possession.r3.ops.txt` applies the rule to them and shows each on a 5-frame strip for him to veto.
+
+## 2026-11-20: plk-r3-poss is the detector for the work that follows
+
+Tomasz approved the recommendation. Later layers (M5 team, M6 tracking, M9 ball and possession) build on `configs/detect-plk-r3-poss.yaml`, weights `detect/rfdetr_torch/plk-r3-poss@c62744fe`, in place of `detect-plk-r2`.
+
+- **Gold v1 dev, AP50, against `plk-r2`:** in possession 0.256 to 0.559, people 0.942 to 0.966, number 0.822 to 0.848, referee 0.859 to 0.866, rim 0.926 to 0.915, ball 0.798 to 0.766.
+- **The ball is not worse in substance.** AP50:95 is 0.487 against 0.478, and the AP50 gap is about 2 of 58 balls. It comes with the training settings adopted on 2026-11-19: `plk-r2-fast-es`, `plk-r2`'s data with those settings, scored 0.768.
+- **The held-out game stays unscored** until M9, whose done-when is possession accuracy on gold; this detector is one input to it.
+- **A round 4 of auto-labelling** would prefill with `plk-r3-poss`, after its ball auto-accept threshold is calibrated on gold v1 dev, as for rounds 2 and 3.
+- **More possession labels wait for M9's possession score.** If it falls short, another queue prefilled by this detector is the cheapest next step.

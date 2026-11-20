@@ -126,7 +126,7 @@ The three `eval` commands refuse a config whose layer weights are neither a `pre
 `docs/metrics.md` has three tables:
 - **Tracking:** two rows, both for `baseline@70498c00` on gold v0, dev and held-out.
 - **Court:** dev rows for `baseline`, `court-plk-v1` and its two smoothing windows, and held-out rows for `baseline` and `court-plk-v1-smooth4`.
-- **Detection:** on gold v1, 12 dev rows (`baseline` at its confidence of 0.4 and at 0.05, Roboflow's NBA detector versions 13 and 16, and the eight `configs/detect-*.yaml`) and 2 held-out rows (`baseline` at 0.05 and `detect-plk-r2`).
+- **Detection:** on gold v1, 14 dev rows (`baseline` at its confidence of 0.4 and at 0.05, Roboflow's NBA detector versions 13 and 16, and the ten `configs/detect-*.yaml`) and 2 held-out rows (`baseline` at 0.05 and `detect-plk-r2`).
 
 ### Remote execution (`bga.remote`)
 
