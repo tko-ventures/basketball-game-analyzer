@@ -21,13 +21,15 @@ from bga.registry import register
 from bga.stage import BaseBackend, FrameReader, Sequence
 
 
-def central_crop(img: np.ndarray, box: Seq[float], factor: float) -> np.ndarray:
-    """Cut the centre of a box, scaled by ``factor`` in both sides, clipped to the image.
+def central_crop(img: np.ndarray, box: Seq[float], factor: float, cy: float = 0.5) -> np.ndarray:
+    """Cut a part of a box, scaled by ``factor`` around a point on its vertical axis, clipped to the image.
 
     Args:
         img: Image to crop.
         box: Box as x1, y1, x2, y2 (extra items are ignored).
-        factor: Share of the box's width and height kept around its centre.
+        factor: Share of the box's width and height kept around the crop centre.
+        cy: Height of the crop centre as a share of the box height from its top; 0.5 is the box centre, about 0.35
+            the chest of a standing player.
 
     Returns:
         A view into ``img``; empty when the scaled box falls outside the image.
@@ -38,10 +40,13 @@ def central_crop(img: np.ndarray, box: Seq[float], factor: float) -> np.ndarray:
         (20, 40, 3)
         >>> central_crop(img, (190, 90, 210, 110), 1.0).shape
         (10, 10, 3)
+        >>> img[10:30] = 255  # the top of the box is white
+        >>> int(central_crop(img, (0, 0, 100, 100), 0.2, cy=0.2).mean())
+        255
 
     """
     x1, y1, x2, y2 = box[:4]
-    cx, cy, w, h = (x1 + x2) / 2, (y1 + y2) / 2, (x2 - x1) * factor, (y2 - y1) * factor
+    cx, cy, w, h = (x1 + x2) / 2, y1 + (y2 - y1) * cy, (x2 - x1) * factor, (y2 - y1) * factor
     img_h, img_w = img.shape[:2]
     return img[
         max(0, int(cy - h / 2)) : min(img_h, int(cy + h / 2)), max(0, int(cx - w / 2)) : min(img_w, int(cx + w / 2))
@@ -105,6 +110,7 @@ class SiglipKMeans(BaseBackend):
     defaults: ClassVar[dict[str, Any]] = {
         "fit_fps": 1.0,
         "crop": 0.4,
+        "crop_cy": 0.5,
         "min_score": 0.4,
         "device": "mps",
         "seed": None,
@@ -136,7 +142,8 @@ class SiglipKMeans(BaseBackend):
     def run(self, seq: Sequence, upstream: dict, read: FrameReader) -> dict:
         """Label each detected box ``home``, ``away``, ``ref`` or ``""``.
 
-        Player boxes scoring at least ``min_score`` are cropped; crops from frames every ``1 / fit_fps`` seconds fit
+        Player boxes scoring at least ``min_score`` are cropped (``crop`` of the box around the point ``crop_cy`` of its
+        height from the top); crops from frames every ``1 / fit_fps`` seconds fit
         the classifier (all crops when fewer than 10), and every crop is predicted. The cluster with the brighter mean
         HSV value goes to home when the clip meta marks the home kit ``light``, else to away. Referees come from the
         detector class. With fewer than 4 crops no clustering is done. The ``seed`` param, when set, seeds UMAP and
@@ -163,7 +170,7 @@ class SiglipKMeans(BaseBackend):
                 if d[5] not in PERSON_CLASSES or d[5] == "referee" or d[4] < self.p["min_score"]:
                     continue
                 img = read(f) if img is None else img
-                c = central_crop(img, d, self.p["crop"])
+                c = central_crop(img, d, self.p["crop"], self.p["crop_cy"])
                 if c.size:
                     keys.append((f, i))
                     crops.append(c)

@@ -1,0 +1,29 @@
+name: team-plk-r3-poss-chest-seed4
+description: >
+  team-plk-r3-poss-seed4 with the team crop moved up from the box centre (hips and shorts) to the chest: crop_cy 0.35,
+  so the 40% crop spans 15% to 55% of the box height. On the red painted PLK floors the centre crop takes in much
+  floor, and in 4XMD9FWmQws_s78 three of five seeds split part of the away team by floor colour.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: roboflow_keypoints
+    params: {model_id: basketball-court-detection-2/14}
+    weights: pretrained:roboflow/basketball-court-detection-2/14
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r3-poss@c62744fe
+  team:
+    backend: siglip_kmeans
+    params: {seed: 4, crop_cy: 0.35}
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  track:
+    backend: bytetrack
+  positions:
+    backend: bbox_bottom
+  numbers:
+    backend: smolvlm_ocr
+    params: {model_id: basketball-jersey-numbers-ocr/3}
+    weights: pretrained:roboflow/basketball-jersey-numbers-ocr/3
