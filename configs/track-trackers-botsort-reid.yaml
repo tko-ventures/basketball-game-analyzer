@@ -1,0 +1,33 @@
+name: track-trackers-botsort-reid
+description: >
+  track-trackers-botsort-tuned with re-ID: the reid encoder osnet_x1_0_sportsmot as published (layer 3b default,
+  weights treated as Apache 2.0, plan question 15) and the library's ReIDConfig defaults. Re-ID needs the frames, so
+  camera motion is estimated inside the tracker (cmc: internal). Run with --remote-layer track on Modal.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: roboflow_keypoints
+    params: {model_id: basketball-court-detection-2/14}
+    weights: pretrained:roboflow/basketball-court-detection-2/14
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r3-poss@c62744fe
+  team:
+    backend: siglip_kmeans
+    params: {seed: 0, fit_fps: 5.0}
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  track:
+    backend: trackers
+    params:
+      tracker: botsort
+      cmc: internal
+      reid_model: osnet_x1_0_sportsmot
+      args:
+        track_activation_threshold: 0.8
+        minimum_iou_threshold_first_assoc: 0.1
+        minimum_iou_threshold_second_assoc: 0.2
+        minimum_iou_threshold_unconfirmed_assoc: 0.3
+        high_conf_det_threshold: 0.3

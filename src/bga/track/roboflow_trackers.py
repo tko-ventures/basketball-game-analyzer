@@ -180,7 +180,8 @@ class RoboflowTrackers(BaseBackend):
                 self.p["cmc_mask_score"],
             )
         tracker = self._make(seq.fps / stride, {"enable_cmc": False} if pre else None)  # transforms, not frames
-        wants_frame = botsort and not pre
+        # frames only feed BoT-SORT's own camera-motion estimate and re-ID
+        wants_frame = botsort and not pre and (self.p["args"].get("enable_cmc", True) or bool(self.p["reid_model"]))
         for j, f in enumerate(seq.frames):
             rows = [
                 (i, d) for i, d in enumerate(dets[str(f)]) if d[5] in PERSON_CLASSES and d[4] >= self.p["min_score"]
