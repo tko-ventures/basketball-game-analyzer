@@ -204,6 +204,55 @@ def _best_row(metrics_csv: str, key: str) -> tuple[dict, dict]:
     return best, rows[-1]
 
 
+def invalidate_runs(weight_id: str, runs: Path) -> list[Path]:
+    """Delete cached layer outputs made with a weight id's earlier checkpoint, and every output downstream of them.
+
+    A weight id names its training config, not the checkpoint file, so re-collecting a run (a partial collect, then
+    the finished one) changes the weights under the same id while the layer hashes stay the same. Outputs cached
+    under those hashes would then mix old and new weights; this removes them so the next run recomputes them.
+
+    Args:
+        weight_id: The weight id being (re)written.
+        runs: Root of the run outputs (``runs/<clip>/<layer>/<backend>@<hash8>/`` with ``meta.json``).
+
+    Returns:
+        The removed output directories.
+
+    Examples:
+        >>> import tempfile
+        >>> with tempfile.TemporaryDirectory() as tmp:
+        ...     det = Path(tmp, "clip/detect/x@aaaa")
+        ...     trk = Path(tmp, "clip/track/y@bbbb")
+        ...     for d, meta in [(det, {"layer_hash": "aaaa", "entry": {"weights": "detect/x/n@1"}}),
+        ...                     (trk, {"layer_hash": "bbbb", "upstream": {"detect": "aaaa"}})]:
+        ...         d.mkdir(parents=True)
+        ...         _ = (d / "meta.json").write_text(json.dumps(meta))
+        ...     removed = invalidate_runs("detect/x/n@1", Path(tmp))
+        ...     sorted(p.parent.name for p in removed), det.exists(), trk.exists()
+        (['detect', 'track'], False, False)
+
+    """
+    import shutil
+
+    metas = {}
+    for m in runs.glob("*/*/*@*/meta.json"):
+        try:
+            metas[m.parent] = json.loads(m.read_text())
+        except (OSError, ValueError):
+            continue
+    stale = {d for d, m in metas.items() if (m.get("entry") or {}).get("weights") == weight_id}
+    hashes = {metas[d].get("layer_hash") for d in stale}
+    grew = True
+    while grew:  # follow upstream links: an output built on a stale one is stale too
+        more = {d for d, m in metas.items() if d not in stale and hashes & set((m.get("upstream") or {}).values())}
+        grew = bool(more)
+        stale |= more
+        hashes |= {metas[d].get("layer_hash") for d in more}
+    for d in stale:
+        shutil.rmtree(d)
+    return sorted(stale)
+
+
 def collect(cfg: TrainConfig, partial: bool = False) -> Path:
     """Pull a finished run's files into ``weights/<weight id>/``, write ``train.json`` and log the docs rows.
 
@@ -224,6 +273,9 @@ def collect(cfg: TrainConfig, partial: bool = False) -> Path:
 
     """
     remote, wdir = _remote(cfg), cfg.weights_dir()
+    if wdir.exists():  # re-collecting changes the weights under the same id: drop outputs cached with the old ones
+        for d in invalidate_runs(cfg.weight_id(), ROOT / "runs"):
+            log.info("removed stale cached output %s", d)
     wdir.mkdir(parents=True, exist_ok=True)
     if partial:
         (wdir / PULL[0]).write_bytes(_read_remote(f"{remote}/output/checkpoint_best_ema.pth"))

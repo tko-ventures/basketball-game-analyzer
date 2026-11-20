@@ -27,6 +27,23 @@ Progress is tracked in GitHub issues, one per milestone (`gh issue list --label 
 - Keep `docs/architecture.md` true to the repository. Any commit that changes what it describes (a layer, backend, config, command, data format, tool, script group, page or dependency) updates it in the same commit, with ground truth only: no plans or targets.
 - Commit freely on `feat/*` branches. Never push to main and never merge a pull request without Tomasz (plan question 11).
 
+## Working rules (learned in M4, 2026-11-20)
+
+Each rule closes a mistake that happened. Follow them as strictly as the hard rules.
+
+- **Commits go through the git hook.** Run `uv run pre-commit install` once per checkout. Stage files before running the hooks by hand, because `pre-commit run --all-files` skips untracked files. Never chain a commit after the hooks with `;`: use `&&`, or let the hook block it.
+- **Spend comes from Modal, never from estimates.** Use `scripts/modal_spend.py` (Modal's billing) for docs/costs.md and for any figure told to Tomasz. The time a local process waits on a remote call is not the remote run time.
+- **Training progress comes from the run's `metrics.csv` on the volume** (its `epoch` column). Log lines such as "best metric improved" show improvements, not progress.
+- **Waiting on long jobs:**
+  - Start them with `run_in_background` and rely on the completion notice.
+  - To wait for a condition, have the job print its own end marker (`echo EXIT $?`) and wait for that marker. Never `exit` inside a loop condition, and never match text that an earlier run may already have left in the file.
+  - Before starting a job again, check with `pgrep -f` that no copy is still running.
+- **Re-collecting weights clears their cache.** `bga train --collect` deletes cached outputs made with the earlier checkpoint of the same weight id (`invalidate_runs`). Never evaluate weights while a collect of the same id may still run.
+- **Class names come from the checkpoint** (`model.class_names`), never from the dataset's COCO categories: those start with a placeholder the model drops.
+- **Metrics rows come after the commit.** Commit the code that produces a row first, so the row cites a commit that contains it.
+- **`--set` applies to every `--config` of one command.** When configs need different overrides, run them separately.
+- **Labelling instructions to Tomasz are tested first.** Try the exact key and mouse sequence in the preview on a copy of the queue, before telling him to use it.
+
 ## Prior work
 
 Private repo `tko-ventures/basketball-tracking`, branch `feat/labeller-rosters`. Import only what plan section 4 lists: the labeller, fetch and prepare scripts, rosters, shot files, the shot-cut detector, churn metrics, the ONNX adapter pattern, and the identity rules. Leave the OCR gate stack, kit-colour cue, fixed trapezoid and the SAM 3.1 Core ML service behind. Code and small label files only, never its media, weights or runs.
