@@ -182,6 +182,12 @@ class TestSaveBoxFrame:
         f = server.load_box_queue(root)["frames"][0]
         assert (f["holder"], f["dead_ball"]) == (3, True)
 
+    def test_rejects_a_record_from_a_stale_page(self, box_queue):
+        root, rec = box_queue
+        server.save_box_frame(root, {"index": 0, "frame": {**rec, "holder": None, "dead_ball": False}})
+        with pytest.raises(ValueError, match="lacks dead_ball, holder"):
+            server.save_box_frame(root, {"index": 0, "frame": {**rec, "status": "done"}})
+
     def test_rejected_record_leaves_queue_unchanged(self, box_queue):
         root, rec = box_queue
         before = (root / server.BOX_QUEUE).read_text()

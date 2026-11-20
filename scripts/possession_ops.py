@@ -17,13 +17,16 @@ Ops file, one operation per line; comments are lines starting with ``#`` or text
     live <i>               the ball is in live play
     review <i> <note>      back to the reviewer: status todo, the note and the answer so far shown on the page;
                            put it before the frame's other ops so the note keeps the reviewer's answer
-Operations run in file order, so the file is the audit trail of the pass.
+Operations run in file order, so the file is the audit trail of the pass. Each file is applied once: its sha256 goes
+into the queue's ``meta.ops_applied``, and ``apply`` refuses a file already there (``review`` would undo the answers
+given since). A later pass is a new file.
 
 """
 
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -64,6 +67,10 @@ def migrate(q):
 
 
 def apply(q, ops_path):
+    sha = hashlib.sha256(ops_path.read_bytes()).hexdigest()
+    done = q.setdefault("meta", {}).setdefault("ops_applied", {})
+    if sha in done.values():
+        raise SystemExit(f"{ops_path} was applied already; write a later pass as a new file")
     counts = {}
     for raw in ops_path.read_text().splitlines():
         line = re.split(r"\s{2,}#", raw)[0].strip()
@@ -83,6 +90,7 @@ def apply(q, ops_path):
         else:
             raise SystemExit(f"unknown op {op!r} in {raw!r}")
         counts[op] = counts.get(op, 0) + 1
+    done[ops_path.name] = sha
     print(", ".join(f"{k} {v}" for k, v in counts.items()))
 
 

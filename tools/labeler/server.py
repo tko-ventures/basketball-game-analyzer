@@ -702,7 +702,8 @@ def save_box_frame(labels_dir: Path, body: dict, name: str = "") -> dict:
     Raises:
         ValueError: When the record is for another frame than the stored one at ``index``, its status is not
             ``todo``, ``done`` or ``skip``, a box has a class outside the 10-class schema or a malformed ``xyxy``,
-            the possession ``holder`` is not null or the id of one of its boxes, or ``dead_ball`` is not a boolean.
+            the possession ``holder`` is not null or the id of one of its boxes, ``dead_ball`` is not a boolean, or
+            the record lacks a field the stored frame has (a page loaded before the queue gained that field).
         KeyError: When ``index`` or ``frame`` is missing.
 
     Examples:
@@ -739,6 +740,9 @@ def save_box_frame(labels_dir: Path, body: dict, name: str = "") -> dict:
         old = q["frames"][i]
         if (old["youtube_id"], old["frame"]) != (rec.get("youtube_id"), rec.get("frame")):
             raise ValueError("frame record does not match the queue at this index")
+        lost = sorted(set(old) - set(rec) - {"saved_at"})
+        if lost:
+            raise ValueError(f"record lacks {', '.join(lost)}: reload the page")
         q["frames"][i] = {**rec, "saved_at": time.strftime("%Y-%m-%dT%H:%M:%S")}
         secs = q.setdefault("meta", {}).setdefault("review_seconds", {})
         day = time.strftime("%Y-%m-%d")

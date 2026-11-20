@@ -2,7 +2,7 @@
  "version": "possession",
  "mode": "possession",
  "title": "Possession queue",
- "instructions": "<b>One question per frame: who has the ball?</b> The ball is the orange box.<br>The loupe shows the most likely holder (the saved answer, else the model's guess, else the player nearest the ball). <kbd>Space</kbd>: yes, that player holds or dribbles the ball (frame done, next). <kbd>Tab</kbd>: the next player, nearest the ball first. Or <b>click</b> the player on the frame.<br><kbd>N</kbd>: nobody has it (a pass or shot in the air, a loose ball) \u00b7 <kbd>S</kbd>: can't tell, skip \u00b7 <kbd>[</kbd> <kbd>]</kbd> previous / next frame, then answer again to change it \u00b7 scroll to zoom, <kbd>F</kbd> fit \u00b7 <kbd>U</kbd> undo on this frame.<br>The holder has no box: <kbd>\u21e7</kbd>-drag a box around him, then <kbd>Enter</kbd>. A shooter with the ball still in his hands counts as the holder.<br><b>Dead ball</b> (a throw-in from behind a line, the referee has it, after a score until the throw-in): press <kbd>D</kbd> first, then answer as usual. Whoever holds the ball is still the holder.",
+ "instructions": "<b>One question per frame: who has the ball?</b> The ball is the orange box.<br>The loupe shows the most likely holder (the saved answer, else the model's guess, else the player nearest the ball). <kbd>Space</kbd>: yes, that player holds or dribbles the ball (frame done, next). <kbd>Tab</kbd>: the next player, nearest the ball first. Or <b>click</b> the player on the frame.<br><kbd>N</kbd>: nobody has it (a pass or shot in the air, a loose ball) · <kbd>S</kbd>: can't tell, skip · <kbd>[</kbd> <kbd>]</kbd> previous / next frame, then answer again to change it · scroll to zoom, <kbd>F</kbd> fit · <kbd>U</kbd> undo on this frame.<br>The holder has no box: <kbd>⇧</kbd>-drag a box around him, then <kbd>Enter</kbd>. A shooter with the ball still in his hands counts as the holder.<br><b>Dead ball</b> (a throw-in from behind a line, the referee has it, after a score until the throw-in): press <kbd>D</kbd> first, then answer as usual. Whoever holds the ball is still the holder.",
  "classes": [
   "player",
   "player-in-possession",
@@ -4928,7 +4928,7 @@
    "shot": 23,
    "frame": 7889,
    "round": 1,
-   "status": "todo",
+   "status": "done",
    "note": "dribbling: box 1 (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -5052,9 +5052,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:53:32",
+   "saved_at": "2026-11-20T12:47:26",
    "holder": 1,
-   "dead_ball": false
+   "dead_ball": true
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -7450,7 +7450,7 @@
    "shot": 29,
    "frame": 9133,
    "round": 1,
-   "status": "todo",
+   "status": "done",
    "note": "holds it (#25): box 7; throw-in? (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -7625,9 +7625,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:54:58",
+   "saved_at": "2026-11-20T12:47:32",
    "holder": 7,
-   "dead_ball": false
+   "dead_ball": true
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -17506,7 +17506,7 @@
    "shot": 18,
    "frame": 6860,
    "round": 1,
-   "status": "todo",
+   "status": "done",
    "note": "holds it at chest height: box 6 (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -17698,9 +17698,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:57:41",
+   "saved_at": "2026-11-20T12:47:39",
    "holder": 6,
-   "dead_ball": false
+   "dead_ball": true
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -22450,7 +22450,7 @@
    "shot": 0,
    "frame": 305,
    "round": 1,
-   "status": "todo",
+   "status": "done",
    "note": "dribbling: box 6 (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -22591,9 +22591,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:58:52",
+   "saved_at": "2026-11-20T12:47:42",
    "holder": 6,
-   "dead_ball": false
+   "dead_ball": true
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -24312,7 +24312,7 @@
    "shot": 24,
    "frame": 8372,
    "round": 1,
-   "status": "todo",
+   "status": "done",
    "note": "dribbling (#77): box 6 (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -24521,9 +24521,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:59:12",
+   "saved_at": "2026-11-20T12:47:43",
    "holder": 6,
-   "dead_ball": false
+   "dead_ball": true
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -25446,7 +25446,7 @@
    "shot": 3,
    "frame": 1516,
    "round": 1,
-   "status": "todo",
+   "status": "done",
    "note": "player 1 (dark kit) holds it but has no box: Shift-drag a box around him, Enter; throw-in? (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -25619,11 +25619,28 @@
      "hints": [],
      "alt": {},
      "checked": true
+    },
+    {
+     "id": 10,
+     "xyxy": [
+      1290.5,
+      337,
+      1382,
+      523.5
+     ],
+     "cls": "player-in-possession",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:59:26",
-   "holder": null,
-   "dead_ball": false
+   "saved_at": "2026-11-20T12:47:52",
+   "holder": 10,
+   "dead_ball": true
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -28917,7 +28934,7 @@
    "shot": 1,
    "frame": 474,
    "round": 1,
-   "status": "todo",
+   "status": "done",
    "note": "dribbling (#0): box 4 (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -28997,7 +29014,7 @@
       824,
       583
      ],
-     "cls": "player-in-possession",
+     "cls": "player",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -29160,8 +29177,8 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:01:10",
-   "holder": 4,
+   "saved_at": "2026-11-20T12:48:03",
+   "holder": null,
    "dead_ball": false
   },
   {
@@ -35742,7 +35759,7 @@
    "shot": 9,
    "frame": 3171,
    "round": 1,
-   "status": "todo",
+   "status": "done",
    "note": "holds it: box 6; throw-in from the sideline? (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -35856,7 +35873,7 @@
       1646,
       675
      ],
-     "cls": "player-in-possession",
+     "cls": "player",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -35934,8 +35951,8 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:17:34",
-   "holder": 6,
+   "saved_at": "2026-11-20T12:48:07",
+   "holder": null,
    "dead_ball": false
   },
   {
@@ -49794,7 +49811,7 @@
    "shot": 6,
    "frame": 2561,
    "round": 2,
-   "status": "todo",
+   "status": "done",
    "note": "the ball is in flight near the rim: nobody (answer before: box 7)",
    "candidates": [],
    "boxes": [
@@ -49986,7 +50003,7 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:22:56",
+   "saved_at": "2026-11-20T12:48:13",
    "holder": null,
    "dead_ball": false
   },
@@ -55076,7 +55093,7 @@
    "shot": 25,
    "frame": 8581,
    "round": 2,
-   "status": "todo",
+   "status": "done",
    "note": "the dribbler is box 11 (white), not box 5 (answer before: box 5)",
    "candidates": [],
    "boxes": [
@@ -55302,7 +55319,7 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:14",
+   "saved_at": "2026-11-20T12:48:17",
    "holder": 11,
    "dead_ball": false
   },
@@ -55804,7 +55821,7 @@
    "shot": 1,
    "frame": 739,
    "round": 2,
-   "status": "todo",
+   "status": "done",
    "note": "your call: inbound; who holds the ball, if anyone? (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -55867,7 +55884,7 @@
       1241.7,
       620.5
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -55979,9 +55996,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:22",
-   "holder": null,
-   "dead_ball": true
+   "saved_at": "2026-11-20T12:48:22",
+   "holder": 3,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -68061,7 +68078,7 @@
    "shot": 10,
    "frame": 3977,
    "round": 2,
-   "status": "todo",
+   "status": "done",
    "note": "holds it: box 8; throw-in from the sideline? (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -68270,9 +68287,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:33:10",
+   "saved_at": "2026-11-20T12:48:28",
    "holder": 8,
-   "dead_ball": false
+   "dead_ball": true
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -68975,7 +68992,7 @@
    "shot": 0,
    "frame": 255,
    "round": 2,
-   "status": "todo",
+   "status": "done",
    "note": "dribbling? box 2 (#4), unsure (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -69021,7 +69038,7 @@
       1096.1,
       818
      ],
-     "cls": "player-in-possession",
+     "cls": "player",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -69150,9 +69167,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:33:27",
-   "holder": 2,
-   "dead_ball": false
+   "saved_at": "2026-11-20T12:48:32",
+   "holder": null,
+   "dead_ball": true
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -73040,7 +73057,7 @@
    "shot": 28,
    "frame": 8865,
    "round": 2,
-   "status": "todo",
+   "status": "done",
    "note": "dribbling: box 4 (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -73120,7 +73137,7 @@
       1412,
       887.6
      ],
-     "cls": "player-in-possession",
+     "cls": "player",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -73232,8 +73249,8 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:35:05",
-   "holder": 4,
+   "saved_at": "2026-11-20T12:48:41",
+   "holder": null,
    "dead_ball": false
   },
   {
@@ -73666,7 +73683,7 @@
    "shot": 8,
    "frame": 2983,
    "round": 2,
-   "status": "todo",
+   "status": "done",
    "note": "dribbling (#9): box 1 (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -73695,7 +73712,7 @@
       761.4,
       682.1
      ],
-     "cls": "player-in-possession",
+     "cls": "player",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -73858,8 +73875,8 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:36:35",
-   "holder": 1,
+   "saved_at": "2026-11-20T12:48:53",
+   "holder": null,
    "dead_ball": false
   },
   {
@@ -83098,7 +83115,7 @@
    "shot": 32,
    "frame": 10091,
    "round": 2,
-   "status": "todo",
+   "status": "skip",
    "note": "dribbling: box 4 (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -83375,9 +83392,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:40:41",
+   "saved_at": "2026-11-20T12:49:04",
    "holder": 4,
-   "dead_ball": false
+   "dead_ball": true
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -85555,7 +85572,7 @@
    "shot": 29,
    "frame": 8934,
    "round": 2,
-   "status": "todo",
+   "status": "done",
    "note": "holds it: box 6; throw-in from the baseline? (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -85730,9 +85747,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:41:52",
+   "saved_at": "2026-11-20T12:49:10",
    "holder": 6,
-   "dead_ball": false
+   "dead_ball": true
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -95904,7 +95921,7 @@
    "shot": 26,
    "frame": 8442,
    "round": 3,
-   "status": "todo",
+   "status": "done",
    "note": "dribbling: box 4 (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -95984,7 +96001,7 @@
       1150.4,
       558.1
      ],
-     "cls": "player-in-possession",
+     "cls": "player",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -96113,8 +96130,8 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:45:49",
-   "holder": 4,
+   "saved_at": "2026-11-20T12:49:14",
+   "holder": null,
    "dead_ball": false
   },
   {
@@ -98601,7 +98618,7 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:46:55",
+   "saved_at": "2026-11-20T12:49:17",
    "holder": 8,
    "dead_ball": false
   },
@@ -98612,7 +98629,7 @@
    "shot": 10,
    "frame": 3602,
    "round": 3,
-   "status": "todo",
+   "status": "done",
    "note": "dribbling between the legs: box 5 (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -98709,7 +98726,7 @@
       834.6,
       748.7
      ],
-     "cls": "player-in-possession",
+     "cls": "player",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -98804,8 +98821,8 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:46:56",
-   "holder": 5,
+   "saved_at": "2026-11-20T12:49:30",
+   "holder": null,
    "dead_ball": false
   },
   {
@@ -99024,7 +99041,7 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:46:59",
+   "saved_at": "2026-11-20T12:49:19",
    "holder": 7,
    "dead_ball": false
   },
@@ -102249,7 +102266,7 @@
    "shot": 31,
    "frame": 9370,
    "round": 3,
-   "status": "todo",
+   "status": "done",
    "note": "crossover, ball between the legs: box 2 (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -102295,7 +102312,7 @@
       1229.6,
       826.4
      ],
-     "cls": "player-in-possession",
+     "cls": "player",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -102441,8 +102458,8 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:48:04",
-   "holder": 2,
+   "saved_at": "2026-11-20T12:49:32",
+   "holder": null,
    "dead_ball": false
   },
   {
@@ -116572,7 +116589,7 @@
    "shot": 8,
    "frame": 3485,
    "round": 3,
-   "status": "todo",
+   "status": "done",
    "note": "dribbling: box 4 (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -116652,7 +116669,7 @@
       1230,
       664.4
      ],
-     "cls": "player-in-possession",
+     "cls": "player",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -116798,8 +116815,8 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:52:07",
-   "holder": 4,
+   "saved_at": "2026-11-20T12:49:36",
+   "holder": null,
    "dead_ball": false
   },
   {
@@ -117063,7 +117080,7 @@
    "shot": 17,
    "frame": 6009,
    "round": 3,
-   "status": "todo",
+   "status": "done",
    "note": "dribbling: box 4 (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -117143,7 +117160,7 @@
       792,
       610.6
      ],
-     "cls": "player-in-possession",
+     "cls": "player",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -117289,8 +117306,8 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:52:19",
-   "holder": 4,
+   "saved_at": "2026-11-20T12:49:39",
+   "holder": null,
    "dead_ball": false
   },
   {
@@ -117300,7 +117317,7 @@
    "shot": 18,
    "frame": 6493,
    "round": 3,
-   "status": "todo",
+   "status": "done",
    "note": "dribbling (#12): box 2 (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -117346,7 +117363,7 @@
       909.2,
       533
      ],
-     "cls": "player-in-possession",
+     "cls": "player",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -117475,8 +117492,8 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:52:25",
-   "holder": 2,
+   "saved_at": "2026-11-20T12:49:42",
+   "holder": null,
    "dead_ball": false
   },
   {
@@ -118198,7 +118215,7 @@
    "shot": 9,
    "frame": 2985,
    "round": 3,
-   "status": "todo",
+   "status": "skip",
    "note": "dribbling (#45): box 8 (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -118424,7 +118441,7 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:52:51",
+   "saved_at": "2026-11-20T12:49:45",
    "holder": 8,
    "dead_ball": false
   },
@@ -120281,7 +120298,7 @@
    "shot": 25,
    "frame": 8740,
    "round": 3,
-   "status": "todo",
+   "status": "done",
    "note": "driving with the ball: box 6 (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -120507,9 +120524,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:53:40",
+   "saved_at": "2026-11-20T12:49:48",
    "holder": 6,
-   "dead_ball": false
+   "dead_ball": true
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -121991,7 +122008,7 @@
    "shot": 15,
    "frame": 4941,
    "round": 3,
-   "status": "todo",
+   "status": "done",
    "note": "dribbling: box 6 (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -122105,7 +122122,7 @@
       784.6,
       569.3
      ],
-     "cls": "player-in-possession",
+     "cls": "player",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -122217,8 +122234,8 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:54:06",
-   "holder": 6,
+   "saved_at": "2026-11-20T12:49:51",
+   "holder": null,
    "dead_ball": false
   },
   {
@@ -125056,7 +125073,7 @@
    "shot": 25,
    "frame": 9186,
    "round": 3,
-   "status": "todo",
+   "status": "done",
    "note": "holds it: box 10; throw-in from the sideline? (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -125299,9 +125316,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:55:33",
+   "saved_at": "2026-11-20T12:49:55",
    "holder": 10,
-   "dead_ball": false
+   "dead_ball": true
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -128221,7 +128238,7 @@
    "shot": 4,
    "frame": 1430,
    "round": 3,
-   "status": "todo",
+   "status": "done",
    "note": "dribbling: box 0 (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -128413,7 +128430,7 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:07",
+   "saved_at": "2026-11-20T12:49:58",
    "holder": 0,
    "dead_ball": false
   },
@@ -133213,7 +133230,7 @@
    "shot": 7,
    "frame": 2837,
    "round": 3,
-   "status": "todo",
+   "status": "done",
    "note": "holds it: box 7; throw-in from the baseline? (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -133344,7 +133361,7 @@
       1386,
       730.9
      ],
-     "cls": "player-in-possession",
+     "cls": "player",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -133439,8 +133456,8 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:57:08",
-   "holder": 7,
+   "saved_at": "2026-11-20T12:50:12",
+   "holder": null,
    "dead_ball": false
   },
   {
@@ -133659,7 +133676,7 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:57:10",
+   "saved_at": "2026-11-20T12:50:10",
    "holder": 9,
    "dead_ball": false
   },
@@ -133670,7 +133687,7 @@
    "shot": 10,
    "frame": 3750,
    "round": 3,
-   "status": "todo",
+   "status": "done",
    "note": "dribbling: box 8 (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -133818,7 +133835,7 @@
       1192,
       716.5
      ],
-     "cls": "player-in-possession",
+     "cls": "player",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -133845,9 +133862,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:57:11",
-   "holder": 8,
-   "dead_ball": false
+   "saved_at": "2026-11-20T12:50:15",
+   "holder": null,
+   "dead_ball": true
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -137666,7 +137683,7 @@
    "shot": 12,
    "frame": 4632,
    "round": 3,
-   "status": "todo",
+   "status": "done",
    "note": "holds it: box 7 (answer before: nobody)",
    "candidates": [],
    "boxes": [
@@ -137858,9 +137875,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:58:27",
+   "saved_at": "2026-11-20T12:50:19",
    "holder": 7,
-   "dead_ball": false
+   "dead_ball": true
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -143597,12 +143614,18 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T11:37:42"
+   "saved_at": "2026-11-20T11:37:42",
+   "holder": null,
+   "dead_ball": false
   }
  ],
  "meta": {
   "review_seconds": {
-   "2026-11-20": 3040.0
+   "2026-11-20": 3218.0
+  },
+  "ops_applied": {
+   "possession.ops.txt": "8d11346347a8ff6c6c7d34e811edcd26581e075ef81843895dc1c0c4d8533f07",
+   "possession.r2.ops.txt": "7960ee9d04cbe367bdc1f15eea51426bcffe671c661418e6acac6da42f0bfeb0"
   }
  }
 }

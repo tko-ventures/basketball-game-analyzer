@@ -421,3 +421,12 @@ Tomasz labelled the 643-frame possession queue (50.5 min, 626 done, 17 skipped) 
 - **`holder` per frame is explicit.** The page had stored "nobody" and "the shooter holds it" the same way (no `player-in-possession` box); 12 frames were ambiguous.
 
 The implementer's pass read the 5-frame strips of all 218 "nobody" frames and the 7 holders not nearest the ball (ledger row of 2026-11-20). Tomasz's own calls (#192, #201, #206, #226, #248, #283) and 6 shooters holding the ball were applied directly; 31 frames go back to him with the proposed answer prefilled: 22 live dribbles or holds, 2 wrong holders, 6 holders that may be throw-ins, and #306. The ops are in `data/labels/review/possession.ops.txt`.
+
+## 2026-11-20: detector classes: six to label, four kept for the M9 comparison only
+
+Tomasz approved the class review of 2026-11-20. Three levels, each decided when it is needed:
+
+- **Boxes (detector, one frame), decided now:** `player`, `referee`, `ball`, `rim`, `number` and `player-in-possession` are labelled in every round. Each is visible in a single frame; the first five score AP50 0.80 to 0.94 on gold v1 dev with `plk-r2`.
+- **Kept in the schema, no longer labelled:** `player-jump-shot`, `player-layup-dunk`, `player-shot-block` and `ball-in-basket`. They are moments, not objects: rounds 1 and 3 hold 1 to 3 boxes of each, and `plk-r2` scores AP50 0 to 0.25 on them. Skalski's `ShotEventTracker` reads them, so they stay in the schema (no relabelling, and earlier weights stay comparable). M9 builds shot detection as two backends, his class-based one and one from the ball's path to the rim with the release point on the court (FIBA three-point line 6.75 m), and keeps whichever scores better on gold.
+- **Game state and events, at the start of M9:** live or dead ball (the `dead_ball` flag exists), team in possession, stoppage type (free throw, throw-in, jump ball); shots made or missed and 2 or 3 points, offensive and defensive rebounds (in FIBA an offensive rebound resets the shot clock to 14), passes, turnovers. Fouls are not read from video.
+- **Plays, at the start of the play-extraction milestone:** pick and roll and its coverages (drop, hedge, switch, ice, blitz), hand-off, off-ball screen, isolation, post-up, man against zone. Marco picks the 5 to 8 that matter to him.

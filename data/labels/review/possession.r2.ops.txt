@@ -1,0 +1,3 @@
+# Possession queue, after Tomasz's review of the 31 frames pass 1 sent back (2026-11-20, 3 min).
+# His answers stand: dead ball where the shot clock reads 0.0 or a static 24, nobody on live mid-bounce dribbles.
+holder 245 11            # the ball is in box 11's hand; box 5 is the smaller box over 11's torso, which a click selects
