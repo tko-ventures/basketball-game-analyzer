@@ -172,7 +172,7 @@ A fine-tune is reproducible and evaluable only if its setup is recorded the same
 
 ### Layer 3: team classification
 - **Input:** player boxes per clip. **Output:** team label per track.
-- **Approach:** `sports.TeamClassifier` unchanged, fitted per clip on crops sampled at 1 fps, referees excluded by detector class. Majority vote per track. Add a cluster-separation check with a manual kit-colour fallback for near-identical kits.
+- **Approach:** `sports.TeamClassifier` fitted per shot on crops sampled at 5 frames a second (1 fps was unstable on PLK, decision 2026-11-20), with UMAP and KMeans seeded, referees excluded by detector class. Majority vote per track. Cluster separation is reported per shot; it did not predict the failures, so the manual kit-colour fallback waits for a shot that needs it.
 - **Cross-check backend:** `d1_choice` asks Liquid d1-2B one `choice` question per crop with the two kit descriptions as options. It needs no fitting, so it is a cheap second opinion when the clusters do not separate.
 - **Done when:** team accuracy on gold tracks is reported. Provisional target 0.98.
 
@@ -330,7 +330,7 @@ Landmark dataset across arenas, RF-DETR Keypoint fine-tune per section 5 layer 1
 Auto-label per section 7, review, fine-tune RF-DETR Large on the 10-class schema. Success is judged on `ball` and `number` first; a court-polygon filter for people was measured and not adopted (decision 2026-11-19). Input resolution (higher training size, or tiling) is the first experiment. Then a bake-off against DEIM-L and RF-DETR XL on the same split, one training config each, trained on Modal. YOLO26 is out (AGPL-3.0, decision 2026-11-18). Done 2026-11-19: XL matched Large within noise, so Large stays and DEIM-L is not run (`docs/decisions.md`). Export ONNX, run on the Mac: the CoreML provider fails at 1280 px, so the Mac keeps PyTorch on MPS (decision 2026-11-19). Done: per-class AP and ms per frame, both from the `bga eval-detect` row (decision 2026-11-20).
 
 **M5. Team layer.**
-`TeamClassifier` per clip with separation check. Done: team accuracy.
+`TeamClassifier` per shot with separation reported. Done 2026-11-20 on dev: 1.000 on 4 of 5 seeds at 5 frames a second (decision 2026-11-20). Done: team accuracy.
 
 **M6. Tracking and linking.**
 Court-space ByteTrack, then the offline linking pass with the 5-per-team constraint and identity rules. Layer 3b lands here: the `reid` appearance backend with `osnet_x1_0_sportsmot`, appearance metrics in `bga eval`, appearance as a linking term, and Roboflow `trackers` `botsort` and `botsort_reid` configs. The PLK encoder fine-tune follows, from `osnet_x1_0_sportsmot`, on identity crops from linked non-gold tracklets. Run `sam2_realtime` on Modal as a further tracker config over the same shots, then `edgetam` on the Mac if time allows. Done: HOTA and IDF1 for each tracker config, before and after linking, and with and without the appearance term; appearance metrics for the pretrained and PLK encoders.
