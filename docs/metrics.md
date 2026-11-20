@@ -35,6 +35,8 @@ How to read a row:
 | 2026-11-20 | 3d5ab86 | `team-plk-r3-poss-fit5-seed0`@5736b9c6 | v0 | held-out (3 shots) | 0.642 | 0.717 | 0.575 | 0.674 | 0.744 | 70 | 0.956 | 1.000 (31) | 0.462 (0.808, 9; 26 tracks) | 219, 347, 70, 1350 | M5 held-out, scored once; Tomasz approved 2026-11-20, which also scores plk-r3-poss here ahead of M9 |
 | 2026-11-20 | 0a15bbc | `track-bytetrack`@47367aaf | v0 | dev (9 shots) | 0.630 | 0.704 | 0.566 | 0.677 | 0.736 | 265 | 0.962 | 1.000 (98) | – (–, –; 0 tracks) | 203, 336, 79, – | M6 tracking base: ByteTrack defaults on plk-r3-poss boxes |
 | 2026-11-20 | 0a15bbc | `track-bytetrack-tuned`@82b83cce | v0 | dev (9 shots) | 0.668 | 0.731 | 0.611 | 0.742 | 0.800 | 183 | 0.962 | 1.000 (98) | – (–, –; 0 tracks) | 203, 336, 79, – | ByteTrack tuned on dev (scripts/sweep_track.py); against track-bytetrack |
+| 2026-11-20 | fbdd3c9 | `track-trackers-bytetrack`@b745f7f3 | v0 | dev (9 shots) | 0.675 | 0.700 | 0.651 | 0.765 | 0.747 | 130 | 0.962 | 1.000 (98) | – (–, –; 0 tracks) | 203, 336, 70, – | trackers 2.7 ByteTrackTracker at library defaults; against track-bytetrack (supervision 0.30.9's, vendored) |
+| 2026-11-20 | fbdd3c9 | `track-trackers-bytetrack-tuned`@f9462daf | v0 | dev (9 shots) | 0.686 | 0.702 | 0.671 | 0.781 | 0.748 | 114 | 0.962 | 1.000 (98) | – (–, –; 0 tracks) | 203, 336, 70, – | tuned on dev (321 settings); against track-bytetrack-tuned |
 
 ## Court layer
 
