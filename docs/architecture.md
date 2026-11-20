@@ -15,7 +15,7 @@ The repository has three parts:
 | Path | Contents | In git |
 |---|---|---|
 | `src/bga/` | the pipeline package, about 6,600 lines | yes |
-| `configs/baseline.yaml`, `configs/court-plk-v1*.yaml`, `configs/detect-*.yaml`, `configs/team-*.yaml` | run configs: the public-model baseline; the baseline with the PLK court model, unsmoothed and with smoothing windows of 2 and 4; the baseline with the detect layer swapped for one trained detector each (`rfdetr_torch` at confidence 0.05: `nba-704`, `nba-1280`, `nba-tile2`, `plk-r1`, `plk-r2`, `plk-r2-fast`, `plk-r2-fast-es`, `plk-r2-xl`, `plk-r3`, `plk-r3-poss`); `detect-plk-r3-poss` with the team layer seeded 0 to 4 (`team-plk-r3-poss-seed0` to `seed4`), and the same with the team crop on the chest (`team-plk-r3-poss-chest-seed0` to `seed4`) | yes |
+| `configs/baseline.yaml`, `configs/court-plk-v1*.yaml`, `configs/detect-*.yaml`, `configs/team-*.yaml` | run configs: the public-model baseline; the baseline with the PLK court model, unsmoothed and with smoothing windows of 2 and 4; the baseline with the detect layer swapped for one trained detector each (`rfdetr_torch` at confidence 0.05: `nba-704`, `nba-1280`, `nba-tile2`, `plk-r1`, `plk-r2`, `plk-r2-fast`, `plk-r2-fast-es`, `plk-r2-xl`, `plk-r3`, `plk-r3-poss`); `detect-plk-r3-poss` with the team layer seeded 0 to 4 (`team-plk-r3-poss-seed0` to `seed4`), the same with the team crop on the chest (`team-plk-r3-poss-chest-seed0` to `seed4`), and fitted on 5 frames a second (`team-plk-r3-poss-fit5-seed0` to `seed4`) | yes |
 | `configs/train/` | training configs, one per training setup | yes |
 | `weights/` | trained weights, one directory per weight id | no |
 | `tools/labeler/` | the local labelling server and its three pages | yes |
