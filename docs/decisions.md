@@ -459,3 +459,14 @@ M5 measured Skalski's `TeamClassifier` on the `plk-r3-poss` boxes over gold v0 d
 - **Separation is reported, not used as a trigger.** The failing 1 fps fits had the highest silhouette of any shot (0.58 to 0.63), so a silhouette threshold would not have caught them. The plan's manual kit-colour fallback and the `d1_choice` cross-check are not built: no dev shot failed in a way either would fix. They come back if the held-out game or a new arena fails.
 - **Fit unit.** The plan said "per clip". The backend fits per shot, which is what was measured. A per-game fit over all of a game's shots needs pipeline support and is not done.
 - **Held-out game, scored once (approved by Tomasz on 2026-11-20).** `team-plk-r3-poss-fit5-seed0` scores team accuracy 1.000 on 31 tracks of Dziki – Zastal, with wrong-team boxes at 1.9%. Tomasz approved this run although it also scores `plk-r3-poss` on the held-out game, which the decision of the same day had left for M9. Against `baseline`'s held-out row of 2026-11-02, IDF1 is 0.674 against 0.710 and number accuracy 0.462 against 0.577. Those belong to M6 and M7, which tune tracking and numbers on these boxes.
+
+## 2026-11-20: follow upstream migration guides; ByteTrack moves to `trackers`
+
+`trackers` 2.7.0 (BoT-SORT with re-ID, M6) needs supervision 0.31, which removed `sv.ByteTrack` (deprecated in 0.28.0, removed in 0.31.0 by roboflow/supervision#2582: "tracker implementations now live in the dedicated `trackers` package"). Roboflow's migration guide replaces it with `trackers.ByteTrackTracker` and `update()`. That class is a rewrite, not a move: other parameters (`minimum_iou_threshold` and `high_conf_det_threshold` in place of `minimum_matching_threshold`), other defaults (activation 0.7, two consecutive frames) and another Kalman state, so the same detections give other track ids.
+
+Tomasz accepted the implementer's plan and set the rule: follow the migration guides so the project runs up-to-date packages where it can.
+
+- **Bridge:** supervision 0.30.9's ByteTrack is vendored unchanged in `bga.track._sv_bytetrack` (MIT), so the `bytetrack` backend and every committed tracking row still reproduce (checked: `track-bytetrack-tuned` track outputs identical in all 9 dev shots).
+- **Migration:** a `trackers` backend (`ByteTrackTracker`, `BoTSORTTracker`, with and without re-ID) gets its own configs, is tuned on dev, and is scored against the vendored tracker.
+- **Retirement:** when the `trackers` backend matches or beats it on gold dev, new configs use it; the vendored copy stays only to reproduce old rows.
+- **Generally:** a deprecation or removal upstream is handled by migrating to the replacement through a new backend and config with a before/after row, not by pinning or vendoring indefinitely. Deprecation warnings in run logs are work items.
