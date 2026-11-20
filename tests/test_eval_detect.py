@@ -14,7 +14,7 @@ NUMBER = ([120, 140, 135, 160], "number")
 class TestClassAp:
     def test_perfect_detections_score_one(self):
         gold = [[PLAYER, BALL, NUMBER]]
-        dets = [[(b, 0.9, c) for b, c in gold[0]]]
+        dets = [[(PLAYER[0], 0.9, "player"), (BALL[0], 0.9, "ball"), (NUMBER[0], 0.9, "number")]]
         r = class_ap(gold, dets)
         assert (r["player"].ap, r["ball"].ap, r["number"].ap, r[PEOPLE].ap) == (1.0, 1.0, 1.0, 1.0)
 

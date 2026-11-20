@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import csv
 import datetime as dt
+import importlib
 import io
 import json
 import logging
@@ -35,6 +36,25 @@ TRAIN_MD = ROOT / "docs/train.md"
 COSTS_MD = ROOT / "docs/costs.md"
 #: Files collected from the trainer's output on the volume into ``weights/<weight id>/``.
 PULL = ("checkpoint_best_total.pth", "metrics.csv", "result.json")
+#: Training setups by (layer, backend): the ``bga.train`` dataset module and the ``bga.remote.modal_train`` trainer.
+SETUPS = {
+    ("court", "rfdetr_keypoint"): ("court_data", "train_keypoint"),
+    ("detect", "rfdetr_torch"): ("detect_data", "train_detect"),
+}
+
+
+def _setup(cfg: TrainConfig) -> tuple[str, str]:
+    """Dataset module and trainer function names of a config's layer and backend.
+
+    Examples:
+        >>> from types import SimpleNamespace
+        >>> _setup(SimpleNamespace(layer="detect", backend="rfdetr_torch"))
+        ('detect_data', 'train_detect')
+
+    """
+    if (cfg.layer, cfg.backend) not in SETUPS:
+        raise NotImplementedError(f"no training setup for {cfg.layer}/{cfg.backend}")
+    return SETUPS[cfg.layer, cfg.backend]
 
 
 def _work(cfg: TrainConfig) -> Path:
@@ -75,23 +95,34 @@ def build(cfg: TrainConfig) -> dict:
         '...'
 
     """
-    from bga.train import court_data, detect_data
-
-    builders = {("court", "rfdetr_keypoint"): court_data.build, ("detect", "rfdetr_torch"): detect_data.build}
-    if (cfg.layer, cfg.backend) not in builders:
-        raise NotImplementedError(f"no dataset builder for {cfg.layer}/{cfg.backend}")
-    info = builders[cfg.layer, cfg.backend](cfg, _work(cfg) / "dataset")
+    builder = importlib.import_module(f"bga.train.{_setup(cfg)[0]}").build
+    info = builder(cfg, _work(cfg) / "dataset")
     (_work(cfg) / "dataset_info.json").write_text(json.dumps(info, indent=1))
     return info
 
 
 def _remote_exists(path: str) -> bool:
-    """Whether a file exists on the ``bga-data`` volume."""
+    """Whether a file exists on the ``bga-data`` volume.
+
+    Args:
+        path: file path on the volume.
+
+    Returns:
+        True when the file is listed in its directory; False when it or its directory is missing. Any other error
+        (auth, network) propagates, so a run is never restarted from scratch because the volume could not be read.
+
+    Examples:
+        >>> _remote_exists("train/detect/rfdetr_torch/plk-r2@b13bfb19/output/last.ckpt")  # doctest: +SKIP
+        True
+
+    """
+    from modal.exception import NotFoundError
+
     from bga.remote.modal_train import vol
 
     try:
         return any(e.path == path for e in vol.listdir(str(Path(path).parent)))
-    except Exception:  # a missing directory raises; it means the file is not there either
+    except NotFoundError:  # the directory is missing, so the file is too
         return False
 
 
@@ -116,7 +147,8 @@ def launch(cfg: TrainConfig, resume: bool = True) -> dict:
     """
     import modal
 
-    from bga.remote.modal_train import CPUS, MEMORY_MB, app, train_detect, train_keypoint, vol
+    from bga.remote import modal_train
+    from bga.remote.modal_train import CPUS, MEMORY_MB, app, vol
 
     ds = _work(cfg) / "dataset"
     remote = _remote(cfg)
@@ -142,7 +174,7 @@ def launch(cfg: TrainConfig, resume: bool = True) -> dict:
         "resume": resume_from,
         "init": init,
     }
-    trainer = train_detect if cfg.layer == "detect" else train_keypoint
+    trainer = getattr(modal_train, _setup(cfg)[1])
     n = cfg.recipe.devices or 1
     gpu = f"{cfg.platform.gpu}:{n}" if n > 1 else cfg.platform.gpu
     fn = trainer.with_options(  # CPU and memory scale with the GPUs: each DDP process runs its own data loaders

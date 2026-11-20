@@ -29,8 +29,6 @@ SAM2_SHA = "2b90b9f5ceec907a1c18123530e92e794ad901a4"
 MODEL_ID = "facebook/sam2.1-hiera-large"
 #: Modal GPU type the tracking runs on.
 GPU = "L40S"
-#: Modal list price per hour by GPU, 2026-10-29.
-USD_PER_HOUR = {"L40S": 1.95, "A100-80GB": 2.50, "H100": 3.95, "L4": 0.80}
 #: Most propagation passes per shot: the first, plus one per batch of added objects.
 MAX_ROUNDS = 12
 #: A detection with an IoU below this against every mask counts as uncovered.
@@ -180,8 +178,7 @@ def track_shot(shot_dir: str, prompts: dict[str, list]) -> dict:
         "gpu": GPU,
         "rounds": rounds,
         "objects": next_id - 1,
-        "seconds": round(secs, 1),
-        "usd": round(secs / 3600 * USD_PER_HOUR[GPU], 4),
+        "seconds": round(secs, 1),  # priced locally by main(): the image has no bga
         "frames": {str(k): {str(o): b for o, b in v.items()} for k, v in sorted(results.items())},
     }
 
@@ -198,6 +195,8 @@ def main(clip_id: str = "", shots: str = "") -> None:
         >>> main(clip_id="OSp445e0mXU", shots="10")  # doctest: +SKIP
 
     """
+    from bga.remote.modal_runner import USD_PER_HOUR
+
     gold = json.loads(Path("data/labels/gold.json").read_text())
     want = {int(s) for s in shots.split(",") if s}
     jobs = []
@@ -219,6 +218,7 @@ def main(clip_id: str = "", shots: str = "") -> None:
     t0 = time.time()
     for (g, s, meta, _), res in zip(jobs, track_shot.starmap([(r, m["prompts"]) for _, _, m, r in jobs]), strict=True):
         res.update({k: meta[k] for k in ("clip", "shot", "start", "end", "scale", "size")})
+        res["usd"] = round(res["seconds"] / 3600 * USD_PER_HOUR[GPU], 4)
         out = Path("runs") / g["clip"] / "prefill" / OUT_NAME
         out.mkdir(parents=True, exist_ok=True)
         (out / f"shot_{s['shot']}.json").write_text(json.dumps(res))
