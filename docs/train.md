@@ -23,3 +23,5 @@ used in the court keypoint runs. Base weights: RF-DETR Keypoint preview by Robof
 | 2026-11-19 | 667db51 | `configs/train/detect-rfdetr_torch-plk-r2-fast-es.yaml` | `detect/rfdetr_torch/plk-r2-fast-es@3888eea6` | 865 / 164 | val/mAP_50_95 0.603 (epoch 34) | H100, 1056.0 s, 1.1586 USD |  |
 | 2026-11-19 | 667db51 | `configs/train/detect-rfdetr_torch-plk-r2-fast.yaml` | `detect/rfdetr_torch/plk-r2-fast@7eae6b7c` | 865 / 164 | val/mAP_50_95 0.604 (epoch 49) | H100, 1080.2 s, 1.1852 USD |  |
 | 2026-11-19 | b6b9d2e | `configs/train/detect-rfdetr_torch-plk-r2-xl.yaml` | `detect/rfdetr_torch/plk-r2-xl@646266cd` | 865 / 164 | val/mAP_50_95 0.640 (epoch 49) | H100, 3814.1 s, 4.1849 USD |  |
+| 2026-11-20 | 7c2f54a | `configs/train/detect-rfdetr_torch-plk-r3-poss.yaml` | `detect/rfdetr_torch/plk-r3-poss@c62744fe` | 1077 / 196 | val/mAP_50_95 0.645 (epoch 14) | H100, 654.1 s, 0.7177 USD |  |
+| 2026-11-20 | 7c2f54a | `configs/train/detect-rfdetr_torch-plk-r3.yaml` | `detect/rfdetr_torch/plk-r3@f72eba80` | 1077 / 196 | val/mAP_50_95 0.634 (epoch 19) | H100, 798.1 s, 0.8757 USD |  |

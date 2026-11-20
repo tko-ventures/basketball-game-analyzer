@@ -188,6 +188,18 @@ class TestSaveBoxFrame:
         with pytest.raises(ValueError, match="lacks dead_ball, holder"):
             server.save_box_frame(root, {"index": 0, "frame": {**rec, "status": "done"}})
 
+    def test_rejects_a_frame_changed_after_the_page_loaded_it(self, box_queue):
+        root, rec = box_queue
+        server.save_box_frame(root, {"index": 0, "frame": {**rec, "status": "done"}})
+        with pytest.raises(ValueError, match="changed after this page loaded it"):
+            server.save_box_frame(root, {"index": 0, "frame": {**rec, "status": "skip"}})
+
+    def test_accepts_a_save_carrying_the_stored_stamp(self, box_queue):
+        root, rec = box_queue
+        first = server.save_box_frame(root, {"index": 0, "frame": {**rec, "status": "done"}})
+        server.save_box_frame(root, {"index": 0, "frame": {**rec, "status": "skip", "saved_at": first["saved_at"]}})
+        assert server.load_box_queue(root)["frames"][0]["status"] == "skip"
+
     def test_rejected_record_leaves_queue_unchanged(self, box_queue):
         root, rec = box_queue
         before = (root / server.BOX_QUEUE).read_text()

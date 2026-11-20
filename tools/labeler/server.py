@@ -697,13 +697,15 @@ def save_box_frame(labels_dir: Path, body: dict, name: str = "") -> dict:
         name: Queue name (:func:`box_queue_path`); "" for box gold v1.
 
     Returns:
-        ``{"done": frames marked done, "total": frames}``.
+        ``{"done": frames marked done, "total": frames, "saved_at": the frame's new stamp}``; the page keeps the
+        stamp and sends it back with its next save of the frame.
 
     Raises:
         ValueError: When the record is for another frame than the stored one at ``index``, its status is not
             ``todo``, ``done`` or ``skip``, a box has a class outside the 10-class schema or a malformed ``xyxy``,
             the possession ``holder`` is not null or the id of one of its boxes, ``dead_ball`` is not a boolean, or
-            the record lacks a field the stored frame has (a page loaded before the queue gained that field).
+            the record lacks a field the stored frame has (a page loaded before the queue gained that field), or
+            its ``saved_at`` differs from the stored frame's (the frame changed after the page loaded it).
         KeyError: When ``index`` or ``frame`` is missing.
 
     Examples:
@@ -715,8 +717,8 @@ def save_box_frame(labels_dir: Path, body: dict, name: str = "") -> dict:
         ...     done = {**rec, "status": "done", "boxes": [box]}
         ...     res = save_box_frame(Path(tmp), {"index": 0, "frame": done, "active_seconds": 9})
         ...     q = load_box_queue(Path(tmp))
-        >>> res, q["frames"][0]["boxes"][0]["cls"], sum(q["meta"]["review_seconds"].values())
-        ({'done': 1, 'total': 1}, 'ball', 9.0)
+        >>> (res["done"], res["total"]), q["frames"][0]["boxes"][0]["cls"], sum(q["meta"]["review_seconds"].values())
+        ((1, 1), 'ball', 9.0)
 
     """
     i, rec = int(body["index"]), body["frame"]
@@ -743,7 +745,10 @@ def save_box_frame(labels_dir: Path, body: dict, name: str = "") -> dict:
         lost = sorted(set(old) - set(rec) - {"saved_at"})
         if lost:
             raise ValueError(f"record lacks {', '.join(lost)}: reload the page")
-        q["frames"][i] = {**rec, "saved_at": time.strftime("%Y-%m-%dT%H:%M:%S")}
+        if rec.get("saved_at") != old.get("saved_at"):
+            raise ValueError("the frame changed after this page loaded it: reload the page")
+        stamp = time.strftime("%Y-%m-%dT%H:%M:%S")
+        q["frames"][i] = {**rec, "saved_at": stamp}
         secs = q.setdefault("meta", {}).setdefault("review_seconds", {})
         day = time.strftime("%Y-%m-%d")
         secs[day] = round(secs.get(day, 0) + float(body.get("active_seconds") or 0), 1)
@@ -751,7 +756,11 @@ def save_box_frame(labels_dir: Path, body: dict, name: str = "") -> dict:
         tmp = p.with_suffix(".json.tmp")
         tmp.write_text(json.dumps(q, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
         os.replace(tmp, p)
-    return {"done": sum(f["status"] == BoxStatus.DONE for f in q["frames"]), "total": len(q["frames"])}
+    return {
+        "done": sum(f["status"] == BoxStatus.DONE for f in q["frames"]),
+        "total": len(q["frames"]),
+        "saved_at": stamp,
+    }
 
 
 def label_progress(labels_dir: Path, rel: str) -> dict:

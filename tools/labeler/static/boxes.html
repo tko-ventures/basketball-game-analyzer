@@ -262,7 +262,8 @@ async function save() {
   if (!S.dirty && !S.active) return;
   const secs = Math.round(S.active); S.active = 0;
   try {
-    await api("/api/boxes/frame" + QS, { index: S.i, frame: S.fr, active_seconds: secs });
+    const r = await api("/api/boxes/frame" + QS, { index: S.i, frame: S.fr, active_seconds: secs });
+    S.fr.saved_at = r.saved_at;  // the server refuses a save whose stamp differs from the stored frame's
     S.dirty = false; $("save").textContent = "saved";
   } catch (e) { S.active += secs; $("save").textContent = "SAVE FAILED: " + e.message; toast("Save failed: " + e.message); }
 }

@@ -44,5 +44,7 @@ image builds are not included, so the Modal invoice is the authority.
 | 2026-11-19 | modal | H100 | bga train detect/rfdetr_torch/plk-r2-fast-es@3888eea6 | 1056.0 | 1.1586 |
 | 2026-11-19 | modal | H100 | bga train detect/rfdetr_torch/plk-r2-fast@7eae6b7c | 1080.2 | 1.1852 |
 | 2026-11-19 | modal | H100 | bga train detect/rfdetr_torch/plk-r2-xl@646266cd | 3814.1 | 4.1849 |
+| 2026-11-20 | modal | H100 | bga train detect/rfdetr_torch/plk-r3-poss@c62744fe | 654.1 | 0.7177 |
+| 2026-11-20 | modal | H100 | bga train detect/rfdetr_torch/plk-r3@f72eba80 | 798.1 | 0.8757 |
 
 Month to date (2026-11), from Modal's own billing (`modal billing summary`, 2026-11-19 night): 28.08 USD metered, 27.99 covered by the workspace's 30 USD monthly credits, 0.00 USD billed so far; further November runs are billed. The rows above are per-job estimates at list price for the GPU alone, except where they cite Modal billing. On 2026-11-18 four rows estimated from local log times overstated the cut-short training runs about 25-fold (the remote runs had stopped within minutes while the local process went on waiting); they now carry the billed figures. October 2026: 4.18 USD metered per Modal (3.60 USD in the rows).

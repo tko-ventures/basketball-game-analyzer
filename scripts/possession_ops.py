@@ -29,6 +29,7 @@ import argparse
 import hashlib
 import json
 import re
+import time
 from pathlib import Path
 
 QUEUE = Path("data/labels/box_queue_possession.json")
@@ -72,12 +73,14 @@ def apply(q, ops_path):
     if sha in done.values():
         raise SystemExit(f"{ops_path} was applied already; write a later pass as a new file")
     counts = {}
+    stamp = time.strftime("%Y-%m-%dT%H:%M:%S")
     for raw in ops_path.read_text().splitlines():
         line = re.split(r"\s{2,}#", raw)[0].strip()
         if not line or line.startswith("#"):
             continue
         op, i, *rest = line.split(maxsplit=2) if line.startswith("review") else line.split()
         f = q["frames"][int(i)]
+        f["saved_at"] = stamp  # a page that loaded the frame before this pass can no longer save over it
         if op == "holder":
             set_holder(f, int(rest[0]))
         elif op == "nobody":

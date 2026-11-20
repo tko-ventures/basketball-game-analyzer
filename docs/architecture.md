@@ -8,14 +8,14 @@ The repository has three parts:
 2. **Labelling tools** (`tools/labeler/`, most of `scripts/`). These build and check the gold set and the court keyframes.
 3. **The demo site** (`scripts/demo_*`, `scripts/coach_*`). Web pages published to Vercel. They are built by their own scripts, not by the `bga` pipeline.
 
-`configs/baseline.yaml` uses only public pretrained models. Two training setups exist (`bga train`, below): court keypoints, whose weights `configs/court-plk-v1*.yaml` use, and detection, whose weights the eight `configs/detect-*.yaml` use.
+`configs/baseline.yaml` uses only public pretrained models. Two training setups exist (`bga train`, below): court keypoints, whose weights `configs/court-plk-v1*.yaml` use, and detection, whose weights the ten `configs/detect-*.yaml` use.
 
 ## Repository layout
 
 | Path | Contents | In git |
 |---|---|---|
 | `src/bga/` | the pipeline package, about 6,600 lines | yes |
-| `configs/baseline.yaml`, `configs/court-plk-v1*.yaml`, `configs/detect-*.yaml` | run configs: the public-model baseline; the baseline with the PLK court model, unsmoothed and with smoothing windows of 2 and 4; the baseline with the detect layer swapped for one trained detector each (`rfdetr_torch` at confidence 0.05: `nba-704`, `nba-1280`, `nba-tile2`, `plk-r1`, `plk-r2`, `plk-r2-fast`, `plk-r2-fast-es`, `plk-r2-xl`) | yes |
+| `configs/baseline.yaml`, `configs/court-plk-v1*.yaml`, `configs/detect-*.yaml` | run configs: the public-model baseline; the baseline with the PLK court model, unsmoothed and with smoothing windows of 2 and 4; the baseline with the detect layer swapped for one trained detector each (`rfdetr_torch` at confidence 0.05: `nba-704`, `nba-1280`, `nba-tile2`, `plk-r1`, `plk-r2`, `plk-r2-fast`, `plk-r2-fast-es`, `plk-r2-xl`, `plk-r3`, `plk-r3-poss`) | yes |
 | `configs/train/` | training configs, one per training setup | yes |
 | `weights/` | trained weights, one directory per weight id | no |
 | `tools/labeler/` | the local labelling server and its three pages | yes |
@@ -204,7 +204,7 @@ These are labelling aids, not a layer:
 - **Detection manifest, round 1:** `data/labels/detect/train_manifest_r1.json`, written by `autolabel.py manifest`: the 231 finished frames of the ball queue, each with `clip`, `video`, `frame`, `split` (3 whole clips are `valid`), `size` and `boxes` as `[x1, y1, x2, y2, class]` (Tomasz's ball, if any, plus the draft's other boxes), and the sha256 of the ball queue it was built from.
 - **Possession queue:** `data/labels/box_queue_possession.json` (`autolabel.py possqueue --rounds ...`): every finished frame with a ball from the given rounds' manifests, with its people boxes and its ball; adding rounds leaves earlier decisions untouched and refreshes the instructions. 643 frames: 199 from round 1, 218 from round 2, 226 from round 3.
   - **Each frame** adds to the box-queue fields `holder` (the id of the box holding or dribbling the ball, or null) and `dead_ball` (the ball is out of live play: a throw-in from behind a line, the referee has it). The holder box has class `player-in-possession`, or keeps a shot class; an inbounder is a holder too.
-  - **Review:** `scripts/possession_ops.py migrate` gave the frames answered before `holder` existed their holder from the class; `apply` runs an ops file once (holder, nobody, dead, live, and review, which sends a frame back with a note) and records its sha256 in `meta.ops_applied`: `possession.ops.txt` (the implementer's pass, 31 frames back to Tomasz), then `possession.r2.ops.txt` (after his review) and `possession.r3.ops.txt` (his dribbler rule). 624 done, 19 skipped.
+  - **Review:** `scripts/possession_ops.py migrate` gave the frames answered before `holder` existed their holder from the class; `apply` runs an ops file once (holder, nobody, dead, live, and review, which sends a frame back with a note) and records its sha256 in `meta.ops_applied`; each frame it touches gets a new `saved_at`, so an open page cannot save over it: `possession.ops.txt` (the implementer's pass, 31 frames back to Tomasz), then `possession.r2.ops.txt` (after his review) and `possession.r3.ops.txt` (his dribbler rule). 624 done, 19 skipped.
 - **Detection manifest, round 3:** `data/labels/detect/train_manifest_r3.json`: 244 finished frames of the round-3 ball queue (32 of them validation frames, from the same clips as round 1's).
 - **Detection manifests with possession:** `data/labels/detect/train_manifest_r<N>_poss.json` (`autolabel.py possmanifest --rounds 1 2 3`): each round's manifest with the possession queue applied to its done frames. The queue's people boxes replace the manifest's, with boxes the reviewer moved and holders drawn by hand: the holder is `player-in-possession` or keeps a shot class, every other player is `player`, and a second box on the holder (IoU 0.8 or more, the draft's other class for the same person; 18 boxes) is dropped. Other frames and other classes are the round's. `player-in-possession` boxes: 136, 143 and 157 in rounds 1, 2 and 3.
 - **Ball queue, round 3:** `data/labels/box_queue_r3balls.json`: 262 frames, prefilled by `plk-r2`, 99 balls accepted without review (threshold 0.85, calibrated for `plk-r2`), 163 frames for review.
@@ -267,7 +267,7 @@ API endpoints:
 | Method | Path |
 |---|---|
 | GET | `/api/clips`, `/api/clip`, `/api/frame`, `/api/shots`, `/api/pipeline`, `/api/court/queue`, `/api/court/labels`, `/api/boxes/queue[?set=]` |
-| POST | `/api/labels`, `/api/shots`, `/api/court/labels`, `/api/boxes/frame[?set=]` (rejects classes outside the schema, empty boxes, a record for another frame, a `holder` that is not one of the frame's boxes, a non-boolean `dead_ball`, and a record lacking a field the stored frame has, as a page loaded before the field existed would send) |
+| POST | `/api/labels`, `/api/shots`, `/api/court/labels`, `/api/boxes/frame[?set=]` (rejects classes outside the schema, empty boxes, a record for another frame, a `holder` that is not one of the frame's boxes, a non-boolean `dead_ball`, a record lacking a field the stored frame has, and a record whose `saved_at` differs from the stored frame's, as a page that loaded the frame before a later change would send; the reply carries the new `saved_at`, which the page keeps) |
 
 Paths are confined to the repository by `safe_path`.
 
