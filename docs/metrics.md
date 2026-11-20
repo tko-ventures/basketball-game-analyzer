@@ -4,7 +4,7 @@ Gold-set scores from `bga eval` (plan section 8). One row per config and split, 
 
 How to read a row:
 - **config:** the config's name and the hash of its layer hashes. The same committed config gives the same hash on every split.
-- **gold:** the gold version. **v0 is the implementer's labels**, prefilled by the same public models the baseline uses, so v0 scores are biased upwards; use them to compare rows. On v0, team accuracy is close to meaningless, because the gold teams were proposed by the same kit classifier. See `docs/gold.md`.
+- **gold:** the gold version. **v0 is the implementer's labels**, prefilled by the same public models the baseline uses, so v0 scores are biased upwards; use them to compare rows. The v0 track teams were proposed by the same kit classifier, then checked by eye on 2026-11-20 with no classifier involved: all 164 are right, so team accuracy on v0 is a real score. See `docs/gold.md`, team audit.
 - **split:** dev is the 9 non-held-out shots. Held-out is the Dziki – Zastal game, scored once per milestone.
 - **HOTA, DetA, AssA, IDF1, MOTA, IDSW:** TrackEval over all people (players and referees as one class), on every 5th frame.
 - **AP50:** class-agnostic person AP on the 100 box-gold frames. AP50:95 waits for gold v1 geometry.
