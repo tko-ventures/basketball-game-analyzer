@@ -1,0 +1,23 @@
+name: track-bytetrack
+description: >
+  M6 tracking base: team-plk-r3-poss-fit5-seed0 (plk-r3-poss boxes at confidence 0.05, team fit at 5 frames a second)
+  with ByteTrack in pixels at its defaults, and no numbers or positions layer, so tracker settings score in seconds.
+  Its track layer has the same hash as the M5 configs, so HOTA, IDF1 and team equal theirs.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: roboflow_keypoints
+    params: {model_id: basketball-court-detection-2/14}
+    weights: pretrained:roboflow/basketball-court-detection-2/14
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r3-poss@c62744fe
+  team:
+    backend: siglip_kmeans
+    params: {seed: 0, fit_fps: 5.0}
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  track:
+    backend: bytetrack
