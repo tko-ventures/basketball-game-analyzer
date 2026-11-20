@@ -37,6 +37,8 @@ How to read a row:
 | 2026-11-20 | 0a15bbc | `track-bytetrack-tuned`@82b83cce | v0 | dev (9 shots) | 0.668 | 0.731 | 0.611 | 0.742 | 0.800 | 183 | 0.962 | 1.000 (98) | – (–, –; 0 tracks) | 203, 336, 79, – | ByteTrack tuned on dev (scripts/sweep_track.py); against track-bytetrack |
 | 2026-11-20 | fbdd3c9 | `track-trackers-bytetrack`@b745f7f3 | v0 | dev (9 shots) | 0.675 | 0.700 | 0.651 | 0.765 | 0.747 | 130 | 0.962 | 1.000 (98) | – (–, –; 0 tracks) | 203, 336, 70, – | trackers 2.7 ByteTrackTracker at library defaults; against track-bytetrack (supervision 0.30.9's, vendored) |
 | 2026-11-20 | fbdd3c9 | `track-trackers-bytetrack-tuned`@f9462daf | v0 | dev (9 shots) | 0.686 | 0.702 | 0.671 | 0.781 | 0.748 | 114 | 0.962 | 1.000 (98) | – (–, –; 0 tracks) | 203, 336, 70, – | tuned on dev (321 settings); against track-bytetrack-tuned |
+| 2026-11-20 | ab21008 | `track-trackers-botsort`@9d9869bd | v0 | dev (9 shots) | 0.650 | 0.722 | 0.587 | 0.717 | 0.779 | 228 | 0.962 | 1.000 (98) | – (–, –; 0 tracks) | 203, 336, 70, – | BoT-SORT at library defaults (camera-motion compensation on, no re-ID); against track-trackers-bytetrack |
+| 2026-11-20 | ab21008 | `track-trackers-botsort-precmc`@c00db509 | v0 | dev (9 shots) | 0.650 | 0.722 | 0.587 | 0.717 | 0.779 | 228 | 0.962 | 1.000 (98) | – (–, –; 0 tracks) | 203, 336, 70, – | camera motion precomputed per shot: tracks identical to track-trackers-botsort in 9 of 9 shots |
 
 ## Court layer
 
