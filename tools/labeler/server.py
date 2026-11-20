@@ -701,7 +701,8 @@ def save_box_frame(labels_dir: Path, body: dict, name: str = "") -> dict:
 
     Raises:
         ValueError: When the record is for another frame than the stored one at ``index``, its status is not
-            ``todo``, ``done`` or ``skip``, or a box has a class outside the 10-class schema or a malformed ``xyxy``.
+            ``todo``, ``done`` or ``skip``, a box has a class outside the 10-class schema or a malformed ``xyxy``,
+            the possession ``holder`` is not null or the id of one of its boxes, or ``dead_ball`` is not a boolean.
         KeyError: When ``index`` or ``frame`` is missing.
 
     Examples:
@@ -729,6 +730,10 @@ def save_box_frame(labels_dir: Path, body: dict, name: str = "") -> dict:
         x1, y1, x2, y2 = (float(v) for v in b["xyxy"])
         if not (x2 > x1 and y2 > y1):
             raise ValueError(f"empty box {b['xyxy']}")
+    if rec.get("holder") is not None and rec["holder"] not in {b.get("id") for b in rec.get("boxes", [])}:
+        raise ValueError(f"holder {rec['holder']!r} is not a box of this frame")
+    if not isinstance(rec.get("dead_ball", False), bool):
+        raise ValueError("dead_ball must be true or false")
     with _BOX_LOCK:
         q = load_box_queue(labels_dir, name)
         old = q["frames"][i]

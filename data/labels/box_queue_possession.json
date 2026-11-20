@@ -2,7 +2,7 @@
  "version": "possession",
  "mode": "possession",
  "title": "Possession queue",
- "instructions": "<b>One question per frame: who has the ball?</b> The ball is the orange box.<br>The loupe shows the most likely holder (the model's guess, else the player nearest the ball). <kbd>Space</kbd>: yes, that player holds or dribbles the ball (frame done, next). <kbd>Tab</kbd>: the next player, nearest the ball first. Or <b>click</b> the player on the frame.<br><kbd>N</kbd>: nobody has it (a pass or shot in the air, a loose ball) · <kbd>S</kbd>: can't tell, skip · <kbd>[</kbd> <kbd>]</kbd> previous / next frame · scroll to zoom, <kbd>F</kbd> fit · <kbd>U</kbd> undo.<br>The holder has no box: <kbd>⇧</kbd>-drag a box around him, then <kbd>Enter</kbd>. A shooter with the ball still in his hands counts as the holder.",
+ "instructions": "<b>One question per frame: who has the ball?</b> The ball is the orange box.<br>The loupe shows the most likely holder (the saved answer, else the model's guess, else the player nearest the ball). <kbd>Space</kbd>: yes, that player holds or dribbles the ball (frame done, next). <kbd>Tab</kbd>: the next player, nearest the ball first. Or <b>click</b> the player on the frame.<br><kbd>N</kbd>: nobody has it (a pass or shot in the air, a loose ball) \u00b7 <kbd>S</kbd>: can't tell, skip \u00b7 <kbd>[</kbd> <kbd>]</kbd> previous / next frame, then answer again to change it \u00b7 scroll to zoom, <kbd>F</kbd> fit \u00b7 <kbd>U</kbd> undo on this frame.<br>The holder has no box: <kbd>\u21e7</kbd>-drag a box around him, then <kbd>Enter</kbd>. A shooter with the ball still in his hands counts as the holder.<br><b>Dead ball</b> (a throw-in from behind a line, the referee has it, after a score until the throw-in): press <kbd>D</kbd> first, then answer as usual. Whoever holds the ball is still the holder.",
  "classes": [
   "player",
   "player-in-possession",
@@ -246,7 +246,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:51:18"
+   "saved_at": "2026-11-20T08:51:18",
+   "holder": 2,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -464,7 +466,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:51:45"
+   "saved_at": "2026-11-20T08:51:45",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -733,7 +737,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:51:57"
+   "saved_at": "2026-11-20T08:51:57",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -1019,7 +1025,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:51:59"
+   "saved_at": "2026-11-20T08:51:59",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -1254,7 +1262,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:52:05"
+   "saved_at": "2026-11-20T08:52:05",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -1506,7 +1516,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:52:08"
+   "saved_at": "2026-11-20T08:52:08",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -1741,7 +1753,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:52:12"
+   "saved_at": "2026-11-20T08:52:12",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -1942,7 +1956,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:52:21"
+   "saved_at": "2026-11-20T08:52:21",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -2211,7 +2227,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:52:26"
+   "saved_at": "2026-11-20T08:52:26",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -2446,7 +2464,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:52:30"
+   "saved_at": "2026-11-20T08:52:30",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -2664,7 +2684,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:52:32"
+   "saved_at": "2026-11-20T08:52:32",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -2882,7 +2904,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:52:34"
+   "saved_at": "2026-11-20T08:52:34",
+   "holder": 3,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -3049,7 +3073,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:52:36"
+   "saved_at": "2026-11-20T08:52:36",
+   "holder": 2,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -3216,7 +3242,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:52:37"
+   "saved_at": "2026-11-20T08:52:37",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -3434,7 +3462,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:52:44"
+   "saved_at": "2026-11-20T08:52:44",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -3669,7 +3699,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:52:49"
+   "saved_at": "2026-11-20T08:52:49",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -3887,7 +3919,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:53:05"
+   "saved_at": "2026-11-20T08:53:05",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -4003,7 +4037,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:53:09"
+   "saved_at": "2026-11-20T08:53:09",
+   "holder": 2,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -4238,7 +4274,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:53:13"
+   "saved_at": "2026-11-20T08:53:13",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -4456,7 +4494,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:53:16"
+   "saved_at": "2026-11-20T08:53:16",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -4708,7 +4748,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:53:18"
+   "saved_at": "2026-11-20T08:53:18",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -4875,7 +4917,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:53:22"
+   "saved_at": "2026-11-20T08:53:22",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -4884,8 +4928,8 @@
    "shot": 23,
    "frame": 7889,
    "round": 1,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "dribbling: box 1 (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -4913,7 +4957,7 @@
       785,
       608
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -5008,7 +5052,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:53:32"
+   "saved_at": "2026-11-20T08:53:32",
+   "holder": 1,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -5261,7 +5307,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T08:54:01"
+   "saved_at": "2026-11-20T08:54:01",
+   "holder": 13,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -5513,7 +5561,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:54:06"
+   "saved_at": "2026-11-20T08:54:06",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -5731,7 +5781,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:54:13"
+   "saved_at": "2026-11-20T08:54:13",
+   "holder": 2,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -5898,7 +5950,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:54:18"
+   "saved_at": "2026-11-20T08:54:18",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -6099,7 +6153,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:54:20"
+   "saved_at": "2026-11-20T08:54:20",
+   "holder": 1,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -6334,7 +6390,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:54:22"
+   "saved_at": "2026-11-20T08:54:22",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -6535,7 +6593,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:54:24"
+   "saved_at": "2026-11-20T08:54:24",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -6719,7 +6779,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:54:27"
+   "saved_at": "2026-11-20T08:54:27",
+   "holder": 2,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -6954,7 +7016,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:54:29"
+   "saved_at": "2026-11-20T08:54:29",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -7172,7 +7236,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:54:42"
+   "saved_at": "2026-11-20T08:54:42",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -7373,7 +7439,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:54:55"
+   "saved_at": "2026-11-20T08:54:55",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -7382,8 +7450,8 @@
    "shot": 29,
    "frame": 9133,
    "round": 1,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "holds it (#25): box 7; throw-in? (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -7513,7 +7581,7 @@
       1309,
       764
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -7557,7 +7625,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:54:58"
+   "saved_at": "2026-11-20T08:54:58",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -7792,7 +7862,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:55:00"
+   "saved_at": "2026-11-20T08:55:00",
+   "holder": 2,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -8010,7 +8082,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:55:02"
+   "saved_at": "2026-11-20T08:55:02",
+   "holder": 0,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -8245,7 +8319,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:55:05"
+   "saved_at": "2026-11-20T08:55:05",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -8463,7 +8539,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:55:10"
+   "saved_at": "2026-11-20T08:55:10",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -8698,7 +8776,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:55:12"
+   "saved_at": "2026-11-20T08:55:12",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -8848,7 +8928,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:55:13"
+   "saved_at": "2026-11-20T08:55:13",
+   "holder": 1,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -9049,7 +9131,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:55:15"
+   "saved_at": "2026-11-20T08:55:15",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -9199,7 +9283,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:55:20"
+   "saved_at": "2026-11-20T08:55:20",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -9417,7 +9503,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:55:22"
+   "saved_at": "2026-11-20T08:55:22",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -9669,7 +9757,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:55:24"
+   "saved_at": "2026-11-20T08:55:24",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -9888,7 +9978,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:55:40"
+   "saved_at": "2026-11-20T08:55:40",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -10140,7 +10232,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:55:42"
+   "saved_at": "2026-11-20T08:55:42",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -10392,7 +10486,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:55:44"
+   "saved_at": "2026-11-20T08:55:44",
+   "holder": 0,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -10644,7 +10740,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:55:48"
+   "saved_at": "2026-11-20T08:55:48",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -10930,7 +11028,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:55:51"
+   "saved_at": "2026-11-20T08:55:51",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -11165,7 +11265,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:55:54"
+   "saved_at": "2026-11-20T08:55:54",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -11400,7 +11502,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:56:05"
+   "saved_at": "2026-11-20T08:56:05",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -11635,7 +11739,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:56:07"
+   "saved_at": "2026-11-20T08:56:07",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -11921,7 +12027,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:56:09"
+   "saved_at": "2026-11-20T08:56:09",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -12105,7 +12213,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:56:12"
+   "saved_at": "2026-11-20T08:56:12",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -12323,7 +12433,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:56:14"
+   "saved_at": "2026-11-20T08:56:14",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -12558,7 +12670,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:56:16"
+   "saved_at": "2026-11-20T08:56:16",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -12793,7 +12907,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:56:17"
+   "saved_at": "2026-11-20T08:56:17",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -13028,7 +13144,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:56:19"
+   "saved_at": "2026-11-20T08:56:19",
+   "holder": 0,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -13178,7 +13296,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:56:20"
+   "saved_at": "2026-11-20T08:56:20",
+   "holder": 1,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -13379,7 +13499,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:56:22"
+   "saved_at": "2026-11-20T08:56:22",
+   "holder": 3,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -13563,7 +13685,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:56:24"
+   "saved_at": "2026-11-20T08:56:24",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -13747,7 +13871,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:56:27"
+   "saved_at": "2026-11-20T08:56:27",
+   "holder": 1,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -13965,7 +14091,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:56:42"
+   "saved_at": "2026-11-20T08:56:42",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -14217,7 +14345,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:56:44"
+   "saved_at": "2026-11-20T08:56:44",
+   "holder": 3,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -14452,7 +14582,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:56:45"
+   "saved_at": "2026-11-20T08:56:45",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -14721,7 +14853,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:56:47"
+   "saved_at": "2026-11-20T08:56:47",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -14973,7 +15107,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:56:59"
+   "saved_at": "2026-11-20T08:56:59",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -15174,7 +15310,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:57:02"
+   "saved_at": "2026-11-20T08:57:02",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -15427,7 +15565,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:57:15"
+   "saved_at": "2026-11-20T08:57:15",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -15611,7 +15751,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:57:17"
+   "saved_at": "2026-11-20T08:57:17",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -15863,7 +16005,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:57:20"
+   "saved_at": "2026-11-20T08:57:20",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -16132,7 +16276,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:57:21"
+   "saved_at": "2026-11-20T08:57:21",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -16401,7 +16547,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:57:23"
+   "saved_at": "2026-11-20T08:57:23",
+   "holder": 13,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -16619,7 +16767,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:57:25"
+   "saved_at": "2026-11-20T08:57:25",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -16871,7 +17021,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:57:28"
+   "saved_at": "2026-11-20T08:57:28",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -17089,7 +17241,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:57:32"
+   "saved_at": "2026-11-20T08:57:32",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -17341,7 +17495,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:57:33"
+   "saved_at": "2026-11-20T08:57:33",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -17350,8 +17506,8 @@
    "shot": 18,
    "frame": 6860,
    "round": 1,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "holds it at chest height: box 6 (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -17464,7 +17620,7 @@
       1354,
       736
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -17542,7 +17698,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:57:41"
+   "saved_at": "2026-11-20T08:57:41",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -17777,7 +17935,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:57:42"
+   "saved_at": "2026-11-20T08:57:42",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -18030,7 +18190,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:57:55"
+   "saved_at": "2026-11-20T08:57:55",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -18299,7 +18461,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:57:59"
+   "saved_at": "2026-11-20T08:57:59",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -18500,7 +18664,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:58:01"
+   "saved_at": "2026-11-20T08:58:01",
+   "holder": 3,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -18718,7 +18884,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:58:02"
+   "saved_at": "2026-11-20T08:58:02",
+   "holder": 0,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -18953,7 +19121,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:58:05"
+   "saved_at": "2026-11-20T08:58:05",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -19222,7 +19392,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:58:09"
+   "saved_at": "2026-11-20T08:58:09",
+   "holder": 13,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -19423,7 +19595,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:58:11"
+   "saved_at": "2026-11-20T08:58:11",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -19675,7 +19849,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:58:13"
+   "saved_at": "2026-11-20T08:58:13",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -19910,7 +20086,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:58:15"
+   "saved_at": "2026-11-20T08:58:15",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -20145,7 +20323,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:58:18"
+   "saved_at": "2026-11-20T08:58:18",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -20312,7 +20492,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:58:21"
+   "saved_at": "2026-11-20T08:58:21",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -20547,7 +20729,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:58:23"
+   "saved_at": "2026-11-20T08:58:23",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -20782,7 +20966,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:58:25"
+   "saved_at": "2026-11-20T08:58:25",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -20932,7 +21118,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:58:27"
+   "saved_at": "2026-11-20T08:58:27",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -21066,7 +21254,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T08:58:38"
+   "saved_at": "2026-11-20T08:58:38",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -21301,7 +21491,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:58:40"
+   "saved_at": "2026-11-20T08:58:40",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -21536,7 +21728,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:58:43"
+   "saved_at": "2026-11-20T08:58:43",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -21771,7 +21965,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:58:45"
+   "saved_at": "2026-11-20T08:58:45",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -22006,7 +22202,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:58:47"
+   "saved_at": "2026-11-20T08:58:47",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -22241,7 +22439,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:58:49"
+   "saved_at": "2026-11-20T08:58:49",
+   "holder": 3,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -22250,8 +22450,8 @@
    "shot": 0,
    "frame": 305,
    "round": 1,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "dribbling: box 6 (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -22364,7 +22564,7 @@
       1156,
       711
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -22391,7 +22591,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:58:52"
+   "saved_at": "2026-11-20T08:58:52",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -22626,7 +22828,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:58:54"
+   "saved_at": "2026-11-20T08:58:54",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -22844,7 +23048,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:58:56"
+   "saved_at": "2026-11-20T08:58:56",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -23079,7 +23285,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:59:00"
+   "saved_at": "2026-11-20T08:59:00",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -23365,7 +23573,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:59:02"
+   "saved_at": "2026-11-20T08:59:02",
+   "holder": 0,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -23583,7 +23793,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:59:06"
+   "saved_at": "2026-11-20T08:59:06",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -23869,7 +24081,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:59:07"
+   "saved_at": "2026-11-20T08:59:07",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -24087,7 +24301,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:59:09"
+   "saved_at": "2026-11-20T08:59:09",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -24096,8 +24312,8 @@
    "shot": 24,
    "frame": 8372,
    "round": 1,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "dribbling (#77): box 6 (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -24210,7 +24426,7 @@
       1136,
       651
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -24305,7 +24521,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:59:12"
+   "saved_at": "2026-11-20T08:59:12",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -24523,7 +24741,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:59:15"
+   "saved_at": "2026-11-20T08:59:15",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -24741,7 +24961,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:59:17"
+   "saved_at": "2026-11-20T08:59:17",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -24976,7 +25198,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:59:20"
+   "saved_at": "2026-11-20T08:59:20",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -25211,7 +25435,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:59:23"
+   "saved_at": "2026-11-20T08:59:23",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -25220,8 +25446,8 @@
    "shot": 3,
    "frame": 1516,
    "round": 1,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "player 1 (dark kit) holds it but has no box: Shift-drag a box around him, Enter; throw-in? (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -25395,7 +25621,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:59:26"
+   "saved_at": "2026-11-20T08:59:26",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -25630,7 +25858,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:59:31"
+   "saved_at": "2026-11-20T08:59:31",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -25899,7 +26129,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:59:33"
+   "saved_at": "2026-11-20T08:59:33",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -26151,7 +26383,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:59:36"
+   "saved_at": "2026-11-20T08:59:36",
+   "holder": 1,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -26353,7 +26587,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:00:28"
+   "saved_at": "2026-11-20T09:00:28",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -26520,7 +26756,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:00:31"
+   "saved_at": "2026-11-20T09:00:31",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -26721,7 +26959,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:00:46"
+   "saved_at": "2026-11-20T09:00:46",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -26956,7 +27196,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:00:49"
+   "saved_at": "2026-11-20T09:00:49",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -27208,7 +27450,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:00:52"
+   "saved_at": "2026-11-20T09:00:52",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -27443,7 +27687,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:00:54"
+   "saved_at": "2026-11-20T09:00:54",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -27712,7 +27958,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:00:56"
+   "saved_at": "2026-11-20T09:00:56",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -27913,7 +28161,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:00:58"
+   "saved_at": "2026-11-20T09:00:58",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -28131,7 +28381,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:01:01"
+   "saved_at": "2026-11-20T09:01:01",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -28349,7 +28601,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:01:02"
+   "saved_at": "2026-11-20T09:01:02",
+   "holder": 0,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -28652,7 +28906,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:01:04"
+   "saved_at": "2026-11-20T09:01:04",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -28661,8 +28917,8 @@
    "shot": 1,
    "frame": 474,
    "round": 1,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "dribbling (#0): box 4 (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -28741,7 +28997,7 @@
       824,
       583
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -28904,7 +29160,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:01:10"
+   "saved_at": "2026-11-20T09:01:10",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -29173,7 +29431,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:01:12"
+   "saved_at": "2026-11-20T09:01:12",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -29442,7 +29702,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:01:16"
+   "saved_at": "2026-11-20T09:01:16",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -29677,7 +29939,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:01:23"
+   "saved_at": "2026-11-20T09:01:23",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -29912,7 +30176,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:01:27"
+   "saved_at": "2026-11-20T09:01:27",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -30164,7 +30430,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:01:30"
+   "saved_at": "2026-11-20T09:01:30",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -30365,7 +30633,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:01:32"
+   "saved_at": "2026-11-20T09:01:32",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -30617,7 +30887,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:01:34"
+   "saved_at": "2026-11-20T09:01:34",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -30853,7 +31125,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T09:02:03"
+   "saved_at": "2026-11-20T09:02:03",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -31105,7 +31379,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:02:06"
+   "saved_at": "2026-11-20T09:02:06",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -31340,7 +31616,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:02:09"
+   "saved_at": "2026-11-20T09:02:09",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -31575,7 +31853,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:02:12"
+   "saved_at": "2026-11-20T09:02:12",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -31810,7 +32090,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:02:13"
+   "saved_at": "2026-11-20T09:02:13",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -32012,7 +32294,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:02:40"
+   "saved_at": "2026-11-20T09:02:40",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -32179,7 +32463,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:02:42"
+   "saved_at": "2026-11-20T09:02:42",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -32380,7 +32666,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:02:43"
+   "saved_at": "2026-11-20T09:02:43",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -32615,7 +32903,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:02:44"
+   "saved_at": "2026-11-20T09:02:44",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -32850,7 +33140,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:02:46"
+   "saved_at": "2026-11-20T09:02:46",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -33102,7 +33394,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:02:49"
+   "saved_at": "2026-11-20T09:02:49",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -33337,7 +33631,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:02:51"
+   "saved_at": "2026-11-20T09:02:51",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -33572,7 +33868,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:02:53"
+   "saved_at": "2026-11-20T09:02:53",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -33739,7 +34037,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:02:56"
+   "saved_at": "2026-11-20T09:02:56",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -33957,7 +34257,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T09:03:04"
+   "saved_at": "2026-11-20T09:03:04",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -34210,7 +34512,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:17:07"
+   "saved_at": "2026-11-20T10:17:07",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -34428,7 +34732,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:17:09"
+   "saved_at": "2026-11-20T10:17:09",
+   "holder": 0,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -34680,7 +34986,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:17:11"
+   "saved_at": "2026-11-20T10:17:11",
+   "holder": 0,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -34932,7 +35240,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:17:20"
+   "saved_at": "2026-11-20T10:17:20",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -35167,7 +35477,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:17:24"
+   "saved_at": "2026-11-20T10:17:24",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -35419,7 +35731,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:17:30"
+   "saved_at": "2026-11-20T10:17:30",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -35428,8 +35742,8 @@
    "shot": 9,
    "frame": 3171,
    "round": 1,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "holds it: box 6; throw-in from the sideline? (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -35542,7 +35856,7 @@
       1646,
       675
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -35620,7 +35934,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:17:34"
+   "saved_at": "2026-11-20T10:17:34",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -35856,7 +36172,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T10:18:05"
+   "saved_at": "2026-11-20T10:18:05",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -36074,7 +36392,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:18:08"
+   "saved_at": "2026-11-20T10:18:08",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -36326,7 +36646,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:18:17"
+   "saved_at": "2026-11-20T10:18:17",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -36561,7 +36883,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:18:27"
+   "saved_at": "2026-11-20T10:18:27",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -36779,7 +37103,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:18:28"
+   "saved_at": "2026-11-20T10:18:28",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -37014,7 +37340,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:18:32"
+   "saved_at": "2026-11-20T10:18:32",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -37215,7 +37543,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:18:34"
+   "saved_at": "2026-11-20T10:18:34",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -37450,7 +37780,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:18:37"
+   "saved_at": "2026-11-20T10:18:37",
+   "holder": 1,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -37702,7 +38034,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:18:39"
+   "saved_at": "2026-11-20T10:18:39",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -37920,7 +38254,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:18:43"
+   "saved_at": "2026-11-20T10:18:43",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -38172,7 +38508,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:18:59"
+   "saved_at": "2026-11-20T10:18:59",
+   "holder": 13,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -38356,7 +38694,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:19:00"
+   "saved_at": "2026-11-20T10:19:00",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -38591,7 +38931,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:19:04"
+   "saved_at": "2026-11-20T10:19:04",
+   "holder": 3,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -38809,7 +39151,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:19:06"
+   "saved_at": "2026-11-20T10:19:06",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -38993,7 +39337,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:19:08"
+   "saved_at": "2026-11-20T10:19:08",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -39143,7 +39489,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:19:11"
+   "saved_at": "2026-11-20T10:19:11",
+   "holder": 2,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -39395,7 +39743,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:19:12"
+   "saved_at": "2026-11-20T10:19:12",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -39613,7 +39963,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:19:14"
+   "saved_at": "2026-11-20T10:19:14",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -39814,7 +40166,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:19:16"
+   "saved_at": "2026-11-20T10:19:16",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -40049,7 +40403,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:19:18"
+   "saved_at": "2026-11-20T10:19:18",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -40335,7 +40691,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:19:25"
+   "saved_at": "2026-11-20T10:19:25",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -40587,7 +40945,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:19:30"
+   "saved_at": "2026-11-20T10:19:30",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -40788,7 +41148,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:19:32"
+   "saved_at": "2026-11-20T10:19:32",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -40989,7 +41351,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:19:33"
+   "saved_at": "2026-11-20T10:19:33",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -41207,7 +41571,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:19:36"
+   "saved_at": "2026-11-20T10:19:36",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -41459,7 +41825,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:19:42"
+   "saved_at": "2026-11-20T10:19:42",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -41695,7 +42063,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T10:20:00"
+   "saved_at": "2026-11-20T10:20:00",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -41897,7 +42267,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:20:13"
+   "saved_at": "2026-11-20T10:20:13",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -42149,7 +42521,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:20:17"
+   "saved_at": "2026-11-20T10:20:17",
+   "holder": 3,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -42401,7 +42775,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:20:20"
+   "saved_at": "2026-11-20T10:20:20",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -42653,7 +43029,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:20:21"
+   "saved_at": "2026-11-20T10:20:21",
+   "holder": null,
+   "dead_ball": true
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -42888,7 +43266,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:20:23"
+   "saved_at": "2026-11-20T10:20:23",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -43056,7 +43436,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T10:20:35"
+   "saved_at": "2026-11-20T10:20:35",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -43240,7 +43622,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:20:39"
+   "saved_at": "2026-11-20T10:20:39",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -43380,7 +43764,7 @@
       421,
       781
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -43458,7 +43842,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:20:49"
+   "saved_at": "2026-11-20T10:20:49",
+   "holder": 7,
+   "dead_ball": true
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -43676,7 +44062,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:20:53"
+   "saved_at": "2026-11-20T10:20:53",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -43945,7 +44333,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:21:00"
+   "saved_at": "2026-11-20T10:21:00",
+   "holder": 13,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -44197,7 +44587,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:21:04"
+   "saved_at": "2026-11-20T10:21:04",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -44364,7 +44756,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:21:13"
+   "saved_at": "2026-11-20T10:21:13",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -44633,7 +45027,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:21:16"
+   "saved_at": "2026-11-20T10:21:16",
+   "holder": 13,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -44834,7 +45230,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:21:18"
+   "saved_at": "2026-11-20T10:21:18",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -45086,7 +45484,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:21:21"
+   "saved_at": "2026-11-20T10:21:21",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -45338,7 +45738,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:21:23"
+   "saved_at": "2026-11-20T10:21:23",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -45529,7 +45931,7 @@
       424.2,
       722.6
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -45573,7 +45975,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:21:39"
+   "saved_at": "2026-11-20T10:21:39",
+   "holder": 10,
+   "dead_ball": true
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -45825,7 +46229,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:21:41"
+   "saved_at": "2026-11-20T10:21:41",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -46043,7 +46449,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:21:45"
+   "saved_at": "2026-11-20T10:21:45",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -46244,7 +46652,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:21:51"
+   "saved_at": "2026-11-20T10:21:51",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -46496,7 +46906,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:21:56"
+   "saved_at": "2026-11-20T10:21:56",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -46697,7 +47109,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:22:01"
+   "saved_at": "2026-11-20T10:22:01",
+   "holder": null,
+   "dead_ball": true
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -46949,7 +47363,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:22:03"
+   "saved_at": "2026-11-20T10:22:03",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -47150,7 +47566,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:22:05"
+   "saved_at": "2026-11-20T10:22:05",
+   "holder": 1,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -47300,7 +47718,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:22:16"
+   "saved_at": "2026-11-20T10:22:16",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -47518,7 +47938,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:22:17"
+   "saved_at": "2026-11-20T10:22:17",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -47736,7 +48158,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:22:19"
+   "saved_at": "2026-11-20T10:22:19",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -47971,7 +48395,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:22:21"
+   "saved_at": "2026-11-20T10:22:21",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -48189,7 +48615,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:22:23"
+   "saved_at": "2026-11-20T10:22:23",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -48407,7 +48835,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:22:25"
+   "saved_at": "2026-11-20T10:22:25",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -48575,7 +49005,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:22:44"
+   "saved_at": "2026-11-20T10:22:44",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -48759,7 +49191,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:22:46"
+   "saved_at": "2026-11-20T10:22:46",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -48994,7 +49428,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:22:48"
+   "saved_at": "2026-11-20T10:22:48",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -49229,7 +49665,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:22:50"
+   "saved_at": "2026-11-20T10:22:50",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -49345,7 +49783,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:22:52"
+   "saved_at": "2026-11-20T10:22:52",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -49354,8 +49794,8 @@
    "shot": 6,
    "frame": 2561,
    "round": 2,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "the ball is in flight near the rim: nobody (answer before: box 7)",
    "candidates": [],
    "boxes": [
     {
@@ -49485,7 +49925,7 @@
       1074.1,
       1055.8
      ],
-     "cls": "player-in-possession",
+     "cls": "player",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -49546,7 +49986,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:22:56"
+   "saved_at": "2026-11-20T10:22:56",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -49747,7 +50189,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:22:58"
+   "saved_at": "2026-11-20T10:22:58",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -49948,7 +50392,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:23:00"
+   "saved_at": "2026-11-20T10:23:00",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -50149,7 +50595,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:23:02"
+   "saved_at": "2026-11-20T10:23:02",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -50367,7 +50815,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:23:04"
+   "saved_at": "2026-11-20T10:23:04",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -50551,7 +51001,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:23:07"
+   "saved_at": "2026-11-20T10:23:07",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -50623,7 +51075,7 @@
       1446.7,
       676.2
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -50752,7 +51204,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:23:12"
+   "saved_at": "2026-11-20T10:23:12",
+   "holder": 3,
+   "dead_ball": true
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -50970,7 +51424,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:23:27"
+   "saved_at": "2026-11-20T10:23:27",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -51188,7 +51644,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:23:34"
+   "saved_at": "2026-11-20T10:23:34",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -51389,7 +51847,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:23:36"
+   "saved_at": "2026-11-20T10:23:36",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -51624,7 +52084,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:23:38"
+   "saved_at": "2026-11-20T10:23:38",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -51825,7 +52287,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:24:01"
+   "saved_at": "2026-11-20T10:24:01",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -52044,7 +52508,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:24:09"
+   "saved_at": "2026-11-20T10:24:09",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -52296,7 +52762,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:24:11"
+   "saved_at": "2026-11-20T10:24:11",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -52514,7 +52982,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:24:14"
+   "saved_at": "2026-11-20T10:24:14",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -52784,7 +53254,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T10:24:25"
+   "saved_at": "2026-11-20T10:24:25",
+   "holder": 14,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -52918,7 +53390,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:24:30"
+   "saved_at": "2026-11-20T10:24:30",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -53153,7 +53627,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:24:43"
+   "saved_at": "2026-11-20T10:24:43",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -53405,7 +53881,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:24:46"
+   "saved_at": "2026-11-20T10:24:46",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -53589,7 +54067,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:24:48"
+   "saved_at": "2026-11-20T10:24:48",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -53807,7 +54287,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:24:51"
+   "saved_at": "2026-11-20T10:24:51",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -54042,7 +54524,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:24:54"
+   "saved_at": "2026-11-20T10:24:54",
+   "holder": 1,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -54243,7 +54727,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:24:56"
+   "saved_at": "2026-11-20T10:24:56",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -54461,7 +54947,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:24:58"
+   "saved_at": "2026-11-20T10:24:58",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -54577,7 +55065,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:05"
+   "saved_at": "2026-11-20T10:25:05",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -54586,8 +55076,8 @@
    "shot": 25,
    "frame": 8581,
    "round": 2,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "the dribbler is box 11 (white), not box 5 (answer before: box 5)",
    "candidates": [],
    "boxes": [
     {
@@ -54683,7 +55173,7 @@
       1271.5,
       617.1
      ],
-     "cls": "player-in-possession",
+     "cls": "player",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -54785,7 +55275,7 @@
       1336.6,
       751.7
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -54812,7 +55302,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:14"
+   "saved_at": "2026-11-20T10:25:14",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -55064,7 +55556,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:16"
+   "saved_at": "2026-11-20T10:25:16",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -55299,7 +55793,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:20"
+   "saved_at": "2026-11-20T10:25:20",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -55308,8 +55804,8 @@
    "shot": 1,
    "frame": 739,
    "round": 2,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "your call: inbound; who holds the ball, if anyone? (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -55483,7 +55979,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:22"
+   "saved_at": "2026-11-20T10:25:22",
+   "holder": null,
+   "dead_ball": true
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -55718,7 +56216,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:24"
+   "saved_at": "2026-11-20T10:25:24",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -55919,7 +56419,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:26"
+   "saved_at": "2026-11-20T10:25:26",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -56188,7 +56690,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:29"
+   "saved_at": "2026-11-20T10:25:29",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -56389,7 +56893,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:31"
+   "saved_at": "2026-11-20T10:25:31",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -56607,7 +57113,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:33"
+   "saved_at": "2026-11-20T10:25:33",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -56825,7 +57333,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:35"
+   "saved_at": "2026-11-20T10:25:35",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -57060,7 +57570,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:36"
+   "saved_at": "2026-11-20T10:25:36",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -57312,7 +57824,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:38"
+   "saved_at": "2026-11-20T10:25:38",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -57547,7 +58061,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:40"
+   "saved_at": "2026-11-20T10:25:40",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -57782,7 +58298,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:41"
+   "saved_at": "2026-11-20T10:25:41",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -58000,7 +58518,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:44"
+   "saved_at": "2026-11-20T10:25:44",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -58218,7 +58738,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:46"
+   "saved_at": "2026-11-20T10:25:46",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -58385,7 +58907,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:48"
+   "saved_at": "2026-11-20T10:25:48",
+   "holder": 2,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -58637,7 +59161,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:50"
+   "saved_at": "2026-11-20T10:25:50",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -58838,7 +59364,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:51"
+   "saved_at": "2026-11-20T10:25:51",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -59056,7 +59584,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:53"
+   "saved_at": "2026-11-20T10:25:53",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -59308,7 +59838,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:55"
+   "saved_at": "2026-11-20T10:25:55",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -59509,7 +60041,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:25:59"
+   "saved_at": "2026-11-20T10:25:59",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -59727,7 +60261,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:26:01"
+   "saved_at": "2026-11-20T10:26:01",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -59979,7 +60515,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:26:03"
+   "saved_at": "2026-11-20T10:26:03",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -60214,7 +60752,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:26:05"
+   "saved_at": "2026-11-20T10:26:05",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -60382,7 +60922,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:26:20"
+   "saved_at": "2026-11-20T10:26:20",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -60584,7 +61126,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T10:26:57"
+   "saved_at": "2026-11-20T10:26:57",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -60819,7 +61363,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:26:59"
+   "saved_at": "2026-11-20T10:26:59",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -61020,7 +61566,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:27:01"
+   "saved_at": "2026-11-20T10:27:01",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -61255,7 +61803,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:27:05"
+   "saved_at": "2026-11-20T10:27:05",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -61473,7 +62023,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:27:08"
+   "saved_at": "2026-11-20T10:27:08",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -61674,7 +62226,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:27:11"
+   "saved_at": "2026-11-20T10:27:11",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -61875,7 +62429,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:27:15"
+   "saved_at": "2026-11-20T10:27:15",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -62059,7 +62615,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:27:17"
+   "saved_at": "2026-11-20T10:27:17",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -62294,7 +62852,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:27:18"
+   "saved_at": "2026-11-20T10:27:18",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -62546,7 +63106,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:27:27"
+   "saved_at": "2026-11-20T10:27:27",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -62747,7 +63309,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:27:30"
+   "saved_at": "2026-11-20T10:27:30",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -62965,7 +63529,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:27:32"
+   "saved_at": "2026-11-20T10:27:32",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -63173,7 +63739,7 @@
       1041.4,
       577.6
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -63217,7 +63783,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:27:33"
+   "saved_at": "2026-11-20T10:27:33",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -63469,7 +64037,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:27:38"
+   "saved_at": "2026-11-20T10:27:38",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -63704,7 +64274,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:27:39"
+   "saved_at": "2026-11-20T10:27:39",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -63905,7 +64477,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:27:45"
+   "saved_at": "2026-11-20T10:27:45",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -64140,7 +64714,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:27:47"
+   "saved_at": "2026-11-20T10:27:47",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -64341,7 +64917,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:27:50"
+   "saved_at": "2026-11-20T10:27:50",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -64593,7 +65171,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:27:52"
+   "saved_at": "2026-11-20T10:27:52",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -64828,7 +65408,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:27:56"
+   "saved_at": "2026-11-20T10:27:56",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -65080,7 +65662,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:31:43"
+   "saved_at": "2026-11-20T10:31:43",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -65332,7 +65916,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:31:45"
+   "saved_at": "2026-11-20T10:31:45",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -65533,7 +66119,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:31:47"
+   "saved_at": "2026-11-20T10:31:47",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -65786,7 +66374,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:32:10"
+   "saved_at": "2026-11-20T10:32:10",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -66021,7 +66611,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:32:14"
+   "saved_at": "2026-11-20T10:32:14",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -66256,7 +66848,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:32:15"
+   "saved_at": "2026-11-20T10:32:15",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -66474,7 +67068,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:32:18"
+   "saved_at": "2026-11-20T10:32:18",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -66709,7 +67305,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:32:22"
+   "saved_at": "2026-11-20T10:32:22",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -66944,7 +67542,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:32:28"
+   "saved_at": "2026-11-20T10:32:28",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -67179,7 +67779,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:33:00"
+   "saved_at": "2026-11-20T10:33:00",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -67448,7 +68050,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:33:05"
+   "saved_at": "2026-11-20T10:33:05",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -67457,8 +68061,8 @@
    "shot": 10,
    "frame": 3977,
    "round": 2,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "holds it: box 8; throw-in from the sideline? (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -67605,7 +68209,7 @@
       1004.9,
       481.9
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -67666,7 +68270,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:33:10"
+   "saved_at": "2026-11-20T10:33:10",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -67918,7 +68524,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:33:12"
+   "saved_at": "2026-11-20T10:33:12",
+   "holder": 3,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -68153,7 +68761,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:33:20"
+   "saved_at": "2026-11-20T10:33:20",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -68354,7 +68964,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:33:24"
+   "saved_at": "2026-11-20T10:33:24",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -68363,8 +68975,8 @@
    "shot": 0,
    "frame": 255,
    "round": 2,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "dribbling? box 2 (#4), unsure (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -68409,7 +69021,7 @@
       1096.1,
       818
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -68538,7 +69150,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:33:27"
+   "saved_at": "2026-11-20T10:33:27",
+   "holder": 2,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -68790,7 +69404,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:33:30"
+   "saved_at": "2026-11-20T10:33:30",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -68940,7 +69556,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:33:32"
+   "saved_at": "2026-11-20T10:33:32",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -69175,7 +69793,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:33:35"
+   "saved_at": "2026-11-20T10:33:35",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -69393,7 +70013,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:33:43"
+   "saved_at": "2026-11-20T10:33:43",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -69577,7 +70199,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:33:44"
+   "saved_at": "2026-11-20T10:33:44",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -69830,7 +70454,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T10:34:09"
+   "saved_at": "2026-11-20T10:34:09",
+   "holder": 13,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -70066,7 +70692,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:34:20"
+   "saved_at": "2026-11-20T10:34:20",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -70284,7 +70912,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:34:25"
+   "saved_at": "2026-11-20T10:34:25",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -70536,7 +71166,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:34:29"
+   "saved_at": "2026-11-20T10:34:29",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -70771,7 +71403,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:34:33"
+   "saved_at": "2026-11-20T10:34:33",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -71040,7 +71674,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:34:35"
+   "saved_at": "2026-11-20T10:34:35",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -71276,7 +71912,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T10:34:47"
+   "saved_at": "2026-11-20T10:34:47",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -71511,7 +72149,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:34:50"
+   "saved_at": "2026-11-20T10:34:50",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -71746,7 +72386,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:34:53"
+   "saved_at": "2026-11-20T10:34:53",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -71981,7 +72623,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:34:55"
+   "saved_at": "2026-11-20T10:34:55",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -72199,7 +72843,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:34:57"
+   "saved_at": "2026-11-20T10:34:57",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -72383,7 +73029,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:35:03"
+   "saved_at": "2026-11-20T10:35:03",
+   "holder": 2,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -72392,8 +73040,8 @@
    "shot": 28,
    "frame": 8865,
    "round": 2,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "dribbling: box 4 (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -72472,7 +73120,7 @@
       1412,
       887.6
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -72584,7 +73232,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:35:05"
+   "saved_at": "2026-11-20T10:35:05",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -72768,7 +73418,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:35:12"
+   "saved_at": "2026-11-20T10:35:12",
+   "holder": 3,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -73003,7 +73655,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:36:32"
+   "saved_at": "2026-11-20T10:36:32",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -73012,8 +73666,8 @@
    "shot": 8,
    "frame": 2983,
    "round": 2,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "dribbling (#9): box 1 (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -73041,7 +73695,7 @@
       761.4,
       682.1
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -73204,7 +73858,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:36:35"
+   "saved_at": "2026-11-20T10:36:35",
+   "holder": 1,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -73422,7 +74078,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:37:01"
+   "saved_at": "2026-11-20T10:37:01",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -73658,7 +74316,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:37:11"
+   "saved_at": "2026-11-20T10:37:11",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -73860,7 +74520,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:37:18"
+   "saved_at": "2026-11-20T10:37:18",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -74095,7 +74757,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:37:22"
+   "saved_at": "2026-11-20T10:37:22",
+   "holder": 3,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -74297,7 +74961,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:37:57"
+   "saved_at": "2026-11-20T10:37:57",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -74515,7 +75181,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:37:59"
+   "saved_at": "2026-11-20T10:37:59",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -74733,7 +75401,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:38:07"
+   "saved_at": "2026-11-20T10:38:07",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -74951,7 +75621,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:38:10"
+   "saved_at": "2026-11-20T10:38:10",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -75186,7 +75858,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:38:13"
+   "saved_at": "2026-11-20T10:38:13",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -75421,7 +76095,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:38:15"
+   "saved_at": "2026-11-20T10:38:15",
+   "holder": 3,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -75673,7 +76349,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:38:18"
+   "saved_at": "2026-11-20T10:38:18",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -75891,7 +76569,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:38:21"
+   "saved_at": "2026-11-20T10:38:21",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -76007,7 +76687,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:38:23"
+   "saved_at": "2026-11-20T10:38:23",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -76259,7 +76941,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:38:25"
+   "saved_at": "2026-11-20T10:38:25",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -76511,7 +77195,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:38:28"
+   "saved_at": "2026-11-20T10:38:28",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -76729,7 +77415,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:38:36"
+   "saved_at": "2026-11-20T10:38:36",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -76981,7 +77669,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:38:38"
+   "saved_at": "2026-11-20T10:38:38",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -77183,7 +77873,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:38:50"
+   "saved_at": "2026-11-20T10:38:50",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -77384,7 +78076,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:38:51"
+   "saved_at": "2026-11-20T10:38:51",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -77619,7 +78313,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:38:54"
+   "saved_at": "2026-11-20T10:38:54",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -77837,7 +78533,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:38:57"
+   "saved_at": "2026-11-20T10:38:57",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -78039,7 +78737,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T10:39:39"
+   "saved_at": "2026-11-20T10:39:39",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -78240,7 +78940,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:39:42"
+   "saved_at": "2026-11-20T10:39:42",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -78407,7 +79109,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:39:44"
+   "saved_at": "2026-11-20T10:39:44",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -78676,7 +79380,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:39:46"
+   "saved_at": "2026-11-20T10:39:46",
+   "holder": 13,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -78945,7 +79651,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:39:47"
+   "saved_at": "2026-11-20T10:39:47",
+   "holder": 13,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -79180,7 +79888,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:39:49"
+   "saved_at": "2026-11-20T10:39:49",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -79347,7 +80057,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:39:51"
+   "saved_at": "2026-11-20T10:39:51",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -79548,7 +80260,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:39:53"
+   "saved_at": "2026-11-20T10:39:53",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -79783,7 +80497,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:39:54"
+   "saved_at": "2026-11-20T10:39:54",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -80069,7 +80785,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:39:58"
+   "saved_at": "2026-11-20T10:39:58",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -80304,7 +81022,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:40:01"
+   "saved_at": "2026-11-20T10:40:01",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -80505,7 +81225,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:40:03"
+   "saved_at": "2026-11-20T10:40:03",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -80740,7 +81462,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:40:22"
+   "saved_at": "2026-11-20T10:40:22",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -80958,7 +81682,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:40:24"
+   "saved_at": "2026-11-20T10:40:24",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -81193,7 +81919,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:40:26"
+   "saved_at": "2026-11-20T10:40:26",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -81445,7 +82173,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:40:29"
+   "saved_at": "2026-11-20T10:40:29",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -81663,7 +82393,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:40:31"
+   "saved_at": "2026-11-20T10:40:31",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -81898,7 +82630,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:40:33"
+   "saved_at": "2026-11-20T10:40:33",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -82133,7 +82867,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:40:35"
+   "saved_at": "2026-11-20T10:40:35",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -82351,7 +83087,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:40:37"
+   "saved_at": "2026-11-20T10:40:37",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -82360,8 +83098,8 @@
    "shot": 32,
    "frame": 10091,
    "round": 2,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "dribbling: box 4 (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -82440,7 +83178,7 @@
       765,
       653
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -82637,7 +83375,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:40:41"
+   "saved_at": "2026-11-20T10:40:41",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -82855,7 +83595,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:40:43"
+   "saved_at": "2026-11-20T10:40:43",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -83090,7 +83832,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:40:48"
+   "saved_at": "2026-11-20T10:40:48",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -83291,7 +84035,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:40:51"
+   "saved_at": "2026-11-20T10:40:51",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -83543,7 +84289,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:40:54"
+   "saved_at": "2026-11-20T10:40:54",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -83779,7 +84527,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T10:41:16"
+   "saved_at": "2026-11-20T10:41:16",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -84015,7 +84765,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T10:41:33"
+   "saved_at": "2026-11-20T10:41:33",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -84233,7 +84985,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:41:35"
+   "saved_at": "2026-11-20T10:41:35",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -84400,7 +85154,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:41:38"
+   "saved_at": "2026-11-20T10:41:38",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -84584,7 +85340,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:41:40"
+   "saved_at": "2026-11-20T10:41:40",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -84786,7 +85544,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:41:50"
+   "saved_at": "2026-11-20T10:41:50",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -84795,8 +85555,8 @@
    "shot": 29,
    "frame": 8934,
    "round": 2,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "holds it: box 6; throw-in from the baseline? (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -84909,7 +85669,7 @@
       765.2,
       852.5
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -84970,7 +85730,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:41:52"
+   "saved_at": "2026-11-20T10:41:52",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -85188,7 +85950,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:41:54"
+   "saved_at": "2026-11-20T10:41:54",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -85407,7 +86171,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:42:13"
+   "saved_at": "2026-11-20T10:42:13",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -85591,7 +86357,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:42:16"
+   "saved_at": "2026-11-20T10:42:16",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -85809,7 +86577,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:42:18"
+   "saved_at": "2026-11-20T10:42:18",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -86027,7 +86797,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:42:22"
+   "saved_at": "2026-11-20T10:42:22",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -86296,7 +87068,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:42:24"
+   "saved_at": "2026-11-20T10:42:24",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -86514,7 +87288,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:42:26"
+   "saved_at": "2026-11-20T10:42:26",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -86698,7 +87474,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:42:30"
+   "saved_at": "2026-11-20T10:42:30",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -86900,7 +87678,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T10:42:42"
+   "saved_at": "2026-11-20T10:42:42",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -87136,7 +87916,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T10:42:53"
+   "saved_at": "2026-11-20T10:42:53",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -87354,7 +88136,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:42:55"
+   "saved_at": "2026-11-20T10:42:55",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -87572,7 +88356,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:42:57"
+   "saved_at": "2026-11-20T10:42:57",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -87790,7 +88576,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:42:59"
+   "saved_at": "2026-11-20T10:42:59",
+   "holder": 0,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -87975,7 +88763,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:43:09"
+   "saved_at": "2026-11-20T10:43:09",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -88176,7 +88966,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:43:11"
+   "saved_at": "2026-11-20T10:43:11",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -88377,7 +89169,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:43:15"
+   "saved_at": "2026-11-20T10:43:15",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -88629,7 +89423,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:43:17"
+   "saved_at": "2026-11-20T10:43:17",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -88881,7 +89677,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:43:21"
+   "saved_at": "2026-11-20T10:43:21",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -89116,7 +89914,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:43:23"
+   "saved_at": "2026-11-20T10:43:23",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -89352,7 +90152,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:43:41"
+   "saved_at": "2026-11-20T10:43:41",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -89587,7 +90389,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:43:43"
+   "saved_at": "2026-11-20T10:43:43",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -89856,7 +90660,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:43:45"
+   "saved_at": "2026-11-20T10:43:45",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -90091,7 +90897,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:43:47"
+   "saved_at": "2026-11-20T10:43:47",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -90326,7 +91134,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:43:49"
+   "saved_at": "2026-11-20T10:43:49",
+   "holder": 2,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -90595,7 +91405,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:43:51"
+   "saved_at": "2026-11-20T10:43:51",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -90813,7 +91625,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:43:53"
+   "saved_at": "2026-11-20T10:43:53",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -91014,7 +91828,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:43:55"
+   "saved_at": "2026-11-20T10:43:55",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -91233,7 +92049,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:44:20"
+   "saved_at": "2026-11-20T10:44:20",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -91451,7 +92269,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:44:22"
+   "saved_at": "2026-11-20T10:44:22",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -91686,7 +92506,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:44:24"
+   "saved_at": "2026-11-20T10:44:24",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -91921,7 +92743,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:44:27"
+   "saved_at": "2026-11-20T10:44:27",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -92140,7 +92964,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:44:41"
+   "saved_at": "2026-11-20T10:44:41",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -92359,7 +93185,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:44:52"
+   "saved_at": "2026-11-20T10:44:52",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -92560,7 +93388,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:44:55"
+   "saved_at": "2026-11-20T10:44:55",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -92778,7 +93608,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:44:57"
+   "saved_at": "2026-11-20T10:44:57",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -92996,7 +93828,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:45:10"
+   "saved_at": "2026-11-20T10:45:10",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -93197,7 +94031,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:45:19"
+   "saved_at": "2026-11-20T10:45:19",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -93432,7 +94268,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:45:21"
+   "saved_at": "2026-11-20T10:45:21",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -93684,7 +94522,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:45:27"
+   "saved_at": "2026-11-20T10:45:27",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -93885,7 +94725,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:45:32"
+   "saved_at": "2026-11-20T10:45:32",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -94120,7 +94962,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:45:33"
+   "saved_at": "2026-11-20T10:45:33",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -94355,7 +95199,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:45:36"
+   "saved_at": "2026-11-20T10:45:36",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -94607,7 +95453,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:45:38"
+   "saved_at": "2026-11-20T10:45:38",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -94808,7 +95656,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:45:44"
+   "saved_at": "2026-11-20T10:45:44",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -95043,7 +95893,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:45:46"
+   "saved_at": "2026-11-20T10:45:46",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -95052,8 +95904,8 @@
    "shot": 26,
    "frame": 8442,
    "round": 3,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "dribbling: box 4 (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -95132,7 +95984,7 @@
       1150.4,
       558.1
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -95261,7 +96113,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:45:49"
+   "saved_at": "2026-11-20T10:45:49",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -95445,7 +96299,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:45:50"
+   "saved_at": "2026-11-20T10:45:50",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -95663,7 +96519,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:45:52"
+   "saved_at": "2026-11-20T10:45:52",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -95882,7 +96740,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T10:46:07"
+   "saved_at": "2026-11-20T10:46:07",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -96032,7 +96892,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:46:08"
+   "saved_at": "2026-11-20T10:46:08",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -96233,7 +97095,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:46:10"
+   "saved_at": "2026-11-20T10:46:10",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -96434,7 +97298,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:46:12"
+   "saved_at": "2026-11-20T10:46:12",
+   "holder": 3,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -96601,7 +97467,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:46:14"
+   "saved_at": "2026-11-20T10:46:14",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -96785,7 +97653,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:46:23"
+   "saved_at": "2026-11-20T10:46:23",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -96919,7 +97789,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T10:46:48"
+   "saved_at": "2026-11-20T10:46:48",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
@@ -97120,7 +97992,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:46:50"
+   "saved_at": "2026-11-20T10:46:50",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -97338,7 +98212,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:46:51"
+   "saved_at": "2026-11-20T10:46:51",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -97505,7 +98381,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:46:52"
+   "saved_at": "2026-11-20T10:46:52",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -97723,7 +98601,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:46:55"
+   "saved_at": "2026-11-20T10:46:55",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -97732,8 +98612,8 @@
    "shot": 10,
    "frame": 3602,
    "round": 3,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "dribbling between the legs: box 5 (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -97829,7 +98709,7 @@
       834.6,
       748.7
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -97924,7 +98804,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:46:56"
+   "saved_at": "2026-11-20T10:46:56",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -98142,7 +99024,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:46:59"
+   "saved_at": "2026-11-20T10:46:59",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -98377,7 +99261,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:47:03"
+   "saved_at": "2026-11-20T10:47:03",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -98595,7 +99481,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:47:06"
+   "saved_at": "2026-11-20T10:47:06",
+   "holder": 2,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -98745,7 +99633,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:47:08"
+   "saved_at": "2026-11-20T10:47:08",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -98895,7 +99785,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:47:09"
+   "saved_at": "2026-11-20T10:47:09",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -99062,7 +99954,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:47:12"
+   "saved_at": "2026-11-20T10:47:12",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -99195,7 +100089,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:47:13"
+   "saved_at": "2026-11-20T10:47:13",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -99430,7 +100326,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:47:15"
+   "saved_at": "2026-11-20T10:47:15",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -99631,7 +100529,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:47:18"
+   "saved_at": "2026-11-20T10:47:18",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -99849,7 +100749,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:47:21"
+   "saved_at": "2026-11-20T10:47:21",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -100050,7 +100952,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:47:23"
+   "saved_at": "2026-11-20T10:47:23",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -100234,7 +101138,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:47:25"
+   "saved_at": "2026-11-20T10:47:25",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -100452,7 +101358,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:47:27"
+   "saved_at": "2026-11-20T10:47:27",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -100704,7 +101612,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:47:30"
+   "saved_at": "2026-11-20T10:47:30",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -100922,7 +101832,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:47:31"
+   "saved_at": "2026-11-20T10:47:31",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -101140,7 +102052,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:47:50"
+   "saved_at": "2026-11-20T10:47:50",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -101324,7 +102238,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:48:01"
+   "saved_at": "2026-11-20T10:48:01",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
@@ -101333,8 +102249,8 @@
    "shot": 31,
    "frame": 9370,
    "round": 3,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "crossover, ball between the legs: box 2 (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -101379,7 +102295,7 @@
       1229.6,
       826.4
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -101525,7 +102441,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:48:04"
+   "saved_at": "2026-11-20T10:48:04",
+   "holder": 2,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -101760,7 +102678,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:48:06"
+   "saved_at": "2026-11-20T10:48:06",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -101962,7 +102882,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:48:16"
+   "saved_at": "2026-11-20T10:48:16",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -102180,7 +103102,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:48:18"
+   "saved_at": "2026-11-20T10:48:18",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -102449,7 +103373,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:48:21"
+   "saved_at": "2026-11-20T10:48:21",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -102685,7 +103611,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T10:48:44"
+   "saved_at": "2026-11-20T10:48:44",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -102920,7 +103848,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:48:47"
+   "saved_at": "2026-11-20T10:48:47",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -103087,7 +104017,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:48:48"
+   "saved_at": "2026-11-20T10:48:48",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -103305,7 +104237,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:48:50"
+   "saved_at": "2026-11-20T10:48:50",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -103439,7 +104373,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:49:24"
+   "saved_at": "2026-11-20T10:49:24",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -103657,7 +104593,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:49:27"
+   "saved_at": "2026-11-20T10:49:27",
+   "holder": 2,
+   "dead_ball": false
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -103909,7 +104847,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:49:28"
+   "saved_at": "2026-11-20T10:49:28",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -104110,7 +105050,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:49:32"
+   "saved_at": "2026-11-20T10:49:32",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -104345,7 +105287,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:49:33"
+   "saved_at": "2026-11-20T10:49:33",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -104597,7 +105541,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:49:36"
+   "saved_at": "2026-11-20T10:49:36",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -104866,7 +105812,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:49:38"
+   "saved_at": "2026-11-20T10:49:38",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -105101,7 +106049,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:49:39"
+   "saved_at": "2026-11-20T10:49:39",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -105353,7 +106303,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:49:41"
+   "saved_at": "2026-11-20T10:49:41",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -105622,7 +106574,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:49:45"
+   "saved_at": "2026-11-20T10:49:45",
+   "holder": 13,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -105806,7 +106760,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:49:48"
+   "saved_at": "2026-11-20T10:49:48",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -106041,7 +106997,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:49:49"
+   "saved_at": "2026-11-20T10:49:49",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -106259,7 +107217,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:49:51"
+   "saved_at": "2026-11-20T10:49:51",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -106443,7 +107403,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:49:53"
+   "saved_at": "2026-11-20T10:49:53",
+   "holder": 3,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -106644,7 +107606,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:49:54"
+   "saved_at": "2026-11-20T10:49:54",
+   "holder": 3,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -106845,7 +107809,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:49:56"
+   "saved_at": "2026-11-20T10:49:56",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -107046,7 +108012,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:49:57"
+   "saved_at": "2026-11-20T10:49:57",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -107264,7 +108232,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:50:04"
+   "saved_at": "2026-11-20T10:50:04",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -107465,7 +108435,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:50:05"
+   "saved_at": "2026-11-20T10:50:05",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -107666,7 +108638,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:50:07"
+   "saved_at": "2026-11-20T10:50:07",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -107867,7 +108841,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:50:09"
+   "saved_at": "2026-11-20T10:50:09",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -108085,7 +109061,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:50:10"
+   "saved_at": "2026-11-20T10:50:10",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -108303,7 +109281,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:50:13"
+   "saved_at": "2026-11-20T10:50:13",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -108521,7 +109501,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:50:15"
+   "saved_at": "2026-11-20T10:50:15",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -108723,7 +109705,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:50:23"
+   "saved_at": "2026-11-20T10:50:23",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -108958,7 +109942,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:50:26"
+   "saved_at": "2026-11-20T10:50:26",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -109159,7 +110145,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:50:28"
+   "saved_at": "2026-11-20T10:50:28",
+   "holder": 1,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -109377,7 +110365,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:50:31"
+   "saved_at": "2026-11-20T10:50:31",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -109595,7 +110585,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:50:37"
+   "saved_at": "2026-11-20T10:50:37",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -109847,7 +110839,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:50:39"
+   "saved_at": "2026-11-20T10:50:39",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -110099,7 +111093,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:50:42"
+   "saved_at": "2026-11-20T10:50:42",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -110317,7 +111313,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:50:44"
+   "saved_at": "2026-11-20T10:50:44",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -110535,7 +111533,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:50:46"
+   "saved_at": "2026-11-20T10:50:46",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -110770,7 +111770,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:50:47"
+   "saved_at": "2026-11-20T10:50:47",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -110988,7 +111990,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:50:49"
+   "saved_at": "2026-11-20T10:50:49",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -111223,7 +112227,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:50:50"
+   "saved_at": "2026-11-20T10:50:50",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -111458,7 +112464,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:50:52"
+   "saved_at": "2026-11-20T10:50:52",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -111660,7 +112668,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:51:06"
+   "saved_at": "2026-11-20T10:51:06",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -111912,7 +112922,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:51:15"
+   "saved_at": "2026-11-20T10:51:15",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -112130,7 +113142,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:51:18"
+   "saved_at": "2026-11-20T10:51:18",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -112399,7 +113413,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:51:20"
+   "saved_at": "2026-11-20T10:51:20",
+   "holder": 13,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -112600,7 +113616,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:51:23"
+   "saved_at": "2026-11-20T10:51:23",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -112784,7 +113802,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:51:26"
+   "saved_at": "2026-11-20T10:51:26",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -113036,7 +114056,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:51:30"
+   "saved_at": "2026-11-20T10:51:30",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -113254,7 +114276,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:51:34"
+   "saved_at": "2026-11-20T10:51:34",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -113489,7 +114513,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:51:36"
+   "saved_at": "2026-11-20T10:51:36",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -113741,7 +114767,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:51:37"
+   "saved_at": "2026-11-20T10:51:37",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -114010,7 +115038,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:51:43"
+   "saved_at": "2026-11-20T10:51:43",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -114211,7 +115241,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:51:45"
+   "saved_at": "2026-11-20T10:51:45",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -114446,7 +115478,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:51:47"
+   "saved_at": "2026-11-20T10:51:47",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -114681,7 +115715,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:51:49"
+   "saved_at": "2026-11-20T10:51:49",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -114950,7 +115986,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:51:52"
+   "saved_at": "2026-11-20T10:51:52",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -115151,7 +116189,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:51:56"
+   "saved_at": "2026-11-20T10:51:56",
+   "holder": 0,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -115284,7 +116324,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:51:58"
+   "saved_at": "2026-11-20T10:51:58",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -115519,7 +116561,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:52:00"
+   "saved_at": "2026-11-20T10:52:00",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -115528,8 +116572,8 @@
    "shot": 8,
    "frame": 3485,
    "round": 3,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "dribbling: box 4 (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -115608,7 +116652,7 @@
       1230,
       664.4
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -115754,7 +116798,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:52:07"
+   "saved_at": "2026-11-20T10:52:07",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -116006,7 +117052,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:52:17"
+   "saved_at": "2026-11-20T10:52:17",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -116015,8 +117063,8 @@
    "shot": 17,
    "frame": 6009,
    "round": 3,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "dribbling: box 4 (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -116095,7 +117143,7 @@
       792,
       610.6
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -116241,7 +117289,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:52:19"
+   "saved_at": "2026-11-20T10:52:19",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -116250,8 +117300,8 @@
    "shot": 18,
    "frame": 6493,
    "round": 3,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "dribbling (#12): box 2 (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -116296,7 +117346,7 @@
       909.2,
       533
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -116425,7 +117475,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:52:25"
+   "saved_at": "2026-11-20T10:52:25",
+   "holder": 2,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -116661,7 +117713,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:52:42"
+   "saved_at": "2026-11-20T10:52:42",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
@@ -116896,7 +117950,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:52:44"
+   "saved_at": "2026-11-20T10:52:44",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -117131,7 +118187,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:52:47"
+   "saved_at": "2026-11-20T10:52:47",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -117140,8 +118198,8 @@
    "shot": 9,
    "frame": 2985,
    "round": 3,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "dribbling (#45): box 8 (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -117288,7 +118346,7 @@
       689,
       767.5
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -117366,7 +118424,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:52:51"
+   "saved_at": "2026-11-20T10:52:51",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -117601,7 +118661,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:52:53"
+   "saved_at": "2026-11-20T10:52:53",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -117836,7 +118898,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:52:55"
+   "saved_at": "2026-11-20T10:52:55",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -118071,7 +119135,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:52:56"
+   "saved_at": "2026-11-20T10:52:56",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -118289,7 +119355,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:52:59"
+   "saved_at": "2026-11-20T10:52:59",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -118524,7 +119592,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:53:02"
+   "saved_at": "2026-11-20T10:53:02",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -118760,7 +119830,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T10:53:32"
+   "saved_at": "2026-11-20T10:53:32",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -118961,7 +120033,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:53:34"
+   "saved_at": "2026-11-20T10:53:34",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -119196,7 +120270,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:53:37"
+   "saved_at": "2026-11-20T10:53:37",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -119205,8 +120281,8 @@
    "shot": 25,
    "frame": 8740,
    "round": 3,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "driving with the ball: box 6 (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -119319,7 +120395,7 @@
       587.2,
       675.6
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -119431,7 +120507,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:53:40"
+   "saved_at": "2026-11-20T10:53:40",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -119683,7 +120761,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:53:41"
+   "saved_at": "2026-11-20T10:53:41",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -119935,7 +121015,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:53:42"
+   "saved_at": "2026-11-20T10:53:42",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -120187,7 +121269,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:53:44"
+   "saved_at": "2026-11-20T10:53:44",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -120422,7 +121506,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:53:46"
+   "saved_at": "2026-11-20T10:53:46",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -120657,7 +121743,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:53:51"
+   "saved_at": "2026-11-20T10:53:51",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -120892,7 +121980,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:53:55"
+   "saved_at": "2026-11-20T10:53:55",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -120901,8 +121991,8 @@
    "shot": 15,
    "frame": 4941,
    "round": 3,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "dribbling: box 6 (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -121015,7 +122105,7 @@
       784.6,
       569.3
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -121127,7 +122217,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:54:06"
+   "saved_at": "2026-11-20T10:54:06",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -121362,7 +122454,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:54:08"
+   "saved_at": "2026-11-20T10:54:08",
+   "holder": 3,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -121597,7 +122691,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:54:10"
+   "saved_at": "2026-11-20T10:54:10",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -121815,7 +122911,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:54:19"
+   "saved_at": "2026-11-20T10:54:19",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -121965,7 +123063,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:54:21"
+   "saved_at": "2026-11-20T10:54:21",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -122166,7 +123266,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:54:28"
+   "saved_at": "2026-11-20T10:54:28",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -122402,7 +123504,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T10:54:43"
+   "saved_at": "2026-11-20T10:54:43",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -122637,7 +123741,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:54:48"
+   "saved_at": "2026-11-20T10:54:48",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -122872,7 +123978,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:54:50"
+   "saved_at": "2026-11-20T10:54:50",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -123056,7 +124164,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:54:52"
+   "saved_at": "2026-11-20T10:54:52",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -123274,7 +124384,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:54:54"
+   "saved_at": "2026-11-20T10:54:54",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -123492,7 +124604,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:54:55"
+   "saved_at": "2026-11-20T10:54:55",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -123710,7 +124824,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:54:57"
+   "saved_at": "2026-11-20T10:54:57",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -123929,7 +125045,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T10:55:30"
+   "saved_at": "2026-11-20T10:55:30",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -123938,8 +125056,8 @@
    "shot": 25,
    "frame": 9186,
    "round": 3,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "holds it: box 10; throw-in from the sideline? (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -124120,7 +125238,7 @@
       537.2,
       693
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -124181,7 +125299,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:55:33"
+   "saved_at": "2026-11-20T10:55:33",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -124450,7 +125570,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:55:34"
+   "saved_at": "2026-11-20T10:55:34",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -124685,7 +125807,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:55:36"
+   "saved_at": "2026-11-20T10:55:36",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -124937,7 +126061,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:55:40"
+   "saved_at": "2026-11-20T10:55:40",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -125138,7 +126264,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:55:43"
+   "saved_at": "2026-11-20T10:55:43",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -125305,7 +126433,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:55:44"
+   "saved_at": "2026-11-20T10:55:44",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -125523,7 +126653,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:55:48"
+   "saved_at": "2026-11-20T10:55:48",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -125741,7 +126873,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:55:51"
+   "saved_at": "2026-11-20T10:55:51",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -125976,7 +127110,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:55:52"
+   "saved_at": "2026-11-20T10:55:52",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -126228,7 +127364,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:55:54"
+   "saved_at": "2026-11-20T10:55:54",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -126480,7 +127618,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:55:56"
+   "saved_at": "2026-11-20T10:55:56",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -126664,7 +127804,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:00"
+   "saved_at": "2026-11-20T10:56:00",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -126882,7 +128024,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:02"
+   "saved_at": "2026-11-20T10:56:02",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -127066,7 +128210,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:04"
+   "saved_at": "2026-11-20T10:56:04",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -127075,8 +128221,8 @@
    "shot": 4,
    "frame": 1430,
    "round": 3,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "dribbling: box 0 (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -127087,7 +128233,7 @@
       1579.3,
       565.2
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -127267,7 +128413,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:07"
+   "saved_at": "2026-11-20T10:56:07",
+   "holder": 0,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -127502,7 +128650,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:09"
+   "saved_at": "2026-11-20T10:56:09",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -127754,7 +128904,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:11"
+   "saved_at": "2026-11-20T10:56:11",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -128006,7 +129158,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:12"
+   "saved_at": "2026-11-20T10:56:12",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -128241,7 +129395,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:14"
+   "saved_at": "2026-11-20T10:56:14",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -128459,7 +129615,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:15"
+   "saved_at": "2026-11-20T10:56:15",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -128694,7 +129852,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:17"
+   "saved_at": "2026-11-20T10:56:17",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
@@ -128929,7 +130089,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:20"
+   "saved_at": "2026-11-20T10:56:20",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -129113,7 +130275,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:22"
+   "saved_at": "2026-11-20T10:56:22",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -129331,7 +130495,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:24"
+   "saved_at": "2026-11-20T10:56:24",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -129515,7 +130681,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:25"
+   "saved_at": "2026-11-20T10:56:25",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -129750,7 +130918,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:31"
+   "saved_at": "2026-11-20T10:56:31",
+   "holder": 1,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -129934,7 +131104,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:32"
+   "saved_at": "2026-11-20T10:56:32",
+   "holder": 5,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -130152,7 +131324,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:34"
+   "saved_at": "2026-11-20T10:56:34",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -130353,7 +131527,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:36"
+   "saved_at": "2026-11-20T10:56:36",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -130571,7 +131747,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:38"
+   "saved_at": "2026-11-20T10:56:38",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -130755,7 +131933,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:39"
+   "saved_at": "2026-11-20T10:56:39",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -130973,7 +132153,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:42"
+   "saved_at": "2026-11-20T10:56:42",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
@@ -131140,7 +132322,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:50"
+   "saved_at": "2026-11-20T10:56:50",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -131375,7 +132559,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:53"
+   "saved_at": "2026-11-20T10:56:53",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -131576,7 +132762,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:56:57"
+   "saved_at": "2026-11-20T10:56:57",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -131777,7 +132965,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:57:04"
+   "saved_at": "2026-11-20T10:57:04",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -132012,7 +133202,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:57:06"
+   "saved_at": "2026-11-20T10:57:06",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -132021,8 +133213,8 @@
    "shot": 7,
    "frame": 2837,
    "round": 3,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "holds it: box 7; throw-in from the baseline? (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -132152,7 +133344,7 @@
       1386,
       730.9
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -132247,7 +133439,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:57:08"
+   "saved_at": "2026-11-20T10:57:08",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -132465,7 +133659,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:57:10"
+   "saved_at": "2026-11-20T10:57:10",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -132474,8 +133670,8 @@
    "shot": 10,
    "frame": 3750,
    "round": 3,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "dribbling: box 8 (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -132622,7 +133818,7 @@
       1192,
       716.5
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -132649,7 +133845,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:57:11"
+   "saved_at": "2026-11-20T10:57:11",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -132884,7 +134082,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:57:14"
+   "saved_at": "2026-11-20T10:57:14",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -133103,7 +134303,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T10:57:28"
+   "saved_at": "2026-11-20T10:57:28",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -133338,7 +134540,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:57:30"
+   "saved_at": "2026-11-20T10:57:30",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -133522,7 +134726,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:57:33"
+   "saved_at": "2026-11-20T10:57:33",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
@@ -133757,7 +134963,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:57:34"
+   "saved_at": "2026-11-20T10:57:34",
+   "holder": 2,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -133941,7 +135149,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:57:36"
+   "saved_at": "2026-11-20T10:57:36",
+   "holder": 1,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -134159,7 +135369,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:57:37"
+   "saved_at": "2026-11-20T10:57:37",
+   "holder": 2,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -134327,7 +135539,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T10:57:51"
+   "saved_at": "2026-11-20T10:57:51",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -134528,7 +135742,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:57:52"
+   "saved_at": "2026-11-20T10:57:52",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -134763,7 +135979,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:57:56"
+   "saved_at": "2026-11-20T10:57:56",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -134998,7 +136216,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:57:59"
+   "saved_at": "2026-11-20T10:57:59",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -135165,7 +136385,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:58:01"
+   "saved_at": "2026-11-20T10:58:01",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -135400,7 +136622,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:58:04"
+   "saved_at": "2026-11-20T10:58:04",
+   "holder": 3,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -135618,7 +136842,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:58:05"
+   "saved_at": "2026-11-20T10:58:05",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
@@ -135853,7 +137079,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:58:07"
+   "saved_at": "2026-11-20T10:58:07",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -136037,7 +137265,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:58:09"
+   "saved_at": "2026-11-20T10:58:09",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -136221,7 +137451,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:58:11"
+   "saved_at": "2026-11-20T10:58:11",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -136423,7 +137655,9 @@
      "edited": true
     }
    ],
-   "saved_at": "2026-11-20T10:58:25"
+   "saved_at": "2026-11-20T10:58:25",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -136432,8 +137666,8 @@
    "shot": 12,
    "frame": 4632,
    "round": 3,
-   "status": "done",
-   "note": "",
+   "status": "todo",
+   "note": "holds it: box 7 (answer before: nobody)",
    "candidates": [],
    "boxes": [
     {
@@ -136563,7 +137797,7 @@
       1182.4,
       675.6
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -136624,7 +137858,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:58:27"
+   "saved_at": "2026-11-20T10:58:27",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -136842,7 +138078,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:58:28"
+   "saved_at": "2026-11-20T10:58:28",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -137077,7 +138315,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:58:31"
+   "saved_at": "2026-11-20T10:58:31",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -137278,7 +138518,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:58:33"
+   "saved_at": "2026-11-20T10:58:33",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -137479,7 +138721,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:58:35"
+   "saved_at": "2026-11-20T10:58:35",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -137697,7 +138941,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:58:44"
+   "saved_at": "2026-11-20T10:58:44",
+   "holder": 10,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
@@ -137881,7 +139127,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:59:07"
+   "saved_at": "2026-11-20T10:59:07",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -138133,7 +139381,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:59:09"
+   "saved_at": "2026-11-20T10:59:09",
+   "holder": 7,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -138368,7 +139618,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:59:14"
+   "saved_at": "2026-11-20T10:59:14",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -138620,7 +139872,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:59:18"
+   "saved_at": "2026-11-20T10:59:18",
+   "holder": 2,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -138872,7 +140126,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:59:20"
+   "saved_at": "2026-11-20T10:59:20",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -139107,7 +140363,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:59:22"
+   "saved_at": "2026-11-20T10:59:22",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -139342,7 +140600,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:59:25"
+   "saved_at": "2026-11-20T10:59:25",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -139577,7 +140837,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:59:27"
+   "saved_at": "2026-11-20T10:59:27",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -139846,7 +141108,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:59:28"
+   "saved_at": "2026-11-20T10:59:28",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -140098,7 +141362,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:59:29"
+   "saved_at": "2026-11-20T10:59:29",
+   "holder": 11,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
@@ -140334,7 +141600,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:59:53"
+   "saved_at": "2026-11-20T10:59:53",
+   "holder": 8,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -140535,7 +141803,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:59:56"
+   "saved_at": "2026-11-20T10:59:56",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -140736,7 +142006,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T10:59:58"
+   "saved_at": "2026-11-20T10:59:58",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -140920,7 +142192,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T11:00:00"
+   "saved_at": "2026-11-20T11:00:00",
+   "holder": 4,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -141155,7 +142429,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T11:00:02"
+   "saved_at": "2026-11-20T11:00:02",
+   "holder": 9,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -141356,7 +142632,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T11:00:04"
+   "saved_at": "2026-11-20T11:00:04",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -141608,7 +142886,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T11:00:08"
+   "saved_at": "2026-11-20T11:00:08",
+   "holder": null,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -141843,7 +143123,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T11:00:10"
+   "saved_at": "2026-11-20T11:00:10",
+   "holder": 6,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -142095,7 +143377,9 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T11:00:23"
+   "saved_at": "2026-11-20T11:00:23",
+   "holder": 12,
+   "dead_ball": false
   },
   {
    "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
@@ -142313,12 +143597,12 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T11:00:25"
+   "saved_at": "2026-11-20T11:37:42"
   }
  ],
  "meta": {
   "review_seconds": {
-   "2026-11-20": 3033.0
+   "2026-11-20": 3040.0
   }
  }
 }

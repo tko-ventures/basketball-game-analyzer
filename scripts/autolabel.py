@@ -446,13 +446,16 @@ def manifest(r: Round) -> None:
 POSS_QUEUE = Path("data/labels/box_queue_possession.json")
 POSS_INSTRUCTIONS = (
     "<b>One question per frame: who has the ball?</b> The ball is the orange box.<br>"
-    "The loupe shows the most likely holder (the model's guess, else the player nearest the ball). "
-    "<kbd>Space</kbd>: yes, that player holds or dribbles the ball (frame done, next). "
+    "The loupe shows the most likely holder (the saved answer, else the model's guess, else the player nearest the "
+    "ball). <kbd>Space</kbd>: yes, that player holds or dribbles the ball (frame done, next). "
     "<kbd>Tab</kbd>: the next player, nearest the ball first. Or <b>click</b> the player on the frame.<br>"
     "<kbd>N</kbd>: nobody has it (a pass or shot in the air, a loose ball) · <kbd>S</kbd>: can't tell, skip · "
-    "<kbd>[</kbd> <kbd>]</kbd> previous / next frame · scroll to zoom, <kbd>F</kbd> fit · <kbd>U</kbd> undo.<br>"
+    "<kbd>[</kbd> <kbd>]</kbd> previous / next frame, then answer again to change it · scroll to zoom, "
+    "<kbd>F</kbd> fit · <kbd>U</kbd> undo on this frame.<br>"
     "The holder has no box: <kbd>⇧</kbd>-drag a box around him, then <kbd>Enter</kbd>. "
-    "A shooter with the ball still in his hands counts as the holder."
+    "A shooter with the ball still in his hands counts as the holder.<br>"
+    "<b>Dead ball</b> (a throw-in from behind a line, the referee has it, after a score until the throw-in): "
+    "press <kbd>D</kbd> first, then answer as usual. Whoever holds the ball is still the holder."
 )
 
 
@@ -476,6 +479,7 @@ def possession_queue(rounds: list[int]) -> None:
             "meta": {"review_seconds": {}},
         }
     )
+    q["instructions"] = POSS_INSTRUCTIONS
     have = {(f["clip"], f["frame"]) for f in q["frames"]}
     added = 0
     for rnd in rounds:
@@ -493,6 +497,8 @@ def possession_queue(rounds: list[int]) -> None:
                 "frame": f["frame"],
                 "round": rnd,
                 "status": "todo",
+                "holder": None,
+                "dead_ball": False,
                 "note": "",
                 "candidates": [],
                 "boxes": [

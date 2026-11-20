@@ -111,7 +111,8 @@ function order() {  // flagged and unchecked first, then by id; in possession mo
     const [bx, by] = ball ? centre(ball) : [0, 0];
     const dist = (b) => { const [x, y] = centre(b); return Math.hypot(x - bx, y - by); };
     return S.fr.boxes.filter((b) => PEOPLE.includes(b.cls) && b.cls !== "referee")
-      .sort((a, b) => ((b.cls === "player-in-possession") - (a.cls === "player-in-possession")) || (dist(a) - dist(b)));
+      .sort((a, b) => ((b.id === S.fr.holder) - (a.id === S.fr.holder)) ||
+        ((b.cls === "player-in-possession") - (a.cls === "player-in-possession")) || (dist(a) - dist(b)));
   }
   return [...S.fr.boxes].sort((a, b) => (isTodo(b) - isTodo(a)) || (a.id - b.id));
 }
@@ -214,7 +215,10 @@ function renderSide() {
   $("where").textContent = `${fr.youtube_id} shot ${fr.shot} frame ${fr.frame}`;
   const done = S.q.frames.filter((f) => f.status !== "todo").length;
   const st = { done: '<span class="ok">done</span>', skip: '<span class="flag">skipped</span>', todo: "to do" }[fr.status];
-  $("state").innerHTML = st + ` <span class="muted">(${done} of ${S.q.frames.length} finished)</span>`;
+  const poss = !possMode() || fr.status !== "done" ? "" :
+    ` · holder ${fr.holder == null ? "nobody" : "box " + fr.holder}`;
+  const dead = possMode() && fr.dead_ball ? ' · <span class="flag">dead ball</span>' : "";
+  $("state").innerHTML = st + poss + dead + ` <span class="muted">(${done} of ${S.q.frames.length} finished)</span>`;
   const todo = fr.boxes.filter(isTodo).length;
   $("left").textContent = todo ? `${todo} flagged left` : "";
   $("note").textContent = fr.note || "";
@@ -232,7 +236,7 @@ function renderSide() {
   $("classes").innerHTML = CLASSES.map(([n, c], k) =>
     `<span class="${n === cur ? "on" : ""}"><kbd>${KEYS[k]}</kbd> <span class="sw" style="background:${c}"></span>${n}</span>`).join("");
   $("list").innerHTML = order().map((x) =>
-    `<div data-id="${x.id}" class="${x === b ? "sel" : ""} ${isTodo(x) ? "todo" : ""}">${x.id} · ${x.cls}${x.team ? " · " + x.team : ""}${isTodo(x) ? " · " + x.flags[0] : ""}</div>`).join("");
+    `<div data-id="${x.id}" class="${x === b ? "sel" : ""} ${isTodo(x) ? "todo" : ""}">${x.id} · ${x.cls}${possMode() && x.id === S.fr.holder ? " · holder" : ""}${x.team ? " · " + x.team : ""}${isTodo(x) ? " · " + x.flags[0] : ""}</div>`).join("");
 }
 const sameBox = (a, b) => a && b && a.every((v, k) => Math.abs(v - b[k]) < 0.01);
 function redraw() { render(); renderSide(); }
@@ -294,13 +298,18 @@ function choosePossessor(b) {
   snapshot();
   S.fr.boxes.forEach((x) => { if (x !== b && x.cls === "player-in-possession") x.cls = "player"; });
   if (!SHOOTING.includes(b.cls)) b.cls = "player-in-possession";
+  S.fr.holder = b.id;  // explicit, so a shooter holding the ball is not read as nobody
   finish("done");
 }
 function choose(b) { if (possMode()) choosePossessor(b); else chooseBall(b); }
 function nobody() {  // possession mode: no player holds the ball (a pass, a shot in flight, a loose ball)
   snapshot();
   S.fr.boxes.forEach((x) => { if (x.cls === "player-in-possession") x.cls = "player"; });
+  S.fr.holder = null;
   finish("done");
+}
+function toggleDead() {  // possession mode: the ball is out of live play (throw-in from behind a line, the referee has it)
+  S.fr.dead_ball = !S.fr.dead_ball; changed();  // D again undoes it
 }
 
 // ---------- mouse ----------
@@ -459,12 +468,16 @@ window.addEventListener("keydown", async (ev) => {
     case "u": undo(); break;
     case "n": if (ballMode()) finish("done", []); else if (possMode()) nobody(); break;
     case "s": if (choiceMode()) finish("skip"); break;
+    case "d": if (possMode()) toggleDead(); break;
     case "enter":
       ev.preventDefault();
       if (ballMode()) { finish("done", S.fr.boxes.filter((x) => x.checked)); break; }
       if (possMode()) {  // a holder drawn by hand (Shift-drag) is the one; any other holder goes back to player
         const drawn = S.fr.boxes.find((x) => x.src === "human" && x.cls === "player-in-possession");
-        if (drawn) S.fr.boxes.forEach((x) => { if (x !== drawn && x.cls === "player-in-possession") x.cls = "player"; });
+        if (drawn) {
+          S.fr.boxes.forEach((x) => { if (x !== drawn && x.cls === "player-in-possession") x.cls = "player"; });
+          S.fr.holder = drawn.id;
+        }
         finish("done");
         break;
       }
