@@ -1,0 +1,23 @@
+name: track-trackers-bytetrack
+description: >
+  track-bytetrack with the track layer on Roboflow trackers 2.7 ByteTrackTracker, the migration target of supervision's
+  removed ByteTrack (decision 2026-11-20), at the library's defaults (lost buffer 1 s as before).
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: roboflow_keypoints
+    params: {model_id: basketball-court-detection-2/14}
+    weights: pretrained:roboflow/basketball-court-detection-2/14
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r3-poss@c62744fe
+  team:
+    backend: siglip_kmeans
+    params: {seed: 0, fit_fps: 5.0}
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  track:
+    backend: trackers
+    params: {tracker: bytetrack}

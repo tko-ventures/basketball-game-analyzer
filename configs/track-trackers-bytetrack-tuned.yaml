@@ -1,0 +1,24 @@
+name: track-trackers-bytetrack-tuned
+description: >
+  track-trackers-bytetrack tuned on gold dev by scripts/sweep_track.py (240 coarse and 81 fine settings). The plateau
+  holds HOTA 0.685 to 0.686 over lost buffer 1 to 3 s and 1 to 3 consecutive frames; the only change from the library
+  defaults is high_conf_det_threshold 0.5 (default 0.6).
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: roboflow_keypoints
+    params: {model_id: basketball-court-detection-2/14}
+    weights: pretrained:roboflow/basketball-court-detection-2/14
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r3-poss@c62744fe
+  team:
+    backend: siglip_kmeans
+    params: {seed: 0, fit_fps: 5.0}
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  track:
+    backend: trackers
+    params: {tracker: bytetrack, min_score: 0.1, args: {high_conf_det_threshold: 0.5}}
