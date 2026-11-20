@@ -246,7 +246,7 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:51:18",
+   "saved_at": "2026-11-20T15:25:34",
    "holder": 2,
    "dead_ball": false
   },
@@ -466,7 +466,7 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:51:45",
+   "saved_at": "2026-11-20T15:25:34",
    "holder": null,
    "dead_ball": false
   },
@@ -737,7 +737,7 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:51:57",
+   "saved_at": "2026-11-20T15:25:35",
    "holder": 11,
    "dead_ball": false
   },
@@ -1025,7 +1025,7 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:51:59",
+   "saved_at": "2026-11-20T15:25:35",
    "holder": 5,
    "dead_ball": false
   },
@@ -1262,7 +1262,7 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:52:05",
+   "saved_at": "2026-11-20T15:25:36",
    "holder": null,
    "dead_ball": false
   },
@@ -1516,7 +1516,7 @@
      "checked": true
     }
    ],
-   "saved_at": "2026-11-20T08:52:08",
+   "saved_at": "2026-11-20T15:25:36",
    "holder": null,
    "dead_ball": false
   },
@@ -29014,7 +29014,7 @@
       824,
       583
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -29178,7 +29178,7 @@
     }
    ],
    "saved_at": "2026-11-20T12:48:03",
-   "holder": null,
+   "holder": 4,
    "dead_ball": false
   },
   {
@@ -55884,7 +55884,7 @@
       1241.7,
       620.5
      ],
-     "cls": "player-in-possession",
+     "cls": "player",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -55997,8 +55997,8 @@
     }
    ],
    "saved_at": "2026-11-20T12:48:22",
-   "holder": 3,
-   "dead_ball": false
+   "holder": null,
+   "dead_ball": true
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -73137,7 +73137,7 @@
       1412,
       887.6
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -73250,7 +73250,7 @@
     }
    ],
    "saved_at": "2026-11-20T12:48:41",
-   "holder": null,
+   "holder": 4,
    "dead_ball": false
   },
   {
@@ -73712,7 +73712,7 @@
       761.4,
       682.1
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -73876,7 +73876,7 @@
     }
    ],
    "saved_at": "2026-11-20T12:48:53",
-   "holder": null,
+   "holder": 1,
    "dead_ball": false
   },
   {
@@ -96001,7 +96001,7 @@
       1150.4,
       558.1
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -96131,7 +96131,7 @@
     }
    ],
    "saved_at": "2026-11-20T12:49:14",
-   "holder": null,
+   "holder": 4,
    "dead_ball": false
   },
   {
@@ -98726,7 +98726,7 @@
       834.6,
       748.7
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -98822,7 +98822,7 @@
     }
    ],
    "saved_at": "2026-11-20T12:49:30",
-   "holder": null,
+   "holder": 5,
    "dead_ball": false
   },
   {
@@ -102312,7 +102312,7 @@
       1229.6,
       826.4
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -102459,7 +102459,7 @@
     }
    ],
    "saved_at": "2026-11-20T12:49:32",
-   "holder": null,
+   "holder": 2,
    "dead_ball": false
   },
   {
@@ -116669,7 +116669,7 @@
       1230,
       664.4
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -116816,7 +116816,7 @@
     }
    ],
    "saved_at": "2026-11-20T12:49:36",
-   "holder": null,
+   "holder": 4,
    "dead_ball": false
   },
   {
@@ -117160,7 +117160,7 @@
       792,
       610.6
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -117307,7 +117307,7 @@
     }
    ],
    "saved_at": "2026-11-20T12:49:39",
-   "holder": null,
+   "holder": 4,
    "dead_ball": false
   },
   {
@@ -117363,7 +117363,7 @@
       909.2,
       533
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -117493,7 +117493,7 @@
     }
    ],
    "saved_at": "2026-11-20T12:49:42",
-   "holder": null,
+   "holder": 2,
    "dead_ball": false
   },
   {
@@ -122122,7 +122122,7 @@
       784.6,
       569.3
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -122235,7 +122235,7 @@
     }
    ],
    "saved_at": "2026-11-20T12:49:51",
-   "holder": null,
+   "holder": 6,
    "dead_ball": false
   },
   {
@@ -133835,7 +133835,7 @@
       1192,
       716.5
      ],
-     "cls": "player",
+     "cls": "player-in-possession",
      "team": "",
      "tid": null,
      "src": "draft",
@@ -133863,7 +133863,7 @@
     }
    ],
    "saved_at": "2026-11-20T12:50:15",
-   "holder": null,
+   "holder": 8,
    "dead_ball": true
   },
   {
@@ -143621,11 +143621,12 @@
  ],
  "meta": {
   "review_seconds": {
-   "2026-11-20": 3218.0
+   "2026-11-20": 3220.0
   },
   "ops_applied": {
    "possession.ops.txt": "8d11346347a8ff6c6c7d34e811edcd26581e075ef81843895dc1c0c4d8533f07",
-   "possession.r2.ops.txt": "7960ee9d04cbe367bdc1f15eea51426bcffe671c661418e6acac6da42f0bfeb0"
+   "possession.r2.ops.txt": "7960ee9d04cbe367bdc1f15eea51426bcffe671c661418e6acac6da42f0bfeb0",
+   "possession.r3.ops.txt": "4e941f2356a457918b0e556003234134927636759dc4f3b0151f7fd79561b77b"
   }
  }
 }

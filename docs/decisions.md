@@ -430,3 +430,11 @@ Tomasz approved the class review of 2026-11-20. Three levels, each decided when 
 - **Kept in the schema, no longer labelled:** `player-jump-shot`, `player-layup-dunk`, `player-shot-block` and `ball-in-basket`. They are moments, not objects: rounds 1 and 3 hold 1 to 3 boxes of each, and `plk-r2` scores AP50 0 to 0.25 on them. Skalski's `ShotEventTracker` reads them, so they stay in the schema (no relabelling, and earlier weights stay comparable). M9 builds shot detection as two backends, his class-based one and one from the ball's path to the rim with the release point on the court (FIBA three-point line 6.75 m), and keeps whichever scores better on gold.
 - **Game state and events, at the start of M9:** live or dead ball (the `dead_ball` flag exists), team in possession, stoppage type (free throw, throw-in, jump ball); shots made or missed and 2 or 3 points, offensive and defensive rebounds (in FIBA an offensive rebound resets the shot clock to 14), passes, turnovers. Fouls are not read from video.
 - **Plays, at the start of the play-extraction milestone:** pick and roll and its coverages (drop, hedge, switch, ice, blitz), hand-off, off-ball screen, isolation, post-up, man against zone. Marco picks the 5 to 8 that matter to him.
+
+## 2026-11-20: possession rule clarified by Tomasz
+
+- **A dribbler is the holder**, mid-bounce included: "he only drops the ball to move around the court while controlling the ball". Holding also covers a shooter with the ball still in his hands.
+- **A ball in flight is nobody's**, a pass to a player behind the end line included (#248: nobody, dead ball).
+- **Dead ball is independent of the holder.** A player can hold or dribble a dead ball (#22, #100, #108: the shot clock stopped at 0.0 or a static 24).
+
+His review of the 31 frames had answered nobody on 11 dribbles; `possession.r3.ops.txt` applies the rule to them and shows each on a 5-frame strip for him to veto.
