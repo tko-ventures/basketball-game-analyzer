@@ -125,7 +125,7 @@ The three `eval` commands refuse a config whose layer weights are neither a `pre
   - churn (`churn.py`): id-set changes and track lifetimes.
 
 `docs/metrics.md` has three tables:
-- **Tracking:** on gold v0, 24 rows: `baseline@70498c00` on dev and held-out; the 15 team configs `team-plk-r3-poss-seed*`, `-chest-seed*` and `-fit5-seed*` on dev; `team-plk-r3-poss-fit5-seed0` on held-out; and `track-bytetrack`, `track-bytetrack-tuned`, `track-trackers-bytetrack`, `track-trackers-bytetrack-tuned`, `track-trackers-botsort` and `track-trackers-botsort-precmc` on dev.
+- **Tracking:** on gold v0, 25 rows: `baseline@70498c00` on dev and held-out; the 15 team configs `team-plk-r3-poss-seed*`, `-chest-seed*` and `-fit5-seed*` on dev; `team-plk-r3-poss-fit5-seed0` on held-out; and `track-bytetrack`, `track-bytetrack-tuned`, `track-trackers-bytetrack`, `track-trackers-bytetrack-tuned`, `track-trackers-botsort`, `track-trackers-botsort-precmc` and `track-trackers-botsort-tuned` on dev.
 - **Court:** dev rows for `baseline`, `court-plk-v1` and its two smoothing windows, and held-out rows for `baseline` and `court-plk-v1-smooth4`.
 - **Detection:** on gold v1, 14 dev rows (`baseline` at its confidence of 0.4 and at 0.05, Roboflow's NBA detector versions 13 and 16, and the ten `configs/detect-*.yaml`) and 2 held-out rows (`baseline` at 0.05 and `detect-plk-r2`).
 

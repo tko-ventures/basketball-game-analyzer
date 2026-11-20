@@ -39,6 +39,7 @@ How to read a row:
 | 2026-11-20 | fbdd3c9 | `track-trackers-bytetrack-tuned`@f9462daf | v0 | dev (9 shots) | 0.686 | 0.702 | 0.671 | 0.781 | 0.748 | 114 | 0.962 | 1.000 (98) | – (–, –; 0 tracks) | 203, 336, 70, – | tuned on dev (321 settings); against track-bytetrack-tuned |
 | 2026-11-20 | ab21008 | `track-trackers-botsort`@9d9869bd | v0 | dev (9 shots) | 0.650 | 0.722 | 0.587 | 0.717 | 0.779 | 228 | 0.962 | 1.000 (98) | – (–, –; 0 tracks) | 203, 336, 70, – | BoT-SORT at library defaults (camera-motion compensation on, no re-ID); against track-trackers-bytetrack |
 | 2026-11-20 | ab21008 | `track-trackers-botsort-precmc`@c00db509 | v0 | dev (9 shots) | 0.650 | 0.722 | 0.587 | 0.717 | 0.779 | 228 | 0.962 | 1.000 (98) | – (–, –; 0 tracks) | 203, 336, 70, – | camera motion precomputed per shot: tracks identical to track-trackers-botsort in 9 of 9 shots |
+| 2026-11-20 | 71448ff | `track-trackers-botsort-tuned`@20755ecb | v0 | dev (9 shots) | 0.681 | 0.715 | 0.649 | 0.772 | 0.774 | 156 | 0.962 | 1.000 (98) | – (–, –; 0 tracks) | 203, 336, 70, – | BoT-SORT tuned on dev (144 + 55 settings), precomputed camera motion; against track-trackers-botsort and track-trackers-bytetrack-tuned |
 
 ## Court layer
 
