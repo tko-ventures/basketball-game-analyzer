@@ -202,7 +202,8 @@ These are labelling aids, not a layer:
   - `data/labels/sheet_ledger.tsv` logs every contact sheet read;
   - `data/labels/box_gold.json` lists the 100 box-gold frames.
 - **Detection manifest, round 1:** `data/labels/detect/train_manifest_r1.json`, written by `autolabel.py manifest`: the 231 finished frames of the ball queue, each with `clip`, `video`, `frame`, `split` (3 whole clips are `valid`), `size` and `boxes` as `[x1, y1, x2, y2, class]` (Tomasz's ball, if any, plus the draft's other boxes), and the sha256 of the ball queue it was built from.
-- **Possession queue:** `data/labels/box_queue_possession.json` (`autolabel.py possqueue --rounds ...`): every finished frame with a ball from the given rounds' manifests, with its people boxes and its ball; adding rounds leaves earlier decisions untouched. 417 frames from rounds 1 and 2.
+- **Possession queue:** `data/labels/box_queue_possession.json` (`autolabel.py possqueue --rounds ...`): every finished frame with a ball from the given rounds' manifests, with its people boxes and its ball; adding rounds leaves earlier decisions untouched. 643 frames: 199 from round 1, 218 from round 2, 226 from round 3.
+- **Detection manifest, round 3:** `data/labels/detect/train_manifest_r3.json`: 244 finished frames of the round-3 ball queue (32 of them validation frames, from the same clips as round 1's).
 - **Ball queue, round 3:** `data/labels/box_queue_r3balls.json`: 262 frames, prefilled by `plk-r2`, 99 balls accepted without review (threshold 0.85, calibrated for `plk-r2`), 163 frames for review.
 - **Ball queue, round 2:** `data/labels/box_queue_r2balls.json`: 261 frames from 22 clips, 115 balls accepted without review (status `done`, source `auto`), 146 frames for review.
 - **Ball queue, round 1:** `data/labels/box_queue_r1balls.json`, in the box-queue format with `mode: ball`, `title` and `instructions`; each frame holds the draft's ball boxes and its three best weaker ball guesses as candidates.

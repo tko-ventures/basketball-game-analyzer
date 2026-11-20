@@ -31,7 +31,7 @@ Progress is tracked in GitHub issues, one per milestone (`gh issue list --label 
 
 Each rule closes a mistake that happened. Follow them as strictly as the hard rules.
 
-- **Commits go through the git hook.** Run `uv run pre-commit install` once per checkout. Stage files before running the hooks by hand, because `pre-commit run --all-files` skips untracked files. Never chain a commit after the hooks with `;`: use `&&`, or let the hook block it.
+- **Commits go through the git hook.** Run `uv run pre-commit install` once per checkout, and commit with `uv run git commit` so the hook finds `pre-commit`: worktrees share one hook script, which points at the Python of whichever checkout installed it last. Stage files before running the hooks by hand, because `pre-commit run --all-files` skips untracked files. Never chain a commit after the hooks with `;`: use `&&`, or let the hook block it.
 - **Spend comes from Modal, never from estimates.** Use `scripts/modal_spend.py` (Modal's billing) for docs/costs.md and for any figure told to Tomasz. The time a local process waits on a remote call is not the remote run time.
 - **Training progress comes from the run's `metrics.csv` on the volume** (its `epoch` column). Log lines such as "best metric improved" show improvements, not progress.
 - **Waiting on long jobs:**
