@@ -1,0 +1,43 @@
+name: plk-r3
+layer: detect
+backend: rfdetr_torch
+description: >
+  Third PLK detector, control arm of the possession experiment (2026-11-20): plk-r2-fast-es's recipe (RF-DETR
+  Large at 1280 px from COCO weights, NBA set version 18, batch 16, validation every 5 epochs, early stopping
+  after 2) on all three auto-labelling rounds as drafted. People classes are the draft's.
+base_weights:
+  name: rf-detr-large-2026.pth
+  url: https://repo.roboflow.com/rfdetr/rf-detr-large-2026.pth
+  licence: Apache-2.0
+package: rfdetr[train]==1.12.1
+sources:
+  - kind: roboflow
+    ref: roboflow-jvuqo/basketball-player-detection-3-ycjdo/18
+    licence: CC-BY-4.0
+  - kind: manifest
+    path: data/labels/detect/train_manifest_r1.json
+    sha256: e0d576369effbd5b4967995d1639c57fd364999784a0effe4e489a23a22c6c65
+    image_width: 1920
+  - kind: manifest
+    path: data/labels/detect/train_manifest_r2.json
+    sha256: a237c081b901a7e003fb66e54b0aac0be17262d253c0a02da2da8f477e7fb543
+    image_width: 1920
+  - kind: manifest
+    path: data/labels/detect/train_manifest_r3.json
+    sha256: 3136fa0bbd5e92e3d0af6ee9a3bd54b87c238fc89f9644eb123eb32239e2c15f
+    image_width: 1920
+recipe:
+  variant: RFDETRLarge
+  resolution: 1280
+  epochs: 50
+  batch_size: 16
+  grad_accum_steps: 1
+  lr: 0.0001
+  seed: 0
+  select_on: val/mAP_50_95
+  eval_interval: 5
+  early_stopping_patience: 2
+platform:
+  name: modal
+  gpu: H100
+  timeout_h: 4

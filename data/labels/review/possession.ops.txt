@@ -1,0 +1,90 @@
+# Possession queue, implementer's pass after Tomasz's first pass (2026-11-20).
+# Rule (decisions.md, 2026-11-20): the box class is visual, whoever holds or dribbles the ball is
+# player-in-possession, an inbounder too; `dead` marks a ball out of live play for the possession metric.
+# Sheets: /tmp/possqa/p_01..33.jpg (all 218 "nobody" frames and the 7 holders not nearest the ball), ledger row.
+
+# Tomasz's own calls, given in chat
+holder 283 11            # layup, the ball still in his hands
+dead 192                 # throw-in from behind the end line after a score
+holder 192 7
+dead 201                 # same
+holder 201 10
+dead 226                 # leaving the court to throw in
+holder 226 3
+dead 206                 # the referee has the ball, off the court
+
+# Shooters: stored as "nobody" by the page before the holder was explicit; ball in hands on the strips
+holder 144 9
+holder 215 7
+holder 315 12
+holder 328 10
+holder 464 11
+holder 541 10
+# 5, 54, 55, 149, 417, 489 stay nobody: the ball has left the hands
+dead 188                 # a coach on the sideline holds the ball
+
+# Back to Tomasz: a holder or dribbler marked nobody, live play on the strips
+review 22  dribbling: box 1
+holder 22 1
+review 78  holds it at chest height: box 6
+holder 78 6
+review 100  dribbling: box 6
+holder 100 6
+review 108  dribbling (#77): box 6
+holder 108 6
+review 128  dribbling (#0): box 4
+holder 128 4
+review 324  dribbling: box 4
+holder 324 4
+review 327  dribbling (#9): box 1
+holder 327 1
+review 369  dribbling: box 4
+holder 369 4
+review 426  dribbling: box 4
+holder 426 4
+review 440  dribbling between the legs: box 5
+holder 440 5
+review 458  crossover, ball between the legs: box 2
+holder 458 2
+review 522  dribbling: box 4
+holder 522 4
+review 524  dribbling: box 4
+holder 524 4
+review 525  dribbling (#12): box 2
+holder 525 2
+review 529  dribbling (#45): box 8
+holder 529 8
+review 538  driving with the ball: box 6
+holder 538 6
+review 545  dribbling: box 6
+holder 545 6
+review 573  dribbling: box 0
+holder 573 0
+review 598  dribbling: box 8
+holder 598 8
+review 617  holds it: box 7
+holder 617 7
+# a holder wrong
+review 245  the dribbler is box 11 (white), not box 5
+holder 245 11
+review 220  the ball is in flight near the rim: nobody
+nobody 220
+
+# Back to Tomasz: someone holds it, but live play or a throw-in? (press D if a throw-in)
+review 34  holds it (#25): box 7; throw-in?
+holder 34 7
+review 157  holds it: box 6; throw-in from the sideline?
+holder 157 6
+review 302  holds it: box 8; throw-in from the sideline?
+holder 302 8
+review 380  holds it: box 6; throw-in from the baseline?
+holder 380 6
+review 559  holds it: box 10; throw-in from the sideline?
+holder 559 10
+review 596  holds it: box 7; throw-in from the baseline?
+holder 596 7
+review 113  player 1 (dark kit) holds it but has no box: Shift-drag a box around him, Enter; throw-in?
+review 248  your call: inbound; who holds the ball, if anyone?
+dead 248
+review 306  dribbling? box 2 (#4), unsure
+holder 306 2

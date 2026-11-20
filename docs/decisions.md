@@ -411,3 +411,40 @@ A two-axis review of PR #22 (coding standards, and spec against issue #5 and the
 - **ms per frame for M4 is the metrics row: 351 ms for `detect-plk-r2` on gold v1 dev, 331 ms on the held-out game.** That is the mean of the timed predict calls over every frame of the shots, including the first, cold calls after loading. The 192 ms of 2026-11-19 is a one-frame probe after warm-up, used only to compare runtimes. The two numbers measure different things and the row is the one the done-when cites.
 - **Training-speed options are in M4 but the shipped weights predate them.** `recipe.devices`, `eval_interval`, `early_stopping_patience` and `init_weights`, `plk-r2-fast`, `plk-r2-fast-es` and `scripts/probe_train_speed.py` came from Tomasz's request of 2026-11-19 to shorten training. They are adopted for every later fine-tune (decision of 2026-11-19), while the weights M4 ships, `plk-r2@b13bfb19`, were trained before them with batch 2 and 8 accumulation steps.
 - **`bga eval`, `eval-court` and `eval-detect` now refuse unproven weights**, as section 5 requires: a layer whose weights are neither a `pretrained:` id nor a weight id with `weights/<id>/train.json` stops the command. Before, such weights were written to the metrics table as pretrained. Every committed config passes.
+
+## 2026-11-20: possession labels split into the holder box and a dead-ball flag
+
+Tomasz labelled the 643-frame possession queue (50.5 min, 626 done, 17 skipped) with the rule "who has possession in live play": an inbounder behind the end line and a ball with the referee are nobody. The detector's `player-in-possession` class sees one frame and cannot tell a throw-in from live play, so one label cannot serve both. Tomasz chose to split them:
+
+- **Box class, visual:** whoever holds or dribbles the ball is `player-in-possession`, an inbounder too. A shooter with the ball still in his hands keeps the shot class and is the holder.
+- **`dead_ball` per frame:** the ball is out of live play (a throw-in from behind a line, the referee or a coach has it, after a score until the throw-in). The M9 possession metric reads it; the detector's training set does not.
+- **`holder` per frame is explicit.** The page had stored "nobody" and "the shooter holds it" the same way (no `player-in-possession` box); 12 frames were ambiguous.
+
+The implementer's pass read the 5-frame strips of all 218 "nobody" frames and the 7 holders not nearest the ball (ledger row of 2026-11-20). Tomasz's own calls (#192, #201, #206, #226, #248, #283) and 6 shooters holding the ball were applied directly; 31 frames go back to him with the proposed answer prefilled: 22 live dribbles or holds, 2 wrong holders, 6 holders that may be throw-ins, and #306. The ops are in `data/labels/review/possession.ops.txt`.
+
+## 2026-11-20: detector classes: six to label, four kept for the M9 comparison only
+
+Tomasz approved the class review of 2026-11-20. Three levels, each decided when it is needed:
+
+- **Boxes (detector, one frame), decided now:** `player`, `referee`, `ball`, `rim`, `number` and `player-in-possession` are labelled in every round. Each is visible in a single frame; the first five score AP50 0.80 to 0.94 on gold v1 dev with `plk-r2`.
+- **Kept in the schema, no longer labelled:** `player-jump-shot`, `player-layup-dunk`, `player-shot-block` and `ball-in-basket`. They are moments, not objects: rounds 1 and 3 hold 1 to 3 boxes of each, and `plk-r2` scores AP50 0 to 0.25 on them. Skalski's `ShotEventTracker` reads them, so they stay in the schema (no relabelling, and earlier weights stay comparable). M9 builds shot detection as two backends, his class-based one and one from the ball's path to the rim with the release point on the court (FIBA three-point line 6.75 m), and keeps whichever scores better on gold.
+- **Game state and events, at the start of M9:** live or dead ball (the `dead_ball` flag exists), team in possession, stoppage type (free throw, throw-in, jump ball); shots made or missed and 2 or 3 points, offensive and defensive rebounds (in FIBA an offensive rebound resets the shot clock to 14), passes, turnovers. Fouls are not read from video.
+- **Plays, at the start of the play-extraction milestone:** pick and roll and its coverages (drop, hedge, switch, ice, blitz), hand-off, off-ball screen, isolation, post-up, man against zone. Marco picks the 5 to 8 that matter to him.
+
+## 2026-11-20: possession rule clarified by Tomasz
+
+- **A dribbler is the holder**, mid-bounce included: "he only drops the ball to move around the court while controlling the ball". Holding also covers a shooter with the ball still in his hands.
+- **A ball in flight is nobody's**, a pass to a player behind the end line included (#248: nobody, dead ball).
+- **Dead ball is independent of the holder.** A player can hold or dribble a dead ball (#22, #100, #108: the shot clock stopped at 0.0 or a static 24).
+
+His review of the 31 frames had answered nobody on 11 dribbles; `possession.r3.ops.txt` applies the rule to them and shows each on a 5-frame strip for him to veto.
+
+## 2026-11-20: plk-r3-poss is the detector for the work that follows
+
+Tomasz approved the recommendation. Later layers (M5 team, M6 tracking, M9 ball and possession) build on `configs/detect-plk-r3-poss.yaml`, weights `detect/rfdetr_torch/plk-r3-poss@c62744fe`, in place of `detect-plk-r2`.
+
+- **Gold v1 dev, AP50, against `plk-r2`:** in possession 0.256 to 0.559, people 0.942 to 0.966, number 0.822 to 0.848, referee 0.859 to 0.866, rim 0.926 to 0.915, ball 0.798 to 0.766.
+- **The ball is not worse in substance.** AP50:95 is 0.487 against 0.478, and the AP50 gap is about 2 of 58 balls. It comes with the training settings adopted on 2026-11-19: `plk-r2-fast-es`, `plk-r2`'s data with those settings, scored 0.768.
+- **The held-out game stays unscored** until M9, whose done-when is possession accuracy on gold; this detector is one input to it.
+- **A round 4 of auto-labelling** would prefill with `plk-r3-poss`, after its ball auto-accept threshold is calibrated on gold v1 dev, as for rounds 2 and 3.
+- **More possession labels wait for M9's possession score.** If it falls short, another queue prefilled by this detector is the cheapest next step.

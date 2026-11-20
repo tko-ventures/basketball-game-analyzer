@@ -143,7 +143,12 @@ def test_season_for(date, season):
 
 @pytest.fixture
 def box_queue(tmp_path):
-    rec = {"youtube_id": "y", "frame": 5, "status": "todo", "boxes": [{"xyxy": [1, 2, 30, 40], "cls": "player"}]}
+    rec = {
+        "youtube_id": "y",
+        "frame": 5,
+        "status": "todo",
+        "boxes": [{"id": 3, "xyxy": [1, 2, 30, 40], "cls": "player"}],
+    }
     (tmp_path / server.BOX_QUEUE).write_text(json.dumps({"frames": [rec], "meta": {}}))
     return tmp_path, rec
 
@@ -162,12 +167,38 @@ class TestSaveBoxFrame:
             pytest.param({"boxes": [{"xyxy": [1, 2, 30, 40], "cls": "coach"}]}, "unknown class", id="unknown-class"),
             pytest.param({"boxes": [{"xyxy": [30, 2, 1, 40], "cls": "ball"}]}, "empty box", id="empty-box"),
             pytest.param({"frame": 6}, "does not match", id="other-frame"),
+            pytest.param({"holder": 9}, "not a box of this frame", id="holder-not-a-box"),
+            pytest.param({"dead_ball": "yes"}, "dead_ball must be", id="dead-ball-not-bool"),
         ],
     )
     def test_rejects_bad_records(self, box_queue, change, message):
         root, rec = box_queue
         with pytest.raises(ValueError, match=message):
             server.save_box_frame(root, {"index": 0, "frame": {**rec, **change}})
+
+    def test_keeps_the_possession_answer(self, box_queue):
+        root, rec = box_queue
+        server.save_box_frame(root, {"index": 0, "frame": {**rec, "status": "done", "holder": 3, "dead_ball": True}})
+        f = server.load_box_queue(root)["frames"][0]
+        assert (f["holder"], f["dead_ball"]) == (3, True)
+
+    def test_rejects_a_record_from_a_stale_page(self, box_queue):
+        root, rec = box_queue
+        server.save_box_frame(root, {"index": 0, "frame": {**rec, "holder": None, "dead_ball": False}})
+        with pytest.raises(ValueError, match="lacks dead_ball, holder"):
+            server.save_box_frame(root, {"index": 0, "frame": {**rec, "status": "done"}})
+
+    def test_rejects_a_frame_changed_after_the_page_loaded_it(self, box_queue):
+        root, rec = box_queue
+        server.save_box_frame(root, {"index": 0, "frame": {**rec, "status": "done"}})
+        with pytest.raises(ValueError, match="changed after this page loaded it"):
+            server.save_box_frame(root, {"index": 0, "frame": {**rec, "status": "skip"}})
+
+    def test_accepts_a_save_carrying_the_stored_stamp(self, box_queue):
+        root, rec = box_queue
+        first = server.save_box_frame(root, {"index": 0, "frame": {**rec, "status": "done"}})
+        server.save_box_frame(root, {"index": 0, "frame": {**rec, "status": "skip", "saved_at": first["saved_at"]}})
+        assert server.load_box_queue(root)["frames"][0]["status"] == "skip"
 
     def test_rejected_record_leaves_queue_unchanged(self, box_queue):
         root, rec = box_queue

@@ -1,0 +1,44 @@
+name: plk-r3-poss
+layer: detect
+backend: rfdetr_torch
+description: >
+  Third PLK detector with Tomasz's possession labels (2026-11-20): plk-r3's data and recipe, with each round's
+  manifest replaced by its possession version (autolabel.py possmanifest): on the 624 frames done in the
+  possession queue the holder is player-in-possession (or keeps a shot class) and every other player is player.
+  Scored against plk-r3, which differs only by these labels.
+base_weights:
+  name: rf-detr-large-2026.pth
+  url: https://repo.roboflow.com/rfdetr/rf-detr-large-2026.pth
+  licence: Apache-2.0
+package: rfdetr[train]==1.12.1
+sources:
+  - kind: roboflow
+    ref: roboflow-jvuqo/basketball-player-detection-3-ycjdo/18
+    licence: CC-BY-4.0
+  - kind: manifest
+    path: data/labels/detect/train_manifest_r1_poss.json
+    sha256: 42cfae200b1dbc8a86426d311917ba552023e7c10fcf1358e51f102ca71a1e9b
+    image_width: 1920
+  - kind: manifest
+    path: data/labels/detect/train_manifest_r2_poss.json
+    sha256: 3fa86b6e2b1c7775ce77110beb85ca08d88d45f1ebb7dcc4b1bfcdae13ebe4f1
+    image_width: 1920
+  - kind: manifest
+    path: data/labels/detect/train_manifest_r3_poss.json
+    sha256: fbade80ccc91e0b7f94d2f2e9a17bb42bd0d4ce82da7eaad1ff84d810249f92b
+    image_width: 1920
+recipe:
+  variant: RFDETRLarge
+  resolution: 1280
+  epochs: 50
+  batch_size: 16
+  grad_accum_steps: 1
+  lr: 0.0001
+  seed: 0
+  select_on: val/mAP_50_95
+  eval_interval: 5
+  early_stopping_patience: 2
+platform:
+  name: modal
+  gpu: H100
+  timeout_h: 4

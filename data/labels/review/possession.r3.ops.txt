@@ -1,0 +1,17 @@
+# Possession queue, after Tomasz's rule of 2026-11-20: "the dribbler is also a holder, as he only drops the
+# ball to move around the court while controlling the ball". His review had answered nobody on these dribbles
+# (the 5-frame strips show the dribble; sheet /tmp/possqa/r3.jpg, ledger row).
+holder 128 4             # #0 dribbling
+holder 324 4
+holder 327 1             # #9 dribbling
+holder 426 4
+holder 440 5             # between the legs
+holder 458 2             # crossover
+holder 522 4
+holder 524 4
+holder 525 2             # #12 dribbling
+holder 545 6
+holder 598 8             # dribbling with the ball dead (shot clock 0.0): holder and dead, as #22, #100, #108
+# Tomasz: nobody holds the ball; it is dead and moving toward the player behind the end line
+nobody 248
+dead 248

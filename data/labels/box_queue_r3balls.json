@@ -1,0 +1,8674 @@
+{
+ "version": "r3balls",
+ "mode": "ball",
+ "title": "Ball queue, round 3",
+ "instructions": "<b>One question per frame: where is the game ball?</b><br>The loupe above shows the detector's best guess. <kbd>Space</kbd>: yes, that is the ball (frame done, next). <kbd>Tab</kbd>: show the next guess. Or <b>click</b> any guess on the frame (orange, or dashed: weaker).<br>No guess on the ball: <kbd>⇧</kbd>-drag a tight box around it, then <kbd>Enter</kbd>. A guess on the ball but loose: drag its edges in the loupe, then <kbd>Enter</kbd>.<br><kbd>N</kbd> no ball visible · <kbd>S</kbd> can't tell, skip · <kbd>[</kbd> <kbd>]</kbd> previous / next frame · scroll to zoom, <kbd>F</kbd> fit · <kbd>U</kbd> undo.<br>Game ball only: in hands, in the air, on the floor. Nothing in the crowd, on boards or on shorts.",
+ "classes": [
+  "ball"
+ ],
+ "frames": [
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 1,
+   "frame": 613,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1381.8,
+      295.5,
+      1417.5,
+      333
+     ],
+     "cls": "ball",
+     "score": 0.8267,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T07:55:06"
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 6,
+   "frame": 2115,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1371.9,
+      206.2,
+      1403.7,
+      238.2
+     ],
+     "cls": "ball",
+     "score": 0.2211,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      367.3,
+      397.2,
+      392.7,
+      419.9
+     ],
+     "cls": "ball",
+     "score": 0.21
+    }
+   ],
+   "saved_at": "2026-11-20T07:55:55"
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 6,
+   "frame": 2215,
+   "status": "done",
+   "note": "",
+   "boxes": [],
+   "candidates": [],
+   "saved_at": "2026-11-20T07:56:01"
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 8,
+   "frame": 2644,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.87",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      889.1,
+      480.4,
+      918.3,
+      507.4
+     ],
+     "cls": "ball",
+     "score": 0.8682,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 8,
+   "frame": 2744,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1111.2,
+      516.4,
+      1138.7,
+      549.5
+     ],
+     "cls": "ball",
+     "score": 0.2811,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1119.9,
+      833.5,
+      1159.1,
+      898.7
+     ],
+     "cls": "ball",
+     "score": 0.2114
+    },
+    {
+     "xyxy": [
+      985.6,
+      461.8,
+      1009.5,
+      490
+     ],
+     "cls": "ball",
+     "score": 0.145
+    }
+   ],
+   "saved_at": "2026-11-20T07:56:17"
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 14,
+   "frame": 4053,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1490.9,
+      637.8,
+      1522.6,
+      670.1
+     ],
+     "cls": "ball",
+     "score": 0.8198,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T07:56:22"
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 16,
+   "frame": 5267,
+   "status": "done",
+   "note": "",
+   "boxes": [],
+   "candidates": [],
+   "saved_at": "2026-11-20T07:56:32"
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 18,
+   "frame": 5397,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1156.1,
+      379.4,
+      1184.5,
+      409.2
+     ],
+     "cls": "ball",
+     "score": 0.8048,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "edited": true,
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T07:56:38"
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 20,
+   "frame": 6310,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.88",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      496.4,
+      680.9,
+      530.9,
+      716.6
+     ],
+     "cls": "ball",
+     "score": 0.8839,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 22,
+   "frame": 7187,
+   "status": "done",
+   "note": "implementer: model's ball doubtful on the contact sheet (accepted without review: one ball at 0.90)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1335.5,
+      459.2,
+      1364,
+      488.1
+     ],
+     "cls": "ball",
+     "score": 0.8955,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T07:56:41"
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 23,
+   "frame": 7529,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      953.9,
+      419.6,
+      980.3,
+      445.4
+     ],
+     "cls": "ball",
+     "score": 0.7875,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "edited": true,
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T07:56:48"
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 26,
+   "frame": 8442,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.89",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1058.6,
+      534.9,
+      1088.0,
+      564.5
+     ],
+     "cls": "ball",
+     "score": 0.889,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "clip": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "video": "data/raw/20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka.mp4",
+   "shot": 1,
+   "frame": 346,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.86",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1632.9,
+      430.4,
+      1673.0,
+      463.7
+     ],
+     "cls": "ball",
+     "score": 0.8605,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "clip": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "video": "data/raw/20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka.mp4",
+   "shot": 1,
+   "frame": 446,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1120.2,
+      333.9,
+      1148.9,
+      366.1
+     ],
+     "cls": "ball",
+     "score": 0.1211,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1057,
+      360.7,
+      1075.7,
+      386.7
+     ],
+     "cls": "ball",
+     "score": 0.1018
+    }
+   ],
+   "saved_at": "2026-11-20T07:57:03"
+  },
+  {
+   "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "clip": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "video": "data/raw/20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka.mp4",
+   "shot": 1,
+   "frame": 496,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.88",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      652.1,
+      259.1,
+      688.6,
+      293.4
+     ],
+     "cls": "ball",
+     "score": 0.8766,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T07:56:56"
+  },
+  {
+   "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "clip": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "video": "data/raw/20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka.mp4",
+   "shot": 3,
+   "frame": 890,
+   "status": "done",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      754.1,
+      525.7,
+      792.7,
+      560.3
+     ],
+     "cls": "ball",
+     "score": 0.1057
+    }
+   ],
+   "saved_at": "2026-11-20T07:57:16"
+  },
+  {
+   "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "clip": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "video": "data/raw/20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka.mp4",
+   "shot": 4,
+   "frame": 1385,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.89",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      593.7,
+      637.8,
+      626.0,
+      673.2
+     ],
+     "cls": "ball",
+     "score": 0.8892,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "clip": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "video": "data/raw/20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka.mp4",
+   "shot": 12,
+   "frame": 2855,
+   "status": "done",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1354.4,
+      589.2,
+      1384.2,
+      619.2
+     ],
+     "cls": "ball",
+     "score": 0.4829
+    },
+    {
+     "xyxy": [
+      1263.3,
+      552,
+      1290.2,
+      580.7
+     ],
+     "cls": "ball",
+     "score": 0.1079
+    }
+   ],
+   "saved_at": "2026-11-20T07:57:28"
+  },
+  {
+   "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "clip": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "video": "data/raw/20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka.mp4",
+   "shot": 12,
+   "frame": 3005,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      579.3,
+      285.5,
+      609.8,
+      318.7
+     ],
+     "cls": "ball",
+     "score": 0.7814,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "edited": true,
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T07:57:36"
+  },
+  {
+   "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "clip": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "video": "data/raw/20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka.mp4",
+   "shot": 16,
+   "frame": 3985,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1607,
+      502.4,
+      1639.3,
+      530.8
+     ],
+     "cls": "ball",
+     "score": 0.8248,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T07:57:38"
+  },
+  {
+   "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "clip": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "video": "data/raw/20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka.mp4",
+   "shot": 26,
+   "frame": 6500,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.86",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1037.7,
+      361.3,
+      1078.7,
+      396.3
+     ],
+     "cls": "ball",
+     "score": 0.8622,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "clip": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "video": "data/raw/20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka.mp4",
+   "shot": 27,
+   "frame": 6563,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1035,
+      891,
+      1084.5,
+      922.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1512.3,
+      518.7,
+      1551.4,
+      561.5
+     ],
+     "cls": "ball",
+     "score": 0.3191
+    }
+   ],
+   "saved_at": "2026-11-20T07:57:49"
+  },
+  {
+   "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "clip": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "video": "data/raw/20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka.mp4",
+   "shot": 27,
+   "frame": 6863,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      868.5,
+      511,
+      896.5,
+      547.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T07:58:01"
+  },
+  {
+   "youtube_id": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "clip": "20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka",
+   "video": "data/raw/20251123_jXhvXy9iQeQ_SKROT_Legia_-_Dziki_9._kolejka.mp4",
+   "shot": 28,
+   "frame": 7142,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      737.8,
+      660.4,
+      761.5,
+      695.1
+     ],
+     "cls": "ball",
+     "score": 0.4175,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T07:58:04"
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 2,
+   "frame": 697,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.88",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1404.6,
+      806.2,
+      1444.2,
+      851.7
+     ],
+     "cls": "ball",
+     "score": 0.8766,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 4,
+   "frame": 1749,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.86",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      960.5,
+      549.5,
+      985.9,
+      581.9
+     ],
+     "cls": "ball",
+     "score": 0.8582,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 8,
+   "frame": 3102,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1352.3,
+      717.9,
+      1382,
+      756.8
+     ],
+     "cls": "ball",
+     "score": 0.2557,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1200.9,
+      544.3,
+      1222.2,
+      571.3
+     ],
+     "cls": "ball",
+     "score": 0.1106
+    }
+   ],
+   "saved_at": "2026-11-20T07:58:06"
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 10,
+   "frame": 3602,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.91",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      665.6,
+      616.8,
+      702.7,
+      654.4
+     ],
+     "cls": "ball",
+     "score": 0.9088,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 11,
+   "frame": 3890,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1460.1,
+      426.2,
+      1487,
+      455
+     ],
+     "cls": "ball",
+     "score": 0.8937,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1210.5,
+      841.3,
+      1258.7,
+      880.3
+     ],
+     "cls": "ball",
+     "score": 0.2185
+    }
+   ],
+   "saved_at": "2026-11-20T07:58:08"
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 14,
+   "frame": 4877,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.86",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1036.7,
+      520.7,
+      1068.7,
+      549.2
+     ],
+     "cls": "ball",
+     "score": 0.8621,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 18,
+   "frame": 5893,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.89",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      575.0,
+      637.2,
+      613.0,
+      677.7
+     ],
+     "cls": "ball",
+     "score": 0.8893,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 20,
+   "frame": 6676,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.88",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1247.2,
+      228.6,
+      1283.0,
+      265.9
+     ],
+     "cls": "ball",
+     "score": 0.8841,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 21,
+   "frame": 7087,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      726.6,
+      371,
+      758.8,
+      405.9
+     ],
+     "cls": "ball",
+     "score": 0.6766,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1037.4,
+      464.4,
+      1056.1,
+      490.6
+     ],
+     "cls": "ball",
+     "score": 0.143
+    },
+    {
+     "xyxy": [
+      919.3,
+      532.1,
+      941.1,
+      563.4
+     ],
+     "cls": "ball",
+     "score": 0.1015
+    }
+   ],
+   "saved_at": "2026-11-20T07:58:11"
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 23,
+   "frame": 7589,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1611.2,
+      564.9,
+      1640.5,
+      591.9
+     ],
+     "cls": "ball",
+     "score": 0.8237,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "edited": true,
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T07:58:16"
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 27,
+   "frame": 8733,
+   "status": "done",
+   "note": "",
+   "boxes": [],
+   "candidates": [],
+   "saved_at": "2026-11-20T07:58:24"
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 27,
+   "frame": 8933,
+   "status": "done",
+   "note": "implementer: model's ball doubtful on the contact sheet (accepted without review: one ball at 0.90)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1167,
+      192,
+      1206,
+      227.2
+     ],
+     "cls": "ball",
+     "score": 0.9016,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T07:58:26"
+  },
+  {
+   "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "clip": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "video": "data/raw/20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka.mp4",
+   "shot": 0,
+   "frame": 55,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      464.9,
+      521.6,
+      495.8,
+      551.4
+     ],
+     "cls": "ball",
+     "score": 0.5812,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1223.8,
+      312.4,
+      1262.8,
+      355
+     ],
+     "cls": "ball",
+     "score": 0.1233
+    }
+   ],
+   "saved_at": "2026-11-20T07:58:31"
+  },
+  {
+   "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "clip": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "video": "data/raw/20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka.mp4",
+   "shot": 2,
+   "frame": 927,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      653,
+      208.5,
+      677,
+      232
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T07:58:49"
+  },
+  {
+   "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "clip": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "video": "data/raw/20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka.mp4",
+   "shot": 3,
+   "frame": 1043,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1384.7,
+      581.2,
+      1418,
+      614.4
+     ],
+     "cls": "ball",
+     "score": 0.7626,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      313.7,
+      333.9,
+      349.5,
+      376.8
+     ],
+     "cls": "ball",
+     "score": 0.1013
+    }
+   ],
+   "saved_at": "2026-11-20T07:58:52"
+  },
+  {
+   "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "clip": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "video": "data/raw/20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka.mp4",
+   "shot": 3,
+   "frame": 1193,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      680.5,
+      272.1,
+      709.6,
+      306
+     ],
+     "cls": "ball",
+     "score": 0.8493,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T07:58:54"
+  },
+  {
+   "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "clip": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "video": "data/raw/20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka.mp4",
+   "shot": 7,
+   "frame": 2090,
+   "status": "skip",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      268.7,
+      348.6,
+      294.5,
+      373.6
+     ],
+     "cls": "ball",
+     "score": 0.3763
+    },
+    {
+     "xyxy": [
+      515.5,
+      331.5,
+      545.8,
+      363.7
+     ],
+     "cls": "ball",
+     "score": 0.1804
+    }
+   ],
+   "saved_at": "2026-11-20T07:59:15"
+  },
+  {
+   "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "clip": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "video": "data/raw/20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka.mp4",
+   "shot": 7,
+   "frame": 2190,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      673.5,
+      612.2,
+      707.6,
+      644.4
+     ],
+     "cls": "ball",
+     "score": 0.7088,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      779.3,
+      452.2,
+      811.6,
+      490.7
+     ],
+     "cls": "ball",
+     "score": 0.3277
+    },
+    {
+     "xyxy": [
+      778,
+      382.4,
+      808.1,
+      412.7
+     ],
+     "cls": "ball",
+     "score": 0.2681
+    }
+   ],
+   "saved_at": "2026-11-20T07:59:21"
+  },
+  {
+   "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "clip": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "video": "data/raw/20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka.mp4",
+   "shot": 15,
+   "frame": 4505,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      603,
+      354,
+      637.5,
+      389.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      959.8,
+      103,
+      990.6,
+      131.6
+     ],
+     "cls": "ball",
+     "score": 0.2114
+    }
+   ],
+   "saved_at": "2026-11-20T08:00:03"
+  },
+  {
+   "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "clip": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "video": "data/raw/20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka.mp4",
+   "shot": 16,
+   "frame": 4675,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1042,
+      519.5,
+      1073,
+      549.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1077.9,
+      613.3,
+      1106.6,
+      645.7
+     ],
+     "cls": "ball",
+     "score": 0.3329
+    },
+    {
+     "xyxy": [
+      1025.8,
+      616.6,
+      1061,
+      650.9
+     ],
+     "cls": "ball",
+     "score": 0.1683
+    },
+    {
+     "xyxy": [
+      280.6,
+      408.1,
+      304.8,
+      437.5
+     ],
+     "cls": "ball",
+     "score": 0.1615
+    }
+   ],
+   "saved_at": "2026-11-20T08:00:21"
+  },
+  {
+   "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "clip": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "video": "data/raw/20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka.mp4",
+   "shot": 23,
+   "frame": 7128,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1022,
+      296,
+      1050.8,
+      323.1
+     ],
+     "cls": "ball",
+     "score": 0.6462,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      724,
+      553.2,
+      757.7,
+      584.7
+     ],
+     "cls": "ball",
+     "score": 0.3858
+    }
+   ],
+   "saved_at": "2026-11-20T08:00:24"
+  },
+  {
+   "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "clip": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "video": "data/raw/20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka.mp4",
+   "shot": 28,
+   "frame": 8577,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      292.4,
+      602.4,
+      321.6,
+      633.2
+     ],
+     "cls": "ball",
+     "score": 0.5302,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1315.2,
+      518.4,
+      1342.4,
+      547.5
+     ],
+     "cls": "ball",
+     "score": 0.1673
+    },
+    {
+     "xyxy": [
+      1081,
+      775.5,
+      1101.4,
+      806
+     ],
+     "cls": "ball",
+     "score": 0.1038
+    },
+    {
+     "xyxy": [
+      1621.5,
+      576.8,
+      1643.4,
+      603.9
+     ],
+     "cls": "ball",
+     "score": 0.1
+    }
+   ],
+   "saved_at": "2026-11-20T08:00:26"
+  },
+  {
+   "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "clip": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "video": "data/raw/20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka.mp4",
+   "shot": 29,
+   "frame": 9083,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1245.5,
+      376,
+      1278.5,
+      410
+     ],
+     "cls": "ball",
+     "team": "ref",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1225.7,
+      378.5,
+      1275,
+      411.3
+     ],
+     "cls": "ball",
+     "score": 0.1771
+    }
+   ],
+   "saved_at": "2026-11-20T08:00:37"
+  },
+  {
+   "youtube_id": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "clip": "20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka",
+   "video": "data/raw/20251223_Y4TmeMchTh0_SKROT_WKS_l_sk_-_Dziki_1._kolejka.mp4",
+   "shot": 31,
+   "frame": 9370,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1042,
+      737.5,
+      1074.5,
+      767.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1034.7,
+      737.8,
+      1074.5,
+      768.1
+     ],
+     "cls": "ball",
+     "score": 0.1046
+    }
+   ],
+   "saved_at": "2026-11-20T08:00:48"
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 0,
+   "frame": 205,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.88",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      966.4,
+      451.1,
+      998.4,
+      485.0
+     ],
+     "cls": "ball",
+     "score": 0.88,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 1,
+   "frame": 414,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.91",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1568.0,
+      824.6,
+      1616.1,
+      872.0
+     ],
+     "cls": "ball",
+     "score": 0.9092,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 4,
+   "frame": 1452,
+   "status": "skip",
+   "note": "",
+   "boxes": [],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:01:01"
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 4,
+   "frame": 1702,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.86",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1324.8,
+      250.6,
+      1350.7,
+      278.9
+     ],
+     "cls": "ball",
+     "score": 0.8644,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 5,
+   "frame": 1841,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.87",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      626.2,
+      782.3,
+      673.0,
+      828.2
+     ],
+     "cls": "ball",
+     "score": 0.8722,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 5,
+   "frame": 1991,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.87",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      578.7,
+      463.0,
+      607.4,
+      497.7
+     ],
+     "cls": "ball",
+     "score": 0.8733,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 8,
+   "frame": 2827,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.87",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1351.0,
+      383.8,
+      1385.8,
+      421.3
+     ],
+     "cls": "ball",
+     "score": 0.8683,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 9,
+   "frame": 3015,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.88",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      637.9,
+      681.4,
+      680.2,
+      721.9
+     ],
+     "cls": "ball",
+     "score": 0.8831,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 9,
+   "frame": 3215,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.88",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1148.5,
+      614.1,
+      1176.2,
+      642.8
+     ],
+     "cls": "ball",
+     "score": 0.8839,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 17,
+   "frame": 6181,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1273.6,
+      258.6,
+      1313.2,
+      297.4
+     ],
+     "cls": "ball",
+     "score": 0.6832,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "edited": true,
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:01:10"
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 23,
+   "frame": 7815,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      439.7,
+      503,
+      461.9,
+      529.7
+     ],
+     "cls": "ball",
+     "score": 0.3005,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      462.7,
+      307.4,
+      493.6,
+      337.1
+     ],
+     "cls": "ball",
+     "score": 0.1599
+    }
+   ],
+   "saved_at": "2026-11-20T08:01:16"
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 24,
+   "frame": 8254,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      405.5,
+      775.5,
+      425.5,
+      812.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:01:32"
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 0,
+   "frame": 65,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1159.9,
+      520.2,
+      1185.5,
+      546.9
+     ],
+     "cls": "ball",
+     "score": 0.8314,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:01:34"
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 4,
+   "frame": 1704,
+   "status": "done",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      929.6,
+      508.7,
+      952.2,
+      537.3
+     ],
+     "cls": "ball",
+     "score": 0.1012
+    }
+   ],
+   "saved_at": "2026-11-20T08:01:38"
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 6,
+   "frame": 2483,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.88",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      779.7,
+      487.9,
+      809.9,
+      520.7
+     ],
+     "cls": "ball",
+     "score": 0.8775,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 9,
+   "frame": 3941,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.86",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1089.0,
+      887.2,
+      1127.3,
+      917.1
+     ],
+     "cls": "ball",
+     "score": 0.8632,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 10,
+   "frame": 4274,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.87",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      779.9,
+      637.3,
+      813.6,
+      674.3
+     ],
+     "cls": "ball",
+     "score": 0.8723,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 13,
+   "frame": 5533,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.88",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      479.6,
+      684.1,
+      515.5,
+      715.8
+     ],
+     "cls": "ball",
+     "score": 0.8806,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 18,
+   "frame": 7891,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      314.9,
+      362.1,
+      339.6,
+      388.7
+     ],
+     "cls": "ball",
+     "score": 0.5536,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      311.6,
+      286.3,
+      330.7,
+      307.9
+     ],
+     "cls": "ball",
+     "score": 0.1113
+    }
+   ],
+   "saved_at": "2026-11-20T08:01:39"
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 21,
+   "frame": 9096,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.89",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1174.8,
+      285.9,
+      1201.1,
+      315.4
+     ],
+     "cls": "ball",
+     "score": 0.8947,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 23,
+   "frame": 9608,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.86",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      498.8,
+      464.8,
+      529.6,
+      494.7
+     ],
+     "cls": "ball",
+     "score": 0.8641,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 23,
+   "frame": 9668,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.85",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      638.9,
+      637.5,
+      674.4,
+      667.7
+     ],
+     "cls": "ball",
+     "score": 0.8539,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 23,
+   "frame": 9908,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1233.6,
+      278.2,
+      1261.3,
+      306.1
+     ],
+     "cls": "ball",
+     "score": 0.2745,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1230.7,
+      321.6,
+      1254.5,
+      348.5
+     ],
+     "cls": "ball",
+     "score": 0.4443
+    },
+    {
+     "xyxy": [
+      1086.9,
+      399.4,
+      1112.6,
+      430.8
+     ],
+     "cls": "ball",
+     "score": 0.1522
+    }
+   ],
+   "saved_at": "2026-11-20T08:01:51"
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 25,
+   "frame": 10504,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.90",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      786.6,
+      624.1,
+      819.8,
+      658.8
+     ],
+     "cls": "ball",
+     "score": 0.8976,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 0,
+   "frame": 205,
+   "status": "done",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      656.8,
+      310.4,
+      681.8,
+      331.5
+     ],
+     "cls": "ball",
+     "score": 0.1002
+    }
+   ],
+   "saved_at": "2026-11-20T08:01:56"
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 1,
+   "frame": 654,
+   "status": "done",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      958.6,
+      397.6,
+      983.2,
+      421.9
+     ],
+     "cls": "ball",
+     "score": 0.1713
+    },
+    {
+     "xyxy": [
+      1681.8,
+      579.5,
+      1704.5,
+      603.4
+     ],
+     "cls": "ball",
+     "score": 0.1586
+    }
+   ],
+   "saved_at": "2026-11-20T08:02:13"
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 5,
+   "frame": 2052,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      912,
+      661,
+      941,
+      696.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      960.1,
+      418.2,
+      978.3,
+      435.6
+     ],
+     "cls": "ball",
+     "score": 0.1023
+    }
+   ],
+   "saved_at": "2026-11-20T08:02:24"
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 5,
+   "frame": 2152,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      265.8,
+      303,
+      302.2,
+      336
+     ],
+     "cls": "ball",
+     "score": 0.8481,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:02:28"
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 12,
+   "frame": 4833,
+   "status": "done",
+   "note": "",
+   "boxes": [],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:02:33"
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 13,
+   "frame": 5408,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      631.5,
+      499.5,
+      654.5,
+      523
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:02:47"
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 14,
+   "frame": 5584,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1016.3,
+      380.6,
+      1041.7,
+      404.8
+     ],
+     "cls": "ball",
+     "score": 0.1994,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:02:53"
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 17,
+   "frame": 6414,
+   "status": "done",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      536.4,
+      327.3,
+      560.8,
+      351.8
+     ],
+     "cls": "ball",
+     "score": 0.141
+    },
+    {
+     "xyxy": [
+      824.2,
+      320.3,
+      841.1,
+      342.1
+     ],
+     "cls": "ball",
+     "score": 0.1021
+    }
+   ],
+   "saved_at": "2026-11-20T08:02:57"
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 17,
+   "frame": 6564,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1236.9,
+      285.7,
+      1262.3,
+      309.1
+     ],
+     "cls": "ball",
+     "score": 0.3581,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      937.4,
+      478.3,
+      960.6,
+      502.4
+     ],
+     "cls": "ball",
+     "score": 0.1295
+    },
+    {
+     "xyxy": [
+      596.7,
+      316.5,
+      617.9,
+      336.7
+     ],
+     "cls": "ball",
+     "score": 0.1145
+    }
+   ],
+   "saved_at": "2026-11-20T08:03:02"
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 18,
+   "frame": 6649,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      402.9,
+      631.4,
+      435.5,
+      667.3
+     ],
+     "cls": "ball",
+     "score": 0.8028,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1505.1,
+      516.4,
+      1538.1,
+      552.3
+     ],
+     "cls": "ball",
+     "score": 0.4192
+    }
+   ],
+   "saved_at": "2026-11-20T08:03:04"
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 20,
+   "frame": 7540,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      717,
+      467.5,
+      737.7,
+      492.8
+     ],
+     "cls": "ball",
+     "score": 0.4845,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      900.5,
+      365,
+      925.4,
+      389
+     ],
+     "cls": "ball",
+     "score": 0.1735
+    }
+   ],
+   "saved_at": "2026-11-20T08:03:07"
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 22,
+   "frame": 8735,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      824.1,
+      731.4,
+      868.6,
+      771.2
+     ],
+     "cls": "ball",
+     "score": 0.8232,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "edited": true,
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      803.5,
+      625.4,
+      837,
+      656.5
+     ],
+     "cls": "ball",
+     "score": 0.125
+    }
+   ],
+   "saved_at": "2026-11-20T08:03:11"
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 0,
+   "frame": 155,
+   "status": "skip",
+   "note": "",
+   "boxes": [],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:03:19"
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 1,
+   "frame": 551,
+   "status": "done",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      707.6,
+      537.1,
+      731.7,
+      570.3
+     ],
+     "cls": "ball",
+     "score": 0.1584
+    }
+   ],
+   "saved_at": "2026-11-20T08:03:26"
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 7,
+   "frame": 2499,
+   "status": "done",
+   "note": "implementer: model's ball doubtful on the contact sheet (accepted without review: one ball at 0.86)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1116.5,
+      280.5,
+      1140.4,
+      307.3
+     ],
+     "cls": "ball",
+     "score": 0.8648,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:03:28"
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 8,
+   "frame": 2663,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.86",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      576.7,
+      618.5,
+      611.0,
+      651.6
+     ],
+     "cls": "ball",
+     "score": 0.8588,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 8,
+   "frame": 2813,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1014.7,
+      484.2,
+      1038.4,
+      510.9
+     ],
+     "cls": "ball",
+     "score": 0.7698,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:03:31"
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 9,
+   "frame": 3373,
+   "status": "done",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1270.2,
+      497.6,
+      1292.5,
+      525.1
+     ],
+     "cls": "ball",
+     "score": 0.1272
+    }
+   ],
+   "saved_at": "2026-11-20T08:03:40"
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 14,
+   "frame": 5111,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      998.6,
+      343.3,
+      1024.7,
+      370.5
+     ],
+     "cls": "ball",
+     "score": 0.8435,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1287.9,
+      92.3,
+      1317.1,
+      118.1
+     ],
+     "cls": "ball",
+     "score": 0.1059
+    }
+   ],
+   "saved_at": "2026-11-20T08:03:42"
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 15,
+   "frame": 5455,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      585.2,
+      551.9,
+      606.6,
+      581.2
+     ],
+     "cls": "ball",
+     "score": 0.8285,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:03:43"
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 20,
+   "frame": 7009,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1018,
+      415.5,
+      1041,
+      436.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      242.7,
+      661.3,
+      279,
+      694.7
+     ],
+     "cls": "ball",
+     "score": 0.2724
+    },
+    {
+     "xyxy": [
+      1009.8,
+      415.7,
+      1030.3,
+      438.9
+     ],
+     "cls": "ball",
+     "score": 0.1846
+    },
+    {
+     "xyxy": [
+      516.7,
+      662.4,
+      545.8,
+      697.9
+     ],
+     "cls": "ball",
+     "score": 0.164
+    }
+   ],
+   "saved_at": "2026-11-20T08:03:55"
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 24,
+   "frame": 8015,
+   "status": "skip",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1140.2,
+      513.6,
+      1162.3,
+      535.9
+     ],
+     "cls": "ball",
+     "score": 0.1946
+    }
+   ],
+   "saved_at": "2026-11-20T08:04:07"
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 25,
+   "frame": 8736,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      975.1,
+      158.8,
+      1000.3,
+      180.7
+     ],
+     "cls": "ball",
+     "score": 0.6504,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1181.3,
+      354.9,
+      1210.3,
+      381.5
+     ],
+     "cls": "ball",
+     "score": 0.2885
+    },
+    {
+     "xyxy": [
+      1147.1,
+      153,
+      1177.4,
+      175.9
+     ],
+     "cls": "ball",
+     "score": 0.2377
+    }
+   ],
+   "saved_at": "2026-11-20T08:04:23"
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 0,
+   "frame": 255,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1085.6,
+      343.4,
+      1113.9,
+      374.8
+     ],
+     "cls": "ball",
+     "score": 0.844,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:04:25"
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 7,
+   "frame": 2740,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      649.9,
+      502.1,
+      673.5,
+      531.3
+     ],
+     "cls": "ball",
+     "score": 0.1209,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1248.3,
+      415.7,
+      1267,
+      439.4
+     ],
+     "cls": "ball",
+     "score": 0.1207
+    },
+    {
+     "xyxy": [
+      1059.2,
+      768.4,
+      1077.2,
+      798
+     ],
+     "cls": "ball",
+     "score": 0.1028
+    }
+   ],
+   "saved_at": "2026-11-20T08:04:27"
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 8,
+   "frame": 2889,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1521.1,
+      506.1,
+      1551.2,
+      538.2
+     ],
+     "cls": "ball",
+     "score": 0.762,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:04:29"
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 8,
+   "frame": 3039,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.85",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1100.5,
+      561.7,
+      1124.8,
+      587.1
+     ],
+     "cls": "ball",
+     "score": 0.8521,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 10,
+   "frame": 3775,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1017.6,
+      671.4,
+      1044.9,
+      698.4
+     ],
+     "cls": "ball",
+     "score": 0.3857,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      843.4,
+      847.7,
+      864,
+      877.5
+     ],
+     "cls": "ball",
+     "score": 0.1183
+    },
+    {
+     "xyxy": [
+      1072.3,
+      714.6,
+      1092.7,
+      736
+     ],
+     "cls": "ball",
+     "score": 0.1097
+    }
+   ],
+   "saved_at": "2026-11-20T08:04:36"
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 12,
+   "frame": 4707,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.88",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      361.2,
+      523.6,
+      386.4,
+      552.8
+     ],
+     "cls": "ball",
+     "score": 0.8765,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 13,
+   "frame": 5122,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 1,
+     "xyxy": [
+      581.5,
+      311.2,
+      608.6,
+      343.4
+     ],
+     "cls": "ball",
+     "score": 0.7599,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:04:41"
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 17,
+   "frame": 6325,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1035.6,
+      716.3,
+      1062.3,
+      741.6
+     ],
+     "cls": "ball",
+     "score": 0.2815,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      404.8,
+      880.6,
+      452.5,
+      918.1
+     ],
+     "cls": "ball",
+     "score": 0.2763
+    },
+    {
+     "xyxy": [
+      1093.5,
+      665.4,
+      1126.7,
+      696.3
+     ],
+     "cls": "ball",
+     "score": 0.1996
+    }
+   ],
+   "saved_at": "2026-11-20T08:04:44"
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 18,
+   "frame": 6710,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.88",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      601.6,
+      478.3,
+      628.2,
+      505.8
+     ],
+     "cls": "ball",
+     "score": 0.8776,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 21,
+   "frame": 7692,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      613,
+      506.6,
+      635.9,
+      529.7
+     ],
+     "cls": "ball",
+     "score": 0.1165,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      915.3,
+      429,
+      935.2,
+      453.5
+     ],
+     "cls": "ball",
+     "score": 0.2017
+    },
+    {
+     "xyxy": [
+      612.1,
+      506.3,
+      631.9,
+      531.5
+     ],
+     "cls": "ball",
+     "score": 0.1076
+    }
+   ],
+   "saved_at": "2026-11-20T08:05:06"
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 23,
+   "frame": 8108,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1336,
+      479,
+      1364,
+      503
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:05:16"
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 24,
+   "frame": 8748,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.87",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1503.9,
+      489.0,
+      1525.9,
+      513.1
+     ],
+     "cls": "ball",
+     "score": 0.8743,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 2,
+   "frame": 915,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.87",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      797.4,
+      215.9,
+      823.8,
+      242.0
+     ],
+     "cls": "ball",
+     "score": 0.8724,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 3,
+   "frame": 1049,
+   "status": "done",
+   "note": "implementer: model's ball doubtful on the contact sheet (accepted without review: one ball at 0.88)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1388.7,
+      335,
+      1416.7,
+      363.3
+     ],
+     "cls": "ball",
+     "score": 0.8846,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "edited": true,
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:05:19"
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 8,
+   "frame": 2922,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      949,
+      438,
+      969,
+      459.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:05:39"
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 8,
+   "frame": 2972,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      913,
+      466,
+      936,
+      489
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      915.4,
+      466.2,
+      938.8,
+      491.8
+     ],
+     "cls": "ball",
+     "score": 0.3446
+    },
+    {
+     "xyxy": [
+      991.3,
+      286.7,
+      1008.8,
+      308.8
+     ],
+     "cls": "ball",
+     "score": 0.1366
+    },
+    {
+     "xyxy": [
+      860.1,
+      489.3,
+      888.5,
+      512.6
+     ],
+     "cls": "ball",
+     "score": 0.1277
+    }
+   ],
+   "saved_at": "2026-11-20T08:05:56"
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 10,
+   "frame": 3784,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1096.5,
+      276.5,
+      1120.5,
+      299
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1094.8,
+      362.7,
+      1118.5,
+      387.7
+     ],
+     "cls": "ball",
+     "score": 0.2842
+    },
+    {
+     "xyxy": [
+      1092.2,
+      219.5,
+      1116,
+      242.2
+     ],
+     "cls": "ball",
+     "score": 0.1033
+    }
+   ],
+   "saved_at": "2026-11-20T08:06:30"
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 12,
+   "frame": 4164,
+   "status": "skip",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      995.4,
+      794.9,
+      1024.9,
+      825.9
+     ],
+     "cls": "ball",
+     "score": 0.1128
+    }
+   ],
+   "saved_at": "2026-11-20T08:07:26"
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 13,
+   "frame": 5175,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      992.4,
+      373,
+      1018.6,
+      396.7
+     ],
+     "cls": "ball",
+     "score": 0.7109,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "edited": true,
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      685.5,
+      279.4,
+      711.5,
+      301.9
+     ],
+     "cls": "ball",
+     "score": 0.2155
+    }
+   ],
+   "saved_at": "2026-11-20T08:07:35"
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 14,
+   "frame": 5206,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      496.5,
+      421.5,
+      516.5,
+      441
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      567.3,
+      183.1,
+      593.3,
+      206.3
+     ],
+     "cls": "ball",
+     "score": 0.2966
+    }
+   ],
+   "saved_at": "2026-11-20T08:08:00"
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 17,
+   "frame": 6014,
+   "status": "skip",
+   "note": "",
+   "boxes": [],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:08:12"
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 19,
+   "frame": 6773,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.87",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      770.7,
+      556.0,
+      792.5,
+      580.9
+     ],
+     "cls": "ball",
+     "score": 0.8718,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 20,
+   "frame": 6915,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.87",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1470.7,
+      528.7,
+      1499.6,
+      557.0
+     ],
+     "cls": "ball",
+     "score": 0.8728,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 20,
+   "frame": 6965,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      978.7,
+      573.4,
+      1017,
+      612.4
+     ],
+     "cls": "ball",
+     "score": 0.8435,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1333,
+      384.8,
+      1359.3,
+      409.5
+     ],
+     "cls": "ball",
+     "score": 0.1325
+    }
+   ],
+   "saved_at": "2026-11-20T08:08:13"
+  },
+  {
+   "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "clip": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "video": "data/raw/20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka.mp4",
+   "shot": 1,
+   "frame": 432,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      714.9,
+      362.7,
+      735.6,
+      386.2
+     ],
+     "cls": "ball",
+     "score": 0.6532,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "edited": true,
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      728.5,
+      265.4,
+      751.8,
+      291.1
+     ],
+     "cls": "ball",
+     "score": 0.1504
+    }
+   ],
+   "saved_at": "2026-11-20T08:08:17"
+  },
+  {
+   "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "clip": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "video": "data/raw/20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka.mp4",
+   "shot": 3,
+   "frame": 1270,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      923.7,
+      654.5,
+      955.3,
+      690.6
+     ],
+     "cls": "ball",
+     "score": 0.848,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:08:19"
+  },
+  {
+   "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "clip": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "video": "data/raw/20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka.mp4",
+   "shot": 5,
+   "frame": 1896,
+   "status": "skip",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      402.2,
+      607.2,
+      432.9,
+      644.5
+     ],
+     "cls": "ball",
+     "score": 0.3896
+    }
+   ],
+   "saved_at": "2026-11-20T08:08:24"
+  },
+  {
+   "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "clip": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "video": "data/raw/20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka.mp4",
+   "shot": 5,
+   "frame": 2146,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      791.2,
+      191.9,
+      821.3,
+      220.3
+     ],
+     "cls": "ball",
+     "score": 0.8358,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:08:26"
+  },
+  {
+   "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "clip": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "video": "data/raw/20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka.mp4",
+   "shot": 8,
+   "frame": 3285,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1109.6,
+      809.4,
+      1138.7,
+      840.2
+     ],
+     "cls": "ball",
+     "score": 0.7842,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:08:27"
+  },
+  {
+   "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "clip": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "video": "data/raw/20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka.mp4",
+   "shot": 8,
+   "frame": 3485,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1166.5,
+      494.5,
+      1184,
+      515.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      487.2,
+      501,
+      509.5,
+      534.5
+     ],
+     "cls": "ball",
+     "score": 0.1171
+    }
+   ],
+   "saved_at": "2026-11-20T08:08:41"
+  },
+  {
+   "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "clip": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "video": "data/raw/20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka.mp4",
+   "shot": 14,
+   "frame": 5009,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      580.5,
+      57.5,
+      615,
+      90
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:09:02"
+  },
+  {
+   "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "clip": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "video": "data/raw/20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka.mp4",
+   "shot": 15,
+   "frame": 5142,
+   "status": "done",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      667,
+      364.5,
+      683.1,
+      386.5
+     ],
+     "cls": "ball",
+     "score": 0.1053
+    }
+   ],
+   "saved_at": "2026-11-20T08:09:06"
+  },
+  {
+   "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "clip": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "video": "data/raw/20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka.mp4",
+   "shot": 17,
+   "frame": 6009,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.90",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      566.2,
+      550.7,
+      592.7,
+      580.2
+     ],
+     "cls": "ball",
+     "score": 0.8978,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "clip": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "video": "data/raw/20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka.mp4",
+   "shot": 18,
+   "frame": 6493,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.87",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      885.9,
+      453.7,
+      909.9,
+      479.2
+     ],
+     "cls": "ball",
+     "score": 0.87,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "clip": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "video": "data/raw/20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka.mp4",
+   "shot": 21,
+   "frame": 6722,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.86",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1002.4,
+      367.2,
+      1022.1,
+      388.0
+     ],
+     "cls": "ball",
+     "score": 0.8598,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "clip": "20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka",
+   "video": "data/raw/20260404_-MurBVifFFQ_SKROT_Dziki_-_PGE_Start_25._kolejka.mp4",
+   "shot": 24,
+   "frame": 7578,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1502.9,
+      673.9,
+      1524.7,
+      709.3
+     ],
+     "cls": "ball",
+     "score": 0.8116,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:09:07"
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 5,
+   "frame": 1773,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1322,
+      563,
+      1345,
+      584.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      555.7,
+      778.5,
+      576.5,
+      805.4
+     ],
+     "cls": "ball",
+     "score": 0.2525
+    },
+    {
+     "xyxy": [
+      728.3,
+      707.7,
+      744.7,
+      733.7
+     ],
+     "cls": "ball",
+     "score": 0.1327
+    },
+    {
+     "xyxy": [
+      1310.5,
+      584.5,
+      1336.2,
+      611.7
+     ],
+     "cls": "ball",
+     "score": 0.1222
+    }
+   ],
+   "saved_at": "2026-11-20T08:09:15"
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 8,
+   "frame": 2855,
+   "status": "done",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1101.5,
+      716.5,
+      1135.6,
+      747.5
+     ],
+     "cls": "ball",
+     "score": 0.2779
+    }
+   ],
+   "saved_at": "2026-11-20T08:09:24"
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 9,
+   "frame": 2985,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.90",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      487.7,
+      572.3,
+      517.8,
+      602.9
+     ],
+     "cls": "ball",
+     "score": 0.8976,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 10,
+   "frame": 3403,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      447.1,
+      496.5,
+      481,
+      523.4
+     ],
+     "cls": "ball",
+     "score": 0.7657,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "edited": true,
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      640,
+      618.4,
+      675.3,
+      652
+     ],
+     "cls": "ball",
+     "score": 0.2165
+    }
+   ],
+   "saved_at": "2026-11-20T08:09:28"
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 14,
+   "frame": 4740,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.89",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      567.5,
+      408.8,
+      595.7,
+      439.2
+     ],
+     "cls": "ball",
+     "score": 0.8889,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 15,
+   "frame": 4868,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1585.9,
+      587.8,
+      1609.8,
+      612.4
+     ],
+     "cls": "ball",
+     "score": 0.8472,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "edited": true,
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:09:31"
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 16,
+   "frame": 5348,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1175,
+      303,
+      1202,
+      330.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1252.5,
+      841.9,
+      1277.4,
+      873.4
+     ],
+     "cls": "ball",
+     "score": 0.2076
+    },
+    {
+     "xyxy": [
+      1097.1,
+      704.2,
+      1122.8,
+      738.3
+     ],
+     "cls": "ball",
+     "score": 0.1342
+    }
+   ],
+   "saved_at": "2026-11-20T08:09:41"
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 18,
+   "frame": 6147,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.86",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1144.5,
+      515.8,
+      1171.3,
+      546.3
+     ],
+     "cls": "ball",
+     "score": 0.8598,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 21,
+   "frame": 7248,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      749.5,
+      502,
+      774,
+      527.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1181.2,
+      383.8,
+      1201.4,
+      407.7
+     ],
+     "cls": "ball",
+     "score": 0.3717
+    },
+    {
+     "xyxy": [
+      752,
+      499.8,
+      780,
+      528.4
+     ],
+     "cls": "ball",
+     "score": 0.226
+    }
+   ],
+   "saved_at": "2026-11-20T08:09:49"
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 23,
+   "frame": 7740,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.85",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      662.2,
+      543.0,
+      689.7,
+      571.6
+     ],
+     "cls": "ball",
+     "score": 0.8505,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 24,
+   "frame": 8072,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.92",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      277.7,
+      668.1,
+      307.7,
+      700.1
+     ],
+     "cls": "ball",
+     "score": 0.9205,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 25,
+   "frame": 8740,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      511.6,
+      573.6,
+      533.4,
+      599.9
+     ],
+     "cls": "ball",
+     "score": 0.7751,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:09:51"
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 0,
+   "frame": 55,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.89",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      617.8,
+      443.8,
+      641.9,
+      470.7
+     ],
+     "cls": "ball",
+     "score": 0.8936,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 0,
+   "frame": 105,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      736,
+      470.5,
+      759.3,
+      495.5
+     ],
+     "cls": "ball",
+     "score": 0.6183,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "edited": true,
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1264.5,
+      259.4,
+      1285.1,
+      281.5
+     ],
+     "cls": "ball",
+     "score": 0.4423
+    }
+   ],
+   "saved_at": "2026-11-20T08:09:57"
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 3,
+   "frame": 1366,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      883.3,
+      493.8,
+      926.4,
+      534.6
+     ],
+     "cls": "ball",
+     "score": 0.5719,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "edited": true,
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1215.3,
+      245,
+      1246.3,
+      273.2
+     ],
+     "cls": "ball",
+     "score": 0.4316
+    }
+   ],
+   "saved_at": "2026-11-20T08:10:05"
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 5,
+   "frame": 1850,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      995,
+      55,
+      1024.5,
+      84
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      992.9,
+      54.8,
+      1023.9,
+      79.2
+     ],
+     "cls": "ball",
+     "score": 0.1284
+    },
+    {
+     "xyxy": [
+      1285.7,
+      248.1,
+      1308.3,
+      268.6
+     ],
+     "cls": "ball",
+     "score": 0.1046
+    }
+   ],
+   "saved_at": "2026-11-20T08:10:18"
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 7,
+   "frame": 2130,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1388.4,
+      350.5,
+      1417.2,
+      377.9
+     ],
+     "cls": "ball",
+     "score": 0.8435,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1653.4,
+      446.3,
+      1678.9,
+      470.2
+     ],
+     "cls": "ball",
+     "score": 0.1002
+    }
+   ],
+   "saved_at": "2026-11-20T08:10:22"
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 8,
+   "frame": 2573,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1056,
+      164.5,
+      1083,
+      193
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:11:50"
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 15,
+   "frame": 4941,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.86",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      703.8,
+      446.8,
+      734.8,
+      477.9
+     ],
+     "cls": "ball",
+     "score": 0.8622,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 18,
+   "frame": 5789,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.89",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      707.1,
+      673.3,
+      738.3,
+      707.4
+     ],
+     "cls": "ball",
+     "score": 0.885,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 18,
+   "frame": 6089,
+   "status": "skip",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      495.4,
+      413.6,
+      515.6,
+      436.5
+     ],
+     "cls": "ball",
+     "score": 0.3703
+    }
+   ],
+   "saved_at": "2026-11-20T08:12:14"
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 24,
+   "frame": 7786,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.89",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1623.4,
+      735.9,
+      1667.8,
+      775.5
+     ],
+     "cls": "ball",
+     "score": 0.8892,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 25,
+   "frame": 8166,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      673.5,
+      385,
+      689,
+      404.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      943.2,
+      444.3,
+      968.8,
+      473.7
+     ],
+     "cls": "ball",
+     "score": 0.1595
+    }
+   ],
+   "saved_at": "2026-11-20T08:12:27"
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 28,
+   "frame": 8965,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.90",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1180.3,
+      758.6,
+      1225.4,
+      803.4
+     ],
+     "cls": "ball",
+     "score": 0.8982,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 0,
+   "frame": 5,
+   "status": "done",
+   "note": "",
+   "boxes": [],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:12:33"
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 3,
+   "frame": 988,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      662.5,
+      508.5,
+      681,
+      529.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      754.6,
+      367,
+      778.4,
+      391.7
+     ],
+     "cls": "ball",
+     "score": 0.4141
+    },
+    {
+     "xyxy": [
+      618.2,
+      259.1,
+      641.9,
+      280.5
+     ],
+     "cls": "ball",
+     "score": 0.1118
+    }
+   ],
+   "saved_at": "2026-11-20T08:12:47"
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 3,
+   "frame": 1138,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      653.8,
+      571.5,
+      684.2,
+      600
+     ],
+     "cls": "ball",
+     "score": 0.8331,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "edited": true,
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:12:50"
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 3,
+   "frame": 1288,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1378,
+      524.5,
+      1404,
+      549.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1281.9,
+      630.8,
+      1309.4,
+      660.5
+     ],
+     "cls": "ball",
+     "score": 0.1263
+    }
+   ],
+   "saved_at": "2026-11-20T08:13:17"
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 10,
+   "frame": 3494,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.86",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      596.5,
+      558.3,
+      620.4,
+      583.9
+     ],
+     "cls": "ball",
+     "score": 0.8607,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 12,
+   "frame": 4477,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.87",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1217.2,
+      586.4,
+      1242.2,
+      610.3
+     ],
+     "cls": "ball",
+     "score": 0.8669,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 18,
+   "frame": 6493,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      910.8,
+      581.2,
+      934.3,
+      605.4
+     ],
+     "cls": "ball",
+     "score": 0.7333,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:13:20"
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 19,
+   "frame": 6866,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      989.6,
+      655.4,
+      1020.4,
+      684.3
+     ],
+     "cls": "ball",
+     "score": 0.8321,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1033.3,
+      417.9,
+      1059.4,
+      443.9
+     ],
+     "cls": "ball",
+     "score": 0.1061
+    }
+   ],
+   "saved_at": "2026-11-20T08:13:22"
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 19,
+   "frame": 7016,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      720.3,
+      614.5,
+      745.3,
+      642.4
+     ],
+     "cls": "ball",
+     "score": 0.6505,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:13:24"
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 21,
+   "frame": 7886,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.87",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      682.3,
+      446.3,
+      712.2,
+      477.1
+     ],
+     "cls": "ball",
+     "score": 0.8715,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 21,
+   "frame": 7936,
+   "status": "skip",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      606.8,
+      646.5,
+      633.4,
+      674.8
+     ],
+     "cls": "ball",
+     "score": 0.2599
+    },
+    {
+     "xyxy": [
+      1055.9,
+      457,
+      1081.1,
+      486.4
+     ],
+     "cls": "ball",
+     "score": 0.1992
+    },
+    {
+     "xyxy": [
+      1056.9,
+      467.7,
+      1084.4,
+      495.1
+     ],
+     "cls": "ball",
+     "score": 0.1704
+    }
+   ],
+   "saved_at": "2026-11-20T08:13:34"
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 25,
+   "frame": 9186,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      503,
+      504.2,
+      531.3,
+      531.5
+     ],
+     "cls": "ball",
+     "score": 0.8262,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "edited": true,
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:13:37"
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 0,
+   "frame": 255,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1072.2,
+      395.6,
+      1104.2,
+      424.1
+     ],
+     "cls": "ball",
+     "score": 0.7829,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:13:45"
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 1,
+   "frame": 624,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      542.5,
+      862.5,
+      585.6,
+      906.2
+     ],
+     "cls": "ball",
+     "score": 0.7361,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      614,
+      453,
+      648,
+      487.9
+     ],
+     "cls": "ball",
+     "score": 0.339
+    },
+    {
+     "xyxy": [
+      533.9,
+      223.3,
+      578.4,
+      248.1
+     ],
+     "cls": "ball",
+     "score": 0.1636
+    },
+    {
+     "xyxy": [
+      854.2,
+      356.1,
+      877.8,
+      379.9
+     ],
+     "cls": "ball",
+     "score": 0.1056
+    }
+   ],
+   "saved_at": "2026-11-20T08:13:46"
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 2,
+   "frame": 1061,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1102,
+      448.3,
+      1132.1,
+      477.1
+     ],
+     "cls": "ball",
+     "score": 0.7905,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:13:46"
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 3,
+   "frame": 1572,
+   "status": "skip",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      992.2,
+      397.3,
+      1012.2,
+      423.9
+     ],
+     "cls": "ball",
+     "score": 0.1168
+    }
+   ],
+   "saved_at": "2026-11-20T08:14:26"
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 3,
+   "frame": 1622,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1247.5,
+      505.5,
+      1269.5,
+      528
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      537.4,
+      323.9,
+      557.6,
+      342.8
+     ],
+     "cls": "ball",
+     "score": 0.1495
+    },
+    {
+     "xyxy": [
+      1277.7,
+      324.7,
+      1303,
+      351.1
+     ],
+     "cls": "ball",
+     "score": 0.1258
+    }
+   ],
+   "saved_at": "2026-11-20T08:14:33"
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 7,
+   "frame": 2875,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.90",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1032.3,
+      644.7,
+      1072.1,
+      685.2
+     ],
+     "cls": "ball",
+     "score": 0.9004,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:14:34"
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 8,
+   "frame": 3370,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.88",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      856.5,
+      48.3,
+      888.4,
+      81.4
+     ],
+     "cls": "ball",
+     "score": 0.8831,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:14:35"
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 16,
+   "frame": 6055,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      742,
+      221.1,
+      768.5,
+      250.4
+     ],
+     "cls": "ball",
+     "score": 0.8245,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:20:23"
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 18,
+   "frame": 6507,
+   "status": "done",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      605.1,
+      358.4,
+      625.6,
+      381.5
+     ],
+     "cls": "ball",
+     "score": 0.2212
+    },
+    {
+     "xyxy": [
+      480.1,
+      326.2,
+      506.9,
+      350.9
+     ],
+     "cls": "ball",
+     "score": 0.1538
+    }
+   ],
+   "saved_at": "2026-11-20T08:14:48"
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 18,
+   "frame": 6757,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.86",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1163.6,
+      236.0,
+      1192.7,
+      265.2
+     ],
+     "cls": "ball",
+     "score": 0.8619,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 20,
+   "frame": 7313,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.91",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1494.4,
+      580.3,
+      1520.4,
+      609.8
+     ],
+     "cls": "ball",
+     "score": 0.9072,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 21,
+   "frame": 7687,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.88",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1157.0,
+      557.9,
+      1185.3,
+      585.7
+     ],
+     "cls": "ball",
+     "score": 0.8826,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "clip": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "video": "data/raw/20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka.mp4",
+   "shot": 2,
+   "frame": 896,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.90",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1195.2,
+      544.2,
+      1230.6,
+      578.7
+     ],
+     "cls": "ball",
+     "score": 0.9009,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "clip": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "video": "data/raw/20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka.mp4",
+   "shot": 3,
+   "frame": 1135,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.90",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      876.3,
+      726.6,
+      916.7,
+      767.6
+     ],
+     "cls": "ball",
+     "score": 0.9043,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "clip": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "video": "data/raw/20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka.mp4",
+   "shot": 4,
+   "frame": 1380,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.90",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1484.8,
+      585.7,
+      1518.8,
+      620.0
+     ],
+     "cls": "ball",
+     "score": 0.9048,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "clip": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "video": "data/raw/20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka.mp4",
+   "shot": 4,
+   "frame": 1430,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.88",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1484.5,
+      451.7,
+      1515.3,
+      480.1
+     ],
+     "cls": "ball",
+     "score": 0.8846,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "clip": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "video": "data/raw/20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka.mp4",
+   "shot": 5,
+   "frame": 1721,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.89",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      525.3,
+      491.6,
+      548.4,
+      518.8
+     ],
+     "cls": "ball",
+     "score": 0.8863,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "clip": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "video": "data/raw/20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka.mp4",
+   "shot": 16,
+   "frame": 5169,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.88",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1304.1,
+      472.0,
+      1337.9,
+      508.0
+     ],
+     "cls": "ball",
+     "score": 0.8848,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "clip": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "video": "data/raw/20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka.mp4",
+   "shot": 18,
+   "frame": 5864,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.90",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1210.9,
+      626.5,
+      1239.0,
+      657.2
+     ],
+     "cls": "ball",
+     "score": 0.9043,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "clip": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "video": "data/raw/20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka.mp4",
+   "shot": 20,
+   "frame": 6485,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.91",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      474.1,
+      581.2,
+      508.9,
+      616.9
+     ],
+     "cls": "ball",
+     "score": 0.9088,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "clip": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "video": "data/raw/20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka.mp4",
+   "shot": 22,
+   "frame": 7204,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      437.5,
+      656.9,
+      466.5,
+      686.3
+     ],
+     "cls": "ball",
+     "score": 0.7687,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:14:51"
+  },
+  {
+   "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "clip": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "video": "data/raw/20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka.mp4",
+   "shot": 23,
+   "frame": 7516,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1517.5,
+      701,
+      1528.5,
+      728.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1299.2,
+      734.5,
+      1338,
+      773.4
+     ],
+     "cls": "ball",
+     "score": 0.1429
+    }
+   ],
+   "saved_at": "2026-11-20T08:15:02"
+  },
+  {
+   "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "clip": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "video": "data/raw/20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka.mp4",
+   "shot": 25,
+   "frame": 8284,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1241.5,
+      560.5,
+      1261.5,
+      579.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:15:12"
+  },
+  {
+   "youtube_id": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "clip": "20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka",
+   "video": "data/raw/20260507_yN_-DqS3Y_s_SKROT_ORLEN_Zastal_-_Dziki_30._kolejka.mp4",
+   "shot": 26,
+   "frame": 8735,
+   "status": "skip",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      574,
+      497.3,
+      591.6,
+      521
+     ],
+     "cls": "ball",
+     "score": 0.2067
+    }
+   ],
+   "saved_at": "2026-11-20T08:15:50"
+  },
+  {
+   "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "clip": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "video": "data/raw/20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off.mp4",
+   "shot": 1,
+   "frame": 410,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      814.6,
+      439.2,
+      839.4,
+      466.4
+     ],
+     "cls": "ball",
+     "score": 0.6701,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      446,
+      697.6,
+      478.2,
+      730.8
+     ],
+     "cls": "ball",
+     "score": 0.14
+    },
+    {
+     "xyxy": [
+      1617.9,
+      615.6,
+      1639.3,
+      639.5
+     ],
+     "cls": "ball",
+     "score": 0.1204
+    }
+   ],
+   "saved_at": "2026-11-20T08:15:48"
+  },
+  {
+   "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "clip": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "video": "data/raw/20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off.mp4",
+   "shot": 2,
+   "frame": 841,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.88",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1487.7,
+      525.6,
+      1514.5,
+      553.9
+     ],
+     "cls": "ball",
+     "score": 0.8823,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:15:48"
+  },
+  {
+   "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "clip": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "video": "data/raw/20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off.mp4",
+   "shot": 2,
+   "frame": 891,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.89",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1601.7,
+      537.8,
+      1629.3,
+      566.7
+     ],
+     "cls": "ball",
+     "score": 0.8856,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:15:47"
+  },
+  {
+   "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "clip": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "video": "data/raw/20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off.mp4",
+   "shot": 12,
+   "frame": 4310,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      870.5,
+      431.5,
+      892.5,
+      455.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      639.4,
+      762.8,
+      673.4,
+      802.2
+     ],
+     "cls": "ball",
+     "score": 0.2652
+    },
+    {
+     "xyxy": [
+      860.4,
+      392.3,
+      882.6,
+      420.3
+     ],
+     "cls": "ball",
+     "score": 0.2269
+    },
+    {
+     "xyxy": [
+      1039.9,
+      538.2,
+      1064.3,
+      564.7
+     ],
+     "cls": "ball",
+     "score": 0.1446
+    }
+   ],
+   "saved_at": "2026-11-20T08:16:11"
+  },
+  {
+   "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "clip": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "video": "data/raw/20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off.mp4",
+   "shot": 22,
+   "frame": 6407,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.90",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1443.7,
+      720.7,
+      1476.7,
+      754.6
+     ],
+     "cls": "ball",
+     "score": 0.9009,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "clip": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "video": "data/raw/20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off.mp4",
+   "shot": 23,
+   "frame": 7011,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      730.5,
+      288.5,
+      758,
+      314.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      807.9,
+      530.9,
+      833.1,
+      561.8
+     ],
+     "cls": "ball",
+     "score": 0.1155
+    }
+   ],
+   "saved_at": "2026-11-20T08:16:22"
+  },
+  {
+   "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "clip": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "video": "data/raw/20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off.mp4",
+   "shot": 24,
+   "frame": 7161,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      302,
+      613.6,
+      335.4,
+      644.9
+     ],
+     "cls": "ball",
+     "score": 0.8175,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1118.6,
+      300.2,
+      1136.9,
+      321.2
+     ],
+     "cls": "ball",
+     "score": 0.1025
+    }
+   ],
+   "saved_at": "2026-11-20T08:16:22"
+  },
+  {
+   "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "clip": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "video": "data/raw/20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off.mp4",
+   "shot": 24,
+   "frame": 7411,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1243.6,
+      245.9,
+      1270.1,
+      272.9
+     ],
+     "cls": "ball",
+     "score": 0.7634,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:16:23"
+  },
+  {
+   "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "clip": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "video": "data/raw/20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off.mp4",
+   "shot": 25,
+   "frame": 7810,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.89",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1150.8,
+      575.8,
+      1180.8,
+      608.0
+     ],
+     "cls": "ball",
+     "score": 0.885,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "clip": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "video": "data/raw/20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off.mp4",
+   "shot": 26,
+   "frame": 8213,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1063.1,
+      470.2,
+      1086.3,
+      499.8
+     ],
+     "cls": "ball",
+     "score": 0.443,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:16:29"
+  },
+  {
+   "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "clip": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "video": "data/raw/20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off.mp4",
+   "shot": 28,
+   "frame": 8808,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.85",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      629.2,
+      296.0,
+      660.2,
+      327.4
+     ],
+     "cls": "ball",
+     "score": 0.8517,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "clip": "20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off",
+   "video": "data/raw/20260516_EExZbLxgez4_SKROT_Energa_Trefl_-_Dziki_2._mecz_1_4_play-off.mp4",
+   "shot": 31,
+   "frame": 9581,
+   "status": "done",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1173.8,
+      761.9,
+      1199.7,
+      794.9
+     ],
+     "cls": "ball",
+     "score": 0.2511
+    },
+    {
+     "xyxy": [
+      1109.5,
+      774.6,
+      1130.3,
+      800.2
+     ],
+     "cls": "ball",
+     "score": 0.1054
+    }
+   ],
+   "saved_at": "2026-11-20T08:16:37"
+  },
+  {
+   "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "clip": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "video": "data/raw/20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off.mp4",
+   "shot": 0,
+   "frame": 105,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      950.6,
+      399.2,
+      975.3,
+      424.2
+     ],
+     "cls": "ball",
+     "score": 0.8495,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:16:38"
+  },
+  {
+   "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "clip": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "video": "data/raw/20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off.mp4",
+   "shot": 1,
+   "frame": 963,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1299.4,
+      472.7,
+      1320,
+      499.1
+     ],
+     "cls": "ball",
+     "score": 0.5353,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:16:39"
+  },
+  {
+   "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "clip": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "video": "data/raw/20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off.mp4",
+   "shot": 2,
+   "frame": 1464,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.86",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1078.8,
+      484.4,
+      1110.4,
+      520.4
+     ],
+     "cls": "ball",
+     "score": 0.8604,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "clip": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "video": "data/raw/20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off.mp4",
+   "shot": 7,
+   "frame": 2687,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.88",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      783.5,
+      632.6,
+      812.0,
+      663.6
+     ],
+     "cls": "ball",
+     "score": 0.8848,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "clip": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "video": "data/raw/20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off.mp4",
+   "shot": 7,
+   "frame": 2837,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.86",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1346.0,
+      579.6,
+      1382.2,
+      617.3
+     ],
+     "cls": "ball",
+     "score": 0.8639,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "clip": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "video": "data/raw/20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off.mp4",
+   "shot": 9,
+   "frame": 3071,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.91",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      817.4,
+      687.6,
+      849.8,
+      720.9
+     ],
+     "cls": "ball",
+     "score": 0.9057,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "clip": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "video": "data/raw/20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off.mp4",
+   "shot": 10,
+   "frame": 3750,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.89",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1142.6,
+      684.1,
+      1178.1,
+      719.9
+     ],
+     "cls": "ball",
+     "score": 0.8901,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "clip": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "video": "data/raw/20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off.mp4",
+   "shot": 14,
+   "frame": 4622,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.88",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1555.7,
+      562.4,
+      1588.4,
+      592.1
+     ],
+     "cls": "ball",
+     "score": 0.8831,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "clip": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "video": "data/raw/20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off.mp4",
+   "shot": 15,
+   "frame": 5018,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.86",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1058.2,
+      389.7,
+      1088.2,
+      422.7
+     ],
+     "cls": "ball",
+     "score": 0.8572,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "clip": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "video": "data/raw/20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off.mp4",
+   "shot": 16,
+   "frame": 5309,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      305.3,
+      661,
+      330.4,
+      689.5
+     ],
+     "cls": "ball",
+     "score": 0.1474,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1693.3,
+      537.7,
+      1716.2,
+      564.3
+     ],
+     "cls": "ball",
+     "score": 0.2569
+    },
+    {
+     "xyxy": [
+      387,
+      646.1,
+      411.7,
+      671.8
+     ],
+     "cls": "ball",
+     "score": 0.114
+    }
+   ],
+   "saved_at": "2026-11-20T08:16:41"
+  },
+  {
+   "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "clip": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "video": "data/raw/20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off.mp4",
+   "shot": 29,
+   "frame": 8984,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.90",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      280.4,
+      744.8,
+      329.3,
+      790.8
+     ],
+     "cls": "ball",
+     "score": 0.9039,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "clip": "20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off",
+   "video": "data/raw/20260521_BEFym3rFSOw_SKROT_Dziki_-_Energa_Trefl_4._mecz_1_4_play-off.mp4",
+   "shot": 34,
+   "frame": 9433,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.87",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      970.7,
+      564.6,
+      1002.9,
+      597.9
+     ],
+     "cls": "ball",
+     "score": 0.8733,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "clip": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "video": "data/raw/20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u.mp4",
+   "shot": 2,
+   "frame": 689,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1233.6,
+      757.6,
+      1274.6,
+      796.6
+     ],
+     "cls": "ball",
+     "score": 0.797,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:16:43"
+  },
+  {
+   "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "clip": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "video": "data/raw/20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u.mp4",
+   "shot": 6,
+   "frame": 1602,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      471.8,
+      637.3,
+      494.7,
+      671.9
+     ],
+     "cls": "ball",
+     "score": 0.8199,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "edited": true,
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:16:47"
+  },
+  {
+   "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "clip": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "video": "data/raw/20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u.mp4",
+   "shot": 18,
+   "frame": 5388,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.88",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1058.4,
+      381.4,
+      1092.0,
+      419.4
+     ],
+     "cls": "ball",
+     "score": 0.8776,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "clip": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "video": "data/raw/20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u.mp4",
+   "shot": 21,
+   "frame": 6195,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      602,
+      492,
+      638,
+      526.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      603.6,
+      493.1,
+      633.1,
+      523.5
+     ],
+     "cls": "ball",
+     "score": 0.1065
+    },
+    {
+     "xyxy": [
+      592.7,
+      495.9,
+      621.3,
+      524
+     ],
+     "cls": "ball",
+     "score": 0.1041
+    }
+   ],
+   "saved_at": "2026-11-20T08:16:59"
+  },
+  {
+   "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "clip": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "video": "data/raw/20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u.mp4",
+   "shot": 22,
+   "frame": 6367,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      910.7,
+      443.4,
+      942.8,
+      475.6
+     ],
+     "cls": "ball",
+     "score": 0.7407,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "edited": true,
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:17:01"
+  },
+  {
+   "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "clip": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "video": "data/raw/20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u.mp4",
+   "shot": 23,
+   "frame": 6560,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.86",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      383.4,
+      607.6,
+      413.2,
+      639.3
+     ],
+     "cls": "ball",
+     "score": 0.8609,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "clip": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "video": "data/raw/20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u.mp4",
+   "shot": 26,
+   "frame": 7549,
+   "status": "skip",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      451.7,
+      773.3,
+      497.4,
+      817.3
+     ],
+     "cls": "ball",
+     "score": 0.1536
+    }
+   ],
+   "saved_at": "2026-11-20T08:17:11"
+  },
+  {
+   "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "clip": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "video": "data/raw/20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u.mp4",
+   "shot": 26,
+   "frame": 7699,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.90",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1683.8,
+      603.6,
+      1734.3,
+      649.3
+     ],
+     "cls": "ball",
+     "score": 0.9002,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "clip": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "video": "data/raw/20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u.mp4",
+   "shot": 27,
+   "frame": 7926,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.89",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      259.7,
+      598.6,
+      295.8,
+      631.5
+     ],
+     "cls": "ball",
+     "score": 0.8902,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "clip": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "video": "data/raw/20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u.mp4",
+   "shot": 30,
+   "frame": 8992,
+   "status": "skip",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1548,
+      477.4,
+      1586.3,
+      513.3
+     ],
+     "cls": "ball",
+     "score": 0.1177
+    },
+    {
+     "xyxy": [
+      730.5,
+      755.5,
+      754,
+      790.7
+     ],
+     "cls": "ball",
+     "score": 0.1134
+    }
+   ],
+   "saved_at": "2026-11-20T08:17:29"
+  },
+  {
+   "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "clip": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "video": "data/raw/20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u.mp4",
+   "shot": 31,
+   "frame": 9183,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      706.5,
+      759.9,
+      738.4,
+      797.2
+     ],
+     "cls": "ball",
+     "score": 0.8318,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      973.4,
+      196.3,
+      997.8,
+      222.4
+     ],
+     "cls": "ball",
+     "score": 0.1412
+    }
+   ],
+   "saved_at": "2026-11-20T08:17:31"
+  },
+  {
+   "youtube_id": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "clip": "20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u",
+   "video": "data/raw/20260529_l7VkOarkFZk_SKROT_Legia_-_Dziki_2._mecz_po_fina_u.mp4",
+   "shot": 40,
+   "frame": 11726,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.87",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1116.3,
+      486.2,
+      1155.0,
+      523.3
+     ],
+     "cls": "ball",
+     "score": 0.8719,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "clip": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "video": "data/raw/20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u.mp4",
+   "shot": 5,
+   "frame": 1737,
+   "status": "skip",
+   "note": "",
+   "boxes": [],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:17:35"
+  },
+  {
+   "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "clip": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "video": "data/raw/20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u.mp4",
+   "shot": 5,
+   "frame": 2037,
+   "status": "skip",
+   "note": "",
+   "boxes": [],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:17:41"
+  },
+  {
+   "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "clip": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "video": "data/raw/20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u.mp4",
+   "shot": 8,
+   "frame": 3201,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.88",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      719.7,
+      643.1,
+      749.6,
+      673.2
+     ],
+     "cls": "ball",
+     "score": 0.8798,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "clip": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "video": "data/raw/20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u.mp4",
+   "shot": 12,
+   "frame": 4332,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      374.3,
+      490.5,
+      400.1,
+      518
+     ],
+     "cls": "ball",
+     "score": 0.7793,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:17:42"
+  },
+  {
+   "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "clip": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "video": "data/raw/20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u.mp4",
+   "shot": 12,
+   "frame": 4432,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.86",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1035.0,
+      434.4,
+      1064.2,
+      466.0
+     ],
+     "cls": "ball",
+     "score": 0.8645,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "clip": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "video": "data/raw/20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u.mp4",
+   "shot": 12,
+   "frame": 4632,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1153.2,
+      541.9,
+      1181.6,
+      573.1
+     ],
+     "cls": "ball",
+     "score": 0.807,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:17:43"
+  },
+  {
+   "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "clip": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "video": "data/raw/20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u.mp4",
+   "shot": 15,
+   "frame": 5515,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.90",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1128.2,
+      246.7,
+      1160.8,
+      277.2
+     ],
+     "cls": "ball",
+     "score": 0.8969,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "clip": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "video": "data/raw/20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u.mp4",
+   "shot": 16,
+   "frame": 5644,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1004.7,
+      769.5,
+      1057.3,
+      815
+     ],
+     "cls": "ball",
+     "score": 0.8463,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:17:45"
+  },
+  {
+   "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "clip": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "video": "data/raw/20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u.mp4",
+   "shot": 17,
+   "frame": 5962,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.90",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      124.5,
+      486.6,
+      153.7,
+      515.4
+     ],
+     "cls": "ball",
+     "score": 0.9034,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "clip": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "video": "data/raw/20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u.mp4",
+   "shot": 23,
+   "frame": 7780,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.88",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      808.5,
+      581.1,
+      837.0,
+      612.6
+     ],
+     "cls": "ball",
+     "score": 0.8833,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "clip": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "video": "data/raw/20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u.mp4",
+   "shot": 24,
+   "frame": 8300,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.89",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      633.3,
+      870.0,
+      673.7,
+      911.2
+     ],
+     "cls": "ball",
+     "score": 0.8939,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "clip": "20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u",
+   "video": "data/raw/20260601_qb1y4Jz5AkA_SKROT_Dziki_-_Legia_3._mecz_po_fina_u.mp4",
+   "shot": 24,
+   "frame": 8700,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.89",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      554.8,
+      423.0,
+      583.2,
+      453.4
+     ],
+     "cls": "ball",
+     "score": 0.8919,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
+   "clip": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
+   "video": "data/raw/20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce.mp4",
+   "shot": 0,
+   "frame": 55,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1187.8,
+      557.5,
+      1206.3,
+      582.2
+     ],
+     "cls": "ball",
+     "score": 0.8032,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:17:47"
+  },
+  {
+   "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
+   "clip": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
+   "video": "data/raw/20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce.mp4",
+   "shot": 1,
+   "frame": 308,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      349.3,
+      483.3,
+      373.4,
+      507.6
+     ],
+     "cls": "ball",
+     "score": 0.7712,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:17:47"
+  },
+  {
+   "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
+   "clip": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
+   "video": "data/raw/20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce.mp4",
+   "shot": 5,
+   "frame": 1196,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.91",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      606.2,
+      843.9,
+      638.3,
+      876.0
+     ],
+     "cls": "ball",
+     "score": 0.9124,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
+   "clip": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
+   "video": "data/raw/20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce.mp4",
+   "shot": 6,
+   "frame": 1673,
+   "status": "skip",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1004.1,
+      830.1,
+      1026.5,
+      860.4
+     ],
+     "cls": "ball",
+     "score": 0.1294
+    }
+   ],
+   "saved_at": "2026-11-20T08:18:04"
+  },
+  {
+   "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
+   "clip": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
+   "video": "data/raw/20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce.mp4",
+   "shot": 8,
+   "frame": 2206,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1204.5,
+      358.5,
+      1232,
+      386
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:18:21"
+  },
+  {
+   "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
+   "clip": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
+   "video": "data/raw/20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce.mp4",
+   "shot": 9,
+   "frame": 2348,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      601.5,
+      898.5,
+      635,
+      918.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      995.3,
+      685.3,
+      1027.8,
+      718.7
+     ],
+     "cls": "ball",
+     "score": 0.1196
+    }
+   ],
+   "saved_at": "2026-11-20T08:18:31"
+  },
+  {
+   "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
+   "clip": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
+   "video": "data/raw/20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce.mp4",
+   "shot": 9,
+   "frame": 2598,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1159.2,
+      559.9,
+      1185.3,
+      586.5
+     ],
+     "cls": "ball",
+     "score": 0.8273,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:18:32"
+  },
+  {
+   "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
+   "clip": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
+   "video": "data/raw/20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce.mp4",
+   "shot": 10,
+   "frame": 2888,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.92",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      542.8,
+      754.8,
+      570.6,
+      785.0
+     ],
+     "cls": "ball",
+     "score": 0.918,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
+   "clip": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
+   "video": "data/raw/20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce.mp4",
+   "shot": 13,
+   "frame": 4000,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.88",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      801.7,
+      635.2,
+      825.2,
+      663.9
+     ],
+     "cls": "ball",
+     "score": 0.8821,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
+   "clip": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
+   "video": "data/raw/20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce.mp4",
+   "shot": 18,
+   "frame": 5390,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.90",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1384.6,
+      807.0,
+      1416.5,
+      842.1
+     ],
+     "cls": "ball",
+     "score": 0.9022,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
+   "clip": "20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce",
+   "video": "data/raw/20260609_FbwQDVu5Tw8_SKROT_AMW_Arka_-_Dziki_1._mecz_o_3._miejsce.mp4",
+   "shot": 21,
+   "frame": 6385,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      838,
+      556.1,
+      860.6,
+      579.9
+     ],
+     "cls": "ball",
+     "score": 0.4935,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:18:37"
+  },
+  {
+   "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "clip": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "video": "data/raw/20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce.mp4",
+   "shot": 0,
+   "frame": 255,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1360.5,
+      325.9,
+      1385,
+      353.3
+     ],
+     "cls": "ball",
+     "score": 0.2492,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      663.5,
+      313.4,
+      683.9,
+      339.8
+     ],
+     "cls": "ball",
+     "score": 0.1252
+    }
+   ],
+   "saved_at": "2026-11-20T08:18:45"
+  },
+  {
+   "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "clip": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "video": "data/raw/20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce.mp4",
+   "shot": 8,
+   "frame": 2432,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.89",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1059.7,
+      133.6,
+      1088.5,
+      167.0
+     ],
+     "cls": "ball",
+     "score": 0.8948,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "clip": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "video": "data/raw/20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce.mp4",
+   "shot": 9,
+   "frame": 2541,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1570.1,
+      644.7,
+      1606.6,
+      677.3
+     ],
+     "cls": "ball",
+     "score": 0.7084,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:18:46"
+  },
+  {
+   "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "clip": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "video": "data/raw/20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce.mp4",
+   "shot": 9,
+   "frame": 2641,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.91",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1204.6,
+      796.7,
+      1238.3,
+      833.7
+     ],
+     "cls": "ball",
+     "score": 0.9084,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "clip": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "video": "data/raw/20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce.mp4",
+   "shot": 9,
+   "frame": 2841,
+   "status": "done",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1432.6,
+      639,
+      1451.8,
+      671.5
+     ],
+     "cls": "ball",
+     "score": 0.1028
+    }
+   ],
+   "saved_at": "2026-11-20T08:19:05"
+  },
+  {
+   "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "clip": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "video": "data/raw/20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce.mp4",
+   "shot": 12,
+   "frame": 3699,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1194.3,
+      314.7,
+      1222.5,
+      344.1
+     ],
+     "cls": "ball",
+     "score": 0.7504,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:19:08"
+  },
+  {
+   "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "clip": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "video": "data/raw/20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce.mp4",
+   "shot": 14,
+   "frame": 4266,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1328.8,
+      268.4,
+      1353.3,
+      292.7
+     ],
+     "cls": "ball",
+     "score": 0.8434,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:19:09"
+  },
+  {
+   "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "clip": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "video": "data/raw/20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce.mp4",
+   "shot": 15,
+   "frame": 4477,
+   "status": "done",
+   "note": "accepted without review: one ball at 0.88",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1395.4,
+      665.7,
+      1425.0,
+      697.6
+     ],
+     "cls": "ball",
+     "score": 0.8815,
+     "team": "",
+     "tid": null,
+     "src": "auto",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "clip": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "video": "data/raw/20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce.mp4",
+   "shot": 19,
+   "frame": 5820,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      930.3,
+      460.4,
+      953.8,
+      485.7
+     ],
+     "cls": "ball",
+     "score": 0.8077,
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:19:09"
+  },
+  {
+   "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "clip": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "video": "data/raw/20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce.mp4",
+   "shot": 21,
+   "frame": 6484,
+   "status": "done",
+   "note": "",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      439.5,
+      413.2,
+      464.4,
+      436.2
+     ],
+     "cls": "ball",
+     "score": 0.3969,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      549.5,
+      429.7,
+      571.3,
+      451.4
+     ],
+     "cls": "ball",
+     "score": 0.3703
+    }
+   ],
+   "saved_at": "2026-11-20T08:20:02"
+  },
+  {
+   "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "clip": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "video": "data/raw/20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce.mp4",
+   "shot": 21,
+   "frame": 6684,
+   "status": "skip",
+   "note": "",
+   "boxes": [],
+   "candidates": [],
+   "saved_at": "2026-11-20T08:20:08"
+  },
+  {
+   "youtube_id": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "clip": "20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce",
+   "video": "data/raw/20260612_DJ6xFaC0Neo_SKROT_Dziki_-_AMW_Arka_2._mecz_o_3._miejsce.mp4",
+   "shot": 29,
+   "frame": 7523,
+   "status": "skip",
+   "note": "",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      387.2,
+      436.3,
+      410.5,
+      458.7
+     ],
+     "cls": "ball",
+     "score": 0.164
+    },
+    {
+     "xyxy": [
+      1214.4,
+      630.9,
+      1241,
+      653.4
+     ],
+     "cls": "ball",
+     "score": 0.1337
+    },
+    {
+     "xyxy": [
+      682.8,
+      526,
+      703.6,
+      550.7
+     ],
+     "cls": "ball",
+     "score": 0.1289
+    }
+   ],
+   "saved_at": "2026-11-20T08:20:17"
+  }
+ ],
+ "meta": {
+  "review_seconds": {
+   "2026-11-20": 1516.0
+  }
+ }
+}
