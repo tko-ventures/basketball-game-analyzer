@@ -41,6 +41,11 @@ demo = [
 plus = [
     "rfdetr-plus==1.3.0",
 ]
+# Tracking and appearance (M6): Roboflow trackers (BoT-SORT with re-ID) and reid encoders.
+track = [
+    "reid==0.1.0",
+    "trackers==2.7.0",
+]
 
 [dependency-groups]
 dev = ["pre-commit>=4.0", "pytest>=8.3", "ruff==0.17.5"]
@@ -56,7 +61,7 @@ packages = ["src/bga"]
 # Lint and format follow Jirka Borovec's (Borda) configs, e.g. Borda/vision-synth; see CLAUDE.md "Python style".
 line-length = 120
 target-version = "py312"
-extend-exclude = ["data", "runs", "weights"]
+extend-exclude = ["data", "runs", "weights", "src/bga/track/_sv_bytetrack"]
 format.preview = true
 lint.select = [
   "D",  # see: https://pypi.org/project/pydocstyle
@@ -141,9 +146,13 @@ doctest_optionflags = "NORMALIZE_WHITESPACE ELLIPSIS"
 [tool.uv]
 # One OpenCV only: `inference` also pulls opencv-python and opencv-contrib-python, which share the cv2
 # package directory with the headless wheel, so switching extras would half-delete cv2.
+# `inference` pins trackers below 2.5 and supervision below 0.31; BoT-SORT with re-ID needs trackers 2.7, which needs
+# supervision 0.31. We call only `inference.get_model`; the baseline row is re-run unchanged on the upgraded set (M6).
 override-dependencies = [
   "opencv-python; sys_platform == 'never'",
   "opencv-contrib-python; sys_platform == 'never'",
+  "supervision>=0.31,<0.32",
+  "trackers==2.7.0",
 ]
 
 [tool.hatch.metadata]

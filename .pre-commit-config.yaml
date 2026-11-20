@@ -1,7 +1,7 @@
 # Pinned lint and format hooks, after Borda's pre-commit setups (e.g. Borda/AI-Rig).
 # Run hooks, not bare tools: `uv run pre-commit run --all-files`, or `uv run pre-commit run <hook-id> --files <path>`.
 
-exclude: ^(data|runs|weights|logs)/
+exclude: ^(data|runs|weights|logs|src/bga/track/_sv_bytetrack)/
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks

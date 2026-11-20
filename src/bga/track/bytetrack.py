@@ -1,4 +1,4 @@
-"""``track/bytetrack``: supervision ByteTrack on the detector's person boxes, in pixel space.
+"""``track/bytetrack``: supervision 0.30.9's ByteTrack (vendored in ``_sv_bytetrack``) on the person boxes, in pixels.
 
 The baseline of plan section 5 (``bytetrack_court`` later runs the motion model in court metres).
 
@@ -14,6 +14,7 @@ import numpy as np
 from bga.detect.base import PERSON_CLASSES
 from bga.registry import register
 from bga.stage import BaseBackend, FrameReader, Sequence
+from bga.track._sv_bytetrack import ByteTrack as ByteTrackSV
 
 
 @register("track", "bytetrack")
@@ -54,7 +55,7 @@ class ByteTrack(BaseBackend):
 
         stride = seq.frames[1] - seq.frames[0] if len(seq.frames) > 1 else 1
         rate = seq.fps / stride
-        tracker = sv.ByteTrack(
+        tracker = ByteTrackSV(
             track_activation_threshold=self.p["track_activation_threshold"],
             lost_track_buffer=max(1, round(self.p["lost_track_buffer_s"] * rate)),
             minimum_matching_threshold=self.p["minimum_matching_threshold"],
