@@ -13,6 +13,7 @@ review.
     uv run scripts/autolabel.py ballqueue                 # data/labels/box_queue_r1balls.json for Tomasz
     uv run scripts/autolabel.py manifest                  # data/labels/detect/train_manifest_r1.json for bga train
     uv run scripts/autolabel.py possqueue --rounds 1 2    # data/labels/box_queue_possession.json for Tomasz
+    uv run scripts/autolabel.py possmanifest --rounds 1 2 3   # train_manifest_r<N>_poss.json: possession applied
 
 Step 1, central shots. The non-gold clips have no camera tags. A shot from the main camera shows the court, so the
 PLK court model (court/rfdetr_keypoint/plk-v1) finds many confident landmarks there; replays, close-ups and graphics
@@ -522,16 +523,93 @@ def possession_queue(rounds: list[int]) -> None:
     print(f"{added} frames added; {len(q['frames'])} in {POSS_QUEUE}, {todo} to do")
 
 
+#: A people box overlapping the holder this much is the draft's second box on the same person (17 of 18 cases at 0.97+).
+HOLDER_DUP_IOU = 0.8
+
+
+def possession_manifest(rounds: list[int]) -> None:
+    """Each round's manifest with the possession queue's decisions: ``train_manifest_r<N>_poss.json``.
+
+    For a frame done in the possession queue, its people boxes (players, holders, shooters, referees, and holders
+    drawn by hand) come from the queue, with any box the reviewer moved. The holder is ``player-in-possession`` or
+    keeps a shot class, and every other player is ``player``; a second box on the holder (IoU >= HOLDER_DUP_IOU, the
+    draft's other class for the same person) is dropped. Its other boxes (numbers, rims, balls) stay as in the
+    round's manifest. Frames the queue skipped or never held (no ball in view) keep the manifest's boxes. The split
+    is the round's.
+
+    """
+    import hashlib
+
+    from bga.train.leakage import assert_no_gold
+
+    q = json.loads(POSS_QUEUE.read_text())
+    poss = {(f["clip"], f["frame"]): f for f in q["frames"] if f["status"] == "done"}
+    for n in rounds:
+        src = Path(f"data/labels/detect/train_manifest_r{n}.json")
+        man = json.loads(src.read_text())
+        changed = edited = dups = 0
+        for f in man["frames"]:
+            pf = poss.get((f["clip"], f["frame"]))
+            if pf is None:
+                continue
+            ours = [b for b in f["boxes"] if b[4] in PERSON]
+            theirs = [b for b in pf["boxes"] if b["cls"] in PERSON and b["src"] != "human"]
+            same = len(ours) == len(theirs) and all(
+                b.get("edited") or a[:4] == [float(v) for v in b["xyxy"]] for a, b in zip(ours, theirs, strict=True)
+            )
+            if not same:  # the queue was built from this manifest; only boxes the reviewer moved may differ
+                raise SystemExit(f"{f['clip']} {f['frame']}: queue people differ from the round-{n} manifest")
+            edited += sum(bool(b.get("edited")) for b in theirs)
+            mine = [b for b in pf["boxes"] if b["cls"] in PERSON]
+            if pf.get("holder") is not None:  # the draft's second box on the holder (another class) would say "not him"
+                h = next(b["xyxy"] for b in mine if b["id"] == pf["holder"])
+                keep = [b for b in mine if b["id"] == pf["holder"] or _iou(b["xyxy"], h) < HOLDER_DUP_IOU]
+                dups += len(mine) - len(keep)
+                mine = keep
+            people = [[round(float(v), 1) for v in b["xyxy"]] + [b["cls"]] for b in mine]
+            new = [b for b in f["boxes"] if b[4] not in PERSON] + people
+            changed += sorted(map(str, new)) != sorted(map(str, f["boxes"]))
+            f["boxes"] = new
+        assert_no_gold({f["clip"] for f in man["frames"]} | {f["video"] for f in man["frames"]})
+        man["name"] = f"r{n}_poss"
+        man["params"]["people"] = "possession queue (done frames): the holder or none, Tomasz's review"
+        man["source_labels"] = {
+            **man["source_labels"],
+            str(src): hashlib.sha256(src.read_bytes()).hexdigest(),
+            str(POSS_QUEUE): hashlib.sha256(POSS_QUEUE.read_bytes()).hexdigest(),
+        }
+        out = src.with_name(f"train_manifest_r{n}_poss.json")
+        out.write_text(json.dumps(man, indent=1) + "\n")
+        from collections import Counter
+
+        c = Counter(b[4] for f in man["frames"] for b in f["boxes"])
+        print(
+            f"{out}: {len(man['frames'])} frames, {changed} changed ({edited} boxes moved by the reviewer, "
+            f"{dups} holder duplicates dropped); {dict(c)}"
+        )
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument(
-        "cmd", choices=["central", "check", "sample", "prefill", "draft", "ballqueue", "manifest", "possqueue"]
+        "cmd",
+        choices=[
+            "central",
+            "check",
+            "sample",
+            "prefill",
+            "draft",
+            "ballqueue",
+            "manifest",
+            "possqueue",
+            "possmanifest",
+        ],
     )
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--per-clip", type=int, default=12)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--round", type=int, default=1)
-    ap.add_argument("--rounds", type=int, nargs="*", help="possqueue: rounds whose manifests to add (default 1 2)")
+    ap.add_argument("--rounds", type=int, nargs="*", help="possqueue, possmanifest: rounds (default 1 2)")
     a = ap.parse_args(argv)
     r = Round(a.round)
     r.out.mkdir(parents=True, exist_ok=True)
@@ -544,6 +622,7 @@ def main(argv=None):
         "ballqueue": lambda: ball_queue(r, a.force),
         "manifest": lambda: manifest(r),
         "possqueue": lambda: possession_queue(a.rounds or [1, 2]),
+        "possmanifest": lambda: possession_manifest(a.rounds or [1, 2]),
     }[a.cmd]()
 
 
