@@ -40,6 +40,8 @@ How to read a row:
 | 2026-11-20 | ab21008 | `track-trackers-botsort`@9d9869bd | v0 | dev (9 shots) | 0.650 | 0.722 | 0.587 | 0.717 | 0.779 | 228 | 0.962 | 1.000 (98) | – (–, –; 0 tracks) | 203, 336, 70, – | BoT-SORT at library defaults (camera-motion compensation on, no re-ID); against track-trackers-bytetrack |
 | 2026-11-20 | ab21008 | `track-trackers-botsort-precmc`@c00db509 | v0 | dev (9 shots) | 0.650 | 0.722 | 0.587 | 0.717 | 0.779 | 228 | 0.962 | 1.000 (98) | – (–, –; 0 tracks) | 203, 336, 70, – | camera motion precomputed per shot: tracks identical to track-trackers-botsort in 9 of 9 shots |
 | 2026-11-20 | 71448ff | `track-trackers-botsort-tuned`@20755ecb | v0 | dev (9 shots) | 0.681 | 0.715 | 0.649 | 0.772 | 0.774 | 156 | 0.962 | 1.000 (98) | – (–, –; 0 tracks) | 203, 336, 70, – | BoT-SORT tuned on dev (144 + 55 settings), precomputed camera motion; against track-trackers-botsort and track-trackers-bytetrack-tuned |
+| 2026-11-20 | 3a5a202 | `track-trackers-botsort-noreid`@119b81cf | v0 | dev (9 shots) | 0.681 | 0.716 | 0.650 | 0.770 | 0.774 | 152 | 0.962 | 1.000 (98) | – (–, –; 0 tracks) | 203, 336, 70, – | tuned BoT-SORT, internal camera motion, no re-ID; twin of track-trackers-botsort-reid; ms on Modal: track (L4) |
+| 2026-11-20 | 3a5a202 | `track-trackers-botsort-reid`@840c4250 | v0 | dev (9 shots) | 0.684 | 0.716 | 0.654 | 0.770 | 0.773 | 138 | 0.962 | 1.000 (98) | – (–, –; 0 tracks) | 203, 336, 70, – | re-ID osnet_x1_0_sportsmot at ReIDConfig defaults; against track-trackers-botsort-noreid; ms on Modal: track (L4) |
 
 ## Court layer
 

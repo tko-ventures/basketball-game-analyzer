@@ -47,5 +47,23 @@ image builds are not included, so the Modal invoice is the authority.
 | 2026-11-20 | modal | H100 | bga train detect/rfdetr_torch/plk-r3-poss@c62744fe | 654.1 | 0.7177 |
 | 2026-11-20 | modal | H100 | bga train detect/rfdetr_torch/plk-r3@f72eba80 | 798.1 | 0.8757 |
 | 2026-11-20 | modal | L4 | bga run numbers/smolvlm_ocr OSp445e0mXU_s10 | 180.6 | 0.0401 |
+| 2026-11-20 | modal | L4 | bga run track/trackers 4XMD9FWmQws_s4 | 32.2 | 0.0071 |
+| 2026-11-20 | modal | L4 | bga run track/trackers 4XMD9FWmQws_s42 | 23.1 | 0.0051 |
+| 2026-11-20 | modal | L4 | bga run track/trackers 4XMD9FWmQws_s78 | 22.1 | 0.0049 |
+| 2026-11-20 | modal | L4 | bga run track/trackers OSp445e0mXU_s2 | 22.1 | 0.0049 |
+| 2026-11-20 | modal | L4 | bga run track/trackers OSp445e0mXU_s10 | 18.4 | 0.0041 |
+| 2026-11-20 | modal | L4 | bga run track/trackers OSp445e0mXU_s19 | 17.3 | 0.0038 |
+| 2026-11-20 | modal | L4 | bga run track/trackers 1jDaJBkUGmc_s3 | 24.6 | 0.0055 |
+| 2026-11-20 | modal | L4 | bga run track/trackers 1jDaJBkUGmc_s7 | 20.0 | 0.0045 |
+| 2026-11-20 | modal | L4 | bga run track/trackers 1jDaJBkUGmc_s16 | 13.6 | 0.003 |
+| 2026-11-20 | modal | L4 | bga run track/trackers 4XMD9FWmQws_s4 | 40.0 | 0.0089 |
+| 2026-11-20 | modal | L4 | bga run track/trackers 4XMD9FWmQws_s42 | 20.4 | 0.0045 |
+| 2026-11-20 | modal | L4 | bga run track/trackers 4XMD9FWmQws_s78 | 19.3 | 0.0043 |
+| 2026-11-20 | modal | L4 | bga run track/trackers OSp445e0mXU_s2 | 23.9 | 0.0053 |
+| 2026-11-20 | modal | L4 | bga run track/trackers OSp445e0mXU_s10 | 18.8 | 0.0042 |
+| 2026-11-20 | modal | L4 | bga run track/trackers OSp445e0mXU_s19 | 15.9 | 0.0035 |
+| 2026-11-20 | modal | L4 | bga run track/trackers 1jDaJBkUGmc_s3 | 20.2 | 0.0045 |
+| 2026-11-20 | modal | L4 | bga run track/trackers 1jDaJBkUGmc_s7 | 17.6 | 0.0039 |
+| 2026-11-20 | modal | L4 | bga run track/trackers 1jDaJBkUGmc_s16 | 15.9 | 0.0035 |
 
 Month to date (2026-11), from Modal's own billing (`modal billing summary`, 2026-11-19 night): 28.08 USD metered, 27.99 covered by the workspace's 30 USD monthly credits, 0.00 USD billed so far; further November runs are billed. The rows above are per-job estimates at list price for the GPU alone, except where they cite Modal billing. On 2026-11-18 four rows estimated from local log times overstated the cut-short training runs about 25-fold (the remote runs had stopped within minutes while the local process went on waiting); they now carry the billed figures. October 2026: 4.18 USD metered per Modal (3.60 USD in the rows).
