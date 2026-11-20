@@ -9,7 +9,10 @@ and the library's docs map onto configs one to one.
 
 from __future__ import annotations
 
+import hashlib
+import json
 import time
+from pathlib import Path
 from typing import TYPE_CHECKING, Any, ClassVar
 
 import numpy as np
@@ -28,6 +31,53 @@ TRACKERS = {
     "ocsort": "OCSORTTracker",
     "sort": "SORTTracker",
 }
+
+
+#: Where precomputed camera-motion transforms are cached, one ``.npy`` per sequence and setting.
+CMC_CACHE = Path("runs/_cache/cmc")
+
+
+def cmc_transforms(
+    seq: Sequence, dets: dict, read: FrameReader, method: str, downscale: int, mask_score: float
+) -> np.ndarray:
+    """Estimate BoT-SORT's camera-motion transforms for every processed frame of a sequence, once, and cache them.
+
+    Person boxes scoring at least ``mask_score`` are masked out of the feature search, as BoT-SORT masks its
+    high-confidence boxes; with ``mask_score`` equal to ``high_conf_det_threshold`` the transforms are the ones the
+    tracker would estimate itself. The cache key covers the video, frames, masked boxes and CMC settings.
+
+    Args:
+        seq: The sequence.
+        dets: Its ``detect`` output frames.
+        read: Frame reader of the sequence.
+        method: ``trackers`` CMC method, e.g. ``sparseOptFlow``.
+        downscale: CMC downscale factor.
+        mask_score: Minimum score of the person boxes masked out.
+
+    Returns:
+        Array ``(frames, 2, 3)`` of previous-to-current affine transforms; the first is the identity.
+
+    Examples:
+        >>> h = cmc_transforms(seq, dets, read, "sparseOptFlow", 2, 0.6)  # doctest: +SKIP
+        >>> h.shape  # doctest: +SKIP
+        (115, 2, 3)
+
+    """
+    from trackers import CMC, CMCConfig
+
+    masks = [[d[:4] for d in dets[str(f)] if d[5] in PERSON_CLASSES and d[4] >= mask_score] for f in seq.frames]
+    blob = json.dumps([seq.video, seq.frames, masks, method, downscale], separators=(",", ":"))
+    path = CMC_CACHE / f"{seq.name}_{hashlib.sha256(blob.encode()).hexdigest()[:12]}.npy"
+    if path.exists():
+        return np.load(path)
+    cmc = CMC(CMCConfig(method=method, downscale=downscale))
+    out = np.stack([
+        cmc.estimate(read(f), np.array(m, dtype=np.float32) if m else None)
+        for f, m in zip(seq.frames, masks, strict=True)
+    ])
+    path.parent.mkdir(parents=True, exist_ok=True)
+    np.save(path, out)
+    return out
 
 
 def lost_buffer_frames(seconds: float) -> int:
@@ -53,8 +103,10 @@ class RoboflowTrackers(BaseBackend):
 
     Params (``defaults``): ``tracker`` (``bytetrack``, ``botsort``, ``ocsort``, ``sort``), ``min_score`` (boxes below
     are not passed in), ``lost_track_buffer_s``, ``args`` (other constructor arguments, passed as given),
-    ``reid_model`` (a ``reid`` model source for BoT-SORT, or ``None``) and ``reid_config`` (``trackers.ReIDConfig``
-    fields). BoT-SORT gets each frame, for camera-motion compensation and re-ID; the others get none.
+    ``reid_model`` (a ``reid`` model source for BoT-SORT, or ``None``), ``reid_config`` (``trackers.ReIDConfig``
+    fields), ``cmc`` and ``cmc_mask_score``. With ``cmc: internal`` BoT-SORT gets each frame and estimates camera
+    motion itself; with ``cmc: precomputed`` the transforms come from :func:`cmc_transforms`, cached per sequence, so
+    a parameter sweep decodes the frames once. Re-ID still gets the frames.
 
     Examples:
         >>> tracker = RoboflowTrackers({"tracker": "botsort", "args": {"enable_cmc": True}})  # doctest: +SKIP
@@ -70,10 +122,12 @@ class RoboflowTrackers(BaseBackend):
         "args": {},
         "reid_model": None,
         "reid_config": {},
+        "cmc": "internal",
+        "cmc_mask_score": 0.6,
     }
 
-    def _make(self, rate: float) -> BaseTracker:
-        """Build the configured tracker for a sequence processed at ``rate`` frames per second."""
+    def _make(self, rate: float, override: dict | None = None) -> BaseTracker:
+        """Build the configured tracker for a sequence processed at ``rate`` frames per second, ``override`` on top."""
         import trackers
 
         name = self.p["tracker"]
@@ -83,6 +137,7 @@ class RoboflowTrackers(BaseBackend):
             "frame_rate": rate,
             "lost_track_buffer": lost_buffer_frames(self.p["lost_track_buffer_s"]),
             **self.p["args"],
+            **(override or {}),
         }
         if self.p["reid_model"]:
             if name != "botsort":
@@ -109,10 +164,24 @@ class RoboflowTrackers(BaseBackend):
         import supervision as sv
 
         stride = seq.frames[1] - seq.frames[0] if len(seq.frames) > 1 else 1
-        tracker = self._make(seq.fps / stride)
-        wants_frame = self.p["tracker"] == "botsort"
         dets, out, t = upstream["detect"]["frames"], {}, 0.0
-        for f in seq.frames:
+        botsort = self.p["tracker"] == "botsort"
+        pre = botsort and self.p["cmc"] == "precomputed" and self.p["args"].get("enable_cmc", True)
+        if pre and self.p["reid_model"]:
+            raise ValueError("cmc: precomputed cannot run with re-ID: trackers takes a frame or a transform, not both")
+        if pre:
+            a = self.p["args"]
+            hs = cmc_transforms(
+                seq,
+                dets,
+                read,
+                a.get("cmc_method", "sparseOptFlow"),
+                a.get("cmc_downscale", 2),
+                self.p["cmc_mask_score"],
+            )
+        tracker = self._make(seq.fps / stride, {"enable_cmc": False} if pre else None)  # transforms, not frames
+        wants_frame = botsort and not pre
+        for j, f in enumerate(seq.frames):
             rows = [
                 (i, d) for i, d in enumerate(dets[str(f)]) if d[5] in PERSON_CLASSES and d[4] >= self.p["min_score"]
             ]
@@ -128,7 +197,10 @@ class RoboflowTrackers(BaseBackend):
                 else sv.Detections.empty()
             )
             t0 = time.perf_counter()
-            res = tracker.update(det, frame) if wants_frame else tracker.update(det)
+            if pre:
+                res = tracker.update(det, cmc_transform=hs[j])
+            else:
+                res = tracker.update(det, frame) if wants_frame else tracker.update(det)
             t += time.perf_counter() - t0
             keep = [k for k in range(len(res)) if res.tracker_id is not None and res.tracker_id[k] >= 0]
             out[str(f)] = [

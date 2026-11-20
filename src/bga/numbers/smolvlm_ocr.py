@@ -20,6 +20,7 @@ import cv2
 import numpy as np
 
 from bga.detect.roboflow_inference import roboflow_key
+from bga.device import pick_device
 from bga.registry import register
 from bga.stage import BaseBackend, FrameReader, Sequence
 
@@ -77,7 +78,7 @@ class SmolVLMOcr(BaseBackend):
         from inference_models import AutoModel
 
         roboflow_key()
-        device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+        device = torch.device(pick_device("auto"))
         self.model = AutoModel.from_pretrained(
             self.p["model_id"], api_key=os.environ.get("ROBOFLOW_API_KEY"), device=device
         )

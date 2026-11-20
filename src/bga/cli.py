@@ -22,7 +22,7 @@ from typing import Annotated
 import typer
 
 from bga import pipeline, registry
-from bga.config import load_config
+from bga.config import RunConfig, load_config
 
 #: The ``bga`` Typer application, installed as the ``bga`` console script.
 app = typer.Typer(add_completion=False, no_args_is_help=True)
@@ -82,6 +82,7 @@ def run(
     force: Annotated[list[str], typer.Option(help="recompute these layers")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
     remote: Annotated[str | None, typer.Option(help="modal: run CUDA backends on Modal")] = None,
     remote_layer: Annotated[list[str], typer.Option(help="also run these layers remotely")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
+    remote_gpu: Annotated[str, typer.Option(help="Modal GPU for --remote-layer layers; cpu for none")] = "L4",
     verbose: bool = False,
 ) -> None:
     """Run every layer of a config over its sequences into runs/<clip>/<layer>/<backend>@<hash8>/.
@@ -94,6 +95,7 @@ def run(
         force: Recompute these layers instead of reusing their cached outputs.
         remote: ``modal`` to run CUDA backends on Modal.
         remote_layer: Also run these layers remotely.
+        remote_gpu: Modal GPU type for the ``remote_layer`` layers, or ``cpu``.
         verbose: Log progress.
 
     Examples:
@@ -110,6 +112,7 @@ def run(
         force=force or None,
         remote=remote,
         remote_layers=remote_layer,
+        remote_gpu=None if remote_gpu == "cpu" else remote_gpu,
     )
     typer.echo(f"{cfg.name}@{cfg.config_hash()}: {len(seqs)} sequences")
 
@@ -150,6 +153,34 @@ def _insert_rows(text: str, header: str, rows: list[str], intro: str = "") -> st
     return "\n".join(lines[:i] + rows + lines[i:]) + "\n"
 
 
+def _remote_note(cfg: RunConfig, seqs: list) -> str:
+    """Name the layers whose outputs were made on Modal, with their GPU, for a metrics row's notes.
+
+    Their ms per frame was measured there, not on the Mac.
+
+    Args:
+        cfg: The scored config.
+        seqs: Its sequences.
+
+    Returns:
+        ``"ms on Modal: numbers (L4)"`` style text, or ``""`` when every layer ran on the Mac.
+
+    Examples:
+        >>> _remote_note(cfg, seqs)  # doctest: +SKIP
+        'ms on Modal: numbers (L4)'
+
+    """
+    remote = {}
+    for layer in cfg.layers:
+        if layer == "shots" or not seqs:
+            continue
+        path = pipeline.output_path(cfg, Path("runs"), seqs[0], layer)
+        rec = pipeline.load_output(cfg, Path("runs"), seqs[0], layer).get("remote") if path.exists() else None
+        if rec:
+            remote[layer] = rec.get("gpu") or "cpu"
+    return ("ms on Modal: " + ", ".join(f"{k} ({v})" for k, v in remote.items())) if remote else ""
+
+
 @app.command("eval", help="Run (reusing cached layer outputs) and score each config on the gold set.")
 def eval_(
     config: Annotated[list[Path], typer.Option(help="one or more configs, scored side by side")],
@@ -158,6 +189,9 @@ def eval_(
     held_out: Annotated[bool, typer.Option(help="score the held-out game instead (once per milestone)")] = False,
     write: Annotated[bool, typer.Option(help="append rows to docs/metrics.md")] = False,
     note: str = "",
+    remote: Annotated[str | None, typer.Option(help="modal: run CUDA backends on Modal")] = None,
+    remote_layer: Annotated[list[str], typer.Option(help="also run these layers remotely")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
+    remote_gpu: Annotated[str, typer.Option(help="Modal GPU for --remote-layer layers; cpu for none")] = "L4",
     verbose: bool = False,
 ) -> None:
     """Run (reusing cached layer outputs) and score each config on the gold set.
@@ -168,7 +202,11 @@ def eval_(
         gold: Gold set version.
         held_out: Score the held-out game instead of the dev shots (once per milestone).
         write: Add the rows to the tracking table in ``docs/metrics.md``.
-        note: Text for the notes column.
+        note: Text for the notes column; layers whose outputs were made on Modal are named there, since their
+            ms per frame is not the Mac's.
+        remote: ``modal`` to run CUDA backends and ``remote_layer`` layers on Modal.
+        remote_layer: Also run these layers remotely.
+        remote_gpu: Modal GPU type for the ``remote_layer`` layers, or ``cpu``.
         verbose: Log progress.
 
     Raises:
@@ -187,8 +225,11 @@ def eval_(
         _require_provenance(cfg)
         cfg.layers["shots"].params["held_out"] = "only" if held_out else "exclude"
         cfg.layers["shots"].params["version"] = gold
-        seqs = pipeline.run(cfg)
+        seqs = pipeline.run(
+            cfg, remote=remote, remote_layers=remote_layer, remote_gpu=None if remote_gpu == "cpu" else remote_gpu
+        )
         s = score(cfg, seqs, gold=gold)
+        row_note = "; ".join(x for x in (note, _remote_note(cfg, seqs)) if x)
         ms = s["ms"]
         row = (
             f"| {dt.date.today().isoformat()} | {pipeline.git_commit()} | `{path.stem}`@{cfg.config_hash()} "
@@ -199,7 +240,7 @@ def eval_(
             f"| {_fmt(s.get('id_acc'))} ({_fmt(s.get('id_confirmed'))}, {s.get('id_wrong', '–')}; "
             f"{s.get('id_tracks', 0)} tracks) "
             f"| {_fmt(ms.get('detect'), 0)}, {_fmt(ms.get('team'), 0)}, {_fmt(ms.get('court'), 0)}, "
-            f"{_fmt(ms.get('numbers'), 0)} | {note} |"
+            f"{_fmt(ms.get('numbers'), 0)} | {row_note} |"
         )
         rows.append(row)
         typer.echo(

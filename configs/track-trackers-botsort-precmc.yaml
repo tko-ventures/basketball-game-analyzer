@@ -1,0 +1,24 @@
+name: track-trackers-botsort-precmc
+description: >
+  track-trackers-botsort with the camera-motion transforms precomputed once per shot (cmc: precomputed), masking
+  person boxes scoring 0.6 or more as BoT-SORT masks its high-confidence boxes at the default threshold, so the
+  tracks should equal track-trackers-botsort's; this config checks that before sweeps rely on it.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: roboflow_keypoints
+    params: {model_id: basketball-court-detection-2/14}
+    weights: pretrained:roboflow/basketball-court-detection-2/14
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r3-poss@c62744fe
+  team:
+    backend: siglip_kmeans
+    params: {seed: 0, fit_fps: 5.0}
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  track:
+    backend: trackers
+    params: {tracker: botsort, cmc: precomputed, cmc_mask_score: 0.6}

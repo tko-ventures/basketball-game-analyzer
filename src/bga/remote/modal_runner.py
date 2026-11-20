@@ -34,30 +34,27 @@ COSTS_MD = Path("docs/costs.md")
 app = modal.App("bga-runner")
 #: Shared volume: clips under ``clips/``, training runs under ``train/``.
 vol = modal.Volume.from_name("bga-data", create_if_missing=True)
-#: Container image with the Mac's pinned versions and the local ``bga`` package.
+#: Runtime extras installed in the runner image: every layer's backends, re-ID and the Modal client itself.
+RUNNER_EXTRAS = ["prefill", "demo", "court", "track", "remote"]
+#: Trained weights come from the volume (uploaded once per weight id). Model downloads go to the container's own disk:
+#: ``inference_models`` and Hugging Face lock their caches with file locks, which a Modal Volume does not support
+#: (the lock timed out on 2026-11-20), so each container downloads its models once on start.
+VOLUME_ENV = {"HF_HOME": "/root/cache/hf", "MODEL_CACHE_DIR": "/root/cache/roboflow", "BGA_WEIGHTS": "/data/weights"}
+#: Container image built from the repository's ``uv.lock``, so every layer runs the Mac's exact versions; the local
+#: ``bga`` package and the court geometry file (read by ``court/rfdetr_keypoint`` from the repository root) go in last.
 image = (
+    # Modal's ``debian_slim`` is bullseye, whose apt archives are gone; bookworm still installs git
     modal.Image
-    .debian_slim(python_version="3.12")
-    # Same versions as the Mac's uv.lock, so a layer gives the same output wherever it runs.
-    .pip_install(
-        "numpy==2.3.5",
-        "pydantic==2.11.10",
-        "pyyaml==6.0.3",
-        "supervision==0.30.9",
-        "torch==2.15.0",
-        "torchvision==0.29.2",
-    )
-    # supervision pulls the GUI OpenCV, which needs libGL; the bullseye base is end-of-life, so swap in
-    # the headless wheel instead of apt-installing system libraries.
-    .run_commands(
-        "pip uninstall -y opencv-python opencv-contrib-python",
-        "pip install --force-reinstall --no-deps opencv-python-headless==5.0.0.93",
-    )
+    .from_registry("python:3.12-slim-bookworm")
+    .apt_install("git")  # uv fetches the ``sports`` git dependency
+    .uv_sync(extras=RUNNER_EXTRAS, frozen=True)
+    .env(VOLUME_ENV)
+    .add_local_file("tools/labeler/static/fiba_court.json", "/tools/labeler/static/fiba_court.json")
     .add_local_python_source("bga")
 )
 
 
-@app.function(image=image, volumes={"/data": vol}, timeout=3600)
+@app.function(image=image, volumes={"/data": vol}, secrets=[modal.Secret.from_name("roboflow")], timeout=3600)
 def run_sequence(layer: str, entry: dict, seq: dict, upstream: dict, gpu: str | None) -> dict:
     """Run one layer's backend on one sequence inside Modal, reading the clip from the volume.
 
@@ -117,6 +114,35 @@ def upload_clips(videos: set[str]) -> None:
                 up.put_file(v, f"clips/{Path(v).name}")
 
 
+def upload_weights(weight_id: str | None) -> None:
+    """Upload a trained weight id's ``train.json`` and checkpoint to ``weights/<id>/`` unless the volume has them.
+
+    Pretrained ids (``pretrained:...``) and ``None`` need nothing: their backends download from the source.
+
+    Args:
+        weight_id: A config's ``weights`` field.
+
+    Examples:
+        >>> upload_weights("detect/rfdetr_torch/plk-r3-poss@c62744fe")  # doctest: +SKIP
+
+    """
+    if not weight_id or weight_id.startswith("pretrained:"):
+        return
+    from bga.paths import weights_dir
+
+    local = weights_dir(weight_id)
+    files = [f for f in ("train.json", "checkpoint_best_total.pth") if (local / f).exists()]
+    if not files:
+        raise FileNotFoundError(f"no weights under {local}")
+    if _exists(f"weights/{weight_id}"):
+        have = {Path(e.path).name for e in vol.listdir(f"weights/{weight_id}")}
+        files = [f for f in files if f not in have]
+    if files:
+        with vol.batch_upload() as up:
+            for f in files:
+                up.put_file(str(local / f), f"weights/{weight_id}/{f}")
+
+
 def _exists(path: str) -> bool:
     """Whether a path exists on the volume."""
     try:
@@ -146,6 +172,7 @@ def run_layer(layer: str, entry: dict, seqs: list, upstream: list[dict], gpu: st
     fn = run_sequence.with_options(gpu=gpu) if gpu else run_sequence
     with modal.enable_output(), app.run():
         upload_clips({s.video for s in seqs})
+        upload_weights(entry.get("weights"))
         args = [(layer, entry, asdict(s), u, gpu) for s, u in zip(seqs, upstream, strict=True)]
         outs = list(fn.starmap(args))
     log_costs(layer, entry["backend"], seqs, outs)

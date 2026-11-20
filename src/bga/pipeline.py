@@ -142,6 +142,7 @@ def run(
     force: list[str] | None = None,
     remote: str | None = None,
     remote_layers: list[str] | None = None,
+    remote_gpu: str | None = None,
 ) -> list[Sequence]:
     """Run every configured layer over the config's sequences, layer by layer, reusing stored outputs.
 
@@ -157,6 +158,7 @@ def run(
         force: Layers to recompute even where outputs exist.
         remote: ``"modal"`` to allow remote execution, else ``None``.
         remote_layers: Layers to run remotely besides the CUDA-only ones.
+        remote_gpu: Modal GPU type for ``remote_layers``, or ``None`` for CPU; CUDA backends bring their own.
 
     Returns:
         The sequences of the run, including those whose outputs were reused.
@@ -185,7 +187,7 @@ def run(
             from bga.remote.modal_runner import run_layer
 
             ups = [{u: load_output(cfg, runs, s, u) for u in LAYERS[layer] if u in cfg.layers} for s in todo]
-            gpu = getattr(backend, "gpu", None) if backend.requires == "cuda" else None
+            gpu = getattr(backend, "gpu", None) if backend.requires == "cuda" else remote_gpu
             for seq, out in zip(todo, run_layer(layer, cfg.layers[layer].model_dump(), todo, ups, gpu), strict=True):
                 path = output_path(cfg, runs, seq, layer)
                 path.parent.mkdir(parents=True, exist_ok=True)
