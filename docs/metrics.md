@@ -32,6 +32,7 @@ How to read a row:
 | 2026-11-20 | 4e4556b | `team-plk-r3-poss-fit5-seed2`@922a5c05 | v0 | dev (9 shots) | 0.630 | 0.704 | 0.566 | 0.677 | 0.736 | 265 | 0.962 | 1.000 (98) | 0.435 (0.739, 21; 69 tracks) | 203, 310, 79, 1209 | M5 fit at 5 frames a second: 4XMD9FWmQws_s78 right on every seed; wrong-team boxes about 3.5% against 6% at 1 fps |
 | 2026-11-20 | 4e4556b | `team-plk-r3-poss-fit5-seed3`@cd917041 | v0 | dev (9 shots) | 0.630 | 0.704 | 0.566 | 0.677 | 0.736 | 265 | 0.962 | 1.000 (98) | 0.435 (0.739, 21; 69 tracks) | 203, 291, 79, 1209 | M5 fit at 5 frames a second: 4XMD9FWmQws_s78 right on every seed; wrong-team boxes about 3.5% against 6% at 1 fps |
 | 2026-11-20 | 4e4556b | `team-plk-r3-poss-fit5-seed4`@90ce55b8 | v0 | dev (9 shots) | 0.630 | 0.704 | 0.566 | 0.677 | 0.736 | 265 | 0.962 | 0.990 (98) | 0.435 (0.739, 21; 69 tracks) | 203, 297, 79, 1209 | M5 fit at 5 frames a second: 4XMD9FWmQws_s78 right on every seed; wrong-team boxes about 3.5% against 6% at 1 fps |
+| 2026-11-20 | 3d5ab86 | `team-plk-r3-poss-fit5-seed0`@5736b9c6 | v0 | held-out (3 shots) | 0.642 | 0.717 | 0.575 | 0.674 | 0.744 | 70 | 0.956 | 1.000 (31) | 0.462 (0.808, 9; 26 tracks) | 219, 347, 70, 1350 | M5 held-out, scored once; Tomasz approved 2026-11-20, which also scores plk-r3-poss here ahead of M9 |
 
 ## Court layer
 
