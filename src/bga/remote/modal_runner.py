@@ -152,12 +152,13 @@ def _exists(path: str) -> bool:
         return False
 
 
-def run_layer(layer: str, entry: dict, seqs: list, upstream: list[dict], gpu: str | None) -> list[dict]:
+def run_layer(layer: str, entry: dict | list[dict], seqs: list, upstream: list[dict], gpu: str | None) -> list[dict]:
     """Run one layer for ``seqs`` (with their upstream outputs) on Modal, one parallel call per sequence.
 
     Args:
         layer: the layer name.
-        entry: the layer's config entry (``backend``, ``params``, ``weights``).
+        entry: the layer's config entry (``backend``, ``params``, ``weights``), or one entry per sequence, so a
+            parameter sweep sends every setting and sequence in one parallel batch.
         seqs: the sequences (``bga.stage.Sequence``).
         upstream: upstream outputs, one per sequence.
         gpu: Modal GPU type, or None for CPU.
@@ -169,13 +170,15 @@ def run_layer(layer: str, entry: dict, seqs: list, upstream: list[dict], gpu: st
         >>> outs = run_layer("court", {"backend": "roboflow_keypoints"}, seqs, [{}] * len(seqs), None)  # doctest: +SKIP
 
     """
+    entries = entry if isinstance(entry, list) else [entry] * len(seqs)
     fn = run_sequence.with_options(gpu=gpu) if gpu else run_sequence
     with modal.enable_output(), app.run():
         upload_clips({s.video for s in seqs})
-        upload_weights(entry.get("weights"))
-        args = [(layer, entry, asdict(s), u, gpu) for s, u in zip(seqs, upstream, strict=True)]
+        for w in {e.get("weights") for e in entries}:
+            upload_weights(w)
+        args = [(layer, e, asdict(s), u, gpu) for e, s, u in zip(entries, seqs, upstream, strict=True)]
         outs = list(fn.starmap(args))
-    log_costs(layer, entry["backend"], seqs, outs)
+    log_costs(layer, entries[0]["backend"], seqs, outs)
     return outs
 
 
