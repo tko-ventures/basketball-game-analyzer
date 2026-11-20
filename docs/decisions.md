@@ -448,3 +448,14 @@ Tomasz approved the recommendation. Later layers (M5 team, M6 tracking, M9 ball 
 - **The held-out game stays unscored** until M9, whose done-when is possession accuracy on gold; this detector is one input to it.
 - **A round 4 of auto-labelling** would prefill with `plk-r3-poss`, after its ball auto-accept threshold is calibrated on gold v1 dev, as for rounds 2 and 3.
 - **More possession labels wait for M9's possession score.** If it falls short, another queue prefilled by this detector is the cheapest next step.
+
+## 2026-11-20: team layer: fit at 5 frames a second, separation reported but not a trigger
+
+M5 measured Skalski's `TeamClassifier` on the `plk-r3-poss` boxes over gold v0 dev (98 player tracks), with UMAP and KMeans seeded 0 to 4 so each row can be rerun (rows in `docs/metrics.md`). The v0 track teams were first checked by eye with no classifier involved: all 164 are right (`docs/gold.md`, team audit).
+
+- **The 1 fps fit is unstable.** At 1 frame a second (about 110 crops per 11 s shot), 3 of 5 seeds miss the same two Dziki tracks in `4XMD9FWmQws_s78`: team accuracy 0.980, 0.980, 1.000, 1.000, 0.980. An unseeded run is one draw from that spread.
+- **Fit at 5 frames a second.** `team-plk-r3-poss-fit5-seed0` to `seed4` score 1.000 on four seeds and 0.990 on one. Per box, wrong-team boxes fall from about 6% to about 3.5%, for about 50 ms per frame more. Later layers use `fit_fps: 5.0` and a fixed `seed`. The backend default stays 1 so `baseline` keeps Skalski's settings.
+- **The chest crop is not adopted.** Moving the 40% crop from the hips to the chest (`crop_cy: 0.35`) scored 0.878 to 0.959.
+- **Separation is reported, not used as a trigger.** The failing 1 fps fits had the highest silhouette of any shot (0.58 to 0.63), so a silhouette threshold would not have caught them. The plan's manual kit-colour fallback and the `d1_choice` cross-check are not built: no dev shot failed in a way either would fix. They come back if the held-out game or a new arena fails.
+- **Fit unit.** The plan said "per clip". The backend fits per shot, which is what was measured. A per-game fit over all of a game's shots needs pipeline support and is not done.
+- **Held-out game, scored once (approved by Tomasz on 2026-11-20).** `team-plk-r3-poss-fit5-seed0` scores team accuracy 1.000 on 31 tracks of Dziki – Zastal, with wrong-team boxes at 1.9%. Tomasz approved this run although it also scores `plk-r3-poss` on the held-out game, which the decision of the same day had left for M9. Against `baseline`'s held-out row of 2026-11-02, IDF1 is 0.674 against 0.710 and number accuracy 0.462 against 0.577. Those belong to M6 and M7, which tune tracking and numbers on these boxes.

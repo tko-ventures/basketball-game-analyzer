@@ -1,0 +1,28 @@
+name: team-plk-r3-poss-fit5-seed4
+description: >
+  team-plk-r3-poss-seed4 fitted on frames sampled 5 times a second in place of once (fit_fps 5.0). A gold shot lasts about 11 s,
+  so the 1 fps fit sees about 110 crops; the failing 4XMD9FWmQws_s78 split may come from too few.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: roboflow_keypoints
+    params: {model_id: basketball-court-detection-2/14}
+    weights: pretrained:roboflow/basketball-court-detection-2/14
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r3-poss@c62744fe
+  team:
+    backend: siglip_kmeans
+    params: {seed: 4, fit_fps: 5.0}
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  track:
+    backend: bytetrack
+  positions:
+    backend: bbox_bottom
+  numbers:
+    backend: smolvlm_ocr
+    params: {model_id: basketball-jersey-numbers-ocr/3}
+    weights: pretrained:roboflow/basketball-jersey-numbers-ocr/3

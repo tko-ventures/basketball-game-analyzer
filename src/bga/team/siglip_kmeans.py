@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import time
 from collections.abc import Sequence as Seq
+from dataclasses import asdict, dataclass
 from typing import Any, ClassVar
 
 import cv2
@@ -20,13 +21,15 @@ from bga.registry import register
 from bga.stage import BaseBackend, FrameReader, Sequence
 
 
-def central_crop(img: np.ndarray, box: Seq[float], factor: float) -> np.ndarray:
-    """Cut the centre of a box, scaled by ``factor`` in both sides, clipped to the image.
+def central_crop(img: np.ndarray, box: Seq[float], factor: float, cy: float = 0.5) -> np.ndarray:
+    """Cut a part of a box, scaled by ``factor`` around a point on its vertical axis, clipped to the image.
 
     Args:
         img: Image to crop.
         box: Box as x1, y1, x2, y2 (extra items are ignored).
-        factor: Share of the box's width and height kept around its centre.
+        factor: Share of the box's width and height kept around the crop centre.
+        cy: Height of the crop centre as a share of the box height from its top; 0.5 is the box centre, about 0.35
+            the chest of a standing player.
 
     Returns:
         A view into ``img``; empty when the scaled box falls outside the image.
@@ -37,14 +40,59 @@ def central_crop(img: np.ndarray, box: Seq[float], factor: float) -> np.ndarray:
         (20, 40, 3)
         >>> central_crop(img, (190, 90, 210, 110), 1.0).shape
         (10, 10, 3)
+        >>> img[10:30] = 255  # the top of the box is white
+        >>> int(central_crop(img, (0, 0, 100, 100), 0.2, cy=0.2).mean())
+        255
 
     """
     x1, y1, x2, y2 = box[:4]
-    cx, cy, w, h = (x1 + x2) / 2, (y1 + y2) / 2, (x2 - x1) * factor, (y2 - y1) * factor
+    cx, cy, w, h = (x1 + x2) / 2, y1 + (y2 - y1) * cy, (x2 - x1) * factor, (y2 - y1) * factor
     img_h, img_w = img.shape[:2]
     return img[
         max(0, int(cy - h / 2)) : min(img_h, int(cy + h / 2)), max(0, int(cx - w / 2)) : min(img_w, int(cx + w / 2))
     ]
+
+
+@dataclass(frozen=True)
+class Separation:
+    """How well the two kit clusters of one sequence separate, measured on the points they were fitted on.
+
+    Attributes:
+        silhouette: Mean silhouette over the fitted points, from -1 to 1; near 1 when the clusters are compact and
+            far apart.
+        minor_share: Share of the fitted points in the smaller cluster; 0.5 is an even split.
+
+    """
+
+    silhouette: float
+    minor_share: float
+
+
+def cluster_separation(points: np.ndarray, labels: np.ndarray) -> Separation:
+    """Score the separation of a two-cluster labelling of points.
+
+    Args:
+        points: Points as an ``(n, d)`` array.
+        labels: Cluster label per point, 0 or 1.
+
+    Returns:
+        The silhouette and the smaller cluster's share, both rounded to 3 places. A single cluster scores silhouette
+        0 and share 0.
+
+    Examples:
+        >>> pts = np.array([[0.0, 0.0], [0.0, 1.0], [10.0, 0.0], [10.0, 1.0]])
+        >>> cluster_separation(pts, np.array([0, 0, 1, 1]))
+        Separation(silhouette=0.9, minor_share=0.5)
+        >>> cluster_separation(pts, np.array([0, 0, 0, 0]))
+        Separation(silhouette=0.0, minor_share=0.0)
+
+    """
+    from sklearn.metrics import silhouette_score
+
+    sizes = np.bincount(labels, minlength=2)
+    if sizes.min() == 0:
+        return Separation(0.0, 0.0)
+    return Separation(round(float(silhouette_score(points, labels)), 3), round(float(sizes.min() / sizes.sum()), 3))
 
 
 @register("team", "siglip_kmeans")
@@ -59,7 +107,14 @@ class SiglipKMeans(BaseBackend):
 
     """
 
-    defaults: ClassVar[dict[str, Any]] = {"fit_fps": 1.0, "crop": 0.4, "min_score": 0.4, "device": "mps"}
+    defaults: ClassVar[dict[str, Any]] = {
+        "fit_fps": 1.0,
+        "crop": 0.4,
+        "crop_cy": 0.5,
+        "min_score": 0.4,
+        "device": "mps",
+        "seed": None,
+    }
 
     def load(self) -> None:
         """Import ``sports.TeamClassifier``; the classifier itself is built per sequence in :meth:`run`."""
@@ -71,13 +126,28 @@ class SiglipKMeans(BaseBackend):
         """Drop the classifier class."""
         self.TeamClassifier = None
 
+    def _fit_predict(self, crops: list[np.ndarray], fit: list[np.ndarray]) -> tuple[list[int], Separation]:
+        """Fit the classifier on ``fit``, predict a cluster per crop, and score the fitted clusters' separation."""
+        tc = self.TeamClassifier(device=self.p["device"])
+        if self.p["seed"] is not None:  # UMAP and KMeans draw random starts; a seed makes reruns identical
+            import umap
+            from sklearn.cluster import KMeans
+
+            tc.reducer = umap.UMAP(n_components=3, random_state=self.p["seed"])
+            tc.cluster_model = KMeans(n_clusters=2, random_state=self.p["seed"])
+        tc.fit(fit)
+        sep = cluster_separation(tc.reducer.embedding_, tc.cluster_model.labels_)
+        return [int(p) for p in tc.predict(crops)], sep
+
     def run(self, seq: Sequence, upstream: dict, read: FrameReader) -> dict:
         """Label each detected box ``home``, ``away``, ``ref`` or ``""``.
 
-        Player boxes scoring at least ``min_score`` are cropped; crops from frames every ``1 / fit_fps`` seconds fit
+        Player boxes scoring at least ``min_score`` are cropped (``crop`` of the box around the point ``crop_cy`` of its
+        height from the top); crops from frames every ``1 / fit_fps`` seconds fit
         the classifier (all crops when fewer than 10), and every crop is predicted. The cluster with the brighter mean
         HSV value goes to home when the clip meta marks the home kit ``light``, else to away. Referees come from the
-        detector class. With fewer than 4 crops no clustering is done.
+        detector class. With fewer than 4 crops no clustering is done. The ``seed`` param, when set, seeds UMAP and
+        KMeans. The separation of the fitted clusters is reported and changes no label.
 
         Args:
             seq: Sequence to label.
@@ -85,8 +155,9 @@ class SiglipKMeans(BaseBackend):
             read: Frame reader of the sequence's video.
 
         Returns:
-            ``{"frames": {"<frame>": [label per detect box]}, "clusters": {"<cluster>": side}, "ms_per_frame": float}``;
-            ``ms_per_frame`` is absent when no clustering was done.
+            ``{"frames": {"<frame>": [label per detect box]}, "clusters": {"<cluster>": side}, "separation":
+            {"silhouette": float, "minor_share": float}, "ms_per_frame": float}``; ``separation`` and ``ms_per_frame``
+            are absent when no clustering was done.
 
         """
         dets = upstream["detect"]["frames"]
@@ -99,7 +170,7 @@ class SiglipKMeans(BaseBackend):
                 if d[5] not in PERSON_CLASSES or d[5] == "referee" or d[4] < self.p["min_score"]:
                     continue
                 img = read(f) if img is None else img
-                c = central_crop(img, d, self.p["crop"])
+                c = central_crop(img, d, self.p["crop"], self.p["crop_cy"])
                 if c.size:
                     keys.append((f, i))
                     crops.append(c)
@@ -107,10 +178,8 @@ class SiglipKMeans(BaseBackend):
         out = {str(f): ["ref" if d[5] == "referee" else "" for d in dets[str(f)]] for f in seq.frames}
         if len(crops) < 4:
             return {"frames": out, "clusters": {}}
-        tc = self.TeamClassifier(device=self.p["device"])
         fit = [c for c, m in zip(crops, fit_mask, strict=True) if m]
-        tc.fit(fit if len(fit) >= 10 else crops)
-        pred = [int(p) for p in tc.predict(crops)]
+        pred, sep = self._fit_predict(crops, fit if len(fit) >= 10 else crops)
         bright = [
             np.mean(
                 [cv2.cvtColor(c, cv2.COLOR_BGR2HSV)[..., 2].mean() for c, p in zip(crops, pred, strict=True) if p == k]
@@ -124,4 +193,9 @@ class SiglipKMeans(BaseBackend):
         for (f, i), p in zip(keys, pred, strict=True):
             out[str(f)][i] = side[p]
         ms = 1000 * (time.perf_counter() - t0) / max(1, len(seq.frames))
-        return {"frames": out, "clusters": {str(k): v for k, v in side.items()}, "ms_per_frame": round(ms, 1)}
+        return {
+            "frames": out,
+            "clusters": {str(k): v for k, v in side.items()},
+            "separation": asdict(sep),
+            "ms_per_frame": round(ms, 1),
+        }

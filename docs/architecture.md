@@ -15,7 +15,7 @@ The repository has three parts:
 | Path | Contents | In git |
 |---|---|---|
 | `src/bga/` | the pipeline package, about 6,600 lines | yes |
-| `configs/baseline.yaml`, `configs/court-plk-v1*.yaml`, `configs/detect-*.yaml` | run configs: the public-model baseline; the baseline with the PLK court model, unsmoothed and with smoothing windows of 2 and 4; the baseline with the detect layer swapped for one trained detector each (`rfdetr_torch` at confidence 0.05: `nba-704`, `nba-1280`, `nba-tile2`, `plk-r1`, `plk-r2`, `plk-r2-fast`, `plk-r2-fast-es`, `plk-r2-xl`, `plk-r3`, `plk-r3-poss`) | yes |
+| `configs/baseline.yaml`, `configs/court-plk-v1*.yaml`, `configs/detect-*.yaml`, `configs/team-*.yaml` | run configs: the public-model baseline; the baseline with the PLK court model, unsmoothed and with smoothing windows of 2 and 4; the baseline with the detect layer swapped for one trained detector each (`rfdetr_torch` at confidence 0.05: `nba-704`, `nba-1280`, `nba-tile2`, `plk-r1`, `plk-r2`, `plk-r2-fast`, `plk-r2-fast-es`, `plk-r2-xl`, `plk-r3`, `plk-r3-poss`); `detect-plk-r3-poss` with the team layer seeded 0 to 4 (`team-plk-r3-poss-seed0` to `seed4`), the same with the team crop on the chest (`team-plk-r3-poss-chest-seed0` to `seed4`), and fitted on 5 frames a second (`team-plk-r3-poss-fit5-seed0` to `seed4`) | yes |
 | `configs/train/` | training configs, one per training setup | yes |
 | `weights/` | trained weights, one directory per weight id | no |
 | `tools/labeler/` | the local labelling server and its three pages | yes |
@@ -57,7 +57,7 @@ Each layer's output format is documented in its `base.py`:
 | `shots` | `{"sequences": [...]}` |
 | `court` | `{"frames": {frame: 3×3 image→court matrix in cm, or null}, "units": "cm"}` |
 | `detect` | `{"frames": {frame: [[x1, y1, x2, y2, score, class_name], ...]}, "classes": [...]}`, using the 10-class schema in `bga.types` |
-| `team` | `{"frames": {frame: ["home" \| "away" \| "ref" \| "", ...]}}`, aligned with the detect boxes |
+| `team` | `{"frames": {frame: ["home" \| "away" \| "ref" \| "", ...]}, "clusters": {cluster: side}, "separation": {"silhouette": s, "minor_share": f}, "ms_per_frame": ms}`, labels aligned with the detect boxes; outputs written before 2026-11-20 lack `separation` |
 | `track` | `{"frames": {frame: [[track_id, x1, y1, x2, y2, score, class_name, det_index], ...]}}` |
 | `numbers` | `{"tracks": {track_id: "23" or null}, "reads": n, "ms_per_read": ms}` |
 | `positions` | `{"tracks": {track_id: [[frame, x_m, y_m], ...]}, "court_m": [28.0, 15.0]}` |
@@ -71,7 +71,7 @@ A backend is a class registered with `@register("<layer>", "<name>")` (`bga.regi
 | shots | `gold` | gold shots at stride 5 | none |
 | court | `roboflow_keypoints` | keypoints above `kp_conf` (at least 4), then a RANSAC homography to the FIBA vertices of `sports.CourtConfiguration`, threshold 40 cm | `basketball-court-detection-2/14` (Roboflow, NBA frames) |
 | detect | `roboflow_inference` | Roboflow `inference` run locally (weights fetched with `ROBOFLOW_API_KEY`, from the environment or `~/.config/bga/roboflow.env`); confidence 0.4, IoU 0.9 | `basketball-player-detection-3-ycjdo/6` (RF-DETR-S, NBA frames) |
-| team | `siglip_kmeans` | `sports.TeamClassifier` (SigLIP, UMAP, KMeans) fitted per sequence on crops sampled at 1 fps, referees excluded | `google/siglip-base-patch16-224` |
+| team | `siglip_kmeans` | `sports.TeamClassifier` (SigLIP, UMAP, KMeans) fitted per sequence on crops sampled at 1 fps, referees excluded; the cluster with the brighter kit takes the side the clip meta marks `light`. `crop` (0.4) is the share of the box kept around the point `crop_cy` (0.5, the box centre) of its height from the top. `seed` (default unset) seeds UMAP and KMeans. Reports the separation of the fitted clusters (silhouette in UMAP space, smaller cluster's share), which changes no label | `google/siglip-base-patch16-224` |
 | track | `bytetrack` | supervision ByteTrack on person boxes, in pixels | none |
 | numbers | `smolvlm_ocr` | reads `number` boxes lying at least 90% inside a track's box; a number is confirmed after 3 consecutive equal reads; runs on MPS with `max_new_tokens=4` | `basketball-jersey-numbers-ocr/3` (SmolVLM2, NBA crops) |
 | detect | `rfdetr_torch` | RF-DETR weights trained by `bga train`, loaded from their weight id; class names from the checkpoint, tiling from `train.json`; on MPS, confidence 0.05 by default. Weights trained on square tiles run on the same tiles (`bga.detect.tiles`: two overlapping crops of the full frame height), and the per-tile detections are merged with a per-class suppression that prefers boxes not cut by a tile edge. Used by `configs/detect-*.yaml` | weights `detect/rfdetr_torch/<name>@<hash8>` |
@@ -124,7 +124,7 @@ The three `eval` commands refuse a config whose layer weights are neither a `pre
   - churn (`churn.py`): id-set changes and track lifetimes.
 
 `docs/metrics.md` has three tables:
-- **Tracking:** two rows, both for `baseline@70498c00` on gold v0, dev and held-out.
+- **Tracking:** on gold v0, 18 rows: `baseline@70498c00` on dev and held-out; the 15 team configs `team-plk-r3-poss-seed*`, `-chest-seed*` and `-fit5-seed*` on dev; and `team-plk-r3-poss-fit5-seed0` on held-out.
 - **Court:** dev rows for `baseline`, `court-plk-v1` and its two smoothing windows, and held-out rows for `baseline` and `court-plk-v1-smooth4`.
 - **Detection:** on gold v1, 14 dev rows (`baseline` at its confidence of 0.4 and at 0.05, Roboflow's NBA detector versions 13 and 16, and the ten `configs/detect-*.yaml`) and 2 held-out rows (`baseline` at 0.05 and `detect-plk-r2`).
 
@@ -277,7 +277,7 @@ Paths are confined to the repository by `safe_path`.
 |---|---|
 | Clips and shots | `fetch_highlights.sh`, `transcode_h264.sh`, `fetch_rosters.py`, `compare_shots.py`, `shot_diff_sheet.py`, `shot_sheets.py`, `check_labeller.py` |
 | Track prefill | `prefill_tracks.py` (Skalski's detector plus ByteTrack), `link_prefill.py`, `extract_shot_frames.py`, `sam_to_tracks.py` (SAM 2.1 identities fused with detector boxes), `import_prefill.py` |
-| Review | `track_sheets.py`, `review_sheets.py` (with `--propose` kit-colour ops), `review_ops.py`, `possession_ops.py` (possession queue: explicit holder, review ops) |
+| Review | `track_sheets.py`, `review_sheets.py` (with `--propose` kit-colour ops), `team_gold_sheets.py` (team audit of the gold tracks), `review_ops.py`, `possession_ops.py` (possession queue: explicit holder, review ops) |
 | Gold export | `export_gold.py`, `box_gold.py`, `box_gold_v1.py` (box gold v1: prefill with SAM merge, crop sheets, ops, candidate refresh, export) |
 | Court | `court_geometry.py`, `court_prefill.py` (the NBA court model over every clip), `court_keyframes.py`, `court_propagate.py`, `qa_court_overlay.py`, `court_train_manifest.py` (training frames from the training keyframes) |
 | Auto-labelling (M4) | `autolabel.py --round N`; each step gets the round's files from a `Round` record. Round 2 on: frames at least 1 s from earlier rounds' frames, prefill by the previous round's PLK detector (`plk-r1`, then `plk-r2`) at confidence 0.1, draft at score 0.5, and a frame's ball accepted without review when one ball scores at least the round's threshold (0.7 for `plk-r1`, 0.85 for `plk-r2`, each calibrated on gold v1 dev) and no other 0.2. Round 1: central shots of the non-gold clips by the PLK court model's confident landmark count; 275 frames sampled, 12 per clip at most and 1 s apart; prefill by Roboflow's detector versions 16 (all but the ball) and 6 (the ball) at confidence 0.1; draft at score 0.3 with per-class NMS, people off the court and numbers outside every person dropped; the ball queue `data/labels/box_queue_r1balls.json` (264 frames, close-ups with fewer than 4 people left out) |

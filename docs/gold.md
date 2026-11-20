@@ -52,6 +52,17 @@ Every sheet that was read has a row in `data/labels/sheet_ledger.tsv`. The ops f
 - **Loose boxes.** Some boxes in scrums cover two people; they carry notes in `identities.csv`.
 - **Numbers.** Numbers are set only where legible on 1080p highlights; many tracks have none.
 
+## Team audit (2026-11-20)
+
+The v0 track teams were proposed by Skalski's TeamClassifier (step 2 above), the same model the `siglip_kmeans` team backend runs, so before M5 scores that backend they were checked by eye with no classifier involved:
+
+- **Sheets:** `scripts/team_gold_sheets.py` draws every v0 track of the 12 shots as one row of 7 crops from the gold boxes with full visibility, rows grouped home, away, referee, so a kit in the wrong group stands out (24 sheets, ledger row of 2026-11-20).
+- **Result:** all 164 track teams match the kit (129 players, 35 referees). No change to `identities.csv`.
+- **Single crops of another player inside a track:** six tracks show one such crop each (`OSp445e0mXU_s10` tracks 9, 1018 and 1026, `1jDaJBkUGmc_s16` 1040, `4XMD9FWmQws_s42` 1028, `Tnuscrm9RyU_s2` 1012), a box or identity slip within the track. Team accuracy takes the majority of a track's matched boxes, so these do not change it; they matter to track gold v1.
+- **Box gold v1 against the tracks:** 1,061 v1 person boxes carry a v0 track id; 1,059 have the track's team. The other two (`4XMD9FWmQws_s78` track 1035 at frame 25800, `OSp445e0mXU_s10` track 1019 at frame 3180) were moved in Tomasz's review onto another player and kept the old track id. Their v1 team is right for the person boxed, so the stale id is a track gold v1 matter, not a team error.
+
+Track teams in gold v0 are therefore usable as team gold. Tomasz's time: none.
+
 ## Box gold v1
 
 The 100 box-gold frames of `data/labels/box_gold.json`, with every object of the 10-class schema (`bga.types.DETECTION_CLASSES`) boxed tight by hand, so detection can be scored per class at AP50:95.
