@@ -1,7 +1,8 @@
-name: appearance-reid-plk-r1-shot
+name: appearance-reid-plk-r1-shot-last
 description: >
-  appearance-reid-sportsmot with the PLK fine-tune appearance/reid/plk-r1-shot@1954bf32 (configs/train/appearance-reid-plk-r1-shot.yaml):
-  osnet_x1_0_sportsmot trained on the crops_r1 identities of four non-gold games, one shot per batch, triplet loss only.
+  appearance-reid-sportsmot with the PLK fine-tune appearance/reid/plk-r1-shot-last@bef4a309
+  (configs/train/appearance-reid-plk-r1-shot-last.yaml): osnet_x1_0_sportsmot trained on the crops_r1 identities of
+  four non-gold games, one shot per batch, triplet loss only, last epoch.
   bga eval-appearance scores the encoder on the gold boxes.
 layers:
   shots:
@@ -22,7 +23,7 @@ layers:
   appearance:
     backend: reid
     params: {model: osnet_x1_0_sportsmot, min_score: 0.1}
-    weights: appearance/reid/plk-r1-shot@1954bf32
+    weights: appearance/reid/plk-r1-shot-last@bef4a309
   track:
     backend: trackers
     params:
