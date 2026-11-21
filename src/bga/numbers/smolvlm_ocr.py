@@ -68,6 +68,7 @@ class SmolVLMOcr(BaseBackend):
         "n_consecutive": 3,
         "read_every": 1,
         "max_reads_per_track": 12,
+        "stop_on_confirm": True,
     }
 
     def load(self) -> None:
@@ -105,8 +106,9 @@ class SmolVLMOcr(BaseBackend):
         """Read and confirm a number per track over the sequence.
 
         Each ``read_every``-th frame, every ``number`` box scoring at least ``min_score`` is given to the non-referee
-        track box that contains it best, if its IoS is at least ``min_ios``; tracks already confirmed or read
-        ``max_reads_per_track`` times are skipped.
+        track box that contains it best, if its IoS is at least ``min_ios``; tracks read ``max_reads_per_track``
+        times are skipped, and so are confirmed tracks unless ``stop_on_confirm`` is off (the log then holds reads
+        after a confirmation, for rules downstream).
 
         Args:
             seq: Sequence to read.
@@ -134,7 +136,7 @@ class SmolVLMOcr(BaseBackend):
                 if best is None or ios(d[:4], best[1:5]) < self.p["min_ios"]:
                     continue
                 tid = best[0]
-                if tid in done or reads.get(tid, 0) >= self.p["max_reads_per_track"]:
+                if (self.p["stop_on_confirm"] and tid in done) or reads.get(tid, 0) >= self.p["max_reads_per_track"]:
                     continue
                 img = read(f) if img is None else img
                 x1, y1, x2, y2 = (int(v) for v in d[:4])
