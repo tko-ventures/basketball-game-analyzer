@@ -42,6 +42,7 @@ How to read a row:
 | 2026-11-20 | 71448ff | `track-trackers-botsort-tuned`@20755ecb | v0 | dev (9 shots) | 0.681 | 0.715 | 0.649 | 0.772 | 0.774 | 156 | 0.962 | 1.000 (98) | – (–, –; 0 tracks) | 203, 336, 70, – | BoT-SORT tuned on dev (144 + 55 settings), precomputed camera motion; against track-trackers-botsort and track-trackers-bytetrack-tuned |
 | 2026-11-20 | 3a5a202 | `track-trackers-botsort-noreid`@119b81cf | v0 | dev (9 shots) | 0.681 | 0.716 | 0.650 | 0.770 | 0.774 | 152 | 0.962 | 1.000 (98) | – (–, –; 0 tracks) | 203, 336, 70, – | tuned BoT-SORT, internal camera motion, no re-ID; twin of track-trackers-botsort-reid; ms on Modal: track (L4) |
 | 2026-11-20 | 3a5a202 | `track-trackers-botsort-reid`@840c4250 | v0 | dev (9 shots) | 0.684 | 0.716 | 0.654 | 0.770 | 0.773 | 138 | 0.962 | 1.000 (98) | – (–, –; 0 tracks) | 203, 336, 70, – | re-ID osnet_x1_0_sportsmot at ReIDConfig defaults; against track-trackers-botsort-noreid; ms on Modal: track (L4) |
+| 2026-11-21 | e36bdbb | `track-trackers-botsort-reid-tuned`@d551773c | v0 | dev (9 shots) | 0.740 | 0.724 | 0.758 | 0.864 | 0.786 | 70 | 0.962 | 1.000 (98) | – (–, –; 0 tracks) | 203, 336, 70, – | re-ID tuned on dev (80 settings on Modal); against track-trackers-botsort-reid and track-trackers-bytetrack-tuned; ms on Modal: track (L4) |
 
 ## Court layer
 
