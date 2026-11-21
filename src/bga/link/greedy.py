@@ -558,10 +558,12 @@ class GreedyLink(BaseBackend):
         by_id = {t.tid: t for t in tracklets}
         links = greedy_links(tracklets, lp)
         ids = chain_ids(links)
-        frames = {str(f): [] for f in seq.frames}
-        for t in tracklets:
-            for f, r in t.rows:
-                frames[str(f)].append([ids.get(t.tid, t.tid), *r[1:]])
+        piece = {(f, r[0]): t.tid for t in tracklets for f, r in t.rows}  # a tracker id is unique within a frame
+        tracks = upstream["track"]["frames"]
+        frames = {  # the tracker's row order is kept: matching ties, and so IDSW, depend on it
+            str(f): [[ids.get(piece[(f, r[0])], piece[(f, r[0])]), *r[1:]] for r in tracks.get(str(f), [])]
+            for f in seq.frames
+        }
         return {
             "frames": frames,
             "splits": cuts,

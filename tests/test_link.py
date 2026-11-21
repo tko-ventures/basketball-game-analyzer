@@ -186,6 +186,12 @@ class TestGreedyLink:
         out = GreedyLink({}).run(seq, upstream, None)
         assert {r[0] for rows in out["frames"].values() for r in rows} == {1}
 
+    def test_row_order_within_a_frame_is_kept(self, seq, upstream):
+        upstream["track"]["frames"]["2"] = [row(3, 1), row(1, 0)]
+        upstream["team"]["frames"]["2"] = ["home", "home"]
+        out = GreedyLink({}).run(seq, upstream, None)
+        assert [r[0] for r in out["frames"]["2"]] == [3, 1]
+
     def test_rows_are_kept(self, seq, upstream):
         out = GreedyLink({}).run(seq, upstream, None)
         assert sum(map(len, out["frames"].values())) == 8
