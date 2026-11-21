@@ -55,7 +55,7 @@ class TestCheckWeights:
         [
             pytest.param(None, ValueError, id="missing"),
             pytest.param("pretrained:roboflow/reid/osnet_x1_0_msmt17", ValueError, id="other-encoder"),
-            pytest.param("appearance/reid/plk@00000000", NotImplementedError, id="trained"),
+            pytest.param("detect/rfdetr_torch/plk-r3@00000000", ValueError, id="other-layer"),
         ],
     )
     def test_refuses(self, weights, error):
@@ -64,6 +64,9 @@ class TestCheckWeights:
 
     def test_accepts_the_declared_encoder(self):
         assert check_weights("osnet_x1_0_sportsmot", "pretrained:roboflow/reid/osnet_x1_0_sportsmot") is None
+
+    def test_accepts_a_trained_encoder(self):
+        assert check_weights("osnet_x1_0_sportsmot", "appearance/reid/plk-r1@00000000") is None
 
 
 class TestLayerConfig:

@@ -1,4 +1,4 @@
-"""``bga train`` on Modal: RF-DETR Keypoint fine-tunes with the open-source ``rfdetr`` trainer.
+"""``bga train`` on Modal: RF-DETR keypoint and detection fine-tunes with ``rfdetr``, and ``reid`` encoder fine-tunes.
 
 The dataset goes up to the ``bga-data`` volume under ``train/<weight id>/dataset``; the trainer writes to
 ``train/<weight id>/output`` on the same volume and commits it every few minutes, so a run that is cut
@@ -196,6 +196,75 @@ def train_detect(job: dict) -> dict:
         "usd": round(secs / 3600 * USD_PER_HOUR.get(gpu, 0.0) * devices, 4),  # GPU list price only
         "schema": {"class_names": [c["name"] for c in sorted(cats, key=lambda c: c["id"])]},
         "package": RFDETR_PACKAGE,
+        "torch": torch.__version__,
+        "files": sorted(p.name for p in out.iterdir()),
+    }
+    (out / "result.json").write_text(json.dumps(result, indent=1))
+    vol.commit()
+    return result
+
+
+#: The re-ID package pinned in the appearance trainer image and recorded in every result.
+REID_PACKAGE = "reid==0.1.0"
+#: Image of the appearance trainer: torch, ``reid`` at the Mac's versions, headless OpenCV and the local ``bga``.
+reid_image = (
+    modal.Image
+    .debian_slim(python_version="3.12")
+    .pip_install("torch==2.15.0", "torchvision==0.29.2", "safetensors==0.8.0", "timm==1.0.30", REID_PACKAGE)
+    .run_commands(
+        "pip uninstall -y opencv-python opencv-contrib-python",
+        "pip install --force-reinstall --no-deps opencv-python-headless==5.0.0.93",
+    )
+    .add_local_python_source("bga")
+)
+
+
+@app.function(image=reid_image, volumes={"/data": vol}, gpu="L4", cpu=CPUS, memory=MEMORY_MB, timeout=6 * 3600)
+def train_appearance(job: dict) -> dict:
+    """Fine-tune a ``reid`` encoder on identity folders on the volume (``bga.train.reid_trainer``).
+
+    Args:
+        job: As for :func:`train_keypoint`, plus ``base``: the ``reid`` alias the fine-tune starts from.
+
+    Returns:
+        GPU, commit, device name, wall time, list-price USD, the best validation row, identity and crop counts,
+        trainer package and torch version, and the files in the output directory.
+
+    Examples:
+        >>> train_appearance.remote(job)["best"]["val/map"]  # doctest: +SKIP
+        64.0
+
+    """
+    import json
+    import threading
+    import time
+    from pathlib import Path
+
+    import torch
+
+    from bga.train.reid_trainer import train
+
+    t0 = time.time()
+    ds, out = Path("/data") / job["dataset"], Path("/data") / job["output"]
+    stop = threading.Event()
+
+    def commit_loop() -> None:  # keep the metrics and best weights even if the run is cut short
+        while not stop.wait(300):
+            vol.commit()
+
+    threading.Thread(target=commit_loop, daemon=True).start()
+    got = train(ds, out, job["base"], job["recipe"], num_workers=int(CPUS))
+    stop.set()
+    secs, gpu = time.time() - t0, job["gpu"]
+    result = {
+        "gpu": gpu,
+        "commit": job.get("commit"),
+        "gpu_name": torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
+        "seconds": round(secs, 1),
+        "usd": round(secs / 3600 * USD_PER_HOUR.get(gpu, 0.0), 4),  # GPU list price only
+        "schema": {"identities": got["identities"], "crops": got["crops"]},
+        "best": got["best"],
+        "package": REID_PACKAGE,
         "torch": torch.__version__,
         "files": sorted(p.name for p in out.iterdir()),
     }

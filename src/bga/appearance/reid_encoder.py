@@ -2,7 +2,8 @@
 
 ``ReIDModel.extract_embeddings`` crops each box from the BGR frame and returns one raw embedding per crop; this backend
 L2-normalises them and stores them as float16. The encoder is a ``reid`` alias, ``osnet_x1_0_sportsmot`` by default
-(OSNet x1.0 fine-tuned on SportsMOT; weights treated as Apache 2.0, plan question 15).
+(OSNet x1.0 fine-tuned on SportsMOT; weights treated as Apache 2.0, plan question 15), or a PLK fine-tune: a weight id
+``appearance/reid/<name>@<hash8>`` trained by ``bga train`` from the alias ``model`` names, loaded from its folder.
 
 """
 
@@ -31,11 +32,12 @@ def check_weights(model: str, weights: str | None) -> None:
         weights: The config entry's weights id.
 
     Raises:
-        ValueError: When ``weights`` is missing, or is a ``pretrained:`` id naming another encoder.
-        NotImplementedError: For a trained weight id: no PLK encoder has been trained yet.
+        ValueError: When ``weights`` is missing, is a ``pretrained:`` id naming another encoder, or is a trained id
+            of another layer and backend.
 
     Examples:
         >>> check_weights("osnet_x1_0_sportsmot", "pretrained:roboflow/reid/osnet_x1_0_sportsmot")
+        >>> check_weights("osnet_x1_0_sportsmot", "appearance/reid/plk-r1@00000000")
         >>> check_weights("osnet_x1_0_sportsmot", "pretrained:roboflow/reid/osnet_x1_0_msmt17")
         Traceback (most recent call last):
         ...
@@ -45,7 +47,9 @@ def check_weights(model: str, weights: str | None) -> None:
     if not weights:
         raise ValueError("appearance/reid needs weights: pretrained:roboflow/reid/<model>")
     if not weights.startswith("pretrained:"):
-        raise NotImplementedError(f"appearance/reid cannot load trained weights yet: {weights}")
+        if not weights.startswith("appearance/reid/"):
+            raise ValueError(f"appearance/reid cannot load {weights}: not an appearance/reid weight id")
+        return
     if weights.rsplit("/", 1)[-1] != model:
         raise ValueError(f"appearance/reid loads {model} but its weights declare {weights}")
 
@@ -86,10 +90,18 @@ class ReIDEncoder(BaseBackend):
         self.model: ReIDModel | None = None
 
     def load(self) -> None:
-        """Load the encoder onto the picked device (downloaded once into ``reid``'s cache)."""
+        """Load the encoder onto the picked device.
+
+        An alias downloads once into ``reid``'s cache; a trained weight id loads from its folder.
+
+        """
         from reid import ReIDModel
 
-        self.model = ReIDModel.from_pretrained(self.p["model"], device=pick_device(self.p["device"]))
+        from bga.paths import weights_dir
+
+        trained = not self.weights.startswith("pretrained:")
+        source = str(weights_dir(self.weights)) if trained else self.p["model"]
+        self.model = ReIDModel.from_pretrained(source, device=pick_device(self.p["device"]))
 
     def unload(self) -> None:
         """Drop the encoder."""
@@ -142,7 +154,7 @@ class ReIDEncoder(BaseBackend):
         return {
             "boxes": boxes,
             "dim": int(emb.shape[1]),
-            "model": self.p["model"],
+            "model": self.p["model"] if self.weights.startswith("pretrained:") else self.weights,
             "ms_per_crop": round(1000 * secs / max(1, len(boxes)), 2),
             "arrays": {"embeddings": emb.astype(np.float16)},
         }

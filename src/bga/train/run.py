@@ -2,9 +2,9 @@
 
 Steps for ``configs/train/<name>.yaml``:
 
-1. Build the merged dataset under ``runs/train/<weight id>/dataset`` (``bga.train.court_data`` or
-   ``bga.train.detect_data``); every
-   manifest is checked against its sha256 and against the gold clips.
+1. Build the merged dataset under ``runs/train/<weight id>/dataset`` (``bga.train.court_data``,
+   ``bga.train.detect_data`` or ``bga.train.appearance_data``); every manifest is checked against its sha256 and
+   against the gold clips.
 2. Upload it to the ``bga-data`` Modal volume and run the trainer there (``bga.remote.modal_train``) in a
    detached app, so the run continues if this process stops.
 3. Collect: the best checkpoint, ``metrics.csv`` and the trainer's ``result.json`` come back into
@@ -40,7 +40,10 @@ PULL = ("checkpoint_best_total.pth", "metrics.csv", "result.json")
 SETUPS = {
     ("court", "rfdetr_keypoint"): ("court_data", "train_keypoint"),
     ("detect", "rfdetr_torch"): ("detect_data", "train_detect"),
+    ("appearance", "reid"): ("appearance_data", "train_appearance"),
 }
+#: Files collected per setup when they differ from ``PULL``.
+PULLS = {("appearance", "reid"): ("weights.safetensors", "reid_config.json", "metrics.csv", "result.json")}
 
 
 def _setup(cfg: TrainConfig) -> tuple[str, str]:
@@ -86,7 +89,7 @@ def build(cfg: TrainConfig) -> dict:
         Image counts per split and source, and the dataset sha256 (``bga.train.court_data.build``).
 
     Raises:
-        NotImplementedError: for any layer and backend other than ``court/rfdetr_keypoint`` and ``detect/rfdetr_torch``.
+        NotImplementedError: for a layer and backend without a setup in ``SETUPS``.
 
     Examples:
         >>> from bga.train.config import load_train_config
@@ -173,6 +176,7 @@ def launch(cfg: TrainConfig, resume: bool = True) -> dict:
         "gpu": cfg.platform.gpu,
         "resume": resume_from,
         "init": init,
+        "base": cfg.base_weights.name,
     }
     trainer = getattr(modal_train, _setup(cfg)[1])
     n = cfg.recipe.devices or 1
@@ -328,7 +332,7 @@ def collect(cfg: TrainConfig, partial: bool = False) -> Path:
         }
         (wdir / "result.json").write_text(json.dumps(result, indent=1))
     else:
-        for name in PULL:
+        for name in PULLS.get((cfg.layer, cfg.backend), PULL):
             (wdir / name).write_bytes(_read_remote(f"{remote}/output/{name}"))
         result = json.loads((wdir / "result.json").read_text())
     best, last = _best_row((wdir / "metrics.csv").read_text(), cfg.recipe.select_on)
