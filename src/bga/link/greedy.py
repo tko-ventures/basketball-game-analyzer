@@ -15,7 +15,9 @@ refused too. Joins are taken cheapest first, each tracklet having at most one su
 **Numbers.** With a ``numbers`` layer, a tracklet carries its tracker id's confirmed jersey number (a split piece
 only when it holds a read of that number). Two tracklets with different numbers are never joined, nor are two
 chains whose numbers differ; two with the same number join at cost 0, past the appearance gate. With ``one_owner``,
-a (team, number) left on more than one chain stays only on the chain with the most boxes.
+a (team, number) left on more than one chain stays only on the chain with the most boxes. With ``roster``, a
+tracklet's number is instead confirmed again from the logged reads inside it: reads not on its team's roster for the
+clip's season are dropped, and ``confirm_reads`` equal reads in a row confirm.
 
 """
 
@@ -28,6 +30,7 @@ from typing import Any, ClassVar
 import numpy as np
 
 from bga.appearance.base import box_rows
+from bga.numbers.base import confirm_consecutive, roster_numbers
 from bga.positions.bbox_bottom import project
 from bga.registry import register
 from bga.stage import BaseBackend, FrameReader, Sequence
@@ -259,8 +262,52 @@ def number_of(tid: int, rows: list[Row], numbers: dict, whole: bool) -> str | No
     return value if any(f in frames and t == tid and v == value for f, t, v in numbers.get("log", [])) else None
 
 
+def roster_number(tid: int, rows: list[Row], numbers: dict, allowed: set[str], n: int) -> str | None:
+    """Number of one piece of a tracker id confirmed from its own logged reads, keeping only roster numbers.
+
+    Args:
+        tid: The tracker id the piece was cut from.
+        rows: The piece's rows.
+        numbers: ``numbers`` output with its ``log``.
+        allowed: The roster numbers of the piece's team.
+        n: Equal reads in a row needed.
+
+    Returns:
+        The number, or ``None``.
+
+    Examples:
+        >>> rows = [(0, f, [4, 0, 0, 1, 1, 0.9, "player", 0]) for f in (0, 5, 10, 15)]
+        >>> log = [[0, 4, "8"], [5, 4, "2"], [10, 4, "8"], [15, 4, "2"]]
+        >>> roster_number(4, rows, {"log": log}, {"2", "23"}, 2), roster_number(4, rows, {"log": log}, {"2", "8"}, 2)
+        ('2', None)
+
+    """
+    frames = {f for _, f, _ in rows}
+    reads = [v if v in allowed else None for f, t, v in numbers.get("log", []) if t == tid and f in frames]
+    return confirm_consecutive(reads, n)
+
+
+@dataclass(frozen=True)
+class NumberRule:
+    """How a tracklet gets its number from the ``numbers`` output.
+
+    Attributes:
+        rosters: Team to its roster numbers, or ``None`` to take the numbers layer's confirmations.
+        confirm_reads: Equal roster reads in a row needed when ``rosters`` is set.
+
+    """
+
+    rosters: dict[str, set[str]] | None = None
+    confirm_reads: int = 3
+
+
 def build_tracklets(
-    frames: list[int], upstream: dict, ends: int, window: int = 5, split_cost: float | None = None
+    frames: list[int],
+    upstream: dict,
+    ends: int,
+    window: int = 5,
+    split_cost: float | None = None,
+    rule: NumberRule | None = None,
 ) -> tuple[list[Tracklet], list[list]]:
     """Collect each tracker id's rows, cut them where the appearance changes, and describe every piece.
 
@@ -270,6 +317,7 @@ def build_tracklets(
         ends: Boxes averaged at each end for the head and tail embeddings.
         window: Embedded boxes averaged on each side of a cut.
         split_cost: Distance a change must exceed to cut; ``None`` never cuts.
+        rule: How pieces get their numbers; the numbers layer's confirmations by default.
 
     Returns:
         The pieces in order of first appearance, and the cuts as ``[tracker id, frame, new id, distance]``.
@@ -294,7 +342,11 @@ def build_tracklets(
                 pid, next_id = next_id, next_id + 1
                 cuts.append([tid, piece[0][1], pid, d])
             t = describe(pid, piece, upstream, vec_of, ends)
-            t.number = number_of(tid, piece, numbers, whole=len(pieces) == 1)
+            if rule and rule.rosters is not None:
+                allowed = rule.rosters.get(t.team, set())
+                t.number = roster_number(tid, piece, numbers, allowed, rule.confirm_reads)
+            else:
+                t.number = number_of(tid, piece, numbers, whole=len(pieces) == 1)
             out.append(t)
     return sorted(out, key=lambda t: t.first), cuts
 
@@ -456,7 +508,8 @@ class GreedyLink(BaseBackend):
 
     Params (``defaults``): ``max_gap_s``, ``max_cost``, ``ends`` (boxes averaged at each end), ``max_speed_mps``
     (``None`` turns the court gate off), ``court_slack_m``, ``split_window``, ``split_cost`` (``None`` turns
-    splitting off) and ``one_owner`` (one chain per team and number; off by default).
+    splitting off), ``one_owner`` (one chain per team and number; off by default), and ``roster`` with
+    ``confirm_reads`` (confirm numbers again from roster reads only; off by default).
 
     Examples:
         >>> GreedyLink({"max_gap_s": 5.0}).run(seq, upstream, read)["links"]  # doctest: +SKIP
@@ -473,6 +526,8 @@ class GreedyLink(BaseBackend):
         "split_window": 5,
         "split_cost": None,
         "one_owner": False,
+        "roster": False,
+        "confirm_reads": 3,
     }
 
     def run(self, seq: Sequence, upstream: dict, read: FrameReader) -> dict:
@@ -495,8 +550,10 @@ class GreedyLink(BaseBackend):
             court_slack_m=self.p["court_slack_m"],
             step_s=stride / seq.fps,
         )
+        rosters = {side: roster_numbers(seq.meta, side) for side in ("home", "away")} if self.p["roster"] else None
+        rule = NumberRule(rosters=rosters, confirm_reads=self.p["confirm_reads"])
         tracklets, cuts = build_tracklets(
-            seq.frames, upstream, self.p["ends"], self.p["split_window"], self.p["split_cost"]
+            seq.frames, upstream, self.p["ends"], self.p["split_window"], self.p["split_cost"], rule
         )
         by_id = {t.tid: t for t in tracklets}
         links = greedy_links(tracklets, lp)

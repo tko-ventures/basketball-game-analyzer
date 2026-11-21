@@ -13,8 +13,10 @@ from bga.link.greedy import (
     greedy_links,
     join_cost,
     number_of,
+    roster_number,
     split_points,
 )
+from bga.numbers.base import confirm_consecutive, roster_numbers
 from bga.stage import Sequence
 
 #: Gates wide enough that only the gate under test refuses: 10 frames a second.
@@ -107,6 +109,38 @@ class TestNumberOf:
     def test_number_follows_the_reads(self, log, whole, number):
         rows = [(0, 0, [4, 0, 0, 1, 1, 0.9, "player", 0])]
         assert number_of(4, rows, {"tracks": {"4": "23"}, "log": log}, whole) == number
+
+
+class TestConfirmConsecutive:
+    @pytest.mark.parametrize(
+        ("reads", "number"),
+        [
+            pytest.param(["5", "5", "5"], "5", id="three-in-a-row"),
+            pytest.param(["5", None, "5", None, "5"], "5", id="empty-reads-are-skipped"),
+            pytest.param(["5", "5", "8", "5"], None, id="streak-broken"),
+        ],
+    )
+    def test_confirms_after_three_equal_reads(self, reads, number):
+        assert confirm_consecutive(reads, 3) == number
+
+
+#: One tracker id's rows on four frames.
+FOUR_ROWS = tuple((k, f, [4, 0, 0, 1, 1, 0.9, "player", 0]) for k, f in enumerate((0, 5, 10, 15)))
+
+
+class TestRosterNumber:
+    def test_off_roster_reads_are_dropped(self):
+        log = [[0, 4, "8"], [5, 4, "2"], [10, 4, "2"], [15, 4, "2"]]
+        assert roster_number(4, list(FOUR_ROWS), {"log": log}, {"2"}, 3) == "2"
+
+    def test_reads_outside_the_piece_are_ignored(self):
+        log = [[0, 4, "2"], [5, 4, "2"], [99, 4, "2"]]
+        assert roster_number(4, list(FOUR_ROWS), {"log": log}, {"2"}, 3) is None
+
+
+class TestRosterNumbers:
+    def test_unknown_roster_is_empty(self):
+        assert roster_numbers({"season": "2025/26", "home": {"roster": "no_such_club"}}, "home") == set()
 
 
 class TestChainNumbers:
