@@ -7,7 +7,7 @@ import pytest
 import torch
 
 from bga.train.appearance_data import split_of
-from bga.train.reid_trainer import batch_hard_triplet, identity_folders, pk_batches
+from bga.train.reid_trainer import batch_hard_triplet, identity_folders, pk_batches, shot_batches
 
 
 class TestPkBatches:
@@ -22,6 +22,16 @@ class TestPkBatches:
 
     def test_epoch_covers_the_crops_once_on_average(self):
         assert len(list(pk_batches(list(range(4)) * 8, 4, 8, np.random.default_rng(0)))) == 4
+
+
+class TestShotBatches:
+    def test_batch_stays_inside_one_shot(self):
+        labels, shots = [0, 0, 1, 1, 2, 2, 3, 3], ["a", "a", "a", "a", "b", "b", "b", "b"]
+        batch = next(shot_batches(labels, shots, 2, 8, np.random.default_rng(0)))
+        assert len({shots[i] for i in batch}) == 1
+
+    def test_shot_with_one_identity_is_skipped(self):
+        assert list(shot_batches([0, 0], ["a", "a"], 2, 4, np.random.default_rng(0))) == []
 
 
 class TestBatchHardTriplet:

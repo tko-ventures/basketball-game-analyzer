@@ -2,9 +2,10 @@
 
 The recipe follows the strong re-ID baseline of Luo et al. (CVPR Workshops 2019): the encoder's embedding feeds a
 batch-hard triplet loss on cosine distance and, through a batch-norm neck, a bias-free identity classifier trained
-with label smoothing 0.1. Batches hold ``batch_size / crops_per_id`` identities with ``crops_per_id`` crops each;
-an epoch is as many batches as it takes to see as many crops as the training split holds. Crops are stretched to the
-encoder's input (its ``reid`` preprocessing), flipped, padded and cropped, and randomly erased.
+with label smoothing 0.1 and weighted by ``id_loss_weight`` (1 by default). Batches hold ``batch_size / crops_per_id``
+identities with ``crops_per_id`` crops each, drawn from the whole split or, with ``shot_batches``, from one shot at a
+time; an epoch is as many batches as it takes to see as many crops as the training split holds. Crops are stretched to
+the encoder's input (its ``reid`` preprocessing), flipped, padded and cropped, and randomly erased.
 
 Weights start from a ``reid`` alias (``base_weights.name``). Every ``eval_interval`` epochs, and before the first,
 the encoder is saved in ``reid``'s folder format and scored on the ``valid`` identities with ``RetrievalProtocol``
@@ -87,6 +88,72 @@ def pk_batches(labels: list[int], k: int, batch_size: int, rng: np.random.Genera
             pool = by_label[int(y)]
             batch += [int(i) for i in rng.choice(pool, size=k, replace=len(pool) < k)]
         yield batch
+
+
+def shot_of(folder: str) -> str:
+    """Shot of an identity folder named ``<sequence>_t<track id>`` (``scripts/reid_crops.py``).
+
+    Args:
+        folder: The identity folder's name.
+
+    Returns:
+        The sequence name, or the whole name when it has no ``_t`` suffix.
+
+    Examples:
+        >>> shot_of("kW4HG-5MLNM_s1_t3"), shot_of("market_0001")
+        ('kW4HG-5MLNM_s1', 'market_0001')
+
+    """
+    return folder.rsplit("_t", 1)[0] if "_t" in folder else folder
+
+
+def shot_batches(
+    labels: list[int], shots: list[str], k: int, batch_size: int, rng: np.random.Generator
+) -> Iterator[list[int]]:
+    """Yield one epoch of batches, each from one shot: up to ``batch_size // k`` of its identities, ``k`` crops each.
+
+    Within a shot every identity is another person, while one player's tracklets in different shots are separate
+    identities; so a batch never pits a player against himself from another shot. Shots with one identity are skipped.
+    The epoch has as many batches as :func:`pk_batches` would.
+
+    Args:
+        labels: Label of every crop.
+        shots: Shot of every crop.
+        k: Crops per identity in a batch.
+        batch_size: Most crops per batch; a multiple of ``k``.
+        rng: Random source.
+
+    Yields:
+        Crop indices of one batch.
+
+    Examples:
+        >>> labels, shots = [0, 0, 1, 1, 2, 2], ["a", "a", "a", "a", "b", "b"]
+        >>> [sorted({labels[i] for i in b}) for b in shot_batches(labels, shots, 2, 4, np.random.default_rng(0))]
+        [[0, 1]]
+
+    """
+    by_label: dict[int, list[int]] = {}
+    by_shot: dict[str, set[int]] = {}
+    for i, (y, s) in enumerate(zip(labels, shots, strict=True)):
+        by_label.setdefault(y, []).append(i)
+        by_shot.setdefault(s, set()).add(y)
+    usable = sorted(s for s, ids in by_shot.items() if len(ids) > 1)
+    p = batch_size // k
+    for _ in range(max(1, len(labels) // batch_size) if usable else 0):
+        ids = sorted(by_shot[usable[int(rng.integers(len(usable)))]])
+        batch = []
+        for y in rng.choice(ids, size=min(p, len(ids)), replace=False):
+            pool = by_label[int(y)]
+            batch += [int(i) for i in rng.choice(pool, size=k, replace=len(pool) < k)]
+        yield batch
+
+
+def _epoch_batches(labels: list[int], shots: list[str], recipe: dict, rng: np.random.Generator) -> list[list[int]]:
+    """One epoch of batches from the sampler the recipe names: :func:`shot_batches` or :func:`pk_batches`."""
+    k, size = recipe["crops_per_id"], recipe["batch_size"]
+    if recipe.get("shot_batches"):
+        return list(shot_batches(labels, shots, k, size, rng))
+    return list(pk_batches(labels, k, size, rng))
 
 
 def batch_hard_triplet(emb: torch.Tensor, labels: torch.Tensor, margin: float) -> torch.Tensor:
@@ -237,6 +304,8 @@ def train(dataset: Path, out: Path, base: str, recipe: dict, num_workers: int = 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     net, arch, prep = _encoder(base, device)
     paths, labels = identity_folders(dataset / "train")
+    shots = [shot_of(Path(q).parent.name) for q in paths]
+    id_weight = 1.0 if recipe.get("id_loss_weight") is None else recipe["id_loss_weight"]
     data = _Crops(paths, labels, tuple(prep.input_size), tuple(prep.mean), tuple(prep.std))
     dim = net(torch.zeros(2, 3, *prep.input_size, device=device)).shape[1]
     neck = torch.nn.BatchNorm1d(dim).to(device)
@@ -253,13 +322,13 @@ def train(dataset: Path, out: Path, base: str, recipe: dict, num_workers: int = 
         row: dict[str, Any] = {"epoch": epoch, "lr": opt.param_groups[0]["lr"]}
         if epoch:  # epoch 0 scores the starting encoder
             net.train()
-            batches = list(pk_batches(labels, recipe["crops_per_id"], recipe["batch_size"], rng))
+            batches = _epoch_batches(labels, shots, recipe, rng)
             loader = DataLoader(data, batch_sampler=batches, num_workers=num_workers, pin_memory=True)
             sums = np.zeros(2)
             for x, y in loader:
                 x, y = x.to(device, non_blocking=True), y.to(device, non_blocking=True)
                 f = net(x)
-                losses = (ce(head(neck(f)), y), batch_hard_triplet(f, y, recipe["triplet_margin"]))
+                losses = (id_weight * ce(head(neck(f)), y), batch_hard_triplet(f, y, recipe["triplet_margin"]))
                 opt.zero_grad()
                 sum(losses).backward()
                 opt.step()

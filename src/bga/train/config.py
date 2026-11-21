@@ -73,6 +73,8 @@ class Recipe(BaseModel):
     crops_per_id: int | None = None  # appearance: crops per identity in a batch (P x K sampling, K)
     triplet_margin: float | None = None  # appearance: margin of the batch-hard triplet loss on cosine distance
     min_team_share: float | None = None  # appearance: identities with fewer of their boxes on one team are left out
+    shot_batches: bool | None = None  # appearance: draw each batch's identities from one shot
+    id_loss_weight: float | None = None  # appearance: weight of the identity loss (1 when unset)
 
 
 class Platform(BaseModel):
