@@ -456,7 +456,7 @@ class GreedyLink(BaseBackend):
 
     Params (``defaults``): ``max_gap_s``, ``max_cost``, ``ends`` (boxes averaged at each end), ``max_speed_mps``
     (``None`` turns the court gate off), ``court_slack_m``, ``split_window``, ``split_cost`` (``None`` turns
-    splitting off) and ``one_owner`` (one chain per team and number).
+    splitting off) and ``one_owner`` (one chain per team and number; off by default).
 
     Examples:
         >>> GreedyLink({"max_gap_s": 5.0}).run(seq, upstream, read)["links"]  # doctest: +SKIP
@@ -472,7 +472,7 @@ class GreedyLink(BaseBackend):
         "court_slack_m": 2.0,
         "split_window": 5,
         "split_cost": None,
-        "one_owner": True,
+        "one_owner": False,
     }
 
     def run(self, seq: Sequence, upstream: dict, read: FrameReader) -> dict:

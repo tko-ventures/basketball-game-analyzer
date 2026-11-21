@@ -1,8 +1,8 @@
 name: link-botsort-reid-tuned-numbers
 description: >
   link-botsort-reid-tuned with the numbers layer of track-trackers-botsort-reid-tuned-numbers as a link term:
-  tracklets or chains with different confirmed numbers are never joined, two with the same number join at cost 0,
-  and a (team, number) left on several chains stays on the one with the most boxes (one_owner).
+  tracklets or chains with different confirmed numbers are never joined and two with the same number join at cost 0;
+  one_owner off, so two final tracks may keep the same (team, number).
 layers:
   shots:
     backend: gold
@@ -42,4 +42,4 @@ layers:
     weights: pretrained:roboflow/basketball-jersey-numbers-ocr/3
   link:
     backend: greedy
-    params: {max_gap_s: 10.0, max_cost: 0.3, ends: 5, max_speed_mps: 8.0, court_slack_m: 2.0}
+    params: {max_gap_s: 10.0, max_cost: 0.3, ends: 5, max_speed_mps: 8.0, court_slack_m: 2.0, one_owner: false}

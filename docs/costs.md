@@ -776,5 +776,14 @@ image builds are not included, so the Modal invoice is the authority.
 | 2026-11-21 | modal | L4 | bga run track/trackers 1jDaJBkUGmc_s3 | 19.6 | 0.0044 |
 | 2026-11-21 | modal | L4 | bga run track/trackers 1jDaJBkUGmc_s7 | 18.1 | 0.004 |
 | 2026-11-21 | modal | L4 | bga run track/trackers 1jDaJBkUGmc_s16 | 15.1 | 0.0034 |
+| 2026-11-21 | modal | L4 | bga run numbers/smolvlm_ocr 4XMD9FWmQws_s4 | 125.7 | 0.0279 |
+| 2026-11-21 | modal | L4 | bga run numbers/smolvlm_ocr 4XMD9FWmQws_s42 | 198.1 | 0.044 |
+| 2026-11-21 | modal | L4 | bga run numbers/smolvlm_ocr 4XMD9FWmQws_s78 | 169.6 | 0.0377 |
+| 2026-11-21 | modal | L4 | bga run numbers/smolvlm_ocr OSp445e0mXU_s2 | 149.8 | 0.0333 |
+| 2026-11-21 | modal | L4 | bga run numbers/smolvlm_ocr OSp445e0mXU_s10 | 68.5 | 0.0152 |
+| 2026-11-21 | modal | L4 | bga run numbers/smolvlm_ocr OSp445e0mXU_s19 | 204.3 | 0.0454 |
+| 2026-11-21 | modal | L4 | bga run numbers/smolvlm_ocr 1jDaJBkUGmc_s3 | 194.4 | 0.0432 |
+| 2026-11-21 | modal | L4 | bga run numbers/smolvlm_ocr 1jDaJBkUGmc_s7 | 162.4 | 0.0361 |
+| 2026-11-21 | modal | L4 | bga run numbers/smolvlm_ocr 1jDaJBkUGmc_s16 | 168.1 | 0.0374 |
 
-Month to date (2026-11), from Modal's own billing (`scripts/modal_spend.py`, 2026-11-21 00:50): 34.89 USD metered, 30.00 covered by the workspace's 30 USD monthly credits, so 4.89 USD billed. The M6 runner work of 2026-11-20 (smoke tests, the re-ID pair and three re-ID sweeps) cost 4.78 USD per Modal, against about 3.3 USD in the rows: about a third of it is CPU (frame decoding and camera-motion estimation in the track layer), which the GPU-only rows leave out. The rows above are per-job estimates at list price for the GPU alone, except where they cite Modal billing. On 2026-11-18 four rows estimated from local log times overstated the cut-short training runs about 25-fold (the remote runs had stopped within minutes while the local process went on waiting); they now carry the billed figures. October 2026: 4.18 USD metered per Modal (3.60 USD in the rows).
+Month to date (2026-11), from Modal's own billing (`scripts/modal_spend.py`, 2026-11-21 00:50): 34.89 USD metered, 30.00 covered by the workspace's 30 USD monthly credits, so 4.89 USD billed. The M6 runner work of 2026-11-20 (smoke tests, the re-ID pair and three re-ID sweeps) cost 4.78 USD per Modal, against about 3.3 USD in the rows: about a third of it is CPU (frame decoding and camera-motion estimation in the track layer), which the GPU-only rows leave out. The rows above are per-job estimates at list price for the GPU alone, except where they cite Modal billing. On 2026-11-18 four rows estimated from local log times overstated the cut-short training runs about 25-fold (the remote runs had stopped within minutes while the local process went on waiting); they now carry the billed figures. The numbers run of 2026-11-21 on the `track-trackers-botsort-reid-tuned` tracks (the 9 rows dated 2026-11-21, 0.32 USD) cost 0.51 USD per Modal (app `ap-MgnSS5MNzuMeiNitaEYAkD`: L4 0.46, CPU, memory and egress 0.04). October 2026: 4.18 USD metered per Modal (3.60 USD in the rows).
