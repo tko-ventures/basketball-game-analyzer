@@ -1,6 +1,6 @@
 # Remote compute costs
 
-One row per remote job (CLAUDE.md: log cost per job; proposed cap 50 USD per month). Cost is GPU
+One row per remote job (CLAUDE.md: log cost per job; cap 75 USD per month metered, since 2026-11-21). Cost is GPU
 seconds inside the function times Modal's list price for that GPU on 2026-10-29; container start and
 image builds are not included, so the Modal invoice is the authority.
 

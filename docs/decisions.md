@@ -489,3 +489,13 @@ Gold has about 13 people per shot.
 - **Overfitting risk.** 80 re-ID settings were scored on 9 shots, and the threshold optimum is sharp (0.08 and 0.12 score HOTA about 0.72). The held-out game, scored once when M6 closes, is the check; until then, rows on dev are not a promise.
 - **Cost.** The re-ID tracker reads frames, so it runs on Modal (`--remote-layer track`, about 64 ms per frame on an L4 container against 0.4 ms for ByteTrack). Its rows name the layer that ran there.
 - **Next.** The offline linking pass builds on this tracker, and is scored before and after linking, with and without appearance, as the done-when asks. The vendored ByteTrack stays only to reproduce old rows (decision 2026-11-20).
+
+## 2026-11-21: Modal spend cap raised to 75 USD per month
+
+Tomasz, in the M6 session, after the month reached 42.22 USD metered (11.80 billed after the 30 USD credits) against
+the 50 USD cap of question 9.
+
+- **Cap:** 75 USD per month on Modal, metered (before credits), from November 2026. It replaces the 50 USD cap and its
+  "may be raised to 100 USD when needed".
+- **Unchanged:** spend figures come from Modal's billing (`scripts/modal_spend.py`), every job is logged in
+  `docs/costs.md`, and the implementer asks before a month crosses the cap.

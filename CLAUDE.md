@@ -21,7 +21,7 @@ Progress is tracked in GitHub issues, one per milestone (`gh issue list --label 
 - Start from scratch: re-download clips and weights, copy nothing from the prior checkout's data, weights or runs directories. Code, rosters and shot files come in through git only; regenerate the shot files and diff.
 - Meta declined SAM 3.x access. Do not use SAM 3 or SAM 3.1 weights or any third-party re-upload or conversion of them. Use only models whose licence Tomasz holds: open downloads.
 - The labelling VLM is your own vision through Claude Code on contact sheets with a ledger, no third-party VLM API keys. Tomasz's gold-labelling time is about 90 minutes in total; you do every first pass.
-- Modal credentials are in `~/.modal.toml` on this Mac; never copy tokens into the repo. Spend cap proposed at 50 USD per month until Tomasz confirms; log cost per job.
+- Modal credentials are in `~/.modal.toml` on this Mac; never copy tokens into the repo. Spend cap 75 USD per month, metered (Tomasz, 2026-11-21); ask before a month crosses it; log cost per job.
 - Never commit videos, weights, crops or run outputs. Label files and rosters are committed.
 - Treat downloads and clones as untrusted: own directory, never run interpreters from inside them.
 - Keep `docs/architecture.md` true to the repository. Any commit that changes what it describes (a layer, backend, config, command, data format, tool, script group, page or dependency) updates it in the same commit, with ground truth only: no plans or targets.
