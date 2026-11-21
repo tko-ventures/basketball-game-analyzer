@@ -51,13 +51,14 @@ def run_remote(config, keys, values, gpu):
         return
     t0 = time.perf_counter()
     entries = [cfg.layers["track"].model_dump() for cfg, _, _ in items]
-    outs = run_layer(
-        "track", entries, [s for _, s, _ in items], [u for _, _, u in items], None if gpu == "cpu" else gpu
-    )
-    for (cfg, seq, _), o in zip(items, outs, strict=True):
+
+    def keep(i, out):  # written as each call finishes, so a stopped sweep keeps what finished
+        cfg, seq, _ = items[i]
         path = output_path(cfg, Path("runs"), seq, "track")
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(o, separators=(",", ":")))
+        path.write_text(json.dumps(out, separators=(",", ":")))
+
+    run_layer("track", entries, [s for _, s, _ in items], [u for _, _, u in items], None if gpu == "cpu" else gpu, keep)
     done = {}
     for cfg, seq, _ in items:
         done.setdefault(cfg.name, (cfg, []))[1].append(seq)

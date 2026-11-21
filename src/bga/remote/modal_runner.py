@@ -12,6 +12,7 @@ from __future__ import annotations
 import datetime as dt
 import json
 import time
+from collections.abc import Callable
 from dataclasses import asdict
 from pathlib import Path
 
@@ -55,7 +56,7 @@ image = (
 
 
 @app.function(image=image, volumes={"/data": vol}, secrets=[modal.Secret.from_name("roboflow")], timeout=3600)
-def run_sequence(layer: str, entry: dict, seq: dict, upstream: dict, gpu: str | None) -> dict:
+def run_sequence(layer: str, entry: dict, seq: dict, upstream: dict, gpu: str | None, job: int = 0) -> dict:
     """Run one layer's backend on one sequence inside Modal, reading the clip from the volume.
 
     Args:
@@ -64,9 +65,10 @@ def run_sequence(layer: str, entry: dict, seq: dict, upstream: dict, gpu: str | 
         seq: the sequence as a dict (``dataclasses.asdict`` of ``bga.stage.Sequence``).
         upstream: upstream layer outputs for the sequence.
         gpu: the Modal GPU type the call runs on, or None for CPU; prices the run.
+        job: the call's index in its batch, returned so results can arrive in any order.
 
     Returns:
-        The backend's output with ``remote``: platform, GPU, seconds and list-price USD.
+        The backend's output with ``remote``: platform, GPU, seconds, list-price USD and ``job``.
 
     Examples:
         >>> run_sequence.remote("court", {"backend": "roboflow_keypoints"}, seq, {}, None)  # doctest: +SKIP
@@ -92,6 +94,7 @@ def run_sequence(layer: str, entry: dict, seq: dict, upstream: dict, gpu: str | 
         "gpu": gpu,
         "seconds": round(secs, 1),
         "usd": round(secs / 3600 * USD_PER_HOUR.get(gpu, 0.0), 4),
+        "job": job,
     }
     return out
 
@@ -153,8 +156,18 @@ def _exists(path: str) -> bool:
         return False
 
 
-def run_layer(layer: str, entry: dict | list[dict], seqs: list, upstream: list[dict], gpu: str | None) -> list[dict]:
+def run_layer(
+    layer: str,
+    entry: dict | list[dict],
+    seqs: list,
+    upstream: list[dict],
+    gpu: str | None,
+    on_result: Callable[[int, dict], None] | None = None,
+) -> list[dict]:
     """Run one layer for ``seqs`` (with their upstream outputs) on Modal, one parallel call per sequence.
+
+    Results are taken as they finish and handed to ``on_result`` at once, so a run stopped part way keeps what had
+    finished; the cost rows of the finished calls are logged even then.
 
     Args:
         layer: the layer name.
@@ -163,6 +176,7 @@ def run_layer(layer: str, entry: dict | list[dict], seqs: list, upstream: list[d
         seqs: the sequences (``bga.stage.Sequence``).
         upstream: upstream outputs, one per sequence.
         gpu: Modal GPU type, or None for CPU.
+        on_result: Called with each finished call's index in ``seqs`` and its output, e.g. to write it.
 
     Returns:
         The outputs in the order of ``seqs``; their costs are appended to docs/costs.md.
@@ -173,13 +187,22 @@ def run_layer(layer: str, entry: dict | list[dict], seqs: list, upstream: list[d
     """
     entries = entry if isinstance(entry, list) else [entry] * len(seqs)
     fn = run_sequence.with_options(gpu=gpu) if gpu else run_sequence
-    with modal.enable_output(), app.run():
-        upload_clips({s.video for s in seqs})
-        for w in {e.get("weights") for e in entries}:
-            upload_weights(w)
-        args = [(layer, e, asdict(s), u, gpu) for e, s, u in zip(entries, seqs, upstream, strict=True)]
-        outs = list(fn.starmap(args))
-    log_costs(layer, entries[0]["backend"], seqs, outs)
+    outs: list[dict | None] = [None] * len(seqs)
+    try:
+        with modal.enable_output(), app.run():
+            upload_clips({s.video for s in seqs})
+            for w in {e.get("weights") for e in entries}:
+                upload_weights(w)
+            jobs = zip(entries, seqs, upstream, strict=True)
+            args = [(layer, e, asdict(s), u, gpu, i) for i, (e, s, u) in enumerate(jobs)]
+            for out in fn.starmap(args, order_outputs=False):
+                i = out["remote"].pop("job")
+                outs[i] = out
+                if on_result:
+                    on_result(i, out)
+    finally:
+        done = [i for i, o in enumerate(outs) if o is not None]
+        log_costs(layer, entries[0]["backend"], [seqs[i] for i in done], [outs[i] for i in done])
     return outs
 
 

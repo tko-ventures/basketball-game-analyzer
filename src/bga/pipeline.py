@@ -230,20 +230,8 @@ def run(
         log.info("%s/%s on %d sequences%s", layer, cfg.layers[layer].backend, len(todo), " (modal)" if here else "")
         t0 = time.perf_counter()
         if here:
-            from bga.remote.modal_runner import run_layer
-
-            ups = [
-                {
-                    u: load_output(cfg, runs, s, u, arrays=True)
-                    for u in LAYERS[layer]
-                    if u in cfg.layers and u != "shots"
-                }
-                for s in todo
-            ]
             gpu = getattr(backend, "gpu", None) if backend.requires == "cuda" else remote_gpu
-            for seq, out in zip(todo, run_layer(layer, cfg.layers[layer].model_dump(), todo, ups, gpu), strict=True):
-                write_output(output_path(cfg, runs, seq, layer), out)
-            _write_meta(cfg, runs, layer, todo, t0)
+            _run_remote(cfg, runs, layer, todo, gpu)
             continue
         backend.load()
         try:
@@ -266,6 +254,26 @@ def run(
             backend.unload()
         _write_meta(cfg, runs, layer, todo, t0)
     return seqs
+
+
+def _run_remote(cfg: RunConfig, runs: Path, layer: str, todo: list[Sequence], gpu: str | None) -> None:
+    """Run one layer on Modal, writing each sequence's output as its call finishes, and the meta of those written."""
+    from bga.remote.modal_runner import run_layer
+
+    t0 = time.perf_counter()
+    reads = [u for u in LAYERS[layer] if u in cfg.layers and u != "shots"]  # shots only selects sequences
+    ups = [{u: load_output(cfg, runs, s, u, arrays=True) for u in reads} for s in todo]
+    done: list[Sequence] = []
+
+    def keep(i: int, out: dict) -> None:
+        write_output(output_path(cfg, runs, todo[i], layer), out)
+        done.append(todo[i])
+
+    try:
+        run_layer(layer, cfg.layers[layer].model_dump(), todo, ups, gpu, on_result=keep)
+    finally:
+        if done:
+            _write_meta(cfg, runs, layer, done, t0)
 
 
 def _write_meta(cfg: RunConfig, runs: Path, layer: str, todo: list[Sequence], t0: float) -> None:
