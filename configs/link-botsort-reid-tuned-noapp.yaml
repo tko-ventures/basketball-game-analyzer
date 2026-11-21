@@ -1,0 +1,38 @@
+name: link-botsort-reid-tuned-noapp
+description: >
+  link-botsort-reid-tuned without the appearance term (appearance: none): the cost of a join is its gap as a share of
+  max_gap_s, so the shortest same-team gap that passes the speed gate is joined first.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: roboflow_keypoints
+    params: {model_id: basketball-court-detection-2/14}
+    weights: pretrained:roboflow/basketball-court-detection-2/14
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r3-poss@c62744fe
+  team:
+    backend: siglip_kmeans
+    params: {seed: 0, fit_fps: 5.0}
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  appearance:
+    backend: none
+  track:
+    backend: trackers
+    params:
+      tracker: botsort
+      cmc: internal
+      reid_model: osnet_x1_0_sportsmot
+      reid_config: {fusion: adaptive, appearance_threshold: 0.1, proximity_threshold: 1.0, appearance_weight: 1.25}
+      args:
+        track_activation_threshold: 0.8
+        minimum_iou_threshold_first_assoc: 0.1
+        minimum_iou_threshold_second_assoc: 0.2
+        minimum_iou_threshold_unconfirmed_assoc: 0.3
+        high_conf_det_threshold: 0.3
+  link:
+    backend: greedy
+    params: {max_gap_s: 10.0, max_cost: 0.3, ends: 5, max_speed_mps: 8.0, court_slack_m: 2.0}

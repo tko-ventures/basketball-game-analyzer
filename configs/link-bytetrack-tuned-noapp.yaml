@@ -1,0 +1,27 @@
+name: link-bytetrack-tuned-noapp
+description: >
+  link-bytetrack-tuned without the appearance term (appearance: none): joins ranked by gap.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: roboflow_keypoints
+    params: {model_id: basketball-court-detection-2/14}
+    weights: pretrained:roboflow/basketball-court-detection-2/14
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r3-poss@c62744fe
+  team:
+    backend: siglip_kmeans
+    params: {seed: 0, fit_fps: 5.0}
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  appearance:
+    backend: none
+  track:
+    backend: trackers
+    params: {tracker: bytetrack, min_score: 0.1, args: {high_conf_det_threshold: 0.5}}
+  link:
+    backend: greedy
+    params: {max_gap_s: 10.0, max_cost: 0.3, ends: 5, max_speed_mps: 8.0, court_slack_m: 2.0}

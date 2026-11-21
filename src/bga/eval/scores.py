@@ -212,6 +212,8 @@ def _collect_speeds(cfg: RunConfig, runs: Path, seq: Sequence, speed: defaultdic
 def score(cfg: RunConfig, seqs: list[Sequence], runs: Path = Path("runs"), gold: str = "v0") -> dict:
     """Compute every gold-set score of one run: tracking, team, numbers, churn, detection AP and speed.
 
+    Tracks come from the ``link`` layer when the config has one, else from ``track``.
+
     Args:
         cfg: Run config whose layer outputs are read.
         seqs: Gold sequences the run covers.
@@ -223,17 +225,22 @@ def score(cfg: RunConfig, seqs: list[Sequence], runs: Path = Path("runs"), gold:
         config has a numbers layer, churn summaries, box AP when ``boxes.json`` exists, ``ms`` per layer and the
         sequence count.
 
+    Raises:
+        NotImplementedError: For a config with both ``link`` and ``numbers``.
+
     Examples:
         >>> sorted(score(cfg, seqs))  # doctest: +SKIP
         ['AP50', 'AP50_95', 'AssA', 'DetA', 'HOTA', 'IDF1', 'IDSW', 'MOTA', ...]
 
     """
+    if "link" in cfg.layers and "numbers" in cfg.layers:
+        raise NotImplementedError("number accuracy is keyed by track ids; scoring it after linking is not built")
     root = Path("data/gold") / gold
     mot, team_ok, team_n, churn_rows, speed = {}, 0, 0, [], defaultdict(list)
     id_n = id_ok = id_confirmed = 0
     for seq in seqs:
         grid, gt_per, ids = read_gt(root, seq.name)
-        tracks = load_output(cfg, runs, seq, "track")["frames"]
+        tracks = load_output(cfg, runs, seq, "link" if "link" in cfg.layers else "track")["frames"]
         teams = load_output(cfg, runs, seq, "team")["frames"] if "team" in cfg.layers else {}
         gt = [[g[:5] for g in gt_per.get(f, [])] for f in grid]
         pred = [[(r[0], *r[1:5]) for r in tracks.get(str(f), [])] for f in grid]

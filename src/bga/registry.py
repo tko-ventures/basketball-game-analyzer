@@ -23,6 +23,7 @@ BACKEND_MODULES = (
     "bga.track.bytetrack",
     "bga.track.roboflow_trackers",
     "bga.numbers.smolvlm_ocr",
+    "bga.link.greedy",
     "bga.court.roboflow_keypoints",
     "bga.court.rfdetr_keypoint",
     "bga.positions.bbox_bottom",
