@@ -11,6 +11,7 @@ How to read a row:
 - **team acc:** gold player tracks whose matched detections are mostly given the right team. The track count is in brackets.
 - **number acc:** gold tracks with a legible number whose best-matched predicted track got that number confirmed. In brackets: the fraction that got any number confirmed, the count confirmed wrong, and the number of tracks.
 - **ms/frame:** mean time per processed frame on the M1 Max, per layer. Numbers is the jersey-number reader.
+- **IDSW of link rows before 192c1f4** is too high: the link layer reordered the rows within a frame, and matching ties follow row order. Re-scored at 192c1f4 with nothing else changed: `link-botsort-reid-tuned` 68 (rows say 73), `-noapp` 67 (72), the `-numbers`, `-owner`, `-roster` and `-roster-all` configs 68 (73), `-roster-all-nojoin` 70 (75, the tracker's own 70), `link-bytetrack-tuned` 108 (112) and `-noapp` 107 (111). HOTA, IDF1 and number accuracy do not change. The `split_cost` 0.4 row (@2055fe80) was not re-scored.
 
 
 | date | commit | config | gold | split | HOTA | DetA | AssA | IDF1 | MOTA | IDSW | AP50 | team acc | number acc (confirmed, wrong) | ms/frame detect, team, court, numbers | notes |
