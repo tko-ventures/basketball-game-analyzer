@@ -470,3 +470,22 @@ Tomasz accepted the implementer's plan and set the rule: follow the migration gu
 - **Migration:** a `trackers` backend (`ByteTrackTracker`, `BoTSORTTracker`, with and without re-ID) gets its own configs, is tuned on dev, and is scored against the vendored tracker.
 - **Retirement:** when the `trackers` backend matches or beats it on gold dev, new configs use it; the vendored copy stays only to reproduce old rows.
 - **Generally:** a deprecation or removal upstream is handled by migrating to the replacement through a new backend and config with a before/after row, not by pinning or vendoring indefinitely. Deprecation warnings in run logs are work items.
+
+## 2026-11-21: tracker for M6 linking work: BoT-SORT with tuned re-ID
+
+Gold v0 dev, `plk-r3-poss` boxes, team fit at 5 frames a second (rows in `docs/metrics.md`):
+
+| tracker | HOTA | IDF1 | MOTA | IDSW | ids per shot |
+|---|---|---|---|---|---|
+| supervision 0.30.9 ByteTrack, tuned (vendored) | 0.668 | 0.742 | 0.800 | 183 | 20.2 |
+| `trackers` ByteTrack, tuned | 0.686 | 0.781 | 0.748 | 114 | 17.6 |
+| `trackers` BoT-SORT, tuned, no re-ID | 0.681 | 0.770 | 0.774 | – | 19.3 |
+| same, `osnet_x1_0_sportsmot` re-ID at library settings | 0.684 | 0.770 | 0.773 | – | 19.1 |
+| **same, re-ID tuned** (`track-trackers-botsort-reid-tuned`) | **0.740** | **0.864** | 0.786 | 70 | 15.2 |
+
+Gold has about 13 people per shot.
+
+- **Re-ID pays only once tuned.** The gain comes from removing the IoU gate before appearance (`proximity_threshold` 1.0), so a player is re-identified after an occlusion or a fast move with no box overlap, with adaptive fusion and appearance threshold 0.1.
+- **Overfitting risk.** 80 re-ID settings were scored on 9 shots, and the threshold optimum is sharp (0.08 and 0.12 score HOTA about 0.72). The held-out game, scored once when M6 closes, is the check; until then, rows on dev are not a promise.
+- **Cost.** The re-ID tracker reads frames, so it runs on Modal (`--remote-layer track`, about 64 ms per frame on an L4 container against 0.4 ms for ByteTrack). Its rows name the layer that ran there.
+- **Next.** The offline linking pass builds on this tracker, and is scored before and after linking, with and without appearance, as the done-when asks. The vendored ByteTrack stays only to reproduce old rows (decision 2026-11-20).
