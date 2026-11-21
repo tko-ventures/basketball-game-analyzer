@@ -3,7 +3,8 @@
 The layout is what ``reid.data.identity_crops.load_identity_folders`` reads: ``train/<identity>/<frame>.jpg`` and
 ``valid/<identity>/<frame>.jpg``. Sources are crop manifests (``data/labels/appearance/crops_*.json``, written by
 ``scripts/reid_crops.py``), checked against their sha256 and the gold games; identities marked ``dropped`` (mixed,
-by eye) are left out. An identity goes to ``valid`` when its clip is in ``recipe.val_clips``, else to ``train``, so
+by eye) are left out, and so are those with less than ``recipe.min_team_share`` of their boxes on their majority
+team when it is set. An identity goes to ``valid`` when its clip is in ``recipe.val_clips``, else to ``train``, so
 validation never shares a game with training.
 
 """
@@ -44,11 +45,12 @@ def split_of(clip: str, val_clips: list[str]) -> str:
     return "valid" if clip in val_clips else "train"
 
 
-def kept_identities(src: ManifestSource) -> list[dict]:
+def kept_identities(src: ManifestSource, min_team_share: float | None = None) -> list[dict]:
     """Identities of a crop manifest that are not dropped, after the sha256 and gold checks.
 
     Args:
         src: The manifest source.
+        min_team_share: Least share of an identity's boxes on its majority team; ``None`` keeps all.
 
     Returns:
         The manifest's identity records without a ``dropped`` mark.
@@ -68,7 +70,8 @@ def kept_identities(src: ManifestSource) -> list[dict]:
         raise ValueError(f"{src.path}: sha256 differs from the config; rebuild the config or the manifest")
     ids = json.loads(path.read_text())["identities"]
     assert_no_gold({i["clip"] for i in ids})
-    return [i for i in ids if not i.get("dropped")]
+    floor = min_team_share or 0.0
+    return [i for i in ids if not i.get("dropped") and i.get("team_share", 1.0) >= floor]
 
 
 def build(cfg: TrainConfig, out: Path) -> dict:
@@ -100,7 +103,7 @@ def build(cfg: TrainConfig, out: Path) -> dict:
     identities = dict.fromkeys(SPLITS, 0)
     digest = hashlib.sha256()
     for src in cfg.sources:
-        for ident in kept_identities(src):
+        for ident in kept_identities(src, cfg.recipe.min_team_share):
             split = split_of(ident["clip"], val)
             folder = out / split / ident["id"]
             folder.mkdir(parents=True)

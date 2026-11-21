@@ -72,6 +72,7 @@ class Recipe(BaseModel):
     val_clips: list[str] | None = None  # appearance: games whose identities validate instead of train
     crops_per_id: int | None = None  # appearance: crops per identity in a batch (P x K sampling, K)
     triplet_margin: float | None = None  # appearance: margin of the batch-hard triplet loss on cosine distance
+    min_team_share: float | None = None  # appearance: identities with fewer of their boxes on one team are left out
 
 
 class Platform(BaseModel):

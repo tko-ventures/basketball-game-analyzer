@@ -6,12 +6,14 @@ sheets to check each identity's purity by eye.
     uv run scripts/reid_crops.py sheets data/labels/appearance/crops_r1.json [--sample 96] [--seed 0]
     uv run scripts/reid_crops.py drop data/labels/appearance/crops_r1.json <identity> [...]
 
-One linked track of one shot is one identity. A crop is a non-referee row of the link output with a detected box
-(det_index >= 0) scoring at least --min-score and at least --min-h pixels tall; an identity needs --min-boxes such
-rows, and keeps --per-identity of them spread over its life. The manifest stores boxes only (frame and xyxy per
+One linked track of one shot is one identity, with its majority team and the share of its boxes on that team. A
+crop is a non-referee row of the link output with a detected box (det_index >= 0) scoring at least --min-score and at
+least --min-h pixels tall; an identity needs --min-boxes such rows, and keeps --per-identity of them spread over its
+life. The manifest stores boxes only (frame and xyxy per
 crop); the pictures are cut from the clips at training time and never committed. Gold games are refused.
 
-Sheets go to runs/reid_crops/<manifest stem>/sheet_NN.jpg, one row of 8 crops per identity. `drop` marks identities
+Sheets go to runs/reid_crops/<manifest stem>/sheet_NN.jpg, one row of 8 crops per identity captioned with its index
+in the sample; sheet_NN.txt maps the indices to identities. `drop` marks identities
 seen to be mixed (a tracker swap) as dropped, with the date, so a training set leaves them out.
 
 """
@@ -55,13 +57,15 @@ def identities_of(seq, link, teams, a):
     for tid, rows in sorted(by_id.items()):
         if len(rows) < a.min_boxes:
             continue
-        team = Counter(t for _, _, t in rows if t).most_common(1)
+        votes = Counter(t for _, _, t in rows if t)
+        team = votes.most_common(1)
         out.append({
             "id": f"{seq.name}_t{tid}",
             "clip": seq.clip,
             "video": seq.video,
             "shot": seq.shot,
             "team": team[0][0] if team else "",
+            "team_share": round(team[0][1] / sum(votes.values()), 3) if team else 0.0,
             "boxes": len(rows),
             "span": [rows[0][0], rows[-1][0]],
             "crops": [[f, *b] for f, b, _ in spread(rows, a.per_identity)],
@@ -102,14 +106,16 @@ def sheets(a):
     out.mkdir(parents=True, exist_ok=True)
     readers = {}
     for n in range(0, len(pick), a.per_sheet):
-        items = []
-        for ident in pick[n : n + a.per_sheet]:
+        items, index = [], []
+        for k, ident in enumerate(pick[n : n + a.per_sheet], start=n):
             read = readers.setdefault(ident["video"], FrameReader(ident["video"]))
+            index.append(f"{k} {ident['id']} {ident['team']} n{ident['boxes']}")
             for j, (f, x1, y1, x2, y2) in enumerate(spread(ident["crops"], 8)):
                 crop = read(f)[int(y1) : int(y2), int(x1) : int(x2)]
-                items.append((crop, f"{ident['id']} {ident['team']} n{ident['boxes']}" if j == 0 else f"f{f}"))
+                items.append((crop, f"#{k} {ident['team']}" if j == 0 else f"f{f}"))
             items += [(crop[:2, :2] * 0, "")] * (8 - min(8, len(ident["crops"])))
         p = out / f"sheet_{n // a.per_sheet:02d}.jpg"
+        p.with_suffix(".txt").write_text("\n".join(index) + "\n")
         cv2.imwrite(
             str(p), contact_sheet(items, cols=8, tile_wh=(120, 220), caption_h=16), [cv2.IMWRITE_JPEG_QUALITY, 85]
         )
@@ -145,7 +151,7 @@ def main(argv=None):
     s = sub.add_parser("sheets")
     s.add_argument("manifest", type=Path)
     s.add_argument("--sample", type=int, default=96)
-    s.add_argument("--per-sheet", type=int, default=12)
+    s.add_argument("--per-sheet", type=int, default=8)
     s.add_argument("--seed", type=int, default=0)
     d = sub.add_parser("drop")
     d.add_argument("manifest", type=Path)
