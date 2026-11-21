@@ -97,13 +97,43 @@ def lost_buffer_frames(seconds: float) -> int:
     return round(seconds * 30)
 
 
+def reid_source(reid_model: str, weights: str | None) -> str:
+    """The ``reid`` model source BoT-SORT loads: the param as given, or the entry's trained encoder folder.
+
+    Args:
+        reid_model: The ``reid_model`` param: a ``reid`` source, or ``weights``.
+        weights: The config entry's weights id.
+
+    Returns:
+        A source ``reid.ReIDModel.from_pretrained`` accepts.
+
+    Raises:
+        ValueError: For ``weights`` without an ``appearance/reid`` weight id.
+
+    Examples:
+        >>> reid_source("osnet_x1_0_sportsmot", None)
+        'osnet_x1_0_sportsmot'
+        >>> reid_source("weights", "appearance/reid/plk-r1@553936e9").endswith("appearance/reid/plk-r1@553936e9")
+        True
+
+    """
+    if reid_model != "weights":
+        return reid_model
+    if not weights or not weights.startswith("appearance/reid/"):
+        raise ValueError(f"reid_model: weights needs an appearance/reid weight id, not {weights!r}")
+    from bga.paths import weights_dir
+
+    return str(weights_dir(weights))
+
+
 @register("track", "trackers")
 class RoboflowTrackers(BaseBackend):
     """Track backend over the ``trackers`` package; outputs the ``track`` layer format, confirmed tracks only.
 
     Params (``defaults``): ``tracker`` (``bytetrack``, ``botsort``, ``ocsort``, ``sort``), ``min_score`` (boxes below
     are not passed in), ``lost_track_buffer_s``, ``args`` (other constructor arguments, passed as given),
-    ``reid_model`` (a ``reid`` model source for BoT-SORT, or ``None``), ``reid_config`` (``trackers.ReIDConfig``
+    ``reid_model`` (a ``reid`` model source for BoT-SORT, ``weights`` for the entry's trained ``appearance/reid``
+    weight id, or ``None``), ``reid_config`` (``trackers.ReIDConfig``
     fields), ``cmc`` and ``cmc_mask_score``. With ``cmc: internal`` BoT-SORT gets each frame and estimates camera
     motion itself; with ``cmc: precomputed`` the transforms come from :func:`cmc_transforms`, cached per sequence, so
     a parameter sweep decodes the frames once. Re-ID still gets the frames.
@@ -142,7 +172,7 @@ class RoboflowTrackers(BaseBackend):
         if self.p["reid_model"]:
             if name != "botsort":
                 raise ValueError("reid_model needs tracker: botsort")
-            kwargs["reid_model"] = self.p["reid_model"]
+            kwargs["reid_model"] = reid_source(self.p["reid_model"], self.weights)
             kwargs["reid_config"] = trackers.ReIDConfig(**self.p["reid_config"])
         return getattr(trackers, TRACKERS[name])(**kwargs)
 
