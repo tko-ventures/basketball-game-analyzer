@@ -15,6 +15,7 @@ _REGISTRY: dict[tuple[str, str], type] = {}
 #: Modules holding the built-in backends; importing them runs their @register decorators.
 BACKEND_MODULES = (
     "bga.ingest.gold_shots",
+    "bga.ingest.clip_shots",
     "bga.detect.roboflow_inference",
     "bga.detect.rfdetr_torch",
     "bga.team.siglip_kmeans",
@@ -122,7 +123,7 @@ def available() -> dict[str, list[str]]:
 
     Examples:
         >>> available()["shots"]
-        ['gold']
+        ['clips', 'gold']
 
     """
     load_backends()

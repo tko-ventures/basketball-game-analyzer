@@ -1,0 +1,44 @@
+name: crops-reid-r1
+description: >
+  Identity crops for the PLK appearance encoder, round 1: link-botsort-reid-tuned without the court layer (so no
+  floor-speed gate) over the shots of at least 3 s of four non-gold 2025/26 games (shots/clips; gold games are
+  refused). scripts/reid_crops.py turns its linked tracklets into data/labels/appearance/crops_r1.json.
+layers:
+  shots:
+    backend: clips
+    params:
+      stride: 5
+      min_s: 3.0
+      clips:
+        - 20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka
+        - 20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka
+        - 20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka
+        - 20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r3-poss@c62744fe
+  team:
+    backend: siglip_kmeans
+    params: {seed: 0, fit_fps: 5.0}
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  appearance:
+    backend: reid
+    params: {model: osnet_x1_0_sportsmot, min_score: 0.1}
+    weights: pretrained:roboflow/reid/osnet_x1_0_sportsmot
+  track:
+    backend: trackers
+    params:
+      tracker: botsort
+      cmc: internal
+      reid_model: osnet_x1_0_sportsmot
+      reid_config: {fusion: adaptive, appearance_threshold: 0.1, proximity_threshold: 1.0, appearance_weight: 1.25}
+      args:
+        track_activation_threshold: 0.8
+        minimum_iou_threshold_first_assoc: 0.1
+        minimum_iou_threshold_second_assoc: 0.2
+        minimum_iou_threshold_unconfirmed_assoc: 0.3
+        high_conf_det_threshold: 0.3
+  link:
+    backend: greedy
+    params: {max_gap_s: 10.0, max_cost: 0.3, ends: 5, max_speed_mps: 8.0, court_slack_m: 2.0}

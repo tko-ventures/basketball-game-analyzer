@@ -233,7 +233,12 @@ def run(
             from bga.remote.modal_runner import run_layer
 
             ups = [
-                {u: load_output(cfg, runs, s, u, arrays=True) for u in LAYERS[layer] if u in cfg.layers} for s in todo
+                {
+                    u: load_output(cfg, runs, s, u, arrays=True)
+                    for u in LAYERS[layer]
+                    if u in cfg.layers and u != "shots"
+                }
+                for s in todo
             ]
             gpu = getattr(backend, "gpu", None) if backend.requires == "cuda" else remote_gpu
             for seq, out in zip(todo, run_layer(layer, cfg.layers[layer].model_dump(), todo, ups, gpu), strict=True):
