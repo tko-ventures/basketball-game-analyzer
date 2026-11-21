@@ -15,12 +15,13 @@ from typing import Any
 import yaml
 from pydantic import BaseModel, ConfigDict, Field
 
-#: Pipeline order and the upstream layers each one reads (plan section 5, L0 to L6).
+#: Pipeline order and the upstream layers each one reads (plan section 5, L0 to L6, with L3b appearance).
 LAYERS: dict[str, tuple[str, ...]] = {
     "shots": (),
     "court": ("shots",),
     "detect": ("shots",),
     "team": ("detect",),
+    "appearance": ("detect",),
     "track": ("detect", "court"),
     "numbers": ("detect", "track"),
     "positions": ("track", "court"),

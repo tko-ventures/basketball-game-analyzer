@@ -18,6 +18,8 @@ BACKEND_MODULES = (
     "bga.detect.roboflow_inference",
     "bga.detect.rfdetr_torch",
     "bga.team.siglip_kmeans",
+    "bga.appearance.none",
+    "bga.appearance.reid_encoder",
     "bga.track.bytetrack",
     "bga.track.roboflow_trackers",
     "bga.numbers.smolvlm_ocr",

@@ -1,6 +1,6 @@
 # Architecture: what is built
 
-This page describes the code and data that exist in the repository, as of 2026-11-20 (M0 to M4). It records only what is in the repository. Intentions, targets and milestones are in `docs/PLAN.md`, decisions in `docs/decisions.md`, and scores in `docs/metrics.md`.
+This page describes the code and data that exist in the repository, as of 2026-11-21 (M0 to M5, and M6 so far). It records only what is in the repository. Intentions, targets and milestones are in `docs/PLAN.md`, decisions in `docs/decisions.md`, and scores in `docs/metrics.md`.
 
 The repository has three parts:
 
@@ -14,13 +14,13 @@ The repository has three parts:
 
 | Path | Contents | In git |
 |---|---|---|
-| `src/bga/` | the pipeline package, about 6,600 lines | yes |
-| `configs/baseline.yaml`, `configs/court-plk-v1*.yaml`, `configs/detect-*.yaml`, `configs/team-*.yaml`, `configs/track-*.yaml` | run configs: the public-model baseline; the baseline with the PLK court model, unsmoothed and with smoothing windows of 2 and 4; the baseline with the detect layer swapped for one trained detector each (`rfdetr_torch` at confidence 0.05: `nba-704`, `nba-1280`, `nba-tile2`, `plk-r1`, `plk-r2`, `plk-r2-fast`, `plk-r2-fast-es`, `plk-r2-xl`, `plk-r3`, `plk-r3-poss`); `detect-plk-r3-poss` with the team layer seeded 0 to 4 (`team-plk-r3-poss-seed0` to `seed4`), the same with the team crop on the chest (`team-plk-r3-poss-chest-seed0` to `seed4`), and fitted on 5 frames a second (`team-plk-r3-poss-fit5-seed0` to `seed4`); `track-bytetrack`, which is `team-plk-r3-poss-fit5-seed0` without the numbers and positions layers, and `track-bytetrack-tuned`, the same with tuned ByteTrack params; `track-trackers-bytetrack` and `track-trackers-bytetrack-tuned`, the same on the `trackers` backend at library defaults and tuned; `track-trackers-botsort` (BoT-SORT at library defaults), `track-trackers-botsort-precmc` (the same with precomputed camera motion), `track-trackers-botsort-tuned`, and `track-trackers-botsort-reid` with its twin `track-trackers-botsort-noreid` (tuned BoT-SORT with internal camera motion, with and without the `osnet_x1_0_sportsmot` re-ID encoder), and `track-trackers-botsort-reid-tuned` (re-ID settings tuned on dev on Modal) | yes |
+| `src/bga/` | the pipeline package, about 8,700 lines | yes |
+| `configs/baseline.yaml`, `configs/court-plk-v1*.yaml`, `configs/detect-*.yaml`, `configs/team-*.yaml`, `configs/track-*.yaml`, `configs/appearance-*.yaml` | run configs: the public-model baseline; the baseline with the PLK court model, unsmoothed and with smoothing windows of 2 and 4; the baseline with the detect layer swapped for one trained detector each (`rfdetr_torch` at confidence 0.05: `nba-704`, `nba-1280`, `nba-tile2`, `plk-r1`, `plk-r2`, `plk-r2-fast`, `plk-r2-fast-es`, `plk-r2-xl`, `plk-r3`, `plk-r3-poss`); `detect-plk-r3-poss` with the team layer seeded 0 to 4 (`team-plk-r3-poss-seed0` to `seed4`), the same with the team crop on the chest (`team-plk-r3-poss-chest-seed0` to `seed4`), and fitted on 5 frames a second (`team-plk-r3-poss-fit5-seed0` to `seed4`); `track-bytetrack`, which is `team-plk-r3-poss-fit5-seed0` without the numbers and positions layers, and `track-bytetrack-tuned`, the same with tuned ByteTrack params; `track-trackers-bytetrack` and `track-trackers-bytetrack-tuned`, the same on the `trackers` backend at library defaults and tuned; `track-trackers-botsort` (BoT-SORT at library defaults), `track-trackers-botsort-precmc` (the same with precomputed camera motion), `track-trackers-botsort-tuned`, and `track-trackers-botsort-reid` with its twin `track-trackers-botsort-noreid` (tuned BoT-SORT with internal camera motion, with and without the `osnet_x1_0_sportsmot` re-ID encoder), and `track-trackers-botsort-reid-tuned` (re-ID settings tuned on dev on Modal); `appearance-reid-sportsmot`, which is `track-trackers-botsort-reid-tuned` with the appearance layer (`reid`, `osnet_x1_0_sportsmot`) | yes |
 | `configs/train/` | training configs, one per training setup | yes |
 | `weights/` | trained weights, one directory per weight id | no |
 | `tools/labeler/` | the local labelling server and its three pages | yes |
 | `scripts/` | labelling, gold export, court, probe, demo and coach scripts | yes |
-| `tests/` | 16 test files, 177 tests | yes |
+| `tests/` | 17 test files, 221 tests | yes |
 | `data/clip_ids.txt` | the 31 YouTube highlight clips | yes |
 | `data/labels/` | per-clip labels, the gold manifest, review ops, court keyframes | yes |
 | `data/gold/v0/` | the exported gold set | yes |
@@ -45,6 +45,7 @@ The layers and the upstream outputs each one reads are fixed in `bga.config.LAYE
 ```
 shots ─┬─> court ──────────────┐
        └─> detect ─┬─> team    │
+                   ├─> appearance
                    ├─> track <─┤   (track reads detect and court)
                    │     ├─> numbers   (reads detect and track)
                    │     └─> positions (reads track and court)
@@ -58,13 +59,14 @@ Each layer's output format is documented in its `base.py`:
 | `court` | `{"frames": {frame: 3×3 image→court matrix in cm, or null}, "units": "cm"}` |
 | `detect` | `{"frames": {frame: [[x1, y1, x2, y2, score, class_name], ...]}, "classes": [...]}`, using the 10-class schema in `bga.types` |
 | `team` | `{"frames": {frame: ["home" \| "away" \| "ref" \| "", ...]}, "clusters": {cluster: side}, "separation": {"silhouette": s, "minor_share": f}, "ms_per_frame": ms}`, labels aligned with the detect boxes; outputs written before 2026-11-20 lack `separation` |
+| `appearance` | `{"boxes": [[frame, det_index], ...], "dim": d, "model": alias, "ms_per_crop": ms, "arrays": {"embeddings": record}}`; row *i* of the `(boxes, d)` float16 array of unit-length embeddings belongs to box *i*; `none` writes no boxes and no array |
 | `track` | `{"frames": {frame: [[track_id, x1, y1, x2, y2, score, class_name, det_index], ...]}}` |
 | `numbers` | `{"tracks": {track_id: "23" or null}, "reads": n, "ms_per_read": ms}` |
 | `positions` | `{"tracks": {track_id: [[frame, x_m, y_m], ...]}, "court_m": [28.0, 15.0]}` |
 
 ### Backends
 
-A backend is a class registered with `@register("<layer>", "<name>")` (`bga.registry`). The registry imports the modules listed in `BACKEND_MODULES` lazily. The court, detect and track layers have two registered backends each, and every other layer one. `configs/baseline.yaml` selects the first of each:
+A backend is a class registered with `@register("<layer>", "<name>")` (`bga.registry`). The registry imports the modules listed in `BACKEND_MODULES` lazily. The court, detect, track and appearance layers have two registered backends each, and every other layer one. `configs/baseline.yaml` selects the first of each, except appearance, which it does not configure:
 
 | Layer | Backend | What it does | Model |
 |---|---|---|---|
@@ -72,6 +74,8 @@ A backend is a class registered with `@register("<layer>", "<name>")` (`bga.regi
 | court | `roboflow_keypoints` | keypoints above `kp_conf` (at least 4), then a RANSAC homography to the FIBA vertices of `sports.CourtConfiguration`, threshold 40 cm | `basketball-court-detection-2/14` (Roboflow, NBA frames) |
 | detect | `roboflow_inference` | Roboflow `inference` run locally (weights fetched with `ROBOFLOW_API_KEY`, from the environment or `~/.config/bga/roboflow.env`); confidence 0.4, IoU 0.9 | `basketball-player-detection-3-ycjdo/6` (RF-DETR-S, NBA frames) |
 | team | `siglip_kmeans` | `sports.TeamClassifier` (SigLIP, UMAP, KMeans) fitted per sequence on crops sampled at 1 fps, referees excluded; the cluster with the brighter kit takes the side the clip meta marks `light`. `crop` (0.4) is the share of the box kept around the point `crop_cy` (0.5, the box centre) of its height from the top. `seed` (default unset) seeds UMAP and KMeans. Reports the separation of the fitted clusters (silhouette in UMAP space, smaller cluster's share), which changes no label | `google/siglip-base-patch16-224` |
+| appearance | `none` | no embeddings: an empty output | none |
+| appearance | `reid` | a Roboflow `reid` 0.1.0 encoder (`model`, a `reid` alias) on the person boxes scoring at least `min_score` (0.1); crops of one frame go through in batches of `batch_size` (32) on the device `bga.device.pick_device` picks; embeddings L2-normalised and stored as float16. The weights id must be `pretrained:roboflow/reid/<model>`. Used by `configs/appearance-reid-sportsmot.yaml` | `osnet_x1_0_sportsmot` (OSNet x1.0 fine-tuned on SportsMOT) |
 | track | `bytetrack` | ByteTrack on person boxes, in pixels: supervision 0.30.9's implementation, vendored unchanged in `bga.track._sv_bytetrack` (MIT, Roboflow) because supervision 0.31 removed it | none |
 | track | `trackers` | Roboflow `trackers` 2.7 on person boxes, in pixels, chosen by `tracker`: `bytetrack` (`ByteTrackTracker`), `botsort` (`BoTSORTTracker`, given each frame for camera-motion compensation and optional re-ID through `reid_model`; with `cmc: precomputed` the motion transforms are estimated once per shot and cached in `runs/_cache/cmc/`, masking person boxes at `cmc_mask_score`, which gives identical tracks at the default threshold and lets sweeps skip frame decoding), `ocsort`, `sort`; constructor arguments pass through `args`; unconfirmed tracks (id -1) are dropped and ids start at 1. Used by `configs/track-trackers-*.yaml` | none, or a `reid` encoder |
 | numbers | `smolvlm_ocr` | reads `number` boxes lying at least 90% inside a track's box; a number is confirmed after 3 consecutive equal reads; runs on MPS with `max_new_tokens=4` | `basketball-jersey-numbers-ocr/3` (SmolVLM2, NBA crops) |
@@ -91,7 +95,7 @@ Both are covered by `tests/test_nms.py`.
 - **Layer hash:** covers the layer's own entry plus the hashes of its upstream layers. The `shots` parameters that only choose sequences (`version`, `held_out`, `root`, `labels`) are excluded, so dev and held-out runs share directories.
 - **Config hash:** the hash of all layer hashes.
 - **Overrides:** `--set layer.params.key=value` changes one value and appends the override to the config name.
-- **Outputs:** each layer writes `runs/<clip>/<layer>/<backend>@<hash8>/<sequence>.json`, plus a `meta.json`. The meta file holds the layer entry, upstream hashes, config name, git commit and wall time, plus platform, GPU, seconds and USD for remote runs.
+- **Outputs:** each layer writes `runs/<clip>/<layer>/<backend>@<hash8>/<sequence>.json`, plus a `meta.json`. Arrays a backend returns under `arrays` are saved next to the JSON as `<sequence>.<name>.npy` by `bga.pipeline.write_output`, and the JSON keeps a `{file, shape, dtype}` record in their place; upstream outputs reach a backend with their arrays loaded (`load_output(..., arrays=True)`), locally and on Modal. The meta file holds the layer entry, upstream hashes, config name, git commit and wall time, plus platform, GPU, seconds and USD for remote runs.
 
 `bga.pipeline.run` executes one layer at a time over all sequences, calling `load()` before and `unload()` after. Only one model is resident at a time. An existing output is reused unless `--force` names its layer. A backend that declares `requires = "cuda"` is skipped locally, and runs only with `--remote modal`.
 
@@ -104,12 +108,13 @@ Both are covered by `tests/test_nms.py`.
 | `bga run --config configs/baseline.yaml [--set ...] [--seq ...] [--layer ...] [--force ...] [--remote modal] [--remote-layer ...]` | runs the layers |
 | `bga eval --config a.yaml [--config b.yaml] [--gold v0] [--held-out] [--write]` | runs, reusing cached outputs, and scores each config side by side; `--write` adds rows to the tracking table in `docs/metrics.md` |
 | `bga eval-court --config a.yaml [--config b.yaml] [--held-out] [--write]` | scores each config's court layer on the gold court keyframes; `--write` adds rows to the court table in `docs/metrics.md` |
+| `bga eval-appearance --config a.yaml [--config b.yaml] [--gold v0] [--held-out] [--write]` | embeds the gold boxes with each config's appearance backend and scores re-association and cross-shot identity; `--write` adds rows to the appearance table in `docs/metrics.md` |
 | `bga eval-detect --config a.yaml [--set ...] [--gold v1] [--held-out] [--write]` | runs the detect layer (reusing cached outputs) and scores per-class AP on the box-gold frames; `--write` adds rows to the detection table in `docs/metrics.md` |
 | `bga radar --config ...` | renders a radar video per sequence (`bga.export.radar`): the broadcast frame above, the FIBA court with players below |
 | `bga backends` | lists the registered backends |
 | `bga train --config configs/train/<layer>-<backend>-<name>.yaml [--build-only] [--collect [--partial]] [--wait] [--no-resume]` | builds the dataset, checks it for gold clips, trains on Modal and pulls the weights back (section below) |
 
-The three `eval` commands refuse a config whose layer weights are neither a `pretrained:` id nor a weight id with a `weights/<id>/train.json`.
+The four `eval` commands refuse a config whose layer weights are neither a `pretrained:` id nor a weight id with a `weights/<id>/train.json`.
 
 ### Evaluation (`bga.eval`)
 
@@ -117,6 +122,7 @@ The three `eval` commands refuse a config whose layer weights are neither a `pre
 - **Tracking** (`mot.py`): HOTA, DetA, AssA, MOTA, IDF1 and IDSW from TrackEval, pinned to a commit. Players and referees are one class; scored on every 5th frame.
 - **Detection** (`detect.py`): COCO AP50:95 and AP50 per class of the 10-class schema on the box-gold frames of gold v1 inside the run's sequences, plus `people`, with the six person classes merged on both sides. Each result carries its gold box count.
 - **Court** (`court.py`): each gold court keyframe Tomasz labelled `ok` (18 dev, 6 held-out) is mapped by the config's court backend, which runs on the shot's frames within 25 frames of the keyframe at a stride of 5, so smoothing has its neighbours. The court vertices visible under his mapping go through the predicted mapping. Scores per arena and overall: the median over keyframes of the per-frame median error in metres; the same over the paint (key corners, free-throw line ends and centres); the share of keyframes under 0.5 m in the paint; and the unmapped count.
+- **Appearance** (`appearance.py`): the config's appearance backend embeds the clean gold boxes (visibility 1) of the selected shots, frame by frame, so the scores depend on neither detector nor tracker. Candidates are ranked by cosine distance; each question reports rank-1, MRR, query count and chance. Re-association: a player's crop, queried every 0.5 s, against his teammates' crops 1 s and 3 s later in the same shot. Cross-shot: the mean embedding of a numbered player (at least 5 clean boxes) against his numbered teammates' means in another shot of the same game, also reported per game. Plus ms per crop. This is the metric form of `scripts/probe_reid.py`, and gives the probe's figures for `osnet_x1_0_sportsmot`.
 - **Other scores** (`scores.py`):
   - class-agnostic person AP50 on the 100 box-gold frames;
   - team accuracy per gold track (majority of matched boxes);
@@ -288,7 +294,7 @@ Paths are confined to the repository by `safe_path`.
 | Court | `court_geometry.py`, `court_prefill.py` (the NBA court model over every clip), `court_keyframes.py`, `court_propagate.py`, `qa_court_overlay.py`, `court_train_manifest.py` (training frames from the training keyframes) |
 | Auto-labelling (M4) | `autolabel.py --round N`; each step gets the round's files from a `Round` record. Round 2 on: frames at least 1 s from earlier rounds' frames, prefill by the previous round's PLK detector (`plk-r1`, then `plk-r2`) at confidence 0.1, draft at score 0.5, and a frame's ball accepted without review when one ball scores at least the round's threshold (0.7 for `plk-r1`, 0.85 for `plk-r2`, each calibrated on gold v1 dev) and no other 0.2. Round 1: central shots of the non-gold clips by the PLK court model's confident landmark count; 275 frames sampled, 12 per clip at most and 1 s apart; prefill by Roboflow's detector versions 16 (all but the ball) and 6 (the ball) at confidence 0.1; draft at score 0.3 with per-class NMS, people off the court and numbers outside every person dropped; the ball queue `data/labels/box_queue_r1balls.json` (264 frames, close-ups with fewer than 4 people left out) |
 | Spend | `modal_spend.py` (Modal's own billing: the month and each app) |
-| Probes (not metrics rows) | `probe_train_speed.py` (seconds per epoch of a detection fine-tune on Modal), `probe_reid.py` (Roboflow `reid` encoders on gold v0), `probe_court_keyframes.py` (the NBA court model and propagation against the court keyframes) |
+| Probes (not metrics rows) | `probe_train_speed.py` (seconds per epoch of a detection fine-tune on Modal), `probe_reid.py` (all six Roboflow `reid` encoders on gold v0, with a first-half against second-half question; `bga eval-appearance` scores one config's encoder), `probe_court_keyframes.py` (the NBA court model and propagation against the court keyframes) |
 
 Contact sheets for reading by eye come from `bga.review.sheets`.
 
@@ -326,4 +332,4 @@ The site is published to the Vercel project `basketball-analyzer-demo` by `scrip
 - **OpenCV:** `opencv-python` and `opencv-contrib-python` are overridden away, leaving one headless cv2.
 - **Overrides for `trackers` 2.7:** `inference` pins `trackers<2.5` and `supervision<0.31`; `pyproject.toml` overrides them to `trackers==2.7.0` and `supervision>=0.31,<0.32` (0.31.7 locked). Only `inference.get_model` is called. With the upgraded set, `baseline` reproduces its 2026-11-02 dev row in every column but team accuracy (0.990 against 1.000, the unseeded team fit), and the `track-bytetrack-tuned` track outputs are identical.
 - **Lint and format:** `.pre-commit-config.yaml` pins the hooks: pre-commit-hooks file hygiene, ruff check and format (ruff 0.17.5), docformatter and codespell (report only). `pyproject.toml` `[tool.ruff]` follows Borda's vision repos: 120-character lines, Google docstrings (`D`), annotations (`ANN`), naming (`N`), bandit (`S`) and complexity limits (McCabe 12, branches 12, statements 50, returns 6, arguments 12). `scripts/` is exempt from `ANN`, `D`, `N` and `S`, and `tests/` from `ANN`, `D`, `N` and `S101`. The dev group has pre-commit, pytest and ruff.
-- **Checks:** `uv run pre-commit run --all-files` and `pytest`, which runs the doctests in `src/` and `tools/` (`--doctest-modules`) as well as the tests in `tests/`, with tests on config hashing, shot cuts, gold export, MOT scoring, churn, NMS, review ops, rosters, the labeller server, court orientation, the synthetic fixtures, gold leakage in training configs and manifests, court smoothing, square tiles and their merge (`test_tiles.py`), and per-class detection AP (`test_eval_detect.py`).
+- **Checks:** `uv run pre-commit run --all-files` and `pytest`, which runs the doctests in `src/` and `tools/` (`--doctest-modules`) as well as the tests in `tests/`, with tests on config hashing, shot cuts, gold export, MOT scoring, churn, NMS, review ops, rosters, the labeller server, court orientation, the synthetic fixtures, gold leakage in training configs and manifests, court smoothing, square tiles and their merge (`test_tiles.py`), per-class detection AP (`test_eval_detect.py`), and the appearance layer: array storage, the encoder's weights check and the gold-box scores (`test_appearance.py`).
