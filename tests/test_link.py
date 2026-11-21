@@ -1,10 +1,20 @@
-"""Layer 4b: splitting tracklets where their look changes, the join gates, and the greedy linking pass."""
+"""Layer 4b: splitting tracklets where their look changes, the join gates, numbers, and the greedy linking pass."""
 
 import numpy as np
 import pytest
 
 from bga.config import RunConfig
-from bga.link.greedy import GreedyLink, LinkParams, Tracklet, chain_ids, greedy_links, join_cost, split_points
+from bga.link.greedy import (
+    GreedyLink,
+    LinkParams,
+    Tracklet,
+    chain_ids,
+    chain_numbers,
+    greedy_links,
+    join_cost,
+    number_of,
+    split_points,
+)
 from bga.stage import Sequence
 
 #: Gates wide enough that only the gate under test refuses: 10 frames a second.
@@ -56,6 +66,16 @@ class TestJoinCost:
     def test_unknown_team_is_never_joined(self):
         assert join_cost(tracklet(1, 0, 9, team=""), tracklet(2, 12, 20, team=""), LP) is None
 
+    def test_different_numbers_are_never_joined(self):
+        assert join_cost(tracklet(1, 0, 9, tail=X, number="5"), tracklet(2, 12, 20, head=X, number="7"), LP) is None
+
+    def test_same_number_joins_past_the_appearance_gate(self):
+        assert join_cost(tracklet(1, 0, 9, tail=X, number="5"), tracklet(2, 12, 20, head=Y, number="5"), LP) == 0.0
+
+    def test_same_number_still_needs_the_same_team(self):
+        a, b = tracklet(1, 0, 9, number="5"), tracklet(2, 12, 20, team="away", number="5")
+        assert join_cost(a, b, LP) is None
+
 
 class TestGreedyLinks:
     def test_each_tracklet_keeps_one_successor(self):
@@ -66,8 +86,41 @@ class TestGreedyLinks:
         ts = [tracklet(1, 0, 9, tail=X), tracklet(2, 12, 20, head=np.array([0.8, 0.6])), tracklet(3, 12, 20, head=X)]
         assert greedy_links(ts, LP)[0][:2] == (1, 3)
 
+    def test_chains_with_different_numbers_stay_apart(self):
+        ts = [tracklet(1, 0, 9, number="5"), tracklet(2, 12, 20), tracklet(3, 25, 30, number="7")]
+        assert [link[:2] for link in greedy_links(ts, LP)] == [(1, 2)]
+
     def test_chain_takes_the_earliest_id(self):
         assert chain_ids([(2, 3, 0.1), (1, 2, 0.1)]) == {2: 1, 3: 1, 1: 1}
+
+
+class TestNumberOf:
+    @pytest.mark.parametrize(
+        ("log", "whole", "number"),
+        [
+            pytest.param([], True, "23", id="whole-track"),
+            pytest.param([[0, 4, "23"]], False, "23", id="piece-with-a-read"),
+            pytest.param([[50, 4, "23"]], False, None, id="piece-without-a-read"),
+            pytest.param([[0, 9, "23"]], False, None, id="read-of-another-track"),
+        ],
+    )
+    def test_number_follows_the_reads(self, log, whole, number):
+        rows = [(0, 0, [4, 0, 0, 1, 1, 0.9, "player", 0])]
+        assert number_of(4, rows, {"tracks": {"4": "23"}, "log": log}, whole) == number
+
+
+class TestChainNumbers:
+    def test_chain_carries_the_number_of_any_piece(self):
+        ts = [tracklet(1, 0, 9), tracklet(2, 12, 20, number="5")]
+        assert chain_numbers(ts, {1: 1, 2: 1}, one_owner=True) == {1: "5"}
+
+    def test_one_owner_keeps_the_longer_chain(self):
+        ts = [tracklet(1, 0, 9, number="5", rows=[(0, [])]), tracklet(2, 0, 9, number="5", rows=[(0, [])] * 2)]
+        assert chain_numbers(ts, {}, one_owner=True) == {1: None, 2: "5"}
+
+    def test_same_number_on_both_teams_is_kept(self):
+        ts = [tracklet(1, 0, 9, number="5"), tracklet(2, 0, 9, team="away", number="5")]
+        assert chain_numbers(ts, {}, one_owner=True) == {1: "5", 2: "5"}
 
 
 def row(tid: int, det: int) -> list:
@@ -106,9 +159,17 @@ class TestGreedyLink:
     def test_link_is_reported_with_its_gap(self, seq, upstream):
         assert GreedyLink({}).run(seq, upstream, None)["links"] == [[1, 2, 0.0, 0.2]]
 
+    def test_different_numbers_keep_the_tracks_apart(self, seq, upstream):
+        upstream["numbers"] = {"tracks": {"1": "5", "2": "7"}, "log": []}
+        assert GreedyLink({}).run(seq, upstream, None)["numbers"] == {"1": "5", "2": "7"}
+
+    def test_linked_track_gets_its_number(self, seq, upstream):
+        upstream["numbers"] = {"tracks": {"1": None, "2": "7"}, "log": []}
+        assert GreedyLink({}).run(seq, upstream, None)["numbers"] == {"1": "7"}
+
 
 class TestLinkConfig:
-    def test_appearance_and_court_are_optional(self):
+    def test_appearance_court_and_numbers_are_optional(self):
         layers = {
             "shots": {"backend": "gold"},
             "detect": {"backend": "rfdetr_torch"},

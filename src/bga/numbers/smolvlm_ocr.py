@@ -114,14 +114,15 @@ class SmolVLMOcr(BaseBackend):
             read: Frame reader of the sequence's video.
 
         Returns:
-            ``{"tracks": {"<track_id>": "23" | None}, "reads", "ms_per_read", "ms_per_frame"}``.
+            ``{"tracks": {"<track_id>": "23" | None}, "log", "reads", "ms_per_read", "ms_per_frame"}``, where ``log``
+            lists every read as ``[frame, track_id, value]``.
 
         """
         from sports.common.temporal import ConsecutiveValueTracker
 
         dets, tracks = upstream["detect"]["frames"], upstream["track"]["frames"]
         confirm = ConsecutiveValueTracker(n_consecutive=self.p["n_consecutive"])
-        done, reads, t, n = {}, {}, 0.0, 0
+        done, reads, log, t, n = {}, {}, [], 0.0, 0
         for j, f in enumerate(seq.frames):
             if j % self.p["read_every"]:
                 continue
@@ -148,10 +149,12 @@ class SmolVLMOcr(BaseBackend):
                 reads[tid] = reads.get(tid, 0) + 1
                 ids.append(tid)
                 values.append(value)
+                log.append([f, tid, value])
             done.update({tid: v for tid, v in zip(ids, confirm.update(ids, values), strict=True) if v is not None})
         all_ids = {r[0] for f in seq.frames for r in tracks[str(f)]}
         return {
             "tracks": {str(tid): done.get(tid) for tid in sorted(all_ids)},
+            "log": log,
             "reads": n,
             "ms_per_read": round(1000 * t / max(1, n), 1),
             "ms_per_frame": round(1000 * t / max(1, len(seq.frames)), 1),

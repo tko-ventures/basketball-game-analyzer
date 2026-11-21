@@ -1,10 +1,12 @@
 """Layer 5 (numbers).
 
 Output per sequence:
-    {"tracks": {"<track_id>": "23" | null}, "reads": int, "ms_per_read": float}
+    {"tracks": {"<track_id>": "23" | null}, "log": [[frame, track_id, "23" | null], ...], "reads": int,
+     "ms_per_read": float}
 
 A track's number is confirmed by the backend's own rule (for Skalski's stack, N consecutive equal
-reads); null means no confirmed number.
+reads); null means no confirmed number. ``log`` lists every read in order; outputs written before 2026-11-21
+lack it.
 
 """
 

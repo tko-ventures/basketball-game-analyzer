@@ -12,6 +12,11 @@ tracklet's last ``ends`` boxes and that of the later one's first ``ends`` boxes 
 refused. With court homographies at both ends, a join that needs a speed above ``max_speed_mps`` on the floor is
 refused too. Joins are taken cheapest first, each tracklet having at most one successor and one predecessor.
 
+**Numbers.** With a ``numbers`` layer, a tracklet carries its tracker id's confirmed jersey number (a split piece
+only when it holds a read of that number). Two tracklets with different numbers are never joined, nor are two
+chains whose numbers differ; two with the same number join at cost 0, past the appearance gate. With ``one_owner``,
+a (team, number) left on more than one chain stays only on the chain with the most boxes.
+
 """
 
 from __future__ import annotations
@@ -42,6 +47,7 @@ class Tracklet:
         head_m: Court position in metres of its first box, or ``None`` without a homography.
         tail_m: Court position in metres of its last box, or ``None``.
         rows: Its track rows with their source frames, in order.
+        number: Confirmed jersey number, or ``None``.
 
     """
 
@@ -54,6 +60,7 @@ class Tracklet:
     head_m: np.ndarray | None = None
     tail_m: np.ndarray | None = None
     rows: list[tuple[int, list]] = field(default_factory=list)
+    number: str | None = None
 
 
 def _unit_mean(vectors: list[np.ndarray]) -> np.ndarray | None:
@@ -226,6 +233,32 @@ def split_rows(rows: list[Row], vec_of: dict, window: int, max_cost: float | Non
     return [(rows[a:b], d) for a, b, d in zip(bounds[:-1], bounds[1:], dists, strict=True)]
 
 
+def number_of(tid: int, rows: list[Row], numbers: dict, whole: bool) -> str | None:
+    """Confirmed number of one piece of a tracker id: the id's number, if the piece is the whole track or holds a read.
+
+    Args:
+        tid: The tracker id the piece was cut from.
+        rows: The piece's rows.
+        numbers: ``numbers`` output; ``{}`` without a numbers layer.
+        whole: Whether the piece is the tracker id's only piece.
+
+    Returns:
+        The number, or ``None``.
+
+    Examples:
+        >>> rows = [(0, 10, [4, 0, 0, 1, 1, 0.9, "player", 0])]
+        >>> nums = {"tracks": {"4": "23"}, "log": [[10, 4, "23"], [30, 4, "23"]]}
+        >>> number_of(4, rows, nums, whole=False), number_of(4, rows, {"tracks": {"4": "23"}}, whole=False)
+        ('23', None)
+
+    """
+    value = (numbers.get("tracks") or {}).get(str(tid))
+    if value is None or whole:
+        return value
+    frames = {f for _, f, _ in rows}
+    return value if any(f in frames and t == tid and v == value for f, t, v in numbers.get("log", [])) else None
+
+
 def build_tracklets(
     frames: list[int], upstream: dict, ends: int, window: int = 5, split_cost: float | None = None
 ) -> tuple[list[Tracklet], list[list]]:
@@ -233,7 +266,7 @@ def build_tracklets(
 
     Args:
         frames: The sequence's frames, in order.
-        upstream: ``track`` output, and ``team``, ``appearance`` and ``court`` outputs where configured.
+        upstream: ``track`` output, and ``team``, ``appearance``, ``court`` and ``numbers`` outputs where configured.
         ends: Boxes averaged at each end for the head and tail embeddings.
         window: Embedded boxes averaged on each side of a cut.
         split_cost: Distance a change must exceed to cut; ``None`` never cuts.
@@ -249,16 +282,20 @@ def build_tracklets(
 
     """
     vec_of = embeddings_by_box(upstream)
+    numbers = upstream.get("numbers") or {}
     by_id = collect_rows(frames, upstream["track"]["frames"])
     next_id = max(by_id, default=0) + 1
     out, cuts = [], []
     for tid, rows in by_id.items():
-        for j, (piece, d) in enumerate(split_rows(rows, vec_of, window, split_cost)):
+        pieces = split_rows(rows, vec_of, window, split_cost)
+        for j, (piece, d) in enumerate(pieces):
             pid = tid
             if j:
                 pid, next_id = next_id, next_id + 1
                 cuts.append([tid, piece[0][1], pid, d])
-            out.append(describe(pid, piece, upstream, vec_of, ends))
+            t = describe(pid, piece, upstream, vec_of, ends)
+            t.number = number_of(tid, piece, numbers, whole=len(pieces) == 1)
+            out.append(t)
     return sorted(out, key=lambda t: t.first), cuts
 
 
@@ -291,7 +328,7 @@ def join_cost(a: Tracklet, b: Tracklet, lp: LinkParams) -> float | None:
         lp: Gates and cost settings.
 
     Returns:
-        The join cost, at most ``max_cost``, or ``None``.
+        The join cost, at most ``max_cost``, or ``None``; 0 for two tracklets with the same number.
 
     Examples:
         >>> lp = LinkParams(max_gap_s=2.0, max_cost=0.3, max_speed_mps=None, court_slack_m=1.0, step_s=0.1)
@@ -301,6 +338,8 @@ def join_cost(a: Tracklet, b: Tracklet, lp: LinkParams) -> float | None:
         0.2
         >>> join_cost(a, Tracklet(3, 15, 30, "away", head=np.array([1.0, 0.0])), lp) is None
         True
+        >>> join_cost(Tracklet(1, 0, 9, "home", number="5"), Tracklet(2, 15, 30, "home", number="7"), lp) is None
+        True
 
     """
     gap_s = (b.first - a.last) * lp.step_s
@@ -309,12 +348,16 @@ def join_cost(a: Tracklet, b: Tracklet, lp: LinkParams) -> float | None:
     court = lp.max_speed_mps is not None and a.tail_m is not None and b.head_m is not None
     if court and np.linalg.norm(b.head_m - a.tail_m) > lp.max_speed_mps * gap_s + lp.court_slack_m:
         return None
+    if a.number and b.number:
+        return 0.0 if a.number == b.number else None
     cost = 1.0 - float(a.tail @ b.head) if a.tail is not None and b.head is not None else gap_s / lp.max_gap_s
     return cost if cost <= lp.max_cost else None
 
 
 def greedy_links(tracklets: list[Tracklet], lp: LinkParams) -> list[tuple[int, int, float]]:
     """Choose joins cheapest first, each tracklet keeping at most one successor and one predecessor.
+
+    A join is skipped when the two chains it would connect carry different numbers.
 
     Args:
         tracklets: The shot's tracklets.
@@ -328,15 +371,24 @@ def greedy_links(tracklets: list[Tracklet], lp: LinkParams) -> list[tuple[int, i
         >>> ts = [Tracklet(1, 0, 9, "home"), Tracklet(2, 12, 20, "home"), Tracklet(3, 15, 25, "home")]
         >>> greedy_links(ts, lp)
         [(1, 2, 0.15)]
+        >>> five, seven = Tracklet(1, 0, 9, "home", number="5"), Tracklet(3, 25, 30, "home", number="7")
+        >>> greedy_links([five, Tracklet(2, 12, 20, "home"), seven], lp)
+        [(1, 2, 0.15)]
 
     """
     pairs = [(c, a.tid, b.tid) for a in tracklets for b in tracklets if (c := join_cost(a, b, lp)) is not None]
+    chain = {t.tid: t.tid for t in tracklets}
+    number = {t.tid: t.number for t in tracklets}
     has_next, has_prev, out = set(), set(), []
     for c, a, b in sorted(pairs):
-        if a not in has_next and b not in has_prev:
-            has_next.add(a)
-            has_prev.add(b)
-            out.append((a, b, round(c, 4)))
+        ca, cb = chain[a], chain[b]
+        if a in has_next or b in has_prev or (number[ca] and number[cb] and number[ca] != number[cb]):
+            continue
+        has_next.add(a)
+        has_prev.add(b)
+        out.append((a, b, round(c, 4)))
+        number[ca] = number[ca] or number[cb]
+        chain.update({t: ca for t, k in chain.items() if k == cb})
     return out
 
 
@@ -365,13 +417,46 @@ def chain_ids(links: list[tuple[int, int, float]]) -> dict[int, int]:
     return out
 
 
+def chain_numbers(tracklets: list[Tracklet], ids: dict[int, int], one_owner: bool) -> dict[int, str | None]:
+    """Number of each final track: the number its tracklets carry, kept by one chain per (team, number) if asked.
+
+    Args:
+        tracklets: The shot's tracklets.
+        ids: Tracklet id to chain id (:func:`chain_ids`); tracklets missing from it keep their own id.
+        one_owner: Keep a (team, number) only on the chain with the most boxes.
+
+    Returns:
+        Final track id to its number or ``None``.
+
+    Examples:
+        >>> ts = [Tracklet(1, 0, 9, "home", number="5", rows=[(0, [])] * 3), Tracklet(2, 0, 9, "home", number="5")]
+        >>> chain_numbers(ts, {}, one_owner=False), chain_numbers(ts, {}, one_owner=True)
+        ({1: '5', 2: '5'}, {1: '5', 2: None})
+
+    """
+    out: dict[int, str | None] = {}
+    boxes: Counter = Counter()
+    team: dict[int, str] = {}
+    for t in tracklets:
+        cid = ids.get(t.tid, t.tid)
+        out[cid] = out.get(cid) or t.number
+        boxes[cid] += len(t.rows)
+        team.setdefault(cid, t.team)
+    if one_owner:
+        owner: dict[tuple[str, str], int] = {}
+        for cid in sorted(out, key=lambda k: (-boxes[k], k)):
+            if out[cid] and owner.setdefault((team[cid], out[cid]), cid) != cid:
+                out[cid] = None
+    return out
+
+
 @register("link", "greedy")
 class GreedyLink(BaseBackend):
     """Link backend: cheapest-first joins of same-team tracklets by appearance, gap and court speed.
 
     Params (``defaults``): ``max_gap_s``, ``max_cost``, ``ends`` (boxes averaged at each end), ``max_speed_mps``
-    (``None`` turns the court gate off), ``court_slack_m``, ``split_window`` and ``split_cost`` (``None`` turns
-    splitting off).
+    (``None`` turns the court gate off), ``court_slack_m``, ``split_window``, ``split_cost`` (``None`` turns
+    splitting off) and ``one_owner`` (one chain per team and number).
 
     Examples:
         >>> GreedyLink({"max_gap_s": 5.0}).run(seq, upstream, read)["links"]  # doctest: +SKIP
@@ -387,6 +472,7 @@ class GreedyLink(BaseBackend):
         "court_slack_m": 2.0,
         "split_window": 5,
         "split_cost": None,
+        "one_owner": True,
     }
 
     def run(self, seq: Sequence, upstream: dict, read: FrameReader) -> dict:
@@ -394,7 +480,7 @@ class GreedyLink(BaseBackend):
 
         Args:
             seq: The sequence.
-            upstream: ``track`` and ``team`` outputs, with ``appearance`` and ``court`` where configured.
+            upstream: ``track`` and ``team`` outputs, with ``appearance``, ``court`` and ``numbers`` where configured.
             read: Unused.
 
         Returns:
@@ -424,4 +510,5 @@ class GreedyLink(BaseBackend):
             "splits": cuts,
             "links": [[a, b, c, round((by_id[b].first - by_id[a].last) * lp.step_s, 2)] for a, b, c in links],
             "ids": {str(k): v for k, v in ids.items()},
+            "numbers": {str(k): v for k, v in chain_numbers(tracklets, ids, self.p["one_owner"]).items()},
         }

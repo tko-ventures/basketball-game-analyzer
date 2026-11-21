@@ -24,13 +24,13 @@ LAYERS: dict[str, tuple[str, ...]] = {
     "appearance": ("detect",),
     "track": ("detect", "court"),
     "numbers": ("detect", "track"),
-    "link": ("track", "team", "appearance", "court"),
+    "link": ("track", "team", "appearance", "court", "numbers"),
     "positions": ("track", "court"),
 }
 
 
 #: Upstream layers a config may leave out: their readers then work without them.
-OPTIONAL_UPSTREAM = frozenset({"court", "appearance"})
+OPTIONAL_UPSTREAM = frozenset({"court", "appearance", "numbers"})
 
 #: Shots params that only choose sequences; kept out of the hashes so dev and held-out runs share dirs.
 SELECTION_PARAMS = frozenset({"version", "held_out", "root", "labels"})
