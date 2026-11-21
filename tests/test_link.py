@@ -8,6 +8,7 @@ from bga.link.greedy import (
     GreedyLink,
     LinkParams,
     Tracklet,
+    cap_per_team,
     chain_ids,
     chain_numbers,
     greedy_links,
@@ -94,6 +95,22 @@ class TestGreedyLinks:
 
     def test_chain_takes_the_earliest_id(self):
         assert chain_ids([(2, 3, 0.1), (1, 2, 0.1)]) == {2: 1, 3: 1, 1: 1}
+
+
+class TestCapPerTeam:
+    def test_shortest_track_is_dropped_over_the_cap(self):
+        frames = {"0": [row(1, 0), row(2, 1), row(3, 2)]}
+        cap_per_team(frames, {1: "home", 2: "home", 3: "home"}, {1: 9, 2: 3, 3: 7}, 2)
+        assert [r[0] for r in frames["0"]] == [1, 3]
+
+    def test_other_team_is_not_counted(self):
+        frames = {"0": [row(1, 0), row(2, 1)]}
+        assert cap_per_team(frames, {1: "home", 2: "away"}, {1: 9, 2: 3}, 1) == 0
+
+    def test_track_without_team_is_kept(self):
+        frames = {"0": [row(1, 0), row(2, 1)]}
+        cap_per_team(frames, {1: "home", 2: ""}, {1: 9, 2: 3}, 1)
+        assert len(frames["0"]) == 2
 
 
 class TestNumberOf:

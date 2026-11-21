@@ -502,14 +502,46 @@ def chain_numbers(tracklets: list[Tracklet], ids: dict[int, int], one_owner: boo
     return out
 
 
+def cap_per_team(frames: dict, team: dict[int, str], size: dict[int, int], cap: int) -> int:
+    """Keep at most ``cap`` tracks of a team in each frame, dropping the rows of its shortest tracks first.
+
+    Args:
+        frames: Linked track rows per frame, changed in place.
+        team: Final track id to its majority team; tracks without a team are never dropped.
+        size: Final track id to its number of rows, the ranking (longest kept).
+        cap: Tracks of one team kept per frame.
+
+    Returns:
+        The number of rows dropped.
+
+    Examples:
+        >>> frames = {"0": [[1, 0, 0, 1, 1, 0.9, "player", 0], [2, 0, 0, 1, 1, 0.9, "player", 1]]}
+        >>> cap_per_team(frames, {1: "home", 2: "home"}, {1: 50, 2: 4}, 1), [r[0] for r in frames["0"]]
+        (1, [1])
+
+    """
+    dropped = 0
+    for f, rows in frames.items():
+        counts: dict[str, list[int]] = {}
+        for r in rows:
+            if team.get(r[0]):
+                counts.setdefault(team[r[0]], []).append(r[0])
+        drop = {tid for ids in counts.values() for tid in sorted(ids, key=lambda t: (-size[t], t))[cap:]}
+        if drop:
+            frames[f] = [r for r in rows if r[0] not in drop]
+            dropped += len(rows) - len(frames[f])
+    return dropped
+
+
 @register("link", "greedy")
 class GreedyLink(BaseBackend):
     """Link backend: cheapest-first joins of same-team tracklets by appearance, gap and court speed.
 
     Params (``defaults``): ``max_gap_s``, ``max_cost``, ``ends`` (boxes averaged at each end), ``max_speed_mps``
     (``None`` turns the court gate off), ``court_slack_m``, ``split_window``, ``split_cost`` (``None`` turns
-    splitting off), ``one_owner`` (one chain per team and number; off by default), and ``roster`` with
-    ``confirm_reads`` (confirm numbers again from roster reads only; off by default).
+    splitting off), ``one_owner`` (one chain per team and number; off by default), ``roster`` with
+    ``confirm_reads`` (confirm numbers again from roster reads only; off by default), and ``max_per_team`` (at most
+    that many tracks of a team per frame, the shortest dropped; off by default).
 
     Examples:
         >>> GreedyLink({"max_gap_s": 5.0}).run(seq, upstream, read)["links"]  # doctest: +SKIP
@@ -528,6 +560,7 @@ class GreedyLink(BaseBackend):
         "one_owner": False,
         "roster": False,
         "confirm_reads": 3,
+        "max_per_team": None,
     }
 
     def run(self, seq: Sequence, upstream: dict, read: FrameReader) -> dict:
@@ -564,8 +597,17 @@ class GreedyLink(BaseBackend):
             str(f): [[ids.get(piece[(f, r[0])], piece[(f, r[0])]), *r[1:]] for r in tracks.get(str(f), [])]
             for f in seq.frames
         }
+        dropped = 0
+        if self.p["max_per_team"]:
+            final = {t.tid: ids.get(t.tid, t.tid) for t in tracklets}
+            team = {final[t.tid]: t.team for t in tracklets}
+            size = Counter()
+            for t in tracklets:
+                size[final[t.tid]] += len(t.rows)
+            dropped = cap_per_team(frames, team, size, self.p["max_per_team"])
         return {
             "frames": frames,
+            "dropped_over_cap": dropped,
             "splits": cuts,
             "links": [[a, b, c, round((by_id[b].first - by_id[a].last) * lp.step_s, 2)] for a, b, c in links],
             "ids": {str(k): v for k, v in ids.items()},
