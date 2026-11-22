@@ -1,0 +1,31 @@
+name: dinov2s-r1
+layer: numbers
+backend: crop_cls
+description: >
+  numbers-crop_cls-resnet18-r1 from DINOv2 ViT-S/14 (Meta, Apache 2.0 weights through timm) instead of ImageNet
+  ResNet-18: the same crops, classes, split and augmentation, at 112 px (8 x 8 patches) and a learning rate suited to
+  fine-tuning a vision transformer. Decision of 2026-11-22: both are trained and the gold row decides.
+base_weights:
+  name: vit_small_patch14_dinov2.lvd142m
+  url: https://huggingface.co/timm/vit_small_patch14_dinov2.lvd142m
+  licence: Apache-2.0
+package: timm==1.0.30
+sources:
+  - kind: manifest
+    path: data/labels/numbers/train_r1.json
+    sha256: 2e28c1061c31dee0de9ff588a6934c6629be34a4a924678c1bc4248db4dd6feb
+recipe:
+  resolution: 112
+  epochs: 30
+  batch_size: 128
+  lr: 0.0001
+  seed: 0
+  select_on: val/top1
+  pad: 10
+  illegible_as_unreadable: true
+  val_clips:
+    - 20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka
+platform:
+  name: modal
+  gpu: L4
+  timeout_h: 1

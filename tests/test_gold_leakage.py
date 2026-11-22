@@ -9,7 +9,11 @@ from bga.train.config import ROOT, ManifestSource, file_sha256, load_train_confi
 from bga.train.leakage import assert_no_gold, gold_clips, manifest_clips
 
 CONFIGS = sorted((ROOT / "configs/train").glob("*.yaml"))
-MANIFESTS = sorted((ROOT / "data/labels").rglob("train_manifest_*.json"))
+MANIFESTS = sorted([
+    *(ROOT / "data/labels").rglob("train_manifest_*.json"),
+    *(ROOT / "data/labels/appearance").glob("crops_*.json"),
+    *(ROOT / "data/labels/numbers").glob("train_*.json"),
+])
 
 
 MANIFEST_SOURCES = [

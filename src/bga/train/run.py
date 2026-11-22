@@ -3,8 +3,8 @@
 Steps for ``configs/train/<name>.yaml``:
 
 1. Build the merged dataset under ``runs/train/<weight id>/dataset`` (``bga.train.court_data``,
-   ``bga.train.detect_data`` or ``bga.train.appearance_data``); every manifest is checked against its sha256 and
-   against the gold clips.
+   ``bga.train.detect_data``, ``bga.train.appearance_data`` or ``bga.train.number_data``); every manifest is checked
+   against its sha256 and against the gold clips.
 2. Upload it to the ``bga-data`` Modal volume and run the trainer there (``bga.remote.modal_train``) in a
    detached app, so the run continues if this process stops.
 3. Collect: the best checkpoint, ``metrics.csv`` and the trainer's ``result.json`` come back into
@@ -41,9 +41,13 @@ SETUPS = {
     ("court", "rfdetr_keypoint"): ("court_data", "train_keypoint"),
     ("detect", "rfdetr_torch"): ("detect_data", "train_detect"),
     ("appearance", "reid"): ("appearance_data", "train_appearance"),
+    ("numbers", "crop_cls"): ("number_data", "train_numbers"),
 }
 #: Files collected per setup when they differ from ``PULL``.
-PULLS = {("appearance", "reid"): ("weights.safetensors", "reid_config.json", "metrics.csv", "result.json")}
+PULLS = {
+    ("appearance", "reid"): ("weights.safetensors", "reid_config.json", "metrics.csv", "result.json"),
+    ("numbers", "crop_cls"): ("weights.safetensors", "cls_config.json", "metrics.csv", "result.json"),
+}
 
 
 def _setup(cfg: TrainConfig) -> tuple[str, str]:

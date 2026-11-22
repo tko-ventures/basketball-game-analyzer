@@ -18,13 +18,17 @@ roster.
 from __future__ import annotations
 
 import json
+import time
 from collections.abc import Iterable
+from collections.abc import Sequence as Seq
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any, ClassVar
 
 import numpy as np
 
 from bga.stage import Backend as NumbersBackend  # noqa: F401  # re-exported: the numbers layer's backend protocol
+from bga.stage import BaseBackend, FrameReader, Sequence
 
 #: Folder of the PLK roster files (``scripts/fetch_rosters.py``).
 ROSTERS = Path("data/rosters")
@@ -155,3 +159,123 @@ def roster_choice(read: CropRead, roster: set[str]) -> tuple[str | None, float |
         return None, None
     best = max(keep, key=lambda k: (keep[k], k == UNREADABLE))
     return (None if best == UNREADABLE else best), round(keep[best] / total, 6)
+
+
+#: Classes of the crop classifiers: :data:`UNREADABLE`, then the numbers 0 to 99.
+NUMBER_CLASSES = (UNREADABLE, *(str(i) for i in range(100)))
+
+
+def ios(inner: Seq[float], outer: Seq[float]) -> float:
+    """Intersection over the smaller (``inner``) box's area, for xyxy boxes.
+
+    Args:
+        inner: Box whose coverage is measured, as x1, y1, x2, y2 (extra items are ignored).
+        outer: Covering box, as x1, y1, x2, y2 (extra items are ignored).
+
+    Returns:
+        Covered share of ``inner``; 0 when ``inner`` has no area.
+
+    Examples:
+        >>> ios((10, 10, 20, 20), (0, 0, 15, 100))
+        0.5
+        >>> ios((0, 0, 0, 10), (0, 0, 10, 10))
+        0.0
+
+    """
+    ix = max(0.0, min(inner[2], outer[2]) - max(inner[0], outer[0]))
+    iy = max(0.0, min(inner[3], outer[3]) - max(inner[1], outer[1]))
+    area = (inner[2] - inner[0]) * (inner[3] - inner[1])
+    return ix * iy / area if area > 0 else 0.0
+
+
+class TrackNumbers(BaseBackend):
+    """Base of the numbers backends: reads ``number`` crops matched to tracks and confirms a number per track.
+
+    A subclass implements ``read_crop`` (one crop to a number or ``None``) and ``read_crops`` (crops to
+    :class:`CropRead`, for ``bga eval-numbers``); :meth:`run` does the matching, sampling and confirmation.
+
+    Matching (plan section 3): a number box belongs to the track box that contains it with IoS >= ``min_ios``; crops
+    padded ``pad`` px; reads every ``read_every`` frames per track; ``ConsecutiveValueTracker`` with
+    ``n_consecutive`` equal reads confirms. Referee tracks are skipped.
+
+    """
+
+    defaults: ClassVar[dict[str, Any]] = {
+        "min_score": 0.3,
+        "min_ios": 0.9,
+        "pad": 10,
+        "n_consecutive": 3,
+        "read_every": 1,
+        "max_reads_per_track": 12,
+        "stop_on_confirm": True,
+    }
+
+    def read_crop(self, crop: np.ndarray) -> str | None:
+        """Read the number on one crop; implemented by each backend.
+
+        Args:
+            crop: BGR crop of a ``number`` box.
+
+        Raises:
+            NotImplementedError: Always, on the base class.
+
+        """
+        raise NotImplementedError
+
+    def run(self, seq: Sequence, upstream: dict, read: FrameReader) -> dict:
+        """Read and confirm a number per track over the sequence.
+
+        Each ``read_every``-th frame, every ``number`` box scoring at least ``min_score`` is given to the non-referee
+        track box that contains it best, if its IoS is at least ``min_ios``; tracks read ``max_reads_per_track``
+        times are skipped, and so are confirmed tracks unless ``stop_on_confirm`` is off (the log then holds reads
+        after a confirmation, for rules downstream).
+
+        Args:
+            seq: Sequence to read.
+            upstream: ``detect`` and ``track`` outputs of the sequence.
+            read: Frame reader of the sequence's video.
+
+        Returns:
+            ``{"tracks": {"<track_id>": "23" | None}, "log", "reads", "ms_per_read", "ms_per_frame"}``, where ``log``
+            lists every read as ``[frame, track_id, value]``.
+
+        """
+        from sports.common.temporal import ConsecutiveValueTracker
+
+        dets, tracks = upstream["detect"]["frames"], upstream["track"]["frames"]
+        confirm = ConsecutiveValueTracker(n_consecutive=self.p["n_consecutive"])
+        done, reads, log, t, n = {}, {}, [], 0.0, 0
+        for j, f in enumerate(seq.frames):
+            if j % self.p["read_every"]:
+                continue
+            nums = [d for d in dets[str(f)] if d[5] == "number" and d[4] >= self.p["min_score"]]
+            rows = [r for r in tracks[str(f)] if r[6] != "referee"]
+            ids, values, img = [], [], None
+            for d in nums:
+                best = max(rows, key=lambda r: ios(d[:4], r[1:5]), default=None)
+                if best is None or ios(d[:4], best[1:5]) < self.p["min_ios"]:
+                    continue
+                tid = best[0]
+                if (self.p["stop_on_confirm"] and tid in done) or reads.get(tid, 0) >= self.p["max_reads_per_track"]:
+                    continue
+                img = read(f) if img is None else img
+                crop = number_crop(img, d[:4], self.p["pad"])
+                if crop.size == 0:
+                    continue
+                t0 = time.perf_counter()
+                value = self.read_crop(crop)
+                t += time.perf_counter() - t0
+                n += 1
+                reads[tid] = reads.get(tid, 0) + 1
+                ids.append(tid)
+                values.append(value)
+                log.append([f, tid, value])
+            done.update({tid: v for tid, v in zip(ids, confirm.update(ids, values), strict=True) if v is not None})
+        all_ids = {r[0] for f in seq.frames for r in tracks[str(f)]}
+        return {
+            "tracks": {str(tid): done.get(tid) for tid in sorted(all_ids)},
+            "log": log,
+            "reads": n,
+            "ms_per_read": round(1000 * t / max(1, n), 1),
+            "ms_per_frame": round(1000 * t / max(1, len(seq.frames)), 1),
+        }

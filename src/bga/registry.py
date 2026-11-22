@@ -25,6 +25,7 @@ BACKEND_MODULES = (
     "bga.track.roboflow_trackers",
     "bga.track.sam2_video",
     "bga.numbers.smolvlm_ocr",
+    "bga.numbers.crop_cls",
     "bga.link.greedy",
     "bga.court.roboflow_keypoints",
     "bga.court.rfdetr_keypoint",

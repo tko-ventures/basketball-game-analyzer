@@ -12,8 +12,6 @@ Runs on MPS with ``max_new_tokens=4`` (2 s per crop instead of 8 s, docs/handoff
 from __future__ import annotations
 
 import re
-import time
-from collections.abc import Sequence as Seq
 from typing import Any, ClassVar
 
 import cv2
@@ -21,36 +19,12 @@ import numpy as np
 
 from bga.detect.roboflow_inference import roboflow_key
 from bga.device import pick_device
-from bga.numbers.base import CropRead, number_crop
+from bga.numbers.base import CropRead, TrackNumbers
 from bga.registry import register
-from bga.stage import BaseBackend, FrameReader, Sequence
-
-
-def ios(inner: Seq[float], outer: Seq[float]) -> float:
-    """Intersection over the smaller (``inner``) box's area, for xyxy boxes.
-
-    Args:
-        inner: Box whose coverage is measured, as x1, y1, x2, y2 (extra items are ignored).
-        outer: Covering box, as x1, y1, x2, y2 (extra items are ignored).
-
-    Returns:
-        Covered share of ``inner``; 0 when ``inner`` has no area.
-
-    Examples:
-        >>> ios((10, 10, 20, 20), (0, 0, 15, 100))
-        0.5
-        >>> ios((0, 0, 0, 10), (0, 0, 10, 10))
-        0.0
-
-    """
-    ix = max(0.0, min(inner[2], outer[2]) - max(inner[0], outer[0]))
-    iy = max(0.0, min(inner[3], outer[3]) - max(inner[1], outer[1]))
-    area = (inner[2] - inner[0]) * (inner[3] - inner[1])
-    return ix * iy / area if area > 0 else 0.0
 
 
 @register("numbers", "smolvlm_ocr")
-class SmolVLMOcr(BaseBackend):
+class SmolVLMOcr(TrackNumbers):
     """Numbers backend: SmolVLM2 reads of matched ``number`` crops, confirmed by ``ConsecutiveValueTracker``.
 
     Examples:
@@ -61,16 +35,7 @@ class SmolVLMOcr(BaseBackend):
 
     """
 
-    defaults: ClassVar[dict[str, Any]] = {
-        "model_id": "basketball-jersey-numbers-ocr/3",
-        "min_score": 0.3,
-        "min_ios": 0.9,
-        "pad": 10,
-        "n_consecutive": 3,
-        "read_every": 1,
-        "max_reads_per_track": 12,
-        "stop_on_confirm": True,
-    }
+    defaults: ClassVar[dict[str, Any]] = {"model_id": "basketball-jersey-numbers-ocr/3", **TrackNumbers.defaults}
 
     def load(self) -> None:
         """Load the reader through ``inference_models`` on MPS when available, else CPU."""
@@ -115,61 +80,3 @@ class SmolVLMOcr(BaseBackend):
 
         """
         return [CropRead(self.read_crop(c)) for c in crops]
-
-    def run(self, seq: Sequence, upstream: dict, read: FrameReader) -> dict:
-        """Read and confirm a number per track over the sequence.
-
-        Each ``read_every``-th frame, every ``number`` box scoring at least ``min_score`` is given to the non-referee
-        track box that contains it best, if its IoS is at least ``min_ios``; tracks read ``max_reads_per_track``
-        times are skipped, and so are confirmed tracks unless ``stop_on_confirm`` is off (the log then holds reads
-        after a confirmation, for rules downstream).
-
-        Args:
-            seq: Sequence to read.
-            upstream: ``detect`` and ``track`` outputs of the sequence.
-            read: Frame reader of the sequence's video.
-
-        Returns:
-            ``{"tracks": {"<track_id>": "23" | None}, "log", "reads", "ms_per_read", "ms_per_frame"}``, where ``log``
-            lists every read as ``[frame, track_id, value]``.
-
-        """
-        from sports.common.temporal import ConsecutiveValueTracker
-
-        dets, tracks = upstream["detect"]["frames"], upstream["track"]["frames"]
-        confirm = ConsecutiveValueTracker(n_consecutive=self.p["n_consecutive"])
-        done, reads, log, t, n = {}, {}, [], 0.0, 0
-        for j, f in enumerate(seq.frames):
-            if j % self.p["read_every"]:
-                continue
-            nums = [d for d in dets[str(f)] if d[5] == "number" and d[4] >= self.p["min_score"]]
-            rows = [r for r in tracks[str(f)] if r[6] != "referee"]
-            ids, values, img = [], [], None
-            for d in nums:
-                best = max(rows, key=lambda r: ios(d[:4], r[1:5]), default=None)
-                if best is None or ios(d[:4], best[1:5]) < self.p["min_ios"]:
-                    continue
-                tid = best[0]
-                if (self.p["stop_on_confirm"] and tid in done) or reads.get(tid, 0) >= self.p["max_reads_per_track"]:
-                    continue
-                img = read(f) if img is None else img
-                crop = number_crop(img, d[:4], self.p["pad"])
-                if crop.size == 0:
-                    continue
-                t0 = time.perf_counter()
-                value = self.read_crop(crop)
-                t += time.perf_counter() - t0
-                n += 1
-                reads[tid] = reads.get(tid, 0) + 1
-                ids.append(tid)
-                values.append(value)
-                log.append([f, tid, value])
-            done.update({tid: v for tid, v in zip(ids, confirm.update(ids, values), strict=True) if v is not None})
-        all_ids = {r[0] for f in seq.frames for r in tracks[str(f)]}
-        return {
-            "tracks": {str(tid): done.get(tid) for tid in sorted(all_ids)},
-            "log": log,
-            "reads": n,
-            "ms_per_read": round(1000 * t / max(1, n), 1),
-            "ms_per_frame": round(1000 * t / max(1, len(seq.frames)), 1),
-        }

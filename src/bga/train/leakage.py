@@ -70,10 +70,14 @@ def assert_no_gold(clips: Iterable[str]) -> None:
 
 
 def manifest_clips(manifest: dict) -> set[str]:
-    """Collect every clip a training manifest draws on: frame clips and videos, and keyframe clips.
+    """Collect every clip a training manifest draws on, so gold clips can be refused.
+
+    Frame clips and videos, keyframe clips, and the clips and videos of appearance identities, number-crop tracklets
+    and their strays.
 
     Args:
-        manifest: a parsed training manifest (``frames`` and ``keyframes`` lists).
+        manifest: a parsed training manifest (``frames``, ``keyframes``, ``identities`` or ``tracklets`` lists, and
+            ``strays`` keyed by shot).
 
     Returns:
         The non-empty clip names and video paths.
@@ -83,9 +87,13 @@ def manifest_clips(manifest: dict) -> set[str]:
         >>> manifest = {"frames": frames, "keyframes": [{"clip": "c"}]}
         >>> sorted(manifest_clips(manifest))
         ['a', 'b', 'c', 'data/clips/a.mp4']
+        >>> sorted(manifest_clips({"tracklets": [{"clip": "d", "video": "v.mp4"}], "strays": {"s": {"clip": "e"}}}))
+        ['d', 'e', 'v.mp4']
 
     """
     clips = {f["clip"] for f in manifest.get("frames", [])}
     clips |= {f.get("video", "") for f in manifest.get("frames", [])}
     clips |= {k["clip"] for k in manifest.get("keyframes", [])}
+    for rec in [*manifest.get("identities", []), *manifest.get("tracklets", []), *manifest.get("strays", {}).values()]:
+        clips |= {rec.get("clip", ""), rec.get("video", "")}
     return {c for c in clips if c}

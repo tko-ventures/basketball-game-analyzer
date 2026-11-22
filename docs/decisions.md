@@ -539,3 +539,19 @@ Tomasz, in the M6 session, on the implementer's proposal.
   2026-11-22, M6 tracking stack).
 - **Later:** court-space tracking can return with the court positions of M8 if the floor-speed gate or the positions
   layer needs it.
+
+## 2026-11-22: number classifier from two starting weights, one backend
+
+Tomasz, in the M7 session, choosing the implementer's recommended option.
+
+- **Two training configs, one backend.** The crop classifier (plan section 5, layer 5, `resnet_cls`) is trained twice
+  on the same PLK crops, and the gold row decides between them:
+  - from ResNet-18 ImageNet weights, Skalski's recipe as the plan names it;
+  - from DINOv2 ViT-S/14, whose weights are Apache 2.0.
+- **Licence.** ImageNet's terms are research-only (plan section 5, layer 3b). The ImageNet start is used now as the
+  re-ID weights are (Tomasz's ruling of 2026-11-18, question 15), and is re-checked before shipping. DINOv2 has an
+  explicit permissive licence.
+- **Backend.** Both run through one backend, `numbers/crop_cls`, which reads its architecture from the weights'
+  config. The plan's `resnet_cls` is `crop_cls` with the ResNet-18 weights.
+- **Classes.** 101: `unreadable` and the numbers 0 to 99. The classifier scores every class, so `roster_choice`
+  restricts it to a roster plus `unreadable` (the `roster_logprob` idea at crop level).
