@@ -2130,5 +2130,14 @@ image builds are not included, so the Modal invoice is the authority.
 | 2026-11-22 | modal | L40S | bga run track/sam2 1jDaJBkUGmc_s3 | 626.1 | 0.3392 |
 | 2026-11-22 | modal | L40S | bga run track/sam2 1jDaJBkUGmc_s7 | 300.1 | 0.1625 |
 | 2026-11-22 | modal | L40S | bga run track/sam2 1jDaJBkUGmc_s16 | 359.9 | 0.195 |
+| 2026-11-22 | modal | L40S | bga run track/sam2 4XMD9FWmQws_s4 | 160.5 | 0.0869 |
+| 2026-11-22 | modal | L40S | bga run track/sam2 4XMD9FWmQws_s42 | 246.4 | 0.1335 |
+| 2026-11-22 | modal | L40S | bga run track/sam2 4XMD9FWmQws_s78 | 171.7 | 0.093 |
+| 2026-11-22 | modal | L40S | bga run track/sam2 OSp445e0mXU_s2 | 561.4 | 0.3041 |
+| 2026-11-22 | modal | L40S | bga run track/sam2 OSp445e0mXU_s10 | 290.3 | 0.1572 |
+| 2026-11-22 | modal | L40S | bga run track/sam2 OSp445e0mXU_s19 | 253.4 | 0.1373 |
+| 2026-11-22 | modal | L40S | bga run track/sam2 1jDaJBkUGmc_s3 | 644.3 | 0.349 |
+| 2026-11-22 | modal | L40S | bga run track/sam2 1jDaJBkUGmc_s7 | 207.3 | 0.1123 |
+| 2026-11-22 | modal | L40S | bga run track/sam2 1jDaJBkUGmc_s16 | 245.6 | 0.1331 |
 
 Month to date (2026-11), from Modal's own billing (`scripts/modal_spend.py`, 2026-11-21 00:50): 34.89 USD metered, 30.00 covered by the workspace's 30 USD monthly credits, so 4.89 USD billed. The M6 runner work of 2026-11-20 (smoke tests, the re-ID pair and three re-ID sweeps) cost 4.78 USD per Modal, against about 3.3 USD in the rows: about a third of it is CPU (frame decoding and camera-motion estimation in the track layer), which the GPU-only rows leave out. The rows above are per-job estimates at list price for the GPU alone, except where they cite Modal billing. On 2026-11-18 four rows estimated from local log times overstated the cut-short training runs about 25-fold (the remote runs had stopped within minutes while the local process went on waiting); they now carry the billed figures. The numbers run of 2026-11-21 on the `track-trackers-botsort-reid-tuned` tracks (the 9 rows dated 2026-11-21, 0.32 USD) cost 0.51 USD per Modal (app `ap-MgnSS5MNzuMeiNitaEYAkD`: L4 0.46, CPU, memory and egress 0.04). The second numbers run that day (`stop_on_confirm` off, 1,032 reads) cost 0.38 USD per Modal (app `ap-Mca5QoMubOvWAb0kEsqrNB`). On 2026-11-21 Modal billed 6.65 USD in all (`modal_spend.py --for today`, read 20:20): the three appearance fine-tunes (`bga-train` apps `ap-KHW1SS3…`, `ap-v4Sms0Kr…`, `ap-yVILTt45…`) 2.65 USD against 1.41 in their list-price rows, the gap being the 8 CPU cores and 32 GB billed with each L4; the rest is `bga-runner`: the two numbers runs, the crops pilot over 108 non-gold shots (detect, team, appearance and track; 0.30 USD of it on a team-layer call cut short when its local client was stopped, whose results were lost), BoT-SORT with the PLK encoder and its 15-setting re-ID sweep. Month to date then: 42.22 USD metered, 11.80 billed after the 30 USD credits. October 2026: 4.18 USD metered per Modal (3.60 USD in the rows).
