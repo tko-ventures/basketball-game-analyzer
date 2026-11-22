@@ -358,7 +358,7 @@
    ],
    "label": "3",
    "team": "home",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "n022",
@@ -647,7 +647,7 @@
    ],
    "label": "6",
    "team": "home",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "n039",
@@ -834,7 +834,7 @@
    ],
    "label": "9",
    "team": "away",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "n050",
@@ -866,9 +866,9 @@
     502,
     552
    ],
-   "label": "illegible",
+   "label": "4",
    "team": "away",
-   "review": null
+   "review": "fix"
   },
   {
    "id": "n052",
@@ -1225,7 +1225,7 @@
    ],
    "label": "21",
    "team": "away",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "n073",
@@ -1291,9 +1291,9 @@
     999,
     637
    ],
-   "label": "illegible",
+   "label": "10",
    "team": "home",
-   "review": null
+   "review": "fix"
   },
   {
    "id": "n077",
@@ -1905,7 +1905,7 @@
    ],
    "label": "4",
    "team": "home",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "n113",
@@ -2194,7 +2194,7 @@
    ],
    "label": "2",
    "team": "home",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "n130",
@@ -2262,7 +2262,7 @@
    ],
    "label": "11",
    "team": "home",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "n134",
@@ -2464,9 +2464,9 @@
     1574,
     544
    ],
-   "label": "illegible",
+   "label": "45",
    "team": "away",
-   "review": null
+   "review": "fix"
   },
   {
    "id": "n146",
@@ -2653,7 +2653,7 @@
    ],
    "label": "2",
    "team": "home",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "n157",
@@ -2704,7 +2704,7 @@
    ],
    "label": "25",
    "team": "away",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "n160",
@@ -2891,7 +2891,7 @@
    ],
    "label": "25",
    "team": "away",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "n171",
@@ -3129,7 +3129,7 @@
    ],
    "label": "37",
    "team": "home",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "n185",
@@ -3365,9 +3365,9 @@
     1180,
     469
    ],
-   "label": "illegible",
+   "label": "0",
    "team": "home",
-   "review": null
+   "review": "fix"
   },
   {
    "id": "n199",
@@ -3537,7 +3537,7 @@
    ],
    "label": "16",
    "team": "away",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "n209",
@@ -3673,7 +3673,7 @@
    ],
    "label": "3",
    "team": "away",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "n217",
@@ -4115,7 +4115,7 @@
    ],
    "label": "0",
    "team": "away",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "n243",
@@ -4166,7 +4166,7 @@
    ],
    "label": "7",
    "team": "away",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "n246",
@@ -4234,7 +4234,7 @@
    ],
    "label": "25",
    "team": "away",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "n250",
@@ -4404,7 +4404,7 @@
    ],
    "label": "11",
    "team": "home",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "n260",
@@ -4455,7 +4455,7 @@
    ],
    "label": "illegible",
    "team": "home",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "n263",
@@ -4642,7 +4642,7 @@
    ],
    "label": "13",
    "team": "home",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "n274",
@@ -4880,7 +4880,7 @@
    ],
    "label": "3",
    "team": "home",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "d001",
@@ -5084,7 +5084,7 @@
    ],
    "label": "illegible",
    "team": "away",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "d013",
@@ -5254,7 +5254,7 @@
    ],
    "label": "illegible",
    "team": "home",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "d023",
@@ -5388,9 +5388,9 @@
     1488.4,
     657.5
    ],
-   "label": "illegible",
+   "label": "32",
    "team": "away",
-   "review": null
+   "review": "fix"
   },
   {
    "id": "d031",
@@ -5968,7 +5968,7 @@
    ],
    "label": "0",
    "team": "home",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "d065",
@@ -6155,7 +6155,7 @@
    ],
    "label": "not_number",
    "team": "home",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "d076",
@@ -6357,9 +6357,9 @@
     220.5,
     731.5
    ],
-   "label": "illegible",
+   "label": "3",
    "team": "away",
-   "review": null
+   "review": "fix"
   },
   {
    "id": "d088",

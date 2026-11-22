@@ -233,7 +233,11 @@ def number_crops(tmp_path):
 class TestNumberQueue:
     @pytest.mark.parametrize(
         ("name", "ids"),
-        [pytest.param("spotcheck", ["n002"], id="spotcheck"), pytest.param("all", ["n001", "n002"], id="all")],
+        [
+            pytest.param("spotcheck", ["n002"], id="spotcheck"),
+            pytest.param("illegible", ["n002"], id="illegible"),
+            pytest.param("all", ["n001", "n002"], id="all"),
+        ],
     )
     def test_selects_the_set(self, number_crops, name, ids):
         assert [c["id"] for c in server.load_number_queue(number_crops, name)["crops"]] == ids

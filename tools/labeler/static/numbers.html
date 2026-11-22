@@ -110,7 +110,7 @@
 "use strict";
 const params = new URLSearchParams(location.search);
 const SET = params.get("set") || "spotcheck";
-const SETS = { spotcheck: "Spot check", all: "All crops", reviewed: "Reviewed" };
+const SETS = { spotcheck: "Spot check", illegible: "Illegible", all: "All crops", reviewed: "Reviewed" };
 const LABEL_WORDS = { illegible: "Illegible", not_number: "Not a number" };
 const $ = (id) => document.getElementById(id);
 

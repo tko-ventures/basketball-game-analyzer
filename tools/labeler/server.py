@@ -767,8 +767,9 @@ def save_box_frame(labels_dir: Path, body: dict, name: str = "") -> dict:
 NUMBER_CROPS = Path("numbers") / "gold_crops.json"
 #: Number crop labels other than digits.
 NUMBER_SPECIAL = ("illegible", "not_number")
-#: Crop sets the /numbers page can open: the seeded spot-check sample, every crop, or the crops already reviewed.
-NUMBER_SETS = ("spotcheck", "all", "reviewed")
+#: Crop sets the /numbers page can open: the seeded spot-check sample, the crops the implementer labelled
+#: ``illegible``, every crop, or the crops already reviewed.
+NUMBER_SETS = ("spotcheck", "illegible", "all", "reviewed")
 #: Serialises read-modify-write of the number crops across request threads.
 _NUMBER_LOCK = threading.Lock()
 
@@ -818,6 +819,8 @@ def load_number_queue(labels_dir: Path, name: str = "spotcheck") -> dict:
     if name == "spotcheck":
         ids = set((doc.get("spotcheck") or {}).get("ids", []))
         crops = [c for c in crops if c["id"] in ids]
+    elif name == "illegible":
+        crops = [c for c in crops if c["label"] == "illegible"]
     elif name == "reviewed":
         crops = [c for c in crops if c.get("review")]
     out = [{**c, "video": f"data/raw/{c['clip']}.mp4"} for c in crops]
