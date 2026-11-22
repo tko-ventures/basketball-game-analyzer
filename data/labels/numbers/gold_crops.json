@@ -9635,5 +9635,41 @@
    "score": 0.357
   }
  ],
- "negatives": "detector number boxes scoring at least 0.3 with IoU below 0.3 to every gold box"
+ "negatives": "detector number boxes scoring at least 0.3 with IoU below 0.3 to every gold box",
+ "spotcheck": {
+  "seed": 0,
+  "n": 30,
+  "ids": [
+   "d012",
+   "d022",
+   "d030",
+   "d064",
+   "d075",
+   "d087",
+   "n021",
+   "n038",
+   "n049",
+   "n051",
+   "n072",
+   "n076",
+   "n112",
+   "n129",
+   "n133",
+   "n145",
+   "n156",
+   "n159",
+   "n170",
+   "n184",
+   "n198",
+   "n208",
+   "n216",
+   "n242",
+   "n245",
+   "n249",
+   "n259",
+   "n262",
+   "n273",
+   "n287"
+  ]
+ }
 }

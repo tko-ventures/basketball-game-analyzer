@@ -6,7 +6,7 @@
     uv run scripts/number_gold.py sheets      # blind contact sheets: crop ids only, no track number shown
     uv run scripts/number_gold.py apply data/labels/review/number_gold.ops.txt
     uv run scripts/number_gold.py compare     # reads against the number of the gold track holding the box
-    uv run scripts/number_gold.py spotcheck   # a seeded sample of 30 for Tomasz, with the labels shown
+    uv run scripts/number_gold.py spotcheck   # a seeded sample of 30 for Tomasz's check at /numbers
     uv run scripts/number_gold.py export      # data/gold/v1/numbers.json
 
 The boxes are Tomasz's hand-drawn `number` boxes (box gold v1), so the crop geometry depends on no model. Each crop is
@@ -18,7 +18,8 @@ score the numbers layer reads from (0.3): sponsor logos, badges and parts of num
 
 Labels: the number as digits (``"7"``, ``"23"``, ``"00"``) when every digit is legible; ``illegible`` for a jersey
 number whose digits cannot all be read (blur, fold, cut off, turned away); ``not_number`` for a box that holds no
-jersey number. Ops file lines: ``<crop_id> <label> [note...]``; ``#`` starts a comment.
+jersey number. Tomasz's verdicts from the labeller's /numbers page sit in each crop's ``review``; `export` takes his
+label where he changed one. Ops file lines: ``<crop_id> <label> [note...]``; ``#`` starts a comment.
 
 """
 
@@ -267,8 +268,11 @@ def compare(a):
 
 
 def spotcheck(a):
-    crops = [c for c in json.loads(a.crops.read_text())["crops"] if c["label"] is not None]
+    doc = json.loads(a.crops.read_text())
+    crops = [c for c in doc["crops"] if c["label"] is not None]
     pick = sorted(random.Random(a.seed).sample(crops, min(a.n, len(crops))), key=lambda c: c["id"])
+    doc["spotcheck"] = {"seed": a.seed, "n": len(pick), "ids": [c["id"] for c in pick]}
+    a.crops.write_text(json.dumps(doc, indent=1) + "\n")
     a.out.mkdir(parents=True, exist_ok=True)
     frames = Frames(a.raw)
     for n in range(0, len(pick), 15):
@@ -285,8 +289,15 @@ def crop_team(c, rosters):
     return on[0] if len(on) == 1 else team
 
 
+def resolved(c):
+    """The crop with the reviewer's label in place of the implementer's where the review changed it."""
+    review = c.get("review") or {}
+    return {**c, "label": review.get("label", c["label"]) if review.get("verdict") == "fix" else c["label"]}
+
+
 def export(a):
     doc = json.loads(a.crops.read_text())
+    doc["crops"] = [resolved(c) for c in doc["crops"]]
     missing = [c["id"] for c in doc["crops"] if c["label"] is None]
     if missing:
         sys.exit(f"{len(missing)} crops unlabelled, e.g. {missing[:5]}")
@@ -301,7 +312,7 @@ def export(a):
         "labels": doc["labels"],
         "crops": [
             {k: c[k] for k in ("id", "source", "sequence", "clip", "frame", "held_out", "xyxy", "label")}
-            | {"team": crop_team(c, rosters[c["clip"]])}
+            | {"team": crop_team(c, rosters[c["clip"]]), "review": (c.get("review") or {}).get("verdict")}
             for c in doc["crops"]
         ],
     }
@@ -312,7 +323,10 @@ def export(a):
     a.export.write_text(json.dumps(out, indent=1) + "\n")
     kinds = Counter("digits" if c["label"] not in SPECIAL else c["label"] for c in out["crops"])
     held = Counter("held-out" if c["held_out"] else "dev" for c in out["crops"])
-    print(f"{len(out['crops'])} crops -> {a.export}", dict(kinds), dict(held), f"team from the roster on {moved}")
+    reviews = dict(Counter(c["review"] for c in out["crops"] if c["review"]))
+    print(
+        f"{len(out['crops'])} crops -> {a.export}", dict(kinds), dict(held), f"team from the roster on {moved}", reviews
+    )
 
 
 def main(argv=None):

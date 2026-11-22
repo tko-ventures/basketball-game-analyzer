@@ -214,7 +214,7 @@ Tomasz reviews in the labeller at `/boxes`. Each frame shows flagged boxes first
 3. **Audit trail.**
    - Ops: `data/labels/review/number_gold.ops.txt`.
    - Sheet reads: `data/labels/sheet_ledger.tsv`, rows of 2026-11-22.
-4. **Spot check.** `number_gold.py spotcheck` draws a seeded sample of 30 with their labels (`runs/number_gold/spotcheck_00.jpg`, `_01.jpg`) for Tomasz to check.
+4. **Spot check.** `number_gold.py spotcheck` draws a seeded sample of 30 and stores it in the working file. Tomasz checks it in the labeller at `/numbers`, where each answer is saved to the crop's `review`. `export` takes his label wherever he changes one.
 
 ### Gold v0 gaps found on the way
 

@@ -233,7 +233,7 @@ These are labelling aids, not a layer:
 - **Ball queue, round 3:** `data/labels/box_queue_r3balls.json`: 262 frames, prefilled by `plk-r2`, 99 balls accepted without review (threshold 0.85, calibrated for `plk-r2`), 163 frames for review.
 - **Ball queue, round 2:** `data/labels/box_queue_r2balls.json`: 261 frames from 22 clips, 115 balls accepted without review (status `done`, source `auto`), 146 frames for review.
 - **Ball queue, round 1:** `data/labels/box_queue_r1balls.json`, in the box-queue format with `mode: ball`, `title` and `instructions`; each frame holds the draft's ball boxes and its three best weaker ball guesses as candidates.
-- **Gold number crops:** `data/gold/v1/numbers.json` (`number_gold.py export`): 376 crops on the box gold v1 frames, 292 dev and 84 held-out, each with `id`, `source` (`box_gold_v1` for Tomasz's 287 `number` boxes, or the detector and weight id for the 89 `plk-r3-poss` number boxes at 0.3 or more that overlap no gold box), `sequence`, `clip`, `frame`, `held_out`, `xyxy`, `team` and `label`: the digits, `illegible` or `not_number`. 254 carry digits. The working file `data/labels/numbers/gold_crops.json` adds the holders' gold track hints and notes; `data/labels/review/number_gold.ops.txt` holds every label. Details in `docs/gold.md`.
+- **Gold number crops:** `data/gold/v1/numbers.json` (`number_gold.py export`): 376 crops on the box gold v1 frames, 292 dev and 84 held-out, each with `id`, `source` (`box_gold_v1` for Tomasz's 287 `number` boxes, or the detector and weight id for the 89 `plk-r3-poss` number boxes at 0.3 or more that overlap no gold box), `sequence`, `clip`, `frame`, `held_out`, `xyxy`, `team` and `label`: the digits, `illegible` or `not_number`. 254 carry digits. Each crop also has `review`: the reviewer's verdict from the `/numbers` page (`ok` or `fix`), or null. The working file `data/labels/numbers/gold_crops.json` adds the holders' gold track hints, notes, the reviewer's answers and the spot-check sample; `data/labels/review/number_gold.ops.txt` holds every label. Details in `docs/gold.md`.
 - **Box gold v1 queue:** `data/labels/box_gold_v1.json` is written by `scripts/box_gold_v1.py prefill` and edited at `/boxes`.
   - **Top level:** `version`, `classes`, the SAM model, `frames` and `meta.review_seconds`.
   - **Each frame:** `youtube_id`, `clip`, `video`, `shot`, `frame`, `status` (`todo`, `done` or `skip`), `note`, `boxes` and `candidates`.
@@ -267,7 +267,7 @@ These are labelling aids, not a layer:
 
 ### Labeller server
 
-`tools/labeler/server.py` is a stdlib HTTP server on port 8765, serving three pages:
+`tools/labeler/server.py` is a stdlib HTTP server on port 8765, serving four pages:
 
 - **`/` (track labeller):** `static/index.html` and `app.js`. Shot tagging, boxes, identities, and track-level review: K confirm, P split, M merge, ⇧Del delete a track, ⇧D accept a shot. A filmstrip shows 8 crops per track, and active time is logged in `meta.review_seconds`.
 - **`/court` (court keyframes):** `static/court.html`.
@@ -285,13 +285,17 @@ These are labelling aids, not a layer:
   - **Editing:** a click selects the smallest box under the cursor; `Esc` or a click on empty floor deselects. Edges and corners drag on the frame or in the loupe; arrow keys nudge one edge by 1 or 5 px; Alt-drag moves the selected box. Keys `1`–`0` set the selected box's class, `T` the team, `A` swaps in the alternative box, Shift-drag draws a new box anywhere, `X` deletes, and `C` shows the detector candidates (low-score objects, and people no box covers), adopted with a click. Scroll zooms, and dragging empty space pans.
   - **Saving:** each change autosaves the frame. Enter marks it done, checks all its boxes and opens the next frame not done.
   - **Time:** active time is logged in `meta.review_seconds`.
+- **`/numbers` (gold number crops):** `static/numbers.html` shows the crops of `data/labels/numbers/gold_crops.json` one at a time, for the reviewer to check the implementer's label. `?set=spotcheck` (the default) opens the sample `number_gold.py spotcheck` stored, `all` every crop, and `reviewed` the crops already answered.
+  - **Views:** a close-up (the box plus 40% on each side) and the box in context (5×, `W` for 13×), drawn from the frame in the browser. `S` switches between smooth and sharp pixels, and `B` raises the contrast. A strip of thumbnails below shows each crop's label and answer, and a click opens it.
+  - **Answers:** `Enter` or `Space` marks the label right. Digits then `Enter` give another number, `I` marks the crop illegible and `X` not a number. `U` clears the answer. Each answer saves at once and opens the next open crop.
+  - **Storage:** the answer goes to the crop's `review` (`verdict` `ok`, or `fix` with the reviewer's `label`); the implementer's `label` is kept. Active time is logged in `meta.review_seconds`.
 
 API endpoints:
 
 | Method | Path |
 |---|---|
-| GET | `/api/clips`, `/api/clip`, `/api/frame`, `/api/shots`, `/api/pipeline`, `/api/court/queue`, `/api/court/labels`, `/api/boxes/queue[?set=]` |
-| POST | `/api/labels`, `/api/shots`, `/api/court/labels`, `/api/boxes/frame[?set=]` (rejects classes outside the schema, empty boxes, a record for another frame, a `holder` that is not one of the frame's boxes, a non-boolean `dead_ball`, a record lacking a field the stored frame has, and a record whose `saved_at` differs from the stored frame's, as a page that loaded the frame before a later change would send; the reply carries the new `saved_at`, which the page keeps) |
+| GET | `/api/clips`, `/api/clip`, `/api/frame`, `/api/shots`, `/api/pipeline`, `/api/court/queue`, `/api/court/labels`, `/api/boxes/queue[?set=]`, `/api/numbers/queue[?set=]` |
+| POST | `/api/labels`, `/api/shots`, `/api/court/labels`, `/api/numbers/review` (rejects an unknown crop or verdict, a label that is not one or two digits, `illegible` or `not_number`, and an answer whose `prev_at` differs from the crop's stored review stamp), `/api/boxes/frame[?set=]` (rejects classes outside the schema, empty boxes, a record for another frame, a `holder` that is not one of the frame's boxes, a non-boolean `dead_ball`, a record lacking a field the stored frame has, and a record whose `saved_at` differs from the stored frame's, as a page that loaded the frame before a later change would send; the reply carries the new `saved_at`, which the page keeps) |
 
 Paths are confined to the repository by `safe_path`.
 
@@ -303,7 +307,7 @@ Paths are confined to the repository by `safe_path`.
 | Track prefill | `prefill_tracks.py` (Skalski's detector plus ByteTrack), `link_prefill.py`, `extract_shot_frames.py`, `sam_to_tracks.py` (SAM 2.1 identities fused with detector boxes), `import_prefill.py` |
 | Tuning | `sweep_track.py` (grid sweep of tracker params on gold dev in one process, CSV in `runs/_sweeps/`; refuses the held-out game; `--remote-gpu` first runs every missing setting and shot on Modal in one parallel batch, through `modal_runner.run_layer` with one entry per sequence) |
 | Review | `track_sheets.py`, `review_sheets.py` (with `--propose` kit-colour ops), `team_gold_sheets.py` (team audit of the gold tracks), `review_ops.py`, `possession_ops.py` (possession queue: explicit holder, review ops) |
-| Gold export | `export_gold.py`, `box_gold.py`, `box_gold_v1.py` (box gold v1: prefill with SAM merge, crop sheets, ops, candidate refresh, export), `number_gold.py` (gold number crops: prefill from box gold v1, detector negatives, blind reading sheets, ops, compare against the gold tracks, spot-check sheets, export) |
+| Gold export | `export_gold.py`, `box_gold.py`, `box_gold_v1.py` (box gold v1: prefill with SAM merge, crop sheets, ops, candidate refresh, export), `number_gold.py` (gold number crops: prefill from box gold v1, detector negatives, blind reading sheets, ops, compare against the gold tracks, a seeded spot-check sample stored for the `/numbers` page with sheets, export taking the reviewer's label where it differs) |
 | Court | `court_geometry.py`, `court_prefill.py` (the NBA court model over every clip), `court_keyframes.py`, `court_propagate.py`, `qa_court_overlay.py`, `court_train_manifest.py` (training frames from the training keyframes) |
 | Auto-labelling (M4) | `autolabel.py --round N`; each step gets the round's files from a `Round` record. Round 2 on: frames at least 1 s from earlier rounds' frames, prefill by the previous round's PLK detector (`plk-r1`, then `plk-r2`) at confidence 0.1, draft at score 0.5, and a frame's ball accepted without review when one ball scores at least the round's threshold (0.7 for `plk-r1`, 0.85 for `plk-r2`, each calibrated on gold v1 dev) and no other 0.2. Round 1: central shots of the non-gold clips by the PLK court model's confident landmark count; 275 frames sampled, 12 per clip at most and 1 s apart; prefill by Roboflow's detector versions 16 (all but the ball) and 6 (the ball) at confidence 0.1; draft at score 0.3 with per-class NMS, people off the court and numbers outside every person dropped; the ball queue `data/labels/box_queue_r1balls.json` (264 frames, close-ups with fewer than 4 people left out) |
 | Spend | `modal_spend.py` (Modal's own billing: the month and each app) |
