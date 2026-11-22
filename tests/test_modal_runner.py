@@ -11,8 +11,14 @@ from bga.stage import Sequence
 class FakeFunction:
     """Stands in for the Modal function: answers the calls in reverse order, as a parallel batch may."""
 
-    def starmap(self, args, order_outputs=True):
+    def __init__(self, fail_job=None):
+        self.fail_job = fail_job
+
+    def starmap(self, args, order_outputs=True, return_exceptions=False):
         for _layer, _entry, seq, _upstream, gpu, job in reversed(args):
+            if job == self.fail_job:
+                yield RuntimeError("remote failure")
+                continue
             yield {"name": seq["name"], "remote": {"gpu": gpu, "seconds": 1.0, "usd": 0.0, "job": job}}
 
 
@@ -39,6 +45,13 @@ class TestRunLayer:
         seen = []
         modal_runner.run_layer("track", {"backend": "trackers"}, SEQS, [{}] * 3, None, lambda i, o: seen.append(i))
         assert seen == [2, 1, 0]
+
+    def test_failed_call_does_not_stop_the_others(self, offline, monkeypatch):
+        monkeypatch.setattr(modal_runner, "run_sequence", FakeFunction(fail_job=1))
+        seen = []
+        with pytest.raises(modal_runner.RemoteCallsFailedError):
+            modal_runner.run_layer("track", {"backend": "trackers"}, SEQS, [{}] * 3, None, lambda i, o: seen.append(i))
+        assert seen == [2, 0]
 
     def test_job_index_is_not_left_in_the_output(self, offline):
         outs = modal_runner.run_layer("track", {"backend": "trackers"}, SEQS, [{}] * 3, None)

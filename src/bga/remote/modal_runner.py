@@ -156,6 +156,10 @@ def _exists(path: str) -> bool:
         return False
 
 
+class RemoteCallsFailedError(RuntimeError):
+    """Some calls of a remote batch failed; the others finished and were handed over."""
+
+
 def run_layer(
     layer: str,
     entry: dict | list[dict],
@@ -167,7 +171,7 @@ def run_layer(
     """Run one layer for ``seqs`` (with their upstream outputs) on Modal, one parallel call per sequence.
 
     Results are taken as they finish and handed to ``on_result`` at once, so a run stopped part way keeps what had
-    finished; the cost rows of the finished calls are logged even then.
+    finished; the cost rows of the finished calls are logged even then. A failed call does not stop the others.
 
     Args:
         layer: the layer name.
@@ -180,6 +184,9 @@ def run_layer(
 
     Returns:
         The outputs in the order of ``seqs``; their costs are appended to docs/costs.md.
+
+    Raises:
+        RemoteCallsFailedError: After the batch, when any call failed; the finished ones were handed over.
 
     Examples:
         >>> outs = run_layer("court", {"backend": "roboflow_keypoints"}, seqs, [{}] * len(seqs), None)  # doctest: +SKIP
@@ -195,7 +202,11 @@ def run_layer(
                 upload_weights(w)
             jobs = zip(entries, seqs, upstream, strict=True)
             args = [(layer, e, asdict(s), u, gpu, i) for i, (e, s, u) in enumerate(jobs)]
-            for out in fn.starmap(args, order_outputs=False):
+            failed = []
+            for out in fn.starmap(args, order_outputs=False, return_exceptions=True):
+                if isinstance(out, BaseException):  # one failed call must not cancel the batch
+                    failed.append(out)
+                    continue
                 i = out["remote"].pop("job")
                 outs[i] = out
                 if on_result:
@@ -203,6 +214,8 @@ def run_layer(
     finally:
         done = [i for i, o in enumerate(outs) if o is not None]
         log_costs(layer, entries[0]["backend"], [seqs[i] for i in done], [outs[i] for i in done])
+    if failed:
+        raise RemoteCallsFailedError(f"{len(failed)} of {len(seqs)} {layer} calls failed; run again to retry them")
     return outs
 
 
