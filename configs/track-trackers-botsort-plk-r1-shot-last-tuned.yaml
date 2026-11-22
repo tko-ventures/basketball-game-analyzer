@@ -1,0 +1,37 @@
+name: track-trackers-botsort-plk-r1-shot-last-tuned
+description: >
+  track-trackers-botsort-plk-r1-shot-last with BoT-SORT's re-ID settings re-tuned for the PLK encoder on gold dev on
+  Modal (scripts/sweep_track.py, 72 + 9 settings over fusion, proximity, appearance threshold and weight): adaptive
+  fusion, proximity_threshold 1.0, appearance threshold 0.12 and weight 0.6 (the middle of a flat 0.5 to 0.75). The
+  threshold optimum is sharp (0.10 and 0.13 score HOTA about 0.735 and 0.737 against 0.742), likely fitted to the 9
+  dev shots.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: roboflow_keypoints
+    params: {model_id: basketball-court-detection-2/14}
+    weights: pretrained:roboflow/basketball-court-detection-2/14
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r3-poss@c62744fe
+  team:
+    backend: siglip_kmeans
+    params: {seed: 0, fit_fps: 5.0}
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  track:
+    backend: trackers
+    weights: appearance/reid/plk-r1-shot-last@bef4a309
+    params:
+      tracker: botsort
+      cmc: internal
+      reid_model: weights
+      reid_config: {fusion: adaptive, appearance_threshold: 0.12, proximity_threshold: 1.0, appearance_weight: 0.6}
+      args:
+        track_activation_threshold: 0.8
+        minimum_iou_threshold_first_assoc: 0.1
+        minimum_iou_threshold_second_assoc: 0.2
+        minimum_iou_threshold_unconfirmed_assoc: 0.3
+        high_conf_det_threshold: 0.3
