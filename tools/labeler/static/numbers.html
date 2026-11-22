@@ -184,7 +184,8 @@ async function show() {
   $("typed").textContent = typed ? `Your number: #${typed}  (Enter saves)` : "";
   const src = c.source === "box_gold_v1" ? "Your hand-drawn box (box gold v1)"
     : `Detector box, score ${c.score ?? "?"} (no gold box here)`;
-  const hints = (c.hints || []).map((h) => `track ${h.tid} ${h.team}${h.number ? " #" + h.number : ""}`).join(", ");
+  // The holder's gold number stays off the page, so the read is not anchored on it.
+  const hints = (c.hints || []).map((h) => `track ${h.tid} ${h.team}`).join(", ");
   $("meta").innerHTML = `<div>${src}</div><div class="muted">Box ${Math.round(c.xyxy[2] - c.xyxy[0])}×${Math.round(c.xyxy[3] - c.xyxy[1])} px` +
     (hints ? ` · inside ${hints}` : "") + `</div>` + (c.note ? `<div class="muted">Note: ${c.note}</div>` : "");
   document.querySelectorAll(".th").forEach((el, i) => {
