@@ -117,7 +117,7 @@ Initial backends. Defaults follow Skalski's stack; candidates are compared only 
 | L2 segment | `none` | `rfdetr_seg`, `sam21_boxmask` (SAM 2.1 masks from detector boxes, `requires: cuda`; mask labelling and mask source) |
 | L3 team | `siglip_kmeans` (`sports.TeamClassifier`) | `d1_choice` (kit descriptions as options) |
 | L3b appearance | `none` | `reid` (Roboflow `reid` encoders: `osnet_x1_0_sportsmot` pretrained, then the PLK fine-tune) |
-| L4 track | `bytetrack_court` | `botsort` and `botsort_reid` (Roboflow `trackers`: camera motion compensation, then appearance), `sam2_realtime` (Skalski's path, `requires: cuda`), `edgetam` (SAM 2 variant with Core ML export, Mac), `mcbyte` (Roboflow `trackers` with SAM and Cutie masks, low priority) |
+| L4 track | `bytetrack_court` (dropped from M6 on 2026-11-22; the M6 tracker is BoT-SORT with the PLK encoder, see `docs/decisions.md`) | `botsort` and `botsort_reid` (Roboflow `trackers`: camera motion compensation, then appearance), `sam2_realtime` (Skalski's path, `requires: cuda`), `edgetam` (SAM 2 variant with Core ML export, Mac), `mcbyte` (Roboflow `trackers` with SAM and Cutie masks, low priority) |
 | L5 numbers | `resnet_cls` | `d1_choice`, `parseq` (fine-tuned on PLK crops), `lfm3vl` (zero-shot and SFT), `smolvlm2`, `basal_choice` (`requires: cuda`, low priority) |
 | L5 number vote | `consecutive` (Skalski's `ConsecutiveValueTracker`) | `roster_logprob` (summed roster log-probabilities per track, 2026-11-17) |
 | L5 number assignment | `owner_rule` (one live owner per `(team, number)`, conflicts flagged) | `covisible_assign` (assignment over co-visible teammates with an abstain option, 2026-11-17) |

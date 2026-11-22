@@ -526,3 +526,15 @@ the M6 pull request.
   from SAM 2.1.
 - **Not run:** `edgetam` and `mcbyte`. The plan runs `edgetam` only after `sam2_realtime` has a row and `mcbyte` only if
   the others leave a gap; SAM 2.1 itself trails, so neither is expected to close it.
+
+## 2026-11-22: court-space ByteTrack dropped from M6
+
+Tomasz, in the M6 session, on the implementer's proposal.
+
+- **Dropped:** `bytetrack_court`, ByteTrack with its motion model in court metres after the homography, the plan's
+  original layer 4 default (section 5). It is not built.
+- **Why:** BoT-SORT with camera-motion compensation already handles the moving broadcast camera in pixels and scores
+  0.05 HOTA above pixel ByteTrack on gold dev (0.740 against 0.686); the M6 stack builds on it (decision of
+  2026-11-22, M6 tracking stack).
+- **Later:** court-space tracking can return with the court positions of M8 if the floor-speed gate or the positions
+  layer needs it.
