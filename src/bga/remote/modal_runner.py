@@ -41,6 +41,10 @@ RUNNER_EXTRAS = ["prefill", "demo", "court", "track", "remote"]
 #: ``inference_models`` and Hugging Face lock their caches with file locks, which a Modal Volume does not support
 #: (the lock timed out on 2026-11-20), so each container downloads its models once on start.
 VOLUME_ENV = {"HF_HOME": "/root/cache/hf", "MODEL_CACHE_DIR": "/root/cache/roboflow", "BGA_WEIGHTS": "/data/weights"}
+#: facebookresearch/sam2 commit in the runner image (the one the gold prefill used, ``bga.remote.sam2_prefill``).
+SAM2_SHA = "2b90b9f5ceec907a1c18123530e92e794ad901a4"
+#: SAM 2.1 weights baked into the runner image (Apache 2.0) and their checkpoint file.
+SAM2_MODEL_ID, SAM2_CKPT = "facebook/sam2.1-hiera-large", "sam2.1_hiera_large.pt"
 #: Container image built from the repository's ``uv.lock``, so every layer runs the Mac's exact versions; the local
 #: ``bga`` package and the court geometry file (read by ``court/rfdetr_keypoint`` from the repository root) go in last.
 image = (
@@ -50,6 +54,15 @@ image = (
     .apt_install("git")  # uv fetches the ``sports`` git dependency
     .uv_sync(extras=RUNNER_EXTRAS, frozen=True)
     .env(VOLUME_ENV)
+    # SAM 2.1 for track/sam2, at the commit the gold prefill used, built without its CUDA extension; weights baked in
+    .uv_pip_install(
+        f"sam-2 @ https://github.com/facebookresearch/sam2/archive/{SAM2_SHA}.tar.gz",
+        extra_options="--no-build-isolation",
+        env={"SAM2_BUILD_CUDA": "0"},
+    )
+    .run_commands(
+        f"python -c \"from huggingface_hub import hf_hub_download; hf_hub_download('{SAM2_MODEL_ID}', '{SAM2_CKPT}')\""
+    )
     .add_local_file("tools/labeler/static/fiba_court.json", "/tools/labeler/static/fiba_court.json")
     .add_local_python_source("bga")
 )
