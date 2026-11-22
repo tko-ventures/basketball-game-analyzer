@@ -147,7 +147,7 @@ The five `eval` commands refuse a config whose layer weights are neither a `pret
 - **Court:** dev rows for `baseline`, `court-plk-v1` and its two smoothing windows, and held-out rows for `baseline` and `court-plk-v1-smooth4`.
 - **Appearance:** on gold v0, a dev row for `appearance-reid-sportsmot`.
 - **Detection:** on gold v1, 14 dev rows (`baseline` at its confidence of 0.4 and at 0.05, Roboflow's NBA detector versions 13 and 16, and the ten `configs/detect-*.yaml`) and 2 held-out rows (`baseline` at 0.05 and `detect-plk-r2`).
-- **Number readers:** on the gold number crops (v1), a dev row for `numbers-smolvlm-nba`.
+- **Number readers:** on the gold number crops (v1), dev rows for `numbers-smolvlm-nba`, `numbers-crop_cls-resnet18-r1` and `numbers-crop_cls-dinov2s-r1`.
 
 ### Remote execution (`bga.remote`)
 
