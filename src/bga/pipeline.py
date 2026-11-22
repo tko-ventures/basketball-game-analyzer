@@ -4,12 +4,19 @@ Each layer runs over every sequence before the next layer starts, so one heavy m
 time. Outputs go to ``runs/<clip>/<layer>/<backend>@<hash8>/<sequence>.json`` with a ``meta.json``;
 arrays a backend returns under ``arrays`` go next to it as ``<sequence>.<name>.npy``. An existing output
 is reused unless ``force`` names that layer, so changing one layer's config reruns only that layer and
-the layers downstream of it.
+the layers downstream of it. Every file is written whole (``bga.paths.write_atomic``), the JSON last, so a
+run stopped part way never leaves an output that looks finished.
+
+``meta.json`` describes the directory: the layer entry and hashes, the config, commit and wall time of the last
+run that wrote there, and under ``sequences`` one record per sequence written since 2026-11-22 (commit, config,
+time written, wall time, and platform, GPU, seconds and USD for remote calls). A run over some of the sequences
+adds or replaces only their records.
 
 """
 
 from __future__ import annotations
 
+import datetime as dt
 import json
 import logging
 import subprocess
@@ -20,6 +27,7 @@ import numpy as np
 
 from bga import registry
 from bga.config import LAYERS, RunConfig
+from bga.paths import write_atomic
 from bga.stage import Backend, FrameReader, Sequence
 
 log = logging.getLogger("bga")
@@ -148,6 +156,7 @@ def write_output(path: Path, out: dict) -> None:
 
     Each array in ``out["arrays"]`` goes to ``<sequence>.<name>.npy`` in its own dtype, and the JSON keeps a record
     ``{"file", "shape", "dtype"}`` in its place, so :func:`load_output` with ``arrays=True`` gives it back.
+    Each file is written whole and the JSON last, so an output that exists is complete.
 
     Args:
         path: The output's JSON path (``output_path``); its directory is created.
@@ -174,10 +183,10 @@ def write_output(path: Path, out: dict) -> None:
     records = {}
     for name, arr in arrays.items():
         file = f"{path.stem}.{name}.npy"
-        np.save(path.parent / file, arr)
+        write_atomic(path.parent / file, lambda fh, arr=arr: np.save(fh, arr))
         records[name] = {"file": file, "shape": list(arr.shape), "dtype": str(arr.dtype)}
     stored = {**out, "arrays": records} if arrays else out
-    path.write_text(json.dumps(stored, separators=(",", ":")))
+    write_atomic(path, json.dumps(stored, separators=(",", ":")))  # last: the JSON marks the output as finished
 
 
 def run(
@@ -276,9 +285,86 @@ def _run_remote(cfg: RunConfig, runs: Path, layer: str, todo: list[Sequence], gp
             _write_meta(cfg, runs, layer, done, t0)
 
 
+def sequence_record(out: dict, commit: str, config: str, written: str) -> dict:
+    """One sequence's record in ``meta.json``: which code and config made its output, when, where and how long.
+
+    Args:
+        out: The sequence's stored output (its ``wall_s`` and, for a remote call, its ``remote`` cost record).
+        commit: Commit that made it.
+        config: Config name of the run.
+        written: ISO time the output was written.
+
+    Returns:
+        ``{"commit", "config", "written", "wall_s", "platform"}``, with ``gpu``, ``seconds`` and ``usd`` for a remote
+        call; ``platform`` is ``local`` otherwise.
+
+    Examples:
+        >>> sequence_record({"wall_s": 1.5}, "abc1234", "demo", "2026-11-22T20:00:00")["platform"]
+        'local'
+        >>> remote = {"platform": "modal", "gpu": "L4", "seconds": 9.0, "usd": 0.002}
+        >>> rec = sequence_record({"remote": remote}, "abc1234", "demo", "2026-11-22T20:00:00")
+        >>> rec["platform"], rec["gpu"], rec["usd"], rec["wall_s"]
+        ('modal', 'L4', 0.002, None)
+
+    """
+    rec = {"commit": commit, "config": config, "written": written, "wall_s": out.get("wall_s"), "platform": "local"}
+    remote = out.get("remote")
+    if remote:
+        rec.update({k: remote.get(k) for k in ("platform", "gpu", "seconds", "usd")})
+    return rec
+
+
+def remote_summary(records: dict[str, dict]) -> dict | None:
+    """Total remote time and cost over a directory's sequence records, for the top of ``meta.json``.
+
+    Args:
+        records: Sequence name to its :func:`sequence_record`.
+
+    Returns:
+        ``{"platform", "gpu", "seconds", "usd"}`` over the sequences made remotely (``gpu`` joins the GPU types used,
+        ``cpu`` for none), or ``None`` when every sequence was made locally.
+
+    Examples:
+        >>> local = {"platform": "local"}
+        >>> l4 = {"platform": "modal", "gpu": "L4", "seconds": 9.0, "usd": 0.002}
+        >>> remote_summary({"s1": local, "s2": l4, "s3": l4})
+        {'platform': 'modal', 'gpu': 'L4', 'seconds': 18.0, 'usd': 0.004}
+        >>> remote_summary({"s1": local}) is None
+        True
+
+    """
+    remote = [r for r in records.values() if r.get("platform") != "local"]
+    if not remote:
+        return None
+    return {
+        "platform": remote[0]["platform"],
+        "gpu": ", ".join(sorted({r.get("gpu") or "cpu" for r in remote})),
+        "seconds": round(sum(r.get("seconds") or 0.0 for r in remote), 1),
+        "usd": round(sum(r.get("usd") or 0.0 for r in remote), 4),
+    }
+
+
+def _read_meta(path: Path) -> dict:
+    """An existing ``meta.json``, or ``{}`` when it is absent or unreadable."""
+    try:
+        return json.loads(path.read_text())
+    except (OSError, ValueError):
+        return {}
+
+
 def _write_meta(cfg: RunConfig, runs: Path, layer: str, todo: list[Sequence], t0: float) -> None:
+    """Record a run in each clip's ``meta.json``: the run's own fields, and the records of the sequences it wrote.
+
+    Records of sequences this run did not write are kept.
+
+    """
+    commit, written = git_commit(), dt.datetime.now().isoformat(timespec="seconds")
     for clip in {s.clip for s in todo}:
-        remote = [r for s in todo if s.clip == clip and (r := load_output(cfg, runs, s, layer).get("remote"))]
+        path = cfg.run_dir(runs, clip, layer) / "meta.json"
+        records = dict(_read_meta(path).get("sequences") or {})
+        for s in todo:
+            if s.clip == clip:
+                records[s.name] = sequence_record(load_output(cfg, runs, s, layer), commit, cfg.name, written)
         meta = {
             "layer": layer,
             "backend": cfg.layers[layer].backend,
@@ -286,14 +372,11 @@ def _write_meta(cfg: RunConfig, runs: Path, layer: str, todo: list[Sequence], t0
             "entry": cfg.layers[layer].model_dump(),
             "upstream": {u: cfg.layer_hash(u) for u in LAYERS[layer] if u in cfg.layers},
             "config": cfg.name,
-            "commit": git_commit(),
+            "commit": commit,
             "wall_s": round(time.perf_counter() - t0, 1),
+            "sequences": dict(sorted(records.items())),
         }
-        if remote:
-            meta["remote"] = {
-                "platform": remote[0]["platform"],
-                "gpu": remote[0]["gpu"],
-                "seconds": round(sum(r["seconds"] for r in remote), 1),
-                "usd": round(sum(r["usd"] for r in remote), 4),
-            }
-        (cfg.run_dir(runs, clip, layer) / "meta.json").write_text(json.dumps(meta, indent=1))
+        summary = remote_summary(records)
+        if summary:
+            meta["remote"] = summary
+        write_atomic(path, json.dumps(meta, indent=1))

@@ -12,7 +12,9 @@ Steps for ``configs/train/<name>.yaml``:
    platform, GPU, wall time, cost, the trainer's validation numbers). A row goes to docs/train.md and the
    cost to docs/costs.md.
 
-``--collect`` repeats step 3 alone, for a run whose local process ended early.
+``--collect`` repeats step 3 alone, for a run whose local process ended early. Collecting replaces the weights
+under their id, so it also removes what was made with the earlier files: cached layer outputs in ``runs/``
+(``invalidate_runs``) and the copy of the weights on the volume that remote runs use (``drop_remote_weights``).
 
 """
 
@@ -48,6 +50,29 @@ PULLS = {
     ("appearance", "reid"): ("weights.safetensors", "reid_config.json", "metrics.csv", "result.json"),
     ("numbers", "crop_cls"): ("weights.safetensors", "cls_config.json", "metrics.csv", "result.json"),
 }
+#: Trainer logs among the collected files; every other collected file is one a backend loads to run the weights.
+LOGS = ("metrics.csv", "result.json")
+
+
+def weight_files() -> tuple[str, ...]:
+    """Name the files a backend may load from a weight id's directory, whichever setup trained it.
+
+    These are ``train.json`` and every file some setup collects (``PULL``, ``PULLS``) that is not a trainer log, so
+    a setup added there is covered by the remote upload (``bga.remote.modal_runner.upload_weights``) without a
+    second list to keep in step.
+
+    Returns:
+        File names, ``train.json`` first.
+
+    Examples:
+        >>> weight_files()[:2]
+        ('train.json', 'checkpoint_best_total.pth')
+        >>> "weights.safetensors" in weight_files(), "metrics.csv" in weight_files()
+        (True, False)
+
+    """
+    names = dict.fromkeys(("train.json", *PULL, *(f for files in PULLS.values() for f in files)))
+    return tuple(n for n in names if n not in LOGS)
 
 
 def _setup(cfg: TrainConfig) -> tuple[str, str]:
@@ -131,6 +156,33 @@ def _remote_exists(path: str) -> bool:
         return any(e.path == path for e in vol.listdir(str(Path(path).parent)))
     except NotFoundError:  # the directory is missing, so the file is too
         return False
+
+
+def drop_remote_weights(weight_id: str) -> bool:
+    """Remove a weight id's copy from the ``bga-data`` volume, so the next remote run uploads the local files again.
+
+    Remote runs upload a weight id once and then reuse the volume's copy. Collecting again (a partial collect, then
+    the finished run) changes the local files under the same id, and the copy on the volume would stay the old
+    checkpoint.
+
+    Args:
+        weight_id: The weight id being (re)written locally.
+
+    Returns:
+        True when the volume held a copy, now removed.
+
+    Examples:
+        >>> drop_remote_weights("detect/rfdetr_torch/plk-r3-poss@c62744fe")  # doctest: +SKIP
+        True
+
+    """
+    from bga.remote.modal_train import vol
+
+    path = f"weights/{weight_id}"
+    if not _remote_exists(path):
+        return False
+    vol.remove_file(path, recursive=True)
+    return True
 
 
 def launch(cfg: TrainConfig, resume: bool = True) -> dict:
@@ -364,6 +416,8 @@ def collect(cfg: TrainConfig, partial: bool = False) -> Path:
         "collected": dt.datetime.now().isoformat(timespec="seconds"),
     }
     (wdir / "train.json").write_text(json.dumps(train_json, indent=1))
+    if drop_remote_weights(cfg.weight_id()):
+        log.info("removed the volume's copy of %s; the next remote run uploads the collected files", cfg.weight_id())
     _log_rows(cfg, train_json, cost=not partial)
     return wdir
 

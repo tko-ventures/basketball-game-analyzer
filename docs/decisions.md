@@ -555,3 +555,35 @@ Tomasz, in the M7 session, choosing the implementer's recommended option.
   config. The plan's `resnet_cls` is `crop_cls` with the ResNet-18 weights.
 - **Classes.** 101: `unreadable` and the numbers 0 to 99. The classifier scores every class, so `roster_choice`
   restricts it to a roster plus `unreadable` (the `roster_logprob` idea at crop level).
+
+## 2026-11-22: pipeline review (#26), hardening in two parts
+
+Tomasz, after an outside review of the pipeline (issue #26, by a Gemini agent) and the implementer's check of every
+finding against the code.
+
+- **Taken, part 1, before the next M7 step** (`fix/hardening`, issue #27). These are the items M7's crop harvest
+  over non-gold shots runs into:
+  - `FrameReader` drops frames for short steps ahead instead of seeking: 122 ms a frame to 3.7 ms on the 12 gold
+    shots at stride 5 on the Mac, and about 110 ms to 4.5 ms in the Modal runner image; all 1,216 frames are
+    identical in both places.
+  - `team/siglip_kmeans` loads SigLIP once and refuses a clip whose meta does not mark one side's kit `light` (the
+    four non-gold games of M7 were named the wrong way round). Team outputs of `team-plk-r3-poss-fit5-seed0` on
+    the 9 dev shots are identical before and after, so no metrics row.
+  - Layer outputs are written whole, and `meta.json` keeps a record per sequence across runs.
+  - The files a remote run uploads for a weight id come from the collect lists, and a collect removes the weight
+    id's copy from the Modal volume. The three weight ids on the volume matched their local files.
+- **Taken, part 2, after M7:** dirty-tree guard for `--write` and `bga train`, a spend check before remote runs, a
+  snapshot test over backend defaults with an optional backend revision in the layer hash, a per-layer check of
+  `Recipe`, one `clip_id()` helper, `--set` on every `eval-*` with a per-game breakdown and a bootstrap interval,
+  one `docs/costs.md` row per batch, and CI (#34).
+- **Into M7 (#8):** a factorised number head (unreadable, tens digit, ones digit) and validation on unseen numbers
+  (#30). Round 1 learned players more than digits.
+- **Declined:**
+  - Resolved defaults, code version or platform in the layer hash, and any change to `TrainConfig.config_hash`:
+    either would rename every cached output or all 17 trained weights.
+  - Seeding changes: torch 2.15.0 already seeds CUDA, loader workers and the sampler from `torch.manual_seed`.
+  - Resume and early stopping for the re-ID and number trainers (runs of 3 to 52 minutes), detached remote
+    inference, a metrics ledger, config inheritance, perceptual-hash leakage checks.
+  - Homography gates and off-court filters as fixes: they are heuristics for M8, each with a row.
+- **Open (Tomasz):** a milestone for layer 0 (cut detector plus central-camera classifier, #32) and a sealed test
+  game, both when the first full game arrives.
