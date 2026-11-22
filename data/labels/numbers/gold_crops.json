@@ -51,7 +51,12 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:16:18",
+    "label": "9"
+   }
   },
   {
    "id": "n003",
@@ -101,7 +106,11 @@
     }
    ],
    "label": "illegible",
-   "note": "read 11, track"
+   "note": "read 11, track",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:16:23"
+   }
   },
   {
    "id": "n005",
@@ -156,7 +165,11 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:16:27"
+   }
   },
   {
    "id": "n007",
@@ -311,7 +324,11 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:16:33"
+   }
   },
   {
    "id": "n013",
@@ -490,7 +507,12 @@
     }
    ],
    "label": "illegible",
-   "note": "read 11, track"
+   "note": "read 11, track",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:16:39",
+    "label": "31"
+   }
   },
   {
    "id": "n020",
@@ -574,7 +596,12 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:16:43",
+    "label": "19"
+   }
   },
   {
    "id": "n023",
@@ -774,7 +801,11 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:16:48"
+   }
   },
   {
    "id": "n031",
@@ -893,7 +924,12 @@
    ],
    "hints": [],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:16:50",
+    "label": "not_number"
+   }
   },
   {
    "id": "n036",
@@ -937,7 +973,12 @@
    ],
    "hints": [],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:16:58",
+    "label": "3"
+   }
   },
   {
    "id": "n038",
@@ -1016,7 +1057,12 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:17:03",
+    "label": "9"
+   }
   },
   {
    "id": "n041",
@@ -1096,7 +1142,12 @@
     }
    ],
    "label": "illegible",
-   "note": "read 11, track"
+   "note": "read 11, track",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:17:05",
+    "label": "31"
+   }
   },
   {
    "id": "n044",
@@ -1171,7 +1222,11 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:17:08"
+   }
   },
   {
    "id": "n047",
@@ -1480,7 +1535,11 @@
     }
    ],
    "label": "illegible",
-   "note": "read 21, track"
+   "note": "read 21, track",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:17:11"
+   }
   },
   {
    "id": "n059",
@@ -1869,7 +1928,11 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:17:12"
+   }
   },
   {
    "id": "n074",
@@ -2378,7 +2441,11 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:17:14"
+   }
   },
   {
    "id": "n094",
@@ -2428,7 +2495,11 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:17:16"
+   }
   },
   {
    "id": "n096",
@@ -2528,7 +2599,12 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:17:28",
+    "label": "42"
+   }
   },
   {
    "id": "n100",
@@ -2653,7 +2729,11 @@
     }
    ],
    "label": "illegible",
-   "note": "read 0, track"
+   "note": "read 0, track",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:25:56"
+   }
   },
   {
    "id": "n105",
@@ -2697,7 +2777,11 @@
    ],
    "hints": [],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:17:36"
+   }
   },
   {
    "id": "n107",
@@ -2901,7 +2985,12 @@
     }
    ],
    "label": "illegible",
-   "note": "read 10, track"
+   "note": "read 10, track",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:17:40",
+    "label": "40"
+   }
   },
   {
    "id": "n115",
@@ -3001,7 +3090,12 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:17:43",
+    "label": "2"
+   }
   },
   {
    "id": "n119",
@@ -3424,7 +3518,12 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:17:45",
+    "label": "45"
+   }
   },
   {
    "id": "n135",
@@ -3468,7 +3567,12 @@
    ],
    "hints": [],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:17:48",
+    "label": "2"
+   }
   },
   {
    "id": "n137",
@@ -3493,7 +3597,11 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:17:53"
+   }
   },
   {
    "id": "n138",
@@ -3543,7 +3651,11 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:17:54"
+   }
   },
   {
    "id": "n140",
@@ -3568,7 +3680,12 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:17:57",
+    "label": "45"
+   }
   },
   {
    "id": "n141",
@@ -3778,7 +3895,12 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:18:01",
+    "label": "33"
+   }
   },
   {
    "id": "n149",
@@ -3803,7 +3925,11 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:02"
+   }
   },
   {
    "id": "n150",
@@ -4266,7 +4392,12 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:18:04",
+    "label": "33"
+   }
   },
   {
    "id": "n168",
@@ -4395,7 +4526,11 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:06"
+   }
   },
   {
    "id": "n173",
@@ -4495,7 +4630,11 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:09"
+   }
   },
   {
    "id": "n177",
@@ -4574,7 +4713,11 @@
     }
    ],
    "label": "illegible",
-   "note": "only the 6 of 16 is visible (CHAVEZ above it)"
+   "note": "only the 6 of 16 is visible (CHAVEZ above it)",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:25:56"
+   }
   },
   {
    "id": "n180",
@@ -5093,7 +5236,12 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:18:14",
+    "label": "45"
+   }
   },
   {
    "id": "n200",
@@ -5198,7 +5346,12 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:18:17",
+    "label": "11"
+   }
   },
   {
    "id": "n204",
@@ -5452,7 +5605,11 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:18"
+   }
   },
   {
    "id": "n214",
@@ -5641,7 +5798,12 @@
     }
    ],
    "label": "illegible",
-   "note": "read 0; no 0 on the Dziki 2026/27 roster, likely a blurred 8"
+   "note": "read 0; no 0 on the Dziki 2026/27 roster, likely a blurred 8",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:18:23",
+    "label": "not_number"
+   }
   },
   {
    "id": "n221",
@@ -5741,7 +5903,12 @@
     }
    ],
    "label": "illegible",
-   "note": "read 4; same track reads 0 twice"
+   "note": "read 4; same track reads 0 twice",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:18:24",
+    "label": "not_number"
+   }
   },
   {
    "id": "n225",
@@ -5766,7 +5933,11 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:26"
+   }
   },
   {
    "id": "n226",
@@ -5841,7 +6012,11 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:29"
+   }
   },
   {
    "id": "n229",
@@ -6041,7 +6216,12 @@
     }
    ],
    "label": "illegible",
-   "note": "read 0; as n220"
+   "note": "read 0; as n220",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:18:30",
+    "label": "not_number"
+   }
   },
   {
    "id": "n237",
@@ -6369,7 +6549,11 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:32"
+   }
   },
   {
    "id": "n249",
@@ -6423,7 +6607,12 @@
     }
    ],
    "label": "illegible",
-   "note": "read 1, track"
+   "note": "read 1, track",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:18:35",
+    "label": "1"
+   }
   },
   {
    "id": "n251",
@@ -6573,7 +6762,12 @@
     }
    ],
    "label": "illegible",
-   "note": "read 0, track"
+   "note": "read 0, track",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:18:38",
+    "label": "not_number"
+   }
   },
   {
    "id": "n257",
@@ -7045,7 +7239,11 @@
     }
    ],
    "label": "illegible",
-   "note": "a blurred framed patch or number, cannot tell"
+   "note": "a blurred framed patch or number, cannot tell",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:40"
+   }
   },
   {
    "id": "n275",
@@ -7345,7 +7543,11 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:44"
+   }
   },
   {
    "id": "n287",
@@ -7400,7 +7602,11 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.374
+   "score": 0.374,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:48"
+   }
   },
   {
    "id": "d002",
@@ -7452,7 +7658,11 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.364
+   "score": 0.364,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:51"
+   }
   },
   {
    "id": "d004",
@@ -7478,7 +7688,11 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.655
+   "score": 0.655,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:55"
+   }
   },
   {
    "id": "d005",
@@ -7504,7 +7718,11 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.513
+   "score": 0.513,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:56"
+   }
   },
   {
    "id": "d006",
@@ -7582,7 +7800,11 @@
    ],
    "label": "illegible",
    "note": "a 2, no 2 on the Start 2024/25 roster, part of a number",
-   "score": 0.319
+   "score": 0.319,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:57"
+   }
   },
   {
    "id": "d009",
@@ -7748,7 +7970,11 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.37
+   "score": 0.37,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:58"
+   }
   },
   {
    "id": "d015",
@@ -7831,7 +8057,11 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.366
+   "score": 0.366,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:59"
+   }
   },
   {
    "id": "d018",
@@ -7883,7 +8113,11 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.399
+   "score": 0.399,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:02"
+   }
   },
   {
    "id": "d020",
@@ -7914,7 +8148,11 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.311
+   "score": 0.311,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:07"
+   }
   },
   {
    "id": "d021",
@@ -8022,7 +8260,12 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.409
+   "score": 0.409,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:10",
+    "label": "6"
+   }
   },
   {
    "id": "d025",
@@ -8048,7 +8291,11 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.749
+   "score": 0.749,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:13"
+   }
   },
   {
    "id": "d026",
@@ -8074,7 +8321,12 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.374
+   "score": 0.374,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:15",
+    "label": "not_number"
+   }
   },
   {
    "id": "d027",
@@ -8126,7 +8378,12 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.484
+   "score": 0.484,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:16",
+    "label": "not_number"
+   }
   },
   {
    "id": "d029",
@@ -8219,7 +8476,12 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.427
+   "score": 0.427,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:18",
+    "label": "1"
+   }
   },
   {
    "id": "d032",
@@ -8245,7 +8507,12 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.43
+   "score": 0.43,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:20",
+    "label": "1"
+   }
   },
   {
    "id": "d033",
@@ -8271,7 +8538,12 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.546
+   "score": 0.546,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:21",
+    "label": "not_number"
+   }
   },
   {
    "id": "d034",
@@ -8297,7 +8569,11 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.32
+   "score": 0.32,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:22"
+   }
   },
   {
    "id": "d035",
@@ -8323,7 +8599,11 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.539
+   "score": 0.539,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:28"
+   }
   },
   {
    "id": "d036",
@@ -8349,7 +8629,12 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.49
+   "score": 0.49,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:29",
+    "label": "not_number"
+   }
   },
   {
    "id": "d037",
@@ -8427,7 +8712,12 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.418
+   "score": 0.418,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:30",
+    "label": "not_number"
+   }
   },
   {
    "id": "d040",
@@ -8453,7 +8743,12 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.352
+   "score": 0.352,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:31",
+    "label": "not_number"
+   }
   },
   {
    "id": "d041",
@@ -8531,7 +8826,11 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.304
+   "score": 0.304,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:32"
+   }
   },
   {
    "id": "d044",
@@ -8557,7 +8856,11 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.4
+   "score": 0.4,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:34"
+   }
   },
   {
    "id": "d045",
@@ -8588,7 +8891,12 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.398
+   "score": 0.398,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:36",
+    "label": "1"
+   }
   },
   {
    "id": "d046",
@@ -8723,7 +9031,11 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.387
+   "score": 0.387,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:39"
+   }
   },
   {
    "id": "d051",
@@ -8863,7 +9175,11 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.411
+   "score": 0.411,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:41"
+   }
   },
   {
    "id": "d056",
@@ -9229,7 +9545,11 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.609
+   "score": 0.609,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:43"
+   }
   },
   {
    "id": "d070",
@@ -9281,7 +9601,11 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.775
+   "score": 0.775,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:44"
+   }
   },
   {
    "id": "d072",
@@ -9333,7 +9657,12 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.321
+   "score": 0.321,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:45",
+    "label": "not_number"
+   }
   },
   {
    "id": "d074",
@@ -9359,7 +9688,11 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.552
+   "score": 0.552,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:46"
+   }
   },
   {
    "id": "d075",
@@ -9493,7 +9826,12 @@
    ],
    "label": "illegible",
    "note": "25 in context, 26 in the tight crop",
-   "score": 0.852
+   "score": 0.852,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:49",
+    "label": "25"
+   }
   },
   {
    "id": "d080",
@@ -9519,7 +9857,12 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.358
+   "score": 0.358,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:51",
+    "label": "not_number"
+   }
   },
   {
    "id": "d081",
@@ -9649,7 +9992,11 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.482
+   "score": 0.482,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:52"
+   }
   },
   {
    "id": "d086",
@@ -9675,7 +10022,12 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.386
+   "score": 0.386,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:54",
+    "label": "8"
+   }
   },
   {
    "id": "d087",
@@ -9757,7 +10109,11 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.357
+   "score": 0.357,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:55"
+   }
   }
  ],
  "negatives": "detector number boxes scoring at least 0.3 with IoU below 0.3 to every gold box",
@@ -9799,7 +10155,7 @@
  },
  "meta": {
   "review_seconds": {
-   "2026-11-22": 251.0
+   "2026-11-22": 473.0
   }
  }
 }

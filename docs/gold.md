@@ -7,7 +7,7 @@ Plan section 8, as amended by the 2026-11-02 decision (`docs/decisions.md`).
 | Version | Who reviewed | What it supports | Status |
 |---|---|---|---|
 | v0 | Implementer, full pass on all 12 shots; Tomasz's dry-run labels on Legia shot 10 kept as they are | Comparing backends; HOTA, IDF1, MOTA, team and number accuracy, AP50 | Committed 2026-11-02 |
-| v1 | Tomasz reviews at least the held-out game; boxes tightened by hand | Absolute numbers for the client; AP50:95; number readers | Box gold done 2026-11-18: `data/gold/v1/boxes.json`, 100 frames reviewed by Tomasz (151 min). Number crops labelled 2026-11-22: `data/gold/v1/numbers.json`, implementer's read, Tomasz's spot check of 30 pending. Track gold v1 not started |
+| v1 | Tomasz reviews at least the held-out game; boxes tightened by hand | Absolute numbers for the client; AP50:95; number readers | Box gold done 2026-11-18: `data/gold/v1/boxes.json`, 100 frames reviewed by Tomasz (151 min). Number crops labelled 2026-11-22: `data/gold/v1/numbers.json`, implementer's read, checked by Tomasz (110 crops, 8 min). Track gold v1 not started |
 
 v0 was prefilled by the public models the baseline uses (Skalski's player detector, SAM 2.1), so v0 absolute scores are biased upwards. Every row in `docs/metrics.md` names its gold version.
 
@@ -184,24 +184,24 @@ Tomasz reviews in the labeller at `/boxes`. Each frame shows flagged boxes first
 
 ## Number crops (v1, 2026-11-22)
 
-`data/gold/v1/numbers.json` scores number readers crop by crop, independent of detector and tracker. Written by `scripts/number_gold.py export` from `data/labels/numbers/gold_crops.json`.
+`data/gold/v1/numbers.json` scores number readers crop by crop, independent of detector and tracker. Written by `scripts/number_gold.py export` from `data/labels/numbers/gold_crops.json`. The implementer read every crop; Tomasz then checked a sample of 30 and every crop the implementer had left `illegible` (110 crops, 7 min 53 s), and his answer is the label wherever he gave one.
 
 ### Crops
 
 | Source | Crops | Digits | Illegible | Not a number |
 |---|---|---|---|---|
-| Tomasz's `number` boxes in box gold v1 (`n001`–`n287`) | 287 | 235 | 50 | 2 |
-| The PLK detector's `number` boxes on the same frames that overlap no gold box (`d001`–`d089`) | 89 | 19 | 39 | 31 |
-| Total (292 dev, 84 held-out) | 376 | 254 | 89 | 33 |
+| Tomasz's `number` boxes in box gold v1 (`n001`–`n287`) | 287 | 255 | 25 | 7 |
+| The PLK detector's `number` boxes on the same frames that overlap no gold box (`d001`–`d089`) | 89 | 27 | 23 | 39 |
+| Total (292 dev, 84 held-out) | 376 | 282 | 48 | 46 |
 
 - **Gold boxes:** the box geometry comes from Tomasz's hand-drawn boxes, so it does not depend on any model.
 - **Detector boxes:** `plk-r3-poss` boxes at a score of 0.3 or more, the threshold the numbers layer reads from. Most are sponsor logos, chest badges and the back patch of the Trefl kit, or parts of numbers. These are the crops a reader has to refuse.
-- **Confusions present:** of the 254 legible crops, 29 contain a 6 or a 9 and 96 a 1 or a 7 (a 7 in 10 of them). Back sponsor patches and chest logos are among the `not_number` crops.
+- **Confusions present:** of the 282 legible crops, 33 contain a 6 or a 9 and 104 a 1 or a 7 (a 7 in 10 of them). Back sponsor patches and chest logos are among the `not_number` crops.
 
 ### Labels
 
-- **Digits** (`"7"`, `"23"`): every digit of the number is legible on the crop.
-- **`illegible`:** a jersey number whose digits cannot all be read: blurred, folded, turned away, or partly hidden (only the 6 of a 16 showing).
+- **Digits** (`"7"`, `"23"`): the number can be named from the crop's pixels alone, without knowing who the player is.
+- **`illegible`:** a jersey number that cannot be named from the pixels: blurred, folded, turned away, torn between two numbers (3 or 8), or partly hidden (only the 6 of a 16 showing).
 - **`not_number`:** the box holds no jersey number: a logo, a badge, a patch, or a crease in the shirt. When it is unclear whether the box holds a logo or an unreadable number, the label is `illegible`.
 - **`team`:** the side of the gold track that holds the box, taken from the smallest person box containing at least 90% of it. When the box sits on two overlapping players and only the other side's roster has the read number, that side is used instead (8 crops).
 
@@ -219,6 +219,11 @@ Tomasz reviews in the labeller at `/boxes`. Each frame shows flagged boxes first
    - **Reading:** the implementer's `illegible` is too strict, so the 80 `illegible` crops not yet reviewed go to Tomasz too (`/numbers?set=illegible`).
    - **Caveat:** during the spot check the page showed each holder's gold track number beside the crop. 5 of the 6 numbers Tomasz read match it (d030 shows #32 among holders #3, #32 and #1; n198's holder has none), so these reads may be anchored. The number was removed from the page, and these 6 answers were cleared so that they come up again, blind, in the `illegible` pass.
    - **Blind re-check (2026-11-22, Tomasz):** of the 6, n051 #4, n145 #45, n198 #0 and d030 #32 stand. n076 and d087 are now illegible, so those two earlier reads were the number on screen. He also read d012 as #4, which he had confirmed as illegible before. On the 9 `illegible` crops of the sample, blind, he reads 5.
+5. **Illegible pass (2026-11-22, Tomasz, 222 s).** Every crop the implementer labelled `illegible` (89, the sample's 9 included), shown blind at `/numbers?set=illegible`:
+   - 30 are numbers he can read, 13 are not numbers (chest logos and creases), and 46 stay illegible.
+   - Two of his reads were checked against the rosters and changed to `illegible` with his agreement: n179 shows only the 6 of Chávez's 16, and n104 reads 6 on a Dziki kit whose roster has no 6.
+   - 5 of his own box gold v1 `number` boxes are among the `not_number` crops (n035, n220, n224, n236, n256: chest logos on the light kits). That is a box gold v1 matter for the `number` class AP, left as it is.
+6. **Agreement.** The implementer's digit reads were never contradicted (20 of 20 in the sample). The implementer's `illegible` was right on 48 of 89 crops (final labels: 28 numbers, 13 not numbers, 48 illegible).
 
 ### Gold v0 gaps found on the way
 
