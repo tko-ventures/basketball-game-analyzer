@@ -1,0 +1,31 @@
+name: track-trackers-botsort-noreid
+description: >
+  track-trackers-botsort-reid without re-ID: the same tuned BoT-SORT with camera motion estimated inside the tracker,
+  so the pair differs by the appearance term alone. Run on Modal beside it.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: roboflow_keypoints
+    params: {model_id: basketball-court-detection-2/14}
+    weights: pretrained:roboflow/basketball-court-detection-2/14
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r3-poss@c62744fe
+  team:
+    backend: siglip_kmeans
+    params: {seed: 0, fit_fps: 5.0}
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  track:
+    backend: trackers
+    params:
+      tracker: botsort
+      cmc: internal
+      args:
+        track_activation_threshold: 0.8
+        minimum_iou_threshold_first_assoc: 0.1
+        minimum_iou_threshold_second_assoc: 0.2
+        minimum_iou_threshold_unconfirmed_assoc: 0.3
+        high_conf_det_threshold: 0.3

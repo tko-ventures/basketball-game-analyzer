@@ -1,0 +1,24 @@
+name: track-bytetrack-tuned
+description: >
+  track-bytetrack with ByteTrack tuned on gold dev by scripts/sweep_track.py (996 settings over min_score,
+  track_activation_threshold, lost_track_buffer_s, minimum_matching_threshold and minimum_consecutive_frames). The
+  plateau holds HOTA 0.665 to 0.669 for matching 0.95 to 0.99; this is its centre, not its single best point.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: roboflow_keypoints
+    params: {model_id: basketball-court-detection-2/14}
+    weights: pretrained:roboflow/basketball-court-detection-2/14
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r3-poss@c62744fe
+  team:
+    backend: siglip_kmeans
+    params: {seed: 0, fit_fps: 5.0}
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  track:
+    backend: bytetrack
+    params: {min_score: 0.2, track_activation_threshold: 0.6, lost_track_buffer_s: 3, minimum_matching_threshold: 0.95}

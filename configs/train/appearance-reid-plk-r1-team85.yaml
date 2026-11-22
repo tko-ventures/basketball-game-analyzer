@@ -1,0 +1,36 @@
+name: plk-r1-team85
+layer: appearance
+backend: reid
+description: >
+  First PLK appearance encoder: osnet_x1_0_sportsmot fine-tuned on the identity crops of crops-reid-r1 (one identity
+  per linked track of a shot, four non-gold 2025/26 games, data/labels/appearance/crops_r1.json), without the 18
+  identities dropped by eye in a 96-identity sample (13 tracker swaps, 5 referees, coaches or bench close-ups). The
+  King game validates; the other three train. Strong-baseline recipe (bga.train.reid_trainer). Against plk-r1, also
+  leaves out identities with under 85% of their boxes on one team (in the sample: 19% of identities mixed, 9% after
+  this filter, which also costs 23% of the pure ones).
+base_weights:
+  name: osnet_x1_0_sportsmot
+  url: https://storage.googleapis.com/com-roboflow-marketing/trackers/trackers_reid_finetuned_encoders/reid_sportsmot_osnet_x1_0/weights.safetensors
+  licence: Apache-2.0 (assumed by Tomasz's ruling, plan question 15)
+package: reid==0.1.0
+sources:
+  - kind: manifest
+    path: data/labels/appearance/crops_r1.json
+    sha256: 7c58e083f044109fdd20a781ef23f78f29dd077c74d0a165f4c92ebf4ee10ea1
+recipe:
+  resolution: 256
+  epochs: 30
+  batch_size: 64
+  crops_per_id: 4
+  lr: 0.00015
+  seed: 0
+  triplet_margin: 0.3
+  min_team_share: 0.85
+  select_on: val/map
+  eval_interval: 3
+  val_clips:
+    - 20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka
+platform:
+  name: modal
+  gpu: L4
+  timeout_h: 2

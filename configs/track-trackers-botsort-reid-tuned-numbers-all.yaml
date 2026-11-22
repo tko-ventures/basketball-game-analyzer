@@ -1,0 +1,38 @@
+name: track-trackers-botsort-reid-tuned-numbers-all
+description: >
+  track-trackers-botsort-reid-tuned with the numbers layer (smolvlm_ocr, basketball-jersey-numbers-ocr/3, run on
+  Modal): the jersey numbers its tracks read before any linking.
+  The reader keeps reading confirmed tracks (stop_on_confirm false), up to 12 reads a track.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: roboflow_keypoints
+    params: {model_id: basketball-court-detection-2/14}
+    weights: pretrained:roboflow/basketball-court-detection-2/14
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r3-poss@c62744fe
+  team:
+    backend: siglip_kmeans
+    params: {seed: 0, fit_fps: 5.0}
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  track:
+    backend: trackers
+    params:
+      tracker: botsort
+      cmc: internal
+      reid_model: osnet_x1_0_sportsmot
+      reid_config: {fusion: adaptive, appearance_threshold: 0.1, proximity_threshold: 1.0, appearance_weight: 1.25}
+      args:
+        track_activation_threshold: 0.8
+        minimum_iou_threshold_first_assoc: 0.1
+        minimum_iou_threshold_second_assoc: 0.2
+        minimum_iou_threshold_unconfirmed_assoc: 0.3
+        high_conf_det_threshold: 0.3
+  numbers:
+    backend: smolvlm_ocr
+    params: {model_id: basketball-jersey-numbers-ocr/3, stop_on_confirm: false}
+    weights: pretrained:roboflow/basketball-jersey-numbers-ocr/3

@@ -2,8 +2,9 @@
 
 Each layer runs over every sequence before the next layer starts, so one heavy model is resident at a
 time. Outputs go to ``runs/<clip>/<layer>/<backend>@<hash8>/<sequence>.json`` with a ``meta.json``;
-an existing output is reused unless ``force`` names that layer, so changing one layer's config reruns
-only that layer and the layers downstream of it.
+arrays a backend returns under ``arrays`` go next to it as ``<sequence>.<name>.npy``. An existing output
+is reused unless ``force`` names that layer, so changing one layer's config reruns only that layer and
+the layers downstream of it.
 
 """
 
@@ -14,6 +15,8 @@ import logging
 import subprocess
 import time
 from pathlib import Path
+
+import numpy as np
 
 from bga import registry
 from bga.config import LAYERS, RunConfig
@@ -103,7 +106,7 @@ def output_path(cfg: RunConfig, runs: Path, seq: Sequence, layer: str) -> Path:
     return cfg.run_dir(runs, seq.clip, layer) / f"{seq.name}.json"
 
 
-def load_output(cfg: RunConfig, runs: Path, seq: Sequence, layer: str) -> dict:
+def load_output(cfg: RunConfig, runs: Path, seq: Sequence, layer: str, arrays: bool = False) -> dict:
     """Read one layer's stored output for one sequence.
 
     Args:
@@ -111,6 +114,8 @@ def load_output(cfg: RunConfig, runs: Path, seq: Sequence, layer: str) -> dict:
         runs: Root of all run outputs.
         seq: The sequence.
         layer: A configured layer name.
+        arrays: Also load the arrays the output lists under ``arrays`` (see :func:`write_output`), replacing each
+            record with its array; otherwise the records are returned as stored.
 
     Returns:
         The parsed JSON output.
@@ -131,7 +136,48 @@ def load_output(cfg: RunConfig, runs: Path, seq: Sequence, layer: str) -> dict:
         {'frames': [0]}
 
     """
-    return json.loads(output_path(cfg, runs, seq, layer).read_text())
+    path = output_path(cfg, runs, seq, layer)
+    out = json.loads(path.read_text())
+    if arrays and out.get("arrays"):
+        out["arrays"] = {name: np.load(path.parent / rec["file"]) for name, rec in out["arrays"].items()}
+    return out
+
+
+def write_output(path: Path, out: dict) -> None:
+    """Write one layer's output for one sequence, with any arrays it carries saved next to the JSON.
+
+    Each array in ``out["arrays"]`` goes to ``<sequence>.<name>.npy`` in its own dtype, and the JSON keeps a record
+    ``{"file", "shape", "dtype"}`` in its place, so :func:`load_output` with ``arrays=True`` gives it back.
+
+    Args:
+        path: The output's JSON path (``output_path``); its directory is created.
+        out: The backend's output; it is not modified.
+
+    Examples:
+        >>> import tempfile
+        >>> from bga.config import RunConfig
+        >>> cfg = RunConfig(name="demo", layers={"shots": {"backend": "gold"}})
+        >>> seq = Sequence(name="clip_s2", clip="clip", video="clip.mp4", shot=2, frames=[0], fps=50.0)
+        >>> with tempfile.TemporaryDirectory() as tmp:
+        ...     path = output_path(cfg, Path(tmp), seq, "shots")
+        ...     write_output(path, {"arrays": {"e": np.ones((2, 3), np.float16)}})
+        ...     stored = load_output(cfg, Path(tmp), seq, "shots")
+        ...     back = load_output(cfg, Path(tmp), seq, "shots", arrays=True)
+        >>> stored["arrays"]
+        {'e': {'file': 'clip_s2.e.npy', 'shape': [2, 3], 'dtype': 'float16'}}
+        >>> back["arrays"]["e"].dtype, back["arrays"]["e"].shape
+        (dtype('float16'), (2, 3))
+
+    """
+    path.parent.mkdir(parents=True, exist_ok=True)
+    arrays = out.get("arrays") or {}
+    records = {}
+    for name, arr in arrays.items():
+        file = f"{path.stem}.{name}.npy"
+        np.save(path.parent / file, arr)
+        records[name] = {"file": file, "shape": list(arr.shape), "dtype": str(arr.dtype)}
+    stored = {**out, "arrays": records} if arrays else out
+    path.write_text(json.dumps(stored, separators=(",", ":")))
 
 
 def run(
@@ -142,6 +188,7 @@ def run(
     force: list[str] | None = None,
     remote: str | None = None,
     remote_layers: list[str] | None = None,
+    remote_gpu: str | None = None,
 ) -> list[Sequence]:
     """Run every configured layer over the config's sequences, layer by layer, reusing stored outputs.
 
@@ -157,6 +204,7 @@ def run(
         force: Layers to recompute even where outputs exist.
         remote: ``"modal"`` to allow remote execution, else ``None``.
         remote_layers: Layers to run remotely besides the CUDA-only ones.
+        remote_gpu: Modal GPU type for ``remote_layers``, or ``None`` for CPU; CUDA backends bring their own.
 
     Returns:
         The sequences of the run, including those whose outputs were reused.
@@ -182,20 +230,17 @@ def run(
         log.info("%s/%s on %d sequences%s", layer, cfg.layers[layer].backend, len(todo), " (modal)" if here else "")
         t0 = time.perf_counter()
         if here:
-            from bga.remote.modal_runner import run_layer
-
-            ups = [{u: load_output(cfg, runs, s, u) for u in LAYERS[layer] if u in cfg.layers} for s in todo]
-            gpu = getattr(backend, "gpu", None) if backend.requires == "cuda" else None
-            for seq, out in zip(todo, run_layer(layer, cfg.layers[layer].model_dump(), todo, ups, gpu), strict=True):
-                path = output_path(cfg, runs, seq, layer)
-                path.parent.mkdir(parents=True, exist_ok=True)
-                path.write_text(json.dumps(out, separators=(",", ":")))
-            _write_meta(cfg, runs, layer, todo, t0)
+            gpu = getattr(backend, "gpu", None) if backend.requires == "cuda" else remote_gpu
+            _run_remote(cfg, runs, layer, todo, gpu)
             continue
         backend.load()
         try:
             for seq in todo:
-                ups = {u: load_output(cfg, runs, seq, u) for u in LAYERS[layer] if u in cfg.layers and u != "shots"}
+                ups = {
+                    u: load_output(cfg, runs, seq, u, arrays=True)
+                    for u in LAYERS[layer]
+                    if u in cfg.layers and u != "shots"
+                }
                 read = FrameReader(seq.video)
                 try:
                     t = time.perf_counter()
@@ -203,14 +248,32 @@ def run(
                     out.setdefault("wall_s", round(time.perf_counter() - t, 2))
                 finally:
                     read.close()
-                path = output_path(cfg, runs, seq, layer)
-                path.parent.mkdir(parents=True, exist_ok=True)
-                path.write_text(json.dumps(out, separators=(",", ":")))
+                write_output(output_path(cfg, runs, seq, layer), out)
                 log.info("  %s: %.1f s", seq.name, out["wall_s"])
         finally:
             backend.unload()
         _write_meta(cfg, runs, layer, todo, t0)
     return seqs
+
+
+def _run_remote(cfg: RunConfig, runs: Path, layer: str, todo: list[Sequence], gpu: str | None) -> None:
+    """Run one layer on Modal, writing each sequence's output as its call finishes, and the meta of those written."""
+    from bga.remote.modal_runner import run_layer
+
+    t0 = time.perf_counter()
+    reads = [u for u in LAYERS[layer] if u in cfg.layers and u != "shots"]  # shots only selects sequences
+    ups = [{u: load_output(cfg, runs, s, u, arrays=True) for u in reads} for s in todo]
+    done: list[Sequence] = []
+
+    def keep(i: int, out: dict) -> None:
+        write_output(output_path(cfg, runs, todo[i], layer), out)
+        done.append(todo[i])
+
+    try:
+        run_layer(layer, cfg.layers[layer].model_dump(), todo, ups, gpu, on_result=keep)
+    finally:
+        if done:
+            _write_meta(cfg, runs, layer, done, t0)
 
 
 def _write_meta(cfg: RunConfig, runs: Path, layer: str, todo: list[Sequence], t0: float) -> None:

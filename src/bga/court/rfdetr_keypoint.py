@@ -20,6 +20,8 @@ import cv2
 import numpy as np
 
 from bga.court.smooth import smooth_homographies
+from bga.device import pick_device
+from bga.paths import weights_dir
 from bga.registry import register
 from bga.stage import BaseBackend, FrameReader, Sequence
 
@@ -66,13 +68,13 @@ class RFDETRKeypoint(BaseBackend):
 
         if not self.weights or self.weights.startswith("pretrained:"):
             raise ValueError("needs a trained weight id: court/rfdetr_keypoint/<name>@<hash8>")
-        wdir = ROOT / "weights" / self.weights
+        wdir = weights_dir(self.weights)
         schema = json.loads((wdir / "train.json").read_text())["trainer"]["schema"]
         self.model = RFDETRKeypointPreview.from_checkpoint(
             str(wdir / "checkpoint_best_total.pth"),
             num_classes=len(schema["class_names"]),
             num_keypoints_per_class=schema["num_keypoints_per_class"],
-            device=self.p["device"],
+            device=pick_device(self.p["device"]),
             trust_checkpoint=True,
         )
         geo = json.loads((ROOT / "tools/labeler/static/fiba_court.json").read_text())

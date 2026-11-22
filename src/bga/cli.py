@@ -5,6 +5,7 @@ Usage:
     bga eval --config configs/baseline.yaml [--config other.yaml] [--gold v0] [--held-out] [--write]
     bga eval-court --config configs/baseline.yaml [--config other.yaml] [--held-out] [--write]
     bga eval-detect --config configs/detect-plk-r2.yaml [--set ...] [--gold v1] [--held-out] [--write]
+    bga eval-appearance --config configs/appearance-reid-sportsmot.yaml [--gold v0] [--held-out] [--write]
     bga train --config configs/train/<layer>-<backend>-<name>.yaml [--build-only] [--collect]
     bga backends
 
@@ -22,7 +23,7 @@ from typing import Annotated
 import typer
 
 from bga import pipeline, registry
-from bga.config import load_config
+from bga.config import RunConfig, load_config
 
 #: The ``bga`` Typer application, installed as the ``bga`` console script.
 app = typer.Typer(add_completion=False, no_args_is_help=True)
@@ -82,6 +83,7 @@ def run(
     force: Annotated[list[str], typer.Option(help="recompute these layers")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
     remote: Annotated[str | None, typer.Option(help="modal: run CUDA backends on Modal")] = None,
     remote_layer: Annotated[list[str], typer.Option(help="also run these layers remotely")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
+    remote_gpu: Annotated[str, typer.Option(help="Modal GPU for --remote-layer layers; cpu for none")] = "L4",
     verbose: bool = False,
 ) -> None:
     """Run every layer of a config over its sequences into runs/<clip>/<layer>/<backend>@<hash8>/.
@@ -94,6 +96,7 @@ def run(
         force: Recompute these layers instead of reusing their cached outputs.
         remote: ``modal`` to run CUDA backends on Modal.
         remote_layer: Also run these layers remotely.
+        remote_gpu: Modal GPU type for the ``remote_layer`` layers, or ``cpu``.
         verbose: Log progress.
 
     Examples:
@@ -110,6 +113,7 @@ def run(
         force=force or None,
         remote=remote,
         remote_layers=remote_layer,
+        remote_gpu=None if remote_gpu == "cpu" else remote_gpu,
     )
     typer.echo(f"{cfg.name}@{cfg.config_hash()}: {len(seqs)} sequences")
 
@@ -150,6 +154,34 @@ def _insert_rows(text: str, header: str, rows: list[str], intro: str = "") -> st
     return "\n".join(lines[:i] + rows + lines[i:]) + "\n"
 
 
+def _remote_note(cfg: RunConfig, seqs: list) -> str:
+    """Name the layers whose outputs were made on Modal, with their GPU, for a metrics row's notes.
+
+    Their ms per frame was measured there, not on the Mac.
+
+    Args:
+        cfg: The scored config.
+        seqs: Its sequences.
+
+    Returns:
+        ``"ms on Modal: numbers (L4)"`` style text, or ``""`` when every layer ran on the Mac.
+
+    Examples:
+        >>> _remote_note(cfg, seqs)  # doctest: +SKIP
+        'ms on Modal: numbers (L4)'
+
+    """
+    remote = {}
+    for layer in cfg.layers:
+        if layer == "shots" or not seqs:
+            continue
+        path = pipeline.output_path(cfg, Path("runs"), seqs[0], layer)
+        rec = pipeline.load_output(cfg, Path("runs"), seqs[0], layer).get("remote") if path.exists() else None
+        if rec:
+            remote[layer] = rec.get("gpu") or "cpu"
+    return ("ms on Modal: " + ", ".join(f"{k} ({v})" for k, v in remote.items())) if remote else ""
+
+
 @app.command("eval", help="Run (reusing cached layer outputs) and score each config on the gold set.")
 def eval_(
     config: Annotated[list[Path], typer.Option(help="one or more configs, scored side by side")],
@@ -158,6 +190,9 @@ def eval_(
     held_out: Annotated[bool, typer.Option(help="score the held-out game instead (once per milestone)")] = False,
     write: Annotated[bool, typer.Option(help="append rows to docs/metrics.md")] = False,
     note: str = "",
+    remote: Annotated[str | None, typer.Option(help="modal: run CUDA backends on Modal")] = None,
+    remote_layer: Annotated[list[str], typer.Option(help="also run these layers remotely")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
+    remote_gpu: Annotated[str, typer.Option(help="Modal GPU for --remote-layer layers; cpu for none")] = "L4",
     verbose: bool = False,
 ) -> None:
     """Run (reusing cached layer outputs) and score each config on the gold set.
@@ -168,7 +203,11 @@ def eval_(
         gold: Gold set version.
         held_out: Score the held-out game instead of the dev shots (once per milestone).
         write: Add the rows to the tracking table in ``docs/metrics.md``.
-        note: Text for the notes column.
+        note: Text for the notes column; layers whose outputs were made on Modal are named there, since their
+            ms per frame is not the Mac's.
+        remote: ``modal`` to run CUDA backends and ``remote_layer`` layers on Modal.
+        remote_layer: Also run these layers remotely.
+        remote_gpu: Modal GPU type for the ``remote_layer`` layers, or ``cpu``.
         verbose: Log progress.
 
     Raises:
@@ -187,8 +226,11 @@ def eval_(
         _require_provenance(cfg)
         cfg.layers["shots"].params["held_out"] = "only" if held_out else "exclude"
         cfg.layers["shots"].params["version"] = gold
-        seqs = pipeline.run(cfg)
+        seqs = pipeline.run(
+            cfg, remote=remote, remote_layers=remote_layer, remote_gpu=None if remote_gpu == "cpu" else remote_gpu
+        )
         s = score(cfg, seqs, gold=gold)
+        row_note = "; ".join(x for x in (note, _remote_note(cfg, seqs)) if x)
         ms = s["ms"]
         row = (
             f"| {dt.date.today().isoformat()} | {pipeline.git_commit()} | `{path.stem}`@{cfg.config_hash()} "
@@ -199,7 +241,7 @@ def eval_(
             f"| {_fmt(s.get('id_acc'))} ({_fmt(s.get('id_confirmed'))}, {s.get('id_wrong', '–')}; "
             f"{s.get('id_tracks', 0)} tracks) "
             f"| {_fmt(ms.get('detect'), 0)}, {_fmt(ms.get('team'), 0)}, {_fmt(ms.get('court'), 0)}, "
-            f"{_fmt(ms.get('numbers'), 0)} | {note} |"
+            f"{_fmt(ms.get('numbers'), 0)} | {row_note} |"
         )
         rows.append(row)
         typer.echo(
@@ -386,6 +428,94 @@ def eval_court(
     typer.echo(COURT_HEADER + "\n".join(rows))
     if write:
         METRICS_MD.write_text(_insert_rows(METRICS_MD.read_text(), COURT_HEADER, rows, COURT_INTRO))
+
+
+#: Header of the appearance table in ``docs/metrics.md`` written by ``bga eval-appearance``.
+APPEARANCE_HEADER = (
+    "| date | commit | config | appearance weights (training config) | gold | split (shots, boxes) "
+    "| 1 s rank-1 / MRR | 3 s rank-1 / MRR | cross-shot rank-1 / MRR | queries (chance) 1 s, 3 s, cross-shot "
+    "| ms/crop | notes |\n"
+    "|---|---|---|---|---|---|---|---|---|---|---|---|\n"
+)
+#: Section heading and explanation placed above the appearance table when it is first added.
+APPEARANCE_INTRO = (
+    "## Appearance layer\n\n"
+    "Scored by `bga eval-appearance` on the clean gold boxes of gold v0 (visibility 1: neither interpolated nor"
+    " occluded), dev shots unless `--held-out`, so the scores depend on neither the detector nor the tracker. The"
+    " config's appearance backend embeds every box, and candidates are ranked by cosine distance."
+    " **1 s, 3 s:** one crop of a player, queried every 0.5 s, against the crops of his teammates 1 s or 3 s later in"
+    " the same shot. **cross-shot:** the mean embedding of a numbered player in one shot against those of his numbered"
+    " teammates in another shot of the same game. **chance:** the mean rank-1 of a random ranking."
+    " **ms/crop:** the encoder on the M1 Max, crops of one frame in one batch.\n\n"
+)
+
+
+def _rank_cell(r: object) -> str:
+    """Metrics cell ``rank-1 / MRR`` of one :class:`bga.eval.appearance.RankSummary`.
+
+    Examples:
+        >>> from bga.eval.appearance import RankSummary
+        >>> _rank_cell(RankSummary(74, 3.7, 0.27, 0.8649, 0.92)), _rank_cell(RankSummary(0, 0.0, 0.0, 0.0, 0.0))
+        ('0.865 / 0.920', '–')
+
+    """
+    return f"{_fmt(r.rank1)} / {_fmt(r.mrr)}" if r.n else "–"
+
+
+@app.command(
+    "eval-appearance",
+    help="Score each config's appearance backend on the gold boxes: re-association and cross-shot rank-1 and MRR.",
+)
+def eval_appearance(
+    config: Annotated[list[Path], typer.Option(help="one or more run configs; their appearance layer is scored")],
+    gold: str = "v0",
+    held_out: Annotated[bool, typer.Option(help="score the held-out game instead (once per milestone)")] = False,
+    write: Annotated[bool, typer.Option(help="append rows to docs/metrics.md")] = False,
+    note: str = "",
+    verbose: bool = False,
+) -> None:
+    """Score each config's appearance backend on the gold boxes: re-association and cross-shot rank-1 and MRR.
+
+    Args:
+        config: Run configs; only their shots and appearance layers are used.
+        gold: Gold set version.
+        held_out: Score the held-out game instead of the dev shots (once per milestone).
+        write: Add the rows to the appearance table in ``docs/metrics.md``.
+        note: Text for the notes column.
+        verbose: Log progress.
+
+    Raises:
+        typer.BadParameter: When a layer's trained weights have no ``train.json``.
+
+    Examples:
+        >>> eval_appearance([Path("configs/appearance-reid-sportsmot.yaml")])  # doctest: +SKIP
+
+    """
+    from bga.eval.appearance import GAPS_S
+    from bga.eval.appearance import score as appearance_score
+
+    _setup_logging(verbose)
+    rows = []
+    for path in config:
+        cfg = load_config(path)
+        _require_provenance(cfg)
+        cfg.layers["shots"].params["held_out"] = "only" if held_out else "exclude"
+        cfg.layers["shots"].params["version"] = gold
+        s = appearance_score(cfg, gold=gold)
+        re, cs = s["reassoc"], s["cross_shot"]
+        counts = ", ".join(f"{r.n} ({_fmt(r.chance)})" for r in (*(re[g] for g in GAPS_S), cs))
+        rows.append(
+            f"| {dt.date.today().isoformat()} | {pipeline.git_commit()} | `{path.stem}`@{cfg.config_hash()} "
+            f"| {_weights_cell(cfg.layers['appearance'].weights)} | {gold} "
+            f"| {'held-out' if held_out else 'dev'} ({s['sequences']}, {s['boxes']}) "
+            + "".join(f"| {_rank_cell(re[g])} " for g in GAPS_S)
+            + f"| {_rank_cell(cs)} | {counts} | {_fmt(s['ms_per_crop'], 1)} | {note} |"
+        )
+        by_game = "; ".join(f"{k}: {_rank_cell(v)} ({v.n})" for k, v in s["cross_shot_by_game"].items())
+        typer.echo(f"{cfg.name}@{cfg.config_hash()}: cross-shot by game: {by_game}")
+    typer.echo(APPEARANCE_HEADER + "\n".join(rows))
+    if write:
+        METRICS_MD.write_text(_insert_rows(METRICS_MD.read_text(), APPEARANCE_HEADER, rows, APPEARANCE_INTRO))
 
 
 @app.command(help="Render the radar video (broadcast above, 2D court below) for each sequence of a run.")

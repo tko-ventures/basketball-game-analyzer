@@ -1,0 +1,39 @@
+name: plk-r1-shot-last
+layer: appearance
+backend: reid
+description: >
+  First PLK appearance encoder: osnet_x1_0_sportsmot fine-tuned on the identity crops of crops-reid-r1 (one identity
+  per linked track of a shot, four non-gold 2025/26 games, data/labels/appearance/crops_r1.json), without the 18
+  identities dropped by eye in a 96-identity sample (13 tracker swaps, 5 referees, coaches or bench close-ups). The
+  King game validates; the other three train. Against plk-r1: each batch comes from one shot (shot_batches) and the
+  identity loss is off, so one player's tracklets in different shots are never pushed apart (plk-r1-team85 lost 0.135
+  of cross-shot rank-1 on gold dev that way); 15 epochs. Keeps the last epoch (select_on: epoch): plk-r1-shot's
+  validation fell from 78.4 to 67.2 rank-1 and kept epoch 0, but that validation counts one player's other shots as
+  wrong matches, which is what this recipe stops penalising, so the gold metrics judge the last epoch instead.
+base_weights:
+  name: osnet_x1_0_sportsmot
+  url: https://storage.googleapis.com/com-roboflow-marketing/trackers/trackers_reid_finetuned_encoders/reid_sportsmot_osnet_x1_0/weights.safetensors
+  licence: Apache-2.0 (assumed by Tomasz's ruling, plan question 15)
+package: reid==0.1.0
+sources:
+  - kind: manifest
+    path: data/labels/appearance/crops_r1.json
+    sha256: 7c58e083f044109fdd20a781ef23f78f29dd077c74d0a165f4c92ebf4ee10ea1
+recipe:
+  resolution: 256
+  epochs: 15
+  batch_size: 64
+  crops_per_id: 4
+  lr: 0.00015
+  seed: 0
+  triplet_margin: 0.3
+  shot_batches: true
+  id_loss_weight: 0.0
+  select_on: epoch
+  eval_interval: 15
+  val_clips:
+    - 20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka
+platform:
+  name: modal
+  gpu: L4
+  timeout_h: 2

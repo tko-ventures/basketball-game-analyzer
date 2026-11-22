@@ -20,6 +20,7 @@ import cv2
 import numpy as np
 
 from bga.detect.roboflow_inference import roboflow_key
+from bga.device import pick_device
 from bga.registry import register
 from bga.stage import BaseBackend, FrameReader, Sequence
 
@@ -67,6 +68,7 @@ class SmolVLMOcr(BaseBackend):
         "n_consecutive": 3,
         "read_every": 1,
         "max_reads_per_track": 12,
+        "stop_on_confirm": True,
     }
 
     def load(self) -> None:
@@ -77,7 +79,7 @@ class SmolVLMOcr(BaseBackend):
         from inference_models import AutoModel
 
         roboflow_key()
-        device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+        device = torch.device(pick_device("auto"))
         self.model = AutoModel.from_pretrained(
             self.p["model_id"], api_key=os.environ.get("ROBOFLOW_API_KEY"), device=device
         )
@@ -104,8 +106,9 @@ class SmolVLMOcr(BaseBackend):
         """Read and confirm a number per track over the sequence.
 
         Each ``read_every``-th frame, every ``number`` box scoring at least ``min_score`` is given to the non-referee
-        track box that contains it best, if its IoS is at least ``min_ios``; tracks already confirmed or read
-        ``max_reads_per_track`` times are skipped.
+        track box that contains it best, if its IoS is at least ``min_ios``; tracks read ``max_reads_per_track``
+        times are skipped, and so are confirmed tracks unless ``stop_on_confirm`` is off (the log then holds reads
+        after a confirmation, for rules downstream).
 
         Args:
             seq: Sequence to read.
@@ -113,14 +116,15 @@ class SmolVLMOcr(BaseBackend):
             read: Frame reader of the sequence's video.
 
         Returns:
-            ``{"tracks": {"<track_id>": "23" | None}, "reads", "ms_per_read", "ms_per_frame"}``.
+            ``{"tracks": {"<track_id>": "23" | None}, "log", "reads", "ms_per_read", "ms_per_frame"}``, where ``log``
+            lists every read as ``[frame, track_id, value]``.
 
         """
         from sports.common.temporal import ConsecutiveValueTracker
 
         dets, tracks = upstream["detect"]["frames"], upstream["track"]["frames"]
         confirm = ConsecutiveValueTracker(n_consecutive=self.p["n_consecutive"])
-        done, reads, t, n = {}, {}, 0.0, 0
+        done, reads, log, t, n = {}, {}, [], 0.0, 0
         for j, f in enumerate(seq.frames):
             if j % self.p["read_every"]:
                 continue
@@ -132,7 +136,7 @@ class SmolVLMOcr(BaseBackend):
                 if best is None or ios(d[:4], best[1:5]) < self.p["min_ios"]:
                     continue
                 tid = best[0]
-                if tid in done or reads.get(tid, 0) >= self.p["max_reads_per_track"]:
+                if (self.p["stop_on_confirm"] and tid in done) or reads.get(tid, 0) >= self.p["max_reads_per_track"]:
                     continue
                 img = read(f) if img is None else img
                 x1, y1, x2, y2 = (int(v) for v in d[:4])
@@ -147,10 +151,12 @@ class SmolVLMOcr(BaseBackend):
                 reads[tid] = reads.get(tid, 0) + 1
                 ids.append(tid)
                 values.append(value)
+                log.append([f, tid, value])
             done.update({tid: v for tid, v in zip(ids, confirm.update(ids, values), strict=True) if v is not None})
         all_ids = {r[0] for f in seq.frames for r in tracks[str(f)]}
         return {
             "tracks": {str(tid): done.get(tid) for tid in sorted(all_ids)},
+            "log": log,
             "reads": n,
             "ms_per_read": round(1000 * t / max(1, n), 1),
             "ms_per_frame": round(1000 * t / max(1, len(seq.frames)), 1),

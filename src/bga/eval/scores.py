@@ -212,6 +212,8 @@ def _collect_speeds(cfg: RunConfig, runs: Path, seq: Sequence, speed: defaultdic
 def score(cfg: RunConfig, seqs: list[Sequence], runs: Path = Path("runs"), gold: str = "v0") -> dict:
     """Compute every gold-set score of one run: tracking, team, numbers, churn, detection AP and speed.
 
+    Tracks come from the ``link`` layer when the config has one, else from ``track``; so do their numbers.
+
     Args:
         cfg: Run config whose layer outputs are read.
         seqs: Gold sequences the run covers.
@@ -233,7 +235,8 @@ def score(cfg: RunConfig, seqs: list[Sequence], runs: Path = Path("runs"), gold:
     id_n = id_ok = id_confirmed = 0
     for seq in seqs:
         grid, gt_per, ids = read_gt(root, seq.name)
-        tracks = load_output(cfg, runs, seq, "track")["frames"]
+        linked = load_output(cfg, runs, seq, "link" if "link" in cfg.layers else "track")
+        tracks = linked["frames"]
         teams = load_output(cfg, runs, seq, "team")["frames"] if "team" in cfg.layers else {}
         gt = [[g[:5] for g in gt_per.get(f, [])] for f in grid]
         pred = [[(r[0], *r[1:5]) for r in tracks.get(str(f), [])] for f in grid]
@@ -243,7 +246,7 @@ def score(cfg: RunConfig, seqs: list[Sequence], runs: Path = Path("runs"), gold:
         churn_rows.append(compute_churn([[r[0] for r in tracks[str(f)]] for f in seq.frames], short_lived_frames=short))
         votes, owner = _match_votes(grid, gt_per, tracks, teams)
         if "numbers" in cfg.layers:
-            nums = load_output(cfg, runs, seq, "numbers")["tracks"]
+            nums = linked["numbers"] if "link" in cfg.layers else load_output(cfg, runs, seq, "numbers")["tracks"]
             seq_n, seq_ok, seq_confirmed = _number_counts(nums, ids, owner)
             id_n += seq_n
             id_ok += seq_ok

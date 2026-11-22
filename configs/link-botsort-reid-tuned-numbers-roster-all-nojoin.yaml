@@ -1,0 +1,48 @@
+name: link-botsort-reid-tuned-numbers-roster-all-nojoin
+description: >
+  link-botsort-reid-tuned with the numbers layer of track-trackers-botsort-reid-tuned-numbers as a link term:
+  tracklets or chains with different confirmed numbers are never joined and two with the same number join at cost 0;
+  one_owner off. roster on: each tracklet's number is confirmed again from its own logged reads after dropping numbers
+  not on its team's roster for the clip's season (data/rosters), 3 equal reads in a row.
+  The reader keeps reading confirmed tracks (stop_on_confirm false), up to 12 reads a track. Joins off (max_gap_s 0):
+  the roster rule alone, on the tracker's ids.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: roboflow_keypoints
+    params: {model_id: basketball-court-detection-2/14}
+    weights: pretrained:roboflow/basketball-court-detection-2/14
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r3-poss@c62744fe
+  team:
+    backend: siglip_kmeans
+    params: {seed: 0, fit_fps: 5.0}
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  appearance:
+    backend: reid
+    params: {model: osnet_x1_0_sportsmot, min_score: 0.1}
+    weights: pretrained:roboflow/reid/osnet_x1_0_sportsmot
+  track:
+    backend: trackers
+    params:
+      tracker: botsort
+      cmc: internal
+      reid_model: osnet_x1_0_sportsmot
+      reid_config: {fusion: adaptive, appearance_threshold: 0.1, proximity_threshold: 1.0, appearance_weight: 1.25}
+      args:
+        track_activation_threshold: 0.8
+        minimum_iou_threshold_first_assoc: 0.1
+        minimum_iou_threshold_second_assoc: 0.2
+        minimum_iou_threshold_unconfirmed_assoc: 0.3
+        high_conf_det_threshold: 0.3
+  numbers:
+    backend: smolvlm_ocr
+    params: {model_id: basketball-jersey-numbers-ocr/3, stop_on_confirm: false}
+    weights: pretrained:roboflow/basketball-jersey-numbers-ocr/3
+  link:
+    backend: greedy
+    params: {max_gap_s: 0.0, max_cost: 0.3, ends: 5, max_speed_mps: 8.0, court_slack_m: 2.0, one_owner: false, roster: true}

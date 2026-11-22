@@ -12,6 +12,7 @@ from __future__ import annotations
 import datetime as dt
 import json
 import time
+from collections.abc import Callable
 from dataclasses import asdict
 from pathlib import Path
 
@@ -34,31 +35,41 @@ COSTS_MD = Path("docs/costs.md")
 app = modal.App("bga-runner")
 #: Shared volume: clips under ``clips/``, training runs under ``train/``.
 vol = modal.Volume.from_name("bga-data", create_if_missing=True)
-#: Container image with the Mac's pinned versions and the local ``bga`` package.
+#: Runtime extras installed in the runner image: every layer's backends, re-ID and the Modal client itself.
+RUNNER_EXTRAS = ["prefill", "demo", "court", "track", "remote"]
+#: Trained weights come from the volume (uploaded once per weight id). Model downloads go to the container's own disk:
+#: ``inference_models`` and Hugging Face lock their caches with file locks, which a Modal Volume does not support
+#: (the lock timed out on 2026-11-20), so each container downloads its models once on start.
+VOLUME_ENV = {"HF_HOME": "/root/cache/hf", "MODEL_CACHE_DIR": "/root/cache/roboflow", "BGA_WEIGHTS": "/data/weights"}
+#: facebookresearch/sam2 commit in the runner image (the one the gold prefill used, ``bga.remote.sam2_prefill``).
+SAM2_SHA = "2b90b9f5ceec907a1c18123530e92e794ad901a4"
+#: SAM 2.1 weights baked into the runner image (Apache 2.0) and their checkpoint file.
+SAM2_MODEL_ID, SAM2_CKPT = "facebook/sam2.1-hiera-large", "sam2.1_hiera_large.pt"
+#: Container image built from the repository's ``uv.lock``, so every layer runs the Mac's exact versions; the local
+#: ``bga`` package and the court geometry file (read by ``court/rfdetr_keypoint`` from the repository root) go in last.
 image = (
+    # Modal's ``debian_slim`` is bullseye, whose apt archives are gone; bookworm still installs git
     modal.Image
-    .debian_slim(python_version="3.12")
-    # Same versions as the Mac's uv.lock, so a layer gives the same output wherever it runs.
-    .pip_install(
-        "numpy==2.3.5",
-        "pydantic==2.11.10",
-        "pyyaml==6.0.3",
-        "supervision==0.30.9",
-        "torch==2.15.0",
-        "torchvision==0.29.2",
+    .from_registry("python:3.12-slim-bookworm")
+    .apt_install("git")  # uv fetches the ``sports`` git dependency
+    .uv_sync(extras=RUNNER_EXTRAS, frozen=True)
+    .env(VOLUME_ENV)
+    # SAM 2.1 for track/sam2, at the commit the gold prefill used, built without its CUDA extension; weights baked in
+    .uv_pip_install(
+        f"sam-2 @ https://github.com/facebookresearch/sam2/archive/{SAM2_SHA}.tar.gz",
+        extra_options="--no-build-isolation",
+        env={"SAM2_BUILD_CUDA": "0"},
     )
-    # supervision pulls the GUI OpenCV, which needs libGL; the bullseye base is end-of-life, so swap in
-    # the headless wheel instead of apt-installing system libraries.
     .run_commands(
-        "pip uninstall -y opencv-python opencv-contrib-python",
-        "pip install --force-reinstall --no-deps opencv-python-headless==5.0.0.93",
+        f"python -c \"from huggingface_hub import hf_hub_download; hf_hub_download('{SAM2_MODEL_ID}', '{SAM2_CKPT}')\""
     )
+    .add_local_file("tools/labeler/static/fiba_court.json", "/tools/labeler/static/fiba_court.json")
     .add_local_python_source("bga")
 )
 
 
-@app.function(image=image, volumes={"/data": vol}, timeout=3600)
-def run_sequence(layer: str, entry: dict, seq: dict, upstream: dict, gpu: str | None) -> dict:
+@app.function(image=image, volumes={"/data": vol}, secrets=[modal.Secret.from_name("roboflow")], timeout=3600)
+def run_sequence(layer: str, entry: dict, seq: dict, upstream: dict, gpu: str | None, job: int = 0) -> dict:
     """Run one layer's backend on one sequence inside Modal, reading the clip from the volume.
 
     Args:
@@ -67,9 +78,10 @@ def run_sequence(layer: str, entry: dict, seq: dict, upstream: dict, gpu: str | 
         seq: the sequence as a dict (``dataclasses.asdict`` of ``bga.stage.Sequence``).
         upstream: upstream layer outputs for the sequence.
         gpu: the Modal GPU type the call runs on, or None for CPU; prices the run.
+        job: the call's index in its batch, returned so results can arrive in any order.
 
     Returns:
-        The backend's output with ``remote``: platform, GPU, seconds and list-price USD.
+        The backend's output with ``remote``: platform, GPU, seconds, list-price USD and ``job``.
 
     Examples:
         >>> run_sequence.remote("court", {"backend": "roboflow_keypoints"}, seq, {}, None)  # doctest: +SKIP
@@ -95,6 +107,7 @@ def run_sequence(layer: str, entry: dict, seq: dict, upstream: dict, gpu: str | 
         "gpu": gpu,
         "seconds": round(secs, 1),
         "usd": round(secs / 3600 * USD_PER_HOUR.get(gpu, 0.0), 4),
+        "job": job,
     }
     return out
 
@@ -117,6 +130,36 @@ def upload_clips(videos: set[str]) -> None:
                 up.put_file(v, f"clips/{Path(v).name}")
 
 
+def upload_weights(weight_id: str | None) -> None:
+    """Upload a trained weight id's ``train.json`` and checkpoint files to ``weights/<id>/`` unless the volume has them.
+
+    Pretrained ids (``pretrained:...``) and ``None`` need nothing: their backends download from the source.
+
+    Args:
+        weight_id: A config's ``weights`` field.
+
+    Examples:
+        >>> upload_weights("detect/rfdetr_torch/plk-r3-poss@c62744fe")  # doctest: +SKIP
+
+    """
+    if not weight_id or weight_id.startswith("pretrained:"):
+        return
+    from bga.paths import weights_dir
+
+    local = weights_dir(weight_id)
+    names = ("train.json", "checkpoint_best_total.pth", "weights.safetensors", "reid_config.json")
+    files = [f for f in names if (local / f).exists()]
+    if not files:
+        raise FileNotFoundError(f"no weights under {local}")
+    if _exists(f"weights/{weight_id}"):
+        have = {Path(e.path).name for e in vol.listdir(f"weights/{weight_id}")}
+        files = [f for f in files if f not in have]
+    if files:
+        with vol.batch_upload() as up:
+            for f in files:
+                up.put_file(str(local / f), f"weights/{weight_id}/{f}")
+
+
 def _exists(path: str) -> bool:
     """Whether a path exists on the volume."""
     try:
@@ -126,29 +169,66 @@ def _exists(path: str) -> bool:
         return False
 
 
-def run_layer(layer: str, entry: dict, seqs: list, upstream: list[dict], gpu: str | None) -> list[dict]:
+class RemoteCallsFailedError(RuntimeError):
+    """Some calls of a remote batch failed; the others finished and were handed over."""
+
+
+def run_layer(
+    layer: str,
+    entry: dict | list[dict],
+    seqs: list,
+    upstream: list[dict],
+    gpu: str | None,
+    on_result: Callable[[int, dict], None] | None = None,
+) -> list[dict]:
     """Run one layer for ``seqs`` (with their upstream outputs) on Modal, one parallel call per sequence.
+
+    Results are taken as they finish and handed to ``on_result`` at once, so a run stopped part way keeps what had
+    finished; the cost rows of the finished calls are logged even then. A failed call does not stop the others.
 
     Args:
         layer: the layer name.
-        entry: the layer's config entry (``backend``, ``params``, ``weights``).
+        entry: the layer's config entry (``backend``, ``params``, ``weights``), or one entry per sequence, so a
+            parameter sweep sends every setting and sequence in one parallel batch.
         seqs: the sequences (``bga.stage.Sequence``).
         upstream: upstream outputs, one per sequence.
         gpu: Modal GPU type, or None for CPU.
+        on_result: Called with each finished call's index in ``seqs`` and its output, e.g. to write it.
 
     Returns:
         The outputs in the order of ``seqs``; their costs are appended to docs/costs.md.
+
+    Raises:
+        RemoteCallsFailedError: After the batch, when any call failed; the finished ones were handed over.
 
     Examples:
         >>> outs = run_layer("court", {"backend": "roboflow_keypoints"}, seqs, [{}] * len(seqs), None)  # doctest: +SKIP
 
     """
+    entries = entry if isinstance(entry, list) else [entry] * len(seqs)
     fn = run_sequence.with_options(gpu=gpu) if gpu else run_sequence
-    with modal.enable_output(), app.run():
-        upload_clips({s.video for s in seqs})
-        args = [(layer, entry, asdict(s), u, gpu) for s, u in zip(seqs, upstream, strict=True)]
-        outs = list(fn.starmap(args))
-    log_costs(layer, entry["backend"], seqs, outs)
+    outs: list[dict | None] = [None] * len(seqs)
+    try:
+        with modal.enable_output(), app.run():
+            upload_clips({s.video for s in seqs})
+            for w in {e.get("weights") for e in entries}:
+                upload_weights(w)
+            jobs = zip(entries, seqs, upstream, strict=True)
+            args = [(layer, e, asdict(s), u, gpu, i) for i, (e, s, u) in enumerate(jobs)]
+            failed = []
+            for out in fn.starmap(args, order_outputs=False, return_exceptions=True):
+                if isinstance(out, BaseException):  # one failed call must not cancel the batch
+                    failed.append(out)
+                    continue
+                i = out["remote"].pop("job")
+                outs[i] = out
+                if on_result:
+                    on_result(i, out)
+    finally:
+        done = [i for i, o in enumerate(outs) if o is not None]
+        log_costs(layer, entries[0]["backend"], [seqs[i] for i in done], [outs[i] for i in done])
+    if failed:
+        raise RemoteCallsFailedError(f"{len(failed)} of {len(seqs)} {layer} calls failed; run again to retry them")
     return outs
 
 

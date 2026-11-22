@@ -17,9 +17,10 @@ import cv2
 import numpy as np
 
 from bga.detect.tiles import merge, square_tiles
+from bga.device import pick_device
+from bga.paths import weights_dir
 from bga.registry import register
 from bga.stage import BaseBackend, FrameReader, Sequence
-from bga.train.config import ROOT
 
 
 @register("detect", "rfdetr_torch")
@@ -51,11 +52,11 @@ class RFDETRTorch(BaseBackend):
 
         if not self.weights or self.weights.startswith("pretrained:"):
             raise ValueError("needs a trained weight id: detect/rfdetr_torch/<name>@<hash8>")
-        wdir = ROOT / "weights" / self.weights
+        wdir = weights_dir(self.weights)
         tj = json.loads((wdir / "train.json").read_text())
         self.tiles = tj["config"]["recipe"].get("tiles") or 1
         self.model = RFDETR.from_checkpoint(
-            str(wdir / "checkpoint_best_total.pth"), device=self.p["device"], trust_checkpoint=True
+            str(wdir / "checkpoint_best_total.pth"), device=pick_device(self.p["device"]), trust_checkpoint=True
         )
         # the checkpoint's own names, indexed by class id; the COCO categories in train.json start with the
         # "basketball" placeholder, which the model drops, so indexing those would shift every class by one

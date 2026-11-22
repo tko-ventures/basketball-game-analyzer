@@ -1,0 +1,30 @@
+name: link-sam2-noapp-cap5
+description: >
+  link-sam2-plk-cap5 without appearance (appearance: none): joins by gap, team and floor speed only.
+  Note: gold v0 track identities were prefilled from SAM 2.1 tracks before correction, so this tracker is biased
+  upwards on v0 more than the others.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: roboflow_keypoints
+    params: {model_id: basketball-court-detection-2/14}
+    weights: pretrained:roboflow/basketball-court-detection-2/14
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r3-poss@c62744fe
+  team:
+    backend: siglip_kmeans
+    params: {seed: 0, fit_fps: 5.0}
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  appearance:
+    backend: none
+  track:
+    backend: sam2
+    params: {model_id: facebook/sam2.1-hiera-large, min_score: 0.4, max_rounds: 12}
+    weights: pretrained:hf/facebook/sam2.1-hiera-large
+  link:
+    backend: greedy
+    params: {max_gap_s: 10.0, max_cost: 0.3, ends: 5, max_speed_mps: 8.0, court_slack_m: 2.0, max_per_team: 5}

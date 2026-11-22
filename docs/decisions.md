@@ -459,3 +459,83 @@ M5 measured Skalski's `TeamClassifier` on the `plk-r3-poss` boxes over gold v0 d
 - **Separation is reported, not used as a trigger.** The failing 1 fps fits had the highest silhouette of any shot (0.58 to 0.63), so a silhouette threshold would not have caught them. The plan's manual kit-colour fallback and the `d1_choice` cross-check are not built: no dev shot failed in a way either would fix. They come back if the held-out game or a new arena fails.
 - **Fit unit.** The plan said "per clip". The backend fits per shot, which is what was measured. A per-game fit over all of a game's shots needs pipeline support and is not done.
 - **Held-out game, scored once (approved by Tomasz on 2026-11-20).** `team-plk-r3-poss-fit5-seed0` scores team accuracy 1.000 on 31 tracks of Dziki – Zastal, with wrong-team boxes at 1.9%. Tomasz approved this run although it also scores `plk-r3-poss` on the held-out game, which the decision of the same day had left for M9. Against `baseline`'s held-out row of 2026-11-02, IDF1 is 0.674 against 0.710 and number accuracy 0.462 against 0.577. Those belong to M6 and M7, which tune tracking and numbers on these boxes.
+
+## 2026-11-20: follow upstream migration guides; ByteTrack moves to `trackers`
+
+`trackers` 2.7.0 (BoT-SORT with re-ID, M6) needs supervision 0.31, which removed `sv.ByteTrack` (deprecated in 0.28.0, removed in 0.31.0 by roboflow/supervision#2582: "tracker implementations now live in the dedicated `trackers` package"). Roboflow's migration guide replaces it with `trackers.ByteTrackTracker` and `update()`. That class is a rewrite, not a move: other parameters (`minimum_iou_threshold` and `high_conf_det_threshold` in place of `minimum_matching_threshold`), other defaults (activation 0.7, two consecutive frames) and another Kalman state, so the same detections give other track ids.
+
+Tomasz accepted the implementer's plan and set the rule: follow the migration guides so the project runs up-to-date packages where it can.
+
+- **Bridge:** supervision 0.30.9's ByteTrack is vendored unchanged in `bga.track._sv_bytetrack` (MIT), so the `bytetrack` backend and every committed tracking row still reproduce (checked: `track-bytetrack-tuned` track outputs identical in all 9 dev shots).
+- **Migration:** a `trackers` backend (`ByteTrackTracker`, `BoTSORTTracker`, with and without re-ID) gets its own configs, is tuned on dev, and is scored against the vendored tracker.
+- **Retirement:** when the `trackers` backend matches or beats it on gold dev, new configs use it; the vendored copy stays only to reproduce old rows.
+- **Generally:** a deprecation or removal upstream is handled by migrating to the replacement through a new backend and config with a before/after row, not by pinning or vendoring indefinitely. Deprecation warnings in run logs are work items.
+
+## 2026-11-21: tracker for M6 linking work: BoT-SORT with tuned re-ID
+
+Gold v0 dev, `plk-r3-poss` boxes, team fit at 5 frames a second (rows in `docs/metrics.md`):
+
+| tracker | HOTA | IDF1 | MOTA | IDSW | ids per shot |
+|---|---|---|---|---|---|
+| supervision 0.30.9 ByteTrack, tuned (vendored) | 0.668 | 0.742 | 0.800 | 183 | 20.2 |
+| `trackers` ByteTrack, tuned | 0.686 | 0.781 | 0.748 | 114 | 17.6 |
+| `trackers` BoT-SORT, tuned, no re-ID | 0.681 | 0.770 | 0.774 | – | 19.3 |
+| same, `osnet_x1_0_sportsmot` re-ID at library settings | 0.684 | 0.770 | 0.773 | – | 19.1 |
+| **same, re-ID tuned** (`track-trackers-botsort-reid-tuned`) | **0.740** | **0.864** | 0.786 | 70 | 15.2 |
+
+Gold has about 13 people per shot.
+
+- **Re-ID pays only once tuned.** The gain comes from removing the IoU gate before appearance (`proximity_threshold` 1.0), so a player is re-identified after an occlusion or a fast move with no box overlap, with adaptive fusion and appearance threshold 0.1.
+- **Overfitting risk.** 80 re-ID settings were scored on 9 shots, and the threshold optimum is sharp (0.08 and 0.12 score HOTA about 0.72). The held-out game, scored once when M6 closes, is the check; until then, rows on dev are not a promise.
+- **Cost.** The re-ID tracker reads frames, so it runs on Modal (`--remote-layer track`, about 64 ms per frame on an L4 container against 0.4 ms for ByteTrack). Its rows name the layer that ran there.
+- **Next.** The offline linking pass builds on this tracker, and is scored before and after linking, with and without appearance, as the done-when asks. The vendored ByteTrack stays only to reproduce old rows (decision 2026-11-20).
+
+## 2026-11-21: Modal spend cap raised to 75 USD per month
+
+Tomasz, in the M6 session, after the month reached 42.22 USD metered (11.80 billed after the 30 USD credits) against
+the 50 USD cap of question 9.
+
+- **Cap:** 75 USD per month on Modal, metered (before credits), from November 2026. It replaces the 50 USD cap and its
+  "may be raised to 100 USD when needed".
+- **Unchanged:** spend figures come from Modal's billing (`scripts/modal_spend.py`), every job is logged in
+  `docs/costs.md`, and the implementer asks before a month crosses the cap.
+
+## 2026-11-22: M6 tracking stack, BoT-SORT with the PLK encoder plus the greedy link
+
+The implementer, closing the M6 tracker comparison on gold v0 dev (9 shots). Scored once on the held-out game before
+the M6 pull request.
+
+| stack | HOTA | IDF1 | MOTA | IDSW |
+|---|---|---|---|---|
+| `trackers` ByteTrack, tuned, then linking (`link-bytetrack-tuned`; IDSW re-scored at 192c1f4) | 0.693 | 0.797 | 0.748 | 108 |
+| BoT-SORT, `osnet_x1_0_sportsmot` re-ID tuned (`track-trackers-botsort-reid-tuned`) | 0.740 | 0.864 | 0.786 | 70 |
+| the same, linking and the 5-per-team rule (`link-botsort-reid-tuned-cap5`) | 0.742 | 0.869 | 0.788 | 68 |
+| BoT-SORT, PLK encoder `plk-r1-shot-last`, re-ID re-tuned (`track-trackers-botsort-plk-r1-shot-last-tuned`) | 0.742 | 0.870 | 0.781 | 55 |
+| **the same, linking without appearance and the 5-per-team rule (`link-botsort-plk-r1-shot-last-tuned-noapp-cap5`)** | **0.743** | **0.873** | 0.783 | **52** |
+| SAM 2.1 video propagation (`track-sam2`), then linking | 0.676 | 0.848 | 0.686 | 36 |
+
+- **Chosen:** `link-botsort-plk-r1-shot-last-tuned-noapp-cap5`. The PLK encoder serves BoT-SORT's re-ID; the linker
+  joins by gap, team and floor speed, and the appearance term adds nothing after this tracker (0.742 and 0.872 with
+  it). The appearance layer stays for cross-shot identity (layer 5), where `plk-r1-shot-last` scores 0.946 rank-1.
+- **Margins are small and fitted on dev, but hold out.** The re-ID threshold optimum is sharp (0.10 and 0.13 score
+  about 0.736) and was picked on the same 9 shots. On the held-out game, scored once with Tomasz's approval, the PLK
+  stack keeps its lead: HOTA 0.742 against 0.731, AssA 0.770 against 0.745, IDF1 0.849 against 0.844, IDSW 26 against
+  34 (MOTA 0.758 against 0.762).
+- **SAM 2.1 is not chosen.** It makes the fewest switches but scores 0.06 HOTA lower, mostly in detection (DetA 0.629
+  against 0.72: mask boxes are tighter than gold's detector-style boxes, and it misses players SAM loses), takes about
+  3 s per frame on an L40S against 64 ms for BoT-SORT, and is biased upwards on v0, whose identities were prefilled
+  from SAM 2.1.
+- **Not run:** `edgetam` and `mcbyte`. The plan runs `edgetam` only after `sam2_realtime` has a row and `mcbyte` only if
+  the others leave a gap; SAM 2.1 itself trails, so neither is expected to close it.
+
+## 2026-11-22: court-space ByteTrack dropped from M6
+
+Tomasz, in the M6 session, on the implementer's proposal.
+
+- **Dropped:** `bytetrack_court`, ByteTrack with its motion model in court metres after the homography, the plan's
+  original layer 4 default (section 5). It is not built.
+- **Why:** BoT-SORT with camera-motion compensation already handles the moving broadcast camera in pixels and scores
+  0.05 HOTA above pixel ByteTrack on gold dev (0.740 against 0.686); the M6 stack builds on it (decision of
+  2026-11-22, M6 tracking stack).
+- **Later:** court-space tracking can return with the court positions of M8 if the floor-speed gate or the positions
+  layer needs it.

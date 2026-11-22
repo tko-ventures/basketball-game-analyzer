@@ -1,0 +1,33 @@
+name: track-trackers-botsort-tuned
+description: >
+  track-trackers-botsort-precmc tuned on gold dev by scripts/sweep_track.py (144 settings, then 55 of a 72-setting
+  refinement before its time limit). Camera motion on beat off (best HOTA 0.681 against 0.673). The motion mask stays
+  at 0.6 while high_conf_det_threshold moves, so the transforms are those of the default threshold.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: roboflow_keypoints
+    params: {model_id: basketball-court-detection-2/14}
+    weights: pretrained:roboflow/basketball-court-detection-2/14
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r3-poss@c62744fe
+  team:
+    backend: siglip_kmeans
+    params: {seed: 0, fit_fps: 5.0}
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  track:
+    backend: trackers
+    params:
+      tracker: botsort
+      cmc: precomputed
+      cmc_mask_score: 0.6
+      args:
+        track_activation_threshold: 0.8
+        minimum_iou_threshold_first_assoc: 0.1
+        minimum_iou_threshold_second_assoc: 0.2
+        minimum_iou_threshold_unconfirmed_assoc: 0.3
+        high_conf_det_threshold: 0.3

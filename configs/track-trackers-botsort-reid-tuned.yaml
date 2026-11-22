@@ -1,0 +1,35 @@
+name: track-trackers-botsort-reid-tuned
+description: >
+  track-trackers-botsort-reid with the re-ID settings tuned on gold dev on Modal (scripts/sweep_track.py --remote-gpu,
+  32 + 36 + 12 settings): adaptive fusion, no IoU gate before appearance (proximity_threshold 1.0), appearance
+  threshold 0.1 and weight 1.25 (the middle of a flat 1.0 to 1.5). The threshold optimum is sharp (0.08 and 0.12 score
+  HOTA about 0.72 against 0.74), the setting most likely fitted to the 9 dev shots.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: roboflow_keypoints
+    params: {model_id: basketball-court-detection-2/14}
+    weights: pretrained:roboflow/basketball-court-detection-2/14
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r3-poss@c62744fe
+  team:
+    backend: siglip_kmeans
+    params: {seed: 0, fit_fps: 5.0}
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  track:
+    backend: trackers
+    params:
+      tracker: botsort
+      cmc: internal
+      reid_model: osnet_x1_0_sportsmot
+      reid_config: {fusion: adaptive, appearance_threshold: 0.1, proximity_threshold: 1.0, appearance_weight: 1.25}
+      args:
+        track_activation_threshold: 0.8
+        minimum_iou_threshold_first_assoc: 0.1
+        minimum_iou_threshold_second_assoc: 0.2
+        minimum_iou_threshold_unconfirmed_assoc: 0.3
+        high_conf_det_threshold: 0.3

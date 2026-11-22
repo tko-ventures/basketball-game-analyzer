@@ -15,20 +15,26 @@ from typing import Any
 import yaml
 from pydantic import BaseModel, ConfigDict, Field
 
-#: Pipeline order and the upstream layers each one reads (plan section 5, L0 to L6).
+#: Pipeline order and the upstream layers each one reads (plan section 5, L0 to L6, with L3b appearance).
 LAYERS: dict[str, tuple[str, ...]] = {
     "shots": (),
     "court": ("shots",),
     "detect": ("shots",),
     "team": ("detect",),
+    "appearance": ("detect",),
     "track": ("detect", "court"),
     "numbers": ("detect", "track"),
+    "link": ("track", "team", "appearance", "court", "numbers"),
     "positions": ("track", "court"),
 }
 
 
-#: Shots params that only choose sequences; kept out of the hashes so dev and held-out runs share dirs.
-SELECTION_PARAMS = frozenset({"version", "held_out", "root", "labels"})
+#: Upstream layers a config may leave out: their readers then work without them.
+OPTIONAL_UPSTREAM = frozenset({"court", "appearance", "numbers"})
+
+#: Shots params that only choose sequences; kept out of the hashes so dev and held-out runs, and runs over different
+#: clip lists, share dirs.
+SELECTION_PARAMS = frozenset({"version", "held_out", "root", "labels", "clips", "min_s"})
 
 
 class LayerConfig(BaseModel):
@@ -77,13 +83,13 @@ class RunConfig(BaseModel):
     layers: dict[str, LayerConfig]
 
     def model_post_init(self, _ctx: object) -> None:
-        """Check that every layer is known and that the layers it reads are configured (court is optional).
+        """Check that every layer is known and that the layers it reads are configured, unless optional.
 
         Args:
             _ctx: Pydantic validation context, unused.
 
         Raises:
-            ValueError: On an unknown layer name, or a layer whose upstream layer (other than court) is missing.
+            ValueError: On an unknown layer name, or a missing upstream layer not in ``OPTIONAL_UPSTREAM``.
 
         Examples:
             >>> RunConfig(name="demo", layers={"shots": {"backend": "gold"}, "teams": {"backend": "x"}})
@@ -98,7 +104,7 @@ class RunConfig(BaseModel):
         if unknown:
             raise ValueError(f"unknown layers {sorted(unknown)}; known: {list(LAYERS)}")
         for layer in self.layers:
-            missing = [u for u in LAYERS[layer] if u not in self.layers and u != "court"]
+            missing = [u for u in LAYERS[layer] if u not in self.layers and u not in OPTIONAL_UPSTREAM]
             if missing:
                 raise ValueError(f"layer {layer!r} needs {missing}")
 

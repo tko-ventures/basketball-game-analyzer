@@ -25,3 +25,7 @@ used in the court keypoint runs. Base weights: RF-DETR Keypoint preview by Robof
 | 2026-11-19 | b6b9d2e | `configs/train/detect-rfdetr_torch-plk-r2-xl.yaml` | `detect/rfdetr_torch/plk-r2-xl@646266cd` | 865 / 164 | val/mAP_50_95 0.640 (epoch 49) | H100, 3814.1 s, 4.1849 USD |  |
 | 2026-11-20 | 7c2f54a | `configs/train/detect-rfdetr_torch-plk-r3-poss.yaml` | `detect/rfdetr_torch/plk-r3-poss@c62744fe` | 1077 / 196 | val/mAP_50_95 0.645 (epoch 14) | H100, 654.1 s, 0.7177 USD |  |
 | 2026-11-20 | 7c2f54a | `configs/train/detect-rfdetr_torch-plk-r3.yaml` | `detect/rfdetr_torch/plk-r3@f72eba80` | 1077 / 196 | val/mAP_50_95 0.634 (epoch 19) | H100, 798.1 s, 0.8757 USD |  |
+| 2026-11-21 | aaeea5a | `configs/train/appearance-reid-plk-r1-team85.yaml` | `appearance/reid/plk-r1-team85@7f62ed2c` | 16477 / 5487 | val/map 39.369 (epoch 12) | L4, 3094.3 s, 0.6876 USD |  |
+| 2026-11-21 | aaeea5a | `configs/train/appearance-reid-plk-r1.yaml` | `appearance/reid/plk-r1@553936e9` | 19144 / 5894 | val/map 39.592 (epoch 9) | L4, 2572.0 s, 0.5716 USD |  |
+| 2026-11-21 | ddc883f | `configs/train/appearance-reid-plk-r1-shot.yaml` | `appearance/reid/plk-r1-shot@1954bf32` | 19144 / 5894 | val/rank1 78.400 (epoch 0) | L4, 675.0 s, 0.15 USD |  |
+| 2026-11-21 | f175d12 | `configs/train/appearance-reid-plk-r1-shot-last.yaml` | `appearance/reid/plk-r1-shot-last@bef4a309` | 19144 / 5894 | epoch 15.000 (epoch 15) | L4, 539.9 s, 0.12 USD |  |

@@ -17,6 +17,7 @@ import cv2
 import numpy as np
 
 from bga.detect.base import PERSON_CLASSES
+from bga.device import pick_device
 from bga.registry import register
 from bga.stage import BaseBackend, FrameReader, Sequence
 
@@ -128,7 +129,7 @@ class SiglipKMeans(BaseBackend):
 
     def _fit_predict(self, crops: list[np.ndarray], fit: list[np.ndarray]) -> tuple[list[int], Separation]:
         """Fit the classifier on ``fit``, predict a cluster per crop, and score the fitted clusters' separation."""
-        tc = self.TeamClassifier(device=self.p["device"])
+        tc = self.TeamClassifier(device=pick_device(self.p["device"]))
         if self.p["seed"] is not None:  # UMAP and KMeans draw random starts; a seed makes reruns identical
             import umap
             from sklearn.cluster import KMeans
