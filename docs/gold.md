@@ -7,7 +7,7 @@ Plan section 8, as amended by the 2026-11-02 decision (`docs/decisions.md`).
 | Version | Who reviewed | What it supports | Status |
 |---|---|---|---|
 | v0 | Implementer, full pass on all 12 shots; Tomasz's dry-run labels on Legia shot 10 kept as they are | Comparing backends; HOTA, IDF1, MOTA, team and number accuracy, AP50 | Committed 2026-11-02 |
-| v1 | Tomasz reviews at least the held-out game; boxes tightened by hand | Absolute numbers for the client; AP50:95 | Box gold done 2026-11-18: `data/gold/v1/boxes.json`, 100 frames reviewed by Tomasz (151 min). Track gold v1 not started |
+| v1 | Tomasz reviews at least the held-out game; boxes tightened by hand | Absolute numbers for the client; AP50:95; number readers | Box gold done 2026-11-18: `data/gold/v1/boxes.json`, 100 frames reviewed by Tomasz (151 min). Number crops labelled 2026-11-22: `data/gold/v1/numbers.json`, implementer's read, Tomasz's spot check of 30 pending. Track gold v1 not started |
 
 v0 was prefilled by the public models the baseline uses (Skalski's player detector, SAM 2.1), so v0 absolute scores are biased upwards. Every row in `docs/metrics.md` names its gold version.
 
@@ -28,7 +28,7 @@ v0 was prefilled by the public models the baseline uses (Skalski's player detect
   - **Result:** 41 are usable; one Anwil frame is marked unusable.
   - **Each record:** the image→court homography in cm, the landmark dots Tomasz placed, any pins on painted lines, and the status.
   - **Agreement:** the saved courts fit his dots to a median of 5.6 px rms, with 10–14 px on the worst frames (Lublin and the held-out game).
-- **Not in v0:** number crops, which move to M7 and are labelled just in time.
+- **Number crops:** not in v0. Labelled for M7 on the box gold v1 frames, in `data/gold/v1/numbers.json` (section below).
 
 ## How v0 was made
 
@@ -181,3 +181,44 @@ Classes with fewer than about 20 boxes are too small for a stable AP of their ow
 ### How to review again
 
 Tomasz reviews in the labeller at `/boxes`. Each frame shows flagged boxes first, and a loupe shows the selected box at up to 8× for pixel-level edges. Enter marks the frame done. `scripts/box_gold_v1.py export` writes `data/gold/v1/boxes.json` from the frames marked done.
+
+## Number crops (v1, 2026-11-22)
+
+`data/gold/v1/numbers.json` scores number readers crop by crop, independent of detector and tracker. Written by `scripts/number_gold.py export` from `data/labels/numbers/gold_crops.json`.
+
+### Crops
+
+| Source | Crops | Digits | Illegible | Not a number |
+|---|---|---|---|---|
+| Tomasz's `number` boxes in box gold v1 (`n001`–`n287`) | 287 | 235 | 50 | 2 |
+| The PLK detector's `number` boxes on the same frames that overlap no gold box (`d001`–`d089`) | 89 | 19 | 39 | 31 |
+| Total (292 dev, 84 held-out) | 376 | 254 | 89 | 33 |
+
+- **Gold boxes:** the box geometry comes from Tomasz's hand-drawn boxes, so it does not depend on any model.
+- **Detector boxes:** `plk-r3-poss` boxes at a score of 0.3 or more, the threshold the numbers layer reads from. Most are sponsor logos, chest badges and the back patch of the Trefl kit, or parts of numbers. These are the crops a reader has to refuse.
+- **Confusions present:** of the 254 legible crops, 29 contain a 6 or a 9 and 96 a 1 or a 7 (a 7 in 10 of them). Back sponsor patches and chest logos are among the `not_number` crops.
+
+### Labels
+
+- **Digits** (`"7"`, `"23"`): every digit of the number is legible on the crop.
+- **`illegible`:** a jersey number whose digits cannot all be read: blurred, folded, turned away, or partly hidden (only the 6 of a 16 showing).
+- **`not_number`:** the box holds no jersey number: a logo, a badge, a patch, or a crease in the shirt. When it is unclear whether the box holds a logo or an unreadable number, the label is `illegible`.
+- **`team`:** the side of the gold track that holds the box, taken from the smallest person box containing at least 90% of it. When the box sits on two overlapping players and only the other side's roster has the read number, that side is used instead (8 crops).
+
+### How they were labelled
+
+1. **Blind read.** `number_gold.py sheets` shows each crop twice: tight and upscaled, and in context. Each crop is captioned with its id only, so the gold track's number does not anchor the read. The implementer read all 376 crops.
+2. **Compare.** `compare` lists every read that differs from the holder's gold number, or whose holder has none. Each was checked against the clip season's rosters:
+   - A doubtful read was changed only to `illegible`, never to the track's number, so no label comes from gold v0.
+   - 14 reads became `illegible`: 11 against 31, 0 against 8, 10 against 40, and partial numbers.
+3. **Audit trail.**
+   - Ops: `data/labels/review/number_gold.ops.txt`.
+   - Sheet reads: `data/labels/sheet_ledger.tsv`, rows of 2026-11-22.
+4. **Spot check.** `number_gold.py spotcheck` draws a seeded sample of 30 with their labels (`runs/number_gold/spotcheck_00.jpg`, `_01.jpg`) for Tomasz to check.
+
+### Gold v0 gaps found on the way
+
+- **Tracks without a number:** 14 legible crops sit on gold v0 tracks that have no number, and 3 on no gold track. For example, `4XMD9FWmQws_s4` track 1001 shows #4, and `OSp445e0mXU_s19` track 1040 shows #0.
+- **Stale holders:** two holder boxes are another player (n079, n282), as in the team audit.
+
+Number accuracy per track still reads `identities.csv`, so these gaps belong to track gold v1.

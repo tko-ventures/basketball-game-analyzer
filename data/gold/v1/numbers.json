@@ -1,0 +1,6023 @@
+{
+ "version": "v1",
+ "source": "data/labels/numbers/gold_crops.json",
+ "labels": "digits when all are legible, else illegible or not_number",
+ "crops": [
+  {
+   "id": "n001",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 1935,
+   "held_out": false,
+   "xyxy": [
+    418,
+    562,
+    443,
+    592
+   ],
+   "label": "19",
+   "team": "home"
+  },
+  {
+   "id": "n002",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 1935,
+   "held_out": false,
+   "xyxy": [
+    868,
+    558,
+    883,
+    584
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "n003",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 2000,
+   "held_out": false,
+   "xyxy": [
+    577,
+    779,
+    607,
+    809
+   ],
+   "label": "20",
+   "team": "home"
+  },
+  {
+   "id": "n004",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 2060,
+   "held_out": false,
+   "xyxy": [
+    533,
+    602,
+    562,
+    625.5
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "n005",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 2060,
+   "held_out": false,
+   "xyxy": [
+    586,
+    693,
+    611,
+    722
+   ],
+   "label": "6",
+   "team": "home"
+  },
+  {
+   "id": "n006",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 2060,
+   "held_out": false,
+   "xyxy": [
+    743,
+    402,
+    757,
+    433
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n007",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 2060,
+   "held_out": false,
+   "xyxy": [
+    1235,
+    639.5,
+    1245,
+    654.5
+   ],
+   "label": "4",
+   "team": "away"
+  },
+  {
+   "id": "n008",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 2060,
+   "held_out": false,
+   "xyxy": [
+    1494,
+    721,
+    1516,
+    747
+   ],
+   "label": "3",
+   "team": "home"
+  },
+  {
+   "id": "n009",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 2125,
+   "held_out": false,
+   "xyxy": [
+    1045,
+    642,
+    1063,
+    667
+   ],
+   "label": "6",
+   "team": "home"
+  },
+  {
+   "id": "n010",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 2125,
+   "held_out": false,
+   "xyxy": [
+    1282.5,
+    621.5,
+    1301,
+    649.5
+   ],
+   "label": "4",
+   "team": "away"
+  },
+  {
+   "id": "n011",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 2125,
+   "held_out": false,
+   "xyxy": [
+    1465,
+    573,
+    1485,
+    610
+   ],
+   "label": "3",
+   "team": "home"
+  },
+  {
+   "id": "n012",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 2190,
+   "held_out": false,
+   "xyxy": [
+    209,
+    518,
+    225.5,
+    530
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n013",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 2190,
+   "held_out": false,
+   "xyxy": [
+    485.5,
+    502,
+    501.5,
+    517.5
+   ],
+   "label": "21",
+   "team": "away"
+  },
+  {
+   "id": "n014",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 2190,
+   "held_out": false,
+   "xyxy": [
+    1227,
+    453,
+    1241,
+    474
+   ],
+   "label": "3",
+   "team": ""
+  },
+  {
+   "id": "n015",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 2255,
+   "held_out": false,
+   "xyxy": [
+    1148,
+    437,
+    1164,
+    451
+   ],
+   "label": "19",
+   "team": "away"
+  },
+  {
+   "id": "n016",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 2380,
+   "held_out": false,
+   "xyxy": [
+    661.5,
+    435.5,
+    670.5,
+    446
+   ],
+   "label": "3",
+   "team": "home"
+  },
+  {
+   "id": "n017",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 2380,
+   "held_out": false,
+   "xyxy": [
+    912.5,
+    544,
+    926,
+    557.5
+   ],
+   "label": "21",
+   "team": "away"
+  },
+  {
+   "id": "n018",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 2380,
+   "held_out": false,
+   "xyxy": [
+    942,
+    450.5,
+    952,
+    463
+   ],
+   "label": "4",
+   "team": "away"
+  },
+  {
+   "id": "n019",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 2380,
+   "held_out": false,
+   "xyxy": [
+    1074,
+    613,
+    1096,
+    644
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "n020",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 2380,
+   "held_out": false,
+   "xyxy": [
+    1488,
+    682,
+    1503,
+    713
+   ],
+   "label": "5",
+   "team": "home"
+  },
+  {
+   "id": "n021",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 2445,
+   "held_out": false,
+   "xyxy": [
+    475,
+    499.5,
+    484.5,
+    511
+   ],
+   "label": "3",
+   "team": "home"
+  },
+  {
+   "id": "n022",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 2445,
+   "held_out": false,
+   "xyxy": [
+    1029,
+    571,
+    1045,
+    587
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n023",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 2445,
+   "held_out": false,
+   "xyxy": [
+    1396,
+    592.5,
+    1435.5,
+    619
+   ],
+   "label": "31",
+   "team": "away"
+  },
+  {
+   "id": "n024",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14345,
+   "held_out": false,
+   "xyxy": [
+    876,
+    434.5,
+    905,
+    458
+   ],
+   "label": "21",
+   "team": "away"
+  },
+  {
+   "id": "n025",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14345,
+   "held_out": false,
+   "xyxy": [
+    936,
+    654,
+    952,
+    677
+   ],
+   "label": "5",
+   "team": "home"
+  },
+  {
+   "id": "n026",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14345,
+   "held_out": false,
+   "xyxy": [
+    1419,
+    617,
+    1440,
+    648
+   ],
+   "label": "3",
+   "team": "home"
+  },
+  {
+   "id": "n027",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14405,
+   "held_out": false,
+   "xyxy": [
+    764,
+    622,
+    780,
+    646
+   ],
+   "label": "6",
+   "team": "home"
+  },
+  {
+   "id": "n028",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14405,
+   "held_out": false,
+   "xyxy": [
+    780,
+    415,
+    802.5,
+    438
+   ],
+   "label": "21",
+   "team": "away"
+  },
+  {
+   "id": "n029",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14405,
+   "held_out": false,
+   "xyxy": [
+    1311,
+    617,
+    1328,
+    640
+   ],
+   "label": "3",
+   "team": "home"
+  },
+  {
+   "id": "n030",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14465,
+   "held_out": false,
+   "xyxy": [
+    384,
+    630,
+    398,
+    655
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n031",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14465,
+   "held_out": false,
+   "xyxy": [
+    609.5,
+    408,
+    632,
+    431
+   ],
+   "label": "21",
+   "team": "away"
+  },
+  {
+   "id": "n032",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14465,
+   "held_out": false,
+   "xyxy": [
+    987,
+    630,
+    1004,
+    653
+   ],
+   "label": "3",
+   "team": "home"
+  },
+  {
+   "id": "n033",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14525,
+   "held_out": false,
+   "xyxy": [
+    659,
+    403.5,
+    680.5,
+    425
+   ],
+   "label": "21",
+   "team": "away"
+  },
+  {
+   "id": "n034",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14525,
+   "held_out": false,
+   "xyxy": [
+    864,
+    668,
+    884,
+    691
+   ],
+   "label": "3",
+   "team": "home"
+  },
+  {
+   "id": "n035",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14525,
+   "held_out": false,
+   "xyxy": [
+    1094,
+    451.5,
+    1112.5,
+    471.5
+   ],
+   "label": "illegible",
+   "team": ""
+  },
+  {
+   "id": "n036",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14525,
+   "held_out": false,
+   "xyxy": [
+    1198,
+    471,
+    1215,
+    493
+   ],
+   "label": "21",
+   "team": "home"
+  },
+  {
+   "id": "n037",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14525,
+   "held_out": false,
+   "xyxy": [
+    1768,
+    609,
+    1784,
+    625
+   ],
+   "label": "illegible",
+   "team": ""
+  },
+  {
+   "id": "n038",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14585,
+   "held_out": false,
+   "xyxy": [
+    174,
+    589,
+    189,
+    615
+   ],
+   "label": "6",
+   "team": "home"
+  },
+  {
+   "id": "n039",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14585,
+   "held_out": false,
+   "xyxy": [
+    703,
+    692,
+    726,
+    720
+   ],
+   "label": "3",
+   "team": "home"
+  },
+  {
+   "id": "n040",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14585,
+   "held_out": false,
+   "xyxy": [
+    1852.5,
+    528,
+    1875,
+    545
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "n041",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14645,
+   "held_out": false,
+   "xyxy": [
+    692,
+    716,
+    711,
+    740
+   ],
+   "label": "3",
+   "team": "away"
+  },
+  {
+   "id": "n042",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14645,
+   "held_out": false,
+   "xyxy": [
+    986,
+    490,
+    1002,
+    505
+   ],
+   "label": "21",
+   "team": "home"
+  },
+  {
+   "id": "n043",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14645,
+   "held_out": false,
+   "xyxy": [
+    1034,
+    432.5,
+    1047,
+    445
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "n044",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14705,
+   "held_out": false,
+   "xyxy": [
+    452,
+    819,
+    476,
+    855
+   ],
+   "label": "1",
+   "team": "away"
+  },
+  {
+   "id": "n045",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14705,
+   "held_out": false,
+   "xyxy": [
+    533,
+    552,
+    552,
+    579
+   ],
+   "label": "4",
+   "team": "away"
+  },
+  {
+   "id": "n046",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14705,
+   "held_out": false,
+   "xyxy": [
+    730.5,
+    764,
+    745,
+    788
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n047",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14765,
+   "held_out": false,
+   "xyxy": [
+    490,
+    860,
+    520,
+    910
+   ],
+   "label": "1",
+   "team": "away"
+  },
+  {
+   "id": "n048",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14765,
+   "held_out": false,
+   "xyxy": [
+    679,
+    525.5,
+    705,
+    563
+   ],
+   "label": "31",
+   "team": "away"
+  },
+  {
+   "id": "n049",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14765,
+   "held_out": false,
+   "xyxy": [
+    987,
+    543,
+    1012,
+    571
+   ],
+   "label": "9",
+   "team": "away"
+  },
+  {
+   "id": "n050",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14765,
+   "held_out": false,
+   "xyxy": [
+    1462,
+    568,
+    1482,
+    583
+   ],
+   "label": "20",
+   "team": "home"
+  },
+  {
+   "id": "n051",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25515,
+   "held_out": false,
+   "xyxy": [
+    486,
+    531.5,
+    502,
+    552
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "n052",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25515,
+   "held_out": false,
+   "xyxy": [
+    571,
+    552,
+    597,
+    580
+   ],
+   "label": "15",
+   "team": "away"
+  },
+  {
+   "id": "n053",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25515,
+   "held_out": false,
+   "xyxy": [
+    670,
+    558,
+    694,
+    592
+   ],
+   "label": "10",
+   "team": "home"
+  },
+  {
+   "id": "n054",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25515,
+   "held_out": false,
+   "xyxy": [
+    1123,
+    727,
+    1155,
+    753
+   ],
+   "label": "21",
+   "team": "away"
+  },
+  {
+   "id": "n055",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25575,
+   "held_out": false,
+   "xyxy": [
+    793,
+    525,
+    829,
+    549
+   ],
+   "label": "15",
+   "team": "away"
+  },
+  {
+   "id": "n056",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25575,
+   "held_out": false,
+   "xyxy": [
+    1161,
+    733,
+    1193,
+    760
+   ],
+   "label": "21",
+   "team": "away"
+  },
+  {
+   "id": "n057",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25630,
+   "held_out": false,
+   "xyxy": [
+    744,
+    496,
+    763,
+    510
+   ],
+   "label": "20",
+   "team": "home"
+  },
+  {
+   "id": "n058",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25630,
+   "held_out": false,
+   "xyxy": [
+    1007,
+    539,
+    1028,
+    574
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n059",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25630,
+   "held_out": false,
+   "xyxy": [
+    1465,
+    728,
+    1496,
+    758
+   ],
+   "label": "21",
+   "team": "away"
+  },
+  {
+   "id": "n060",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25685,
+   "held_out": false,
+   "xyxy": [
+    578,
+    505,
+    609,
+    536
+   ],
+   "label": "20",
+   "team": "home"
+  },
+  {
+   "id": "n061",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25685,
+   "held_out": false,
+   "xyxy": [
+    827,
+    606,
+    852,
+    633
+   ],
+   "label": "4",
+   "team": "away"
+  },
+  {
+   "id": "n062",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25685,
+   "held_out": false,
+   "xyxy": [
+    932,
+    506,
+    966,
+    535
+   ],
+   "label": "23",
+   "team": "home"
+  },
+  {
+   "id": "n063",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25685,
+   "held_out": false,
+   "xyxy": [
+    935,
+    428,
+    951,
+    449
+   ],
+   "label": "6",
+   "team": "home"
+  },
+  {
+   "id": "n064",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25685,
+   "held_out": false,
+   "xyxy": [
+    1073,
+    512,
+    1105,
+    536
+   ],
+   "label": "15",
+   "team": "away"
+  },
+  {
+   "id": "n065",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25685,
+   "held_out": false,
+   "xyxy": [
+    1409,
+    717,
+    1431,
+    747
+   ],
+   "label": "21",
+   "team": "away"
+  },
+  {
+   "id": "n066",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25745,
+   "held_out": false,
+   "xyxy": [
+    699.5,
+    685,
+    722,
+    712.5
+   ],
+   "label": "4",
+   "team": "away"
+  },
+  {
+   "id": "n067",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25745,
+   "held_out": false,
+   "xyxy": [
+    718,
+    490,
+    748,
+    514
+   ],
+   "label": "20",
+   "team": "home"
+  },
+  {
+   "id": "n068",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25745,
+   "held_out": false,
+   "xyxy": [
+    941,
+    580,
+    967,
+    609
+   ],
+   "label": "10",
+   "team": "home"
+  },
+  {
+   "id": "n069",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25745,
+   "held_out": false,
+   "xyxy": [
+    1037,
+    479,
+    1067,
+    505
+   ],
+   "label": "23",
+   "team": "home"
+  },
+  {
+   "id": "n070",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25745,
+   "held_out": false,
+   "xyxy": [
+    1197,
+    520,
+    1229,
+    544.5
+   ],
+   "label": "15",
+   "team": "away"
+  },
+  {
+   "id": "n071",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25745,
+   "held_out": false,
+   "xyxy": [
+    1324,
+    607,
+    1338,
+    630
+   ],
+   "label": "9",
+   "team": "home"
+  },
+  {
+   "id": "n072",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25745,
+   "held_out": false,
+   "xyxy": [
+    1330,
+    657.5,
+    1366.5,
+    686.5
+   ],
+   "label": "21",
+   "team": "away"
+  },
+  {
+   "id": "n073",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25800,
+   "held_out": false,
+   "xyxy": [
+    323,
+    505,
+    342,
+    533
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "n074",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25800,
+   "held_out": false,
+   "xyxy": [
+    637,
+    495,
+    657,
+    518
+   ],
+   "label": "20",
+   "team": "home"
+  },
+  {
+   "id": "n075",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25800,
+   "held_out": false,
+   "xyxy": [
+    653.5,
+    707,
+    675,
+    734
+   ],
+   "label": "4",
+   "team": "away"
+  },
+  {
+   "id": "n076",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25800,
+   "held_out": false,
+   "xyxy": [
+    981,
+    613,
+    999,
+    637
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n077",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25800,
+   "held_out": false,
+   "xyxy": [
+    1188,
+    625,
+    1223,
+    652
+   ],
+   "label": "21",
+   "team": "away"
+  },
+  {
+   "id": "n078",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25800,
+   "held_out": false,
+   "xyxy": [
+    1224,
+    559,
+    1239,
+    580
+   ],
+   "label": "9",
+   "team": "away"
+  },
+  {
+   "id": "n079",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25800,
+   "held_out": false,
+   "xyxy": [
+    1240.5,
+    541,
+    1269.5,
+    565
+   ],
+   "label": "15",
+   "team": "away"
+  },
+  {
+   "id": "n080",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25855,
+   "held_out": false,
+   "xyxy": [
+    863,
+    633,
+    894,
+    665
+   ],
+   "label": "10",
+   "team": "home"
+  },
+  {
+   "id": "n081",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25855,
+   "held_out": false,
+   "xyxy": [
+    874,
+    640,
+    898,
+    673
+   ],
+   "label": "10",
+   "team": "home"
+  },
+  {
+   "id": "n082",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25855,
+   "held_out": false,
+   "xyxy": [
+    1235,
+    625,
+    1265,
+    652
+   ],
+   "label": "21",
+   "team": "away"
+  },
+  {
+   "id": "n083",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25855,
+   "held_out": false,
+   "xyxy": [
+    1276,
+    545,
+    1309,
+    570
+   ],
+   "label": "15",
+   "team": "away"
+  },
+  {
+   "id": "n084",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25915,
+   "held_out": false,
+   "xyxy": [
+    605.5,
+    783,
+    633,
+    812.5
+   ],
+   "label": "4",
+   "team": "away"
+  },
+  {
+   "id": "n085",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25915,
+   "held_out": false,
+   "xyxy": [
+    847,
+    635,
+    866.5,
+    660
+   ],
+   "label": "10",
+   "team": "home"
+  },
+  {
+   "id": "n086",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25915,
+   "held_out": false,
+   "xyxy": [
+    1052,
+    609,
+    1075,
+    639
+   ],
+   "label": "21",
+   "team": "away"
+  },
+  {
+   "id": "n087",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25915,
+   "held_out": false,
+   "xyxy": [
+    1161,
+    614,
+    1184,
+    643
+   ],
+   "label": "9",
+   "team": "home"
+  },
+  {
+   "id": "n088",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25915,
+   "held_out": false,
+   "xyxy": [
+    1244,
+    567,
+    1278,
+    604
+   ],
+   "label": "23",
+   "team": "home"
+  },
+  {
+   "id": "n089",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25970,
+   "held_out": false,
+   "xyxy": [
+    194,
+    617,
+    223,
+    650
+   ],
+   "label": "20",
+   "team": "home"
+  },
+  {
+   "id": "n090",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25970,
+   "held_out": false,
+   "xyxy": [
+    229,
+    788,
+    264,
+    828
+   ],
+   "label": "4",
+   "team": "away"
+  },
+  {
+   "id": "n091",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25970,
+   "held_out": false,
+   "xyxy": [
+    1258,
+    560,
+    1290,
+    601
+   ],
+   "label": "23",
+   "team": "home"
+  },
+  {
+   "id": "n092",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 580,
+   "held_out": false,
+   "xyxy": [
+    867,
+    655,
+    911,
+    700
+   ],
+   "label": "32",
+   "team": "away"
+  },
+  {
+   "id": "n093",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 580,
+   "held_out": false,
+   "xyxy": [
+    889,
+    366,
+    902,
+    385
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "n094",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 580,
+   "held_out": false,
+   "xyxy": [
+    1380,
+    428,
+    1402,
+    449
+   ],
+   "label": "25",
+   "team": "away"
+  },
+  {
+   "id": "n095",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 640,
+   "held_out": false,
+   "xyxy": [
+    0,
+    560,
+    9,
+    587
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "n096",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 640,
+   "held_out": false,
+   "xyxy": [
+    881,
+    647,
+    920,
+    674
+   ],
+   "label": "32",
+   "team": "away"
+  },
+  {
+   "id": "n097",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 700,
+   "held_out": false,
+   "xyxy": [
+    60.5,
+    558.5,
+    83,
+    587.5
+   ],
+   "label": "42",
+   "team": "away"
+  },
+  {
+   "id": "n098",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 700,
+   "held_out": false,
+   "xyxy": [
+    826,
+    644,
+    862,
+    670
+   ],
+   "label": "32",
+   "team": "away"
+  },
+  {
+   "id": "n099",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 760,
+   "held_out": false,
+   "xyxy": [
+    302.5,
+    540.5,
+    321,
+    570.5
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "n100",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 760,
+   "held_out": false,
+   "xyxy": [
+    673,
+    449,
+    685,
+    468
+   ],
+   "label": "0",
+   "team": "home"
+  },
+  {
+   "id": "n101",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 760,
+   "held_out": false,
+   "xyxy": [
+    922,
+    611,
+    950.5,
+    648.5
+   ],
+   "label": "32",
+   "team": "away"
+  },
+  {
+   "id": "n102",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 760,
+   "held_out": false,
+   "xyxy": [
+    1123.5,
+    544.5,
+    1139.5,
+    567.5
+   ],
+   "label": "3",
+   "team": "home"
+  },
+  {
+   "id": "n103",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 760,
+   "held_out": false,
+   "xyxy": [
+    1332,
+    573,
+    1342,
+    599.5
+   ],
+   "label": "1",
+   "team": "home"
+  },
+  {
+   "id": "n104",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 820,
+   "held_out": false,
+   "xyxy": [
+    1211,
+    422,
+    1224,
+    443
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n105",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 880,
+   "held_out": false,
+   "xyxy": [
+    1541,
+    592,
+    1579,
+    620.5
+   ],
+   "label": "32",
+   "team": "away"
+  },
+  {
+   "id": "n106",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 880,
+   "held_out": false,
+   "xyxy": [
+    1618,
+    718,
+    1645.5,
+    755
+   ],
+   "label": "illegible",
+   "team": ""
+  },
+  {
+   "id": "n107",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 940,
+   "held_out": false,
+   "xyxy": [
+    47,
+    573,
+    69,
+    599
+   ],
+   "label": "0",
+   "team": "home"
+  },
+  {
+   "id": "n108",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 940,
+   "held_out": false,
+   "xyxy": [
+    513,
+    582,
+    555,
+    624
+   ],
+   "label": "42",
+   "team": "away"
+  },
+  {
+   "id": "n109",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 940,
+   "held_out": false,
+   "xyxy": [
+    544,
+    461,
+    570,
+    487
+   ],
+   "label": "45",
+   "team": "home"
+  },
+  {
+   "id": "n110",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 1000,
+   "held_out": false,
+   "xyxy": [
+    326,
+    438,
+    343,
+    460
+   ],
+   "label": "0",
+   "team": "home"
+  },
+  {
+   "id": "n111",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 1000,
+   "held_out": false,
+   "xyxy": [
+    609,
+    526,
+    636,
+    561
+   ],
+   "label": "42",
+   "team": "away"
+  },
+  {
+   "id": "n112",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s10",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 3050,
+   "held_out": false,
+   "xyxy": [
+    575,
+    738,
+    594,
+    762
+   ],
+   "label": "4",
+   "team": "home"
+  },
+  {
+   "id": "n113",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s10",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 3050,
+   "held_out": false,
+   "xyxy": [
+    759,
+    743,
+    780,
+    763
+   ],
+   "label": "7",
+   "team": "away"
+  },
+  {
+   "id": "n114",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s10",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 3050,
+   "held_out": false,
+   "xyxy": [
+    1118.5,
+    530.5,
+    1144,
+    548
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "n115",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s10",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 3050,
+   "held_out": false,
+   "xyxy": [
+    1763,
+    753,
+    1782,
+    780
+   ],
+   "label": "2",
+   "team": "home"
+  },
+  {
+   "id": "n116",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s10",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 3115,
+   "held_out": false,
+   "xyxy": [
+    814,
+    628,
+    830,
+    648
+   ],
+   "label": "4",
+   "team": "home"
+  },
+  {
+   "id": "n117",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s10",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 3115,
+   "held_out": false,
+   "xyxy": [
+    885,
+    643,
+    918,
+    670
+   ],
+   "label": "7",
+   "team": "away"
+  },
+  {
+   "id": "n118",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s10",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 3180,
+   "held_out": false,
+   "xyxy": [
+    1703,
+    663,
+    1715,
+    683
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n119",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6410,
+   "held_out": false,
+   "xyxy": [
+    687,
+    676,
+    707,
+    706
+   ],
+   "label": "3",
+   "team": "away"
+  },
+  {
+   "id": "n120",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6410,
+   "held_out": false,
+   "xyxy": [
+    827,
+    639,
+    855,
+    668
+   ],
+   "label": "42",
+   "team": "away"
+  },
+  {
+   "id": "n121",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6470,
+   "held_out": false,
+   "xyxy": [
+    899,
+    631,
+    931,
+    677
+   ],
+   "label": "42",
+   "team": "away"
+  },
+  {
+   "id": "n122",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6580,
+   "held_out": false,
+   "xyxy": [
+    1244,
+    609,
+    1277,
+    652
+   ],
+   "label": "42",
+   "team": "away"
+  },
+  {
+   "id": "n123",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6640,
+   "held_out": false,
+   "xyxy": [
+    620,
+    411,
+    637,
+    430
+   ],
+   "label": "0",
+   "team": "home"
+  },
+  {
+   "id": "n124",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6640,
+   "held_out": false,
+   "xyxy": [
+    982,
+    467,
+    996,
+    487
+   ],
+   "label": "4",
+   "team": "home"
+  },
+  {
+   "id": "n125",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6640,
+   "held_out": false,
+   "xyxy": [
+    1199.5,
+    486,
+    1228.5,
+    505.5
+   ],
+   "label": "42",
+   "team": "away"
+  },
+  {
+   "id": "n126",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6640,
+   "held_out": false,
+   "xyxy": [
+    1210,
+    577,
+    1226,
+    600
+   ],
+   "label": "2",
+   "team": "away"
+  },
+  {
+   "id": "n127",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6695,
+   "held_out": false,
+   "xyxy": [
+    252,
+    447.5,
+    270.5,
+    471.5
+   ],
+   "label": "3",
+   "team": "away"
+  },
+  {
+   "id": "n128",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6695,
+   "held_out": false,
+   "xyxy": [
+    898,
+    566,
+    922,
+    595
+   ],
+   "label": "0",
+   "team": "away"
+  },
+  {
+   "id": "n129",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6695,
+   "held_out": false,
+   "xyxy": [
+    1060,
+    542,
+    1078,
+    565
+   ],
+   "label": "2",
+   "team": "home"
+  },
+  {
+   "id": "n130",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6750,
+   "held_out": false,
+   "xyxy": [
+    660,
+    533,
+    681,
+    567
+   ],
+   "label": "0",
+   "team": "away"
+  },
+  {
+   "id": "n131",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6750,
+   "held_out": false,
+   "xyxy": [
+    1071,
+    535,
+    1086,
+    555
+   ],
+   "label": "2",
+   "team": "home"
+  },
+  {
+   "id": "n132",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6810,
+   "held_out": false,
+   "xyxy": [
+    1067,
+    526,
+    1080,
+    546
+   ],
+   "label": "2",
+   "team": "home"
+  },
+  {
+   "id": "n133",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 975,
+   "held_out": false,
+   "xyxy": [
+    718,
+    413,
+    733,
+    430
+   ],
+   "label": "11",
+   "team": "home"
+  },
+  {
+   "id": "n134",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 975,
+   "held_out": false,
+   "xyxy": [
+    934,
+    494,
+    952,
+    513
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "n135",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 975,
+   "held_out": false,
+   "xyxy": [
+    1185,
+    436,
+    1195,
+    451
+   ],
+   "label": "2",
+   "team": "home"
+  },
+  {
+   "id": "n136",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 975,
+   "held_out": false,
+   "xyxy": [
+    1247,
+    431,
+    1256,
+    449
+   ],
+   "label": "illegible",
+   "team": ""
+  },
+  {
+   "id": "n137",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1035,
+   "held_out": false,
+   "xyxy": [
+    809,
+    656,
+    831,
+    682
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "n138",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1035,
+   "held_out": false,
+   "xyxy": [
+    968,
+    396,
+    989,
+    413
+   ],
+   "label": "33",
+   "team": "home"
+  },
+  {
+   "id": "n139",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1035,
+   "held_out": false,
+   "xyxy": [
+    1124.5,
+    481,
+    1146,
+    501
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n140",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1035,
+   "held_out": false,
+   "xyxy": [
+    1146,
+    474,
+    1161,
+    496
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "n141",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1035,
+   "held_out": false,
+   "xyxy": [
+    1251,
+    548,
+    1276,
+    570
+   ],
+   "label": "37",
+   "team": "home"
+  },
+  {
+   "id": "n142",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1095,
+   "held_out": false,
+   "xyxy": [
+    674,
+    429,
+    685,
+    441
+   ],
+   "label": "11",
+   "team": "ref"
+  },
+  {
+   "id": "n143",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1095,
+   "held_out": false,
+   "xyxy": [
+    719,
+    574,
+    730,
+    599
+   ],
+   "label": "16",
+   "team": "away"
+  },
+  {
+   "id": "n144",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1095,
+   "held_out": false,
+   "xyxy": [
+    1162,
+    525,
+    1189,
+    545
+   ],
+   "label": "37",
+   "team": "home"
+  },
+  {
+   "id": "n145",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1280,
+   "held_out": false,
+   "xyxy": [
+    1534,
+    519,
+    1574,
+    544
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "n146",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1345,
+   "held_out": false,
+   "xyxy": [
+    771,
+    735,
+    796,
+    764
+   ],
+   "label": "37",
+   "team": "home"
+  },
+  {
+   "id": "n147",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1345,
+   "held_out": false,
+   "xyxy": [
+    779,
+    529,
+    800,
+    546
+   ],
+   "label": "16",
+   "team": "away"
+  },
+  {
+   "id": "n148",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1345,
+   "held_out": false,
+   "xyxy": [
+    891,
+    577,
+    908,
+    596
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n149",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1345,
+   "held_out": false,
+   "xyxy": [
+    1081,
+    500.5,
+    1095.5,
+    524.5
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "n150",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1345,
+   "held_out": false,
+   "xyxy": [
+    1316,
+    477,
+    1334,
+    496
+   ],
+   "label": "45",
+   "team": "away"
+  },
+  {
+   "id": "n151",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1405,
+   "held_out": false,
+   "xyxy": [
+    903,
+    690,
+    927,
+    709
+   ],
+   "label": "37",
+   "team": "home"
+  },
+  {
+   "id": "n152",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1405,
+   "held_out": false,
+   "xyxy": [
+    1122,
+    505,
+    1145,
+    521
+   ],
+   "label": "33",
+   "team": "home"
+  },
+  {
+   "id": "n153",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1405,
+   "held_out": false,
+   "xyxy": [
+    1436,
+    537,
+    1451,
+    558
+   ],
+   "label": "2",
+   "team": "home"
+  },
+  {
+   "id": "n154",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1465,
+   "held_out": false,
+   "xyxy": [
+    704,
+    467,
+    719,
+    486
+   ],
+   "label": "11",
+   "team": "away"
+  },
+  {
+   "id": "n155",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1465,
+   "held_out": false,
+   "xyxy": [
+    864,
+    747,
+    899,
+    773
+   ],
+   "label": "37",
+   "team": "home"
+  },
+  {
+   "id": "n156",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1465,
+   "held_out": false,
+   "xyxy": [
+    1545,
+    567,
+    1557,
+    585
+   ],
+   "label": "2",
+   "team": "home"
+  },
+  {
+   "id": "n157",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2520,
+   "held_out": false,
+   "xyxy": [
+    655,
+    816,
+    667,
+    833
+   ],
+   "label": "0",
+   "team": "away"
+  },
+  {
+   "id": "n158",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2520,
+   "held_out": false,
+   "xyxy": [
+    878,
+    465,
+    896,
+    475
+   ],
+   "label": "33",
+   "team": "home"
+  },
+  {
+   "id": "n159",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2520,
+   "held_out": false,
+   "xyxy": [
+    1264,
+    723,
+    1283,
+    740
+   ],
+   "label": "25",
+   "team": "away"
+  },
+  {
+   "id": "n160",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2585,
+   "held_out": false,
+   "xyxy": [
+    122,
+    744,
+    143,
+    772
+   ],
+   "label": "0",
+   "team": "home"
+  },
+  {
+   "id": "n161",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2585,
+   "held_out": false,
+   "xyxy": [
+    133,
+    714,
+    148,
+    732
+   ],
+   "label": "not_number",
+   "team": "home"
+  },
+  {
+   "id": "n162",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2585,
+   "held_out": false,
+   "xyxy": [
+    724,
+    862,
+    766,
+    893
+   ],
+   "label": "13",
+   "team": "home"
+  },
+  {
+   "id": "n163",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2650,
+   "held_out": false,
+   "xyxy": [
+    999,
+    790,
+    1031,
+    822
+   ],
+   "label": "13",
+   "team": "home"
+  },
+  {
+   "id": "n164",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    478,
+    601,
+    492,
+    621
+   ],
+   "label": "0",
+   "team": "home"
+  },
+  {
+   "id": "n165",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    542,
+    591,
+    560,
+    614
+   ],
+   "label": "16",
+   "team": "away"
+  },
+  {
+   "id": "n166",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    865.5,
+    494.5,
+    877.5,
+    508.5
+   ],
+   "label": "2",
+   "team": "away"
+  },
+  {
+   "id": "n167",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    971.5,
+    452,
+    985.5,
+    464.5
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n168",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    1015.5,
+    493.5,
+    1026.5,
+    505.5
+   ],
+   "label": "4",
+   "team": "away"
+  },
+  {
+   "id": "n169",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    1069,
+    805,
+    1105,
+    830
+   ],
+   "label": "13",
+   "team": "home"
+  },
+  {
+   "id": "n170",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    1188.5,
+    575,
+    1203.5,
+    589
+   ],
+   "label": "25",
+   "team": "away"
+  },
+  {
+   "id": "n171",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    1485,
+    465.5,
+    1492,
+    476
+   ],
+   "label": "2",
+   "team": "home"
+  },
+  {
+   "id": "n172",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    1803.5,
+    657,
+    1834.5,
+    684.5
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n173",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2775,
+   "held_out": false,
+   "xyxy": [
+    630,
+    525,
+    651,
+    548
+   ],
+   "label": "16",
+   "team": "away"
+  },
+  {
+   "id": "n174",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2775,
+   "held_out": false,
+   "xyxy": [
+    965,
+    502,
+    974,
+    513
+   ],
+   "label": "4",
+   "team": "away"
+  },
+  {
+   "id": "n175",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2775,
+   "held_out": false,
+   "xyxy": [
+    976,
+    811,
+    1016,
+    842
+   ],
+   "label": "13",
+   "team": "home"
+  },
+  {
+   "id": "n176",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2775,
+   "held_out": false,
+   "xyxy": [
+    1740,
+    632,
+    1754,
+    660
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n177",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2840,
+   "held_out": false,
+   "xyxy": [
+    541.5,
+    483.5,
+    562.5,
+    506.5
+   ],
+   "label": "0",
+   "team": ""
+  },
+  {
+   "id": "n178",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2840,
+   "held_out": false,
+   "xyxy": [
+    581.5,
+    555,
+    615.5,
+    582.5
+   ],
+   "label": "33",
+   "team": "home"
+  },
+  {
+   "id": "n179",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2840,
+   "held_out": false,
+   "xyxy": [
+    604,
+    511,
+    622,
+    534
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "n180",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2840,
+   "held_out": false,
+   "xyxy": [
+    703,
+    533,
+    718,
+    559
+   ],
+   "label": "2",
+   "team": "away"
+  },
+  {
+   "id": "n181",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2840,
+   "held_out": false,
+   "xyxy": [
+    961,
+    454,
+    974,
+    475
+   ],
+   "label": "4",
+   "team": "away"
+  },
+  {
+   "id": "n182",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2840,
+   "held_out": false,
+   "xyxy": [
+    979,
+    802,
+    1013,
+    834
+   ],
+   "label": "13",
+   "team": "home"
+  },
+  {
+   "id": "n183",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2840,
+   "held_out": false,
+   "xyxy": [
+    1051,
+    534,
+    1072,
+    558
+   ],
+   "label": "25",
+   "team": "away"
+  },
+  {
+   "id": "n184",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2840,
+   "held_out": false,
+   "xyxy": [
+    1728,
+    643,
+    1743,
+    672
+   ],
+   "label": "37",
+   "team": "home"
+  },
+  {
+   "id": "n185",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2905,
+   "held_out": false,
+   "xyxy": [
+    523,
+    612,
+    540,
+    638
+   ],
+   "label": "0",
+   "team": "away"
+  },
+  {
+   "id": "n186",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2905,
+   "held_out": false,
+   "xyxy": [
+    619,
+    624,
+    652,
+    653
+   ],
+   "label": "33",
+   "team": "home"
+  },
+  {
+   "id": "n187",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2905,
+   "held_out": false,
+   "xyxy": [
+    680,
+    453,
+    699,
+    476
+   ],
+   "label": "16",
+   "team": "away"
+  },
+  {
+   "id": "n188",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2905,
+   "held_out": false,
+   "xyxy": [
+    1104,
+    570,
+    1132,
+    595
+   ],
+   "label": "25",
+   "team": "away"
+  },
+  {
+   "id": "n189",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2905,
+   "held_out": false,
+   "xyxy": [
+    1109,
+    784,
+    1144,
+    815
+   ],
+   "label": "13",
+   "team": "home"
+  },
+  {
+   "id": "n190",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2905,
+   "held_out": false,
+   "xyxy": [
+    1123,
+    746,
+    1141,
+    768
+   ],
+   "label": "not_number",
+   "team": "home"
+  },
+  {
+   "id": "n191",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2970,
+   "held_out": false,
+   "xyxy": [
+    681,
+    490.5,
+    692,
+    502.5
+   ],
+   "label": "16",
+   "team": "away"
+  },
+  {
+   "id": "n192",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2970,
+   "held_out": false,
+   "xyxy": [
+    743,
+    548,
+    757,
+    571
+   ],
+   "label": "0",
+   "team": "away"
+  },
+  {
+   "id": "n193",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2970,
+   "held_out": false,
+   "xyxy": [
+    1093,
+    769,
+    1131,
+    803
+   ],
+   "label": "13",
+   "team": "home"
+  },
+  {
+   "id": "n194",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6200,
+   "held_out": false,
+   "xyxy": [
+    511,
+    852,
+    533,
+    882
+   ],
+   "label": "0",
+   "team": "away"
+  },
+  {
+   "id": "n195",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6200,
+   "held_out": false,
+   "xyxy": [
+    1237,
+    577,
+    1259,
+    600
+   ],
+   "label": "16",
+   "team": "away"
+  },
+  {
+   "id": "n196",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6260,
+   "held_out": false,
+   "xyxy": [
+    477,
+    798,
+    493,
+    823
+   ],
+   "label": "0",
+   "team": "away"
+  },
+  {
+   "id": "n197",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6260,
+   "held_out": false,
+   "xyxy": [
+    960,
+    433,
+    976,
+    452
+   ],
+   "label": "11",
+   "team": "home"
+  },
+  {
+   "id": "n198",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6260,
+   "held_out": false,
+   "xyxy": [
+    1168,
+    451,
+    1180,
+    469
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n199",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6260,
+   "held_out": false,
+   "xyxy": [
+    1277,
+    630,
+    1307,
+    658
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "n200",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6260,
+   "held_out": false,
+   "xyxy": [
+    1389,
+    642,
+    1411,
+    668
+   ],
+   "label": "16",
+   "team": "away"
+  },
+  {
+   "id": "n201",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6325,
+   "held_out": false,
+   "xyxy": [
+    429,
+    720,
+    445,
+    749
+   ],
+   "label": "0",
+   "team": "away"
+  },
+  {
+   "id": "n202",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6325,
+   "held_out": false,
+   "xyxy": [
+    978,
+    507,
+    1004,
+    529
+   ],
+   "label": "45",
+   "team": "away"
+  },
+  {
+   "id": "n203",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6325,
+   "held_out": false,
+   "xyxy": [
+    1080,
+    382,
+    1094,
+    396
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n204",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6325,
+   "held_out": false,
+   "xyxy": [
+    1590,
+    645,
+    1611,
+    669
+   ],
+   "label": "16",
+   "team": "away"
+  },
+  {
+   "id": "n205",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6385,
+   "held_out": false,
+   "xyxy": [
+    541.5,
+    741,
+    556.5,
+    766.5
+   ],
+   "label": "0",
+   "team": "away"
+  },
+  {
+   "id": "n206",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6385,
+   "held_out": false,
+   "xyxy": [
+    913,
+    429,
+    929,
+    451
+   ],
+   "label": "21",
+   "team": "home"
+  },
+  {
+   "id": "n207",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6385,
+   "held_out": false,
+   "xyxy": [
+    1293,
+    442,
+    1308,
+    458
+   ],
+   "label": "0",
+   "team": "home"
+  },
+  {
+   "id": "n208",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6385,
+   "held_out": false,
+   "xyxy": [
+    1569,
+    722,
+    1595,
+    751
+   ],
+   "label": "16",
+   "team": "away"
+  },
+  {
+   "id": "n209",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6445,
+   "held_out": false,
+   "xyxy": [
+    550,
+    762,
+    571,
+    791
+   ],
+   "label": "0",
+   "team": "away"
+  },
+  {
+   "id": "n210",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6510,
+   "held_out": false,
+   "xyxy": [
+    573,
+    768,
+    590,
+    797
+   ],
+   "label": "0",
+   "team": "away"
+  },
+  {
+   "id": "n211",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6510,
+   "held_out": false,
+   "xyxy": [
+    670,
+    467,
+    694,
+    488
+   ],
+   "label": "11",
+   "team": "home"
+  },
+  {
+   "id": "n212",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6510,
+   "held_out": false,
+   "xyxy": [
+    752,
+    504,
+    778,
+    525
+   ],
+   "label": "13",
+   "team": "home"
+  },
+  {
+   "id": "n213",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6510,
+   "held_out": false,
+   "xyxy": [
+    980,
+    662,
+    1009,
+    695
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n214",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6510,
+   "held_out": false,
+   "xyxy": [
+    990,
+    737,
+    1018,
+    766
+   ],
+   "label": "16",
+   "team": "away"
+  },
+  {
+   "id": "n215",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6570,
+   "held_out": false,
+   "xyxy": [
+    658,
+    446,
+    681,
+    466
+   ],
+   "label": "13",
+   "team": "home"
+  },
+  {
+   "id": "n216",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 435,
+   "held_out": true,
+   "xyxy": [
+    724,
+    709,
+    768,
+    737
+   ],
+   "label": "3",
+   "team": "away"
+  },
+  {
+   "id": "n217",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 435,
+   "held_out": true,
+   "xyxy": [
+    1006,
+    583,
+    1033,
+    615
+   ],
+   "label": "21",
+   "team": "away"
+  },
+  {
+   "id": "n218",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 435,
+   "held_out": true,
+   "xyxy": [
+    1133,
+    568,
+    1158,
+    590
+   ],
+   "label": "21",
+   "team": "home"
+  },
+  {
+   "id": "n219",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 495,
+   "held_out": true,
+   "xyxy": [
+    1018,
+    711,
+    1038,
+    738
+   ],
+   "label": "9",
+   "team": "away"
+  },
+  {
+   "id": "n220",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 495,
+   "held_out": true,
+   "xyxy": [
+    1317,
+    549,
+    1327,
+    565
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n221",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 555,
+   "held_out": true,
+   "xyxy": [
+    127,
+    717,
+    141,
+    747
+   ],
+   "label": "3",
+   "team": "away"
+  },
+  {
+   "id": "n222",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 555,
+   "held_out": true,
+   "xyxy": [
+    472,
+    694,
+    488,
+    720
+   ],
+   "label": "2",
+   "team": "home"
+  },
+  {
+   "id": "n223",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 555,
+   "held_out": true,
+   "xyxy": [
+    1002,
+    705,
+    1025,
+    735
+   ],
+   "label": "9",
+   "team": "away"
+  },
+  {
+   "id": "n224",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 555,
+   "held_out": true,
+   "xyxy": [
+    1299.5,
+    566,
+    1313,
+    584.5
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n225",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 615,
+   "held_out": true,
+   "xyxy": [
+    1030,
+    607,
+    1048,
+    634
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n226",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 615,
+   "held_out": true,
+   "xyxy": [
+    1237,
+    666,
+    1262,
+    700
+   ],
+   "label": "9",
+   "team": "away"
+  },
+  {
+   "id": "n227",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 670,
+   "held_out": true,
+   "xyxy": [
+    195,
+    787,
+    214,
+    818
+   ],
+   "label": "3",
+   "team": "away"
+  },
+  {
+   "id": "n228",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 670,
+   "held_out": true,
+   "xyxy": [
+    575,
+    609,
+    592,
+    636
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n229",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 670,
+   "held_out": true,
+   "xyxy": [
+    893,
+    527,
+    915,
+    553
+   ],
+   "label": "45",
+   "team": "home"
+  },
+  {
+   "id": "n230",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 670,
+   "held_out": true,
+   "xyxy": [
+    1076,
+    597,
+    1102,
+    625
+   ],
+   "label": "21",
+   "team": "home"
+  },
+  {
+   "id": "n231",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 670,
+   "held_out": true,
+   "xyxy": [
+    1172,
+    548,
+    1201,
+    583
+   ],
+   "label": "21",
+   "team": "away"
+  },
+  {
+   "id": "n232",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 670,
+   "held_out": true,
+   "xyxy": [
+    1285,
+    751,
+    1310,
+    796
+   ],
+   "label": "9",
+   "team": "away"
+  },
+  {
+   "id": "n233",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 730,
+   "held_out": true,
+   "xyxy": [
+    299,
+    832,
+    320,
+    873
+   ],
+   "label": "3",
+   "team": "away"
+  },
+  {
+   "id": "n234",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 730,
+   "held_out": true,
+   "xyxy": [
+    613,
+    589,
+    631,
+    615
+   ],
+   "label": "2",
+   "team": "home"
+  },
+  {
+   "id": "n235",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 730,
+   "held_out": true,
+   "xyxy": [
+    1455,
+    816,
+    1486,
+    856
+   ],
+   "label": "9",
+   "team": "away"
+  },
+  {
+   "id": "n236",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 790,
+   "held_out": true,
+   "xyxy": [
+    530,
+    506,
+    541,
+    522
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n237",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 790,
+   "held_out": true,
+   "xyxy": [
+    703,
+    496,
+    730,
+    525
+   ],
+   "label": "45",
+   "team": "home"
+  },
+  {
+   "id": "n238",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 3860,
+   "held_out": true,
+   "xyxy": [
+    1021,
+    562,
+    1043,
+    588
+   ],
+   "label": "23",
+   "team": "home"
+  },
+  {
+   "id": "n239",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 3860,
+   "held_out": true,
+   "xyxy": [
+    1594,
+    644,
+    1610,
+    668
+   ],
+   "label": "8",
+   "team": "away"
+  },
+  {
+   "id": "n240",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 3920,
+   "held_out": true,
+   "xyxy": [
+    393,
+    742,
+    417,
+    776
+   ],
+   "label": "0",
+   "team": "away"
+  },
+  {
+   "id": "n241",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 3920,
+   "held_out": true,
+   "xyxy": [
+    1248,
+    567,
+    1279,
+    596
+   ],
+   "label": "23",
+   "team": "home"
+  },
+  {
+   "id": "n242",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 3980,
+   "held_out": true,
+   "xyxy": [
+    244,
+    704,
+    263,
+    737
+   ],
+   "label": "0",
+   "team": "away"
+  },
+  {
+   "id": "n243",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 3980,
+   "held_out": true,
+   "xyxy": [
+    1002,
+    514.5,
+    1022,
+    543.5
+   ],
+   "label": "13",
+   "team": "away"
+  },
+  {
+   "id": "n244",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 3980,
+   "held_out": true,
+   "xyxy": [
+    1081,
+    453,
+    1104,
+    481
+   ],
+   "label": "21",
+   "team": "home"
+  },
+  {
+   "id": "n245",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 3980,
+   "held_out": true,
+   "xyxy": [
+    1111,
+    538.5,
+    1124.5,
+    571
+   ],
+   "label": "7",
+   "team": "away"
+  },
+  {
+   "id": "n246",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 3980,
+   "held_out": true,
+   "xyxy": [
+    1174,
+    570,
+    1204,
+    598
+   ],
+   "label": "23",
+   "team": "home"
+  },
+  {
+   "id": "n247",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 3980,
+   "held_out": true,
+   "xyxy": [
+    1423,
+    650,
+    1456,
+    677
+   ],
+   "label": "25",
+   "team": "away"
+  },
+  {
+   "id": "n248",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 4035,
+   "held_out": true,
+   "xyxy": [
+    806,
+    521.5,
+    822.5,
+    540
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n249",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 4035,
+   "held_out": true,
+   "xyxy": [
+    1153,
+    660,
+    1187,
+    690
+   ],
+   "label": "25",
+   "team": "away"
+  },
+  {
+   "id": "n250",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 4035,
+   "held_out": true,
+   "xyxy": [
+    1276.5,
+    379,
+    1287,
+    392.5
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n251",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 4035,
+   "held_out": true,
+   "xyxy": [
+    1295,
+    679,
+    1323,
+    716
+   ],
+   "label": "11",
+   "team": "home"
+  },
+  {
+   "id": "n252",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 4095,
+   "held_out": true,
+   "xyxy": [
+    770,
+    527,
+    791,
+    560
+   ],
+   "label": "21",
+   "team": "home"
+  },
+  {
+   "id": "n253",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 4095,
+   "held_out": true,
+   "xyxy": [
+    1136,
+    605,
+    1165,
+    635
+   ],
+   "label": "25",
+   "team": "away"
+  },
+  {
+   "id": "n254",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 4095,
+   "held_out": true,
+   "xyxy": [
+    1259,
+    634,
+    1282,
+    664
+   ],
+   "label": "11",
+   "team": "home"
+  },
+  {
+   "id": "n255",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 4150,
+   "held_out": true,
+   "xyxy": [
+    1307,
+    714,
+    1331,
+    746
+   ],
+   "label": "11",
+   "team": "home"
+  },
+  {
+   "id": "n256",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 4210,
+   "held_out": true,
+   "xyxy": [
+    1133,
+    410,
+    1145,
+    426
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n257",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 4210,
+   "held_out": true,
+   "xyxy": [
+    1334,
+    706,
+    1374,
+    737
+   ],
+   "label": "11",
+   "team": "home"
+  },
+  {
+   "id": "n258",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 4210,
+   "held_out": true,
+   "xyxy": [
+    1352.5,
+    486.5,
+    1363.5,
+    507
+   ],
+   "label": "7",
+   "team": "away"
+  },
+  {
+   "id": "n259",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 4270,
+   "held_out": true,
+   "xyxy": [
+    1322,
+    709,
+    1350,
+    742
+   ],
+   "label": "11",
+   "team": "home"
+  },
+  {
+   "id": "n260",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 4270,
+   "held_out": true,
+   "xyxy": [
+    1347,
+    490,
+    1363,
+    506
+   ],
+   "label": "23",
+   "team": "home"
+  },
+  {
+   "id": "n261",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 4270,
+   "held_out": true,
+   "xyxy": [
+    1584,
+    469,
+    1614,
+    504
+   ],
+   "label": "25",
+   "team": "away"
+  },
+  {
+   "id": "n262",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 4270,
+   "held_out": true,
+   "xyxy": [
+    1733,
+    582,
+    1756,
+    611
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n263",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 6910,
+   "held_out": true,
+   "xyxy": [
+    178,
+    732,
+    202,
+    762
+   ],
+   "label": "11",
+   "team": "home"
+  },
+  {
+   "id": "n264",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 6910,
+   "held_out": true,
+   "xyxy": [
+    1560,
+    648,
+    1577,
+    672
+   ],
+   "label": "3",
+   "team": "home"
+  },
+  {
+   "id": "n265",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 6970,
+   "held_out": true,
+   "xyxy": [
+    363,
+    758,
+    388,
+    790
+   ],
+   "label": "11",
+   "team": "home"
+  },
+  {
+   "id": "n266",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7035,
+   "held_out": true,
+   "xyxy": [
+    184,
+    765,
+    211,
+    796
+   ],
+   "label": "11",
+   "team": "home"
+  },
+  {
+   "id": "n267",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7095,
+   "held_out": true,
+   "xyxy": [
+    239,
+    797,
+    265,
+    829
+   ],
+   "label": "11",
+   "team": "home"
+  },
+  {
+   "id": "n268",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7160,
+   "held_out": true,
+   "xyxy": [
+    467,
+    649,
+    485,
+    680
+   ],
+   "label": "3",
+   "team": "away"
+  },
+  {
+   "id": "n269",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7160,
+   "held_out": true,
+   "xyxy": [
+    680,
+    541,
+    721,
+    594
+   ],
+   "label": "21",
+   "team": "away"
+  },
+  {
+   "id": "n270",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7160,
+   "held_out": true,
+   "xyxy": [
+    929,
+    507,
+    958,
+    536
+   ],
+   "label": "23",
+   "team": "home"
+  },
+  {
+   "id": "n271",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7160,
+   "held_out": true,
+   "xyxy": [
+    1089,
+    522,
+    1119,
+    557
+   ],
+   "label": "13",
+   "team": "away"
+  },
+  {
+   "id": "n272",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7160,
+   "held_out": true,
+   "xyxy": [
+    1413,
+    595,
+    1435,
+    632
+   ],
+   "label": "3",
+   "team": "home"
+  },
+  {
+   "id": "n273",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7220,
+   "held_out": true,
+   "xyxy": [
+    702,
+    403,
+    724,
+    423
+   ],
+   "label": "13",
+   "team": "home"
+  },
+  {
+   "id": "n274",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7220,
+   "held_out": true,
+   "xyxy": [
+    769,
+    514,
+    807,
+    544
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n275",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7220,
+   "held_out": true,
+   "xyxy": [
+    1210,
+    654,
+    1230,
+    686
+   ],
+   "label": "3",
+   "team": "home"
+  },
+  {
+   "id": "n276",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7280,
+   "held_out": true,
+   "xyxy": [
+    140,
+    650,
+    162,
+    680
+   ],
+   "label": "3",
+   "team": "away"
+  },
+  {
+   "id": "n277",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7280,
+   "held_out": true,
+   "xyxy": [
+    404,
+    512,
+    435,
+    539
+   ],
+   "label": "23",
+   "team": "home"
+  },
+  {
+   "id": "n278",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7280,
+   "held_out": true,
+   "xyxy": [
+    517,
+    600,
+    552,
+    640
+   ],
+   "label": "21",
+   "team": "away"
+  },
+  {
+   "id": "n279",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7280,
+   "held_out": true,
+   "xyxy": [
+    1182,
+    670,
+    1203,
+    700
+   ],
+   "label": "3",
+   "team": "home"
+  },
+  {
+   "id": "n280",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7280,
+   "held_out": true,
+   "xyxy": [
+    1515,
+    659,
+    1538,
+    691
+   ],
+   "label": "11",
+   "team": "home"
+  },
+  {
+   "id": "n281",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7345,
+   "held_out": true,
+   "xyxy": [
+    211.5,
+    606.5,
+    233,
+    633
+   ],
+   "label": "3",
+   "team": "away"
+  },
+  {
+   "id": "n282",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7345,
+   "held_out": true,
+   "xyxy": [
+    257.5,
+    540.5,
+    274,
+    568.5
+   ],
+   "label": "9",
+   "team": "away"
+  },
+  {
+   "id": "n283",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7345,
+   "held_out": true,
+   "xyxy": [
+    410,
+    529,
+    436,
+    567
+   ],
+   "label": "21",
+   "team": "away"
+  },
+  {
+   "id": "n284",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7345,
+   "held_out": true,
+   "xyxy": [
+    1212,
+    687,
+    1228,
+    715
+   ],
+   "label": "3",
+   "team": "home"
+  },
+  {
+   "id": "n285",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7405,
+   "held_out": true,
+   "xyxy": [
+    148,
+    633,
+    166,
+    658
+   ],
+   "label": "3",
+   "team": "away"
+  },
+  {
+   "id": "n286",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7405,
+   "held_out": true,
+   "xyxy": [
+    380,
+    499,
+    408,
+    525
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "n287",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7405,
+   "held_out": true,
+   "xyxy": [
+    1104,
+    627,
+    1122,
+    656
+   ],
+   "label": "3",
+   "team": "home"
+  },
+  {
+   "id": "d001",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 2190,
+   "held_out": false,
+   "xyxy": [
+    298.4,
+    616.6,
+    314.0,
+    643.2
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "d002",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s4",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 2255,
+   "held_out": false,
+   "xyxy": [
+    1137.6,
+    464.7,
+    1148.8,
+    481.1
+   ],
+   "label": "not_number",
+   "team": "home"
+  },
+  {
+   "id": "d003",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14465,
+   "held_out": false,
+   "xyxy": [
+    1290.0,
+    457.3,
+    1304.0,
+    477.3
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "d004",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14585,
+   "held_out": false,
+   "xyxy": [
+    833.9,
+    472.0,
+    846.4,
+    493.8
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "d005",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14645,
+   "held_out": false,
+   "xyxy": [
+    1363.1,
+    423.2,
+    1374.5,
+    436.6
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "d006",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14705,
+   "held_out": false,
+   "xyxy": [
+    402.0,
+    565.2,
+    417.0,
+    594.7
+   ],
+   "label": "not_number",
+   "team": "home"
+  },
+  {
+   "id": "d007",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14705,
+   "held_out": false,
+   "xyxy": [
+    1438.3,
+    494.5,
+    1458.5,
+    525.5
+   ],
+   "label": "not_number",
+   "team": "home"
+  },
+  {
+   "id": "d008",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14705,
+   "held_out": false,
+   "xyxy": [
+    846.3,
+    524.3,
+    862.0,
+    547.1
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "d009",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14765,
+   "held_out": false,
+   "xyxy": [
+    448.5,
+    600.3,
+    470.6,
+    629.5
+   ],
+   "label": "4",
+   "team": "away"
+  },
+  {
+   "id": "d010",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14825,
+   "held_out": false,
+   "xyxy": [
+    930.8,
+    859.6,
+    962.4,
+    898.9
+   ],
+   "label": "1",
+   "team": "away"
+  },
+  {
+   "id": "d011",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14825,
+   "held_out": false,
+   "xyxy": [
+    1910.2,
+    807.7,
+    1919.9,
+    842.5
+   ],
+   "label": "not_number",
+   "team": "home"
+  },
+  {
+   "id": "d012",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14825,
+   "held_out": false,
+   "xyxy": [
+    508.9,
+    659.7,
+    526.8,
+    695.1
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "d013",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s42",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 14825,
+   "held_out": false,
+   "xyxy": [
+    1548.9,
+    655.9,
+    1568.8,
+    677.5
+   ],
+   "label": "20",
+   "team": "home"
+  },
+  {
+   "id": "d014",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25515,
+   "held_out": false,
+   "xyxy": [
+    1115.5,
+    611.6,
+    1131.9,
+    642.0
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "d015",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25630,
+   "held_out": false,
+   "xyxy": [
+    781.8,
+    598.8,
+    802.1,
+    624.8
+   ],
+   "label": "4",
+   "team": "away"
+  },
+  {
+   "id": "d016",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25630,
+   "held_out": false,
+   "xyxy": [
+    736.1,
+    517.7,
+    752.8,
+    537.4
+   ],
+   "label": "not_number",
+   "team": "home"
+  },
+  {
+   "id": "d017",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25630,
+   "held_out": false,
+   "xyxy": [
+    1051.5,
+    468.9,
+    1063.2,
+    487.4
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "d018",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25630,
+   "held_out": false,
+   "xyxy": [
+    865.1,
+    553.2,
+    882.1,
+    578.1
+   ],
+   "label": "not_number",
+   "team": "home"
+  },
+  {
+   "id": "d019",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25685,
+   "held_out": false,
+   "xyxy": [
+    404.5,
+    463.4,
+    420.0,
+    487.0
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "d020",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25685,
+   "held_out": false,
+   "xyxy": [
+    913.7,
+    565.3,
+    930.1,
+    593.7
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "d021",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25855,
+   "held_out": false,
+   "xyxy": [
+    645.7,
+    722.6,
+    669.5,
+    750.7
+   ],
+   "label": "4",
+   "team": "away"
+  },
+  {
+   "id": "d022",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25855,
+   "held_out": false,
+   "xyxy": [
+    341.2,
+    569.9,
+    359.8,
+    594.5
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "d023",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25970,
+   "held_out": false,
+   "xyxy": [
+    785.5,
+    728.4,
+    805.0,
+    750.3
+   ],
+   "label": "10",
+   "team": "home"
+  },
+  {
+   "id": "d024",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s78",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "frame": 25970,
+   "held_out": false,
+   "xyxy": [
+    1077.2,
+    544.9,
+    1089.7,
+    565.6
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "d025",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 580,
+   "held_out": false,
+   "xyxy": [
+    1190.0,
+    419.2,
+    1208.2,
+    437.1
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "d026",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 580,
+   "held_out": false,
+   "xyxy": [
+    872.4,
+    334.5,
+    886.1,
+    352.0
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "d027",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 640,
+   "held_out": false,
+   "xyxy": [
+    883.9,
+    667.6,
+    913.4,
+    693.2
+   ],
+   "label": "not_number",
+   "team": "away"
+  },
+  {
+   "id": "d028",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 700,
+   "held_out": false,
+   "xyxy": [
+    839.4,
+    424.5,
+    855.0,
+    443.8
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "d029",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 820,
+   "held_out": false,
+   "xyxy": [
+    1435.2,
+    534.9,
+    1455.0,
+    564.3
+   ],
+   "label": "3",
+   "team": "away"
+  },
+  {
+   "id": "d030",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 820,
+   "held_out": false,
+   "xyxy": [
+    1464.1,
+    620.0,
+    1488.4,
+    657.5
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "d031",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 940,
+   "held_out": false,
+   "xyxy": [
+    1472.6,
+    701.2,
+    1493.2,
+    731.7
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "d032",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 1000,
+   "held_out": false,
+   "xyxy": [
+    1668.0,
+    692.7,
+    1683.8,
+    721.2
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "d033",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s2",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 1120,
+   "held_out": false,
+   "xyxy": [
+    54.6,
+    576.0,
+    72.9,
+    600.6
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "d034",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s10",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 3380,
+   "held_out": false,
+   "xyxy": [
+    619.3,
+    491.4,
+    629.4,
+    511.7
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "d035",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s10",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 3445,
+   "held_out": false,
+   "xyxy": [
+    510.0,
+    500.2,
+    524.4,
+    523.3
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "d036",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6410,
+   "held_out": false,
+   "xyxy": [
+    728.5,
+    365.5,
+    743.7,
+    381.9
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "d037",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6470,
+   "held_out": false,
+   "xyxy": [
+    265.5,
+    609.7,
+    286.3,
+    636.0
+   ],
+   "label": "3",
+   "team": "away"
+  },
+  {
+   "id": "d038",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6470,
+   "held_out": false,
+   "xyxy": [
+    1778.9,
+    641.4,
+    1806.1,
+    667.2
+   ],
+   "label": "not_number",
+   "team": "away"
+  },
+  {
+   "id": "d039",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6470,
+   "held_out": false,
+   "xyxy": [
+    653.3,
+    373.6,
+    665.2,
+    390.7
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "d040",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6525,
+   "held_out": false,
+   "xyxy": [
+    977.4,
+    583.4,
+    992.1,
+    607.0
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "d041",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6525,
+   "held_out": false,
+   "xyxy": [
+    686.1,
+    367.3,
+    696.9,
+    382.4
+   ],
+   "label": "not_number",
+   "team": "away"
+  },
+  {
+   "id": "d042",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6580,
+   "held_out": false,
+   "xyxy": [
+    769.7,
+    360.3,
+    781.4,
+    376.3
+   ],
+   "label": "not_number",
+   "team": "away"
+  },
+  {
+   "id": "d043",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6640,
+   "held_out": false,
+   "xyxy": [
+    1592.6,
+    530.0,
+    1607.9,
+    557.9
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "d044",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6695,
+   "held_out": false,
+   "xyxy": [
+    1383.8,
+    482.7,
+    1395.2,
+    504.2
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "d045",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6695,
+   "held_out": false,
+   "xyxy": [
+    1137.6,
+    455.4,
+    1150.6,
+    481.5
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "d046",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6750,
+   "held_out": false,
+   "xyxy": [
+    838.1,
+    428.7,
+    852.3,
+    449.0
+   ],
+   "label": "not_number",
+   "team": "away"
+  },
+  {
+   "id": "d047",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6810,
+   "held_out": false,
+   "xyxy": [
+    393.8,
+    509.6,
+    408.4,
+    535.4
+   ],
+   "label": "0",
+   "team": "away"
+  },
+  {
+   "id": "d048",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6810,
+   "held_out": false,
+   "xyxy": [
+    697.2,
+    411.6,
+    706.9,
+    428.8
+   ],
+   "label": "4",
+   "team": "home"
+  },
+  {
+   "id": "d049",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "frame": 6810,
+   "held_out": false,
+   "xyxy": [
+    1297.3,
+    430.4,
+    1307.1,
+    451.2
+   ],
+   "label": "1",
+   "team": "home"
+  },
+  {
+   "id": "d050",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 975,
+   "held_out": false,
+   "xyxy": [
+    1397.4,
+    695.2,
+    1416.9,
+    721.5
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "d051",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1035,
+   "held_out": false,
+   "xyxy": [
+    698.3,
+    406.2,
+    712.7,
+    427.1
+   ],
+   "label": "not_number",
+   "team": "home"
+  },
+  {
+   "id": "d052",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1095,
+   "held_out": false,
+   "xyxy": [
+    660.5,
+    436.8,
+    680.6,
+    454.4
+   ],
+   "label": "not_number",
+   "team": "ref"
+  },
+  {
+   "id": "d053",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1220,
+   "held_out": false,
+   "xyxy": [
+    1149.0,
+    533.9,
+    1171.3,
+    556.9
+   ],
+   "label": "not_number",
+   "team": "away"
+  },
+  {
+   "id": "d054",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1220,
+   "held_out": false,
+   "xyxy": [
+    804.4,
+    478.0,
+    828.7,
+    502.8
+   ],
+   "label": "not_number",
+   "team": "away"
+  },
+  {
+   "id": "d055",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1280,
+   "held_out": false,
+   "xyxy": [
+    833.3,
+    738.5,
+    852.8,
+    763.0
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "d056",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1405,
+   "held_out": false,
+   "xyxy": [
+    785.5,
+    425.6,
+    797.8,
+    442.9
+   ],
+   "label": "not_number",
+   "team": "home"
+  },
+  {
+   "id": "d057",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1405,
+   "held_out": false,
+   "xyxy": [
+    1230.9,
+    420.7,
+    1244.2,
+    437.8
+   ],
+   "label": "not_number",
+   "team": ""
+  },
+  {
+   "id": "d058",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s3",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 1465,
+   "held_out": false,
+   "xyxy": [
+    1763.2,
+    793.6,
+    1777.9,
+    819.4
+   ],
+   "label": "4",
+   "team": "away"
+  },
+  {
+   "id": "d059",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2520,
+   "held_out": false,
+   "xyxy": [
+    872.1,
+    474.6,
+    892.0,
+    494.0
+   ],
+   "label": "not_number",
+   "team": "home"
+  },
+  {
+   "id": "d060",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2520,
+   "held_out": false,
+   "xyxy": [
+    1625.3,
+    770.6,
+    1652.9,
+    806.2
+   ],
+   "label": "not_number",
+   "team": "home"
+  },
+  {
+   "id": "d061",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2585,
+   "held_out": false,
+   "xyxy": [
+    1865.8,
+    763.3,
+    1887.0,
+    794.0
+   ],
+   "label": "not_number",
+   "team": "home"
+  },
+  {
+   "id": "d062",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2585,
+   "held_out": false,
+   "xyxy": [
+    744.4,
+    738.1,
+    756.4,
+    757.3
+   ],
+   "label": "0",
+   "team": "away"
+  },
+  {
+   "id": "d063",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2650,
+   "held_out": false,
+   "xyxy": [
+    1215.0,
+    609.3,
+    1228.4,
+    625.4
+   ],
+   "label": "25",
+   "team": "away"
+  },
+  {
+   "id": "d064",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2650,
+   "held_out": false,
+   "xyxy": [
+    268.3,
+    769.6,
+    290.8,
+    789.2
+   ],
+   "label": "0",
+   "team": "home"
+  },
+  {
+   "id": "d065",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2650,
+   "held_out": false,
+   "xyxy": [
+    1469.4,
+    476.6,
+    1480.3,
+    496.5
+   ],
+   "label": "not_number",
+   "team": "ref"
+  },
+  {
+   "id": "d066",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    1476.4,
+    474.4,
+    1491.0,
+    494.0
+   ],
+   "label": "not_number",
+   "team": "ref"
+  },
+  {
+   "id": "d067",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    915.4,
+    679.9,
+    925.0,
+    696.7
+   ],
+   "label": "0",
+   "team": "away"
+  },
+  {
+   "id": "d068",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    962.7,
+    465.6,
+    979.1,
+    483.6
+   ],
+   "label": "not_number",
+   "team": "home"
+  },
+  {
+   "id": "d069",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2775,
+   "held_out": false,
+   "xyxy": [
+    749.3,
+    617.0,
+    764.4,
+    643.4
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "d070",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2840,
+   "held_out": false,
+   "xyxy": [
+    514.0,
+    570.9,
+    531.9,
+    595.2
+   ],
+   "label": "0",
+   "team": "away"
+  },
+  {
+   "id": "d071",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2970,
+   "held_out": false,
+   "xyxy": [
+    803.2,
+    521.4,
+    826.4,
+    548.9
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "d072",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 2970,
+   "held_out": false,
+   "xyxy": [
+    673.0,
+    514.0,
+    691.5,
+    534.3
+   ],
+   "label": "not_number",
+   "team": "away"
+  },
+  {
+   "id": "d073",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6325,
+   "held_out": false,
+   "xyxy": [
+    1211.4,
+    377.1,
+    1220.8,
+    392.7
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "d074",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6385,
+   "held_out": false,
+   "xyxy": [
+    1337.9,
+    572.6,
+    1351.2,
+    598.4
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "d075",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6445,
+   "held_out": false,
+   "xyxy": [
+    1155.6,
+    463.1,
+    1173.1,
+    480.9
+   ],
+   "label": "not_number",
+   "team": "home"
+  },
+  {
+   "id": "d076",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6445,
+   "held_out": false,
+   "xyxy": [
+    1228.9,
+    677.7,
+    1249.3,
+    701.5
+   ],
+   "label": "not_number",
+   "team": "home"
+  },
+  {
+   "id": "d077",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s16",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "frame": 6570,
+   "held_out": false,
+   "xyxy": [
+    1122.8,
+    436.8,
+    1137.2,
+    454.5
+   ],
+   "label": "not_number",
+   "team": "home"
+  },
+  {
+   "id": "d078",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 3860,
+   "held_out": true,
+   "xyxy": [
+    1488.8,
+    604.3,
+    1508.9,
+    635.2
+   ],
+   "label": "21",
+   "team": "home"
+  },
+  {
+   "id": "d079",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 3920,
+   "held_out": true,
+   "xyxy": [
+    1337.4,
+    544.7,
+    1369.4,
+    578.9
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "d080",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 4035,
+   "held_out": true,
+   "xyxy": [
+    1256.2,
+    390.8,
+    1266.9,
+    407.4
+   ],
+   "label": "illegible",
+   "team": "home"
+  },
+  {
+   "id": "d081",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 4270,
+   "held_out": true,
+   "xyxy": [
+    1326.9,
+    507.7,
+    1340.0,
+    526.8
+   ],
+   "label": "not_number",
+   "team": "home"
+  },
+  {
+   "id": "d082",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s18",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 4270,
+   "held_out": true,
+   "xyxy": [
+    1079.8,
+    436.4,
+    1089.7,
+    452.9
+   ],
+   "label": "not_number",
+   "team": "home"
+  },
+  {
+   "id": "d083",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 6910,
+   "held_out": true,
+   "xyxy": [
+    1283.0,
+    495.3,
+    1296.9,
+    519.4
+   ],
+   "label": "9",
+   "team": "away"
+  },
+  {
+   "id": "d084",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7035,
+   "held_out": true,
+   "xyxy": [
+    1723.4,
+    453.9,
+    1735.0,
+    469.1
+   ],
+   "label": "not_number",
+   "team": "home"
+  },
+  {
+   "id": "d085",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7095,
+   "held_out": true,
+   "xyxy": [
+    506.5,
+    583.3,
+    520.3,
+    613.9
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "d086",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7160,
+   "held_out": true,
+   "xyxy": [
+    799.4,
+    434.0,
+    817.6,
+    462.0
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "d087",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7220,
+   "held_out": true,
+   "xyxy": [
+    203.2,
+    699.6,
+    220.5,
+    731.5
+   ],
+   "label": "illegible",
+   "team": "away"
+  },
+  {
+   "id": "d088",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7345,
+   "held_out": true,
+   "xyxy": [
+    335.8,
+    520.1,
+    355.7,
+    544.8
+   ],
+   "label": "not_number",
+   "team": "home"
+  },
+  {
+   "id": "d089",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s33",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "frame": 7405,
+   "held_out": true,
+   "xyxy": [
+    991.3,
+    535.2,
+    1006.8,
+    564.4
+   ],
+   "label": "illegible",
+   "team": "home"
+  }
+ ]
+}
