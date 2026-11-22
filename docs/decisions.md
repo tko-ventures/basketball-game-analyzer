@@ -499,3 +499,30 @@ the 50 USD cap of question 9.
   "may be raised to 100 USD when needed".
 - **Unchanged:** spend figures come from Modal's billing (`scripts/modal_spend.py`), every job is logged in
   `docs/costs.md`, and the implementer asks before a month crosses the cap.
+
+## 2026-11-22: M6 tracking stack, BoT-SORT with the PLK encoder plus the greedy link
+
+The implementer, closing the M6 tracker comparison on gold v0 dev (9 shots). Scored once on the held-out game before
+the M6 pull request.
+
+| stack | HOTA | IDF1 | MOTA | IDSW |
+|---|---|---|---|---|
+| `trackers` ByteTrack, tuned, then linking (`link-bytetrack-tuned`; IDSW re-scored at 192c1f4) | 0.693 | 0.797 | 0.748 | 108 |
+| BoT-SORT, `osnet_x1_0_sportsmot` re-ID tuned (`track-trackers-botsort-reid-tuned`) | 0.740 | 0.864 | 0.786 | 70 |
+| the same, linking and the 5-per-team rule (`link-botsort-reid-tuned-cap5`) | 0.742 | 0.869 | 0.788 | 68 |
+| BoT-SORT, PLK encoder `plk-r1-shot-last`, re-ID re-tuned (`track-trackers-botsort-plk-r1-shot-last-tuned`) | 0.742 | 0.870 | 0.781 | 55 |
+| **the same, linking without appearance and the 5-per-team rule (`link-botsort-plk-r1-shot-last-tuned-noapp-cap5`)** | **0.743** | **0.873** | 0.783 | **52** |
+| SAM 2.1 video propagation (`track-sam2`), then linking | 0.676 | 0.848 | 0.686 | 36 |
+
+- **Chosen:** `link-botsort-plk-r1-shot-last-tuned-noapp-cap5`. The PLK encoder serves BoT-SORT's re-ID; the linker
+  joins by gap, team and floor speed, and the appearance term adds nothing after this tracker (0.742 and 0.872 with
+  it). The appearance layer stays for cross-shot identity (layer 5), where `plk-r1-shot-last` scores 0.946 rank-1.
+- **Margins are small and fitted.** The re-ID threshold optimum is sharp (0.10 and 0.13 score about 0.736) and was
+  picked on the same 9 shots. The held-out game decides whether the PLK stack keeps its lead over the
+  `osnet_x1_0_sportsmot` one; if it does not, the simpler pretrained stack is the M6 tracker.
+- **SAM 2.1 is not chosen.** It makes the fewest switches but scores 0.06 HOTA lower, mostly in detection (DetA 0.629
+  against 0.72: mask boxes are tighter than gold's detector-style boxes, and it misses players SAM loses), takes about
+  3 s per frame on an L40S against 64 ms for BoT-SORT, and is biased upwards on v0, whose identities were prefilled
+  from SAM 2.1.
+- **Not run:** `edgetam` and `mcbyte`. The plan runs `edgetam` only after `sam2_realtime` has a row and `mcbyte` only if
+  the others leave a gap; SAM 2.1 itself trails, so neither is expected to close it.
