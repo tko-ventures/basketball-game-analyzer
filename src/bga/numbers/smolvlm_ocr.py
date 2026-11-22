@@ -21,6 +21,7 @@ import numpy as np
 
 from bga.detect.roboflow_inference import roboflow_key
 from bga.device import pick_device
+from bga.numbers.base import CropRead, number_crop
 from bga.registry import register
 from bga.stage import BaseBackend, FrameReader, Sequence
 
@@ -102,6 +103,19 @@ class SmolVLMOcr(BaseBackend):
         digits = re.sub(r"\D", "", str(text))
         return digits if 0 < len(digits) <= 2 else None
 
+    def read_crops(self, crops: list[np.ndarray], rosters: list[set[str]]) -> list[CropRead]:
+        """Read a batch of crops for ``bga eval-numbers``, one generation each; the reader reports no probabilities.
+
+        Args:
+            crops: BGR crops cut by :func:`bga.numbers.base.number_crop` with this backend's ``pad``.
+            rosters: The team's roster per crop; unused, since the reader decodes freely.
+
+        Returns:
+            One :class:`bga.numbers.base.CropRead` per crop, without ``probs``.
+
+        """
+        return [CropRead(self.read_crop(c)) for c in crops]
+
     def run(self, seq: Sequence, upstream: dict, read: FrameReader) -> dict:
         """Read and confirm a number per track over the sequence.
 
@@ -139,9 +153,7 @@ class SmolVLMOcr(BaseBackend):
                 if (self.p["stop_on_confirm"] and tid in done) or reads.get(tid, 0) >= self.p["max_reads_per_track"]:
                     continue
                 img = read(f) if img is None else img
-                x1, y1, x2, y2 = (int(v) for v in d[:4])
-                pad, (img_h, img_w) = self.p["pad"], img.shape[:2]
-                crop = img[max(0, y1 - pad) : min(img_h, y2 + pad), max(0, x1 - pad) : min(img_w, x2 + pad)]
+                crop = number_crop(img, d[:4], self.p["pad"])
                 if crop.size == 0:
                     continue
                 t0 = time.perf_counter()
