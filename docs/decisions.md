@@ -517,9 +517,10 @@ the M6 pull request.
 - **Chosen:** `link-botsort-plk-r1-shot-last-tuned-noapp-cap5`. The PLK encoder serves BoT-SORT's re-ID; the linker
   joins by gap, team and floor speed, and the appearance term adds nothing after this tracker (0.742 and 0.872 with
   it). The appearance layer stays for cross-shot identity (layer 5), where `plk-r1-shot-last` scores 0.946 rank-1.
-- **Margins are small and fitted.** The re-ID threshold optimum is sharp (0.10 and 0.13 score about 0.736) and was
-  picked on the same 9 shots. The held-out game decides whether the PLK stack keeps its lead over the
-  `osnet_x1_0_sportsmot` one; if it does not, the simpler pretrained stack is the M6 tracker.
+- **Margins are small and fitted on dev, but hold out.** The re-ID threshold optimum is sharp (0.10 and 0.13 score
+  about 0.736) and was picked on the same 9 shots. On the held-out game, scored once with Tomasz's approval, the PLK
+  stack keeps its lead: HOTA 0.742 against 0.731, AssA 0.770 against 0.745, IDF1 0.849 against 0.844, IDSW 26 against
+  34 (MOTA 0.758 against 0.762).
 - **SAM 2.1 is not chosen.** It makes the fewest switches but scores 0.06 HOTA lower, mostly in detection (DetA 0.629
   against 0.72: mask boxes are tighter than gold's detector-style boxes, and it misses players SAM loses), takes about
   3 s per frame on an L40S against 64 ms for BoT-SORT, and is biased upwards on v0, whose identities were prefilled
