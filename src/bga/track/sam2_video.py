@@ -7,8 +7,8 @@ mask covers on two consecutive grid frames becomes a new object there and propag
 ``max_rounds`` times. Frames go to SAM 2 as JPEGs with a ``long_side`` of 1024, its input size.
 
 On each grid frame, each object's mask bounding box is a track row. It takes the class, score and index of the
-detection it overlaps best at IoU ``match_iou`` or more, so the team layer's labels reach it; otherwise it is a
-``player`` row with score 0.5 and no detection (index -1). Runs on CUDA only (``requires``), on Modal.
+highest-scoring detection it overlaps at IoU ``match_iou`` or more, so the team layer's labels reach it; otherwise it
+is a ``player`` row with score 0.5 and no detection (index -1). Runs on CUDA only (``requires``), on Modal.
 
 """
 
@@ -73,12 +73,13 @@ def prompt_boxes(dets: list, min_score: float) -> list[list[float]]:
 
 
 def mask_rows(objects: dict[int, list | None], dets: list, match_iou: float) -> list[list]:
-    """Track rows of one grid frame: each object's mask box with the class, score and index of its best detection.
+    """Track rows of one grid frame: each object's mask box with the class, score and index of a detection on it.
 
     Args:
         objects: Object id to its mask box ``[x1, y1, x2, y2, ...]`` in frame pixels, or ``None`` without a mask.
         dets: The frame's detections.
-        match_iou: Least IoU for a detection to lend the row its class, score and index.
+        match_iou: Least IoU for a detection to lend the row its class, score and index; of those, the highest-scoring
+            one lends them, since the detector's low-score duplicates of a person carry no team label.
 
     Returns:
         ``[object_id, x1, y1, x2, y2, score, class_name, det_index]`` rows, by object id.
@@ -86,6 +87,8 @@ def mask_rows(objects: dict[int, list | None], dets: list, match_iou: float) -> 
     Examples:
         >>> mask_rows({1: [0, 0, 10, 20], 2: None, 3: [50, 50, 60, 70]}, [[0, 0, 10, 21, 0.8, "referee"]], 0.5)
         [[1, 0, 0, 10, 20, 0.8, 'referee', 0], [3, 50, 50, 60, 70, 0.5, 'player', -1]]
+        >>> mask_rows({1: [0, 0, 10, 20]}, [[0, 0, 10, 20, 0.1, "player"], [0, 0, 10, 18, 0.9, "player"]], 0.5)
+        [[1, 0, 0, 10, 20, 0.9, 'player', 1]]
 
     """
     rows = []
@@ -93,9 +96,9 @@ def mask_rows(objects: dict[int, list | None], dets: list, match_iou: float) -> 
         box = objects[oid]
         if not box:
             continue
-        scored = [(iou(box, d), i) for i, d in enumerate(dets) if d[5] in PERSON_CLASSES]
-        best, i = max(scored, default=(0.0, -1))
-        if best >= match_iou:
+        on = [(d[4], i) for i, d in enumerate(dets) if d[5] in PERSON_CLASSES and iou(box, d) >= match_iou]
+        if on:
+            i = max(on)[1]
             rows.append([oid, *box[:4], dets[i][4], dets[i][5], i])
         else:
             rows.append([oid, *box[:4], UNMATCHED_SCORE, "player", -1])

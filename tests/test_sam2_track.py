@@ -24,6 +24,10 @@ class TestMaskRows:
         rows = mask_rows({4: [0, 0, 10, 20]}, [[50, 50, 60, 70, 0.9, "player"], [0, 0, 10, 20, 0.7, "referee"]], 0.5)
         assert rows[0][5:] == [0.7, "referee", 1]
 
+    def test_confident_detection_wins_over_a_closer_duplicate(self):
+        dets = [[0, 0, 10, 20, 0.1, "player"], [0, 0, 10, 18, 0.9, "player"]]
+        assert mask_rows({4: [0, 0, 10, 20]}, dets, 0.5)[0][7] == 1
+
     def test_unmatched_mask_is_a_player_without_detection(self):
         assert mask_rows({4: [0, 0, 10, 20]}, [], 0.5)[0][5:] == [0.5, "player", -1]
 
