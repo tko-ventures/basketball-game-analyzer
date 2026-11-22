@@ -1300,12 +1300,7 @@
     }
    ],
    "label": "illegible",
-   "note": "",
-   "review": {
-    "verdict": "fix",
-    "at": "2026-11-22T15:54:18",
-    "label": "4"
-   }
+   "note": ""
   },
   {
    "id": "n052",
@@ -1944,12 +1939,7 @@
     }
    ],
    "label": "illegible",
-   "note": "read 11, track",
-   "review": {
-    "verdict": "fix",
-    "at": "2026-11-22T15:54:23",
-    "label": "10"
-   }
+   "note": "read 11, track"
   },
   {
    "id": "n077",
@@ -3699,12 +3689,7 @@
     }
    ],
    "label": "illegible",
-   "note": "",
-   "review": {
-    "verdict": "fix",
-    "at": "2026-11-22T15:54:34",
-    "label": "45"
-   }
+   "note": ""
   },
   {
    "id": "n146",
@@ -5064,12 +5049,7 @@
     }
    ],
    "label": "illegible",
-   "note": "",
-   "review": {
-    "verdict": "fix",
-    "at": "2026-11-22T15:54:50",
-    "label": "0"
-   }
+   "note": ""
   },
   {
    "id": "n199",
@@ -8188,12 +8168,7 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.775,
-   "review": {
-    "verdict": "fix",
-    "at": "2026-11-22T15:55:25",
-    "label": "32"
-   }
+   "score": 0.775
   },
   {
    "id": "d031",
@@ -9701,12 +9676,7 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.594,
-   "review": {
-    "verdict": "fix",
-    "at": "2026-11-22T15:55:39",
-    "label": "3"
-   }
+   "score": 0.594
   },
   {
    "id": "d088",
