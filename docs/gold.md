@@ -218,6 +218,7 @@ Tomasz reviews in the labeller at `/boxes`. Each frame shows flagged boxes first
    - **Result (2026-11-22, Tomasz, 117 s):** all 20 digit labels in the sample are right, as are the 1 `not_number` and 3 of the 9 `illegible` labels. He read the other 6 `illegible` crops as numbers: n051 #4, n076 #10, n145 #45, n198 #0, d030 #32 and d087 #3.
    - **Reading:** the implementer's `illegible` is too strict, so the 80 `illegible` crops not yet reviewed go to Tomasz too (`/numbers?set=illegible`).
    - **Caveat:** during the spot check the page showed each holder's gold track number beside the crop. 5 of the 6 numbers Tomasz read match it (d030 shows #32 among holders #3, #32 and #1; n198's holder has none), so these reads may be anchored. The number was removed from the page, and these 6 answers were cleared so that they come up again, blind, in the `illegible` pass.
+   - **Blind re-check (2026-11-22, Tomasz):** of the 6, n051 #4, n145 #45, n198 #0 and d030 #32 stand. n076 and d087 are now illegible, so those two earlier reads were the number on screen. He also read d012 as #4, which he had confirmed as illegible before. On the 9 `illegible` crops of the sample, blind, he reads 5.
 
 ### Gold v0 gaps found on the way
 

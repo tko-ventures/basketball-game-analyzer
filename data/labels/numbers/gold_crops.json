@@ -1300,7 +1300,12 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:09:19",
+    "label": "4"
+   }
   },
   {
    "id": "n052",
@@ -1939,7 +1944,11 @@
     }
    ],
    "label": "illegible",
-   "note": "read 11, track"
+   "note": "read 11, track",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:09:26"
+   }
   },
   {
    "id": "n077",
@@ -3689,7 +3698,12 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:09:31",
+    "label": "45"
+   }
   },
   {
    "id": "n146",
@@ -5049,7 +5063,12 @@
     }
    ],
    "label": "illegible",
-   "note": ""
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:10:30",
+    "label": "0"
+   }
   },
   {
    "id": "n199",
@@ -7674,8 +7693,9 @@
    "note": "",
    "score": 0.403,
    "review": {
-    "verdict": "ok",
-    "at": "2026-11-22T15:55:18"
+    "verdict": "fix",
+    "at": "2026-11-22T16:11:00",
+    "label": "4"
    }
   },
   {
@@ -8168,7 +8188,12 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.775
+   "score": 0.775,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:09:40",
+    "label": "32"
+   }
   },
   {
    "id": "d031",
@@ -9676,7 +9701,11 @@
    ],
    "label": "illegible",
    "note": "",
-   "score": 0.594
+   "score": 0.594,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:11:17"
+   }
   },
   {
    "id": "d088",
@@ -9770,7 +9799,7 @@
  },
  "meta": {
   "review_seconds": {
-   "2026-11-22": 117.0
+   "2026-11-22": 251.0
   }
  }
 }

@@ -866,9 +866,9 @@
     502,
     552
    ],
-   "label": "illegible",
+   "label": "4",
    "team": "away",
-   "review": null
+   "review": "fix"
   },
   {
    "id": "n052",
@@ -1293,7 +1293,7 @@
    ],
    "label": "illegible",
    "team": "home",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "n077",
@@ -2464,9 +2464,9 @@
     1574,
     544
    ],
-   "label": "illegible",
+   "label": "45",
    "team": "away",
-   "review": null
+   "review": "fix"
   },
   {
    "id": "n146",
@@ -3365,9 +3365,9 @@
     1180,
     469
    ],
-   "label": "illegible",
+   "label": "0",
    "team": "home",
-   "review": null
+   "review": "fix"
   },
   {
    "id": "n199",
@@ -5082,9 +5082,9 @@
     526.8,
     695.1
    ],
-   "label": "illegible",
+   "label": "4",
    "team": "away",
-   "review": "ok"
+   "review": "fix"
   },
   {
    "id": "d013",
@@ -5388,9 +5388,9 @@
     1488.4,
     657.5
    ],
-   "label": "illegible",
+   "label": "32",
    "team": "away",
-   "review": null
+   "review": "fix"
   },
   {
    "id": "d031",
@@ -6359,7 +6359,7 @@
    ],
    "label": "illegible",
    "team": "away",
-   "review": null
+   "review": "ok"
   },
   {
    "id": "d088",
