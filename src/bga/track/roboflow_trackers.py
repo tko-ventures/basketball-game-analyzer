@@ -18,6 +18,7 @@ from typing import TYPE_CHECKING, Any, ClassVar
 import numpy as np
 
 from bga.detect.base import PERSON_CLASSES
+from bga.paths import write_atomic
 from bga.registry import register
 from bga.stage import BaseBackend, FrameReader, Sequence
 
@@ -76,7 +77,7 @@ def cmc_transforms(
         for f, m in zip(seq.frames, masks, strict=True)
     ])
     path.parent.mkdir(parents=True, exist_ok=True)
-    np.save(path, out)
+    write_atomic(path, lambda fh: np.save(fh, out))
     return out
 
 

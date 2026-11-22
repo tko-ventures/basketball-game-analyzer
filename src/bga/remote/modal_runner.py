@@ -133,7 +133,9 @@ def upload_clips(videos: set[str]) -> None:
 def upload_weights(weight_id: str | None) -> None:
     """Upload a trained weight id's ``train.json`` and checkpoint files to ``weights/<id>/`` unless the volume has them.
 
-    Pretrained ids (``pretrained:...``) and ``None`` need nothing: their backends download from the source.
+    The files are those of ``bga.train.run.weight_files`` that the weight id has locally. Pretrained ids
+    (``pretrained:...``) and ``None`` need nothing: their backends download from the source. A file the volume
+    already has is not compared; ``bga train --collect`` removes the volume's copy when it rewrites the local one.
 
     Args:
         weight_id: A config's ``weights`` field.
@@ -145,10 +147,10 @@ def upload_weights(weight_id: str | None) -> None:
     if not weight_id or weight_id.startswith("pretrained:"):
         return
     from bga.paths import weights_dir
+    from bga.train.run import weight_files
 
     local = weights_dir(weight_id)
-    names = ("train.json", "checkpoint_best_total.pth", "weights.safetensors", "reid_config.json")
-    files = [f for f in names if (local / f).exists()]
+    files = [f for f in weight_files() if (local / f).exists()]
     if not files:
         raise FileNotFoundError(f"no weights under {local}")
     if _exists(f"weights/{weight_id}"):
