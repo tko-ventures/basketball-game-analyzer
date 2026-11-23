@@ -43,6 +43,7 @@ Each rule closes a mistake that happened. Follow them as strictly as the hard ru
 - **Metrics rows come after the commit.** Commit the code that produces a row first, so the row cites a commit that contains it.
 - **`--set` applies to every `--config` of one command.** When configs need different overrides, run them separately.
 - **Labelling instructions to Tomasz are tested first.** Try the exact key and mouse sequence in the preview on a copy of the queue, before telling him to use it.
+- **A new Modal image starts from an existing one** (added 2026-11-23). Copy the base and the install pattern of `bga.remote.modal_runner.image`: Modal's `debian_slim` cannot install git, and a GitHub commit archive may lack subpackages that a git install includes. Import the package in a build step (`run_commands("python -c 'import ...'")`), so a broken image fails at build and not after a GPU was waited for.
 
 ## Prior work
 
