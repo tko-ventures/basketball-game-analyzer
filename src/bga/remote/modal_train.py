@@ -328,14 +328,16 @@ def train_numbers(job: dict) -> dict:
     return result
 
 
-#: ``strhub`` (PARSeq) pinned to a commit in the PARSeq trainer image and recorded in every result; the archive
-#: installs without git, which Modal's ``debian_slim`` (bullseye, apt archives gone) cannot install.
-PARSEQ_PACKAGE = "strhub @ https://github.com/baudm/parseq/archive/1902db043c029a7e03a3818c616c06600af574be.tar.gz"
+#: ``strhub`` (PARSeq) pinned to a commit in the PARSeq trainer image and recorded in every result. It must come
+#: from git: the commit's archive installs only the top-level package, without ``strhub.models``.
+PARSEQ_PACKAGE = "strhub @ git+https://github.com/baudm/parseq@1902db043c029a7e03a3818c616c06600af574be"
 #: Image of the PARSeq trainer: torch and ``timm`` at the Mac's versions, ``strhub`` with the Lightning and ``nltk``
-#: it imports, headless OpenCV and the local ``bga``.
+#: it imports, headless OpenCV and the local ``bga``. On bookworm, as the runner image, because Modal's
+#: ``debian_slim`` (bullseye) can no longer install git.
 parseq_image = (
     modal.Image
-    .debian_slim(python_version="3.12")
+    .from_registry("python:3.12-slim-bookworm")
+    .apt_install("git")
     .pip_install(
         "torch==2.15.0",
         "torchvision==0.29.2",
@@ -347,6 +349,7 @@ parseq_image = (
         "pyyaml",
         PARSEQ_PACKAGE,
     )
+    .run_commands("python -c 'import strhub.models.parseq.system'")
     .add_local_python_source("bga")
 )
 
