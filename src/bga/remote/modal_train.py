@@ -328,14 +328,14 @@ def train_numbers(job: dict) -> dict:
     return result
 
 
-#: ``strhub`` (PARSeq) pinned to a commit in the PARSeq trainer image and recorded in every result.
-PARSEQ_PACKAGE = "strhub @ git+https://github.com/baudm/parseq@1902db043c029a7e03a3818c616c06600af574be"
+#: ``strhub`` (PARSeq) pinned to a commit in the PARSeq trainer image and recorded in every result; the archive
+#: installs without git, which Modal's ``debian_slim`` (bullseye, apt archives gone) cannot install.
+PARSEQ_PACKAGE = "strhub @ https://github.com/baudm/parseq/archive/1902db043c029a7e03a3818c616c06600af574be.tar.gz"
 #: Image of the PARSeq trainer: torch and ``timm`` at the Mac's versions, ``strhub`` with the Lightning and ``nltk``
 #: it imports, headless OpenCV and the local ``bga``.
 parseq_image = (
     modal.Image
     .debian_slim(python_version="3.12")
-    .apt_install("git")
     .pip_install(
         "torch==2.15.0",
         "torchvision==0.29.2",
