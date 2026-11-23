@@ -1,7 +1,7 @@
 # Modal as sole cloud GPU platform, billing truth, and 75 USD/month cap
 
 - **Date:** 2026-11-17 *(updated 2026-11-19 billing, 2026-11-21 cap)*
-- **Status:** Accepted
+- **Status:** Superseded by [2026-11-23-colab-for-training-alternating-with-modal.md](2026-11-23-colab-for-training-alternating-with-modal.md)
 - **Area:** Infra
 - **Decider:** Tomasz
 

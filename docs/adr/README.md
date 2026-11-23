@@ -62,8 +62,9 @@ What changes in code, configs, metrics, or future milestones?
 
 | Date | Area | Decision | Status |
 |---|---|---|---|
-| 2026-11-17 | Compute | [Modal as sole cloud GPU platform, billing truth, and 75 USD/month spend cap](2026-11-17-modal-for-training-and-remote-compute.md) | Accepted |
+| 2026-11-17 | Compute | [Modal as sole cloud GPU platform, billing truth, and 75 USD/month spend cap](2026-11-17-modal-for-training-and-remote-compute.md) | Superseded by [2026-11-23](2026-11-23-colab-for-training-alternating-with-modal.md) |
 | 2026-11-18 | Licences | [Open-weight policy: drop AGPL (YOLO26); treat research/PML weights as Apache 2.0 until pre-ship audit](2026-11-18-open-weights-and-permissive-licence-assumptions.md) | Accepted |
 | 2026-11-18 | Style & Git | [Borda Python coding/testing style, pre-commit hooks, and squash-merge workflow](2026-11-18-python-style-and-quality-standards.md) | Accepted |
 | 2026-11-18 | Demo & Language | [English-only codebase and demo site; single analysis view + synthetic coach showcase](2026-11-18-english-only-codebase-and-demo.md) | Accepted |
 | 2026-11-20 | Dependencies | [Follow upstream migration guides (`supervision` → `trackers`) via new backends](2026-11-20-upstream-migration-policy.md) | Accepted |
+| 2026-11-23 | Compute | [Google Colab for training, alternating with Modal by credit availability](2026-11-23-colab-for-training-alternating-with-modal.md) | Accepted |

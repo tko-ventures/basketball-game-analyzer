@@ -613,31 +613,50 @@ def radar(
         typer.echo(render(cfg, s))
 
 
-@app.command(help="Fine-tune on the config's platform; weights land in weights/<layer>/<backend>/<name>@<hash8>/.")
+@app.command(help="Fine-tune on Colab or Modal; weights land in weights/<layer>/<backend>/<name>@<hash8>/.")
 def train(
     config: Annotated[Path, typer.Option(help="configs/train/<layer>-<backend>-<name>.yaml")],
+    platform: Annotated[
+        str | None,
+        typer.Option(
+            envvar="BGA_TRAIN_PLATFORM",
+            help="override training platform (colab or modal) without changing the weight id",
+        ),
+    ] = None,
+    gpu: Annotated[
+        str | None,
+        typer.Option(
+            envvar="BGA_TRAIN_GPU",
+            help="override training GPU (e.g. T4, L4, A100, L40S) without changing the weight id",
+        ),
+    ] = None,
     build_only: Annotated[bool, typer.Option(help="build and check the dataset, do not train")] = False,
     collect: Annotated[bool, typer.Option(help="only pull a finished run's outputs into weights/")] = False,
     wait: Annotated[bool, typer.Option(help="wait for the run already spawned (call.json), then collect")] = False,
     partial: Annotated[
         bool, typer.Option(help="with --collect: take a cut-short run's best checkpoint so far")
     ] = False,
-    resume: Annotated[bool, typer.Option(help="continue a run cut short from its last.ckpt on the volume")] = True,
+    resume: Annotated[
+        bool, typer.Option(help="Modal only: continue a run cut short from its last.ckpt on the volume")
+    ] = True,
     verbose: bool = False,
 ) -> None:
-    """Fine-tune on the config's platform; weights land in weights/<layer>/<backend>/<name>@<hash8>/.
+    """Fine-tune on Colab or Modal; weights land in weights/<layer>/<backend>/<name>@<hash8>/.
 
     Args:
         config: Training config, named ``<layer>-<backend>-<name>.yaml``.
+        platform: Optional platform override (``colab`` or ``modal``); defaults to ``BGA_TRAIN_PLATFORM`` or config.
+        gpu: Optional GPU override (e.g. ``L4``, ``A100``, ``L40S``); defaults to ``BGA_TRAIN_GPU`` or config.
         build_only: Build and check the dataset, then stop.
         collect: Only pull a finished run's outputs into ``weights/``.
         wait: Wait for the run already spawned (``call.json``), then collect.
         partial: With ``collect``, take a cut-short run's best checkpoint so far.
-        resume: Continue a run cut short from its ``last.ckpt`` on the volume.
+        resume: Modal only: continue a run cut short from its ``last.ckpt`` on the volume.
         verbose: Log progress.
 
     Raises:
-        typer.BadParameter: When the file name does not match the config's layer, backend and name.
+        typer.BadParameter: When the file name does not match the config's layer, backend and name, or platform/GPU
+            is invalid.
 
     Examples:
         >>> train(Path("configs/train/detect-rfdetr_torch-plk-r2.yaml"), build_only=True)  # doctest: +SKIP
@@ -654,11 +673,16 @@ def train(
     if wait:
         typer.echo(json.dumps(train_run.wait(cfg), indent=1))
     elif not collect:
+        try:
+            resolved_platform, resolved_gpu = train_run.resolve_platform(cfg, platform=platform, gpu=gpu)
+        except ValueError as exc:
+            raise typer.BadParameter(str(exc)) from exc
+        typer.echo(f"platform {resolved_platform} ({resolved_gpu})")
         info = train_run.build(cfg)
         typer.echo(json.dumps(info["counts"], indent=1))
         if build_only:
             return
-        result = train_run.launch(cfg, resume=resume)
+        result = train_run.launch(cfg, resume=resume, platform=resolved_platform, gpu=resolved_gpu)
         typer.echo(json.dumps(result, indent=1))
     typer.echo(f"weights in {train_run.collect(cfg, partial=partial)}")
 

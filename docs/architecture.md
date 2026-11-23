@@ -16,7 +16,7 @@ This document is a human-oriented overview of the system design and current acti
 
 The repository has three loosely coupled parts:
 
-1. **The `bga` pipeline (`src/bga/`)** — a modular, config-driven video analysis pipeline with swappable layer backends, gold-set evaluation, Modal remote execution, and training orchestration.
+1. **The `bga` pipeline (`src/bga/`)** — a modular, config-driven video analysis pipeline with swappable layer backends, gold-set evaluation, Modal remote inference, and Colab/Modal training orchestration.
 2. **Labelling tools (`tools/labeler/`, `scripts/`)** — a local HTTP labeller (`http://127.0.0.1:8765`) and contact-sheet / batch scripts used to build and audit the gold set and training manifests.
 3. **The demo site (`scripts/demo_*`, `scripts/coach_*`, `docs/roadmap.html`)** — a static showcase published to Vercel (`https://basketball-analyzer.demo.tko.ventures`), built outside the `bga` pipeline.
 
@@ -77,19 +77,20 @@ Other registered backends remain available for baselines, ablations, and reprodu
 - **Outputs:** Written atomically to `runs/<clip>/<layer>/<backend>@<hash8>/<sequence>.json`, with heavy arrays saved as sibling `.npy` files and provenance recorded per sequence in `meta.json`.
 - **Memory discipline:** `bga.pipeline.run` executes one layer at a time across all sequences (`load()` → infer → `unload()`), keeping at most one heavy model resident in unified memory on the M1 Max. Existing outputs are reused unless `--force <layer>` is passed.
 
-### Local Mac + Modal hybrid compute
+### Local Mac + cloud GPU compute (Colab & Modal)
 
 - Inference backends auto-select devices via `bga.device.pick_device` (CUDA → MPS → CPU).
 - `--remote modal` routes CUDA-only backends (`requires = "cuda"`, e.g. `track/sam2`) to the `bga-runner` Modal app; `--remote-layer <layer> --remote-gpu L4` offloads any heavy layer (such as BoT-SORT with re-ID) in parallel per sequence.
 - Clips and trained weights sync once to the `bga-data` Modal volume; results stream back into local `runs/` as each sequence completes so partial runs resume cleanly.
-- Spend is tracked against Modal's own billing (`scripts/modal_spend.py`) in [`docs/costs.md`](costs.md).
+- Modal spend is tracked against Modal's own billing (`scripts/modal_spend.py`) and Colab training spend is tracked in Compute Units (`colab usage`) in [`docs/costs.md`](costs.md).
 
 ### Training and provenance (`bga train`)
 
-- Every fine-tune is declared in `configs/train/<layer>-<backend>-<name>.yaml` (`TrainConfig`), pinning base weights, dataset sources/manifest sha256 hashes, recipe, and Modal GPU.
-- Trainable setups (`bga.train.run.SETUPS`): `court/rfdetr_keypoint`, `detect/rfdetr_torch`, `appearance/reid`, `numbers/crop_cls`, and `numbers/parseq`.
+- Every fine-tune is declared in `configs/train/<layer>-<backend>-<name>.yaml` (`TrainConfig`), pinning base weights, dataset sources/manifest sha256 hashes, recipe, and default platform (`colab` or `modal`) and GPU.
+- Trainable setups (`bga.train.run.SETUPS`): `court/rfdetr_keypoint`, `detect/rfdetr_torch`, `appearance/reid`, `numbers/crop_cls`, and `numbers/parseq`, all sharing the same core trainers in `bga.train.dispatch`.
 - **Gold-leakage guard:** `bga.train.leakage` (and `tests/test_gold_leakage.py`) blocks any gold clip—dev or held-out—from entering a training manifest or config.
-- Jobs run detached on Modal (`bga-train`) and collect checkpoints, metrics, and a provenance `train.json` into `weights/<layer>/<backend>/<name>@<hash8>/`, automatically invalidating stale cached outputs and logging rows to `docs/train.md` and `docs/costs.md`.
+- **Alternating Colab & Modal:** `--platform colab|modal` and `--gpu <GPU>` (or env vars `BGA_TRAIN_PLATFORM` / `BGA_TRAIN_GPU`) override where a run executes without mutating the YAML or its `weight_id()`. Colab runs (`bga.remote.colab_train`, via `google-colab-cli`) stream logs live, transfer archives/checkpoints in chunks, pull outputs into `runs/train/<id>/output/`, and always stop the session on exit; Modal runs (`bga.remote.modal_train`) spawn detached on `bga-train` and support `--wait` / `--resume` and multi-GPU DDP (`recipe.devices > 1`).
+- `bga train --collect` writes checkpoints, metrics, and a provenance `train.json` into `weights/<layer>/<backend>/<name>@<hash8>/`, invalidating stale cached outputs, dropping any stale Modal volume copy, and logging rows to `docs/train.md` and `docs/costs.md`.
 
 ### Evaluation (`bga eval*`)
 
@@ -139,7 +140,7 @@ Published to `https://basketball-analyzer.demo.tko.ventures` via `scripts/deploy
 
 | Path | Responsibility | Tracked in git |
 |---|---|---|
-| `src/bga/` | Pipeline package: layers, registry, config/hashing, eval, training, Modal runners | Yes |
+| `src/bga/` | Pipeline package: layers, registry, config/hashing, eval, training, Colab & Modal runners | Yes |
 | `configs/` | Inference run configs (`*.yaml`) and training configs (`train/*.yaml`) | Yes |
 | `tools/labeler/` | Local labelling HTTP server and 4 web UI pages | Yes |
 | `scripts/` | Labelling/review helpers, gold export, sweeps, probes, demo builders | Yes |

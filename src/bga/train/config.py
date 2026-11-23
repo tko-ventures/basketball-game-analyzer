@@ -81,10 +81,10 @@ class Recipe(BaseModel):
 
 
 class Platform(BaseModel):
-    """Where the fine-tune runs: Modal, on which GPU, for at most ``timeout_h`` hours."""
+    """Where the fine-tune runs: Colab or Modal, on which GPU, for at most ``timeout_h`` hours."""
 
     model_config = ConfigDict(extra="forbid")
-    name: Literal["modal"]
+    name: Literal["modal", "colab"]
     gpu: str
     timeout_h: float = 6.0
 
