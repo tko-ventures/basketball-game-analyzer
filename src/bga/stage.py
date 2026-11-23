@@ -110,13 +110,16 @@ class FrameReader:
 class Backend(Protocol):
     """Interface every layer backend implements; the registry sets ``layer`` and ``name``.
 
-    ``requires`` is ``"cuda"`` for backends that run only remotely, else ``None``.
+    ``requires`` is ``"cuda"`` for backends that run only remotely, else ``None``. ``scope`` is ``"sequence"``
+    (default; :meth:`run` is called per sequence) or ``"clip"`` (:meth:`run_clip` is called once per clip with
+    every sequence of that clip).
 
     """
 
     layer: ClassVar[str]
     name: ClassVar[str]
     requires: ClassVar[str | None]  # "cuda" for remote-only backends
+    scope: ClassVar[str]  # "sequence" or "clip"
 
     def __init__(self, params: dict[str, Any], weights: str | None = None) -> None:
         """Take the config entry's params and weights id without loading anything heavy."""
@@ -137,7 +140,8 @@ class Backend(Protocol):
 class BaseBackend:
     """Convenience base: stores params, no-op load/unload, local execution.
 
-    Subclasses declare every param they accept, with its default, in ``defaults``.
+    Subclasses declare every param they accept, with its default, in ``defaults``. Clip-level backends set
+    ``scope = "clip"`` and implement ``run_clip(seqs, upstreams) -> dict[str, dict]``.
 
     Examples:
         >>> class Demo(BaseBackend):
@@ -154,6 +158,7 @@ class BaseBackend:
     layer: ClassVar[str]
     name: ClassVar[str]
     requires: ClassVar[str | None] = None
+    scope: ClassVar[str] = "sequence"
     defaults: ClassVar[dict[str, Any]] = {}
 
     def __init__(self, params: dict[str, Any], weights: str | None = None) -> None:

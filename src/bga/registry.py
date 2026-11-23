@@ -28,6 +28,8 @@ BACKEND_MODULES = (
     "bga.numbers.crop_cls",
     "bga.numbers.parseq",
     "bga.link.greedy",
+    "bga.identity.shot",
+    "bga.identity.game",
     "bga.court.roboflow_keypoints",
     "bga.court.rfdetr_keypoint",
     "bga.positions.bbox_bottom",

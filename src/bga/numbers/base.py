@@ -2,7 +2,10 @@
 
 Output per sequence:
     {"tracks": {"<track_id>": "23" | null}, "log": [[frame, track_id, "23" | null], ...], "reads": int,
-     "ms_per_read": float}
+     "ms_per_read": float, "ms_per_frame": float}
+
+When the reader reports a distribution per crop, the output also carries ``classes`` (:data:`NUMBER_CLASSES`) and
+``arrays["probs"]`` (float32, shape ``(reads, len(classes))``), aligned row for row with ``log``.
 
 A track's number is confirmed by the backend's own rule (for Skalski's stack, N consecutive equal
 reads); null means no confirmed number. ``log`` lists every read in order; outputs written before 2026-11-21
@@ -55,7 +58,7 @@ def roster_numbers(meta: dict, side: str, rosters: Path = ROSTERS) -> set[str]:
     if not stem or not season or not (rosters / f"{stem}.json").exists():
         return set()
     players = json.loads((rosters / f"{stem}.json").read_text())["seasons"].get(season, {}).get("players", [])
-    return {p["number"] for p in players}
+    return {str(p["number"]) for p in players if p.get("number") is not None}
 
 
 def confirm_consecutive(values: Iterable[str | None], n: int) -> str | None:
@@ -188,11 +191,17 @@ def ios(inner: Seq[float], outer: Seq[float]) -> float:
     return ix * iy / area if area > 0 else 0.0
 
 
+def _probs_vector(probs: dict[str, float]) -> list[float]:
+    """Pack a class-to-probability mapping into :data:`NUMBER_CLASSES` order."""
+    return [float(probs.get(c, 0.0)) for c in NUMBER_CLASSES]
+
+
 class TrackNumbers(BaseBackend):
     """Base of the numbers backends: reads ``number`` crops matched to tracks and confirms a number per track.
 
     A subclass implements ``read_crop`` (one crop to a number or ``None``) and ``read_crops`` (crops to
-    :class:`CropRead`, for ``bga eval-numbers``); :meth:`run` does the matching, sampling and confirmation.
+    :class:`CropRead`, for ``bga eval-numbers`` and probability logging); :meth:`run` does the matching, sampling
+    and confirmation.
 
     Matching (plan section 3): a number box belongs to the track box that contains it with IoS >= ``min_ios``; crops
     padded ``pad`` px; reads every ``read_every`` frames per track; ``ConsecutiveValueTracker`` with
@@ -222,6 +231,50 @@ class TrackNumbers(BaseBackend):
         """
         raise NotImplementedError
 
+    def read_crops(self, crops: list[np.ndarray], rosters: list[set[str]]) -> list[CropRead]:
+        """Read a batch of crops; defaults to calling :meth:`read_crop` on each without probabilities.
+
+        Args:
+            crops: BGR crops of ``number`` boxes.
+            rosters: Team rosters per crop; ignored by the default fallback.
+
+        Returns:
+            One :class:`CropRead` per crop.
+
+        """
+        return [CropRead(self.read_crop(c)) for c in crops]
+
+    def _frame_crops(
+        self,
+        f: int,
+        dets: list,
+        tracks: list,
+        done: dict[int, str],
+        reads: dict[int, int],
+        read: FrameReader,
+    ) -> tuple[list[int], list[np.ndarray]]:
+        """Collect the eligible ``(track_id, crop)`` reads on one frame, updating ``reads`` counts."""
+        nums = [d for d in dets if d[5] == "number" and d[4] >= self.p["min_score"]]
+        rows = [r for r in tracks if r[6] != "referee"]
+        ids: list[int] = []
+        crops: list[np.ndarray] = []
+        img = None
+        for d in nums:
+            best = max(rows, key=lambda r: ios(d[:4], r[1:5]), default=None)
+            if best is None or ios(d[:4], best[1:5]) < self.p["min_ios"]:
+                continue
+            tid = best[0]
+            if (self.p["stop_on_confirm"] and tid in done) or reads.get(tid, 0) >= self.p["max_reads_per_track"]:
+                continue
+            img = read(f) if img is None else img
+            crop = number_crop(img, d[:4], self.p["pad"])
+            if crop.size == 0:
+                continue
+            reads[tid] = reads.get(tid, 0) + 1
+            ids.append(tid)
+            crops.append(crop)
+        return ids, crops
+
     def run(self, seq: Sequence, upstream: dict, read: FrameReader) -> dict:
         """Read and confirm a number per track over the sequence.
 
@@ -237,45 +290,44 @@ class TrackNumbers(BaseBackend):
 
         Returns:
             ``{"tracks": {"<track_id>": "23" | None}, "log", "reads", "ms_per_read", "ms_per_frame"}``, where ``log``
-            lists every read as ``[frame, track_id, value]``.
+            lists every read as ``[frame, track_id, value]``. Readers with probabilities also attach ``classes`` and
+            ``arrays["probs"]`` (float32, shape ``(reads, len(classes))``).
 
         """
         from sports.common.temporal import ConsecutiveValueTracker
 
         dets, tracks = upstream["detect"]["frames"], upstream["track"]["frames"]
         confirm = ConsecutiveValueTracker(n_consecutive=self.p["n_consecutive"])
-        done, reads, log, t, n = {}, {}, [], 0.0, 0
+        done: dict[int, str] = {}
+        reads: dict[int, int] = {}
+        log: list[list[Any]] = []
+        prob_rows: list[list[float]] = []
+        t, n = 0.0, 0
         for j, f in enumerate(seq.frames):
             if j % self.p["read_every"]:
                 continue
-            nums = [d for d in dets[str(f)] if d[5] == "number" and d[4] >= self.p["min_score"]]
-            rows = [r for r in tracks[str(f)] if r[6] != "referee"]
-            ids, values, img = [], [], None
-            for d in nums:
-                best = max(rows, key=lambda r: ios(d[:4], r[1:5]), default=None)
-                if best is None or ios(d[:4], best[1:5]) < self.p["min_ios"]:
-                    continue
-                tid = best[0]
-                if (self.p["stop_on_confirm"] and tid in done) or reads.get(tid, 0) >= self.p["max_reads_per_track"]:
-                    continue
-                img = read(f) if img is None else img
-                crop = number_crop(img, d[:4], self.p["pad"])
-                if crop.size == 0:
-                    continue
-                t0 = time.perf_counter()
-                value = self.read_crop(crop)
-                t += time.perf_counter() - t0
-                n += 1
-                reads[tid] = reads.get(tid, 0) + 1
-                ids.append(tid)
-                values.append(value)
-                log.append([f, tid, value])
+            ids, crops = self._frame_crops(f, dets[str(f)], tracks[str(f)], done, reads, read)
+            if not crops:
+                continue
+            t0 = time.perf_counter()
+            results = self.read_crops(crops, [set()] * len(crops))
+            t += time.perf_counter() - t0
+            n += len(results)
+            values = [res.value for res in results]
+            for tid, res in zip(ids, results, strict=True):
+                log.append([f, tid, res.value])
+                if res.probs is not None:
+                    prob_rows.append(_probs_vector(res.probs))
             done.update({tid: v for tid, v in zip(ids, confirm.update(ids, values), strict=True) if v is not None})
         all_ids = {r[0] for f in seq.frames for r in tracks[str(f)]}
-        return {
+        out: dict[str, Any] = {
             "tracks": {str(tid): done.get(tid) for tid in sorted(all_ids)},
             "log": log,
             "reads": n,
             "ms_per_read": round(1000 * t / max(1, n), 1),
             "ms_per_frame": round(1000 * t / max(1, len(seq.frames)), 1),
         }
+        if prob_rows and len(prob_rows) == len(log):
+            out["classes"] = list(NUMBER_CLASSES)
+            out["arrays"] = {"probs": np.asarray(prob_rows, dtype=np.float32)}
+        return out
