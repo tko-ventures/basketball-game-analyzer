@@ -24,4 +24,5 @@ Layer 6 (`positions`) previously consumed raw `track` (ignoring `link`), ran onl
 - `configs/positions-plk-bbox.yaml` is the active end-to-end PLK stack through Layer 6.
 - `bga eval-positions` adds a dedicated `## Positions layer` table in `docs/metrics.md`.
 - `bga export --all-splits` and `bga radar --all-splits` produce Parquet tables and side-by-side radar `.mp4` videos for all 12 gold shots (dev + held-out).
+- **Held-out game (`Tnuscrm9RyU`, 3 shots, scored once at M8 close with Tomasz's approval):** `positions-plk-bbox` achieves **0.298 m** keyframe median error (34 pts, vs. **0.368 m** baseline), **0.981** on-court, **1.000** coverage, **4.31 m/s** p95 speed, and **0.2%** >10 m/s spikes (`kf p90` is **2.306 m** vs. 0.750 m baseline due to one unseen-venue court tail frame from `plk-v1`, consistent with M3).
 - `pyarrow>=26.0.1` is added to project dependencies.
