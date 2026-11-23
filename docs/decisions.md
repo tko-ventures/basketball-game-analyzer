@@ -587,3 +587,15 @@ finding against the code.
   - Homography gates and off-court filters as fixes: they are heuristics for M8, each with a row.
 - **Open (Tomasz):** a milestone for layer 0 (cut detector plus central-camera classifier, #32) and a sealed test
   game, both when the first full game arrives.
+
+## 2026-11-23: production video ingest is its own milestone; highlights stay the footage
+
+Tomasz, answering the open point of the 2026-11-22 pipeline review (#26, #32).
+
+- **M10, production video ingest** (#32): layer 0 for raw game video, a registered `shots` backend that pairs a
+  shot-cut detector with a central-camera classifier. It is a milestone of its own, after M9, and starts when the
+  first full game arrives. It is not folded into M8 or M9.
+- **Footage for now:** only the highlights available on YouTube. Highlights of the current PLK season (2026/27) may
+  be used as well as the earlier ones.
+- **Consequence for M7:** training crops can come from current-season games, whose rosters and kits are the ones the
+  held-out game (Superpuchar, 2026-09-26) shows. The games first need fetching, rosters, shot files and kits.

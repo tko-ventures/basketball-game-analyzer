@@ -1,0 +1,44 @@
+name: numbers-crop_cls-resnet18-r1-fact
+description: >
+  numbers-crop_cls-resnet18-r1 with the factorised head (#30): the numbers layer read by
+  numbers/crop_cls/resnet18-r1-fact@62907b32, ResNet-18 (ImageNet weights) fine-tuned on the round-1 number crops with
+  21 outputs (unreadable, tens digit, ones digit) instead of 101
+  (configs/train/numbers-crop_cls-resnet18-r1-fact.yaml). Everything else as numbers-crop_cls-resnet18-r1.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: roboflow_keypoints
+    params: {model_id: basketball-court-detection-2/14}
+    weights: pretrained:roboflow/basketball-court-detection-2/14
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r3-poss@c62744fe
+  team:
+    backend: siglip_kmeans
+    params: {seed: 0, fit_fps: 5.0}
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  appearance:
+    backend: none
+  track:
+    backend: trackers
+    weights: appearance/reid/plk-r1-shot-last@bef4a309
+    params:
+      tracker: botsort
+      cmc: internal
+      reid_model: weights
+      reid_config: {fusion: adaptive, appearance_threshold: 0.12, proximity_threshold: 1.0, appearance_weight: 0.6}
+      args:
+        track_activation_threshold: 0.8
+        minimum_iou_threshold_first_assoc: 0.1
+        minimum_iou_threshold_second_assoc: 0.2
+        minimum_iou_threshold_unconfirmed_assoc: 0.3
+        high_conf_det_threshold: 0.3
+  link:
+    backend: greedy
+    params: {max_gap_s: 10.0, max_cost: 0.3, ends: 5, max_speed_mps: 8.0, court_slack_m: 2.0, max_per_team: 5}
+  numbers:
+    backend: crop_cls
+    weights: numbers/crop_cls/resnet18-r1-fact@62907b32
