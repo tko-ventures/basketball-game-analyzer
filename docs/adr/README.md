@@ -48,7 +48,7 @@ What changes in code, configs, metrics, or future milestones?
 | 2026-11-20 | Detect / M9 | [Six active box classes, split visual holder from `dead_ball`, adopt `plk-r3-poss`](2026-11-20-detector-classes-and-possession-schema.md) | Accepted |
 | 2026-11-20 | Team (L3) | [Fit `siglip_kmeans` per shot at 5 fps with fixed seed and required kit metadata](2026-11-20-team-classification-siglip-5fps.md) | Accepted |
 | 2026-11-22 | Track / Link (L3b, L4) | [BoT-SORT with PLK re-ID encoder + greedy link (5-per-team cap); drop SAM 2.1 and `bytetrack_court`](2026-11-22-tracking-botsort-plk-reid-and-greedy-link.md) | Accepted |
-| 2026-11-23 | Numbers (L5) | [PARSeq fine-tuned from scene-text weights + roster log-prob & co-visible assignment](2026-11-23-jersey-number-reading-parseq-and-roster-scoring.md) | Accepted *(open licence check)* |
+| 2026-11-23 | Numbers & Identity (L5/L5b) | [PARSeq fine-tuned from scene-text weights + roster log-prob, co-visible assignment & game-level clustering](2026-11-23-jersey-number-reading-parseq-and-roster-scoring.md) | Accepted *(open licence check)* |
 | 2026-11-23 | Ingest (L0 / M10) | [Stay on YouTube PLK highlights for R&D; split full-game ingest into M10](2026-11-23-highlights-footage-and-m10-ingest-milestone.md) | Accepted |
 
 ### Data & evaluation

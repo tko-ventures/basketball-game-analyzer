@@ -23,13 +23,17 @@ Skalski's NBA SmolVLM2 reader (`smolvlm_ocr`) ran at ~1.9–2.3 s/crop on MPS, s
 
 ## Consequences
 
-- **Round 2 reader (`numbers-parseq-r2`):** number crops from eight more 2025/26 games (`configs/crops-numbers-r2.yaml`; 864 number tracklets, 670 settled by `numbers-parseq-r1` at ≥ 0.8 of ≥ 10 reads and checked blind on a sample of 60 with no conflicting number) took `numbers-parseq-r2` to **0.963 top-1 under the roster** and **0.754 track accuracy** on dev (0.884 confirmed, 9 wrong; SmolVLM2 on the same stack: 0.551, 16 wrong). Trained on Colab (T4, 0.75 CCU).
-- **Layer 5b (`identity`) progression on gold v0 dev (69 tracks):**
+- **Round 2 reader (`numbers-parseq-r2`):** number crops from eight more 2025/26 games (`configs/crops-numbers-r2.yaml`; 864 number tracklets, 670 settled by `numbers-parseq-r1` at ≥ 0.8 of ≥ 10 reads and checked blind on a sample of 60 with no conflicting number) took `numbers-parseq-r2` to **0.963 top-1 under the roster** on dev (216 legible crops) and **0.970** on the unseen 2026/27 held-out game (`Tnuscrm9RyU`, 66 legible crops; 0.500 refusal, ECE 0.084, 7 ms/crop). Trained on Colab (T4, 0.75 CCU).
+- **Layer 5b (`identity`) progression on gold v0 dev (9 shots, 69 tracks):**
+  - `numbers-parseq-r2` (3-in-a-row, no roster): **0.754** (52/69), 0.884 confirmed, 9 wrong.
   - `identity-consecutive` (roster-filtered 3-in-a-row): **0.768** (53/69), 0.884 confirmed, 8 wrong.
   - `identity-roster-logprob` (`margin: 8.0`): **0.841** (58/69), 0.899 confirmed, 4 wrong (+0.073 acc, wrong halved).
   - `identity-owner-rule` (longest-track-wins): **0.812** (56/69), 0.855 confirmed, 3 wrong (drops a shorter true `#10` beaten by a longer misread track).
   - `identity-covisible-assign` (LSA with abstain at 8.0): **0.841** (58/69), 0.870 confirmed, **2 wrong** (+0.029 vs `owner_rule`, halves wrong confirmations from 4 to 2).
   - `identity-game` (cross-shot clustering `max_dist: 0.18` + pooled log-prob + per-shot LSA): **0.913** (63/69), **0.957 confirmed**, **3 wrong** (+0.072 over shot-level, +0.159 over `numbers-parseq-r2`).
-- **Refusal at the crop level** remains 0.447 on `numbers-parseq-r2`, but skipping crops where `unreadable` wins and requiring an 8.0 log-prob margin + co-visible assignment cuts wrong track confirmations from 9 down to 2 (shot-level) / 3 (game-level).
-- The held-out game (`Tnuscrm9RyU`) has not been scored yet; ready for the single M7 milestone-close held-out evaluation once approved.
+- **Held-out game (`Tnuscrm9RyU`, 3 shots, 26 tracks, scored once at M7 close with Tomasz's approval):**
+  - `numbers-parseq-r2`: **0.769** (20/26), 0.923 confirmed, 4 wrong.
+  - `identity-covisible-assign` (without game-level pooling): **0.846** (22/26), 0.923 confirmed, **2 wrong** (+0.077 acc, wrong halved from 4 to 2).
+  - `identity-game` (with game-level pooling): **0.846** (22/26), 0.923 confirmed, **2 wrong** (only 2 tracks were unconfirmed per shot), plus HOTA **0.742 → 0.745**, IDF1 **0.849 → 0.855**, IDSW **26 → 25**.
+- **Refusal at the crop level** is 0.447 on dev / 0.500 on held-out for `numbers-parseq-r2`, and track-level `roster_logprob` + `covisible_assign` cuts wrong confirmations from 9 → 2 (dev) and 4 → 2 (held-out).
 - **Open (Tomasz):** Confirm treating PARSeq's scene-text weights under the interim R&D Apache-2.0 assumption ([licence ADR](2026-11-18-open-weights-and-permissive-licence-assumptions.md)), or specify a synthetic-only starting checkpoint.
