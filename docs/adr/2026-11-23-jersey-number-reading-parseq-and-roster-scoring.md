@@ -20,5 +20,7 @@ Skalski's NBA SmolVLM2 reader (`smolvlm_ocr`) ran at ~1.9–2.3 s/crop on MPS, s
 
 ## Consequences
 
-- Round-2 number crops from 2026/27 PLK games are being harvested to improve refusal rate (currently 0.461 on `numbers-parseq-r1`) and unseen-jersey coverage.
+- **Round 2 (same day):** number crops from eight more 2025/26 games (`configs/crops-numbers-r2.yaml`; 864 number tracklets, 670 settled by `numbers-parseq-r1` at ≥ 0.8 of ≥ 10 reads and checked blind on a sample of 60 with no conflicting number) took `numbers-parseq-r2` to **0.963 top-1 under the roster** and **0.754 track accuracy** on dev (0.884 confirmed, 9 wrong; SmolVLM2 on the same stack: 0.551, 16 wrong). Trained on Colab (T4, 0.75 CCU).
+- **Refusal is still open:** 0.447 on `numbers-parseq-r2` (0.461 on r1, 0.882 for the weights as released), although unreadable training crops grew from 700 to 3,075. Of its 42 answers on the 76 illegible and not-a-number dev crops, 19 are the holding track's gold number and 16 another number; 15 of 37 not-a-number crops still get a number. Track-level rules (`roster_logprob`, `covisible_assign`) are the next lever, before more unreadable data.
+- The held-out game is not scored yet; the eight fetched 2026/27 highlights are not in any training set.
 - **Open (Tomasz):** Confirm treating PARSeq's scene-text weights under the interim R&D Apache-2.0 assumption ([licence ADR](2026-11-18-open-weights-and-permissive-licence-assumptions.md)), or specify a synthetic-only starting checkpoint.
