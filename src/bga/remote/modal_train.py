@@ -326,3 +326,80 @@ def train_numbers(job: dict) -> dict:
     (out / "result.json").write_text(json.dumps(result, indent=1))
     vol.commit()
     return result
+
+
+#: ``strhub`` (PARSeq) pinned to a commit in the PARSeq trainer image and recorded in every result.
+PARSEQ_PACKAGE = "strhub @ git+https://github.com/baudm/parseq@1902db043c029a7e03a3818c616c06600af574be"
+#: Image of the PARSeq trainer: torch and ``timm`` at the Mac's versions, ``strhub`` with the Lightning and ``nltk``
+#: it imports, headless OpenCV and the local ``bga``.
+parseq_image = (
+    modal.Image
+    .debian_slim(python_version="3.12")
+    .apt_install("git")
+    .pip_install(
+        "torch==2.15.0",
+        "torchvision==0.29.2",
+        "safetensors==0.8.0",
+        "timm==1.0.30",
+        "pytorch-lightning==2.6.6",
+        "nltk==3.10.4",
+        "opencv-python-headless==5.0.0.93",
+        "pyyaml",
+        PARSEQ_PACKAGE,
+    )
+    .add_local_python_source("bga")
+)
+
+
+@app.function(image=parseq_image, volumes={"/data": vol}, gpu="L4", cpu=CPUS, memory=MEMORY_MB, timeout=6 * 3600)
+def train_parseq(job: dict) -> dict:
+    """Fine-tune the released PARSeq on class folders on the volume (``bga.train.parseq_trainer``).
+
+    Args:
+        job: As for :func:`train_numbers`; ``base`` names the released checkpoint the fine-tune starts from.
+
+    Returns:
+        GPU, commit, device name, wall time, list-price USD, the best validation row, crop counts, the ``strhub``
+        pin and torch version, and the files in the output directory.
+
+    Examples:
+        >>> train_parseq.remote(job)["best"]["val/top1"]  # doctest: +SKIP
+        0.9
+
+    """
+    import json
+    import threading
+    import time
+    from pathlib import Path
+
+    import torch
+
+    from bga.train.parseq_trainer import train
+
+    t0 = time.time()
+    ds, out = Path("/data") / job["dataset"], Path("/data") / job["output"]
+    stop = threading.Event()
+
+    def commit_loop() -> None:  # keep the metrics and best weights even if the run is cut short
+        while not stop.wait(300):
+            vol.commit()
+
+    threading.Thread(target=commit_loop, daemon=True).start()
+    got = train(ds, out, job["base"], job["recipe"], num_workers=int(CPUS))
+    stop.set()
+    secs, gpu = time.time() - t0, job["gpu"]
+    result = {
+        "gpu": gpu,
+        "commit": job.get("commit"),
+        "gpu_name": torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
+        "seconds": round(secs, 1),
+        "usd": round(secs / 3600 * USD_PER_HOUR.get(gpu, 0.0), 4),  # GPU list price only
+        "schema": {"crops": got["crops"], "base": job["base"], "unseen": got["unseen"]},
+        "best": got["best"],
+        "package": PARSEQ_PACKAGE,
+        "torch": torch.__version__,
+        "files": sorted(p.name for p in out.iterdir()),
+    }
+    (out / "result.json").write_text(json.dumps(result, indent=1))
+    vol.commit()
+    return result

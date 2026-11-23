@@ -82,8 +82,20 @@ def sample_weights(labels: list[int]) -> list[float]:
     return [1.0 / math.sqrt(sizes[y]) for y in labels]
 
 
-def _augment() -> v2.Compose:
-    """Training augmentation on uint8 CHW tensors (torchvision v2)."""
+def augmentation() -> v2.Compose:
+    """Build the training augmentation of number crops, for uint8 CHW tensors (torchvision v2).
+
+    Slant, rotation, shift and scale, blur, colour and contrast, grayscale; no flips. Shared with the PARSeq trainer.
+
+    Returns:
+        The transform.
+
+    Examples:
+        >>> import torch
+        >>> augmentation()(torch.zeros(3, 32, 128, dtype=torch.uint8)).shape
+        torch.Size([3, 32, 128])
+
+    """
     from torchvision.transforms import v2
 
     return v2.Compose([
@@ -109,7 +121,7 @@ class CropSet:
         import torch
 
         self.items, self.size = items, size
-        self.aug = _augment() if train else None
+        self.aug = augmentation() if train else None
         self.mean = torch.tensor(MEAN).view(3, 1, 1)
         self.std = torch.tensor(STD).view(3, 1, 1)
 
@@ -306,5 +318,5 @@ def train(ds: Path, out: Path, arch: str, recipe: dict, num_workers: int = 8) ->
                 "epoch": epoch,
             }
             (out / "cls_config.json").write_text(json.dumps(cfg, indent=1))
-    unseen = sorted({NUMBER_CLASSES[y] for _, y in va} - {NUMBER_CLASSES[y] for y in seen}, key=int)
+    unseen = sorted({NUMBER_CLASSES[y] for _, y in va} - {NUMBER_CLASSES[y] for y in seen} - {UNREADABLE}, key=int)
     return {"crops": {"train": len(tr), "valid": len(va)}, "best": best, "unseen": unseen}

@@ -44,11 +44,13 @@ SETUPS = {
     ("detect", "rfdetr_torch"): ("detect_data", "train_detect"),
     ("appearance", "reid"): ("appearance_data", "train_appearance"),
     ("numbers", "crop_cls"): ("number_data", "train_numbers"),
+    ("numbers", "parseq"): ("number_data", "train_parseq"),
 }
 #: Files collected per setup when they differ from ``PULL``.
 PULLS = {
     ("appearance", "reid"): ("weights.safetensors", "reid_config.json", "metrics.csv", "result.json"),
     ("numbers", "crop_cls"): ("weights.safetensors", "cls_config.json", "metrics.csv", "result.json"),
+    ("numbers", "parseq"): ("weights.safetensors", "parseq_config.json", "metrics.csv", "result.json"),
 }
 #: Trainer logs among the collected files; every other collected file is one a backend loads to run the weights.
 LOGS = ("metrics.csv", "result.json")

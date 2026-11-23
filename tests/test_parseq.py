@@ -94,3 +94,49 @@ def test_released_model_has_95_outputs_per_position():
 
     assert out.shape == (1, 26, 95)
     assert PRETRAINED.endswith("parseq-bb5792a6")
+
+
+class TestPlmLoss:
+    @pytest.fixture(scope="class")
+    def system(self):
+        pytest.importorskip("strhub", reason="needs the parseq extra")
+        import torch
+
+        torch.manual_seed(0)
+        return build_system(HPARAMS).train()
+
+    @pytest.mark.parametrize(
+        "labels",
+        [
+            pytest.param(["23", "7", ""], id="numbers-and-unreadable"),
+            pytest.param(["7", "0"], id="one-digit-only"),
+            pytest.param(["", ""], id="all-unreadable"),
+        ],
+    )
+    def test_loss_is_finite_and_positive(self, system, labels):
+        import torch
+
+        from bga.train.parseq_trainer import plm_loss
+
+        loss = plm_loss(system, torch.zeros(len(labels), 3, 32, 128), labels)
+
+        assert torch.isfinite(loss)
+        assert float(loss) > 0
+
+    def test_gradient_reaches_encoder_and_head(self, system):
+        import torch
+
+        from bga.train.parseq_trainer import plm_loss
+
+        system.zero_grad()
+
+        plm_loss(system, torch.randn(2, 3, 32, 128), ["23", ""]).backward()  # zeros would leave the patch weights
+
+        assert float(system.model.head.weight.grad.abs().sum()) > 0
+        assert float(system.model.encoder.patch_embed.proj.weight.grad.abs().sum()) > 0
+
+
+def test_unreadable_is_trained_as_the_empty_string():
+    from bga.train.parseq_trainer import text_of
+
+    assert (text_of(NUMBER_CLASSES.index(UNREADABLE)), text_of(NUMBER_CLASSES.index("0"))) == ("", "0")
