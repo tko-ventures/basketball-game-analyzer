@@ -6,6 +6,9 @@
     uv run scripts/number_crops.py sheets data/labels/numbers/train_r1.json
     uv run scripts/number_crops.py apply data/labels/numbers/train_r1.json data/labels/review/number_train_r1.ops.txt
     uv run scripts/number_crops.py check data/labels/numbers/train_r1.json
+    uv run --extra parseq scripts/number_crops.py prefill data/labels/numbers/train_r2.json \
+        --config configs/numbers-parseq-r1.yaml
+    uv run scripts/number_crops.py accept data/labels/numbers/train_r2.json --min-share 0.8 --min-reads 6
 
 Plan section 7, "Number values": the implementer reads a few crops of each tracklet on contact sheets and the read
 propagates to every crop of that tracklet. A crop is a ``number`` box of the config's detect output scoring at least
@@ -19,6 +22,14 @@ of the first one. Rows are captioned with the tracklet's index in the sample onl
 blind. Ops lines: ``<index> <label> [note...]`` where label is the digits, ``illegible`` (no crop can be read),
 ``mixed`` (the crops show more than one number: a tracker swap, dropped) or ``not_number`` (the boxes are logos).
 `check` lists reads on neither roster of the clip's season, the conflicts sent to Tomasz.
+
+From round 2 a reader does the first pass. `prefill` reads --per-tracklet crops of every tracklet with a config's
+numbers backend, restricts each read to the roster of the tracklet's team, and stores the votes in
+runs/number_crops/<manifest>/prefill.json. `accept` labels the tracklets whose leading number has at least
+--min-share of at least --min-reads reads, and marks them ``by: reader`` with the vote in the note; with --sample it
+puts that many of them into the sample instead, unlabelled, so the implementer reads them blind on sheets and the
+accepted labels get a measured precision (`agree` compares). Tracklets the reader does not settle go to the sample
+through `sample --unsettled`.
 
 """
 
@@ -38,8 +49,8 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from bga.config import load_config
-from bga.numbers.base import roster_numbers
-from bga.pipeline import git_commit, load_output, sequences
+from bga.numbers.base import number_crop, roster_choice, roster_numbers
+from bga.pipeline import git_commit, load_output, make_backend, sequences
 from bga.review.sheets import contact_sheet
 from bga.stage import FrameReader
 from bga.train.leakage import assert_no_gold
@@ -145,6 +156,10 @@ def manifest(a):
 def sample(a):
     m = json.loads(a.manifest.read_text())
     pool = [t["id"] for t in m["tracklets"] if len(t["crops"]) >= a.min_crops and t["id"] not in m["sample"]]
+    if a.unsettled:  # only tracklets the reader read and did not settle, and that carry no label yet
+        pre = json.loads(prefill_path(a.manifest).read_text())["tracklets"]
+        labelled = {t["id"] for t in m["tracklets"] if t["label"] is not None}
+        pool = [i for i in pool if i in pre and not settled(pre[i], a) and i not in labelled]
     pick = random.Random(a.seed).sample(pool, min(a.n, len(pool)))
     m["sample"] += sorted(pick)
     a.manifest.write_text(json.dumps(m, indent=1) + "\n")
@@ -241,6 +256,96 @@ def check(a):
     print(dict(labels), "roster side of digit reads:", dict(sides))
 
 
+def prefill_path(manifest_path):
+    return OUT / manifest_path.stem / "prefill.json"
+
+
+def prefill(a):
+    """Votes of a numbers backend per tracklet: each read restricted to the roster of the tracklet's team."""
+    m = json.loads(a.manifest.read_text())
+    backend = make_backend(load_config(a.config), "numbers")
+    pad = int(backend.p.get("pad", 0))
+    metas, jobs = {}, {}
+    for t in m["tracklets"]:
+        if len(t["crops"]) < a.min_crops:
+            continue
+        if t["clip"] not in metas:
+            metas[t["clip"]] = json.loads((Path("data/labels") / f"{t['clip']}.json").read_text())["meta"]
+        for c in best_crops(t, a.per_tracklet):
+            jobs.setdefault(t["video"], []).append((c[0], c[1:5], t["id"]))
+    by_id = {t["id"]: t for t in m["tracklets"]}
+    votes = {}
+    backend.load()
+    for video, crops in sorted(jobs.items()):
+        read = FrameReader(video)
+        crops.sort(key=lambda c: c[0])
+        for i in range(0, len(crops), 256):
+            chunk = crops[i : i + 256]
+            images = [number_crop(read(f), box, pad) for f, box, _ in chunk]
+            rosters = [roster_numbers(metas[by_id[tid]["clip"]], by_id[tid]["team"]) for _, _, tid in chunk]
+            for (_, _, tid), r, roster in zip(chunk, backend.read_crops(images, rosters), rosters, strict=True):
+                answer = roster_choice(r, roster)[0]
+                votes.setdefault(tid, Counter())[answer or "unreadable"] += 1
+        read.close()
+    backend.unload()
+    out = {"config": str(a.config), "weights": backend.weights, "per_tracklet": a.per_tracklet, "tracklets": {}}
+    for tid, v in sorted(votes.items()):
+        (top, n_top), n = v.most_common(1)[0], sum(v.values())
+        out["tracklets"][tid] = {"proposal": top, "share": round(n_top / n, 3), "reads": n, "votes": dict(v)}
+    path = prefill_path(a.manifest)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(out, indent=1) + "\n")
+    kinds = Counter("unreadable" if p["proposal"] == "unreadable" else "number" for p in out["tracklets"].values())
+    print(f"{path}: {len(out['tracklets'])} tracklets read, proposals {dict(kinds)}")
+
+
+def settled(p, a):
+    """Whether a tracklet's votes settle on a number under the accept rule."""
+    return p["proposal"] != "unreadable" and p["share"] >= a.min_share and p["reads"] >= a.min_reads
+
+
+def accept(a):
+    """Label the tracklets the reader settles, or with --sample hold that many back for a blind check on sheets."""
+    m = json.loads(a.manifest.read_text())
+    pre = json.loads(prefill_path(a.manifest).read_text())
+    by_id = {t["id"]: t for t in m["tracklets"]}
+    ok = sorted(tid for tid, p in pre["tracklets"].items() if settled(p, a) and by_id[tid]["label"] is None)
+    ok = [tid for tid in ok if tid not in m["sample"]]
+    if a.sample:
+        pick = sorted(random.Random(a.seed).sample(ok, min(a.sample, len(ok))))
+        m["sample"] += pick
+        m.setdefault("checks", []).extend(pick)
+        print(f"{len(pick)} settled tracklets put into the sample for a blind check; sample now {len(m['sample'])}")
+    else:
+        for tid in ok:
+            p = pre["tracklets"][tid]
+            by_id[tid]["label"], by_id[tid]["by"] = p["proposal"], "reader"
+            by_id[tid]["note"] = f"{pre['weights']} {p['share']} of {p['reads']} reads"
+        m["accept_rule"] = {"weights": pre["weights"], "min_share": a.min_share, "min_reads": a.min_reads}
+        print(f"{len(ok)} tracklets labelled by the reader ({sum(len(by_id[t]['crops']) for t in ok)} crops)")
+    a.manifest.write_text(json.dumps(m, indent=1) + "\n")
+
+
+def agree(a):
+    """The reader's proposal against the implementer's blind sheet label, on the labelled sample."""
+    m = json.loads(a.manifest.read_text())
+    pre = json.loads(prefill_path(a.manifest).read_text())["tracklets"]
+    by_id = {t["id"]: t for t in m["tracklets"]}
+    only = set(m.get("checks", [])) if a.checks else None
+    rows = Counter()
+    for k, tid in enumerate(m["sample"]):
+        t, p = by_id[tid], pre.get(tid)
+        if t["label"] is None or t.get("by") == "reader" or p is None or (only is not None and tid not in only):
+            continue
+        kind = "settled" if settled(p, a) else "unsettled"
+        same = p["proposal"] == t["label"]
+        rows[kind, "agree" if same else f"sheet says {t['label'] if t['label'] in SPECIAL else 'another number'}"] += 1
+        if kind == "settled" and not same:
+            print(f"#{k} {tid}: reader {p['proposal']} ({p['share']} of {p['reads']}), sheet {t['label']}")
+    for key, n in sorted(rows.items()):
+        print(key, n)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -253,6 +358,9 @@ def main(argv=None):
     p.add_argument("--n", type=int, default=300)
     p.add_argument("--min-crops", type=int, default=3)
     p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--unsettled", action="store_true", help="only tracklets the prefill does not settle")
+    p.add_argument("--min-share", type=float, default=0.8)
+    p.add_argument("--min-reads", type=int, default=6)
     p = sub.add_parser("sheets")
     p.add_argument("manifest", type=Path)
     p.add_argument("--per-sheet", type=int, default=10)
@@ -263,8 +371,22 @@ def main(argv=None):
     p.add_argument("ops", type=Path)
     p = sub.add_parser("check")
     p.add_argument("manifest", type=Path)
+    p = sub.add_parser("prefill")
+    p.add_argument("manifest", type=Path)
+    p.add_argument("--config", type=Path, required=True)
+    p.add_argument("--per-tracklet", type=int, default=12)
+    p.add_argument("--min-crops", type=int, default=3)
+    for name in ("accept", "agree"):
+        p = sub.add_parser(name)
+        p.add_argument("manifest", type=Path)
+        p.add_argument("--min-share", type=float, default=0.8)
+        p.add_argument("--min-reads", type=int, default=6)
+        p.add_argument("--sample", type=int, default=0)
+        p.add_argument("--seed", type=int, default=0)
+        p.add_argument("--checks", action="store_true", help="agree: only the tracklets accept --sample held back")
     a = ap.parse_args(argv)
-    {"manifest": manifest, "sample": sample, "sheets": sheets, "apply": apply}.get(a.cmd, check)(a)
+    cmds = (manifest, sample, sheets, apply, check, prefill, accept, agree)
+    {fn.__name__: fn for fn in cmds}[a.cmd](a)
 
 
 if __name__ == "__main__":
