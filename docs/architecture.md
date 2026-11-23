@@ -21,7 +21,7 @@ The repository has three parts:
 | `tools/labeler/` | the local labelling server and its three pages | yes |
 | `scripts/` | labelling, gold export, court, probe, demo and coach scripts | yes |
 | `tests/` | 28 test files, 380 tests | yes |
-| `data/clip_ids.txt` | the 31 YouTube highlight clips | yes |
+| `data/clip_ids.txt` | the 39 YouTube highlight clips: 31 up to the 2026 Superpuchar, and the eight league games of 2026/27 rounds 1 to 8 added on 2026-11-23 | yes |
 | `data/labels/` | per-clip labels, the gold manifest, review ops, court keyframes, training manifests (`detect/`, `appearance/`) | yes |
 | `data/gold/v0/` | the exported gold set | yes |
 | `data/rosters/` | 19 PLK clubs, seasons 2024/25 to 2026/27 | yes |
@@ -216,7 +216,7 @@ These are labelling aids, not a layer:
 
 ### Clips and per-clip labels
 
-- **Clips:** `scripts/fetch_highlights.sh` downloads the 31 clips in `data/clip_ids.txt` into `data/raw/`. They are mostly 1080p50 H.264; `scripts/transcode_h264.sh` re-encodes AV1 or VP9.
+- **Clips:** `scripts/fetch_highlights.sh` downloads the 39 clips in `data/clip_ids.txt` into `data/raw/`. They are mostly 1080p50 H.264; `scripts/transcode_h264.sh` re-encodes AV1 or VP9.
 - **Per-clip labels:** `data/labels/<clip>.json`, label format version 2, with these fields:
   - `clip`, `fps`, `frame_count`, `width`, `height`, `stride`;
   - `meta`: season, home and away teams, source, title, `review_seconds` per day;
@@ -245,7 +245,7 @@ These are labelling aids, not a layer:
 - **Ball queue, round 3:** `data/labels/box_queue_r3balls.json`: 262 frames, prefilled by `plk-r2`, 99 balls accepted without review (threshold 0.85, calibrated for `plk-r2`), 163 frames for review.
 - **Ball queue, round 2:** `data/labels/box_queue_r2balls.json`: 261 frames from 22 clips, 115 balls accepted without review (status `done`, source `auto`), 146 frames for review.
 - **Ball queue, round 1:** `data/labels/box_queue_r1balls.json`, in the box-queue format with `mode: ball`, `title` and `instructions`; each frame holds the draft's ball boxes and its three best weaker ball guesses as candidates.
-- **Kits:** every clip label file marks one side's kit `light` and the other `dark` in its meta (`data/labels/review/kits.ops.txt` for the 27 non-gold clips, read from sheets on 2026-11-23); the home side wears the darker kit in three of the 31 clips. Team outputs cached for a non-gold clip before that date were made without kits.
+- **Kits:** every clip label file marks one side's kit `light` and the other `dark` in its meta (`data/labels/review/kits.ops.txt` for the 35 non-gold clips, read from sheets on 2026-11-23); the home side wears the darker kit in five of the 39 clips. Team outputs cached for a non-gold clip before that date were made without kits.
 - **Number training crops, round 1:** `data/labels/numbers/train_r1.json` (`number_crops.py manifest` over `crops-reid-r1`, four non-gold 2025/26 games): 955 tracklets with 18,670 `plk-r3-poss` number boxes scoring at least 0.3, each inside exactly one non-referee linked row (3,876 boxes inside two people dropped), plus 162 `strays` inside no person. Each tracklet has `clip`, `video`, `sequence`, majority `team` and `team_share`, `person` (frame and box), `crops` as `[frame, x1, y1, x2, y2, score]`, `label` and `note`; `sample` lists the 300 tracklets read on sheets (seed 0). Labels (`data/labels/review/number_train_r1.ops.txt`): 208 numbers (5,233 crops, 28 numbers), 39 illegible, 36 mixed, 17 not numbers. The team sides in these clips are named the wrong way round (their meta has no kits), so `check` tests a read against both rosters.
 - **Gold number crops:** `data/gold/v1/numbers.json` (`number_gold.py export`): 376 crops on the box gold v1 frames, 292 dev and 84 held-out, each with `id`, `source` (`box_gold_v1` for Tomasz's 287 `number` boxes, or the detector and weight id for the 89 `plk-r3-poss` number boxes at 0.3 or more that overlap no gold box), `sequence`, `clip`, `frame`, `held_out`, `xyxy`, `team` and `label`: the digits, `illegible` or `not_number`. 282 carry digits, 48 are illegible and 46 not numbers. Each crop also has `review`: the reviewer's verdict from the `/numbers` page (`ok` or `fix`), or null. The working file `data/labels/numbers/gold_crops.json` adds the holders' gold track hints, notes, the reviewer's answers and the spot-check sample; `data/labels/review/number_gold.ops.txt` holds every label. Details in `docs/gold.md`.
 - **Box gold v1 queue:** `data/labels/box_gold_v1.json` is written by `scripts/box_gold_v1.py prefill` and edited at `/boxes`.

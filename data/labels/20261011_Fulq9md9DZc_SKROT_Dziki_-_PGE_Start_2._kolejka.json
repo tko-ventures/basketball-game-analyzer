@@ -1,0 +1,155 @@
+{
+ "version": 2,
+ "clip": "data/raw/20261011_Fulq9md9DZc_SKROT_Dziki_-_PGE_Start_2._kolejka.mp4",
+ "fps": 50.0,
+ "frame_count": 9334,
+ "width": 1920,
+ "height": 1080,
+ "stride": 5,
+ "meta": {
+  "season": "2026/27",
+  "home": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": "light"
+  },
+  "away": {
+   "team": "PGE Start",
+   "roster": "pge_start_lublin",
+   "kit": "dark"
+  },
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=Fulq9md9DZc",
+  "title": "SKRÓT | Dziki - PGE Start | 2. kolejka"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 678,
+   "camera": "unset"
+  },
+  {
+   "start": 679,
+   "end": 1294,
+   "camera": "unset"
+  },
+  {
+   "start": 1295,
+   "end": 1653,
+   "camera": "unset"
+  },
+  {
+   "start": 1654,
+   "end": 2037,
+   "camera": "unset"
+  },
+  {
+   "start": 2038,
+   "end": 2341,
+   "camera": "unset"
+  },
+  {
+   "start": 2342,
+   "end": 2653,
+   "camera": "unset"
+  },
+  {
+   "start": 2654,
+   "end": 2981,
+   "camera": "unset"
+  },
+  {
+   "start": 2982,
+   "end": 3302,
+   "camera": "unset"
+  },
+  {
+   "start": 3303,
+   "end": 3690,
+   "camera": "unset"
+  },
+  {
+   "start": 3691,
+   "end": 4101,
+   "camera": "unset"
+  },
+  {
+   "start": 4102,
+   "end": 4566,
+   "camera": "unset"
+  },
+  {
+   "start": 4567,
+   "end": 4924,
+   "camera": "unset"
+  },
+  {
+   "start": 4925,
+   "end": 5282,
+   "camera": "unset"
+  },
+  {
+   "start": 5283,
+   "end": 5570,
+   "camera": "unset"
+  },
+  {
+   "start": 5571,
+   "end": 5911,
+   "camera": "unset"
+  },
+  {
+   "start": 5912,
+   "end": 6343,
+   "camera": "unset"
+  },
+  {
+   "start": 6344,
+   "end": 6722,
+   "camera": "unset"
+  },
+  {
+   "start": 6723,
+   "end": 7042,
+   "camera": "unset"
+  },
+  {
+   "start": 7043,
+   "end": 7428,
+   "camera": "unset"
+  },
+  {
+   "start": 7429,
+   "end": 7819,
+   "camera": "unset"
+  },
+  {
+   "start": 7820,
+   "end": 8156,
+   "camera": "unset"
+  },
+  {
+   "start": 8157,
+   "end": 8536,
+   "camera": "unset"
+  },
+  {
+   "start": 8537,
+   "end": 8843,
+   "camera": "unset"
+  },
+  {
+   "start": 8844,
+   "end": 9183,
+   "camera": "unset"
+  },
+  {
+   "start": 9184,
+   "end": 9333,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-11-23T14:48:34"
+}

@@ -1,0 +1,195 @@
+{
+ "version": 2,
+ "clip": "data/raw/20261002_Z1USxFeSd44_SKROT_Energa_Trefl_-_Dziki_1._kolejka.mp4",
+ "fps": 50.0,
+ "frame_count": 9350,
+ "width": 1920,
+ "height": 1080,
+ "stride": 5,
+ "meta": {
+  "season": "2026/27",
+  "home": {
+   "team": "Energa Trefl",
+   "roster": "energa_trefl_sopot",
+   "kit": "light"
+  },
+  "away": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": "dark"
+  },
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=Z1USxFeSd44",
+  "title": "SKRÓT | Energa Trefl - Dziki | 1. kolejka"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 345,
+   "camera": "unset"
+  },
+  {
+   "start": 346,
+   "end": 622,
+   "camera": "unset"
+  },
+  {
+   "start": 623,
+   "end": 931,
+   "camera": "unset"
+  },
+  {
+   "start": 932,
+   "end": 951,
+   "camera": "unset"
+  },
+  {
+   "start": 952,
+   "end": 986,
+   "camera": "unset"
+  },
+  {
+   "start": 987,
+   "end": 1369,
+   "camera": "unset"
+  },
+  {
+   "start": 1370,
+   "end": 1752,
+   "camera": "unset"
+  },
+  {
+   "start": 1753,
+   "end": 1797,
+   "camera": "unset"
+  },
+  {
+   "start": 1798,
+   "end": 2218,
+   "camera": "unset"
+  },
+  {
+   "start": 2219,
+   "end": 2429,
+   "camera": "unset"
+  },
+  {
+   "start": 2430,
+   "end": 2450,
+   "camera": "unset"
+  },
+  {
+   "start": 2451,
+   "end": 2806,
+   "camera": "unset"
+  },
+  {
+   "start": 2807,
+   "end": 2896,
+   "camera": "unset"
+  },
+  {
+   "start": 2897,
+   "end": 3202,
+   "camera": "unset"
+  },
+  {
+   "start": 3203,
+   "end": 3520,
+   "camera": "unset"
+  },
+  {
+   "start": 3521,
+   "end": 3829,
+   "camera": "unset"
+  },
+  {
+   "start": 3830,
+   "end": 4244,
+   "camera": "unset"
+  },
+  {
+   "start": 4245,
+   "end": 4500,
+   "camera": "unset"
+  },
+  {
+   "start": 4501,
+   "end": 4915,
+   "camera": "unset"
+  },
+  {
+   "start": 4916,
+   "end": 5292,
+   "camera": "unset"
+  },
+  {
+   "start": 5293,
+   "end": 5757,
+   "camera": "unset"
+  },
+  {
+   "start": 5758,
+   "end": 6091,
+   "camera": "unset"
+  },
+  {
+   "start": 6092,
+   "end": 6151,
+   "camera": "unset"
+  },
+  {
+   "start": 6152,
+   "end": 6646,
+   "camera": "unset"
+  },
+  {
+   "start": 6647,
+   "end": 6879,
+   "camera": "unset"
+  },
+  {
+   "start": 6880,
+   "end": 7088,
+   "camera": "unset"
+  },
+  {
+   "start": 7089,
+   "end": 7442,
+   "camera": "unset"
+  },
+  {
+   "start": 7443,
+   "end": 7900,
+   "camera": "unset"
+  },
+  {
+   "start": 7901,
+   "end": 8327,
+   "camera": "unset"
+  },
+  {
+   "start": 8328,
+   "end": 8399,
+   "camera": "unset"
+  },
+  {
+   "start": 8400,
+   "end": 8812,
+   "camera": "unset"
+  },
+  {
+   "start": 8813,
+   "end": 9199,
+   "camera": "unset"
+  },
+  {
+   "start": 9200,
+   "end": 9349,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-11-23T14:48:34"
+}

@@ -31,3 +31,13 @@ l7VkOarkFZk dark light   # ! Legia green, Dziki beige
 qb1y4Jz5AkA light dark   # Dziki beige, Legia green
 FbwQDVu5Tw8 light dark   # Arka yellow, Dziki navy
 DJ6xFaC0Neo light dark   # Dziki beige, Arka navy
+# The eight 2026/27 league highlights fetched on 2026-11-23 (rounds 1 to 8), read the same way. Dziki wear navy at
+# home against Czarni and Anwil (marked !).
+Z1USxFeSd44 light dark   # Trefl yellow, Dziki navy
+Fulq9md9DZc light dark   # Dziki beige, Start black and red
+kwTpkiF7jj0 light dark   # Gornik white and light blue, Dziki navy
+RiUPxoXiOLA dark light   # ! Dziki navy, Czarni white and red
+0kzM71Pysow light dark   # Legia white, Dziki navy
+QaO6xJinJaQ dark light   # ! Dziki navy, Anwil white
+9GmmrbcAfQ0 light dark   # Stal yellow, Dziki navy
+VrPqBRmTiJw light dark   # Zastal white, Dziki navy
