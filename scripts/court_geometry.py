@@ -13,11 +13,12 @@ from __future__ import annotations
 
 import json
 import math
-from pathlib import Path
 
 from sports.basketball import CourtConfiguration, League
 
-OUT = Path(__file__).resolve().parents[1] / "tools/labeler/static/fiba_court.json"
+from bga.court.base import FIBA_COURT_PATH
+
+OUT = FIBA_COURT_PATH
 
 
 def arc(cx, cy, r, a0, a1, step=5.0):

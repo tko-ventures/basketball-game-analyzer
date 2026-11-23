@@ -26,12 +26,14 @@ LAYERS: dict[str, tuple[str, ...]] = {
     "numbers": ("detect", "track"),
     "link": ("track", "team", "appearance", "court", "numbers"),
     "identity": ("link", "track", "team", "numbers", "appearance"),
-    "positions": ("track", "court"),
+    "positions": ("track", "link", "court"),
 }
 
 
 #: Upstream layers a config may leave out: their readers then work without them.
 OPTIONAL_UPSTREAM = frozenset({"court", "appearance", "numbers"})
+#: Upstream layers optional only for specific consumers (``positions`` uses ``link`` when configured, else ``track``).
+OPTIONAL_BY_LAYER: dict[str, frozenset[str]] = {"positions": frozenset({"link"})}
 
 #: Shots params that only choose sequences; kept out of the hashes so dev and held-out runs, and runs over different
 #: clip lists, share dirs.
@@ -90,7 +92,8 @@ class RunConfig(BaseModel):
             _ctx: Pydantic validation context, unused.
 
         Raises:
-            ValueError: On an unknown layer name, or a missing upstream layer not in ``OPTIONAL_UPSTREAM``.
+            ValueError: On an unknown layer name, or a missing upstream layer not in ``OPTIONAL_UPSTREAM`` or
+                ``OPTIONAL_BY_LAYER``.
 
         Examples:
             >>> RunConfig(name="demo", layers={"shots": {"backend": "gold"}, "teams": {"backend": "x"}})
@@ -105,7 +108,8 @@ class RunConfig(BaseModel):
         if unknown:
             raise ValueError(f"unknown layers {sorted(unknown)}; known: {list(LAYERS)}")
         for layer in self.layers:
-            missing = [u for u in LAYERS[layer] if u not in self.layers and u not in OPTIONAL_UPSTREAM]
+            opt = OPTIONAL_UPSTREAM | OPTIONAL_BY_LAYER.get(layer, frozenset())
+            missing = [u for u in LAYERS[layer] if u not in self.layers and u not in opt]
             if missing:
                 raise ValueError(f"layer {layer!r} needs {missing}")
 

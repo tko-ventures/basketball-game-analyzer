@@ -32,10 +32,11 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+from bga.court.base import load_fiba_court
 from bga.court.propagate import court_to_image
 from bga.review.sheets import contact_sheet
 
-GEO = json.loads((Path(__file__).resolve().parents[1] / "tools/labeler/static/fiba_court.json").read_text())
+GEO = load_fiba_court()
 OUT = Path("runs/court_keyframes")
 QUEUE = Path("data/labels/court/queue.json")
 # Clips whose home side plays elsewhere: hall names by YouTube id, the rest by home team.

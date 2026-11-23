@@ -27,13 +27,14 @@ from numpy.typing import ArrayLike
 
 from bga import registry
 from bga.config import RunConfig
+from bga.court.base import load_fiba_court
 from bga.court.propagate import landmarks
 from bga.stage import FrameReader, Sequence
 
 #: Repository root, the base of every data path read here.
 ROOT = Path(__file__).resolve().parents[3]
 #: FIBA court geometry shared with the labeller (vertices in cm, their labels).
-GEO = json.loads((ROOT / "tools/labeler/static/fiba_court.json").read_text())
+GEO = load_fiba_court()
 #: Court vertices in cm, shape (V, 2).
 VERTS = np.array(GEO["vertices"], dtype=np.float64)
 #: Vertex indices of the paint at both ends, where the 0.5 m target applies: key corners on the baseline (04, 05;

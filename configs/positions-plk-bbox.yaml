@@ -1,0 +1,50 @@
+name: positions-plk-bbox
+description: >
+  Full active M3-M7 PLK stack (PLK court smooth4 + plk-r3-poss detect + SigLIP team + plk-r1-shot-last re-ID +
+  BoT-SORT + greedy link + PARSeq r2 + game identity) with positions/bbox_bottom on linked tracks.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: rfdetr_keypoint
+    params: {smooth_window: 4}
+    weights: court/rfdetr_keypoint/plk-v1@c26b7841
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r3-poss@c62744fe
+  team:
+    backend: siglip_kmeans
+    params: {seed: 0, fit_fps: 5.0}
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  appearance:
+    backend: reid
+    params: {model: osnet_x1_0_sportsmot, min_score: 0.1}
+    weights: appearance/reid/plk-r1-shot-last@bef4a309
+  track:
+    backend: trackers
+    weights: appearance/reid/plk-r1-shot-last@bef4a309
+    params:
+      tracker: botsort
+      cmc: internal
+      reid_model: weights
+      reid_config: {fusion: adaptive, appearance_threshold: 0.12, proximity_threshold: 1.0, appearance_weight: 0.6}
+      args:
+        track_activation_threshold: 0.8
+        minimum_iou_threshold_first_assoc: 0.1
+        minimum_iou_threshold_second_assoc: 0.2
+        minimum_iou_threshold_unconfirmed_assoc: 0.3
+        high_conf_det_threshold: 0.3
+  link:
+    backend: greedy
+    params: {max_gap_s: 10.0, max_cost: 0.3, ends: 5, max_speed_mps: 8.0, court_slack_m: 2.0, max_per_team: 5}
+  numbers:
+    backend: parseq
+    weights: numbers/parseq/r2@c4b3dde8
+    params: {stop_on_confirm: false}
+  identity:
+    backend: game
+    params: {roster: true, margin: 8.0, max_dist: 0.18}
+  positions:
+    backend: bbox_bottom

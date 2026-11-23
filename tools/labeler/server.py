@@ -36,6 +36,7 @@ from urllib.parse import parse_qs, urlparse
 import cv2
 import numpy as np
 
+from bga.court.base import FIBA_COURT_PATH
 from bga.ingest.hist_diff import DEFAULT_MIN_LEN_S, DEFAULT_THRESHOLD, detect_shots
 from bga.types import DETECTION_CLASSES
 
@@ -1104,6 +1105,9 @@ class LabelerHandler(BaseHTTPRequestHandler):
         self._bytes((STATIC / "index.html").read_bytes(), "text/html; charset=utf-8")
 
     def _get_static(self, path: str) -> None:
+        if path == "/static/fiba_court.json":
+            self._bytes(FIBA_COURT_PATH.read_bytes(), "application/json")
+            return
         p = (STATIC / path[len("/static/") :]).resolve()
         if STATIC not in p.parents or not p.exists():
             self._err(404, "not found")

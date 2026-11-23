@@ -3,7 +3,7 @@
 Weights are a trained weight id (``court/rfdetr_keypoint/<name>@<hash8>``, whose ``train.json`` gives the
 class and keypoint counts the model was built with). Per frame, the most confident court detection
 gives 33 landmarks; those with confidence above ``kp_conf`` (at least ``min_points``) map to the FIBA
-vertices in centimetres (``tools/labeler/static/fiba_court.json``, the same order as the model's
+vertices in centimetres (``bga.court.base.load_fiba_court()``, the same order as the model's
 keypoints) with RANSAC, as in ``court/roboflow_keypoints``. ``smooth_window`` > 0 median-smooths the
 mappings within the shot (``bga.court.smooth``). Runs on MPS on the Mac.
 
@@ -13,20 +13,17 @@ from __future__ import annotations
 
 import json
 import time
-from pathlib import Path
 from typing import Any, ClassVar
 
 import cv2
 import numpy as np
 
+from bga.court.base import load_fiba_court
 from bga.court.smooth import smooth_homographies
 from bga.device import pick_device
 from bga.paths import weights_dir
 from bga.registry import register
 from bga.stage import BaseBackend, FrameReader, Sequence
-
-#: Repository root; weights live under ``weights/`` and the court geometry under ``tools/``.
-ROOT = Path(__file__).resolve().parents[3]
 
 
 @register("court", "rfdetr_keypoint")
@@ -77,7 +74,7 @@ class RFDETRKeypoint(BaseBackend):
             device=pick_device(self.p["device"]),
             trust_checkpoint=True,
         )
-        geo = json.loads((ROOT / "tools/labeler/static/fiba_court.json").read_text())
+        geo = load_fiba_court()
         self.vertices = np.array(geo["vertices"], dtype=np.float32)
 
     def unload(self) -> None:
