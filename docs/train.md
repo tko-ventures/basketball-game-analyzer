@@ -34,3 +34,4 @@ used in the court keypoint runs. Base weights: RF-DETR Keypoint preview by Robof
 | 2026-11-23 | 7300717 | `configs/train/numbers-crop_cls-resnet18-r1-fact.yaml` | `numbers/crop_cls/resnet18-r1-fact@62907b32` | 4439 / 1646 | val/top1 0.518 (epoch 24) | L4, 164.1 s, 0.0365 USD |  |
 | 2026-11-23 | 0d466a1 | `configs/train/numbers-crop_cls-dinov2s-r1-fact.yaml` | `numbers/crop_cls/dinov2s-r1-fact@64ba1381` | 4439 / 1646 | val/top1 0.531 (epoch 12) | L4, 164.4 s, 0.0365 USD |  |
 | 2026-11-23 | 4d80cb3 | `configs/train/numbers-parseq-r1.yaml` | `numbers/parseq/r1@c384dce4` | 4439 / 1646 | val/top1 0.657 (epoch 5) | L4, 366.3 s, 0.0814 USD |  |
+| 2026-11-23 | b63a87b | `configs/train/numbers-parseq-r2.yaml` | `numbers/parseq/r2@c4b3dde8` | 34517 / 1646 | val/top1 0.701 (epoch 2) | colab T4, 2515.9 s, 0.75 CCU |  |
