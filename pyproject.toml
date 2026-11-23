@@ -46,6 +46,12 @@ track = [
     "reid==0.1.0",
     "trackers==2.7.0",
 ]
+# PARSeq number reader (numbers/parseq): strhub pinned to a commit; it imports Lightning and nltk without declaring them.
+parseq = [
+    "nltk>=3.7",
+    "pytorch-lightning>=2.0",
+    "strhub @ git+https://github.com/baudm/parseq@1902db043c029a7e03a3818c616c06600af574be",
+]
 
 [dependency-groups]
 dev = ["pre-commit>=4.0", "pytest>=8.3", "ruff==0.17.5"]

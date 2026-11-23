@@ -26,6 +26,7 @@ BACKEND_MODULES = (
     "bga.track.sam2_video",
     "bga.numbers.smolvlm_ocr",
     "bga.numbers.crop_cls",
+    "bga.numbers.parseq",
     "bga.link.greedy",
     "bga.court.roboflow_keypoints",
     "bga.court.rfdetr_keypoint",

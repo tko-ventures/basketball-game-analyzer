@@ -599,3 +599,22 @@ Tomasz, answering the open point of the 2026-11-22 pipeline review (#26, #32).
   be used as well as the earlier ones.
 - **Consequence for M7:** training crops can come from current-season games, whose rosters and kits are the ones the
   held-out game (Superpuchar, 2026-09-26) shows. The games first need fetching, rosters, shot files and kits.
+
+## 2026-11-23: PARSeq enters the bake-off from the released scene-text weights
+
+The implementer, after the factorised head (#30) left numbers without training crops unread, pending Tomasz's word on
+the licence point below.
+
+- **Backend:** `numbers/parseq` runs `strhub` at commit `1902db04` of `baudm/parseq` with the released checkpoint
+  `parseq-bb5792a6.pt` (v1.0.0), as the decision of 2026-11-17 planned. The models of Koshkina and Elder stay unused.
+- **Why now:** not fine-tuned, it reads the gold dev number crops at 0.616 top-1 under the roster and declines 0.882
+  of the non-numbers, at 5 ms a crop. The M6 reader has 0.653 and 0.434 at 1.9 s; the best PLK crop classifier 0.468.
+  It knows digits before it sees a jersey, which is what round 1 could not teach a classifier.
+- **Licence:** the code is Apache 2.0. The repository states no separate terms for the weights. They were trained
+  on real scene-text sets (COCO-Text, RCTW17, Uber-Text, ArT, LSVT, MLT19, ReCTS, TextOCR, OpenVINO), each with its
+  own terms. They are used now as the ImageNet and re-ID starts are (ruling of 2026-11-18, question 15) and are
+  re-checked before shipping. **Open (Tomasz):** confirm this, or name a start trained on synthetic text only.
+- **Scoring:** a number's probability is the product of its digits at their positions and the end token after
+  them, from one decoding pass; the rest is `unreadable`. A number that differs from the decoded string is scored
+  approximately. Exact scoring of each roster number comes with `roster_logprob`.
+- **Next:** the PLK fine-tune on the round-1 and round-2 crops, with a trainer in `bga train`.
