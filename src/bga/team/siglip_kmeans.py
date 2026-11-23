@@ -2,7 +2,8 @@
 
 Fitted on central crops (40% of the box) of player boxes sampled at ``fit_fps``; referees come from the
 detector class, never from a cluster. The brighter cluster takes the side whose kit is "light" in the
-clip meta (plan section 5, layer 3).
+clip meta (plan section 5, layer 3); a clip whose meta does not mark exactly one side ``light`` is refused.
+SigLIP is loaded once in ``load``; each sequence gets its own UMAP and KMeans.
 
 """
 
@@ -96,6 +97,38 @@ def cluster_separation(points: np.ndarray, labels: np.ndarray) -> Separation:
     return Separation(round(float(silhouette_score(points, labels)), 3), round(float(sizes.min() / sizes.sum()), 3))
 
 
+def light_side(meta: dict) -> str:
+    """The side whose kit the clip meta marks ``light``; the brighter cluster is given to it.
+
+    Args:
+        meta: A sequence's clip metadata, with ``home`` and ``away`` records.
+
+    Returns:
+        ``home`` or ``away``.
+
+    Raises:
+        ValueError: Unless exactly one side's ``kit`` is ``light``. Guessing would name the teams the wrong way
+            round without a sign, as it did on four non-gold games on 2026-11-22.
+
+    Examples:
+        >>> light_side({"home": {"kit": "dark"}, "away": {"kit": "light"}})
+        'away'
+        >>> light_side({"home": {"kit": ""}, "away": {}})
+        Traceback (most recent call last):
+        ...
+        ValueError: clip meta must mark one side's kit light and the other dark; got home '', away None
+
+    """
+    kits = {side: (meta.get(side) or {}).get("kit") for side in ("home", "away")}
+    light = [side for side, kit in kits.items() if kit == "light"]
+    if len(light) != 1:
+        raise ValueError(
+            "clip meta must mark one side's kit light and the other dark;"
+            f" got home {kits['home']!r}, away {kits['away']!r}"
+        )
+    return light[0]
+
+
 @register("team", "siglip_kmeans")
 class SiglipKMeans(BaseBackend):
     """Team backend: ``sports.TeamClassifier`` fitted on the sequence's own player crops.
@@ -118,24 +151,25 @@ class SiglipKMeans(BaseBackend):
     }
 
     def load(self) -> None:
-        """Import ``sports.TeamClassifier``; the classifier itself is built per sequence in :meth:`run`."""
+        """Build ``sports.TeamClassifier`` once: its constructor loads SigLIP, which every sequence then shares."""
         from sports import TeamClassifier
 
-        self.TeamClassifier = TeamClassifier
+        self.classifier = TeamClassifier(device=pick_device(self.p["device"]))
 
     def unload(self) -> None:
-        """Drop the classifier class."""
-        self.TeamClassifier = None
+        """Drop the classifier and its SigLIP model."""
+        self.classifier = None
 
     def _fit_predict(self, crops: list[np.ndarray], fit: list[np.ndarray]) -> tuple[list[int], Separation]:
         """Fit the classifier on ``fit``, predict a cluster per crop, and score the fitted clusters' separation."""
-        tc = self.TeamClassifier(device=pick_device(self.p["device"]))
-        if self.p["seed"] is not None:  # UMAP and KMeans draw random starts; a seed makes reruns identical
-            import umap
-            from sklearn.cluster import KMeans
+        import umap
+        from sklearn.cluster import KMeans
 
-            tc.reducer = umap.UMAP(n_components=3, random_state=self.p["seed"])
-            tc.cluster_model = KMeans(n_clusters=2, random_state=self.p["seed"])
+        tc = self.classifier
+        # a new UMAP and KMeans per sequence, as ``TeamClassifier`` builds them, so no fit carries over; they draw
+        # random starts, and a seed makes reruns identical
+        tc.reducer = umap.UMAP(n_components=3, random_state=self.p["seed"])
+        tc.cluster_model = KMeans(n_clusters=2, random_state=self.p["seed"])
         tc.fit(fit)
         sep = cluster_separation(tc.reducer.embedding_, tc.cluster_model.labels_)
         return [int(p) for p in tc.predict(crops)], sep
@@ -146,7 +180,7 @@ class SiglipKMeans(BaseBackend):
         Player boxes scoring at least ``min_score`` are cropped (``crop`` of the box around the point ``crop_cy`` of its
         height from the top); crops from frames every ``1 / fit_fps`` seconds fit
         the classifier (all crops when fewer than 10), and every crop is predicted. The cluster with the brighter mean
-        HSV value goes to home when the clip meta marks the home kit ``light``, else to away. Referees come from the
+        HSV value goes to the side whose kit the clip meta marks ``light`` (:func:`light_side`). Referees come from the
         detector class. With fewer than 4 crops no clustering is done. The ``seed`` param, when set, seeds UMAP and
         KMeans. The separation of the fitted clusters is reported and changes no label.
 
@@ -160,7 +194,11 @@ class SiglipKMeans(BaseBackend):
             {"silhouette": float, "minor_share": float}, "ms_per_frame": float}``; ``separation`` and ``ms_per_frame``
             are absent when no clustering was done.
 
+        Raises:
+            ValueError: When the clip meta does not mark exactly one side's kit ``light``.
+
         """
+        light = light_side(seq.meta)  # before any work: a clip without kits cannot be labelled
         dets = upstream["detect"]["frames"]
         keys, crops, fit_mask = [], [], []
         step = max(1, round(seq.fps / self.p["fit_fps"]))
@@ -188,7 +226,6 @@ class SiglipKMeans(BaseBackend):
             )
             for k in (0, 1)
         ]
-        light = "home" if seq.meta.get("home", {}).get("kit") == "light" else "away"
         dark = "away" if light == "home" else "home"
         side = {int(np.argmax(bright)): light, int(np.argmin(bright)): dark}
         for (f, i), p in zip(keys, pred, strict=True):
