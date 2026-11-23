@@ -1,0 +1,32 @@
+name: dinov2s-r1-fact
+layer: numbers
+backend: crop_cls
+description: >
+  numbers-crop_cls-dinov2s-r1 with the factorised head (#30): 21 outputs, unreadable, the tens digit (none, 1 to 9)
+  and the ones digit (0 to 9), instead of one output per number. Same DINOv2 ViT-S/14 weights (Meta, Apache 2.0
+  through timm), crops, split, augmentation and recipe; only the head and its loss differ.
+base_weights:
+  name: vit_small_patch14_dinov2.lvd142m
+  url: https://huggingface.co/timm/vit_small_patch14_dinov2.lvd142m
+  licence: Apache-2.0
+package: timm==1.0.30
+sources:
+  - kind: manifest
+    path: data/labels/numbers/train_r1.json
+    sha256: 2e28c1061c31dee0de9ff588a6934c6629be34a4a924678c1bc4248db4dd6feb
+recipe:
+  resolution: 112
+  epochs: 30
+  batch_size: 128
+  lr: 0.0001
+  seed: 0
+  select_on: val/top1
+  pad: 10
+  illegible_as_unreadable: true
+  head: factorised
+  val_clips:
+    - 20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka
+platform:
+  name: modal
+  gpu: L4
+  timeout_h: 1

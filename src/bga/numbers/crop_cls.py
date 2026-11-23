@@ -5,23 +5,83 @@ normalisation come from the trained weights' ``cls_config.json`` (``bga train`` 
 ResNet-18 and DINOv2 fine-tunes run through this one backend (decision of 2026-11-22). Every read reports a
 probability per class, so ``bga.numbers.base.roster_choice`` can restrict it to a roster plus ``unreadable``.
 
+The weights carry one of two heads (:class:`Head`, ``head`` in ``cls_config.json``, ``flat`` when absent). ``flat``
+has one output per class. ``factorised`` has 21 outputs: ``unreadable``, the tens digit (none, or 1 to 9) and the
+ones digit (0 to 9), so a digit is learned from every number that contains it and a number absent from training can
+still be read; :func:`class_probs` turns either into a probability per class.
+
 """
 
 from __future__ import annotations
 
 import json
+from enum import StrEnum
 from typing import TYPE_CHECKING, Any, ClassVar
 
 import cv2
 import numpy as np
 
 from bga.device import pick_device
-from bga.numbers.base import UNREADABLE, CropRead, TrackNumbers
+from bga.numbers.base import NUMBER_CLASSES, UNREADABLE, CropRead, TrackNumbers
 from bga.paths import weights_dir
 from bga.registry import register
 
 if TYPE_CHECKING:
     import torch
+
+
+class Head(StrEnum):
+    """The classifier's output layout."""
+
+    FLAT = "flat"
+    FACTORISED = "factorised"
+
+
+#: Outputs of the factorised head: ``unreadable``, then 10 for the tens digit (none, 1 to 9), then 10 for the ones.
+FACTORISED_OUTPUTS = 21
+
+
+def num_outputs(head: Head) -> int:
+    """Outputs of a model with this head over ``NUMBER_CLASSES``.
+
+    Examples:
+        >>> num_outputs(Head.FLAT), num_outputs(Head.FACTORISED)
+        (101, 21)
+
+    """
+    return FACTORISED_OUTPUTS if head is Head.FACTORISED else len(NUMBER_CLASSES)
+
+
+def class_probs(logits: torch.Tensor, head: Head) -> torch.Tensor:
+    """A probability per class of ``NUMBER_CLASSES`` from a model's outputs.
+
+    The factorised head gives ``unreadable`` the sigmoid of its output, and a number the rest times the softmax
+    probabilities of its tens and its ones digit.
+
+    Args:
+        logits: Model outputs, shape (crops, ``num_outputs(head)``), float32.
+        head: The model's head.
+
+    Returns:
+        Tensor of shape (crops, 101), rows summing to 1.
+
+    Examples:
+        >>> import torch
+        >>> logits = torch.full((1, 21), -20.0)
+        >>> logits[0, 1 + 2], logits[0, 11 + 3] = 20.0, 20.0  # tens digit 2, ones digit 3
+        >>> p = class_probs(logits, Head.FACTORISED)
+        >>> p.shape, NUMBER_CLASSES[int(p.argmax())], round(float(p.sum()), 4)
+        (torch.Size([1, 101]), '23', 1.0)
+
+    """
+    import torch
+
+    if head is Head.FLAT:
+        return torch.softmax(logits, dim=1)
+    unreadable = torch.sigmoid(logits[:, :1])
+    tens, ones = torch.softmax(logits[:, 1:11], dim=1), torch.softmax(logits[:, 11:21], dim=1)
+    numbers = (tens[:, :, None] * ones[:, None, :]).reshape(len(logits), 100)
+    return torch.cat([unreadable, (1 - unreadable) * numbers], dim=1)
 
 
 def to_input(crop: np.ndarray, size: int) -> np.ndarray:
@@ -84,15 +144,24 @@ class CropClassifier(TrackNumbers):
     defaults: ClassVar[dict[str, Any]] = {**TrackNumbers.defaults, "batch_size": 64}
 
     def load(self) -> None:
-        """Load the weights and their ``cls_config.json`` onto MPS when available, else CPU."""
+        """Load the weights and their ``cls_config.json`` onto MPS when available, else CPU.
+
+        Raises:
+            ValueError: When weights with a factorised head list other classes than ``NUMBER_CLASSES``.
+
+        """
         import torch
         from safetensors.torch import load_file
 
         d = weights_dir(self.weights)
         self.cfg = json.loads((d / "cls_config.json").read_text())
         self.classes = list(self.cfg["classes"])
+        self.head = Head(self.cfg.get("head", Head.FLAT.value))
+        if self.head is Head.FACTORISED and self.classes != list(NUMBER_CLASSES):
+            raise ValueError(f"{self.weights}: a factorised head reads unreadable and 0 to 99, got {self.classes[:3]}")
         self.device = torch.device(pick_device("auto"))
-        model = create_model(self.cfg["arch"], len(self.classes), self.cfg["size"], pretrained=False)
+        outputs = num_outputs(self.head) if self.head is Head.FACTORISED else len(self.classes)
+        model = create_model(self.cfg["arch"], outputs, self.cfg["size"], pretrained=False)
         model.load_state_dict(load_file(str(d / "weights.safetensors")))
         self.model = model.eval().to(self.device)
         self.mean = torch.tensor(self.cfg["mean"], device=self.device).view(1, 3, 1, 1)
@@ -119,7 +188,8 @@ class CropClassifier(TrackNumbers):
             x = np.stack([to_input(c, size) for c in crops[i : i + self.p["batch_size"]]])
             t = torch.from_numpy(x).to(self.device).permute(0, 3, 1, 2).float() / 255.0
             with torch.no_grad():
-                out.append(torch.softmax(self.model((t - self.mean) / self.std), dim=1).float().cpu().numpy())
+                logits = self.model((t - self.mean) / self.std).float()
+                out.append(class_probs(logits, self.head).cpu().numpy())
         return np.concatenate(out) if out else np.zeros((0, len(self.classes)), np.float32)
 
     def read_crops(self, crops: list[np.ndarray], rosters: list[set[str]]) -> list[CropRead]:

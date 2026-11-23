@@ -77,6 +77,7 @@ class Recipe(BaseModel):
     id_loss_weight: float | None = None  # appearance: weight of the identity loss (1 when unset)
     pad: int | None = None  # numbers: pixels around a number box when cutting crops (10, the backends' default)
     illegible_as_unreadable: bool | None = None  # numbers: crops of illegible tracklets train the unreadable class
+    head: Literal["flat", "factorised"] | None = None  # numbers: the classifier's outputs (flat when unset)
 
 
 class Platform(BaseModel):
