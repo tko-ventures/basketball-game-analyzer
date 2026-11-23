@@ -43,6 +43,7 @@ shots ─┬─> court ────────────────┐
                    ├─> track <───┘   (reads detect, optional court)
                    │     ├─> numbers   (reads detect, track)
                    │     ├─> link      (reads track, team; optional appearance, court, numbers)
+                   │     │     └─> identity (reads link, track, team; optional numbers, appearance; shot or clip scope)
                    │     └─> positions (reads track, court)
 ```
 
@@ -61,7 +62,8 @@ Every layer supports multiple swappable backends registered via `@register(layer
 | `appearance` | `reid` (`plk-r1-shot-last`) | OSNet x1.0 fine-tuned on PLK crops; float16 L2-normalised embeddings | Used in BoT-SORT & kept for M7 cross-shot identity (0.946 rank-1) | [2026-11-22](adr/2026-11-22-tracking-botsort-plk-reid-and-greedy-link.md) |
 | `track` | `trackers` (`BoTSORTTracker` + PLK re-ID) | BoT-SORT with camera-motion compensation and tuned re-ID (runs on Modal L4) | ~64 ms/frame on L4 | [2026-11-22](adr/2026-11-22-tracking-botsort-plk-reid-and-greedy-link.md) |
 | `link` | `greedy` (`link-botsort-plk-r1-shot-last-tuned-noapp-cap5`) | Joins tracklets by team, gap, and court speed + 5-players-per-team cap | HOTA 0.743 dev / 0.742 held-out; IDF1 0.873 / 0.849; IDSW 52 / 26 | [2026-11-22](adr/2026-11-22-tracking-botsort-plk-reid-and-greedy-link.md) |
-| `numbers` | `parseq` *(M7 in progress)* | Fine-tuned PARSeq scene-text reader (`numbers-parseq-r2`) replacing SmolVLM2 baseline | 0.963 crop top-1 under roster (4 ms/crop), 0.447 refusal; 0.754 track acc on dev (SmolVLM2 on the same stack: 0.551) | [2026-11-23](adr/2026-11-23-jersey-number-reading-parseq-and-roster-scoring.md) |
+| `numbers` | `parseq` *(M7 in progress)* | Fine-tuned PARSeq scene-text reader (`numbers-parseq-r2`, `stop_on_confirm: false`, logging crop probabilities) | 0.963 crop top-1 under roster (4 ms/crop), 0.447 refusal; 0.754 raw track acc on dev (SmolVLM2: 0.551) | [2026-11-23](adr/2026-11-23-jersey-number-reading-parseq-and-roster-scoring.md) |
+| `identity` | `game` / `covisible_assign` *(M7 in progress)* | Layer 5b: roster log-prob voting, co-visible LSA uniqueness (`identity-covisible-assign`), and clip-scoped cross-shot appearance clustering (`identity-game`) | Dev (69 tracks): shot-level 0.841 acc / 2 wrong; game-level 0.913 acc / 0.957 confirmed / 3 wrong | [2026-11-23](adr/2026-11-23-jersey-number-reading-parseq-and-roster-scoring.md) |
 | `positions` | `bbox_bottom` | Projects box bottom-centre via homography + `clean_paths` smoothing | Baseline implementation; M8 refines with pose/filtering | — |
 
 Other registered backends remain available for baselines, ablations, and reproducibility: Roboflow NBA models (`roboflow_keypoints`, `roboflow_inference`), vendored/upstream ByteTrack (`bytetrack`, `trackers`), SAM 2.1 propagation (`sam2`, CUDA-only), SmolVLM2 OCR (`smolvlm_ocr`), and crop classifiers (`crop_cls`).
