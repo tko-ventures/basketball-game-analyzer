@@ -4,7 +4,7 @@
 
 Offline analysis of Polish top-league (ORLEN Basket Liga) basketball games from the broadcast main camera: player detection and segmentation, team classification by kit, multi-object tracking, jersey-number identification, and 2D court mapping of players and ball.
 
-- Architecture (what is built): [docs/architecture.md](docs/architecture.md)
+- Architecture (what is built): [docs/architecture.md](docs/architecture.md) ([C4 visual views](docs/architecture-c4-view.md))
 - Architectural decisions (ADRs): [docs/adr/README.md](docs/adr/README.md)
 - Plan & milestones: [docs/PLAN.md](docs/PLAN.md); scores: [docs/metrics.md](docs/metrics.md)
 - Agent instructions: [AGENTS.md](AGENTS.md) ([CLAUDE.md](CLAUDE.md) points here)

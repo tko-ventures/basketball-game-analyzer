@@ -6,14 +6,14 @@ This is the canonical instruction file for all AI coding agents working on this 
 
 ## Read first
 
-1. [`docs/architecture.md`](docs/architecture.md) — human-oriented overview of what is built and the current active stack.
+1. [`docs/architecture.md`](docs/architecture.md) — canonical human-oriented overview of what is built and the current active stack (visual companion: [`docs/architecture-c4-view.md`](docs/architecture-c4-view.md)).
 2. [`docs/adr/README.md`](docs/adr/README.md) — active Architecture Decision Records (ADRs). Check before proposing or changing a layer, model, licence, or workflow so you do not re-test rejected paths.
 3. [`docs/PLAN.md`](docs/PLAN.md) — roadmap, reference stack, layer specs, and milestones (start at section 9).
 4. Open milestone issues: `gh issue list --label milestone --state open` (work lowest first). Update issue checklists, comment with progress and dead ends, and close when the done-when line has a metrics row or artifact.
 
 ## Documentation and ADR rules (human + parallel agents)
 
-- **Keep `docs/architecture.md` readable for humans.** Update it only when changing the active stack, layer DAG/contracts, core execution/eval/training mechanics, CLI commands, or major subsystems — with ground truth only (no plans or targets). Do **not** enumerate individual experiment configs, per-round manifest counts, or metrics rows there; those belong in `configs/`, `data/`, `docs/metrics.md`, and code.
+- **Keep `docs/architecture.md` readable for humans and `docs/architecture-c4-view.md` in sync.** `docs/architecture.md` is the canonical architecture doc: update it only when changing the active stack, layer DAG/contracts, core execution/eval/training mechanics, CLI commands, or major subsystems — with ground truth only (no plans or targets). **Every time `docs/architecture.md` changes, update [`docs/architecture-c4-view.md`](docs/architecture-c4-view.md) in the same change** so the C4 diagrams and backend table stay aligned with it. Do **not** enumerate individual experiment configs, per-round manifest counts, or metrics rows in either doc; those belong in `configs/`, `data/`, `docs/metrics.md`, and code.
 - **Record architectural decisions as ADRs** under `docs/adr/YYYY-MM-DD-<short-slug>.md` (date-slugs avoid numbering collisions when parallel agents open PRs) and add a row to `docs/adr/README.md`.
 - **Proposing vs. accepting:** Write a `Status: Proposed` ADR when a decision needs Tomasz's sign-off; mark replaced ADRs `Superseded by <file>` instead of deleting them. Never append to `docs/decisions.md` or `docs/archive/decisions-log.md`.
 
