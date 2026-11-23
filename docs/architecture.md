@@ -2,8 +2,9 @@
 
 *What is built in this repository as of 2026-11-23 (M0–M8 shipped, M9 next).*
 
-This document is a human-oriented overview of the system design and current active stack. Exact backend schemas, CLI flags, and config inventories live in the code (`src/bga/*/base.py`, `bga backends`, `configs/`).
+This document is the canonical human-oriented overview of the system design and current active stack. Exact backend schemas, CLI flags, and config inventories live in the code (`src/bga/*/base.py`, `bga backends`, `configs/`).
 
+- **C4 visual diagrams:** [`docs/architecture-c4-view.md`](architecture-c4-view.md) *(companion view — keep in sync whenever this document changes)*
 - **Why choices were made:** [`docs/adr/`](adr/README.md)
 - **Roadmap & milestone targets:** [`docs/PLAN.md`](PLAN.md)
 - **Evaluation scores & training runs:** [`docs/metrics.md`](metrics.md), [`docs/train.md`](train.md)
@@ -149,5 +150,5 @@ Published to `https://basketball-analyzer.demo.tko.ventures` via `scripts/deploy
 | `scripts/` | Labelling/review helpers, gold export, sweeps, probes, demo builders | Yes |
 | `tests/` | Pytest suite + doctests (including gold-leakage and contract tests) | Yes |
 | `data/labels/`, `data/rosters/`, `data/gold/`, `data/fixtures/` | Committed labels, rosters, gold sets, synthetic fixtures | Yes |
-| `docs/` | Architecture, ADRs (`adr/`), plan, metrics, training log, costs, archived logs | Yes |
+| `docs/` | Architecture (`architecture.md`, `architecture-c4-view.md`), ADRs (`adr/`), plan, metrics, training log, costs, archived logs | Yes |
 | `data/raw/`, `weights/`, `runs/` | Downloaded videos, trained weights, cached stage outputs | No |
