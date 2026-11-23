@@ -11,12 +11,12 @@
   "home": {
    "team": "King",
    "roster": "king_szczecin",
-   "kit": ""
+   "kit": "light"
   },
   "away": {
    "team": "Dziki Warszawa",
    "roster": "dziki_warszawa",
-   "kit": ""
+   "kit": "dark"
   },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=hUoD7ptXzCE",

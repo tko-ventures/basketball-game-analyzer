@@ -11,12 +11,12 @@
   "home": {
    "team": "Dziki Warszawa",
    "roster": "dziki_warszawa",
-   "kit": ""
+   "kit": "light"
   },
   "away": {
    "team": "Legia",
    "roster": "legia_warszawa",
-   "kit": ""
+   "kit": "dark"
   },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=qb1y4Jz5AkA",

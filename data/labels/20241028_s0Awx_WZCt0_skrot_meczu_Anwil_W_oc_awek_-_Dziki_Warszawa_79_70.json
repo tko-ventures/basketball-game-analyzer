@@ -11,12 +11,12 @@
   "home": {
    "team": "Anwil Włocławek",
    "roster": "anwil_wloclawek",
-   "kit": ""
+   "kit": "light"
   },
   "away": {
    "team": "Dziki Warszawa",
    "roster": "dziki_warszawa",
-   "kit": ""
+   "kit": "dark"
   },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=s0Awx_WZCt0",

@@ -11,12 +11,12 @@
   "home": {
    "team": "Górnik Zamek Książ Wałbrzych",
    "roster": "gornik_zamek_ksiaz_walbrzych",
-   "kit": ""
+   "kit": "light"
   },
   "away": {
    "team": "Dziki Warszawa",
    "roster": "dziki_warszawa",
-   "kit": ""
+   "kit": "dark"
   },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=MbcSmlYfB-8",

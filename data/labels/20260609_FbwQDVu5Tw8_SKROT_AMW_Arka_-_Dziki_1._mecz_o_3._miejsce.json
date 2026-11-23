@@ -11,12 +11,12 @@
   "home": {
    "team": "AMW Arka",
    "roster": "amw_arka_gdynia",
-   "kit": ""
+   "kit": "light"
   },
   "away": {
    "team": "Dziki Warszawa",
    "roster": "dziki_warszawa",
-   "kit": ""
+   "kit": "dark"
   },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=FbwQDVu5Tw8",
