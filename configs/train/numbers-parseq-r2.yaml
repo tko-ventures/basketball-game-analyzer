@@ -1,0 +1,38 @@
+name: r2
+layer: numbers
+backend: parseq
+description: >
+  numbers-parseq-r1 with the round-2 number crops added (data/labels/numbers/train_r2.json, eight more 2025/26
+  games): 864 number tracklets with 27,003 crops of 33 numbers, where round 1 had 208 tracklets with 5,233 crops,
+  and 3,075 unreadable crops (illegible and not-a-number tracklets, strays) where round 1 had 700. 670 of the
+  round-2 number tracklets carry the label numbers/parseq/r1 settled (at least 0.8 of at least 10 reads; 58 of 60
+  agree with a blind sheet read, none with another number), 194 a blind sheet read. Same model, loss, padding and
+  augmentation; 10 epochs, about 3.5 times round 1's steps. The King game validates, as in round 1. Aims: decline
+  more non-numbers than round 1 (0.461 on gold dev) and read opponents' kits.
+base_weights:
+  name: parseq-bb5792a6
+  url: https://github.com/baudm/parseq/releases/download/v1.0.0/parseq-bb5792a6.pt
+  licence: Apache-2.0 code; no separate terms stated for the weights, trained on real scene-text sets (ADR 2026-11-23, jersey number reading)
+package: strhub @ git+https://github.com/baudm/parseq@1902db043c029a7e03a3818c616c06600af574be
+sources:
+  - kind: manifest
+    path: data/labels/numbers/train_r1.json
+    sha256: 2e28c1061c31dee0de9ff588a6934c6629be34a4a924678c1bc4248db4dd6feb
+  - kind: manifest
+    path: data/labels/numbers/train_r2.json
+    sha256: 7902a09be6eadbc900af2ea2fa56b21138d7ffa08eedd6eb398d5754c0d1d1f7
+recipe:
+  resolution: 32
+  epochs: 10
+  batch_size: 128
+  lr: 0.0001
+  seed: 0
+  select_on: val/top1
+  pad: 10
+  illegible_as_unreadable: true
+  val_clips:
+    - 20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka
+platform:
+  name: colab
+  gpu: L4
+  timeout_h: 2

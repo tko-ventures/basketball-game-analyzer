@@ -189,6 +189,50 @@ def write_output(path: Path, out: dict) -> None:
     write_atomic(path, json.dumps(stored, separators=(",", ":")))  # last: the JSON marks the output as finished
 
 
+def _load_upstreams(cfg: RunConfig, runs: Path, seq: Sequence, layer: str) -> dict[str, dict]:
+    """Load every configured upstream output of ``layer`` for ``seq``, with arrays."""
+    return {u: load_output(cfg, runs, seq, u, arrays=True) for u in LAYERS[layer] if u in cfg.layers and u != "shots"}
+
+
+def _run_local_sequences(cfg: RunConfig, runs: Path, layer: str, backend: Backend, todo: list[Sequence]) -> None:
+    """Run a sequence-scoped backend on every sequence in ``todo`` and write its output."""
+    for seq in todo:
+        ups = _load_upstreams(cfg, runs, seq, layer)
+        read = FrameReader(seq.video)
+        try:
+            t = time.perf_counter()
+            out = backend.run(seq, ups, read)
+            out.setdefault("wall_s", round(time.perf_counter() - t, 2))
+        finally:
+            read.close()
+        write_output(output_path(cfg, runs, seq, layer), out)
+        log.info("  %s: %.1f s", seq.name, out["wall_s"])
+
+
+def _run_local_clips(
+    cfg: RunConfig, runs: Path, layer: str, backend: Backend, seqs: list[Sequence], todo: list[Sequence]
+) -> list[Sequence]:
+    """Run a clip-scoped backend once per clip that has any sequence in ``todo``, writing every shot of those clips."""
+    clips = {s.clip for s in todo}
+    by_clip: dict[str, list[Sequence]] = {}
+    for seq in seqs:
+        if seq.clip in clips:
+            by_clip.setdefault(seq.clip, []).append(seq)
+    written: list[Sequence] = []
+    for clip, clip_seqs in by_clip.items():
+        clip_ups = {s.name: _load_upstreams(cfg, runs, s, layer) for s in clip_seqs}
+        t = time.perf_counter()
+        outs = backend.run_clip(clip_seqs, clip_ups)
+        wall = round(time.perf_counter() - t, 2)
+        for seq in clip_seqs:
+            out = outs[seq.name]
+            out.setdefault("wall_s", wall)
+            write_output(output_path(cfg, runs, seq, layer), out)
+            written.append(seq)
+        log.info("  %s (%d shots): %.1f s", clip, len(clip_seqs), wall)
+    return written
+
+
 def run(
     cfg: RunConfig,
     runs: Path = Path("runs"),
@@ -202,8 +246,9 @@ def run(
     """Run every configured layer over the config's sequences, layer by layer, reusing stored outputs.
 
     The shots layer only selects sequences. A layer runs on the sequences without an output (all of them when
-    ``force`` names it) and then writes ``meta.json`` per clip. With ``remote``, CUDA backends and
-    ``remote_layers`` run on Modal; without it, CUDA backends are skipped with a warning.
+    ``force`` names it) and then writes ``meta.json`` per clip. Backends with ``scope == "clip"`` run once per clip
+    across every selected sequence of that clip. With ``remote``, CUDA backends and ``remote_layers`` run on Modal;
+    without it, CUDA backends are skipped with a warning.
 
     Args:
         cfg: The run config.
@@ -244,24 +289,14 @@ def run(
             continue
         backend.load()
         try:
-            for seq in todo:
-                ups = {
-                    u: load_output(cfg, runs, seq, u, arrays=True)
-                    for u in LAYERS[layer]
-                    if u in cfg.layers and u != "shots"
-                }
-                read = FrameReader(seq.video)
-                try:
-                    t = time.perf_counter()
-                    out = backend.run(seq, ups, read)
-                    out.setdefault("wall_s", round(time.perf_counter() - t, 2))
-                finally:
-                    read.close()
-                write_output(output_path(cfg, runs, seq, layer), out)
-                log.info("  %s: %.1f s", seq.name, out["wall_s"])
+            if getattr(backend, "scope", "sequence") == "clip":
+                done = _run_local_clips(cfg, runs, layer, backend, seqs, todo)
+            else:
+                _run_local_sequences(cfg, runs, layer, backend, todo)
+                done = todo
         finally:
             backend.unload()
-        _write_meta(cfg, runs, layer, todo, t0)
+        _write_meta(cfg, runs, layer, done, t0)
     return seqs
 
 

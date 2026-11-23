@@ -1,0 +1,43 @@
+# Kits of the 27 clips whose meta had none: implementer's read of runs/kits/<clip>.jpg (2026-11-23), four frames
+# of each clip's longest shots (scripts/kit_sheets.py sheets). One line per clip: <youtube id> <home kit> <away kit>,
+# then what the sheet shows. "light" is the brighter of the two kits, which the team layer gives the brighter
+# cluster; a yellow kit against navy is light. Three clips have the home side in the darker kit (marked !).
+# The four round-1 number-crop games (kW4HG-5MLNM, vevXM24gp3U, TUtBwzsraKs, sZ5Rab-32uk) are also confirmed by
+# their number reads against the rosters (scripts/kit_sheets.py evidence).
+d5lCDxjy1R4 light dark   # Anwil white, Dziki navy
+s0Awx_WZCt0 light dark   # Anwil white, Dziki navy
+OmvWaQKu3rU light dark   # MKS white, Dziki navy
+MbcSmlYfB-8 light dark   # Gornik white, Dziki navy
+kW4HG-5MLNM light dark   # Dziki beige, King navy and red
+jXhvXy9iQeQ light dark   # Legia white, Dziki navy
+vevXM24gp3U light dark   # Czarni white, Dziki navy
+Y4TmeMchTh0 light dark   # Slask white, Dziki navy
+TUtBwzsraKs light dark   # Dziki beige, Stal blue and yellow
+SswWgXybNB8 light dark   # Dziki beige, Slask green
+lwxZaHLNDmU light dark   # Dziki beige, Krosno green
+sZ5Rab-32uk light dark   # Dziki beige, Arka navy
+cG4oqryldrw light dark   # MKS white, Dziki navy
+hFWL47plFQI light dark   # MKS white, Dziki navy
+hUoD7ptXzCE light dark   # King white, Dziki navy
+-MurBVifFFQ light dark   # Dziki beige, Start black and red
+zZqAUytpmgc light dark   # Torun white, Dziki navy
+xTfkhQ0wO20 light dark   # Dziki beige, Czarni black and red
+enJCkGVWlHI light dark   # Stal yellow, Dziki navy
+FCaYkdygkYI light dark   # Dziki beige, Anwil blue
+yN_-DqS3Y_s light dark   # Zastal white, Dziki navy
+EExZbLxgez4 dark light   # ! Trefl black, Dziki beige
+BEFym3rFSOw dark light   # ! Dziki navy, Trefl yellow
+l7VkOarkFZk dark light   # ! Legia green, Dziki beige
+qb1y4Jz5AkA light dark   # Dziki beige, Legia green
+FbwQDVu5Tw8 light dark   # Arka yellow, Dziki navy
+DJ6xFaC0Neo light dark   # Dziki beige, Arka navy
+# The eight 2026/27 league highlights fetched on 2026-11-23 (rounds 1 to 8), read the same way. Dziki wear navy at
+# home against Czarni and Anwil (marked !).
+Z1USxFeSd44 light dark   # Trefl yellow, Dziki navy
+Fulq9md9DZc light dark   # Dziki beige, Start black and red
+kwTpkiF7jj0 light dark   # Gornik white and light blue, Dziki navy
+RiUPxoXiOLA dark light   # ! Dziki navy, Czarni white and red
+0kzM71Pysow light dark   # Legia white, Dziki navy
+QaO6xJinJaQ dark light   # ! Dziki navy, Anwil white
+9GmmrbcAfQ0 light dark   # Stal yellow, Dziki navy
+VrPqBRmTiJw light dark   # Zastal white, Dziki navy

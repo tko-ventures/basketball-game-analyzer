@@ -55,3 +55,10 @@ http://127.0.0.1:8765/boxes edits `data/labels/box_gold_v1.json`: tight boxes in
 box-gold frames, prefilled by `scripts/box_gold_v1.py`. Flagged boxes come first (Tab), a loupe on the right shows the
 selected box at up to 8×, and Enter marks the frame done. Keys are listed under the loupe; conventions are in
 `docs/gold.md`, "Box gold v1".
+
+## Gold number crops (`/numbers`)
+
+http://127.0.0.1:8765/numbers checks the labels of the gold number crops (`data/labels/numbers/gold_crops.json`,
+written by `scripts/number_gold.py`). It opens on the 30-crop spot check; `?set=illegible` shows the crops labelled illegible and `?set=all` every crop. Each crop is shown
+close up and in context. `Enter` means the label is right; type the digits and press `Enter` for another number, or press
+`I` for illegible and `X` for not a number. Each answer saves at once; the keys are listed on the page.

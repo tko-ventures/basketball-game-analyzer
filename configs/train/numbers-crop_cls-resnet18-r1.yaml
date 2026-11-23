@@ -1,0 +1,35 @@
+name: resnet18-r1
+layer: numbers
+backend: crop_cls
+description: >
+  First PLK number reader, the plan's resnet_cls: ResNet-18 (torchvision ImageNet weights through timm) fine-tuned
+  as a 101-class crop classifier (unreadable and the numbers 0 to 99) on the round-1 number crops of four non-gold
+  2025/26 games (data/labels/numbers/train_r1.json): every crop of the 208 tracklets read as a number takes that
+  number; the crops of the 17 sponsor tracklets, the 39 illegible ones and the 162 strays train unreadable; mixed
+  tracklets are left out. The King game validates, as for the appearance encoder. Crops cut with 10 px padding, as
+  the numbers backends cut them. ImageNet weights are used under the decision of 2026-11-22 (re-check before
+  shipping); numbers-crop_cls-dinov2s-r1 is the same recipe from Apache 2.0 weights.
+base_weights:
+  name: resnet18.tv_in1k
+  url: https://huggingface.co/timm/resnet18.tv_in1k
+  licence: BSD-3-Clause tag on the weights; trained on ImageNet (research-only terms), used under the decision of 2026-11-22
+package: timm==1.0.30
+sources:
+  - kind: manifest
+    path: data/labels/numbers/train_r1.json
+    sha256: 2e28c1061c31dee0de9ff588a6934c6629be34a4a924678c1bc4248db4dd6feb
+recipe:
+  resolution: 128
+  epochs: 30
+  batch_size: 128
+  lr: 0.001
+  seed: 0
+  select_on: val/top1
+  pad: 10
+  illegible_as_unreadable: true
+  val_clips:
+    - 20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka
+platform:
+  name: modal
+  gpu: L4
+  timeout_h: 1

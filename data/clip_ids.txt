@@ -1,4 +1,5 @@
 # YouTube ids of the 31 Dziki highlight clips (from the prior repo shot files, 2026-10-29)
+# and, from 2026-11-23, the eight 2026/27 league highlights of rounds 1 to 8 (Tomasz: current-season highlights may be used)
 # id	upload_date	title
 d5lCDxjy1R4	20241013	Skrót meczu | Anwil Włocławek - Dziki Warszawa 79:70
 s0Awx_WZCt0	20241028	skrót meczu Anwil Włocławek - Dziki Warszawa 79:70
@@ -31,3 +32,11 @@ qb1y4Jz5AkA	20260601	SKRÓT | Dziki - Legia | 3. mecz półfinału
 FbwQDVu5Tw8	20260609	SKRÓT | AMW Arka - Dziki | 1. mecz o 3. miejsce
 DJ6xFaC0Neo	20260612	SKRÓT | Dziki - AMW Arka | 2. mecz o 3. miejsce
 Tnuscrm9RyU	20260926	SKRÓT | Dziki - Zastal | półfinał Superpucharu Polski
+Z1USxFeSd44	20261002	SKRÓT | Energa Trefl - Dziki | 1. kolejka
+Fulq9md9DZc	20261011	SKRÓT | Dziki - PGE Start | 2. kolejka
+kwTpkiF7jj0	20261018	SKRÓT | Górnik Zamek Książ - Dziki | 3. kolejka
+RiUPxoXiOLA	20261025	SKRÓT | Dziki - Energa Czarni | 4. kolejka
+0kzM71Pysow	20261031	SKRÓT | Legia - Dziki | 5. kolejka
+QaO6xJinJaQ	20261107	SKRÓT | Dziki - Anwil | 6. kolejka
+9GmmrbcAfQ0	20261115	SKRÓT | Tasomix Rosiek Stal - Dziki | 7. kolejka
+VrPqBRmTiJw	20261122	SKRÓT | Zastal - Dziki | 8. kolejka

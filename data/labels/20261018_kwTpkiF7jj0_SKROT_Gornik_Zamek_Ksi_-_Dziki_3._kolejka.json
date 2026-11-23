@@ -1,0 +1,240 @@
+{
+ "version": 2,
+ "clip": "data/raw/20261018_kwTpkiF7jj0_SKROT_Gornik_Zamek_Ksi_-_Dziki_3._kolejka.mp4",
+ "fps": 50.0,
+ "frame_count": 10779,
+ "width": 1920,
+ "height": 1080,
+ "stride": 5,
+ "meta": {
+  "season": "2026/27",
+  "home": {
+   "team": "Górnik Zamek Książ",
+   "roster": "gornik_zamek_ksiaz_walbrzych",
+   "kit": "light"
+  },
+  "away": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": "dark"
+  },
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=kwTpkiF7jj0",
+  "title": "SKRÓT | Górnik Zamek Książ - Dziki | 3. kolejka"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 279,
+   "camera": "unset"
+  },
+  {
+   "start": 280,
+   "end": 758,
+   "camera": "unset"
+  },
+  {
+   "start": 759,
+   "end": 789,
+   "camera": "unset"
+  },
+  {
+   "start": 790,
+   "end": 1121,
+   "camera": "unset"
+  },
+  {
+   "start": 1122,
+   "end": 1173,
+   "camera": "unset"
+  },
+  {
+   "start": 1174,
+   "end": 1559,
+   "camera": "unset"
+  },
+  {
+   "start": 1560,
+   "end": 1901,
+   "camera": "unset"
+  },
+  {
+   "start": 1902,
+   "end": 2243,
+   "camera": "unset"
+  },
+  {
+   "start": 2244,
+   "end": 2816,
+   "camera": "unset"
+  },
+  {
+   "start": 2817,
+   "end": 3125,
+   "camera": "unset"
+  },
+  {
+   "start": 3126,
+   "end": 3517,
+   "camera": "unset"
+  },
+  {
+   "start": 3518,
+   "end": 3776,
+   "camera": "unset"
+  },
+  {
+   "start": 3777,
+   "end": 4059,
+   "camera": "unset"
+  },
+  {
+   "start": 4060,
+   "end": 4422,
+   "camera": "unset"
+  },
+  {
+   "start": 4423,
+   "end": 4792,
+   "camera": "unset"
+  },
+  {
+   "start": 4793,
+   "end": 5335,
+   "camera": "unset"
+  },
+  {
+   "start": 5336,
+   "end": 5634,
+   "camera": "unset"
+  },
+  {
+   "start": 5635,
+   "end": 5988,
+   "camera": "unset"
+  },
+  {
+   "start": 5989,
+   "end": 6450,
+   "camera": "unset"
+  },
+  {
+   "start": 6451,
+   "end": 6582,
+   "camera": "unset"
+  },
+  {
+   "start": 6583,
+   "end": 6874,
+   "camera": "unset"
+  },
+  {
+   "start": 6875,
+   "end": 7422,
+   "camera": "unset"
+  },
+  {
+   "start": 7423,
+   "end": 7804,
+   "camera": "unset"
+  },
+  {
+   "start": 7805,
+   "end": 8218,
+   "camera": "unset"
+  },
+  {
+   "start": 8219,
+   "end": 8285,
+   "camera": "unset"
+  },
+  {
+   "start": 8286,
+   "end": 8390,
+   "camera": "unset"
+  },
+  {
+   "start": 8391,
+   "end": 8512,
+   "camera": "unset"
+  },
+  {
+   "start": 8513,
+   "end": 8575,
+   "camera": "unset"
+  },
+  {
+   "start": 8576,
+   "end": 8696,
+   "camera": "unset"
+  },
+  {
+   "start": 8697,
+   "end": 9049,
+   "camera": "unset"
+  },
+  {
+   "start": 9050,
+   "end": 9104,
+   "camera": "unset"
+  },
+  {
+   "start": 9105,
+   "end": 9128,
+   "camera": "unset"
+  },
+  {
+   "start": 9129,
+   "end": 9345,
+   "camera": "unset"
+  },
+  {
+   "start": 9346,
+   "end": 9494,
+   "camera": "unset"
+  },
+  {
+   "start": 9495,
+   "end": 9536,
+   "camera": "unset"
+  },
+  {
+   "start": 9537,
+   "end": 9612,
+   "camera": "unset"
+  },
+  {
+   "start": 9613,
+   "end": 9971,
+   "camera": "unset"
+  },
+  {
+   "start": 9972,
+   "end": 10151,
+   "camera": "unset"
+  },
+  {
+   "start": 10152,
+   "end": 10251,
+   "camera": "unset"
+  },
+  {
+   "start": 10252,
+   "end": 10508,
+   "camera": "unset"
+  },
+  {
+   "start": 10509,
+   "end": 10622,
+   "camera": "unset"
+  },
+  {
+   "start": 10623,
+   "end": 10778,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-11-23T14:48:40"
+}

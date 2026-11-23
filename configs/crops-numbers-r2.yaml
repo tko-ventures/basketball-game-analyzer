@@ -1,0 +1,50 @@
+name: crops-numbers-r2
+description: >
+  Number training crops, round 2: the M6 tracking stack (link-botsort-plk-r1-shot-last-tuned-noapp-cap5) without the
+  court layer over the shots of at least 3 s of eight more non-gold 2025/26 games (shots/clips; gold games are
+  refused). Round 1 had each number on one player in one kit, so the readers learned players more than digits; these
+  games add eight opponents' kits (Slask, Krosno, MKS, King in white, Torun, Anwil, Stal in yellow, Czarni in black)
+  and Dziki in both of theirs. No opponent of a gold game is among them. scripts/number_crops.py turns the linked
+  tracklets into data/labels/numbers/train_r2.json.
+layers:
+  shots:
+    backend: clips
+    params:
+      stride: 5
+      min_s: 3.0
+      clips:
+        - 20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka
+        - 20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka
+        - 20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka
+        - 20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka
+        - 20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka
+        - 20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka
+        - 20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka
+        - 20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r3-poss@c62744fe
+  team:
+    backend: siglip_kmeans
+    params: {seed: 0, fit_fps: 5.0}
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  appearance:
+    backend: none
+  track:
+    backend: trackers
+    weights: appearance/reid/plk-r1-shot-last@bef4a309
+    params:
+      tracker: botsort
+      cmc: internal
+      reid_model: weights
+      reid_config: {fusion: adaptive, appearance_threshold: 0.12, proximity_threshold: 1.0, appearance_weight: 0.6}
+      args:
+        track_activation_threshold: 0.8
+        minimum_iou_threshold_first_assoc: 0.1
+        minimum_iou_threshold_second_assoc: 0.2
+        minimum_iou_threshold_unconfirmed_assoc: 0.3
+        high_conf_det_threshold: 0.3
+  link:
+    backend: greedy
+    params: {max_gap_s: 10.0, max_cost: 0.3, ends: 5, max_speed_mps: 8.0, court_slack_m: 2.0, max_per_team: 5}

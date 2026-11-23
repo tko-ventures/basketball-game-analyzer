@@ -306,11 +306,11 @@ Rule: no change to any layer merges without a before/after row in `docs/metrics.
 
 Each milestone ends with a metrics table or an artifact checked into the repo.
 
-Progress is tracked in GitHub issues, one per milestone, created 2026-10-29 (label `milestone`):
+Progress is tracked in GitHub issues, one per milestone, created 2026-10-29 (label `milestone`); M10 was added on 2026-11-23:
 
-| M0 | M1 | M2 | M3 | M4 | M5 | M6 | M7 | M8 | M9 |
-|---|---|---|---|---|---|---|---|---|---|
-| [#1](https://github.com/tko-ventures/basketball-game-analyzer/issues/1) | [#2](https://github.com/tko-ventures/basketball-game-analyzer/issues/2) | [#3](https://github.com/tko-ventures/basketball-game-analyzer/issues/3) | [#4](https://github.com/tko-ventures/basketball-game-analyzer/issues/4) | [#5](https://github.com/tko-ventures/basketball-game-analyzer/issues/5) | [#6](https://github.com/tko-ventures/basketball-game-analyzer/issues/6) | [#7](https://github.com/tko-ventures/basketball-game-analyzer/issues/7) | [#8](https://github.com/tko-ventures/basketball-game-analyzer/issues/8) | [#9](https://github.com/tko-ventures/basketball-game-analyzer/issues/9) | [#10](https://github.com/tko-ventures/basketball-game-analyzer/issues/10) |
+| M0 | M1 | M2 | M3 | M4 | M5 | M6 | M7 | M8 | M9 | M10 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [#1](https://github.com/tko-ventures/basketball-game-analyzer/issues/1) | [#2](https://github.com/tko-ventures/basketball-game-analyzer/issues/2) | [#3](https://github.com/tko-ventures/basketball-game-analyzer/issues/3) | [#4](https://github.com/tko-ventures/basketball-game-analyzer/issues/4) | [#5](https://github.com/tko-ventures/basketball-game-analyzer/issues/5) | [#6](https://github.com/tko-ventures/basketball-game-analyzer/issues/6) | [#7](https://github.com/tko-ventures/basketball-game-analyzer/issues/7) | [#8](https://github.com/tko-ventures/basketball-game-analyzer/issues/8) | [#9](https://github.com/tko-ventures/basketball-game-analyzer/issues/9) | [#10](https://github.com/tko-ventures/basketball-game-analyzer/issues/10) | [#32](https://github.com/tko-ventures/basketball-game-analyzer/issues/32) |
 
 The issue holds the checklist, comments, partial progress and dead ends; it closes when the milestone's done-when line has its metrics row or artifact. This file changes only when a decision changes, with a dated entry in `docs/decisions.md` and the `decision` label on the issue or pull request that changed it. Work the lowest open milestone issue first.
 
@@ -343,6 +343,9 @@ Ankle ground points from pose, airborne handling, export contract, radar video. 
 
 **M9. Ball, possession, shots.**
 Done: possession accuracy on gold shots.
+
+**M10. Production video ingest.**
+Layer 0 for raw game video: a registered `shots` backend that pairs a shot-cut detector with a central-camera classifier, so a video runs end to end without hand-labelled shots. Its own milestone since 2026-11-23 (decision of that date); it starts when the first full game arrives. Until then the footage is the YouTube highlights, including the current season's. Done: cut precision and recall and central-camera accuracy against the labelled shot files in the metrics table.
 
 After M2, prefer finishing each milestone over starting the next. If a milestone's metric does not improve on the baseline, record that and stop adding heuristics to it.
 

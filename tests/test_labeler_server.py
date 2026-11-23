@@ -219,3 +219,65 @@ class TestBoxQueueSets:
     def test_rejects_bad_names(self, tmp_path, name):
         with pytest.raises(ValueError, match="bad queue name"):
             server.box_queue_path(tmp_path, name)
+
+
+@pytest.fixture
+def number_crops(tmp_path):
+    p = tmp_path / server.NUMBER_CROPS
+    p.parent.mkdir()
+    crops = [{"id": "n001", "clip": "c", "label": "23"}, {"id": "n002", "clip": "c", "label": "illegible"}]
+    p.write_text(json.dumps({"crops": crops, "spotcheck": {"ids": ["n002"]}}))
+    return tmp_path
+
+
+class TestNumberQueue:
+    @pytest.mark.parametrize(
+        ("name", "ids"),
+        [
+            pytest.param("spotcheck", ["n002"], id="spotcheck"),
+            pytest.param("illegible", ["n002"], id="illegible"),
+            pytest.param("all", ["n001", "n002"], id="all"),
+        ],
+    )
+    def test_selects_the_set(self, number_crops, name, ids):
+        assert [c["id"] for c in server.load_number_queue(number_crops, name)["crops"]] == ids
+
+    def test_gives_each_crop_its_video(self, number_crops):
+        assert server.load_number_queue(number_crops, "all")["crops"][0]["video"] == "data/raw/c.mp4"
+
+    def test_rejects_an_unknown_set(self, number_crops):
+        with pytest.raises(ValueError, match="unknown set"):
+            server.load_number_queue(number_crops, "mine")
+
+
+class TestSaveNumberReview:
+    def test_stores_a_fix_beside_the_label(self, number_crops):
+        server.save_number_review(number_crops, {"id": "n001", "verdict": "fix", "label": "28", "active_seconds": 3})
+        crop = server.load_number_queue(number_crops, "reviewed")["crops"][0]
+        assert (crop["label"], crop["review"]["verdict"], crop["review"]["label"]) == ("23", "fix", "28")
+
+    def test_a_fix_to_the_same_label_is_ok(self, number_crops):
+        res = server.save_number_review(number_crops, {"id": "n001", "verdict": "fix", "label": "23"})
+        assert res["review"] == {"verdict": "ok", "at": res["review"]["at"]}
+
+    def test_null_verdict_clears_the_review(self, number_crops):
+        first = server.save_number_review(number_crops, {"id": "n001", "verdict": "ok"})
+        server.save_number_review(number_crops, {"id": "n001", "verdict": None, "prev_at": first["review"]["at"]})
+        assert server.load_number_queue(number_crops, "reviewed")["crops"] == []
+
+    @pytest.mark.parametrize(
+        ("body", "message"),
+        [
+            pytest.param({"id": "n009", "verdict": "ok"}, "unknown crop", id="unknown-crop"),
+            pytest.param({"id": "n001", "verdict": "maybe"}, "verdict must be", id="bad-verdict"),
+            pytest.param({"id": "n001", "verdict": "fix", "label": "123"}, "bad label", id="bad-label"),
+        ],
+    )
+    def test_rejects_bad_answers(self, number_crops, body, message):
+        with pytest.raises(ValueError, match=message):
+            server.save_number_review(number_crops, body)
+
+    def test_rejects_an_answer_from_a_stale_page(self, number_crops):
+        server.save_number_review(number_crops, {"id": "n001", "verdict": "ok"})
+        with pytest.raises(ValueError, match="changed after this page loaded it"):
+            server.save_number_review(number_crops, {"id": "n001", "verdict": "fix", "label": "8", "prev_at": None})

@@ -1,0 +1,210 @@
+{
+ "version": 2,
+ "clip": "data/raw/20261122_VrPqBRmTiJw_SKROT_Zastal_-_Dziki_8._kolejka.mp4",
+ "fps": 50.0,
+ "frame_count": 9902,
+ "width": 1920,
+ "height": 1080,
+ "stride": 5,
+ "meta": {
+  "season": "2026/27",
+  "home": {
+   "team": "Zastal",
+   "roster": "zastal_zielona_gora",
+   "kit": "light"
+  },
+  "away": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": "dark"
+  },
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=VrPqBRmTiJw",
+  "title": "SKRÓT | Zastal - Dziki | 8. kolejka"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 285,
+   "camera": "unset"
+  },
+  {
+   "start": 286,
+   "end": 607,
+   "camera": "unset"
+  },
+  {
+   "start": 608,
+   "end": 895,
+   "camera": "unset"
+  },
+  {
+   "start": 896,
+   "end": 1125,
+   "camera": "unset"
+  },
+  {
+   "start": 1126,
+   "end": 1443,
+   "camera": "unset"
+  },
+  {
+   "start": 1444,
+   "end": 1701,
+   "camera": "unset"
+  },
+  {
+   "start": 1702,
+   "end": 1992,
+   "camera": "unset"
+  },
+  {
+   "start": 1993,
+   "end": 2301,
+   "camera": "unset"
+  },
+  {
+   "start": 2302,
+   "end": 2649,
+   "camera": "unset"
+  },
+  {
+   "start": 2650,
+   "end": 2927,
+   "camera": "unset"
+  },
+  {
+   "start": 2928,
+   "end": 3234,
+   "camera": "unset"
+  },
+  {
+   "start": 3235,
+   "end": 3520,
+   "camera": "unset"
+  },
+  {
+   "start": 3521,
+   "end": 3835,
+   "camera": "unset"
+  },
+  {
+   "start": 3836,
+   "end": 4112,
+   "camera": "unset"
+  },
+  {
+   "start": 4113,
+   "end": 4390,
+   "camera": "unset"
+  },
+  {
+   "start": 4391,
+   "end": 4662,
+   "camera": "unset"
+  },
+  {
+   "start": 4663,
+   "end": 4772,
+   "camera": "unset"
+  },
+  {
+   "start": 4773,
+   "end": 4832,
+   "camera": "unset"
+  },
+  {
+   "start": 4833,
+   "end": 5219,
+   "camera": "unset"
+  },
+  {
+   "start": 5220,
+   "end": 5477,
+   "camera": "unset"
+  },
+  {
+   "start": 5478,
+   "end": 5841,
+   "camera": "unset"
+  },
+  {
+   "start": 5842,
+   "end": 6206,
+   "camera": "unset"
+  },
+  {
+   "start": 6207,
+   "end": 6484,
+   "camera": "unset"
+  },
+  {
+   "start": 6485,
+   "end": 6715,
+   "camera": "unset"
+  },
+  {
+   "start": 6716,
+   "end": 6992,
+   "camera": "unset"
+  },
+  {
+   "start": 6993,
+   "end": 7190,
+   "camera": "unset"
+  },
+  {
+   "start": 7191,
+   "end": 7543,
+   "camera": "unset"
+  },
+  {
+   "start": 7544,
+   "end": 7818,
+   "camera": "unset"
+  },
+  {
+   "start": 7819,
+   "end": 7923,
+   "camera": "unset"
+  },
+  {
+   "start": 7924,
+   "end": 8155,
+   "camera": "unset"
+  },
+  {
+   "start": 8156,
+   "end": 8473,
+   "camera": "unset"
+  },
+  {
+   "start": 8474,
+   "end": 8727,
+   "camera": "unset"
+  },
+  {
+   "start": 8728,
+   "end": 9031,
+   "camera": "unset"
+  },
+  {
+   "start": 9032,
+   "end": 9344,
+   "camera": "unset"
+  },
+  {
+   "start": 9345,
+   "end": 9731,
+   "camera": "unset"
+  },
+  {
+   "start": 9732,
+   "end": 9901,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-11-23T14:49:19"
+}

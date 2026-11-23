@@ -11,12 +11,12 @@
   "home": {
    "team": "Energa Czarni",
    "roster": "energa_czarni_slupsk",
-   "kit": ""
+   "kit": "light"
   },
   "away": {
    "team": "Dziki Warszawa",
    "roster": "dziki_warszawa",
-   "kit": ""
+   "kit": "dark"
   },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=vevXM24gp3U",

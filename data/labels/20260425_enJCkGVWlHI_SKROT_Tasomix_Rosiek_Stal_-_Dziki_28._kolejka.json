@@ -11,12 +11,12 @@
   "home": {
    "team": "Tasomix Rosiek Stal",
    "roster": "tasomix_rosiek_stal_ostrow_wielkopolski",
-   "kit": ""
+   "kit": "light"
   },
   "away": {
    "team": "Dziki Warszawa",
    "roster": "dziki_warszawa",
-   "kit": ""
+   "kit": "dark"
   },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=enJCkGVWlHI",

@@ -1,0 +1,303 @@
+# Number training crops, round 1: implementer's blind read of runs/number_crops/train_r1/sheet_NN.jpg (2026-11-22).
+# One line per sampled tracklet: <index> <label>. A tracklet is labelled with the number its legible crops show;
+# illegible when none can be read, mixed when its crops show two players, not_number when its boxes are logos.
+0 illegible
+1 2
+2 13
+3 illegible
+4 45
+5 55
+6 13
+7 45
+8 illegible
+9 illegible
+10 illegible
+11 0
+12 mixed 45 then 5
+13 13
+14 4
+15 45
+16 illegible
+17 illegible
+18 11
+19 5
+20 45
+21 1
+22 11
+23 0
+24 illegible
+25 7
+26 illegible
+27 7
+28 13
+29 33
+30 illegible
+31 16
+32 13
+33 1
+34 45
+35 2
+36 4
+37 4
+38 illegible
+39 illegible
+40 2
+41 2
+42 mixed 11 then 55
+43 25
+44 4
+45 23
+46 2
+47 10
+48 11
+49 mixed blue then 8
+50 2
+51 1
+52 illegible
+53 illegible
+54 12
+55 illegible
+56 22
+57 55
+58 illegible
+59 13
+60 4
+61 1
+62 illegible
+63 2
+64 33
+65 11
+66 16
+67 25
+68 5
+69 55
+70 2
+71 13
+72 11
+73 illegible
+74 22
+75 1
+76 2
+77 7
+78 5
+79 0
+80 16
+81 12
+82 4
+83 45
+84 7
+85 2
+86 15
+87 16
+88 4
+89 illegible
+90 10
+91 7
+92 45
+93 mixed 11 then 31
+94 not_number back sponsor patches
+95 25
+96 12
+97 illegible
+98 5
+99 10
+100 12
+101 2
+102 16
+103 45
+104 3
+105 12
+106 1
+107 illegible
+108 4
+109 illegible
+110 7
+111 22
+112 mixed 15 then 28
+113 45
+114 11
+115 illegible
+116 illegible
+117 11
+118 illegible
+119 0
+120 illegible
+121 mixed 10 then 25
+122 1
+123 16
+124 31
+125 25
+126 11
+127 14
+128 0
+129 10
+130 14
+131 15
+132 5
+133 8
+134 0
+135 mixed 2 then 4
+136 2
+137 4
+138 illegible
+139 10
+140 illegible one 7, three back patches
+141 0
+142 mixed red 13 then white
+143 22
+144 illegible
+145 2
+146 30
+147 not_number chest sponsor
+148 1
+149 1
+150 98 check: 98 or 88
+151 3
+152 mixed 0 then 4
+153 illegible 8 or 9
+154 4
+155 not_number chest sponsor
+156 2
+157 9
+158 9
+159 0
+160 37
+161 45
+162 0
+163 illegible 6 or 16
+164 3
+165 1
+166 not_number chest sponsor
+167 11
+168 25
+169 33
+170 25
+171 11
+172 not_number chest sponsor
+173 not_number chest sponsor
+174 mixed sponsor then 98
+175 mixed sponsor then 11
+176 5
+177 11
+178 25
+179 not_number chest sponsor
+180 9
+181 mixed 45 then 0
+182 2
+183 0
+184 30
+185 not_number chest sponsor
+186 25
+187 5
+188 2
+189 11 last crop may be another number
+190 mixed 10 then 45
+191 0
+192 10
+193 illegible
+194 10 one chest sponsor crop
+195 1
+196 9 one chest sponsor crop
+197 mixed white 2 then dark
+198 1
+199 9
+200 3
+201 45
+202 2
+203 not_number chest sponsor
+204 mixed 10 then chest sponsor
+205 mixed 98 then chest sponsor
+206 illegible
+207 1
+208 mixed chest sponsor then white 0
+209 2
+210 mixed chest sponsor then a number
+211 9
+212 0
+213 mixed white 25 then dark 34
+214 1 one chest sponsor crop
+215 0
+216 11
+217 10
+218 illegible
+219 1
+220 illegible
+221 37
+222 2
+223 5
+224 1
+225 not_number chest sponsor
+226 illegible
+227 mixed chest sponsor then 98
+228 11
+229 mixed dark then white 45
+230 25
+231 mixed red 18 then dark
+232 0
+233 1
+234 2
+235 25
+236 25
+237 1
+238 25
+239 not_number chest sponsor
+240 2
+241 16
+242 not_number chest sponsor
+243 1
+244 0
+245 mixed dark 25 then white 18
+246 4
+247 mixed then chest sponsor
+248 25
+249 illegible
+250 not_number chest sponsor
+251 not_number chest sponsor
+252 3
+253 2
+254 illegible
+255 11
+256 7
+257 21 one chest sponsor crop
+258 45
+259 mixed chest sponsor then 3
+260 mixed chest sponsor then 3
+261 mixed chest sponsor then 1
+262 mixed chest sponsor then 1
+263 not_number chest sponsor
+264 1
+265 9
+266 mixed chest sponsor then 0
+267 1
+268 3
+269 2
+270 0 one chest sponsor crop
+271 1
+272 16
+273 mixed 7 then chest sponsor
+274 11
+275 mixed 1 then 4
+276 1
+277 2
+278 illegible
+279 not_number chest sponsor
+280 1
+281 mixed 4 then chest sponsor
+282 0
+283 1
+284 mixed chest sponsor then 1
+285 mixed 2 then 4
+286 21
+287 1
+288 1 one chest sponsor crop
+289 mixed 25 then 18
+290 25 one chest sponsor crop
+291 21
+292 mixed chest sponsor then 21
+293 2
+294 25 one chest sponsor crop
+295 45
+296 18 one chest sponsor crop
+297 not_number chest sponsor
+298 9
+299 1

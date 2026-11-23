@@ -6,6 +6,7 @@ Usage:
     bga eval-court --config configs/baseline.yaml [--config other.yaml] [--held-out] [--write]
     bga eval-detect --config configs/detect-plk-r2.yaml [--set ...] [--gold v1] [--held-out] [--write]
     bga eval-appearance --config configs/appearance-reid-sportsmot.yaml [--gold v0] [--held-out] [--write]
+    bga eval-numbers --config configs/numbers-smolvlm-nba.yaml [--held-out] [--write]
     bga train --config configs/train/<layer>-<backend>-<name>.yaml [--build-only] [--collect]
     bga backends
 
@@ -518,6 +519,73 @@ def eval_appearance(
         METRICS_MD.write_text(_insert_rows(METRICS_MD.read_text(), APPEARANCE_HEADER, rows, APPEARANCE_INTRO))
 
 
+#: Header of the number-reader table in ``docs/metrics.md`` written by ``bga eval-numbers``.
+NUMBERS_HEADER = (
+    "| date | commit | config | reader weights (training config) | gold | split (shots, crops) "
+    "| top-1 roster (legible crops) | top-1 free | answered | refused (crops) | ECE | ms/crop | notes |\n"
+    "|---|---|---|---|---|---|---|---|---|---|---|---|---|\n"
+)
+#: Section heading and explanation placed above the number-reader table when it is first added.
+NUMBERS_INTRO = (
+    "## Number readers\n\n"
+    "Scored by `bga eval-numbers` on the gold number crops (`data/gold/v1/numbers.json`, `docs/gold.md`), dev shots"
+    " unless `--held-out`, so the scores depend on neither the detector nor the tracker. The config's numbers backend"
+    " reads each crop cut with its own padding. **top-1 roster:** share of the legible crops whose answer,"
+    " restricted to the roster of the crop's team, is the right number. **top-1 free:** the same without the roster."
+    " **answered:**"
+    " share of the legible crops given any number under the roster. **refused:** share of the illegible and"
+    " not-a-number crops the reader declines under the roster, with their count. **ECE:** expected calibration error of"
+    " the roster answer's probability (10 bins), for readers that report one. **ms/crop:** on the M1 Max.\n\n"
+)
+
+
+@app.command("eval-numbers", help="Score each config's number reader on the gold number crops.")
+def eval_numbers(
+    config: Annotated[list[Path], typer.Option(help="one or more run configs; their numbers layer is scored")],
+    held_out: Annotated[bool, typer.Option(help="score the held-out game instead (once per milestone)")] = False,
+    write: Annotated[bool, typer.Option(help="append rows to docs/metrics.md")] = False,
+    note: str = "",
+    verbose: bool = False,
+) -> None:
+    """Score each config's number reader on the gold number crops: top-1 under the roster, refusal, calibration.
+
+    Args:
+        config: Run configs; only their shots and numbers layers are used.
+        held_out: Score the held-out game instead of the dev shots (once per milestone).
+        write: Add the rows to the number-reader table in ``docs/metrics.md``.
+        note: Text for the notes column.
+        verbose: Log progress and list every wrong answer.
+
+    Raises:
+        typer.BadParameter: When a layer's trained weights have no ``train.json``.
+
+    Examples:
+        >>> eval_numbers([Path("configs/numbers-smolvlm-nba.yaml")])  # doctest: +SKIP
+
+    """
+    from bga.eval.numbers import score as numbers_score
+
+    _setup_logging(verbose)
+    rows = []
+    for path in config:
+        cfg = load_config(path)
+        _require_provenance(cfg)
+        cfg.layers["shots"].params["held_out"] = "only" if held_out else "exclude"
+        s = numbers_score(cfg)
+        rows.append(
+            f"| {dt.date.today().isoformat()} | {pipeline.git_commit()} | `{path.stem}`@{cfg.config_hash()} "
+            f"| {_weights_cell(cfg.layers['numbers'].weights)} | v1 "
+            f"| {'held-out' if held_out else 'dev'} ({s['sequences']}, {s['crops']}) "
+            f"| {_fmt(s['top1_roster'])} ({s['legible']}) | {_fmt(s['top1_free'])} | {_fmt(s['answered'])} "
+            f"| {_fmt(s['refused'])} ({s['refuse']}) | {_fmt(s['ece'])} | {_fmt(s['ms_per_crop'], 0)} | {note} |"
+        )
+        if verbose:
+            typer.echo("wrong (id, label, answer): " + ", ".join(f"{i} {lab}→{a}" for i, lab, a in s["wrong"]))
+    typer.echo(NUMBERS_HEADER + "\n".join(rows))
+    if write:
+        METRICS_MD.write_text(_insert_rows(METRICS_MD.read_text(), NUMBERS_HEADER, rows, NUMBERS_INTRO))
+
+
 @app.command(help="Render the radar video (broadcast above, 2D court below) for each sequence of a run.")
 def radar(
     config: Annotated[Path, typer.Option(help="configs/<name>.yaml")],
@@ -545,31 +613,50 @@ def radar(
         typer.echo(render(cfg, s))
 
 
-@app.command(help="Fine-tune on the config's platform; weights land in weights/<layer>/<backend>/<name>@<hash8>/.")
+@app.command(help="Fine-tune on Colab or Modal; weights land in weights/<layer>/<backend>/<name>@<hash8>/.")
 def train(
     config: Annotated[Path, typer.Option(help="configs/train/<layer>-<backend>-<name>.yaml")],
+    platform: Annotated[
+        str | None,
+        typer.Option(
+            envvar="BGA_TRAIN_PLATFORM",
+            help="override training platform (colab or modal) without changing the weight id",
+        ),
+    ] = None,
+    gpu: Annotated[
+        str | None,
+        typer.Option(
+            envvar="BGA_TRAIN_GPU",
+            help="override training GPU (e.g. T4, L4, A100, L40S) without changing the weight id",
+        ),
+    ] = None,
     build_only: Annotated[bool, typer.Option(help="build and check the dataset, do not train")] = False,
     collect: Annotated[bool, typer.Option(help="only pull a finished run's outputs into weights/")] = False,
     wait: Annotated[bool, typer.Option(help="wait for the run already spawned (call.json), then collect")] = False,
     partial: Annotated[
         bool, typer.Option(help="with --collect: take a cut-short run's best checkpoint so far")
     ] = False,
-    resume: Annotated[bool, typer.Option(help="continue a run cut short from its last.ckpt on the volume")] = True,
+    resume: Annotated[
+        bool, typer.Option(help="Modal only: continue a run cut short from its last.ckpt on the volume")
+    ] = True,
     verbose: bool = False,
 ) -> None:
-    """Fine-tune on the config's platform; weights land in weights/<layer>/<backend>/<name>@<hash8>/.
+    """Fine-tune on Colab or Modal; weights land in weights/<layer>/<backend>/<name>@<hash8>/.
 
     Args:
         config: Training config, named ``<layer>-<backend>-<name>.yaml``.
+        platform: Optional platform override (``colab`` or ``modal``); defaults to ``BGA_TRAIN_PLATFORM`` or config.
+        gpu: Optional GPU override (e.g. ``L4``, ``A100``, ``L40S``); defaults to ``BGA_TRAIN_GPU`` or config.
         build_only: Build and check the dataset, then stop.
         collect: Only pull a finished run's outputs into ``weights/``.
         wait: Wait for the run already spawned (``call.json``), then collect.
         partial: With ``collect``, take a cut-short run's best checkpoint so far.
-        resume: Continue a run cut short from its ``last.ckpt`` on the volume.
+        resume: Modal only: continue a run cut short from its ``last.ckpt`` on the volume.
         verbose: Log progress.
 
     Raises:
-        typer.BadParameter: When the file name does not match the config's layer, backend and name.
+        typer.BadParameter: When the file name does not match the config's layer, backend and name, or platform/GPU
+            is invalid.
 
     Examples:
         >>> train(Path("configs/train/detect-rfdetr_torch-plk-r2.yaml"), build_only=True)  # doctest: +SKIP
@@ -586,11 +673,16 @@ def train(
     if wait:
         typer.echo(json.dumps(train_run.wait(cfg), indent=1))
     elif not collect:
+        try:
+            resolved_platform, resolved_gpu = train_run.resolve_platform(cfg, platform=platform, gpu=gpu)
+        except ValueError as exc:
+            raise typer.BadParameter(str(exc)) from exc
+        typer.echo(f"platform {resolved_platform} ({resolved_gpu})")
         info = train_run.build(cfg)
         typer.echo(json.dumps(info["counts"], indent=1))
         if build_only:
             return
-        result = train_run.launch(cfg, resume=resume)
+        result = train_run.launch(cfg, resume=resume, platform=resolved_platform, gpu=resolved_gpu)
         typer.echo(json.dumps(result, indent=1))
     typer.echo(f"weights in {train_run.collect(cfg, partial=partial)}")
 

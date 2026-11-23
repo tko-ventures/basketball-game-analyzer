@@ -1,0 +1,34 @@
+name: r1
+layer: numbers
+backend: parseq
+description: >
+  PARSeq, the released scene-text model (baudm/parseq v1.0.0), fine-tuned on the round-1 number crops, the same
+  crops, split, padding and augmentation as numbers-crop_cls-resnet18-r1. A crop's text is its number, and the empty
+  string for the unreadable class (sponsor tracklets, illegible ones and strays). The loss is PARSeq's permutation
+  language modelling. Not fine-tuned, the model reads the gold dev crops at 0.616 under the roster; the fine-tune
+  is to stop it writing letters for digits and to teach it PLK's fonts. Resolution is the input height (32 x 128).
+  The weights' licence point is in the decision of 2026-11-23.
+base_weights:
+  name: parseq-bb5792a6
+  url: https://github.com/baudm/parseq/releases/download/v1.0.0/parseq-bb5792a6.pt
+  licence: Apache-2.0 code; no separate terms stated for the weights, trained on real scene-text sets (decision of 2026-11-23)
+package: strhub @ git+https://github.com/baudm/parseq@1902db043c029a7e03a3818c616c06600af574be
+sources:
+  - kind: manifest
+    path: data/labels/numbers/train_r1.json
+    sha256: 2e28c1061c31dee0de9ff588a6934c6629be34a4a924678c1bc4248db4dd6feb
+recipe:
+  resolution: 32
+  epochs: 20
+  batch_size: 128
+  lr: 0.0001
+  seed: 0
+  select_on: val/top1
+  pad: 10
+  illegible_as_unreadable: true
+  val_clips:
+    - 20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka
+platform:
+  name: modal
+  gpu: L4
+  timeout_h: 1

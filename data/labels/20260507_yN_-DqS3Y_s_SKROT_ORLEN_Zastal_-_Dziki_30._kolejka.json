@@ -11,12 +11,12 @@
   "home": {
    "team": "ORLEN Zastal",
    "roster": "zastal_zielona_gora",
-   "kit": ""
+   "kit": "light"
   },
   "away": {
    "team": "Dziki Warszawa",
    "roster": "dziki_warszawa",
-   "kit": ""
+   "kit": "dark"
   },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=yN_-DqS3Y_s",

@@ -763,6 +763,134 @@ def save_box_frame(labels_dir: Path, body: dict, name: str = "") -> dict:
     }
 
 
+#: Gold number crops under the label folder, written by ``scripts/number_gold.py`` and checked on the /numbers page.
+NUMBER_CROPS = Path("numbers") / "gold_crops.json"
+#: Number crop labels other than digits.
+NUMBER_SPECIAL = ("illegible", "not_number")
+#: Crop sets the /numbers page can open: the seeded spot-check sample, the crops the implementer labelled
+#: ``illegible``, every crop, or the crops already reviewed.
+NUMBER_SETS = ("spotcheck", "illegible", "all", "reviewed")
+#: Serialises read-modify-write of the number crops across request threads.
+_NUMBER_LOCK = threading.Lock()
+
+
+def number_label_ok(label: object) -> bool:
+    """Whether a value is a valid number crop label: one or two digits, ``illegible`` or ``not_number``.
+
+    Args:
+        label: The value to check.
+
+    Returns:
+        True for a valid label.
+
+    Examples:
+        >>> [number_label_ok(v) for v in ("7", "23", "00", "123", "x", "illegible", None)]
+        [True, True, True, False, False, True, False]
+
+    """
+    return isinstance(label, str) and (label in NUMBER_SPECIAL or re.fullmatch(r"\d{1,2}", label) is not None)
+
+
+def load_number_queue(labels_dir: Path, name: str = "spotcheck") -> dict:
+    """The number crops of one set, each with the repo path of its video, for the /numbers page.
+
+    Args:
+        labels_dir: Label folder holding ``numbers/gold_crops.json``.
+        name: One of :data:`NUMBER_SETS`. ``spotcheck`` is the sample ``number_gold.py spotcheck`` stored.
+
+    Returns:
+        ``{"set", "crops", "meta"}``; each crop keeps its stored fields plus ``video``. Empty when the file is missing.
+
+    Raises:
+        ValueError: When the set name is unknown.
+
+    Examples:
+        >>> load_number_queue(Path("/nonexistent"))
+        {'set': 'spotcheck', 'crops': [], 'meta': {}}
+
+    """
+    if name not in NUMBER_SETS:
+        raise ValueError(f"unknown set {name!r}; one of {', '.join(NUMBER_SETS)}")
+    p = labels_dir / NUMBER_CROPS
+    if not p.exists():
+        return {"set": name, "crops": [], "meta": {}}
+    doc = json.loads(p.read_text(encoding="utf-8"))
+    crops = doc["crops"]
+    if name == "spotcheck":
+        ids = set((doc.get("spotcheck") or {}).get("ids", []))
+        crops = [c for c in crops if c["id"] in ids]
+    elif name == "illegible":
+        crops = [c for c in crops if c["label"] == "illegible"]
+    elif name == "reviewed":
+        crops = [c for c in crops if c.get("review")]
+    out = [{**c, "video": f"data/raw/{c['clip']}.mp4"} for c in crops]
+    return {"set": name, "crops": out, "meta": doc.get("meta", {})}
+
+
+def save_number_review(labels_dir: Path, body: dict) -> dict:
+    """Record a reviewer's verdict on one number crop and add the active seconds to today's total.
+
+    The implementer's ``label`` is kept; the verdict goes to the crop's ``review``: ``{"verdict": "ok"}`` when the
+    label is right, ``{"verdict": "fix", "label": ...}`` with the reviewer's label otherwise. ``scripts/number_gold.py
+    export`` takes the reviewer's label over the implementer's. A null verdict clears the review.
+
+    Args:
+        labels_dir: Label folder holding ``numbers/gold_crops.json``, rewritten atomically.
+        body: ``{"id", "verdict", "label", "prev_at", "active_seconds"}``; ``prev_at`` is the review stamp the page
+            loaded (null when the crop had no review).
+
+    Returns:
+        ``{"review": the stored review or None, "reviewed": crops with a review, "total": crops}``.
+
+    Raises:
+        ValueError: When the crop id is unknown, the verdict is not ok, fix or null, a fix label is not valid, or the
+            crop's review changed after the page loaded it.
+
+    Examples:
+        >>> import tempfile
+        >>> with tempfile.TemporaryDirectory() as tmp:
+        ...     p = Path(tmp) / NUMBER_CROPS
+        ...     p.parent.mkdir()
+        ...     _ = p.write_text(json.dumps({"crops": [{"id": "n001", "label": "23"}]}))
+        ...     body = {"id": "n001", "verdict": "fix", "label": "28", "active_seconds": 5}
+        ...     res = save_number_review(Path(tmp), body)
+        >>> res["review"]["label"], res["reviewed"], res["total"]
+        ('28', 1, 1)
+
+    """
+    verdict = body.get("verdict")
+    if verdict not in ("ok", "fix", None):
+        raise ValueError("verdict must be ok, fix or null")
+    if verdict == "fix" and not number_label_ok(body.get("label")):
+        raise ValueError(f"bad label {body.get('label')!r}")
+    with _NUMBER_LOCK:
+        p = labels_dir / NUMBER_CROPS
+        doc = json.loads(p.read_text(encoding="utf-8"))
+        crop = next((c for c in doc["crops"] if c["id"] == body.get("id")), None)
+        if crop is None:
+            raise ValueError(f"unknown crop {body.get('id')!r}")
+        if (crop.get("review") or {}).get("at") != body.get("prev_at"):
+            raise ValueError("the crop's review changed after this page loaded it: reload the page")
+        if verdict == "fix" and body["label"] == crop["label"]:
+            verdict = "ok"
+        review = None
+        if verdict is not None:
+            review = {"verdict": verdict, "at": time.strftime("%Y-%m-%dT%H:%M:%S")}
+            if verdict == "fix":
+                review["label"] = body["label"]
+        if review is None:
+            crop.pop("review", None)
+        else:
+            crop["review"] = review
+        secs = doc.setdefault("meta", {}).setdefault("review_seconds", {})
+        day = time.strftime("%Y-%m-%d")
+        secs[day] = round(secs.get(day, 0) + float(body.get("active_seconds") or 0), 1)
+        tmp = p.with_suffix(".json.tmp")
+        tmp.write_text(json.dumps(doc, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        os.replace(tmp, p)
+    return {"review": review, "reviewed": sum(bool(c.get("review")) for c in doc["crops"]), "total": len(doc["crops"])}
+
+
 def label_progress(labels_dir: Path, rel: str) -> dict:
     """Count the done frames of a clip and the boxes on them.
 
@@ -999,6 +1127,12 @@ class LabelerHandler(BaseHTTPRequestHandler):
     def _get_box_queue(self, q: dict[str, str]) -> None:
         self._json(load_box_queue(self.app.labels_dir, q.get("set", "")))
 
+    def _get_numbers_page(self, q: dict[str, str]) -> None:
+        self._bytes((STATIC / "numbers.html").read_bytes(), "text/html; charset=utf-8")
+
+    def _get_number_queue(self, q: dict[str, str]) -> None:
+        self._json(load_number_queue(self.app.labels_dir, q.get("set", "spotcheck")))
+
     def _get_clips(self, q: dict[str, str]) -> None:
         self._json({
             "clips": self.app.list_clips(),
@@ -1035,6 +1169,9 @@ class LabelerHandler(BaseHTTPRequestHandler):
         "/boxes": _get_boxes_page,
         "/boxes/": _get_boxes_page,
         "/api/boxes/queue": _get_box_queue,
+        "/numbers": _get_numbers_page,
+        "/numbers/": _get_numbers_page,
+        "/api/numbers/queue": _get_number_queue,
         "/api/clips": _get_clips,
         "/api/clip": _get_clip,
         "/api/frame": _get_frame,
@@ -1058,6 +1195,12 @@ class LabelerHandler(BaseHTTPRequestHandler):
     def _post_box_frame(self, body: dict, q: dict[str, str]) -> None:
         self._json({"ok": True, **save_box_frame(self.app.labels_dir, body, q.get("set", ""))})
 
+    def _post_number_review(self, body: dict, q: dict[str, str]) -> None:
+        try:
+            self._json({"ok": True, **save_number_review(self.app.labels_dir, body)})
+        except ValueError as e:
+            self._err(400, str(e))
+
     def _post_shots(self, body: dict, q: dict[str, str]) -> None:
         self.app.shots.start(q["path"], float(body.get("threshold", DEFAULT_THRESHOLD)))
         self._json({"started": True})
@@ -1066,6 +1209,7 @@ class LabelerHandler(BaseHTTPRequestHandler):
         "/api/labels": _post_labels,
         "/api/court/labels": _post_court_labels,
         "/api/boxes/frame": _post_box_frame,
+        "/api/numbers/review": _post_number_review,
         "/api/shots": _post_shots,
     }
 

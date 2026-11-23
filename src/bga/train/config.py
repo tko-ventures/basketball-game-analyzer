@@ -69,19 +69,22 @@ class Recipe(BaseModel):
     eval_interval: int | None = None  # validate every n epochs (1 when unset)
     early_stopping_patience: int | None = None  # stop after this many validations without improvement (off when unset)
     init_weights: str | None = None  # warm start: a trained weight id whose checkpoint replaces the COCO weights
-    val_clips: list[str] | None = None  # appearance: games whose identities validate instead of train
+    val_clips: list[str] | None = None  # appearance, numbers: games whose crops validate instead of train
     crops_per_id: int | None = None  # appearance: crops per identity in a batch (P x K sampling, K)
     triplet_margin: float | None = None  # appearance: margin of the batch-hard triplet loss on cosine distance
     min_team_share: float | None = None  # appearance: identities with fewer of their boxes on one team are left out
     shot_batches: bool | None = None  # appearance: draw each batch's identities from one shot
     id_loss_weight: float | None = None  # appearance: weight of the identity loss (1 when unset)
+    pad: int | None = None  # numbers: pixels around a number box when cutting crops (10, the backends' default)
+    illegible_as_unreadable: bool | None = None  # numbers: crops of illegible tracklets train the unreadable class
+    head: Literal["flat", "factorised"] | None = None  # numbers: the classifier's outputs (flat when unset)
 
 
 class Platform(BaseModel):
-    """Where the fine-tune runs: Modal, on which GPU, for at most ``timeout_h`` hours."""
+    """Where the fine-tune runs: Colab or Modal, on which GPU, for at most ``timeout_h`` hours."""
 
     model_config = ConfigDict(extra="forbid")
-    name: Literal["modal"]
+    name: Literal["modal", "colab"]
     gpu: str
     timeout_h: float = 6.0
 

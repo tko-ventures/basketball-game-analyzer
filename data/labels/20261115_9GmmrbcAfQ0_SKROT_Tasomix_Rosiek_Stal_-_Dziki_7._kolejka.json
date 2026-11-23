@@ -1,0 +1,205 @@
+{
+ "version": 2,
+ "clip": "data/raw/20261115_9GmmrbcAfQ0_SKROT_Tasomix_Rosiek_Stal_-_Dziki_7._kolejka.mp4",
+ "fps": 50.0,
+ "frame_count": 8909,
+ "width": 1920,
+ "height": 1080,
+ "stride": 5,
+ "meta": {
+  "season": "2026/27",
+  "home": {
+   "team": "Tasomix Rosiek Stal",
+   "roster": "tasomix_rosiek_stal_ostrow_wielkopolski",
+   "kit": "light"
+  },
+  "away": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": "dark"
+  },
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=9GmmrbcAfQ0",
+  "title": "SKRÓT | Tasomix Rosiek Stal - Dziki | 7. kolejka"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 345,
+   "camera": "unset"
+  },
+  {
+   "start": 346,
+   "end": 549,
+   "camera": "unset"
+  },
+  {
+   "start": 550,
+   "end": 837,
+   "camera": "unset"
+  },
+  {
+   "start": 838,
+   "end": 1101,
+   "camera": "unset"
+  },
+  {
+   "start": 1102,
+   "end": 1379,
+   "camera": "unset"
+  },
+  {
+   "start": 1380,
+   "end": 1734,
+   "camera": "unset"
+  },
+  {
+   "start": 1735,
+   "end": 1918,
+   "camera": "unset"
+  },
+  {
+   "start": 1919,
+   "end": 2197,
+   "camera": "unset"
+  },
+  {
+   "start": 2198,
+   "end": 2657,
+   "camera": "unset"
+  },
+  {
+   "start": 2658,
+   "end": 2974,
+   "camera": "unset"
+  },
+  {
+   "start": 2975,
+   "end": 3362,
+   "camera": "unset"
+  },
+  {
+   "start": 3363,
+   "end": 3616,
+   "camera": "unset"
+  },
+  {
+   "start": 3617,
+   "end": 3918,
+   "camera": "unset"
+  },
+  {
+   "start": 3919,
+   "end": 3949,
+   "camera": "unset"
+  },
+  {
+   "start": 3950,
+   "end": 4287,
+   "camera": "unset"
+  },
+  {
+   "start": 4288,
+   "end": 4585,
+   "camera": "unset"
+  },
+  {
+   "start": 4586,
+   "end": 4605,
+   "camera": "unset"
+  },
+  {
+   "start": 4606,
+   "end": 4879,
+   "camera": "unset"
+  },
+  {
+   "start": 4880,
+   "end": 5262,
+   "camera": "unset"
+  },
+  {
+   "start": 5263,
+   "end": 5295,
+   "camera": "unset"
+  },
+  {
+   "start": 5296,
+   "end": 5539,
+   "camera": "unset"
+  },
+  {
+   "start": 5540,
+   "end": 5900,
+   "camera": "unset"
+  },
+  {
+   "start": 5901,
+   "end": 5984,
+   "camera": "unset"
+  },
+  {
+   "start": 5985,
+   "end": 6291,
+   "camera": "unset"
+  },
+  {
+   "start": 6292,
+   "end": 6341,
+   "camera": "unset"
+  },
+  {
+   "start": 6342,
+   "end": 6721,
+   "camera": "unset"
+  },
+  {
+   "start": 6722,
+   "end": 6759,
+   "camera": "unset"
+  },
+  {
+   "start": 6760,
+   "end": 7042,
+   "camera": "unset"
+  },
+  {
+   "start": 7043,
+   "end": 7062,
+   "camera": "unset"
+  },
+  {
+   "start": 7063,
+   "end": 7421,
+   "camera": "unset"
+  },
+  {
+   "start": 7422,
+   "end": 7744,
+   "camera": "unset"
+  },
+  {
+   "start": 7745,
+   "end": 8036,
+   "camera": "unset"
+  },
+  {
+   "start": 8037,
+   "end": 8131,
+   "camera": "unset"
+  },
+  {
+   "start": 8132,
+   "end": 8749,
+   "camera": "unset"
+  },
+  {
+   "start": 8750,
+   "end": 8908,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-11-23T14:49:12"
+}

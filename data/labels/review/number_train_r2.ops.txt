@@ -1,0 +1,307 @@
+# Number training crops, round 2: blind read of runs/number_crops/train_r2/sheet_NN.jpg (2026-11-23), index only.
+# Indices 0 to 59 are tracklets the PARSeq prefill settled (numbers/parseq/r1, at least 0.8 of at least 10 reads),
+# held back unlabelled to measure the reader's accepted labels; 60 to 299 are tracklets it did not settle.
+# The sheets were read by five Claude Code reader agents that saw neither the reader's proposals nor the rosters;
+# the implementer read sheet_00 as well and agrees on all ten rows.
+# One line per sampled tracklet: <index> <label> [note]. Labels as in round 1: the number its legible crops show;
+# illegible when none can be read, mixed when its crops show two players, not_number when its boxes are logos.
+0 23
+1 25
+2 9
+3 2
+4 25
+5 15
+6 4
+7 25
+8 25
+9 4
+10 25 only crop 2 readable, close to illegible
+11 25
+12 3
+13 10
+14 0
+15 25 crop 2 looks like 26, crop 3 reads 25
+16 4
+17 25 crop 1 clear, later crops blur toward 26/28
+18 0
+19 33
+20 1
+21 5
+22 2
+23 22
+24 25
+25 9 blurred, close to illegible
+26 33
+27 16
+28 10
+29 22 blurred, close to illegible
+30 0
+31 1
+32 7
+33 16
+34 39
+35 3
+36 11
+37 11
+38 11
+39 2
+40 3
+41 illegible single blurred digit, 0 or 6 or 5
+42 25
+43 11
+44 8
+45 8
+46 11
+47 2
+48 7
+49 2
+50 1
+51 mixed 25 on dark kit then 11 on white kit
+52 0
+53 4
+54 1 slanted, checked against 7
+55 1
+56 4
+57 0
+58 0 narrow side view, close to illegible
+59 2
+60 2
+61 illegible read 6 on a blurred front number (8 or 16 not excluded); 6 is on neither roster, so not kept
+62 13
+63 illegible maybe 6
+64 mixed unreadable hidden digit in crop 1, sponsor logo in crops 2-4
+65 16
+66 illegible
+67 16
+68 illegible 5 visible side-on, may be 15; crop 1 is sponsor logo
+69 23 crop 4 blurred, possibly logo
+70 2 crop 1 blurred side view, possibly logo
+71 15 crops 1 and 4 blurred junk, possibly logo
+72 mixed 15 and sponsor logo
+73 illegible maybe 6
+74 25
+75 16
+76 not_number
+77 mixed 0 and sponsor logo
+78 mixed 9 and sponsor logo
+79 15
+80 2
+81 illegible maybe 2
+82 25 crop 1 blurred side view, possibly logo
+83 16
+84 23
+85 mixed 9 in crop 2 and sponsor logo
+86 9
+87 16
+88 15
+89 mixed 25 and sponsor logo
+90 2 crop 1 blurred; 5 not fully excluded
+91 mixed 15 and sponsor logo
+92 illegible maybe 2
+93 15
+94 illegible
+95 not_number
+96 4
+97 35
+98 illegible maybe 2
+99 7 crop 4 mostly sponsor text
+100 illegible 3x, second digit unclear
+101 mixed 0 on beige player and sponsor logo on green player
+102 not_number
+103 mixed unreadable digit in crop 1, sponsor logo in crops 2-4
+104 illegible maybe 0
+105 1 crops 2-4 blurred
+106 16 crops 1-2 blurred and look like a single digit, possible swap
+107 mixed unreadable 7 or 1 and sponsor logo
+108 35
+109 mixed sponsor logo and unreadable digits
+110 illegible maybe 5, may be 25
+111 mixed 30 and sponsor logo
+112 1
+113 7
+114 not_number
+115 10
+116 mixed 35 then 10
+117 mixed 35, sponsor logo, then 11 on another player
+118 30
+119 35
+120 3
+121 illegible
+122 2
+123 not_number sponsor text
+124 1
+125 illegible maybe 35
+126 25 only one crop readable, the rest are blurred blobs
+127 35
+128 11
+129 25
+130 15 one blurred crop looks like 18
+131 10 only one crop readable
+132 8
+133 11
+134 illegible 0 or 11
+135 45
+136 illegible 0 or 11
+137 0
+138 illegible front logo with a tiny digit
+139 32
+140 illegible maybe 4
+141 illegible 5 visible, first digit may be hidden
+142 illegible
+143 illegible
+144 illegible front logo
+145 8
+146 illegible
+147 11
+148 4
+149 illegible maybe 25
+150 illegible maybe 10
+151 illegible 5 visible, maybe 15
+152 15
+153 illegible
+154 illegible 4 visible, maybe 45
+155 1
+156 0 only one crop readable
+157 45
+158 illegible
+159 0
+160 2 side view, a second digit could be hidden
+161 5
+162 illegible
+163 9
+164 45
+165 0
+166 2 close to illegible, could be 22 with a digit covered
+167 0
+168 33 close to illegible, first digit could be 1
+169 0
+170 2 only one clear crop
+171 illegible
+172 13
+173 illegible
+174 25
+175 13
+176 22
+177 2
+178 5
+179 5
+180 33
+181 13
+182 0
+183 45
+184 15
+185 25
+186 not_number
+187 not_number blurred front blob
+188 1
+189 8
+190 mixed front logo then 5, possibly 15 with first digit hidden
+191 8
+192 13
+193 mixed 8 then front logo
+194 10
+195 12
+196 not_number
+197 10
+198 mixed 25 then front logo
+199 not_number
+200 mixed front logo then 1
+201 mixed 45 dark kit then 15 white kit
+202 mixed 15 and sponsor logo in crop 3
+203 12 blurred, close to illegible
+204 22
+205 mixed front logo then 1
+206 mixed 16 then front logo
+207 45
+208 not_number
+209 not_number
+210 15
+211 illegible maybe 5 or 45
+212 mixed 5 dark kit then white kit blurred
+213 31
+214 7
+215 31 only crop 1 readable, close to illegible
+216 not_number crop 2 may show a 1
+217 39
+218 mixed 2 then front logo
+219 not_number
+220 illegible
+221 mixed 11 then front logo
+222 2 crop 4 is a blurred blob, maybe front
+223 39
+224 25 only crop 2 readable
+225 15
+226 25 only crop 3 readable, close to illegible
+227 7
+228 not_number
+229 illegible 2x, maybe 25 or 28
+230 4 blurred
+231 mixed front logo then 2x (28 or 29)
+232 4
+233 16 close to 15
+234 illegible maybe 25
+235 mixed front logo then blurred 1x
+236 not_number
+237 not_number front logo, 11 partly visible at top edge
+238 mixed front logo then blurred 2x
+239 mixed blurred digits then front logo
+240 18
+241 25
+242 18
+243 0
+244 mixed 4 plus a logo crop
+245 1
+246 20
+247 mixed 1 then 20
+248 illegible
+249 45
+250 41
+251 41
+252 illegible
+253 18
+254 mixed 2 plus logo crops
+255 mixed 0 plus a logo crop
+256 1
+257 1
+258 21
+259 mixed 8 plus logo crops
+260 11
+261 41
+262 25
+263 77
+264 0 two crops too blurred to read
+265 mixed dark jersey then light jersey, no number readable
+266 illegible maybe 1
+267 16
+268 illegible
+269 illegible
+270 11
+271 11 blurred, strokes vertical so not 77
+272 illegible
+273 11 blurred, close to 77
+274 illegible
+275 illegible maybe 0, side view
+276 77
+277 illegible 25 or 28
+278 77
+279 1
+280 77
+281 illegible
+282 16
+283 illegible maybe 4, side view
+284 1
+285 25
+286 mixed 7 plus a sponsor logo crop
+287 1
+288 mixed light jersey then dark jersey
+289 illegible
+290 11
+291 77
+292 12
+293 16
+294 77
+295 1
+296 illegible
+297 mixed 1 plus a face crop
+298 1
+299 illegible

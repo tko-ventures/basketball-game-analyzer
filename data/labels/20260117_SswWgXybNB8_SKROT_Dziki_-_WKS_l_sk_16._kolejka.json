@@ -11,12 +11,12 @@
   "home": {
    "team": "Dziki Warszawa",
    "roster": "dziki_warszawa",
-   "kit": ""
+   "kit": "light"
   },
   "away": {
    "team": "WKS Śląsk",
    "roster": "wks_slask_wroclaw",
-   "kit": ""
+   "kit": "dark"
   },
   "notes": "",
   "source": "https://www.youtube.com/watch?v=SswWgXybNB8",

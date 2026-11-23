@@ -189,6 +189,15 @@ def _number_counts(nums: dict, ids: dict[str, dict], owner: defaultdict[int, Cou
     return id_n, id_ok, id_confirmed
 
 
+def _track_numbers(cfg: RunConfig, runs: Path, seq: Sequence, linked: dict) -> dict | None:
+    """Predicted track numbers for ``seq``: from ``identity`` if configured, else ``link``, else ``numbers``."""
+    if "identity" in cfg.layers:
+        return load_output(cfg, runs, seq, "identity")["numbers"]
+    if "numbers" not in cfg.layers:
+        return None
+    return linked["numbers"] if "link" in cfg.layers else load_output(cfg, runs, seq, "numbers")["tracks"]
+
+
 def _team_counts(votes: defaultdict[int, Counter], ids: dict[str, dict]) -> tuple[int, int]:
     """Count gold player tracks with team votes, and those whose majority vote is their gold team."""
     team_n = team_ok = 0
@@ -212,7 +221,8 @@ def _collect_speeds(cfg: RunConfig, runs: Path, seq: Sequence, speed: defaultdic
 def score(cfg: RunConfig, seqs: list[Sequence], runs: Path = Path("runs"), gold: str = "v0") -> dict:
     """Compute every gold-set score of one run: tracking, team, numbers, churn, detection AP and speed.
 
-    Tracks come from the ``link`` layer when the config has one, else from ``track``; so do their numbers.
+    Tracks come from the ``link`` layer when the config has one, else from ``track``. Numbers come from ``identity``
+    when configured, else ``link``, else ``numbers``.
 
     Args:
         cfg: Run config whose layer outputs are read.
@@ -222,8 +232,8 @@ def score(cfg: RunConfig, seqs: list[Sequence], runs: Path = Path("runs"), gold:
 
     Returns:
         The :func:`~bga.eval.mot.evaluate` scores plus ``team_acc``, ``team_tracks``, the ``id_*`` scores when the
-        config has a numbers layer, churn summaries, box AP when ``boxes.json`` exists, ``ms`` per layer and the
-        sequence count.
+        config has a numbers or identity layer, churn summaries, box AP when ``boxes.json`` exists, ``ms`` per layer
+        and the sequence count.
 
     Examples:
         >>> sorted(score(cfg, seqs))  # doctest: +SKIP
@@ -245,8 +255,8 @@ def score(cfg: RunConfig, seqs: list[Sequence], runs: Path = Path("runs"), gold:
         short = max(1, round(0.5 * seq.fps / stride))  # tracks living under 0.5 s
         churn_rows.append(compute_churn([[r[0] for r in tracks[str(f)]] for f in seq.frames], short_lived_frames=short))
         votes, owner = _match_votes(grid, gt_per, tracks, teams)
-        if "numbers" in cfg.layers:
-            nums = linked["numbers"] if "link" in cfg.layers else load_output(cfg, runs, seq, "numbers")["tracks"]
+        nums = _track_numbers(cfg, runs, seq, linked)
+        if nums is not None:
             seq_n, seq_ok, seq_confirmed = _number_counts(nums, ids, owner)
             id_n += seq_n
             id_ok += seq_ok
@@ -258,7 +268,7 @@ def score(cfg: RunConfig, seqs: list[Sequence], runs: Path = Path("runs"), gold:
     out = evaluate(mot)
     out["team_acc"] = team_ok / team_n if team_n else float("nan")
     out["team_tracks"] = team_n
-    if "numbers" in cfg.layers:
+    if "numbers" in cfg.layers or "identity" in cfg.layers:
         out["id_acc"] = id_ok / id_n if id_n else float("nan")  # gold tracks with a legible number
         out["id_confirmed"] = id_confirmed / id_n if id_n else float("nan")
         out["id_wrong"] = id_confirmed - id_ok

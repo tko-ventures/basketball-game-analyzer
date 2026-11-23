@@ -1,0 +1,195 @@
+{
+ "version": 2,
+ "clip": "data/raw/20261107_QaO6xJinJaQ_SKROT_Dziki_-_Anwil_6._kolejka.mp4",
+ "fps": 50.0,
+ "frame_count": 8913,
+ "width": 1920,
+ "height": 1080,
+ "stride": 5,
+ "meta": {
+  "season": "2026/27",
+  "home": {
+   "team": "Dziki Warszawa",
+   "roster": "dziki_warszawa",
+   "kit": "dark"
+  },
+  "away": {
+   "team": "Anwil",
+   "roster": "anwil_wloclawek",
+   "kit": "light"
+  },
+  "notes": "",
+  "source": "https://www.youtube.com/watch?v=QaO6xJinJaQ",
+  "title": "SKRÓT | Dziki - Anwil | 6. kolejka"
+ },
+ "shots": [
+  {
+   "start": 0,
+   "end": 334,
+   "camera": "unset"
+  },
+  {
+   "start": 335,
+   "end": 582,
+   "camera": "unset"
+  },
+  {
+   "start": 583,
+   "end": 843,
+   "camera": "unset"
+  },
+  {
+   "start": 844,
+   "end": 1092,
+   "camera": "unset"
+  },
+  {
+   "start": 1093,
+   "end": 1374,
+   "camera": "unset"
+  },
+  {
+   "start": 1375,
+   "end": 1645,
+   "camera": "unset"
+  },
+  {
+   "start": 1646,
+   "end": 1906,
+   "camera": "unset"
+  },
+  {
+   "start": 1907,
+   "end": 2228,
+   "camera": "unset"
+  },
+  {
+   "start": 2229,
+   "end": 2274,
+   "camera": "unset"
+  },
+  {
+   "start": 2275,
+   "end": 2714,
+   "camera": "unset"
+  },
+  {
+   "start": 2715,
+   "end": 2989,
+   "camera": "unset"
+  },
+  {
+   "start": 2990,
+   "end": 3150,
+   "camera": "unset"
+  },
+  {
+   "start": 3151,
+   "end": 3463,
+   "camera": "unset"
+  },
+  {
+   "start": 3464,
+   "end": 3827,
+   "camera": "unset"
+  },
+  {
+   "start": 3828,
+   "end": 4197,
+   "camera": "unset"
+  },
+  {
+   "start": 4198,
+   "end": 4515,
+   "camera": "unset"
+  },
+  {
+   "start": 4516,
+   "end": 4812,
+   "camera": "unset"
+  },
+  {
+   "start": 4813,
+   "end": 5089,
+   "camera": "unset"
+  },
+  {
+   "start": 5090,
+   "end": 5313,
+   "camera": "unset"
+  },
+  {
+   "start": 5314,
+   "end": 5607,
+   "camera": "unset"
+  },
+  {
+   "start": 5608,
+   "end": 5912,
+   "camera": "unset"
+  },
+  {
+   "start": 5913,
+   "end": 6154,
+   "camera": "unset"
+  },
+  {
+   "start": 6155,
+   "end": 6341,
+   "camera": "unset"
+  },
+  {
+   "start": 6342,
+   "end": 6709,
+   "camera": "unset"
+  },
+  {
+   "start": 6710,
+   "end": 7045,
+   "camera": "unset"
+  },
+  {
+   "start": 7046,
+   "end": 7377,
+   "camera": "unset"
+  },
+  {
+   "start": 7378,
+   "end": 7756,
+   "camera": "unset"
+  },
+  {
+   "start": 7757,
+   "end": 7793,
+   "camera": "unset"
+  },
+  {
+   "start": 7794,
+   "end": 8068,
+   "camera": "unset"
+  },
+  {
+   "start": 8069,
+   "end": 8482,
+   "camera": "unset"
+  },
+  {
+   "start": 8483,
+   "end": 8729,
+   "camera": "unset"
+  },
+  {
+   "start": 8730,
+   "end": 8783,
+   "camera": "unset"
+  },
+  {
+   "start": 8784,
+   "end": 8912,
+   "camera": "unset"
+  }
+ ],
+ "identities": {},
+ "frames": {},
+ "saved_at": "2026-11-23T14:49:12"
+}

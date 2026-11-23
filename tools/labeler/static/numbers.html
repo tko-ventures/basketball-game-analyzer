@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Number crops</title>
+<style>
+  :root { --bg: #1a1a19; --panel: #232322; --line: #3a3a38; --text: #f0efec; --muted: #9a998f;
+          --ok: #5fd35f; --fix: #fab219; --blue: #3987e5; --red: #e5484d; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.4 -apple-system, Helvetica, Arial, sans-serif;
+         display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+  header { display: flex; gap: 18px; align-items: center; padding: 8px 16px; background: var(--panel);
+           border-bottom: 1px solid var(--line); flex: none; }
+  header b { font-size: 15px; }
+  .muted { color: var(--muted); }
+  #bar { flex: 1; max-width: 360px; height: 8px; background: #2e2e2c; border-radius: 4px; overflow: hidden; display: flex; }
+  #bar i { display: block; height: 100%; }
+  #sets a { color: var(--muted); text-decoration: none; margin-left: 10px; }
+  #sets a.on { color: var(--text); border-bottom: 2px solid var(--blue); }
+  main { flex: 1; display: flex; gap: 20px; padding: 18px 20px 10px; min-height: 0; }
+  .view { display: flex; flex-direction: column; gap: 6px; }
+  .view canvas { background: #000; border-radius: 8px; width: var(--s); height: var(--s); }
+  .view .cap { font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; }
+  #panel { flex: 1; min-width: 340px; display: flex; flex-direction: column; gap: 14px; }
+  #id { font-size: 13px; color: var(--muted); }
+  #labelbox { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px; }
+  #labelbox .k { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+  #label { font-size: 64px; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  #label.word { font-size: 34px; padding: 12px 0; }
+  #verdict { margin-top: 6px; font-size: 15px; min-height: 22px; }
+  #verdict.ok { color: var(--ok); }
+  #verdict.fix { color: var(--fix); }
+  #typed { font-size: 15px; color: var(--fix); min-height: 22px; }
+  .btns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  button { background: #2e2e2c; color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 10px 8px;
+           font: inherit; cursor: pointer; text-align: left; }
+  button:hover { border-color: #5a5a56; }
+  button kbd { float: right; }
+  button.primary { grid-column: 1 / -1; background: #1f3a1f; border-color: #2f6b2f; font-size: 16px; padding: 12px; }
+  button.primary:hover { border-color: var(--ok); }
+  #meta { font-size: 13px; color: #c3c2b7; }
+  #meta div { margin: 2px 0; }
+  #help { font-size: 12px; color: #c3c2b7; margin-top: auto; }
+  kbd { background: #3a3a38; border-radius: 3px; padding: 0 5px; font-size: 11px; color: var(--text); }
+  #strip { flex: none; display: flex; gap: 6px; padding: 10px 20px 14px; overflow-x: auto; border-top: 1px solid var(--line);
+           background: #1d1d1c; }
+  .th { flex: none; width: 66px; cursor: pointer; text-align: center; font-size: 11px; color: var(--muted); }
+  .th canvas { width: 62px; height: 62px; border-radius: 6px; border: 2px solid #333; background: #000; display: block; margin: 0 auto 2px; }
+  .th.ok canvas { border-color: var(--ok); }
+  .th.fix canvas { border-color: var(--fix); }
+  .th.cur canvas { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .th.cur { color: var(--text); }
+  #toast { position: fixed; bottom: 110px; left: 50%; transform: translateX(-50%); background: var(--blue); color: #fff;
+           padding: 8px 16px; border-radius: 8px; opacity: 0; transition: opacity .2s; pointer-events: none; }
+  #toast.err { background: var(--red); }
+  #done { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.6); align-items: center; justify-content: center; }
+  #done div { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 24px 30px; font-size: 16px; }
+</style>
+</head>
+<body>
+<header>
+  <b>Number crops</b>
+  <span id="pos"></span>
+  <div id="bar"><i id="barok" style="background:var(--ok)"></i><i id="barfix" style="background:var(--fix)"></i></div>
+  <span id="counts"></span>
+  <span id="timer" class="muted"></span>
+  <span id="save" class="muted"></span>
+  <span id="sets" style="margin-left:auto"></span>
+</header>
+<main>
+  <div class="view" style="--s: min(calc(100vh - 240px), calc((100vw - 440px) / 2))">
+    <canvas id="tight"></canvas>
+    <div class="cap"><span>Close up</span><span id="tightinfo"></span></div>
+  </div>
+  <div class="view" style="--s: min(calc(100vh - 240px), calc((100vw - 440px) / 2))">
+    <canvas id="ctx"></canvas>
+    <div class="cap"><span>In context <span id="ctxzoom"></span></span><span id="ctxinfo"></span></div>
+  </div>
+  <div id="panel">
+    <div id="id"></div>
+    <div id="labelbox">
+      <div class="k">Label</div>
+      <div id="label"></div>
+      <div id="verdict"></div>
+      <div id="typed"></div>
+    </div>
+    <div class="btns">
+      <button class="primary" id="bok">✓ Label is right <kbd>Enter</kbd></button>
+      <button id="bill">Illegible <kbd>I</kbd></button>
+      <button id="bnot">Not a number <kbd>X</kbd></button>
+      <button id="bclr">Clear my answer <kbd>U</kbd></button>
+    </div>
+    <div id="meta"></div>
+    <div id="help">
+      <b>Ask:</b> could you name this number from these pixels alone, without knowing who the player is?
+      <b>Yes</b>: type it (or Enter if the label already says it). <b>No</b>, or torn between two numbers (3 or 8,
+      21 or 2): <b>illegible</b>. A logo, badge or patch: <b>not a number</b>.<br>
+      <kbd>Enter</kbd>/<kbd>Space</kbd> the label is right ·
+      type <kbd>0</kbd>–<kbd>9</kbd> then <kbd>Enter</kbd> for the right number (<kbd>⌫</kbd> edits, <kbd>Esc</kbd> cancels) ·
+      <kbd>I</kbd> illegible · <kbd>X</kbd> not a number · <kbd>U</kbd> clear ·
+      <kbd>←</kbd>/<kbd>→</kbd> previous/next · <kbd>S</kbd> smooth or sharp pixels · <kbd>B</kbd> more contrast ·
+      <kbd>W</kbd> wider context. Each answer saves and moves to the next open crop.
+    </div>
+  </div>
+</main>
+<div id="strip"></div>
+<div id="toast"></div>
+<div id="done"><div>All crops in this set are answered. Thank you!<br><span class="muted">Esc to keep looking.</span></div></div>
+<script>
+"use strict";
+const params = new URLSearchParams(location.search);
+const SET = params.get("set") || "spotcheck";
+const SETS = { spotcheck: "Spot check", illegible: "Illegible", all: "All crops", reviewed: "Reviewed" };
+const LABEL_WORDS = { illegible: "Illegible", not_number: "Not a number" };
+const $ = (id) => document.getElementById(id);
+
+let crops = [], cur = 0, typed = "", smooth = true, contrast = false, wide = false;
+const images = new Map();
+
+// Active time: seconds with the page focused and an input in the last 60 s, sent with each answer.
+let active = 0, lastInput = Date.now(), total = 0;
+setInterval(() => {
+  if (document.hasFocus() && Date.now() - lastInput < 60000) { active += 1; total += 1; }
+  $("timer").textContent = `${Math.floor(total / 60)}:${String(total % 60).padStart(2, "0")}`;
+}, 1000);
+["keydown", "mousedown", "mousemove"].forEach((e) => addEventListener(e, () => { lastInput = Date.now(); }));
+
+function toast(msg, err = false) {
+  const t = $("toast");
+  t.textContent = msg; t.className = err ? "err" : ""; t.style.opacity = 1;
+  clearTimeout(toast.h); toast.h = setTimeout(() => { t.style.opacity = 0; }, err ? 4000 : 1200);
+}
+
+function frameImage(c) {
+  const key = `${c.video}|${c.frame}`;
+  if (!images.has(key)) {
+    images.set(key, new Promise((res, rej) => {
+      const img = new Image();
+      img.onload = () => res(img); img.onerror = rej;
+      img.src = `/api/frame?path=${encodeURIComponent(c.video)}&idx=${c.frame}`;
+    }));
+  }
+  return images.get(key);
+}
+
+// Draw the box plus `margin` times its size on each side, letterboxed into the canvas.
+function draw(canvas, img, c, margin, outline) {
+  const dpr = devicePixelRatio || 1;
+  const W = Math.round(canvas.clientWidth * dpr), H = Math.round(canvas.clientHeight * dpr);
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext("2d");
+  const [x1, y1, x2, y2] = c.xyxy, bw = x2 - x1, bh = y2 - y1;
+  const side = Math.max(bw, bh) * (1 + 2 * margin);
+  const cx = (x1 + x2) / 2, cy = (y1 + y2) / 2;
+  const sx = cx - side / 2, sy = cy - side / 2;
+  const s = Math.min(W, H) / side;
+  ctx.fillStyle = "#000"; ctx.fillRect(0, 0, W, H);
+  ctx.imageSmoothingEnabled = smooth; ctx.imageSmoothingQuality = "high";
+  ctx.filter = contrast ? "contrast(1.6) brightness(1.05)" : "none";
+  ctx.drawImage(img, sx, sy, side, side, (W - side * s) / 2, (H - side * s) / 2, side * s, side * s);
+  ctx.filter = "none";
+  if (outline) {
+    ctx.strokeStyle = "#ffe14d"; ctx.lineWidth = Math.max(1.5, dpr * 1.5);
+    ctx.strokeRect((x1 - sx) * s + (W - side * s) / 2, (y1 - sy) * s + (H - side * s) / 2, bw * s, bh * s);
+  }
+  return s / dpr;
+}
+
+function verdictOf(c) { return c.review ? c.review.verdict : null; }
+function shownLabel(c) { return c.review && c.review.verdict === "fix" ? c.review.label : c.label; }
+
+async function show() {
+  const c = crops[cur];
+  if (!c) return;
+  $("pos").textContent = `${cur + 1} / ${crops.length}`;
+  $("id").textContent = `${c.id} · ${c.sequence} · frame ${c.frame}${c.held_out ? " · held-out game" : ""}`;
+  const lab = $("label");
+  lab.textContent = LABEL_WORDS[c.label] || `#${c.label}`;
+  lab.className = LABEL_WORDS[c.label] ? "word" : "";
+  const v = $("verdict");
+  if (verdictOf(c) === "ok") { v.textContent = "✓ You marked this right"; v.className = "ok"; }
+  else if (verdictOf(c) === "fix") { v.textContent = `✎ You changed it to ${LABEL_WORDS[c.review.label] || "#" + c.review.label}`; v.className = "fix"; }
+  else { v.textContent = "Not answered yet"; v.className = "muted"; }
+  $("typed").textContent = typed ? `Your number: #${typed}  (Enter saves)` : "";
+  const src = c.source === "box_gold_v1" ? "Your hand-drawn box (box gold v1)"
+    : `Detector box, score ${c.score ?? "?"} (no gold box here)`;
+  // The holder's gold number stays off the page, so the read is not anchored on it.
+  const hints = (c.hints || []).map((h) => `track ${h.tid} ${h.team}`).join(", ");
+  $("meta").innerHTML = `<div>${src}</div><div class="muted">Box ${Math.round(c.xyxy[2] - c.xyxy[0])}×${Math.round(c.xyxy[3] - c.xyxy[1])} px` +
+    (hints ? ` · inside ${hints}` : "") + `</div>` + (c.note ? `<div class="muted">Note: ${c.note}</div>` : "");
+  document.querySelectorAll(".th").forEach((el, i) => {
+    el.classList.toggle("cur", i === cur);
+    if (i === cur) el.scrollIntoView({ block: "nearest", inline: "center" });
+  });
+  $("ctxzoom").textContent = wide ? "(wide)" : "";
+  try {
+    const img = await frameImage(c);
+    if (crops[cur] !== c) return;
+    const z = draw($("tight"), img, c, 0.4, false);
+    draw($("ctx"), img, c, wide ? 6 : 2, true);
+    $("tightinfo").textContent = `${z.toFixed(1)}× · ${smooth ? "smooth" : "sharp pixels"}${contrast ? " · contrast" : ""}`;
+  } catch { toast("frame could not be loaded", true); }
+}
+
+function counts() {
+  const ok = crops.filter((c) => verdictOf(c) === "ok").length, fix = crops.filter((c) => verdictOf(c) === "fix").length;
+  const n = crops.length || 1;
+  $("counts").innerHTML = `<span style="color:var(--ok)">✓ ${ok}</span> · <span style="color:var(--fix)">changed ${fix}</span> · ` +
+    `<span class="muted">open ${crops.length - ok - fix}</span>`;
+  $("barok").style.width = `${(100 * ok) / n}%`; $("barfix").style.width = `${(100 * fix) / n}%`;
+  return crops.length - ok - fix;
+}
+
+function buildStrip() {
+  const strip = $("strip");
+  strip.innerHTML = "";
+  crops.forEach((c, i) => {
+    const el = document.createElement("div");
+    el.className = "th";
+    el.innerHTML = `<canvas></canvas><div>${LABEL_WORDS[shownLabel(c)] ? (shownLabel(c) === "illegible" ? "ill." : "logo") : "#" + shownLabel(c)}</div>`;
+    el.onclick = () => { typed = ""; cur = i; show(); };
+    strip.appendChild(el);
+    frameImage(c).then((img) => draw(el.querySelector("canvas"), img, c, 0.4, false)).catch(() => {});
+  });
+  refreshStrip();
+}
+
+function refreshStrip() {
+  document.querySelectorAll(".th").forEach((el, i) => {
+    const c = crops[i], v = verdictOf(c), l = shownLabel(c);
+    el.classList.toggle("ok", v === "ok"); el.classList.toggle("fix", v === "fix");
+    el.querySelector("div").textContent = l === "illegible" ? "illegible" : l === "not_number" ? "not no." : "#" + l;
+  });
+}
+
+async function answer(verdict, label) {
+  const c = crops[cur];
+  const body = { id: c.id, verdict, label, prev_at: c.review ? c.review.at : null, active_seconds: active };
+  $("save").textContent = "saving…";
+  try {
+    const r = await fetch("/api/numbers/review", { method: "POST", body: JSON.stringify(body) });
+    const j = await r.json();
+    if (!r.ok || !j.ok) throw new Error(j.error || r.status);
+    active = 0;
+    if (j.review) c.review = j.review; else delete c.review;
+    $("save").textContent = `saved · ${j.reviewed} of ${j.total} crops reviewed in all`;
+    typed = "";
+    refreshStrip();
+    const open = counts();
+    if (verdict !== null) {
+      toast(j.review.verdict === "ok" ? "✓ right" : `changed to ${LABEL_WORDS[j.review.label] || "#" + j.review.label}`);
+      const next = crops.findIndex((x, i) => i > cur && !x.review);
+      const first = crops.findIndex((x) => !x.review);
+      if (open === 0) { $("done").style.display = "flex"; }
+      else cur = next >= 0 ? next : first;
+    }
+    show();
+  } catch (e) {
+    $("save").textContent = "not saved";
+    toast(`Not saved: ${e.message}`, true);
+  }
+}
+
+addEventListener("keydown", (e) => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  if ($("done").style.display === "flex") { if (e.key === "Escape") $("done").style.display = "none"; return; }
+  const k = e.key;
+  if (/^[0-9]$/.test(k)) { typed = (typed + k).slice(-2); show(); }
+  else if (k === "Backspace") { typed = typed.slice(0, -1); show(); }
+  else if (k === "Escape") { typed = ""; show(); }
+  else if (k === "Enter" || k === " ") { typed ? answer("fix", typed) : answer("ok"); }
+  else if (k === "i" || k === "I") answer("fix", "illegible");
+  else if (k === "x" || k === "X") answer("fix", "not_number");
+  else if (k === "u" || k === "U") answer(null);
+  else if (k === "ArrowRight") { typed = ""; cur = Math.min(crops.length - 1, cur + 1); show(); }
+  else if (k === "ArrowLeft") { typed = ""; cur = Math.max(0, cur - 1); show(); }
+  else if (k === "s" || k === "S") { smooth = !smooth; show(); }
+  else if (k === "b" || k === "B") { contrast = !contrast; show(); }
+  else if (k === "w" || k === "W") { wide = !wide; show(); }
+  else return;
+  e.preventDefault();
+});
+$("bok").onclick = () => (typed ? answer("fix", typed) : answer("ok"));
+$("bill").onclick = () => answer("fix", "illegible");
+$("bnot").onclick = () => answer("fix", "not_number");
+$("bclr").onclick = () => answer(null);
+addEventListener("resize", () => show());
+
+(async () => {
+  $("sets").innerHTML = Object.entries(SETS).map(([k, v]) => `<a href="?set=${k}" class="${k === SET ? "on" : ""}">${v}</a>`).join("");
+  const r = await fetch(`/api/numbers/queue?set=${encodeURIComponent(SET)}`);
+  const q = await r.json();
+  if (!r.ok) { toast(q.error || "could not load the crops", true); return; }
+  crops = q.crops;
+  if (!crops.length) { $("id").textContent = "No crops in this set."; return; }
+  const secs = Object.values((q.meta || {}).review_seconds || {}).reduce((a, b) => a + b, 0);
+  total = Math.round(secs);
+  cur = Math.max(0, crops.findIndex((c) => !c.review));
+  buildStrip(); counts(); show();
+})();
+</script>
+</body>
+</html>

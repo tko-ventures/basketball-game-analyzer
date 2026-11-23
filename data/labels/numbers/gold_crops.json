@@ -1,0 +1,10161 @@
+{
+ "version": "v1",
+ "source": "data/gold/v1/boxes.json",
+ "labels": "digits when all are legible, else illegible or not_number",
+ "crops": [
+  {
+   "id": "n001",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 1935,
+   "held_out": false,
+   "xyxy": [
+    418,
+    562,
+    443,
+    592
+   ],
+   "hints": [
+    {
+     "tid": 1006,
+     "team": "home",
+     "number": "19"
+    }
+   ],
+   "label": "19",
+   "note": ""
+  },
+  {
+   "id": "n002",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 1935,
+   "held_out": false,
+   "xyxy": [
+    868,
+    558,
+    883,
+    584
+   ],
+   "hints": [
+    {
+     "tid": 1007,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:16:18",
+    "label": "9"
+   }
+  },
+  {
+   "id": "n003",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2000,
+   "held_out": false,
+   "xyxy": [
+    577,
+    779,
+    607,
+    809
+   ],
+   "hints": [
+    {
+     "tid": 1002,
+     "team": "home",
+     "number": "20"
+    }
+   ],
+   "label": "20",
+   "note": ""
+  },
+  {
+   "id": "n004",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2060,
+   "held_out": false,
+   "xyxy": [
+    533,
+    602,
+    562,
+    625.5
+   ],
+   "hints": [
+    {
+     "tid": 1004,
+     "team": "away",
+     "number": "31"
+    }
+   ],
+   "label": "illegible",
+   "note": "read 11, track",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:16:23"
+   }
+  },
+  {
+   "id": "n005",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2060,
+   "held_out": false,
+   "xyxy": [
+    586,
+    693,
+    611,
+    722
+   ],
+   "hints": [
+    {
+     "tid": 1004,
+     "team": "away",
+     "number": "31"
+    },
+    {
+     "tid": 1005,
+     "team": "home",
+     "number": "6"
+    }
+   ],
+   "label": "6",
+   "note": ""
+  },
+  {
+   "id": "n006",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2060,
+   "held_out": false,
+   "xyxy": [
+    743,
+    402,
+    757,
+    433
+   ],
+   "hints": [
+    {
+     "tid": 1006,
+     "team": "home",
+     "number": "19"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:16:27"
+   }
+  },
+  {
+   "id": "n007",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2060,
+   "held_out": false,
+   "xyxy": [
+    1235,
+    639.5,
+    1245,
+    654.5
+   ],
+   "hints": [
+    {
+     "tid": 1001,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "4",
+   "note": ""
+  },
+  {
+   "id": "n008",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2060,
+   "held_out": false,
+   "xyxy": [
+    1494,
+    721,
+    1516,
+    747
+   ],
+   "hints": [
+    {
+     "tid": 1008,
+     "team": "home",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n009",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2125,
+   "held_out": false,
+   "xyxy": [
+    1045,
+    642,
+    1063,
+    667
+   ],
+   "hints": [
+    {
+     "tid": 1005,
+     "team": "home",
+     "number": "6"
+    },
+    {
+     "tid": 1009,
+     "team": "away",
+     "number": "1"
+    }
+   ],
+   "label": "6",
+   "note": ""
+  },
+  {
+   "id": "n010",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2125,
+   "held_out": false,
+   "xyxy": [
+    1282.5,
+    621.5,
+    1301,
+    649.5
+   ],
+   "hints": [
+    {
+     "tid": 1001,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "4",
+   "note": ""
+  },
+  {
+   "id": "n011",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2125,
+   "held_out": false,
+   "xyxy": [
+    1465,
+    573,
+    1485,
+    610
+   ],
+   "hints": [
+    {
+     "tid": 1008,
+     "team": "home",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n012",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2190,
+   "held_out": false,
+   "xyxy": [
+    209,
+    518,
+    225.5,
+    530
+   ],
+   "hints": [
+    {
+     "tid": 1012,
+     "team": "home",
+     "number": null
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:16:33"
+   }
+  },
+  {
+   "id": "n013",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2190,
+   "held_out": false,
+   "xyxy": [
+    485.5,
+    502,
+    501.5,
+    517.5
+   ],
+   "hints": [
+    {
+     "tid": 1011,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n014",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2190,
+   "held_out": false,
+   "xyxy": [
+    1227,
+    453,
+    1241,
+    474
+   ],
+   "hints": [],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n015",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2255,
+   "held_out": false,
+   "xyxy": [
+    1148,
+    437,
+    1164,
+    451
+   ],
+   "hints": [
+    {
+     "tid": 1007,
+     "team": "away",
+     "number": null
+    },
+    {
+     "tid": 1006,
+     "team": "home",
+     "number": "19"
+    }
+   ],
+   "label": "19",
+   "note": ""
+  },
+  {
+   "id": "n016",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2380,
+   "held_out": false,
+   "xyxy": [
+    661.5,
+    435.5,
+    670.5,
+    446
+   ],
+   "hints": [
+    {
+     "tid": 1008,
+     "team": "home",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n017",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2380,
+   "held_out": false,
+   "xyxy": [
+    912.5,
+    544,
+    926,
+    557.5
+   ],
+   "hints": [
+    {
+     "tid": 1001,
+     "team": "away",
+     "number": null
+    },
+    {
+     "tid": 1011,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n018",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2380,
+   "held_out": false,
+   "xyxy": [
+    942,
+    450.5,
+    952,
+    463
+   ],
+   "hints": [
+    {
+     "tid": 1001,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "4",
+   "note": ""
+  },
+  {
+   "id": "n019",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2380,
+   "held_out": false,
+   "xyxy": [
+    1074,
+    613,
+    1096,
+    644
+   ],
+   "hints": [
+    {
+     "tid": 1004,
+     "team": "away",
+     "number": "31"
+    }
+   ],
+   "label": "illegible",
+   "note": "read 11, track",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:16:39",
+    "label": "31"
+   }
+  },
+  {
+   "id": "n020",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2380,
+   "held_out": false,
+   "xyxy": [
+    1488,
+    682,
+    1503,
+    713
+   ],
+   "hints": [
+    {
+     "tid": 1005,
+     "team": "home",
+     "number": "6"
+    },
+    {
+     "tid": 1009,
+     "team": "away",
+     "number": "1"
+    }
+   ],
+   "label": "5",
+   "note": ""
+  },
+  {
+   "id": "n021",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2445,
+   "held_out": false,
+   "xyxy": [
+    475,
+    499.5,
+    484.5,
+    511
+   ],
+   "hints": [
+    {
+     "tid": 1008,
+     "team": "home",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T15:54:08"
+   }
+  },
+  {
+   "id": "n022",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2445,
+   "held_out": false,
+   "xyxy": [
+    1029,
+    571,
+    1045,
+    587
+   ],
+   "hints": [
+    {
+     "tid": 1006,
+     "team": "home",
+     "number": "19"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:16:43",
+    "label": "19"
+   }
+  },
+  {
+   "id": "n023",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2445,
+   "held_out": false,
+   "xyxy": [
+    1396,
+    592.5,
+    1435.5,
+    619
+   ],
+   "hints": [
+    {
+     "tid": 1004,
+     "team": "away",
+     "number": "31"
+    }
+   ],
+   "label": "31",
+   "note": ""
+  },
+  {
+   "id": "n024",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14345,
+   "held_out": false,
+   "xyxy": [
+    876,
+    434.5,
+    905,
+    458
+   ],
+   "hints": [
+    {
+     "tid": 1028,
+     "team": "away",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n025",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14345,
+   "held_out": false,
+   "xyxy": [
+    936,
+    654,
+    952,
+    677
+   ],
+   "hints": [
+    {
+     "tid": 1016,
+     "team": "home",
+     "number": "6"
+    }
+   ],
+   "label": "5",
+   "note": ""
+  },
+  {
+   "id": "n026",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14345,
+   "held_out": false,
+   "xyxy": [
+    1419,
+    617,
+    1440,
+    648
+   ],
+   "hints": [
+    {
+     "tid": 1017,
+     "team": "home",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n027",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14405,
+   "held_out": false,
+   "xyxy": [
+    764,
+    622,
+    780,
+    646
+   ],
+   "hints": [
+    {
+     "tid": 1016,
+     "team": "home",
+     "number": "6"
+    }
+   ],
+   "label": "6",
+   "note": ""
+  },
+  {
+   "id": "n028",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14405,
+   "held_out": false,
+   "xyxy": [
+    780,
+    415,
+    802.5,
+    438
+   ],
+   "hints": [
+    {
+     "tid": 1028,
+     "team": "away",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n029",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14405,
+   "held_out": false,
+   "xyxy": [
+    1311,
+    617,
+    1328,
+    640
+   ],
+   "hints": [
+    {
+     "tid": 1017,
+     "team": "home",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n030",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14465,
+   "held_out": false,
+   "xyxy": [
+    384,
+    630,
+    398,
+    655
+   ],
+   "hints": [
+    {
+     "tid": 1016,
+     "team": "home",
+     "number": "6"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:16:48"
+   }
+  },
+  {
+   "id": "n031",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14465,
+   "held_out": false,
+   "xyxy": [
+    609.5,
+    408,
+    632,
+    431
+   ],
+   "hints": [
+    {
+     "tid": 1028,
+     "team": "away",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n032",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14465,
+   "held_out": false,
+   "xyxy": [
+    987,
+    630,
+    1004,
+    653
+   ],
+   "hints": [
+    {
+     "tid": 1017,
+     "team": "home",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n033",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14525,
+   "held_out": false,
+   "xyxy": [
+    659,
+    403.5,
+    680.5,
+    425
+   ],
+   "hints": [
+    {
+     "tid": 1028,
+     "team": "away",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n034",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14525,
+   "held_out": false,
+   "xyxy": [
+    864,
+    668,
+    884,
+    691
+   ],
+   "hints": [
+    {
+     "tid": 1017,
+     "team": "home",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n035",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14525,
+   "held_out": false,
+   "xyxy": [
+    1094,
+    451.5,
+    1112.5,
+    471.5
+   ],
+   "hints": [],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:16:50",
+    "label": "not_number"
+   }
+  },
+  {
+   "id": "n036",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14525,
+   "held_out": false,
+   "xyxy": [
+    1198,
+    471,
+    1215,
+    493
+   ],
+   "hints": [
+    {
+     "tid": 1023,
+     "team": "home",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n037",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14525,
+   "held_out": false,
+   "xyxy": [
+    1768,
+    609,
+    1784,
+    625
+   ],
+   "hints": [],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:16:58",
+    "label": "3"
+   }
+  },
+  {
+   "id": "n038",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14585,
+   "held_out": false,
+   "xyxy": [
+    174,
+    589,
+    189,
+    615
+   ],
+   "hints": [
+    {
+     "tid": 1016,
+     "team": "home",
+     "number": "6"
+    }
+   ],
+   "label": "6",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T15:54:10"
+   }
+  },
+  {
+   "id": "n039",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14585,
+   "held_out": false,
+   "xyxy": [
+    703,
+    692,
+    726,
+    720
+   ],
+   "hints": [
+    {
+     "tid": 1017,
+     "team": "home",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n040",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14585,
+   "held_out": false,
+   "xyxy": [
+    1852.5,
+    528,
+    1875,
+    545
+   ],
+   "hints": [
+    {
+     "tid": 1025,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:17:03",
+    "label": "9"
+   }
+  },
+  {
+   "id": "n041",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14645,
+   "held_out": false,
+   "xyxy": [
+    692,
+    716,
+    711,
+    740
+   ],
+   "hints": [
+    {
+     "tid": 1018,
+     "team": "away",
+     "number": "1"
+    },
+    {
+     "tid": 1017,
+     "team": "home",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n042",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14645,
+   "held_out": false,
+   "xyxy": [
+    986,
+    490,
+    1002,
+    505
+   ],
+   "hints": [
+    {
+     "tid": 1023,
+     "team": "home",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n043",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14645,
+   "held_out": false,
+   "xyxy": [
+    1034,
+    432.5,
+    1047,
+    445
+   ],
+   "hints": [
+    {
+     "tid": 1024,
+     "team": "away",
+     "number": "31"
+    }
+   ],
+   "label": "illegible",
+   "note": "read 11, track",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:17:05",
+    "label": "31"
+   }
+  },
+  {
+   "id": "n044",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14705,
+   "held_out": false,
+   "xyxy": [
+    452,
+    819,
+    476,
+    855
+   ],
+   "hints": [
+    {
+     "tid": 1018,
+     "team": "away",
+     "number": "1"
+    }
+   ],
+   "label": "1",
+   "note": ""
+  },
+  {
+   "id": "n045",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14705,
+   "held_out": false,
+   "xyxy": [
+    533,
+    552,
+    552,
+    579
+   ],
+   "hints": [
+    {
+     "tid": 1021,
+     "team": "away",
+     "number": "4"
+    }
+   ],
+   "label": "4",
+   "note": ""
+  },
+  {
+   "id": "n046",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14705,
+   "held_out": false,
+   "xyxy": [
+    730.5,
+    764,
+    745,
+    788
+   ],
+   "hints": [
+    {
+     "tid": 1017,
+     "team": "home",
+     "number": "3"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:17:08"
+   }
+  },
+  {
+   "id": "n047",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14765,
+   "held_out": false,
+   "xyxy": [
+    490,
+    860,
+    520,
+    910
+   ],
+   "hints": [
+    {
+     "tid": 1018,
+     "team": "away",
+     "number": "1"
+    }
+   ],
+   "label": "1",
+   "note": ""
+  },
+  {
+   "id": "n048",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14765,
+   "held_out": false,
+   "xyxy": [
+    679,
+    525.5,
+    705,
+    563
+   ],
+   "hints": [
+    {
+     "tid": 1024,
+     "team": "away",
+     "number": "31"
+    }
+   ],
+   "label": "31",
+   "note": ""
+  },
+  {
+   "id": "n049",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14765,
+   "held_out": false,
+   "xyxy": [
+    987,
+    543,
+    1012,
+    571
+   ],
+   "hints": [
+    {
+     "tid": 1025,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "9",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T15:54:11"
+   }
+  },
+  {
+   "id": "n050",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14765,
+   "held_out": false,
+   "xyxy": [
+    1462,
+    568,
+    1482,
+    583
+   ],
+   "hints": [
+    {
+     "tid": 1020,
+     "team": "home",
+     "number": "20"
+    }
+   ],
+   "label": "20",
+   "note": ""
+  },
+  {
+   "id": "n051",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25515,
+   "held_out": false,
+   "xyxy": [
+    486,
+    531.5,
+    502,
+    552
+   ],
+   "hints": [
+    {
+     "tid": 1030,
+     "team": "away",
+     "number": "4"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:09:19",
+    "label": "4"
+   }
+  },
+  {
+   "id": "n052",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25515,
+   "held_out": false,
+   "xyxy": [
+    571,
+    552,
+    597,
+    580
+   ],
+   "hints": [
+    {
+     "tid": 1036,
+     "team": "away",
+     "number": "15"
+    }
+   ],
+   "label": "15",
+   "note": ""
+  },
+  {
+   "id": "n053",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25515,
+   "held_out": false,
+   "xyxy": [
+    670,
+    558,
+    694,
+    592
+   ],
+   "hints": [
+    {
+     "tid": 1031,
+     "team": "home",
+     "number": "10"
+    }
+   ],
+   "label": "10",
+   "note": ""
+  },
+  {
+   "id": "n054",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25515,
+   "held_out": false,
+   "xyxy": [
+    1123,
+    727,
+    1155,
+    753
+   ],
+   "hints": [
+    {
+     "tid": 1032,
+     "team": "away",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n055",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25575,
+   "held_out": false,
+   "xyxy": [
+    793,
+    525,
+    829,
+    549
+   ],
+   "hints": [
+    {
+     "tid": 1036,
+     "team": "away",
+     "number": "15"
+    }
+   ],
+   "label": "15",
+   "note": ""
+  },
+  {
+   "id": "n056",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25575,
+   "held_out": false,
+   "xyxy": [
+    1161,
+    733,
+    1193,
+    760
+   ],
+   "hints": [
+    {
+     "tid": 1032,
+     "team": "away",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n057",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25630,
+   "held_out": false,
+   "xyxy": [
+    744,
+    496,
+    763,
+    510
+   ],
+   "hints": [
+    {
+     "tid": 1038,
+     "team": "home",
+     "number": "20"
+    }
+   ],
+   "label": "20",
+   "note": ""
+  },
+  {
+   "id": "n058",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25630,
+   "held_out": false,
+   "xyxy": [
+    1007,
+    539,
+    1028,
+    574
+   ],
+   "hints": [
+    {
+     "tid": 1033,
+     "team": "home",
+     "number": "23"
+    }
+   ],
+   "label": "illegible",
+   "note": "read 21, track",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:17:11"
+   }
+  },
+  {
+   "id": "n059",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25630,
+   "held_out": false,
+   "xyxy": [
+    1465,
+    728,
+    1496,
+    758
+   ],
+   "hints": [
+    {
+     "tid": 1032,
+     "team": "away",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n060",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25685,
+   "held_out": false,
+   "xyxy": [
+    578,
+    505,
+    609,
+    536
+   ],
+   "hints": [
+    {
+     "tid": 1038,
+     "team": "home",
+     "number": "20"
+    }
+   ],
+   "label": "20",
+   "note": ""
+  },
+  {
+   "id": "n061",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25685,
+   "held_out": false,
+   "xyxy": [
+    827,
+    606,
+    852,
+    633
+   ],
+   "hints": [
+    {
+     "tid": 1030,
+     "team": "away",
+     "number": "4"
+    }
+   ],
+   "label": "4",
+   "note": ""
+  },
+  {
+   "id": "n062",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25685,
+   "held_out": false,
+   "xyxy": [
+    932,
+    506,
+    966,
+    535
+   ],
+   "hints": [
+    {
+     "tid": 1037,
+     "team": "home",
+     "number": "6"
+    },
+    {
+     "tid": 1033,
+     "team": "home",
+     "number": "23"
+    }
+   ],
+   "label": "23",
+   "note": ""
+  },
+  {
+   "id": "n063",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25685,
+   "held_out": false,
+   "xyxy": [
+    935,
+    428,
+    951,
+    449
+   ],
+   "hints": [
+    {
+     "tid": 1037,
+     "team": "home",
+     "number": "6"
+    }
+   ],
+   "label": "6",
+   "note": ""
+  },
+  {
+   "id": "n064",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25685,
+   "held_out": false,
+   "xyxy": [
+    1073,
+    512,
+    1105,
+    536
+   ],
+   "hints": [
+    {
+     "tid": 1036,
+     "team": "away",
+     "number": "15"
+    }
+   ],
+   "label": "15",
+   "note": ""
+  },
+  {
+   "id": "n065",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25685,
+   "held_out": false,
+   "xyxy": [
+    1409,
+    717,
+    1431,
+    747
+   ],
+   "hints": [
+    {
+     "tid": 1032,
+     "team": "away",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n066",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25745,
+   "held_out": false,
+   "xyxy": [
+    699.5,
+    685,
+    722,
+    712.5
+   ],
+   "hints": [
+    {
+     "tid": 1030,
+     "team": "away",
+     "number": "4"
+    }
+   ],
+   "label": "4",
+   "note": ""
+  },
+  {
+   "id": "n067",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25745,
+   "held_out": false,
+   "xyxy": [
+    718,
+    490,
+    748,
+    514
+   ],
+   "hints": [
+    {
+     "tid": 1038,
+     "team": "home",
+     "number": "20"
+    }
+   ],
+   "label": "20",
+   "note": ""
+  },
+  {
+   "id": "n068",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25745,
+   "held_out": false,
+   "xyxy": [
+    941,
+    580,
+    967,
+    609
+   ],
+   "hints": [
+    {
+     "tid": 1031,
+     "team": "home",
+     "number": "10"
+    }
+   ],
+   "label": "10",
+   "note": ""
+  },
+  {
+   "id": "n069",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25745,
+   "held_out": false,
+   "xyxy": [
+    1037,
+    479,
+    1067,
+    505
+   ],
+   "hints": [
+    {
+     "tid": 1033,
+     "team": "home",
+     "number": "23"
+    }
+   ],
+   "label": "23",
+   "note": ""
+  },
+  {
+   "id": "n070",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25745,
+   "held_out": false,
+   "xyxy": [
+    1197,
+    520,
+    1229,
+    544.5
+   ],
+   "hints": [
+    {
+     "tid": 1036,
+     "team": "away",
+     "number": "15"
+    }
+   ],
+   "label": "15",
+   "note": ""
+  },
+  {
+   "id": "n071",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25745,
+   "held_out": false,
+   "xyxy": [
+    1324,
+    607,
+    1338,
+    630
+   ],
+   "hints": [
+    {
+     "tid": 1035,
+     "team": "home",
+     "number": "9"
+    },
+    {
+     "tid": 1032,
+     "team": "away",
+     "number": "21"
+    }
+   ],
+   "label": "9",
+   "note": ""
+  },
+  {
+   "id": "n072",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25745,
+   "held_out": false,
+   "xyxy": [
+    1330,
+    657.5,
+    1366.5,
+    686.5
+   ],
+   "hints": [
+    {
+     "tid": 1032,
+     "team": "away",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T15:54:19"
+   }
+  },
+  {
+   "id": "n073",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25800,
+   "held_out": false,
+   "xyxy": [
+    323,
+    505,
+    342,
+    533
+   ],
+   "hints": [
+    {
+     "tid": 1042,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:17:12"
+   }
+  },
+  {
+   "id": "n074",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25800,
+   "held_out": false,
+   "xyxy": [
+    637,
+    495,
+    657,
+    518
+   ],
+   "hints": [
+    {
+     "tid": 1038,
+     "team": "home",
+     "number": "20"
+    }
+   ],
+   "label": "20",
+   "note": ""
+  },
+  {
+   "id": "n075",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25800,
+   "held_out": false,
+   "xyxy": [
+    653.5,
+    707,
+    675,
+    734
+   ],
+   "hints": [
+    {
+     "tid": 1030,
+     "team": "away",
+     "number": "4"
+    }
+   ],
+   "label": "4",
+   "note": ""
+  },
+  {
+   "id": "n076",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25800,
+   "held_out": false,
+   "xyxy": [
+    981,
+    613,
+    999,
+    637
+   ],
+   "hints": [
+    {
+     "tid": 1031,
+     "team": "home",
+     "number": "10"
+    }
+   ],
+   "label": "illegible",
+   "note": "read 11, track",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:09:26"
+   }
+  },
+  {
+   "id": "n077",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25800,
+   "held_out": false,
+   "xyxy": [
+    1188,
+    625,
+    1223,
+    652
+   ],
+   "hints": [
+    {
+     "tid": 1032,
+     "team": "away",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n078",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25800,
+   "held_out": false,
+   "xyxy": [
+    1224,
+    559,
+    1239,
+    580
+   ],
+   "hints": [
+    {
+     "tid": 1035,
+     "team": "away",
+     "number": "9"
+    }
+   ],
+   "label": "9",
+   "note": ""
+  },
+  {
+   "id": "n079",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25800,
+   "held_out": false,
+   "xyxy": [
+    1240.5,
+    541,
+    1269.5,
+    565
+   ],
+   "hints": [
+    {
+     "tid": 1035,
+     "team": "away",
+     "number": "9"
+    }
+   ],
+   "label": "15",
+   "note": ""
+  },
+  {
+   "id": "n080",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25855,
+   "held_out": false,
+   "xyxy": [
+    863,
+    633,
+    894,
+    665
+   ],
+   "hints": [
+    {
+     "tid": 1031,
+     "team": "home",
+     "number": "10"
+    }
+   ],
+   "label": "10",
+   "note": ""
+  },
+  {
+   "id": "n081",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25855,
+   "held_out": false,
+   "xyxy": [
+    874,
+    640,
+    898,
+    673
+   ],
+   "hints": [
+    {
+     "tid": 1031,
+     "team": "home",
+     "number": "10"
+    }
+   ],
+   "label": "10",
+   "note": ""
+  },
+  {
+   "id": "n082",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25855,
+   "held_out": false,
+   "xyxy": [
+    1235,
+    625,
+    1265,
+    652
+   ],
+   "hints": [
+    {
+     "tid": 1032,
+     "team": "away",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n083",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25855,
+   "held_out": false,
+   "xyxy": [
+    1276,
+    545,
+    1309,
+    570
+   ],
+   "hints": [
+    {
+     "tid": 1036,
+     "team": "away",
+     "number": "15"
+    }
+   ],
+   "label": "15",
+   "note": ""
+  },
+  {
+   "id": "n084",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25915,
+   "held_out": false,
+   "xyxy": [
+    605.5,
+    783,
+    633,
+    812.5
+   ],
+   "hints": [
+    {
+     "tid": 1030,
+     "team": "away",
+     "number": "4"
+    }
+   ],
+   "label": "4",
+   "note": ""
+  },
+  {
+   "id": "n085",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25915,
+   "held_out": false,
+   "xyxy": [
+    847,
+    635,
+    866.5,
+    660
+   ],
+   "hints": [
+    {
+     "tid": 1031,
+     "team": "home",
+     "number": "10"
+    }
+   ],
+   "label": "10",
+   "note": ""
+  },
+  {
+   "id": "n086",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25915,
+   "held_out": false,
+   "xyxy": [
+    1052,
+    609,
+    1075,
+    639
+   ],
+   "hints": [
+    {
+     "tid": 1032,
+     "team": "away",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n087",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25915,
+   "held_out": false,
+   "xyxy": [
+    1161,
+    614,
+    1184,
+    643
+   ],
+   "hints": [
+    {
+     "tid": 1035,
+     "team": "home",
+     "number": "9"
+    }
+   ],
+   "label": "9",
+   "note": ""
+  },
+  {
+   "id": "n088",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25915,
+   "held_out": false,
+   "xyxy": [
+    1244,
+    567,
+    1278,
+    604
+   ],
+   "hints": [
+    {
+     "tid": 1033,
+     "team": "home",
+     "number": "23"
+    }
+   ],
+   "label": "23",
+   "note": ""
+  },
+  {
+   "id": "n089",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25970,
+   "held_out": false,
+   "xyxy": [
+    194,
+    617,
+    223,
+    650
+   ],
+   "hints": [
+    {
+     "tid": 1038,
+     "team": "home",
+     "number": "20"
+    }
+   ],
+   "label": "20",
+   "note": ""
+  },
+  {
+   "id": "n090",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25970,
+   "held_out": false,
+   "xyxy": [
+    229,
+    788,
+    264,
+    828
+   ],
+   "hints": [
+    {
+     "tid": 1030,
+     "team": "away",
+     "number": "4"
+    }
+   ],
+   "label": "4",
+   "note": ""
+  },
+  {
+   "id": "n091",
+   "source": "box_gold_v1",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25970,
+   "held_out": false,
+   "xyxy": [
+    1258,
+    560,
+    1290,
+    601
+   ],
+   "hints": [
+    {
+     "tid": 1033,
+     "team": "home",
+     "number": "23"
+    }
+   ],
+   "label": "23",
+   "note": ""
+  },
+  {
+   "id": "n092",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 580,
+   "held_out": false,
+   "xyxy": [
+    867,
+    655,
+    911,
+    700
+   ],
+   "hints": [
+    {
+     "tid": 1002,
+     "team": "away",
+     "number": "32"
+    }
+   ],
+   "label": "32",
+   "note": ""
+  },
+  {
+   "id": "n093",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 580,
+   "held_out": false,
+   "xyxy": [
+    889,
+    366,
+    902,
+    385
+   ],
+   "hints": [
+    {
+     "tid": 1010,
+     "team": "away",
+     "number": null
+    },
+    {
+     "tid": 1007,
+     "team": "home",
+     "number": null
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:17:14"
+   }
+  },
+  {
+   "id": "n094",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 580,
+   "held_out": false,
+   "xyxy": [
+    1380,
+    428,
+    1402,
+    449
+   ],
+   "hints": [
+    {
+     "tid": 1004,
+     "team": "away",
+     "number": "25"
+    }
+   ],
+   "label": "25",
+   "note": ""
+  },
+  {
+   "id": "n095",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 640,
+   "held_out": false,
+   "xyxy": [
+    0,
+    560,
+    9,
+    587
+   ],
+   "hints": [
+    {
+     "tid": 1008,
+     "team": "away",
+     "number": "42"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:17:16"
+   }
+  },
+  {
+   "id": "n096",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 640,
+   "held_out": false,
+   "xyxy": [
+    881,
+    647,
+    920,
+    674
+   ],
+   "hints": [
+    {
+     "tid": 1002,
+     "team": "away",
+     "number": "32"
+    }
+   ],
+   "label": "32",
+   "note": ""
+  },
+  {
+   "id": "n097",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 700,
+   "held_out": false,
+   "xyxy": [
+    60.5,
+    558.5,
+    83,
+    587.5
+   ],
+   "hints": [
+    {
+     "tid": 1008,
+     "team": "away",
+     "number": "42"
+    }
+   ],
+   "label": "42",
+   "note": ""
+  },
+  {
+   "id": "n098",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 700,
+   "held_out": false,
+   "xyxy": [
+    826,
+    644,
+    862,
+    670
+   ],
+   "hints": [
+    {
+     "tid": 1002,
+     "team": "away",
+     "number": "32"
+    }
+   ],
+   "label": "32",
+   "note": ""
+  },
+  {
+   "id": "n099",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 760,
+   "held_out": false,
+   "xyxy": [
+    302.5,
+    540.5,
+    321,
+    570.5
+   ],
+   "hints": [
+    {
+     "tid": 1008,
+     "team": "away",
+     "number": "42"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:17:28",
+    "label": "42"
+   }
+  },
+  {
+   "id": "n100",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 760,
+   "held_out": false,
+   "xyxy": [
+    673,
+    449,
+    685,
+    468
+   ],
+   "hints": [
+    {
+     "tid": 1005,
+     "team": "home",
+     "number": "0"
+    }
+   ],
+   "label": "0",
+   "note": ""
+  },
+  {
+   "id": "n101",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 760,
+   "held_out": false,
+   "xyxy": [
+    922,
+    611,
+    950.5,
+    648.5
+   ],
+   "hints": [
+    {
+     "tid": 1002,
+     "team": "away",
+     "number": "32"
+    }
+   ],
+   "label": "32",
+   "note": ""
+  },
+  {
+   "id": "n102",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 760,
+   "held_out": false,
+   "xyxy": [
+    1123.5,
+    544.5,
+    1139.5,
+    567.5
+   ],
+   "hints": [
+    {
+     "tid": 1013,
+     "team": "home",
+     "number": "2"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n103",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 760,
+   "held_out": false,
+   "xyxy": [
+    1332,
+    573,
+    1342,
+    599.5
+   ],
+   "hints": [
+    {
+     "tid": 1006,
+     "team": "home",
+     "number": "1"
+    }
+   ],
+   "label": "1",
+   "note": ""
+  },
+  {
+   "id": "n104",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 820,
+   "held_out": false,
+   "xyxy": [
+    1211,
+    422,
+    1224,
+    443
+   ],
+   "hints": [
+    {
+     "tid": 1013,
+     "team": "home",
+     "number": "2"
+    }
+   ],
+   "label": "illegible",
+   "note": "read 0, track",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:25:56"
+   }
+  },
+  {
+   "id": "n105",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 880,
+   "held_out": false,
+   "xyxy": [
+    1541,
+    592,
+    1579,
+    620.5
+   ],
+   "hints": [
+    {
+     "tid": 1002,
+     "team": "away",
+     "number": "32"
+    }
+   ],
+   "label": "32",
+   "note": ""
+  },
+  {
+   "id": "n106",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 880,
+   "held_out": false,
+   "xyxy": [
+    1618,
+    718,
+    1645.5,
+    755
+   ],
+   "hints": [],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:17:36"
+   }
+  },
+  {
+   "id": "n107",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 940,
+   "held_out": false,
+   "xyxy": [
+    47,
+    573,
+    69,
+    599
+   ],
+   "hints": [
+    {
+     "tid": 1005,
+     "team": "home",
+     "number": "0"
+    }
+   ],
+   "label": "0",
+   "note": ""
+  },
+  {
+   "id": "n108",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 940,
+   "held_out": false,
+   "xyxy": [
+    513,
+    582,
+    555,
+    624
+   ],
+   "hints": [
+    {
+     "tid": 1008,
+     "team": "away",
+     "number": "42"
+    }
+   ],
+   "label": "42",
+   "note": ""
+  },
+  {
+   "id": "n109",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 940,
+   "held_out": false,
+   "xyxy": [
+    544,
+    461,
+    570,
+    487
+   ],
+   "hints": [
+    {
+     "tid": 1003,
+     "team": "home",
+     "number": "45"
+    }
+   ],
+   "label": "45",
+   "note": ""
+  },
+  {
+   "id": "n110",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 1000,
+   "held_out": false,
+   "xyxy": [
+    326,
+    438,
+    343,
+    460
+   ],
+   "hints": [
+    {
+     "tid": 1005,
+     "team": "home",
+     "number": "0"
+    }
+   ],
+   "label": "0",
+   "note": ""
+  },
+  {
+   "id": "n111",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 1000,
+   "held_out": false,
+   "xyxy": [
+    609,
+    526,
+    636,
+    561
+   ],
+   "hints": [
+    {
+     "tid": 1008,
+     "team": "away",
+     "number": "42"
+    }
+   ],
+   "label": "42",
+   "note": ""
+  },
+  {
+   "id": "n112",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s10",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 10,
+   "frame": 3050,
+   "held_out": false,
+   "xyxy": [
+    575,
+    738,
+    594,
+    762
+   ],
+   "hints": [
+    {
+     "tid": 4,
+     "team": "home",
+     "number": "4"
+    }
+   ],
+   "label": "4",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T15:54:27"
+   }
+  },
+  {
+   "id": "n113",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s10",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 10,
+   "frame": 3050,
+   "held_out": false,
+   "xyxy": [
+    759,
+    743,
+    780,
+    763
+   ],
+   "hints": [
+    {
+     "tid": 1019,
+     "team": "away",
+     "number": "7"
+    }
+   ],
+   "label": "7",
+   "note": ""
+  },
+  {
+   "id": "n114",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s10",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 10,
+   "frame": 3050,
+   "held_out": false,
+   "xyxy": [
+    1118.5,
+    530.5,
+    1144,
+    548
+   ],
+   "hints": [
+    {
+     "tid": 1022,
+     "team": "away",
+     "number": "40"
+    }
+   ],
+   "label": "illegible",
+   "note": "read 10, track",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:17:40",
+    "label": "40"
+   }
+  },
+  {
+   "id": "n115",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s10",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 10,
+   "frame": 3050,
+   "held_out": false,
+   "xyxy": [
+    1763,
+    753,
+    1782,
+    780
+   ],
+   "hints": [
+    {
+     "tid": 1020,
+     "team": "home",
+     "number": "2"
+    }
+   ],
+   "label": "2",
+   "note": ""
+  },
+  {
+   "id": "n116",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s10",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 10,
+   "frame": 3115,
+   "held_out": false,
+   "xyxy": [
+    814,
+    628,
+    830,
+    648
+   ],
+   "hints": [
+    {
+     "tid": 9,
+     "team": "home",
+     "number": null
+    }
+   ],
+   "label": "4",
+   "note": ""
+  },
+  {
+   "id": "n117",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s10",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 10,
+   "frame": 3115,
+   "held_out": false,
+   "xyxy": [
+    885,
+    643,
+    918,
+    670
+   ],
+   "hints": [
+    {
+     "tid": 1019,
+     "team": "away",
+     "number": "7"
+    }
+   ],
+   "label": "7",
+   "note": ""
+  },
+  {
+   "id": "n118",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s10",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 10,
+   "frame": 3180,
+   "held_out": false,
+   "xyxy": [
+    1703,
+    663,
+    1715,
+    683
+   ],
+   "hints": [
+    {
+     "tid": 1020,
+     "team": "home",
+     "number": "2"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:17:43",
+    "label": "2"
+   }
+  },
+  {
+   "id": "n119",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6410,
+   "held_out": false,
+   "xyxy": [
+    687,
+    676,
+    707,
+    706
+   ],
+   "hints": [
+    {
+     "tid": 1041,
+     "team": "away",
+     "number": "3"
+    },
+    {
+     "tid": 1042,
+     "team": "home",
+     "number": "0"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n120",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6410,
+   "held_out": false,
+   "xyxy": [
+    827,
+    639,
+    855,
+    668
+   ],
+   "hints": [
+    {
+     "tid": 1037,
+     "team": "away",
+     "number": "42"
+    }
+   ],
+   "label": "42",
+   "note": ""
+  },
+  {
+   "id": "n121",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6470,
+   "held_out": false,
+   "xyxy": [
+    899,
+    631,
+    931,
+    677
+   ],
+   "hints": [
+    {
+     "tid": 1037,
+     "team": "away",
+     "number": "42"
+    }
+   ],
+   "label": "42",
+   "note": ""
+  },
+  {
+   "id": "n122",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6580,
+   "held_out": false,
+   "xyxy": [
+    1244,
+    609,
+    1277,
+    652
+   ],
+   "hints": [
+    {
+     "tid": 1037,
+     "team": "away",
+     "number": "42"
+    }
+   ],
+   "label": "42",
+   "note": ""
+  },
+  {
+   "id": "n123",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6640,
+   "held_out": false,
+   "xyxy": [
+    620,
+    411,
+    637,
+    430
+   ],
+   "hints": [
+    {
+     "tid": 1042,
+     "team": "home",
+     "number": "0"
+    }
+   ],
+   "label": "0",
+   "note": ""
+  },
+  {
+   "id": "n124",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6640,
+   "held_out": false,
+   "xyxy": [
+    982,
+    467,
+    996,
+    487
+   ],
+   "hints": [
+    {
+     "tid": 1033,
+     "team": "home",
+     "number": "4"
+    }
+   ],
+   "label": "4",
+   "note": ""
+  },
+  {
+   "id": "n125",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6640,
+   "held_out": false,
+   "xyxy": [
+    1199.5,
+    486,
+    1228.5,
+    505.5
+   ],
+   "hints": [
+    {
+     "tid": 1037,
+     "team": "away",
+     "number": "42"
+    }
+   ],
+   "label": "42",
+   "note": ""
+  },
+  {
+   "id": "n126",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6640,
+   "held_out": false,
+   "xyxy": [
+    1210,
+    577,
+    1226,
+    600
+   ],
+   "hints": [
+    {
+     "tid": 1037,
+     "team": "away",
+     "number": "42"
+    },
+    {
+     "tid": 1036,
+     "team": "home",
+     "number": "2"
+    },
+    {
+     "tid": 1040,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "2",
+   "note": ""
+  },
+  {
+   "id": "n127",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6695,
+   "held_out": false,
+   "xyxy": [
+    252,
+    447.5,
+    270.5,
+    471.5
+   ],
+   "hints": [
+    {
+     "tid": 1041,
+     "team": "away",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n128",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6695,
+   "held_out": false,
+   "xyxy": [
+    898,
+    566,
+    922,
+    595
+   ],
+   "hints": [
+    {
+     "tid": 1040,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "0",
+   "note": ""
+  },
+  {
+   "id": "n129",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6695,
+   "held_out": false,
+   "xyxy": [
+    1060,
+    542,
+    1078,
+    565
+   ],
+   "hints": [
+    {
+     "tid": 1036,
+     "team": "home",
+     "number": "2"
+    }
+   ],
+   "label": "2",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T15:54:28"
+   }
+  },
+  {
+   "id": "n130",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6750,
+   "held_out": false,
+   "xyxy": [
+    660,
+    533,
+    681,
+    567
+   ],
+   "hints": [
+    {
+     "tid": 1040,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "0",
+   "note": ""
+  },
+  {
+   "id": "n131",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6750,
+   "held_out": false,
+   "xyxy": [
+    1071,
+    535,
+    1086,
+    555
+   ],
+   "hints": [
+    {
+     "tid": 1036,
+     "team": "home",
+     "number": "2"
+    }
+   ],
+   "label": "2",
+   "note": ""
+  },
+  {
+   "id": "n132",
+   "source": "box_gold_v1",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6810,
+   "held_out": false,
+   "xyxy": [
+    1067,
+    526,
+    1080,
+    546
+   ],
+   "hints": [
+    {
+     "tid": 1036,
+     "team": "home",
+     "number": "2"
+    }
+   ],
+   "label": "2",
+   "note": ""
+  },
+  {
+   "id": "n133",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 975,
+   "held_out": false,
+   "xyxy": [
+    718,
+    413,
+    733,
+    430
+   ],
+   "hints": [
+    {
+     "tid": 1001,
+     "team": "home",
+     "number": "11"
+    }
+   ],
+   "label": "11",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T15:54:29"
+   }
+  },
+  {
+   "id": "n134",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 975,
+   "held_out": false,
+   "xyxy": [
+    934,
+    494,
+    952,
+    513
+   ],
+   "hints": [
+    {
+     "tid": 1008,
+     "team": "away",
+     "number": "45"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:17:45",
+    "label": "45"
+   }
+  },
+  {
+   "id": "n135",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 975,
+   "held_out": false,
+   "xyxy": [
+    1185,
+    436,
+    1195,
+    451
+   ],
+   "hints": [
+    {
+     "tid": 1012,
+     "team": "home",
+     "number": "2"
+    }
+   ],
+   "label": "2",
+   "note": ""
+  },
+  {
+   "id": "n136",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 975,
+   "held_out": false,
+   "xyxy": [
+    1247,
+    431,
+    1256,
+    449
+   ],
+   "hints": [],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:17:48",
+    "label": "2"
+   }
+  },
+  {
+   "id": "n137",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1035,
+   "held_out": false,
+   "xyxy": [
+    809,
+    656,
+    831,
+    682
+   ],
+   "hints": [
+    {
+     "tid": 1002,
+     "team": "away",
+     "number": "16"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:17:53"
+   }
+  },
+  {
+   "id": "n138",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1035,
+   "held_out": false,
+   "xyxy": [
+    968,
+    396,
+    989,
+    413
+   ],
+   "hints": [
+    {
+     "tid": 1006,
+     "team": "home",
+     "number": "33"
+    }
+   ],
+   "label": "33",
+   "note": ""
+  },
+  {
+   "id": "n139",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1035,
+   "held_out": false,
+   "xyxy": [
+    1124.5,
+    481,
+    1146,
+    501
+   ],
+   "hints": [
+    {
+     "tid": 1004,
+     "team": "home",
+     "number": "21"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:17:54"
+   }
+  },
+  {
+   "id": "n140",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1035,
+   "held_out": false,
+   "xyxy": [
+    1146,
+    474,
+    1161,
+    496
+   ],
+   "hints": [
+    {
+     "tid": 1008,
+     "team": "away",
+     "number": "45"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:17:57",
+    "label": "45"
+   }
+  },
+  {
+   "id": "n141",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1035,
+   "held_out": false,
+   "xyxy": [
+    1251,
+    548,
+    1276,
+    570
+   ],
+   "hints": [
+    {
+     "tid": 1005,
+     "team": "home",
+     "number": "37"
+    }
+   ],
+   "label": "37",
+   "note": ""
+  },
+  {
+   "id": "n142",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1095,
+   "held_out": false,
+   "xyxy": [
+    674,
+    429,
+    685,
+    441
+   ],
+   "hints": [
+    {
+     "tid": 1003,
+     "team": "ref",
+     "number": null
+    },
+    {
+     "tid": 1001,
+     "team": "home",
+     "number": "11"
+    }
+   ],
+   "label": "11",
+   "note": ""
+  },
+  {
+   "id": "n143",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1095,
+   "held_out": false,
+   "xyxy": [
+    719,
+    574,
+    730,
+    599
+   ],
+   "hints": [
+    {
+     "tid": 1002,
+     "team": "away",
+     "number": "16"
+    }
+   ],
+   "label": "16",
+   "note": ""
+  },
+  {
+   "id": "n144",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1095,
+   "held_out": false,
+   "xyxy": [
+    1162,
+    525,
+    1189,
+    545
+   ],
+   "hints": [
+    {
+     "tid": 1005,
+     "team": "home",
+     "number": "37"
+    }
+   ],
+   "label": "37",
+   "note": ""
+  },
+  {
+   "id": "n145",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1280,
+   "held_out": false,
+   "xyxy": [
+    1534,
+    519,
+    1574,
+    544
+   ],
+   "hints": [
+    {
+     "tid": 1008,
+     "team": "away",
+     "number": "45"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:09:31",
+    "label": "45"
+   }
+  },
+  {
+   "id": "n146",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1345,
+   "held_out": false,
+   "xyxy": [
+    771,
+    735,
+    796,
+    764
+   ],
+   "hints": [
+    {
+     "tid": 1005,
+     "team": "home",
+     "number": "37"
+    }
+   ],
+   "label": "37",
+   "note": ""
+  },
+  {
+   "id": "n147",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1345,
+   "held_out": false,
+   "xyxy": [
+    779,
+    529,
+    800,
+    546
+   ],
+   "hints": [
+    {
+     "tid": 1002,
+     "team": "away",
+     "number": "16"
+    }
+   ],
+   "label": "16",
+   "note": ""
+  },
+  {
+   "id": "n148",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1345,
+   "held_out": false,
+   "xyxy": [
+    891,
+    577,
+    908,
+    596
+   ],
+   "hints": [
+    {
+     "tid": 1006,
+     "team": "home",
+     "number": "33"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:18:01",
+    "label": "33"
+   }
+  },
+  {
+   "id": "n149",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1345,
+   "held_out": false,
+   "xyxy": [
+    1081,
+    500.5,
+    1095.5,
+    524.5
+   ],
+   "hints": [
+    {
+     "tid": 1007,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:02"
+   }
+  },
+  {
+   "id": "n150",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1345,
+   "held_out": false,
+   "xyxy": [
+    1316,
+    477,
+    1334,
+    496
+   ],
+   "hints": [
+    {
+     "tid": 1008,
+     "team": "away",
+     "number": "45"
+    }
+   ],
+   "label": "45",
+   "note": ""
+  },
+  {
+   "id": "n151",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1405,
+   "held_out": false,
+   "xyxy": [
+    903,
+    690,
+    927,
+    709
+   ],
+   "hints": [
+    {
+     "tid": 1005,
+     "team": "home",
+     "number": "37"
+    }
+   ],
+   "label": "37",
+   "note": ""
+  },
+  {
+   "id": "n152",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1405,
+   "held_out": false,
+   "xyxy": [
+    1122,
+    505,
+    1145,
+    521
+   ],
+   "hints": [
+    {
+     "tid": 1006,
+     "team": "home",
+     "number": "33"
+    }
+   ],
+   "label": "33",
+   "note": ""
+  },
+  {
+   "id": "n153",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1405,
+   "held_out": false,
+   "xyxy": [
+    1436,
+    537,
+    1451,
+    558
+   ],
+   "hints": [
+    {
+     "tid": 1012,
+     "team": "home",
+     "number": "2"
+    }
+   ],
+   "label": "2",
+   "note": ""
+  },
+  {
+   "id": "n154",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1465,
+   "held_out": false,
+   "xyxy": [
+    704,
+    467,
+    719,
+    486
+   ],
+   "hints": [
+    {
+     "tid": 1010,
+     "team": "away",
+     "number": "11"
+    }
+   ],
+   "label": "11",
+   "note": ""
+  },
+  {
+   "id": "n155",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1465,
+   "held_out": false,
+   "xyxy": [
+    864,
+    747,
+    899,
+    773
+   ],
+   "hints": [
+    {
+     "tid": 1005,
+     "team": "home",
+     "number": "37"
+    }
+   ],
+   "label": "37",
+   "note": ""
+  },
+  {
+   "id": "n156",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1465,
+   "held_out": false,
+   "xyxy": [
+    1545,
+    567,
+    1557,
+    585
+   ],
+   "hints": [
+    {
+     "tid": 1012,
+     "team": "home",
+     "number": "2"
+    }
+   ],
+   "label": "2",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T15:54:35"
+   }
+  },
+  {
+   "id": "n157",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2520,
+   "held_out": false,
+   "xyxy": [
+    655,
+    816,
+    667,
+    833
+   ],
+   "hints": [
+    {
+     "tid": 1025,
+     "team": "away",
+     "number": "0"
+    }
+   ],
+   "label": "0",
+   "note": ""
+  },
+  {
+   "id": "n158",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2520,
+   "held_out": false,
+   "xyxy": [
+    878,
+    465,
+    896,
+    475
+   ],
+   "hints": [
+    {
+     "tid": 1030,
+     "team": "home",
+     "number": "33"
+    }
+   ],
+   "label": "33",
+   "note": ""
+  },
+  {
+   "id": "n159",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2520,
+   "held_out": false,
+   "xyxy": [
+    1264,
+    723,
+    1283,
+    740
+   ],
+   "hints": [
+    {
+     "tid": 1022,
+     "team": "away",
+     "number": "25"
+    }
+   ],
+   "label": "25",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T15:54:37"
+   }
+  },
+  {
+   "id": "n160",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2585,
+   "held_out": false,
+   "xyxy": [
+    122,
+    744,
+    143,
+    772
+   ],
+   "hints": [
+    {
+     "tid": 1032,
+     "team": "home",
+     "number": "0"
+    }
+   ],
+   "label": "0",
+   "note": ""
+  },
+  {
+   "id": "n161",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2585,
+   "held_out": false,
+   "xyxy": [
+    133,
+    714,
+    148,
+    732
+   ],
+   "hints": [
+    {
+     "tid": 1032,
+     "team": "home",
+     "number": "0"
+    }
+   ],
+   "label": "not_number",
+   "note": "the square sponsor patch on the back of the Trefl kit, as n190"
+  },
+  {
+   "id": "n162",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2585,
+   "held_out": false,
+   "xyxy": [
+    724,
+    862,
+    766,
+    893
+   ],
+   "hints": [
+    {
+     "tid": 1025,
+     "team": "away",
+     "number": "0"
+    },
+    {
+     "tid": 1035,
+     "team": "home",
+     "number": "13"
+    }
+   ],
+   "label": "13",
+   "note": ""
+  },
+  {
+   "id": "n163",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2650,
+   "held_out": false,
+   "xyxy": [
+    999,
+    790,
+    1031,
+    822
+   ],
+   "hints": [
+    {
+     "tid": 1035,
+     "team": "home",
+     "number": "13"
+    }
+   ],
+   "label": "13",
+   "note": ""
+  },
+  {
+   "id": "n164",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    478,
+    601,
+    492,
+    621
+   ],
+   "hints": [
+    {
+     "tid": 1032,
+     "team": "home",
+     "number": "0"
+    }
+   ],
+   "label": "0",
+   "note": ""
+  },
+  {
+   "id": "n165",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    542,
+    591,
+    560,
+    614
+   ],
+   "hints": [
+    {
+     "tid": 1024,
+     "team": "away",
+     "number": "16"
+    }
+   ],
+   "label": "16",
+   "note": ""
+  },
+  {
+   "id": "n166",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    865.5,
+    494.5,
+    877.5,
+    508.5
+   ],
+   "hints": [
+    {
+     "tid": 1027,
+     "team": "away",
+     "number": "2"
+    }
+   ],
+   "label": "2",
+   "note": ""
+  },
+  {
+   "id": "n167",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    971.5,
+    452,
+    985.5,
+    464.5
+   ],
+   "hints": [
+    {
+     "tid": 1030,
+     "team": "home",
+     "number": "33"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:18:04",
+    "label": "33"
+   }
+  },
+  {
+   "id": "n168",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    1015.5,
+    493.5,
+    1026.5,
+    505.5
+   ],
+   "hints": [
+    {
+     "tid": 1026,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "4",
+   "note": ""
+  },
+  {
+   "id": "n169",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    1069,
+    805,
+    1105,
+    830
+   ],
+   "hints": [
+    {
+     "tid": 1035,
+     "team": "home",
+     "number": "13"
+    }
+   ],
+   "label": "13",
+   "note": ""
+  },
+  {
+   "id": "n170",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    1188.5,
+    575,
+    1203.5,
+    589
+   ],
+   "hints": [
+    {
+     "tid": 1022,
+     "team": "away",
+     "number": "25"
+    }
+   ],
+   "label": "25",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T15:54:43"
+   }
+  },
+  {
+   "id": "n171",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    1485,
+    465.5,
+    1492,
+    476
+   ],
+   "hints": [
+    {
+     "tid": 1023,
+     "team": "home",
+     "number": "2"
+    }
+   ],
+   "label": "2",
+   "note": ""
+  },
+  {
+   "id": "n172",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    1803.5,
+    657,
+    1834.5,
+    684.5
+   ],
+   "hints": [
+    {
+     "tid": 1029,
+     "team": "home",
+     "number": "37"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:06"
+   }
+  },
+  {
+   "id": "n173",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2775,
+   "held_out": false,
+   "xyxy": [
+    630,
+    525,
+    651,
+    548
+   ],
+   "hints": [
+    {
+     "tid": 1024,
+     "team": "away",
+     "number": "16"
+    }
+   ],
+   "label": "16",
+   "note": ""
+  },
+  {
+   "id": "n174",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2775,
+   "held_out": false,
+   "xyxy": [
+    965,
+    502,
+    974,
+    513
+   ],
+   "hints": [
+    {
+     "tid": 1026,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "4",
+   "note": ""
+  },
+  {
+   "id": "n175",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2775,
+   "held_out": false,
+   "xyxy": [
+    976,
+    811,
+    1016,
+    842
+   ],
+   "hints": [
+    {
+     "tid": 1035,
+     "team": "home",
+     "number": "13"
+    }
+   ],
+   "label": "13",
+   "note": ""
+  },
+  {
+   "id": "n176",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2775,
+   "held_out": false,
+   "xyxy": [
+    1740,
+    632,
+    1754,
+    660
+   ],
+   "hints": [
+    {
+     "tid": 1029,
+     "team": "home",
+     "number": "37"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:09"
+   }
+  },
+  {
+   "id": "n177",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2840,
+   "held_out": false,
+   "xyxy": [
+    541.5,
+    483.5,
+    562.5,
+    506.5
+   ],
+   "hints": [],
+   "label": "0",
+   "note": ""
+  },
+  {
+   "id": "n178",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2840,
+   "held_out": false,
+   "xyxy": [
+    581.5,
+    555,
+    615.5,
+    582.5
+   ],
+   "hints": [
+    {
+     "tid": 1024,
+     "team": "away",
+     "number": "16"
+    },
+    {
+     "tid": 1030,
+     "team": "home",
+     "number": "33"
+    }
+   ],
+   "label": "33",
+   "note": ""
+  },
+  {
+   "id": "n179",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2840,
+   "held_out": false,
+   "xyxy": [
+    604,
+    511,
+    622,
+    534
+   ],
+   "hints": [
+    {
+     "tid": 1024,
+     "team": "away",
+     "number": "16"
+    },
+    {
+     "tid": 1030,
+     "team": "home",
+     "number": "33"
+    }
+   ],
+   "label": "illegible",
+   "note": "only the 6 of 16 is visible (CHAVEZ above it)",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:25:56"
+   }
+  },
+  {
+   "id": "n180",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2840,
+   "held_out": false,
+   "xyxy": [
+    703,
+    533,
+    718,
+    559
+   ],
+   "hints": [
+    {
+     "tid": 1027,
+     "team": "away",
+     "number": "2"
+    }
+   ],
+   "label": "2",
+   "note": ""
+  },
+  {
+   "id": "n181",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2840,
+   "held_out": false,
+   "xyxy": [
+    961,
+    454,
+    974,
+    475
+   ],
+   "hints": [
+    {
+     "tid": 1026,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "4",
+   "note": ""
+  },
+  {
+   "id": "n182",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2840,
+   "held_out": false,
+   "xyxy": [
+    979,
+    802,
+    1013,
+    834
+   ],
+   "hints": [
+    {
+     "tid": 1035,
+     "team": "home",
+     "number": "13"
+    }
+   ],
+   "label": "13",
+   "note": ""
+  },
+  {
+   "id": "n183",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2840,
+   "held_out": false,
+   "xyxy": [
+    1051,
+    534,
+    1072,
+    558
+   ],
+   "hints": [
+    {
+     "tid": 1022,
+     "team": "away",
+     "number": "25"
+    }
+   ],
+   "label": "25",
+   "note": ""
+  },
+  {
+   "id": "n184",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2840,
+   "held_out": false,
+   "xyxy": [
+    1728,
+    643,
+    1743,
+    672
+   ],
+   "hints": [
+    {
+     "tid": 1029,
+     "team": "home",
+     "number": "37"
+    }
+   ],
+   "label": "37",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T15:54:46"
+   }
+  },
+  {
+   "id": "n185",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2905,
+   "held_out": false,
+   "xyxy": [
+    523,
+    612,
+    540,
+    638
+   ],
+   "hints": [
+    {
+     "tid": 1025,
+     "team": "away",
+     "number": "0"
+    }
+   ],
+   "label": "0",
+   "note": ""
+  },
+  {
+   "id": "n186",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2905,
+   "held_out": false,
+   "xyxy": [
+    619,
+    624,
+    652,
+    653
+   ],
+   "hints": [
+    {
+     "tid": 1030,
+     "team": "home",
+     "number": "33"
+    }
+   ],
+   "label": "33",
+   "note": ""
+  },
+  {
+   "id": "n187",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2905,
+   "held_out": false,
+   "xyxy": [
+    680,
+    453,
+    699,
+    476
+   ],
+   "hints": [
+    {
+     "tid": 1024,
+     "team": "away",
+     "number": "16"
+    },
+    {
+     "tid": 1032,
+     "team": "home",
+     "number": "0"
+    }
+   ],
+   "label": "16",
+   "note": ""
+  },
+  {
+   "id": "n188",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2905,
+   "held_out": false,
+   "xyxy": [
+    1104,
+    570,
+    1132,
+    595
+   ],
+   "hints": [
+    {
+     "tid": 1022,
+     "team": "away",
+     "number": "25"
+    }
+   ],
+   "label": "25",
+   "note": ""
+  },
+  {
+   "id": "n189",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2905,
+   "held_out": false,
+   "xyxy": [
+    1109,
+    784,
+    1144,
+    815
+   ],
+   "hints": [
+    {
+     "tid": 1035,
+     "team": "home",
+     "number": "13"
+    }
+   ],
+   "label": "13",
+   "note": ""
+  },
+  {
+   "id": "n190",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2905,
+   "held_out": false,
+   "xyxy": [
+    1123,
+    746,
+    1141,
+    768
+   ],
+   "hints": [
+    {
+     "tid": 1035,
+     "team": "home",
+     "number": "13"
+    }
+   ],
+   "label": "not_number",
+   "note": "back sponsor patch above the name"
+  },
+  {
+   "id": "n191",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2970,
+   "held_out": false,
+   "xyxy": [
+    681,
+    490.5,
+    692,
+    502.5
+   ],
+   "hints": [
+    {
+     "tid": 1024,
+     "team": "away",
+     "number": "16"
+    },
+    {
+     "tid": 1025,
+     "team": "away",
+     "number": "0"
+    }
+   ],
+   "label": "16",
+   "note": ""
+  },
+  {
+   "id": "n192",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2970,
+   "held_out": false,
+   "xyxy": [
+    743,
+    548,
+    757,
+    571
+   ],
+   "hints": [
+    {
+     "tid": 1025,
+     "team": "away",
+     "number": "0"
+    }
+   ],
+   "label": "0",
+   "note": ""
+  },
+  {
+   "id": "n193",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2970,
+   "held_out": false,
+   "xyxy": [
+    1093,
+    769,
+    1131,
+    803
+   ],
+   "hints": [
+    {
+     "tid": 1035,
+     "team": "home",
+     "number": "13"
+    }
+   ],
+   "label": "13",
+   "note": ""
+  },
+  {
+   "id": "n194",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6200,
+   "held_out": false,
+   "xyxy": [
+    511,
+    852,
+    533,
+    882
+   ],
+   "hints": [
+    {
+     "tid": 1044,
+     "team": "away",
+     "number": "0"
+    }
+   ],
+   "label": "0",
+   "note": ""
+  },
+  {
+   "id": "n195",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6200,
+   "held_out": false,
+   "xyxy": [
+    1237,
+    577,
+    1259,
+    600
+   ],
+   "hints": [
+    {
+     "tid": 1045,
+     "team": "away",
+     "number": "16"
+    }
+   ],
+   "label": "16",
+   "note": ""
+  },
+  {
+   "id": "n196",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6260,
+   "held_out": false,
+   "xyxy": [
+    477,
+    798,
+    493,
+    823
+   ],
+   "hints": [
+    {
+     "tid": 1044,
+     "team": "away",
+     "number": "0"
+    }
+   ],
+   "label": "0",
+   "note": ""
+  },
+  {
+   "id": "n197",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6260,
+   "held_out": false,
+   "xyxy": [
+    960,
+    433,
+    976,
+    452
+   ],
+   "hints": [
+    {
+     "tid": 1043,
+     "team": "home",
+     "number": "11"
+    }
+   ],
+   "label": "11",
+   "note": ""
+  },
+  {
+   "id": "n198",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6260,
+   "held_out": false,
+   "xyxy": [
+    1168,
+    451,
+    1180,
+    469
+   ],
+   "hints": [
+    {
+     "tid": 1048,
+     "team": "home",
+     "number": null
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:10:30",
+    "label": "0"
+   }
+  },
+  {
+   "id": "n199",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6260,
+   "held_out": false,
+   "xyxy": [
+    1277,
+    630,
+    1307,
+    658
+   ],
+   "hints": [
+    {
+     "tid": 1040,
+     "team": "away",
+     "number": "45"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:18:14",
+    "label": "45"
+   }
+  },
+  {
+   "id": "n200",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6260,
+   "held_out": false,
+   "xyxy": [
+    1389,
+    642,
+    1411,
+    668
+   ],
+   "hints": [
+    {
+     "tid": 1045,
+     "team": "away",
+     "number": "16"
+    }
+   ],
+   "label": "16",
+   "note": ""
+  },
+  {
+   "id": "n201",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6325,
+   "held_out": false,
+   "xyxy": [
+    429,
+    720,
+    445,
+    749
+   ],
+   "hints": [
+    {
+     "tid": 1044,
+     "team": "away",
+     "number": "0"
+    }
+   ],
+   "label": "0",
+   "note": ""
+  },
+  {
+   "id": "n202",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6325,
+   "held_out": false,
+   "xyxy": [
+    978,
+    507,
+    1004,
+    529
+   ],
+   "hints": [
+    {
+     "tid": 1040,
+     "team": "away",
+     "number": "45"
+    },
+    {
+     "tid": 1049,
+     "team": "home",
+     "number": "21"
+    }
+   ],
+   "label": "45",
+   "note": ""
+  },
+  {
+   "id": "n203",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6325,
+   "held_out": false,
+   "xyxy": [
+    1080,
+    382,
+    1094,
+    396
+   ],
+   "hints": [
+    {
+     "tid": 1043,
+     "team": "home",
+     "number": "11"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:18:17",
+    "label": "11"
+   }
+  },
+  {
+   "id": "n204",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6325,
+   "held_out": false,
+   "xyxy": [
+    1590,
+    645,
+    1611,
+    669
+   ],
+   "hints": [
+    {
+     "tid": 1045,
+     "team": "away",
+     "number": "16"
+    }
+   ],
+   "label": "16",
+   "note": ""
+  },
+  {
+   "id": "n205",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6385,
+   "held_out": false,
+   "xyxy": [
+    541.5,
+    741,
+    556.5,
+    766.5
+   ],
+   "hints": [
+    {
+     "tid": 1044,
+     "team": "away",
+     "number": "0"
+    }
+   ],
+   "label": "0",
+   "note": ""
+  },
+  {
+   "id": "n206",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6385,
+   "held_out": false,
+   "xyxy": [
+    913,
+    429,
+    929,
+    451
+   ],
+   "hints": [
+    {
+     "tid": 1049,
+     "team": "home",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n207",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6385,
+   "held_out": false,
+   "xyxy": [
+    1293,
+    442,
+    1308,
+    458
+   ],
+   "hints": [
+    {
+     "tid": 1048,
+     "team": "home",
+     "number": null
+    }
+   ],
+   "label": "0",
+   "note": ""
+  },
+  {
+   "id": "n208",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6385,
+   "held_out": false,
+   "xyxy": [
+    1569,
+    722,
+    1595,
+    751
+   ],
+   "hints": [
+    {
+     "tid": 1045,
+     "team": "away",
+     "number": "16"
+    }
+   ],
+   "label": "16",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T15:54:51"
+   }
+  },
+  {
+   "id": "n209",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6445,
+   "held_out": false,
+   "xyxy": [
+    550,
+    762,
+    571,
+    791
+   ],
+   "hints": [
+    {
+     "tid": 1044,
+     "team": "away",
+     "number": "0"
+    }
+   ],
+   "label": "0",
+   "note": ""
+  },
+  {
+   "id": "n210",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6510,
+   "held_out": false,
+   "xyxy": [
+    573,
+    768,
+    590,
+    797
+   ],
+   "hints": [
+    {
+     "tid": 1044,
+     "team": "away",
+     "number": "0"
+    }
+   ],
+   "label": "0",
+   "note": ""
+  },
+  {
+   "id": "n211",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6510,
+   "held_out": false,
+   "xyxy": [
+    670,
+    467,
+    694,
+    488
+   ],
+   "hints": [
+    {
+     "tid": 1043,
+     "team": "home",
+     "number": "11"
+    }
+   ],
+   "label": "11",
+   "note": ""
+  },
+  {
+   "id": "n212",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6510,
+   "held_out": false,
+   "xyxy": [
+    752,
+    504,
+    778,
+    525
+   ],
+   "hints": [
+    {
+     "tid": 1039,
+     "team": "home",
+     "number": "13"
+    }
+   ],
+   "label": "13",
+   "note": ""
+  },
+  {
+   "id": "n213",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6510,
+   "held_out": false,
+   "xyxy": [
+    980,
+    662,
+    1009,
+    695
+   ],
+   "hints": [
+    {
+     "tid": 1054,
+     "team": "home",
+     "number": "2"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:18"
+   }
+  },
+  {
+   "id": "n214",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6510,
+   "held_out": false,
+   "xyxy": [
+    990,
+    737,
+    1018,
+    766
+   ],
+   "hints": [
+    {
+     "tid": 1054,
+     "team": "home",
+     "number": "2"
+    },
+    {
+     "tid": 1045,
+     "team": "away",
+     "number": "16"
+    }
+   ],
+   "label": "16",
+   "note": ""
+  },
+  {
+   "id": "n215",
+   "source": "box_gold_v1",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6570,
+   "held_out": false,
+   "xyxy": [
+    658,
+    446,
+    681,
+    466
+   ],
+   "hints": [
+    {
+     "tid": 1039,
+     "team": "home",
+     "number": "13"
+    }
+   ],
+   "label": "13",
+   "note": ""
+  },
+  {
+   "id": "n216",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 435,
+   "held_out": true,
+   "xyxy": [
+    724,
+    709,
+    768,
+    737
+   ],
+   "hints": [
+    {
+     "tid": 1002,
+     "team": "away",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T15:54:52"
+   }
+  },
+  {
+   "id": "n217",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 435,
+   "held_out": true,
+   "xyxy": [
+    1006,
+    583,
+    1033,
+    615
+   ],
+   "hints": [
+    {
+     "tid": 1006,
+     "team": "away",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n218",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 435,
+   "held_out": true,
+   "xyxy": [
+    1133,
+    568,
+    1158,
+    590
+   ],
+   "hints": [
+    {
+     "tid": 1009,
+     "team": "home",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n219",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 495,
+   "held_out": true,
+   "xyxy": [
+    1018,
+    711,
+    1038,
+    738
+   ],
+   "hints": [
+    {
+     "tid": 1009,
+     "team": "home",
+     "number": "21"
+    },
+    {
+     "tid": 1001,
+     "team": "away",
+     "number": "9"
+    }
+   ],
+   "label": "9",
+   "note": ""
+  },
+  {
+   "id": "n220",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 495,
+   "held_out": true,
+   "xyxy": [
+    1317,
+    549,
+    1327,
+    565
+   ],
+   "hints": [
+    {
+     "tid": 1012,
+     "team": "home",
+     "number": null
+    }
+   ],
+   "label": "illegible",
+   "note": "read 0; no 0 on the Dziki 2026/27 roster, likely a blurred 8",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:18:23",
+    "label": "not_number"
+   }
+  },
+  {
+   "id": "n221",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 555,
+   "held_out": true,
+   "xyxy": [
+    127,
+    717,
+    141,
+    747
+   ],
+   "hints": [
+    {
+     "tid": 1002,
+     "team": "away",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n222",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 555,
+   "held_out": true,
+   "xyxy": [
+    472,
+    694,
+    488,
+    720
+   ],
+   "hints": [
+    {
+     "tid": 1005,
+     "team": "home",
+     "number": "2"
+    }
+   ],
+   "label": "2",
+   "note": ""
+  },
+  {
+   "id": "n223",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 555,
+   "held_out": true,
+   "xyxy": [
+    1002,
+    705,
+    1025,
+    735
+   ],
+   "hints": [
+    {
+     "tid": 1001,
+     "team": "away",
+     "number": "9"
+    }
+   ],
+   "label": "9",
+   "note": ""
+  },
+  {
+   "id": "n224",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 555,
+   "held_out": true,
+   "xyxy": [
+    1299.5,
+    566,
+    1313,
+    584.5
+   ],
+   "hints": [
+    {
+     "tid": 1012,
+     "team": "home",
+     "number": null
+    }
+   ],
+   "label": "illegible",
+   "note": "read 4; same track reads 0 twice",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:18:24",
+    "label": "not_number"
+   }
+  },
+  {
+   "id": "n225",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 615,
+   "held_out": true,
+   "xyxy": [
+    1030,
+    607,
+    1048,
+    634
+   ],
+   "hints": [
+    {
+     "tid": 1009,
+     "team": "home",
+     "number": "21"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:26"
+   }
+  },
+  {
+   "id": "n226",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 615,
+   "held_out": true,
+   "xyxy": [
+    1237,
+    666,
+    1262,
+    700
+   ],
+   "hints": [
+    {
+     "tid": 1001,
+     "team": "away",
+     "number": "9"
+    }
+   ],
+   "label": "9",
+   "note": ""
+  },
+  {
+   "id": "n227",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 670,
+   "held_out": true,
+   "xyxy": [
+    195,
+    787,
+    214,
+    818
+   ],
+   "hints": [
+    {
+     "tid": 1002,
+     "team": "away",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n228",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 670,
+   "held_out": true,
+   "xyxy": [
+    575,
+    609,
+    592,
+    636
+   ],
+   "hints": [
+    {
+     "tid": 1005,
+     "team": "home",
+     "number": "2"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:29"
+   }
+  },
+  {
+   "id": "n229",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 670,
+   "held_out": true,
+   "xyxy": [
+    893,
+    527,
+    915,
+    553
+   ],
+   "hints": [
+    {
+     "tid": 1004,
+     "team": "home",
+     "number": "45"
+    }
+   ],
+   "label": "45",
+   "note": ""
+  },
+  {
+   "id": "n230",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 670,
+   "held_out": true,
+   "xyxy": [
+    1076,
+    597,
+    1102,
+    625
+   ],
+   "hints": [
+    {
+     "tid": 1009,
+     "team": "home",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n231",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 670,
+   "held_out": true,
+   "xyxy": [
+    1172,
+    548,
+    1201,
+    583
+   ],
+   "hints": [
+    {
+     "tid": 1006,
+     "team": "away",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n232",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 670,
+   "held_out": true,
+   "xyxy": [
+    1285,
+    751,
+    1310,
+    796
+   ],
+   "hints": [
+    {
+     "tid": 1001,
+     "team": "away",
+     "number": "9"
+    }
+   ],
+   "label": "9",
+   "note": ""
+  },
+  {
+   "id": "n233",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 730,
+   "held_out": true,
+   "xyxy": [
+    299,
+    832,
+    320,
+    873
+   ],
+   "hints": [
+    {
+     "tid": 1002,
+     "team": "away",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n234",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 730,
+   "held_out": true,
+   "xyxy": [
+    613,
+    589,
+    631,
+    615
+   ],
+   "hints": [
+    {
+     "tid": 1005,
+     "team": "home",
+     "number": "2"
+    }
+   ],
+   "label": "2",
+   "note": ""
+  },
+  {
+   "id": "n235",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 730,
+   "held_out": true,
+   "xyxy": [
+    1455,
+    816,
+    1486,
+    856
+   ],
+   "hints": [
+    {
+     "tid": 1001,
+     "team": "away",
+     "number": "9"
+    }
+   ],
+   "label": "9",
+   "note": ""
+  },
+  {
+   "id": "n236",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 790,
+   "held_out": true,
+   "xyxy": [
+    530,
+    506,
+    541,
+    522
+   ],
+   "hints": [
+    {
+     "tid": 1012,
+     "team": "home",
+     "number": null
+    }
+   ],
+   "label": "illegible",
+   "note": "read 0; as n220",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:18:30",
+    "label": "not_number"
+   }
+  },
+  {
+   "id": "n237",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s2",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 2,
+   "frame": 790,
+   "held_out": true,
+   "xyxy": [
+    703,
+    496,
+    730,
+    525
+   ],
+   "hints": [
+    {
+     "tid": 1004,
+     "team": "home",
+     "number": "45"
+    }
+   ],
+   "label": "45",
+   "note": ""
+  },
+  {
+   "id": "n238",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 3860,
+   "held_out": true,
+   "xyxy": [
+    1021,
+    562,
+    1043,
+    588
+   ],
+   "hints": [
+    {
+     "tid": 1019,
+     "team": "home",
+     "number": "13"
+    },
+    {
+     "tid": 1020,
+     "team": "away",
+     "number": "7"
+    },
+    {
+     "tid": 1017,
+     "team": "home",
+     "number": "23"
+    }
+   ],
+   "label": "23",
+   "note": ""
+  },
+  {
+   "id": "n239",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 3860,
+   "held_out": true,
+   "xyxy": [
+    1594,
+    644,
+    1610,
+    668
+   ],
+   "hints": [
+    {
+     "tid": 1201,
+     "team": "away",
+     "number": "8"
+    }
+   ],
+   "label": "8",
+   "note": ""
+  },
+  {
+   "id": "n240",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 3920,
+   "held_out": true,
+   "xyxy": [
+    393,
+    742,
+    417,
+    776
+   ],
+   "hints": [
+    {
+     "tid": 1018,
+     "team": "away",
+     "number": "0"
+    }
+   ],
+   "label": "0",
+   "note": ""
+  },
+  {
+   "id": "n241",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 3920,
+   "held_out": true,
+   "xyxy": [
+    1248,
+    567,
+    1279,
+    596
+   ],
+   "hints": [
+    {
+     "tid": 1017,
+     "team": "home",
+     "number": "23"
+    }
+   ],
+   "label": "23",
+   "note": ""
+  },
+  {
+   "id": "n242",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 3980,
+   "held_out": true,
+   "xyxy": [
+    244,
+    704,
+    263,
+    737
+   ],
+   "hints": [
+    {
+     "tid": 1018,
+     "team": "away",
+     "number": "0"
+    }
+   ],
+   "label": "0",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T15:54:53"
+   }
+  },
+  {
+   "id": "n243",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 3980,
+   "held_out": true,
+   "xyxy": [
+    1002,
+    514.5,
+    1022,
+    543.5
+   ],
+   "hints": [
+    {
+     "tid": 1029,
+     "team": "away",
+     "number": null
+    },
+    {
+     "tid": 1019,
+     "team": "home",
+     "number": "13"
+    }
+   ],
+   "label": "13",
+   "note": ""
+  },
+  {
+   "id": "n244",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 3980,
+   "held_out": true,
+   "xyxy": [
+    1081,
+    453,
+    1104,
+    481
+   ],
+   "hints": [
+    {
+     "tid": 1023,
+     "team": "home",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n245",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 3980,
+   "held_out": true,
+   "xyxy": [
+    1111,
+    538.5,
+    1124.5,
+    571
+   ],
+   "hints": [
+    {
+     "tid": 1023,
+     "team": "home",
+     "number": "21"
+    },
+    {
+     "tid": 1020,
+     "team": "away",
+     "number": "7"
+    }
+   ],
+   "label": "7",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T15:54:54"
+   }
+  },
+  {
+   "id": "n246",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 3980,
+   "held_out": true,
+   "xyxy": [
+    1174,
+    570,
+    1204,
+    598
+   ],
+   "hints": [
+    {
+     "tid": 1017,
+     "team": "home",
+     "number": "23"
+    }
+   ],
+   "label": "23",
+   "note": ""
+  },
+  {
+   "id": "n247",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 3980,
+   "held_out": true,
+   "xyxy": [
+    1423,
+    650,
+    1456,
+    677
+   ],
+   "hints": [
+    {
+     "tid": 1024,
+     "team": "away",
+     "number": "25"
+    }
+   ],
+   "label": "25",
+   "note": ""
+  },
+  {
+   "id": "n248",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 4035,
+   "held_out": true,
+   "xyxy": [
+    806,
+    521.5,
+    822.5,
+    540
+   ],
+   "hints": [
+    {
+     "tid": 1023,
+     "team": "home",
+     "number": "21"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:32"
+   }
+  },
+  {
+   "id": "n249",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 4035,
+   "held_out": true,
+   "xyxy": [
+    1153,
+    660,
+    1187,
+    690
+   ],
+   "hints": [
+    {
+     "tid": 1024,
+     "team": "away",
+     "number": "25"
+    }
+   ],
+   "label": "25",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T15:54:55"
+   }
+  },
+  {
+   "id": "n250",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 4035,
+   "held_out": true,
+   "xyxy": [
+    1276.5,
+    379,
+    1287,
+    392.5
+   ],
+   "hints": [
+    {
+     "tid": 1016,
+     "team": "home",
+     "number": "8"
+    }
+   ],
+   "label": "illegible",
+   "note": "read 1, track",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:18:35",
+    "label": "1"
+   }
+  },
+  {
+   "id": "n251",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 4035,
+   "held_out": true,
+   "xyxy": [
+    1295,
+    679,
+    1323,
+    716
+   ],
+   "hints": [
+    {
+     "tid": 1028,
+     "team": "home",
+     "number": "11"
+    }
+   ],
+   "label": "11",
+   "note": ""
+  },
+  {
+   "id": "n252",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 4095,
+   "held_out": true,
+   "xyxy": [
+    770,
+    527,
+    791,
+    560
+   ],
+   "hints": [
+    {
+     "tid": 1023,
+     "team": "home",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n253",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 4095,
+   "held_out": true,
+   "xyxy": [
+    1136,
+    605,
+    1165,
+    635
+   ],
+   "hints": [
+    {
+     "tid": 1024,
+     "team": "away",
+     "number": "25"
+    }
+   ],
+   "label": "25",
+   "note": ""
+  },
+  {
+   "id": "n254",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 4095,
+   "held_out": true,
+   "xyxy": [
+    1259,
+    634,
+    1282,
+    664
+   ],
+   "hints": [
+    {
+     "tid": 1028,
+     "team": "home",
+     "number": "11"
+    }
+   ],
+   "label": "11",
+   "note": ""
+  },
+  {
+   "id": "n255",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 4150,
+   "held_out": true,
+   "xyxy": [
+    1307,
+    714,
+    1331,
+    746
+   ],
+   "hints": [
+    {
+     "tid": 1028,
+     "team": "home",
+     "number": "11"
+    }
+   ],
+   "label": "11",
+   "note": ""
+  },
+  {
+   "id": "n256",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 4210,
+   "held_out": true,
+   "xyxy": [
+    1133,
+    410,
+    1145,
+    426
+   ],
+   "hints": [
+    {
+     "tid": 1016,
+     "team": "home",
+     "number": "8"
+    }
+   ],
+   "label": "illegible",
+   "note": "read 0, track",
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:18:38",
+    "label": "not_number"
+   }
+  },
+  {
+   "id": "n257",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 4210,
+   "held_out": true,
+   "xyxy": [
+    1334,
+    706,
+    1374,
+    737
+   ],
+   "hints": [
+    {
+     "tid": 1028,
+     "team": "home",
+     "number": "11"
+    }
+   ],
+   "label": "11",
+   "note": ""
+  },
+  {
+   "id": "n258",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 4210,
+   "held_out": true,
+   "xyxy": [
+    1352.5,
+    486.5,
+    1363.5,
+    507
+   ],
+   "hints": [
+    {
+     "tid": 1020,
+     "team": "away",
+     "number": "7"
+    },
+    {
+     "tid": 1024,
+     "team": "away",
+     "number": "25"
+    }
+   ],
+   "label": "7",
+   "note": ""
+  },
+  {
+   "id": "n259",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 4270,
+   "held_out": true,
+   "xyxy": [
+    1322,
+    709,
+    1350,
+    742
+   ],
+   "hints": [
+    {
+     "tid": 1020,
+     "team": "away",
+     "number": "7"
+    },
+    {
+     "tid": 1028,
+     "team": "home",
+     "number": "11"
+    }
+   ],
+   "label": "11",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T15:54:56"
+   }
+  },
+  {
+   "id": "n260",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 4270,
+   "held_out": true,
+   "xyxy": [
+    1347,
+    490,
+    1363,
+    506
+   ],
+   "hints": [
+    {
+     "tid": 1017,
+     "team": "home",
+     "number": "23"
+    }
+   ],
+   "label": "23",
+   "note": ""
+  },
+  {
+   "id": "n261",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 4270,
+   "held_out": true,
+   "xyxy": [
+    1584,
+    469,
+    1614,
+    504
+   ],
+   "hints": [
+    {
+     "tid": 1024,
+     "team": "away",
+     "number": "25"
+    }
+   ],
+   "label": "25",
+   "note": ""
+  },
+  {
+   "id": "n262",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 4270,
+   "held_out": true,
+   "xyxy": [
+    1733,
+    582,
+    1756,
+    611
+   ],
+   "hints": [
+    {
+     "tid": 1023,
+     "team": "home",
+     "number": "21"
+    }
+   ],
+   "label": "illegible",
+   "note": "read 2, track",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T15:55:14"
+   }
+  },
+  {
+   "id": "n263",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 6910,
+   "held_out": true,
+   "xyxy": [
+    178,
+    732,
+    202,
+    762
+   ],
+   "hints": [
+    {
+     "tid": 1031,
+     "team": "home",
+     "number": "11"
+    }
+   ],
+   "label": "11",
+   "note": ""
+  },
+  {
+   "id": "n264",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 6910,
+   "held_out": true,
+   "xyxy": [
+    1560,
+    648,
+    1577,
+    672
+   ],
+   "hints": [
+    {
+     "tid": 1033,
+     "team": "home",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n265",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 6970,
+   "held_out": true,
+   "xyxy": [
+    363,
+    758,
+    388,
+    790
+   ],
+   "hints": [
+    {
+     "tid": 1031,
+     "team": "home",
+     "number": "11"
+    }
+   ],
+   "label": "11",
+   "note": ""
+  },
+  {
+   "id": "n266",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7035,
+   "held_out": true,
+   "xyxy": [
+    184,
+    765,
+    211,
+    796
+   ],
+   "hints": [
+    {
+     "tid": 1031,
+     "team": "home",
+     "number": "11"
+    }
+   ],
+   "label": "11",
+   "note": ""
+  },
+  {
+   "id": "n267",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7095,
+   "held_out": true,
+   "xyxy": [
+    239,
+    797,
+    265,
+    829
+   ],
+   "hints": [
+    {
+     "tid": 1031,
+     "team": "home",
+     "number": "11"
+    }
+   ],
+   "label": "11",
+   "note": ""
+  },
+  {
+   "id": "n268",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7160,
+   "held_out": true,
+   "xyxy": [
+    467,
+    649,
+    485,
+    680
+   ],
+   "hints": [
+    {
+     "tid": 1039,
+     "team": "away",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n269",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7160,
+   "held_out": true,
+   "xyxy": [
+    680,
+    541,
+    721,
+    594
+   ],
+   "hints": [
+    {
+     "tid": 1038,
+     "team": "away",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n270",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7160,
+   "held_out": true,
+   "xyxy": [
+    929,
+    507,
+    958,
+    536
+   ],
+   "hints": [
+    {
+     "tid": 1032,
+     "team": "home",
+     "number": "23"
+    }
+   ],
+   "label": "23",
+   "note": ""
+  },
+  {
+   "id": "n271",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7160,
+   "held_out": true,
+   "xyxy": [
+    1089,
+    522,
+    1119,
+    557
+   ],
+   "hints": [
+    {
+     "tid": 1030,
+     "team": "away",
+     "number": "13"
+    }
+   ],
+   "label": "13",
+   "note": ""
+  },
+  {
+   "id": "n272",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7160,
+   "held_out": true,
+   "xyxy": [
+    1413,
+    595,
+    1435,
+    632
+   ],
+   "hints": [
+    {
+     "tid": 1033,
+     "team": "home",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n273",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7220,
+   "held_out": true,
+   "xyxy": [
+    702,
+    403,
+    724,
+    423
+   ],
+   "hints": [
+    {
+     "tid": 1036,
+     "team": "home",
+     "number": "13"
+    }
+   ],
+   "label": "13",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T15:55:15"
+   }
+  },
+  {
+   "id": "n274",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7220,
+   "held_out": true,
+   "xyxy": [
+    769,
+    514,
+    807,
+    544
+   ],
+   "hints": [
+    {
+     "tid": 1032,
+     "team": "home",
+     "number": "23"
+    }
+   ],
+   "label": "illegible",
+   "note": "a blurred framed patch or number, cannot tell",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:40"
+   }
+  },
+  {
+   "id": "n275",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7220,
+   "held_out": true,
+   "xyxy": [
+    1210,
+    654,
+    1230,
+    686
+   ],
+   "hints": [
+    {
+     "tid": 1033,
+     "team": "home",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n276",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7280,
+   "held_out": true,
+   "xyxy": [
+    140,
+    650,
+    162,
+    680
+   ],
+   "hints": [
+    {
+     "tid": 1039,
+     "team": "away",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n277",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7280,
+   "held_out": true,
+   "xyxy": [
+    404,
+    512,
+    435,
+    539
+   ],
+   "hints": [
+    {
+     "tid": 1032,
+     "team": "home",
+     "number": "23"
+    }
+   ],
+   "label": "23",
+   "note": ""
+  },
+  {
+   "id": "n278",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7280,
+   "held_out": true,
+   "xyxy": [
+    517,
+    600,
+    552,
+    640
+   ],
+   "hints": [
+    {
+     "tid": 1038,
+     "team": "away",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n279",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7280,
+   "held_out": true,
+   "xyxy": [
+    1182,
+    670,
+    1203,
+    700
+   ],
+   "hints": [
+    {
+     "tid": 1033,
+     "team": "home",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n280",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7280,
+   "held_out": true,
+   "xyxy": [
+    1515,
+    659,
+    1538,
+    691
+   ],
+   "hints": [
+    {
+     "tid": 1031,
+     "team": "home",
+     "number": "11"
+    }
+   ],
+   "label": "11",
+   "note": ""
+  },
+  {
+   "id": "n281",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7345,
+   "held_out": true,
+   "xyxy": [
+    211.5,
+    606.5,
+    233,
+    633
+   ],
+   "hints": [
+    {
+     "tid": 1039,
+     "team": "away",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n282",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7345,
+   "held_out": true,
+   "xyxy": [
+    257.5,
+    540.5,
+    274,
+    568.5
+   ],
+   "hints": [
+    {
+     "tid": 1039,
+     "team": "away",
+     "number": "3"
+    }
+   ],
+   "label": "9",
+   "note": ""
+  },
+  {
+   "id": "n283",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7345,
+   "held_out": true,
+   "xyxy": [
+    410,
+    529,
+    436,
+    567
+   ],
+   "hints": [
+    {
+     "tid": 1038,
+     "team": "away",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": ""
+  },
+  {
+   "id": "n284",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7345,
+   "held_out": true,
+   "xyxy": [
+    1212,
+    687,
+    1228,
+    715
+   ],
+   "hints": [
+    {
+     "tid": 1033,
+     "team": "home",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n285",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7405,
+   "held_out": true,
+   "xyxy": [
+    148,
+    633,
+    166,
+    658
+   ],
+   "hints": [
+    {
+     "tid": 1039,
+     "team": "away",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": ""
+  },
+  {
+   "id": "n286",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7405,
+   "held_out": true,
+   "xyxy": [
+    380,
+    499,
+    408,
+    525
+   ],
+   "hints": [
+    {
+     "tid": 1032,
+     "team": "home",
+     "number": "23"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:44"
+   }
+  },
+  {
+   "id": "n287",
+   "source": "box_gold_v1",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7405,
+   "held_out": true,
+   "xyxy": [
+    1104,
+    627,
+    1122,
+    656
+   ],
+   "hints": [
+    {
+     "tid": 1033,
+     "team": "home",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": "",
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T15:55:16"
+   }
+  },
+  {
+   "id": "d001",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2190,
+   "held_out": false,
+   "xyxy": [
+    298.4,
+    616.6,
+    314.0,
+    643.2
+   ],
+   "hints": [
+    {
+     "tid": 1002,
+     "team": "home",
+     "number": "20"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.374,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:48"
+   }
+  },
+  {
+   "id": "d002",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s4",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 4,
+   "frame": 2255,
+   "held_out": false,
+   "xyxy": [
+    1137.6,
+    464.7,
+    1148.8,
+    481.1
+   ],
+   "hints": [
+    {
+     "tid": 1006,
+     "team": "home",
+     "number": "19"
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.506
+  },
+  {
+   "id": "d003",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14465,
+   "held_out": false,
+   "xyxy": [
+    1290.0,
+    457.3,
+    1304.0,
+    477.3
+   ],
+   "hints": [
+    {
+     "tid": 1023,
+     "team": "home",
+     "number": "21"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.364,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:51"
+   }
+  },
+  {
+   "id": "d004",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14585,
+   "held_out": false,
+   "xyxy": [
+    833.9,
+    472.0,
+    846.4,
+    493.8
+   ],
+   "hints": [
+    {
+     "tid": 1021,
+     "team": "away",
+     "number": "4"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.655,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:55"
+   }
+  },
+  {
+   "id": "d005",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14645,
+   "held_out": false,
+   "xyxy": [
+    1363.1,
+    423.2,
+    1374.5,
+    436.6
+   ],
+   "hints": [
+    {
+     "tid": 1020,
+     "team": "home",
+     "number": "20"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.513,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:56"
+   }
+  },
+  {
+   "id": "d006",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14705,
+   "held_out": false,
+   "xyxy": [
+    402.0,
+    565.2,
+    417.0,
+    594.7
+   ],
+   "hints": [
+    {
+     "tid": 1016,
+     "team": "home",
+     "number": "6"
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.469
+  },
+  {
+   "id": "d007",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14705,
+   "held_out": false,
+   "xyxy": [
+    1438.3,
+    494.5,
+    1458.5,
+    525.5
+   ],
+   "hints": [
+    {
+     "tid": 1020,
+     "team": "home",
+     "number": "20"
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.332
+  },
+  {
+   "id": "d008",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14705,
+   "held_out": false,
+   "xyxy": [
+    846.3,
+    524.3,
+    862.0,
+    547.1
+   ],
+   "hints": [
+    {
+     "tid": 1023,
+     "team": "home",
+     "number": "21"
+    }
+   ],
+   "label": "illegible",
+   "note": "a 2, no 2 on the Start 2024/25 roster, part of a number",
+   "score": 0.319,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:57"
+   }
+  },
+  {
+   "id": "d009",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14765,
+   "held_out": false,
+   "xyxy": [
+    448.5,
+    600.3,
+    470.6,
+    629.5
+   ],
+   "hints": [
+    {
+     "tid": 1021,
+     "team": "away",
+     "number": "4"
+    }
+   ],
+   "label": "4",
+   "note": "",
+   "score": 0.848
+  },
+  {
+   "id": "d010",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14825,
+   "held_out": false,
+   "xyxy": [
+    930.8,
+    859.6,
+    962.4,
+    898.9
+   ],
+   "hints": [
+    {
+     "tid": 1018,
+     "team": "away",
+     "number": "1"
+    }
+   ],
+   "label": "1",
+   "note": "",
+   "score": 0.652
+  },
+  {
+   "id": "d011",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14825,
+   "held_out": false,
+   "xyxy": [
+    1910.2,
+    807.7,
+    1919.9,
+    842.5
+   ],
+   "hints": [
+    {
+     "tid": 1017,
+     "team": "home",
+     "number": "3"
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.605
+  },
+  {
+   "id": "d012",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14825,
+   "held_out": false,
+   "xyxy": [
+    508.9,
+    659.7,
+    526.8,
+    695.1
+   ],
+   "hints": [
+    {
+     "tid": 1024,
+     "team": "away",
+     "number": "31"
+    },
+    {
+     "tid": 1021,
+     "team": "away",
+     "number": "4"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.403,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:11:00",
+    "label": "4"
+   }
+  },
+  {
+   "id": "d013",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s42",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 42,
+   "frame": 14825,
+   "held_out": false,
+   "xyxy": [
+    1548.9,
+    655.9,
+    1568.8,
+    677.5
+   ],
+   "hints": [
+    {
+     "tid": 1020,
+     "team": "home",
+     "number": "20"
+    }
+   ],
+   "label": "20",
+   "note": "",
+   "score": 0.315
+  },
+  {
+   "id": "d014",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25515,
+   "held_out": false,
+   "xyxy": [
+    1115.5,
+    611.6,
+    1131.9,
+    642.0
+   ],
+   "hints": [
+    {
+     "tid": 1035,
+     "team": "home",
+     "number": "9"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.37,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:58"
+   }
+  },
+  {
+   "id": "d015",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25630,
+   "held_out": false,
+   "xyxy": [
+    781.8,
+    598.8,
+    802.1,
+    624.8
+   ],
+   "hints": [
+    {
+     "tid": 1030,
+     "team": "away",
+     "number": "4"
+    },
+    {
+     "tid": 1038,
+     "team": "home",
+     "number": "20"
+    }
+   ],
+   "label": "4",
+   "note": "",
+   "score": 0.824
+  },
+  {
+   "id": "d016",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25630,
+   "held_out": false,
+   "xyxy": [
+    736.1,
+    517.7,
+    752.8,
+    537.4
+   ],
+   "hints": [
+    {
+     "tid": 1038,
+     "team": "home",
+     "number": "20"
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.523
+  },
+  {
+   "id": "d017",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25630,
+   "held_out": false,
+   "xyxy": [
+    1051.5,
+    468.9,
+    1063.2,
+    487.4
+   ],
+   "hints": [
+    {
+     "tid": 1037,
+     "team": "home",
+     "number": "6"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.366,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:18:59"
+   }
+  },
+  {
+   "id": "d018",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25630,
+   "held_out": false,
+   "xyxy": [
+    865.1,
+    553.2,
+    882.1,
+    578.1
+   ],
+   "hints": [
+    {
+     "tid": 1031,
+     "team": "home",
+     "number": "10"
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.353
+  },
+  {
+   "id": "d019",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25685,
+   "held_out": false,
+   "xyxy": [
+    404.5,
+    463.4,
+    420.0,
+    487.0
+   ],
+   "hints": [
+    {
+     "tid": 1042,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.399,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:02"
+   }
+  },
+  {
+   "id": "d020",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25685,
+   "held_out": false,
+   "xyxy": [
+    913.7,
+    565.3,
+    930.1,
+    593.7
+   ],
+   "hints": [
+    {
+     "tid": 1031,
+     "team": "home",
+     "number": "10"
+    },
+    {
+     "tid": 1033,
+     "team": "home",
+     "number": "23"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.311,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:07"
+   }
+  },
+  {
+   "id": "d021",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25855,
+   "held_out": false,
+   "xyxy": [
+    645.7,
+    722.6,
+    669.5,
+    750.7
+   ],
+   "hints": [
+    {
+     "tid": 1030,
+     "team": "away",
+     "number": "4"
+    }
+   ],
+   "label": "4",
+   "note": "",
+   "score": 0.863
+  },
+  {
+   "id": "d022",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25855,
+   "held_out": false,
+   "xyxy": [
+    341.2,
+    569.9,
+    359.8,
+    594.5
+   ],
+   "hints": [
+    {
+     "tid": 1038,
+     "team": "home",
+     "number": "20"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.81,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T15:55:21"
+   }
+  },
+  {
+   "id": "d023",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25970,
+   "held_out": false,
+   "xyxy": [
+    785.5,
+    728.4,
+    805.0,
+    750.3
+   ],
+   "hints": [
+    {
+     "tid": 1031,
+     "team": "home",
+     "number": "10"
+    }
+   ],
+   "label": "10",
+   "note": "",
+   "score": 0.448
+  },
+  {
+   "id": "d024",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "4XMD9FWmQws_s78",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 78,
+   "frame": 25970,
+   "held_out": false,
+   "xyxy": [
+    1077.2,
+    544.9,
+    1089.7,
+    565.6
+   ],
+   "hints": [
+    {
+     "tid": 1037,
+     "team": "home",
+     "number": "6"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.409,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:10",
+    "label": "6"
+   }
+  },
+  {
+   "id": "d025",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 580,
+   "held_out": false,
+   "xyxy": [
+    1190.0,
+    419.2,
+    1208.2,
+    437.1
+   ],
+   "hints": [
+    {
+     "tid": 1003,
+     "team": "home",
+     "number": "45"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.749,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:13"
+   }
+  },
+  {
+   "id": "d026",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 580,
+   "held_out": false,
+   "xyxy": [
+    872.4,
+    334.5,
+    886.1,
+    352.0
+   ],
+   "hints": [
+    {
+     "tid": 1010,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.374,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:15",
+    "label": "not_number"
+   }
+  },
+  {
+   "id": "d027",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 640,
+   "held_out": false,
+   "xyxy": [
+    883.9,
+    667.6,
+    913.4,
+    693.2
+   ],
+   "hints": [
+    {
+     "tid": 1002,
+     "team": "away",
+     "number": "32"
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.311
+  },
+  {
+   "id": "d028",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 700,
+   "held_out": false,
+   "xyxy": [
+    839.4,
+    424.5,
+    855.0,
+    443.8
+   ],
+   "hints": [
+    {
+     "tid": 1004,
+     "team": "away",
+     "number": "25"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.484,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:16",
+    "label": "not_number"
+   }
+  },
+  {
+   "id": "d029",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 820,
+   "held_out": false,
+   "xyxy": [
+    1435.2,
+    534.9,
+    1455.0,
+    564.3
+   ],
+   "hints": [
+    {
+     "tid": 1012,
+     "team": "away",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": "",
+   "score": 0.835
+  },
+  {
+   "id": "d030",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 820,
+   "held_out": false,
+   "xyxy": [
+    1464.1,
+    620.0,
+    1488.4,
+    657.5
+   ],
+   "hints": [
+    {
+     "tid": 1012,
+     "team": "away",
+     "number": "3"
+    },
+    {
+     "tid": 1002,
+     "team": "away",
+     "number": "32"
+    },
+    {
+     "tid": 1006,
+     "team": "home",
+     "number": "1"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.775,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:09:40",
+    "label": "32"
+   }
+  },
+  {
+   "id": "d031",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 940,
+   "held_out": false,
+   "xyxy": [
+    1472.6,
+    701.2,
+    1493.2,
+    731.7
+   ],
+   "hints": [
+    {
+     "tid": 1006,
+     "team": "home",
+     "number": "1"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.427,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:18",
+    "label": "1"
+   }
+  },
+  {
+   "id": "d032",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 1000,
+   "held_out": false,
+   "xyxy": [
+    1668.0,
+    692.7,
+    1683.8,
+    721.2
+   ],
+   "hints": [
+    {
+     "tid": 1006,
+     "team": "home",
+     "number": "1"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.43,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:20",
+    "label": "1"
+   }
+  },
+  {
+   "id": "d033",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s2",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 2,
+   "frame": 1120,
+   "held_out": false,
+   "xyxy": [
+    54.6,
+    576.0,
+    72.9,
+    600.6
+   ],
+   "hints": [
+    {
+     "tid": 1012,
+     "team": "away",
+     "number": "3"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.546,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:21",
+    "label": "not_number"
+   }
+  },
+  {
+   "id": "d034",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s10",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 10,
+   "frame": 3380,
+   "held_out": false,
+   "xyxy": [
+    619.3,
+    491.4,
+    629.4,
+    511.7
+   ],
+   "hints": [
+    {
+     "tid": 1026,
+     "team": "away",
+     "number": "25"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.32,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:22"
+   }
+  },
+  {
+   "id": "d035",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s10",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 10,
+   "frame": 3445,
+   "held_out": false,
+   "xyxy": [
+    510.0,
+    500.2,
+    524.4,
+    523.3
+   ],
+   "hints": [
+    {
+     "tid": 1026,
+     "team": "away",
+     "number": "25"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.539,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:28"
+   }
+  },
+  {
+   "id": "d036",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6410,
+   "held_out": false,
+   "xyxy": [
+    728.5,
+    365.5,
+    743.7,
+    381.9
+   ],
+   "hints": [
+    {
+     "tid": 1039,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.49,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:29",
+    "label": "not_number"
+   }
+  },
+  {
+   "id": "d037",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6470,
+   "held_out": false,
+   "xyxy": [
+    265.5,
+    609.7,
+    286.3,
+    636.0
+   ],
+   "hints": [
+    {
+     "tid": 1041,
+     "team": "away",
+     "number": "3"
+    }
+   ],
+   "label": "3",
+   "note": "",
+   "score": 0.815
+  },
+  {
+   "id": "d038",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6470,
+   "held_out": false,
+   "xyxy": [
+    1778.9,
+    641.4,
+    1806.1,
+    667.2
+   ],
+   "hints": [
+    {
+     "tid": 1040,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.637
+  },
+  {
+   "id": "d039",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6470,
+   "held_out": false,
+   "xyxy": [
+    653.3,
+    373.6,
+    665.2,
+    390.7
+   ],
+   "hints": [
+    {
+     "tid": 1039,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.418,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:30",
+    "label": "not_number"
+   }
+  },
+  {
+   "id": "d040",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6525,
+   "held_out": false,
+   "xyxy": [
+    977.4,
+    583.4,
+    992.1,
+    607.0
+   ],
+   "hints": [
+    {
+     "tid": 1033,
+     "team": "home",
+     "number": "4"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.352,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:31",
+    "label": "not_number"
+   }
+  },
+  {
+   "id": "d041",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6525,
+   "held_out": false,
+   "xyxy": [
+    686.1,
+    367.3,
+    696.9,
+    382.4
+   ],
+   "hints": [
+    {
+     "tid": 1039,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.317
+  },
+  {
+   "id": "d042",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6580,
+   "held_out": false,
+   "xyxy": [
+    769.7,
+    360.3,
+    781.4,
+    376.3
+   ],
+   "hints": [
+    {
+     "tid": 1039,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.35
+  },
+  {
+   "id": "d043",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6640,
+   "held_out": false,
+   "xyxy": [
+    1592.6,
+    530.0,
+    1607.9,
+    557.9
+   ],
+   "hints": [
+    {
+     "tid": 1043,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.304,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:32"
+   }
+  },
+  {
+   "id": "d044",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6695,
+   "held_out": false,
+   "xyxy": [
+    1383.8,
+    482.7,
+    1395.2,
+    504.2
+   ],
+   "hints": [
+    {
+     "tid": 1043,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.4,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:34"
+   }
+  },
+  {
+   "id": "d045",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6695,
+   "held_out": false,
+   "xyxy": [
+    1137.6,
+    455.4,
+    1150.6,
+    481.5
+   ],
+   "hints": [
+    {
+     "tid": 1038,
+     "team": "home",
+     "number": "1"
+    },
+    {
+     "tid": 1037,
+     "team": "away",
+     "number": "42"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.398,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:36",
+    "label": "1"
+   }
+  },
+  {
+   "id": "d046",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6750,
+   "held_out": false,
+   "xyxy": [
+    838.1,
+    428.7,
+    852.3,
+    449.0
+   ],
+   "hints": [
+    {
+     "tid": 1039,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.36
+  },
+  {
+   "id": "d047",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6810,
+   "held_out": false,
+   "xyxy": [
+    393.8,
+    509.6,
+    408.4,
+    535.4
+   ],
+   "hints": [
+    {
+     "tid": 1040,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "0",
+   "note": "",
+   "score": 0.719
+  },
+  {
+   "id": "d048",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6810,
+   "held_out": false,
+   "xyxy": [
+    697.2,
+    411.6,
+    706.9,
+    428.8
+   ],
+   "hints": [
+    {
+     "tid": 1033,
+     "team": "home",
+     "number": "4"
+    },
+    {
+     "tid": 1037,
+     "team": "away",
+     "number": "42"
+    }
+   ],
+   "label": "4",
+   "note": "",
+   "score": 0.634
+  },
+  {
+   "id": "d049",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "OSp445e0mXU_s19",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 19,
+   "frame": 6810,
+   "held_out": false,
+   "xyxy": [
+    1297.3,
+    430.4,
+    1307.1,
+    451.2
+   ],
+   "hints": [
+    {
+     "tid": 1038,
+     "team": "home",
+     "number": "1"
+    }
+   ],
+   "label": "1",
+   "note": "",
+   "score": 0.311
+  },
+  {
+   "id": "d050",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 975,
+   "held_out": false,
+   "xyxy": [
+    1397.4,
+    695.2,
+    1416.9,
+    721.5
+   ],
+   "hints": [
+    {
+     "tid": 1002,
+     "team": "away",
+     "number": "16"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.387,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:39"
+   }
+  },
+  {
+   "id": "d051",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1035,
+   "held_out": false,
+   "xyxy": [
+    698.3,
+    406.2,
+    712.7,
+    427.1
+   ],
+   "hints": [
+    {
+     "tid": 1001,
+     "team": "home",
+     "number": "11"
+    },
+    {
+     "tid": 1010,
+     "team": "away",
+     "number": "11"
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.64
+  },
+  {
+   "id": "d052",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1095,
+   "held_out": false,
+   "xyxy": [
+    660.5,
+    436.8,
+    680.6,
+    454.4
+   ],
+   "hints": [
+    {
+     "tid": 1003,
+     "team": "ref",
+     "number": null
+    },
+    {
+     "tid": 1001,
+     "team": "home",
+     "number": "11"
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.574
+  },
+  {
+   "id": "d053",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1220,
+   "held_out": false,
+   "xyxy": [
+    1149.0,
+    533.9,
+    1171.3,
+    556.9
+   ],
+   "hints": [
+    {
+     "tid": 1002,
+     "team": "away",
+     "number": "16"
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.668
+  },
+  {
+   "id": "d054",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1220,
+   "held_out": false,
+   "xyxy": [
+    804.4,
+    478.0,
+    828.7,
+    502.8
+   ],
+   "hints": [
+    {
+     "tid": 1007,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.538
+  },
+  {
+   "id": "d055",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1280,
+   "held_out": false,
+   "xyxy": [
+    833.3,
+    738.5,
+    852.8,
+    763.0
+   ],
+   "hints": [
+    {
+     "tid": 1005,
+     "team": "home",
+     "number": "37"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.411,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:41"
+   }
+  },
+  {
+   "id": "d056",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1405,
+   "held_out": false,
+   "xyxy": [
+    785.5,
+    425.6,
+    797.8,
+    442.9
+   ],
+   "hints": [
+    {
+     "tid": 1001,
+     "team": "home",
+     "number": "11"
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.383
+  },
+  {
+   "id": "d057",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1405,
+   "held_out": false,
+   "xyxy": [
+    1230.9,
+    420.7,
+    1244.2,
+    437.8
+   ],
+   "hints": [],
+   "label": "not_number",
+   "note": "",
+   "score": 0.311
+  },
+  {
+   "id": "d058",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s3",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 3,
+   "frame": 1465,
+   "held_out": false,
+   "xyxy": [
+    1763.2,
+    793.6,
+    1777.9,
+    819.4
+   ],
+   "hints": [],
+   "label": "4",
+   "note": "",
+   "score": 0.703
+  },
+  {
+   "id": "d059",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2520,
+   "held_out": false,
+   "xyxy": [
+    872.1,
+    474.6,
+    892.0,
+    494.0
+   ],
+   "hints": [
+    {
+     "tid": 1030,
+     "team": "home",
+     "number": "33"
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.762
+  },
+  {
+   "id": "d060",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2520,
+   "held_out": false,
+   "xyxy": [
+    1625.3,
+    770.6,
+    1652.9,
+    806.2
+   ],
+   "hints": [
+    {
+     "tid": 1029,
+     "team": "home",
+     "number": "37"
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.43
+  },
+  {
+   "id": "d061",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2585,
+   "held_out": false,
+   "xyxy": [
+    1865.8,
+    763.3,
+    1887.0,
+    794.0
+   ],
+   "hints": [
+    {
+     "tid": 1029,
+     "team": "home",
+     "number": "37"
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.605
+  },
+  {
+   "id": "d062",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2585,
+   "held_out": false,
+   "xyxy": [
+    744.4,
+    738.1,
+    756.4,
+    757.3
+   ],
+   "hints": [
+    {
+     "tid": 1025,
+     "team": "away",
+     "number": "0"
+    }
+   ],
+   "label": "0",
+   "note": "",
+   "score": 0.409
+  },
+  {
+   "id": "d063",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2650,
+   "held_out": false,
+   "xyxy": [
+    1215.0,
+    609.3,
+    1228.4,
+    625.4
+   ],
+   "hints": [
+    {
+     "tid": 1022,
+     "team": "away",
+     "number": "25"
+    }
+   ],
+   "label": "25",
+   "note": "",
+   "score": 0.406
+  },
+  {
+   "id": "d064",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2650,
+   "held_out": false,
+   "xyxy": [
+    268.3,
+    769.6,
+    290.8,
+    789.2
+   ],
+   "hints": [
+    {
+     "tid": 1032,
+     "team": "home",
+     "number": "0"
+    }
+   ],
+   "label": "0",
+   "note": "",
+   "score": 0.381,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T15:55:26"
+   }
+  },
+  {
+   "id": "d065",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2650,
+   "held_out": false,
+   "xyxy": [
+    1469.4,
+    476.6,
+    1480.3,
+    496.5
+   ],
+   "hints": [
+    {
+     "tid": 1028,
+     "team": "ref",
+     "number": null
+    },
+    {
+     "tid": 1023,
+     "team": "home",
+     "number": "2"
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.357
+  },
+  {
+   "id": "d066",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    1476.4,
+    474.4,
+    1491.0,
+    494.0
+   ],
+   "hints": [
+    {
+     "tid": 1028,
+     "team": "ref",
+     "number": null
+    },
+    {
+     "tid": 1023,
+     "team": "home",
+     "number": "2"
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.435
+  },
+  {
+   "id": "d067",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    915.4,
+    679.9,
+    925.0,
+    696.7
+   ],
+   "hints": [
+    {
+     "tid": 1025,
+     "team": "away",
+     "number": "0"
+    }
+   ],
+   "label": "0",
+   "note": "",
+   "score": 0.352
+  },
+  {
+   "id": "d068",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2715,
+   "held_out": false,
+   "xyxy": [
+    962.7,
+    465.6,
+    979.1,
+    483.6
+   ],
+   "hints": [
+    {
+     "tid": 1030,
+     "team": "home",
+     "number": "33"
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.328
+  },
+  {
+   "id": "d069",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2775,
+   "held_out": false,
+   "xyxy": [
+    749.3,
+    617.0,
+    764.4,
+    643.4
+   ],
+   "hints": [
+    {
+     "tid": 1025,
+     "team": "away",
+     "number": "0"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.609,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:43"
+   }
+  },
+  {
+   "id": "d070",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2840,
+   "held_out": false,
+   "xyxy": [
+    514.0,
+    570.9,
+    531.9,
+    595.2
+   ],
+   "hints": [
+    {
+     "tid": 1025,
+     "team": "away",
+     "number": "0"
+    }
+   ],
+   "label": "0",
+   "note": "",
+   "score": 0.889
+  },
+  {
+   "id": "d071",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2970,
+   "held_out": false,
+   "xyxy": [
+    803.2,
+    521.4,
+    826.4,
+    548.9
+   ],
+   "hints": [
+    {
+     "tid": 1022,
+     "team": "away",
+     "number": "25"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.775,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:44"
+   }
+  },
+  {
+   "id": "d072",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s7",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 7,
+   "frame": 2970,
+   "held_out": false,
+   "xyxy": [
+    673.0,
+    514.0,
+    691.5,
+    534.3
+   ],
+   "hints": [
+    {
+     "tid": 1024,
+     "team": "away",
+     "number": "16"
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.35
+  },
+  {
+   "id": "d073",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6325,
+   "held_out": false,
+   "xyxy": [
+    1211.4,
+    377.1,
+    1220.8,
+    392.7
+   ],
+   "hints": [
+    {
+     "tid": 1042,
+     "team": "away",
+     "number": null
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.321,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:45",
+    "label": "not_number"
+   }
+  },
+  {
+   "id": "d074",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6385,
+   "held_out": false,
+   "xyxy": [
+    1337.9,
+    572.6,
+    1351.2,
+    598.4
+   ],
+   "hints": [
+    {
+     "tid": 1054,
+     "team": "home",
+     "number": "2"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.552,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:46"
+   }
+  },
+  {
+   "id": "d075",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6445,
+   "held_out": false,
+   "xyxy": [
+    1155.6,
+    463.1,
+    1173.1,
+    480.9
+   ],
+   "hints": [
+    {
+     "tid": 1048,
+     "team": "home",
+     "number": null
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.635,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T15:55:36"
+   }
+  },
+  {
+   "id": "d076",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6445,
+   "held_out": false,
+   "xyxy": [
+    1228.9,
+    677.7,
+    1249.3,
+    701.5
+   ],
+   "hints": [
+    {
+     "tid": 1054,
+     "team": "home",
+     "number": "2"
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.316
+  },
+  {
+   "id": "d077",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "1jDaJBkUGmc_s16",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 16,
+   "frame": 6570,
+   "held_out": false,
+   "xyxy": [
+    1122.8,
+    436.8,
+    1137.2,
+    454.5
+   ],
+   "hints": [
+    {
+     "tid": 1048,
+     "team": "home",
+     "number": null
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.609
+  },
+  {
+   "id": "d078",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 3860,
+   "held_out": true,
+   "xyxy": [
+    1488.8,
+    604.3,
+    1508.9,
+    635.2
+   ],
+   "hints": [
+    {
+     "tid": 1023,
+     "team": "home",
+     "number": "21"
+    }
+   ],
+   "label": "21",
+   "note": "",
+   "score": 0.634
+  },
+  {
+   "id": "d079",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 3920,
+   "held_out": true,
+   "xyxy": [
+    1337.4,
+    544.7,
+    1369.4,
+    578.9
+   ],
+   "hints": [
+    {
+     "tid": 1024,
+     "team": "away",
+     "number": "25"
+    }
+   ],
+   "label": "illegible",
+   "note": "25 in context, 26 in the tight crop",
+   "score": 0.852,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:49",
+    "label": "25"
+   }
+  },
+  {
+   "id": "d080",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 4035,
+   "held_out": true,
+   "xyxy": [
+    1256.2,
+    390.8,
+    1266.9,
+    407.4
+   ],
+   "hints": [
+    {
+     "tid": 1016,
+     "team": "home",
+     "number": "8"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.358,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:51",
+    "label": "not_number"
+   }
+  },
+  {
+   "id": "d081",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 4270,
+   "held_out": true,
+   "xyxy": [
+    1326.9,
+    507.7,
+    1340.0,
+    526.8
+   ],
+   "hints": [
+    {
+     "tid": 1017,
+     "team": "home",
+     "number": "23"
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.67
+  },
+  {
+   "id": "d082",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s18",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 18,
+   "frame": 4270,
+   "held_out": true,
+   "xyxy": [
+    1079.8,
+    436.4,
+    1089.7,
+    452.9
+   ],
+   "hints": [
+    {
+     "tid": 1016,
+     "team": "home",
+     "number": "8"
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.461
+  },
+  {
+   "id": "d083",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 6910,
+   "held_out": true,
+   "xyxy": [
+    1283.0,
+    495.3,
+    1296.9,
+    519.4
+   ],
+   "hints": [
+    {
+     "tid": 1040,
+     "team": "away",
+     "number": "9"
+    }
+   ],
+   "label": "9",
+   "note": "",
+   "score": 0.646
+  },
+  {
+   "id": "d084",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7035,
+   "held_out": true,
+   "xyxy": [
+    1723.4,
+    453.9,
+    1735.0,
+    469.1
+   ],
+   "hints": [
+    {
+     "tid": 1037,
+     "team": "home",
+     "number": "1"
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.381
+  },
+  {
+   "id": "d085",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7095,
+   "held_out": true,
+   "xyxy": [
+    506.5,
+    583.3,
+    520.3,
+    613.9
+   ],
+   "hints": [
+    {
+     "tid": 1039,
+     "team": "away",
+     "number": "3"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.482,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:52"
+   }
+  },
+  {
+   "id": "d086",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7160,
+   "held_out": true,
+   "xyxy": [
+    799.4,
+    434.0,
+    817.6,
+    462.0
+   ],
+   "hints": [
+    {
+     "tid": 1040,
+     "team": "away",
+     "number": "9"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.386,
+   "review": {
+    "verdict": "fix",
+    "at": "2026-11-22T16:19:54",
+    "label": "8"
+   }
+  },
+  {
+   "id": "d087",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7220,
+   "held_out": true,
+   "xyxy": [
+    203.2,
+    699.6,
+    220.5,
+    731.5
+   ],
+   "hints": [
+    {
+     "tid": 1039,
+     "team": "away",
+     "number": "3"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.594,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:11:17"
+   }
+  },
+  {
+   "id": "d088",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7345,
+   "held_out": true,
+   "xyxy": [
+    335.8,
+    520.1,
+    355.7,
+    544.8
+   ],
+   "hints": [
+    {
+     "tid": 1032,
+     "team": "home",
+     "number": "23"
+    }
+   ],
+   "label": "not_number",
+   "note": "",
+   "score": 0.32
+  },
+  {
+   "id": "d089",
+   "source": "detector rfdetr_torch@d76aab0d detect/rfdetr_torch/plk-r3-poss@c62744fe",
+   "sequence": "Tnuscrm9RyU_s33",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 33,
+   "frame": 7405,
+   "held_out": true,
+   "xyxy": [
+    991.3,
+    535.2,
+    1006.8,
+    564.4
+   ],
+   "hints": [
+    {
+     "tid": 1031,
+     "team": "home",
+     "number": "11"
+    }
+   ],
+   "label": "illegible",
+   "note": "",
+   "score": 0.357,
+   "review": {
+    "verdict": "ok",
+    "at": "2026-11-22T16:19:55"
+   }
+  }
+ ],
+ "negatives": "detector number boxes scoring at least 0.3 with IoU below 0.3 to every gold box",
+ "spotcheck": {
+  "seed": 0,
+  "n": 30,
+  "ids": [
+   "d012",
+   "d022",
+   "d030",
+   "d064",
+   "d075",
+   "d087",
+   "n021",
+   "n038",
+   "n049",
+   "n051",
+   "n072",
+   "n076",
+   "n112",
+   "n129",
+   "n133",
+   "n145",
+   "n156",
+   "n159",
+   "n170",
+   "n184",
+   "n198",
+   "n208",
+   "n216",
+   "n242",
+   "n245",
+   "n249",
+   "n259",
+   "n262",
+   "n273",
+   "n287"
+  ]
+ },
+ "meta": {
+  "review_seconds": {
+   "2026-11-22": 473.0
+  }
+ }
+}
