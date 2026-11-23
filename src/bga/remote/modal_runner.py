@@ -63,8 +63,7 @@ image = (
     .run_commands(
         f"python -c \"from huggingface_hub import hf_hub_download; hf_hub_download('{SAM2_MODEL_ID}', '{SAM2_CKPT}')\""
     )
-    .add_local_file("tools/labeler/static/fiba_court.json", "/tools/labeler/static/fiba_court.json")
-    .add_local_python_source("bga")
+    .add_local_python_source("bga", ignore=modal.FilePatternMatcher("**/__pycache__/**", "**/*.pyc"))
 )
 
 

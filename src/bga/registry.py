@@ -33,6 +33,7 @@ BACKEND_MODULES = (
     "bga.court.roboflow_keypoints",
     "bga.court.rfdetr_keypoint",
     "bga.positions.bbox_bottom",
+    "bga.positions.ankles_pose",
 )
 
 
@@ -90,45 +91,44 @@ def load_backends() -> None:
 
 
 def get(layer: str, name: str) -> type:
-    """Look up a backend class, importing the built-in backend modules first if it is not registered yet.
+    """Look up a registered backend class, importing built-in backends first if needed.
 
     Args:
-        layer: Layer name, e.g. ``"track"``.
-        name: Backend name, e.g. ``"bytetrack"``.
+        layer: Layer name.
+        name: Backend name.
 
     Returns:
         The registered backend class.
 
     Raises:
-        KeyError: When no backend of that name is registered for the layer; the message lists the known ones.
+        KeyError: When no backend is registered under ``(layer, name)``; lists the ones that are.
 
     Examples:
-        >>> get("positions", "bbox_bottom").__name__
-        'BBoxBottom'
-        >>> get("positions", "nope")
+        >>> get("track", "bytetrack").__name__
+        'ByteTrack'
+        >>> get("track", "missing")
         Traceback (most recent call last):
         ...
-        KeyError: "no backend 'nope' for layer 'positions'; known: ['bbox_bottom']"
+        KeyError: "unknown backend track/missing; known: ..."
 
     """
     if (layer, name) not in _REGISTRY:
         load_backends()
-    try:
-        return _REGISTRY[(layer, name)]
-    except KeyError:
-        known = sorted(n for (lay, n) in _REGISTRY if lay == layer)
-        raise KeyError(f"no backend {name!r} for layer {layer!r}; known: {known}") from None
+    if (layer, name) not in _REGISTRY:
+        known = sorted(n for ly, n in _REGISTRY if ly == layer)
+        raise KeyError(f"unknown backend {layer}/{name}; known: {known}")
+    return _REGISTRY[(layer, name)]
 
 
-def available() -> dict[str, list[str]]:
-    """List every registered backend name per layer, after loading the built-in backends.
+def list_backends() -> dict[str, list[str]]:
+    """Every registered backend grouped by layer, sorted.
 
     Returns:
-        Layer name to its sorted backend names, layers in sorted order.
+        Layer name to sorted list of registered backend names.
 
     Examples:
-        >>> available()["shots"]
-        ['clips', 'gold']
+        >>> "bytetrack" in list_backends()["track"]
+        True
 
     """
     load_backends()

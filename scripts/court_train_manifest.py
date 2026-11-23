@@ -36,10 +36,11 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from bga.court.base import load_fiba_court  # noqa: E402  # after the sys.path insert
 from bga.court.propagate import Propagator, court_line_points, landmarks, line_support  # noqa: E402  # after the sys.path insert
 from bga.train.leakage import assert_no_gold  # noqa: E402  # after the sys.path insert
 
-GEO = json.loads((ROOT / "tools/labeler/static/fiba_court.json").read_text())
+GEO = load_fiba_court()
 VERTS = np.array(GEO["vertices"], dtype=np.float64)
 LINES = court_line_points(GEO)
 # One keyframe per hall that has two usable ones, chosen before any training: (youtube_id, frame).

@@ -50,6 +50,7 @@ What changes in code, configs, metrics, or future milestones?
 | 2026-11-22 | Track / Link (L3b, L4) | [BoT-SORT with PLK re-ID encoder + greedy link (5-per-team cap); drop SAM 2.1 and `bytetrack_court`](2026-11-22-tracking-botsort-plk-reid-and-greedy-link.md) | Accepted |
 | 2026-11-23 | Numbers & Identity (L5/L5b) | [PARSeq fine-tuned from scene-text weights + roster log-prob, co-visible assignment & game-level clustering](2026-11-23-jersey-number-reading-parseq-and-roster-scoring.md) | Accepted *(open licence check)* |
 | 2026-11-23 | Ingest (L0 / M10) | [Stay on YouTube PLK highlights for R&D; split full-game ingest into M10](2026-11-23-highlights-footage-and-m10-ingest-milestone.md) | Accepted |
+| 2026-11-23 | Positions & Export (L6 / M8) | [Keep `positions/bbox_bottom` on linked tracks + PLK court; reject zero-shot COCO `ankles_pose`; ship Parquet export & upgraded radar](2026-11-23-positions-bbox-bottom-over-coco-pose-and-parquet-export.md) | Accepted |
 
 ### Data & evaluation
 

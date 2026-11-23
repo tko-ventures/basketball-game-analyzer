@@ -1,6 +1,6 @@
 # Architecture
 
-*What is built in this repository as of 2026-11-23 (M0–M6 shipped, M7 in progress).*
+*What is built in this repository as of 2026-11-23 (M0–M8 shipped, M9 next).*
 
 This document is a human-oriented overview of the system design and current active stack. Exact backend schemas, CLI flags, and config inventories live in the code (`src/bga/*/base.py`, `bga backends`, `configs/`).
 
@@ -34,7 +34,7 @@ The pipeline processes video in **sequences** (`bga.stage.Sequence`): one contin
 
 ### Layer DAG
 
-Layers and their upstream dependencies are fixed in `bga.config.LAYERS`. Only `court`, `appearance`, and `numbers` are optional upstreams (`OPTIONAL_UPSTREAM`):
+Layers and their upstream dependencies are fixed in `bga.config.LAYERS`. Optional upstreams are `court`, `appearance`, and `numbers` globally (`OPTIONAL_UPSTREAM`), plus `link` for `positions` (`OPTIONAL_BY_LAYER`):
 
 ```text
 shots ─┬─> court ────────────────┐
@@ -44,7 +44,7 @@ shots ─┬─> court ────────────────┐
                    │     ├─> numbers   (reads detect, track)
                    │     ├─> link      (reads track, team; optional appearance, court, numbers)
                    │     │     └─> identity (reads link, track, team; optional numbers, appearance; shot or clip scope)
-                   │     └─> positions (reads track, court)
+                   │     └─> positions (reads link or track, court)
 ```
 
 Each layer defines its exact JSON/array output contract in `src/bga/<layer>/base.py`.
@@ -64,7 +64,7 @@ Every layer supports multiple swappable backends registered via `@register(layer
 | `link` | `greedy` (`link-botsort-plk-r1-shot-last-tuned-noapp-cap5`) | Joins tracklets by team, gap, and court speed + 5-players-per-team cap | HOTA 0.743 dev / 0.742 held-out; IDF1 0.873 / 0.849; IDSW 52 / 26 | [2026-11-22](adr/2026-11-22-tracking-botsort-plk-reid-and-greedy-link.md) |
 | `numbers` | `parseq` (`numbers-parseq-r2`) | Fine-tuned PARSeq scene-text reader (`stop_on_confirm: false`, logging crop probabilities) | Crop top-1 under roster: 0.963 dev / 0.970 held-out (4–7 ms/crop); refusal 0.447 / 0.500 | [2026-11-23](adr/2026-11-23-jersey-number-reading-parseq-and-roster-scoring.md) |
 | `identity` | `game` / `covisible_assign` (`identity-game`) | Layer 5b: roster log-prob voting, co-visible LSA uniqueness (`identity-covisible-assign`), and clip-scoped cross-shot appearance clustering (`identity-game`) | Dev (69 tracks): 0.841 shot / 0.913 game (2 / 3 wrong); held-out (26 tracks): 0.846 / 0.846 (2 wrong, 0.923 conf) | [2026-11-23](adr/2026-11-23-jersey-number-reading-parseq-and-roster-scoring.md) |
-| `positions` | `bbox_bottom` | Projects box bottom-centre via homography + `clean_paths` smoothing | Baseline implementation; M8 refines with pose/filtering | — |
+| `positions` | `bbox_bottom` (`positions-plk-bbox`) | Projects linked-track box bottom-centre via PLK homography (`w > 0` guard) + `clean_paths` (`smooth_window: 9`); `ankles_pose` kept as comparator | 0.358 m keyframe median dev (vs. 1.540 m baseline), 99.4% on-court, 0.0 ms/frame | [2026-11-23](adr/2026-11-23-positions-bbox-bottom-over-coco-pose-and-parquet-export.md) |
 
 Other registered backends remain available for baselines, ablations, and reproducibility: Roboflow NBA models (`roboflow_keypoints`, `roboflow_inference`), vendored/upstream ByteTrack (`bytetrack`, `trackers`), SAM 2.1 propagation (`sam2`, CUDA-only), SmolVLM2 OCR (`smolvlm_ocr`), and crop classifiers (`crop_cls`).
 
@@ -96,7 +96,7 @@ Other registered backends remain available for baselines, ablations, and reprodu
 
 ### Evaluation (`bga eval*`)
 
-Five dedicated CLI commands evaluate layers against the gold set and append rows to [`docs/metrics.md`](metrics.md) (with `--write`). Every `eval` command refuses weights that are neither `pretrained:` nor backed by a local `weights/<id>/train.json`:
+Six dedicated CLI commands evaluate layers against the gold set and append rows to [`docs/metrics.md`](metrics.md) (with `--write`). Every `eval` command refuses weights that are neither `pretrained:` nor backed by a local `weights/<id>/train.json`:
 
 | Command | Gold target | Primary metrics |
 |---|---|---|
@@ -105,8 +105,9 @@ Five dedicated CLI commands evaluate layers against the gold set and append rows
 | `bga eval-detect` | `data/gold/v1/boxes.json` (100 frames) | Per-class COCO AP50:95 and AP50 across the 10-class schema + merged `people` |
 | `bga eval-appearance` | Clean `v0` gold boxes | Teammate re-association (1 s, 3 s) and cross-shot rank-1 / MRR |
 | `bga eval-numbers` | `data/gold/v1/numbers.json` (376 crops) | Free & roster top-1, non-number refusal rate, calibration (ECE), ms/crop |
+| `bga eval-positions` | Gold court keyframes + linked tracks | Keyframe median/p90 error (m), on-court share, coverage, speed p95 & >10 m/s spikes, ms/frame |
 
-Other top-level CLI commands: `bga run`, `bga train`, `bga radar` (broadcast + 2D court overlay video), and `bga backends`.
+Other top-level CLI commands: `bga run`, `bga train`, `bga export` (17-column per-player per-frame Parquet), `bga radar` (broadcast + 2D FIBA court overlay video with team colours and `#jersey` labels), and `bga backends`.
 
 ---
 

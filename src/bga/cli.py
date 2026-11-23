@@ -7,6 +7,9 @@ Usage:
     bga eval-detect --config configs/detect-plk-r2.yaml [--set ...] [--gold v1] [--held-out] [--write]
     bga eval-appearance --config configs/appearance-reid-sportsmot.yaml [--gold v0] [--held-out] [--write]
     bga eval-numbers --config configs/numbers-smolvlm-nba.yaml [--held-out] [--write]
+    bga eval-positions --config configs/positions-plk-ankles.yaml [--held-out] [--write]
+    bga export --config configs/positions-plk-ankles.yaml [--held-out] [--all-splits] [--out all.parquet]
+    bga radar --config configs/positions-plk-ankles.yaml [--held-out] [--all-splits]
     bga train --config configs/train/<layer>-<backend>-<name>.yaml [--build-only] [--collect]
     bga backends
 
@@ -586,12 +589,137 @@ def eval_numbers(
         METRICS_MD.write_text(_insert_rows(METRICS_MD.read_text(), NUMBERS_HEADER, rows, NUMBERS_INTRO))
 
 
+#: Header of the 2D positions table in ``docs/metrics.md`` written by ``bga eval-positions``.
+POSITIONS_HEADER = (
+    "| date | commit | config | positions backend | court backend | split (shots) "
+    "| kf median m (pts) | kf p90 m | on-court | cov | speed p95 m/s "
+    "| >10 m/s | pose % | airborne | ms/frame | notes |\n"
+    "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n"
+)
+#: Section heading and explanation placed above the 2D positions table when it is first added.
+POSITIONS_INTRO = (
+    "## 2D positions\n\n"
+    "Scored by `bga eval-positions` on the gold shots, dev unless `--held-out`. **kf median / p90 m:** error in"
+    " metres on the gold court keyframe inside each shot against Tomasz's labelled homography `H_gt` applied to the"
+    " foot point. **on-court:** share of non-referee player positions inside the 28 x 15 m FIBA court (+0.5 m"
+    " sideline margin). **cov:** share of tracked person-frames with a finite 2D position. **speed p95 / >10 m/s:**"
+    " 95th-percentile frame-to-frame speed and share of unphysical >10 m/s jumps. **pose % / airborne:** ankle"
+    " keypoint match share and held-airborne frames for pose-based backends. "
+    "**ms/frame:** positions stage on M1 Max.\n\n"
+)
+
+
+@app.command("eval-positions", help="Score each config's 2D positions layer on the gold shots.")
+def eval_positions(
+    config: Annotated[list[Path], typer.Option(help="one or more run configs with a positions layer")],
+    set_: Annotated[list[str], typer.Option("--set", help="override applied to every config")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
+    held_out: Annotated[bool, typer.Option(help="score the held-out game instead (once per milestone)")] = False,
+    write: Annotated[bool, typer.Option(help="append rows to docs/metrics.md")] = False,
+    note: str = "",
+    verbose: bool = False,
+) -> None:
+    """Score each config's 2D positions layer on gold court keyframes, on-court rate, and trajectory smoothness.
+
+    Args:
+        config: Run configs, scored side by side.
+        set_: Overrides applied to every config.
+        held_out: Score the held-out game instead of dev (once per milestone).
+        write: Add the rows to the 2D positions table in ``docs/metrics.md``.
+        note: Text for the notes column.
+        verbose: Log progress.
+
+    Raises:
+        typer.BadParameter: When a layer's trained weights have no ``train.json``.
+
+    Examples:
+        >>> eval_positions([Path("configs/positions-plk-ankles.yaml")])  # doctest: +SKIP
+
+    """
+    from bga.eval.positions import score as positions_score
+
+    _setup_logging(verbose)
+    rows = []
+    for path in config:
+        cfg = load_config(path, set_)
+        _require_provenance(cfg)
+        cfg.layers["shots"].params["held_out"] = "only" if held_out else "exclude"
+        s = positions_score(cfg, held_out=held_out)
+        pos_b = cfg.layers["positions"].backend
+        crt_b = cfg.layers["court"].backend if "court" in cfg.layers else "–"
+        rows.append(
+            f"| {dt.date.today().isoformat()} | {pipeline.git_commit()} | `{cfg.name}`@{cfg.config_hash()} "
+            f"| {pos_b} | {crt_b} | {'held-out' if held_out else 'dev'} ({s['sequences']}) "
+            f"| {_fmt(s['kf_med_m'])} ({s['kf_points']}) | {_fmt(s['kf_p90_m'])} | {_fmt(s['on_court'])} "
+            f"| {_fmt(s['cov'])} | {_fmt(s['speed_p95'], 2)} | {_fmt(s['jump_pct'])} | {_fmt(s['pose_pct'])} "
+            f"| {s['airborne_frames']} | {_fmt(s['ms_per_frame'], 1)} | {note} |"
+        )
+    typer.echo(POSITIONS_HEADER + "\n".join(rows))
+    if write:
+        METRICS_MD.write_text(_insert_rows(METRICS_MD.read_text(), POSITIONS_HEADER, rows, POSITIONS_INTRO))
+
+
+def _shots_split(held_out: bool, all_splits: bool) -> str:
+    """Resolve ``shots.params.held_out`` from ``--held-out`` and ``--all-splits`` flags."""
+    if all_splits:
+        return "all"
+    return "only" if held_out else "exclude"
+
+
+@app.command("export", help="Export per-frame player parquet tables (plan section 5) for each sequence of a run.")
+def export_(
+    config: Annotated[Path, typer.Option(help="configs/<name>.yaml")],
+    set_: Annotated[list[str], typer.Option("--set")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
+    seq: Annotated[list[str], typer.Option(help="only these sequences")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
+    held_out: Annotated[bool, typer.Option(help="export the held-out game's sequences")] = False,
+    all_splits: Annotated[bool, typer.Option(help="export both dev and held-out gold sequences")] = False,
+    out: Annotated[
+        Path | None, typer.Option(help="optional combined parquet file across all selected sequences")
+    ] = None,
+    verbose: bool = False,
+) -> None:
+    """Export per-frame player parquet files for every sequence of a run config.
+
+    Args:
+        config: Run config.
+        set_: ``layer.params.key=value`` overrides.
+        seq: Only these sequences.
+        held_out: Export only the held-out game's sequences.
+        all_splits: Export both dev and held-out gold sequences.
+        out: Optional path for a single combined parquet file across all exported sequences.
+        verbose: Log progress.
+
+    Examples:
+        >>> export_(Path("configs/positions-plk-ankles.yaml"), seq=["OSp445e0mXU_s2"])  # doctest: +SKIP
+
+    """
+    import pyarrow.parquet as pq
+
+    from bga.export.parquet import export_sequence, rows_to_table, sequence_rows
+
+    _setup_logging(verbose)
+    cfg = load_config(config, set_)
+    _require_provenance(cfg)
+    cfg.layers["shots"].params["held_out"] = _shots_split(held_out, all_splits)
+    seqs = pipeline.run(cfg, only=seq or None)
+    all_rows = []
+    for s in seqs:
+        path = export_sequence(cfg, s)
+        typer.echo(path)
+        if out is not None:
+            all_rows.extend(sequence_rows(cfg, s))
+    if out is not None:
+        out.parent.mkdir(parents=True, exist_ok=True)
+        pq.write_table(rows_to_table(all_rows), out)
+        typer.echo(f"combined ({len(all_rows)} rows): {out}")
+
+
 @app.command(help="Render the radar video (broadcast above, 2D court below) for each sequence of a run.")
 def radar(
     config: Annotated[Path, typer.Option(help="configs/<name>.yaml")],
     set_: Annotated[list[str], typer.Option("--set")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
     seq: Annotated[list[str], typer.Option(help="only these sequences")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
-    held_out: bool = False,
+    held_out: Annotated[bool, typer.Option(help="render the held-out game's sequences")] = False,
+    all_splits: Annotated[bool, typer.Option(help="render both dev and held-out gold sequences")] = False,
 ) -> None:
     """Render the radar video (broadcast above, 2D court below) for each sequence of a run.
 
@@ -599,7 +727,8 @@ def radar(
         config: Run config.
         set_: ``layer.params.key=value`` overrides.
         seq: Only these sequences.
-        held_out: Render the held-out game's sequences.
+        held_out: Render only the held-out game's sequences.
+        all_splits: Render both dev and held-out gold sequences.
 
     Examples:
         >>> radar(Path("configs/court-plk-v1-smooth4.yaml"), seq=["OSp445e0mXU_s2"])  # doctest: +SKIP
@@ -608,7 +737,8 @@ def radar(
     from bga.export.radar import render
 
     cfg = load_config(config, set_)
-    cfg.layers["shots"].params["held_out"] = "only" if held_out else "exclude"
+    _require_provenance(cfg)
+    cfg.layers["shots"].params["held_out"] = _shots_split(held_out, all_splits)
     for s in pipeline.run(cfg, only=seq or None):
         typer.echo(render(cfg, s))
 

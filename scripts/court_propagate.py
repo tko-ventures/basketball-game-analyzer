@@ -26,9 +26,10 @@ import cv2
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+from bga.court.base import load_fiba_court
 from bga.court.propagate import Propagator, landmarks
 
-GEO = json.loads((Path(__file__).resolve().parents[1] / "tools/labeler/static/fiba_court.json").read_text())
+GEO = load_fiba_court()
 VERTS = np.array(GEO["vertices"], dtype=np.float64)
 
 
