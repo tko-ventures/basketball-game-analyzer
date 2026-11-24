@@ -197,9 +197,16 @@ The implementer's first pass (ledger row of 2026-11-24) checked every frame on c
 | hold or dribble judged from the single frame, no holder in box gold | 5 | all 5 overruled (no holder) |
 | flagged: release or hold, dribble or loose ball, a dead-ball hold | 10 | 3 holders (1 a pass, not a shot, in `4XMD9FWmQws` 14585; 1 another player than proposed), 7 no holder |
 
-Result: 9 of the 100 frames differ from box gold. A single frame overstates holds: all five holds called from one frame were passes or catches in the neighbouring frames.
+A single frame overstates holds: all five holds called from one frame were passes or catches in the neighbouring frames.
 
-Box gold still needs two kinds of fixes, both box geometry or class for Tomasz: in `4XMD9FWmQws` 14585 box 10 is `player-jump-shot` but the player is passing; and the implementer saw a ball at full resolution in `1jDaJBkUGmc` 1405 and 6510, where box gold has none (Tomasz answered no holder for both).
+### Box gold fixes (2026-11-24)
+
+The holder review turned up three box-gold errors, which Tomasz fixed at `/boxes` before `scripts/box_gold_v1.py export`. No box index moved, so the holders still point at the right boxes:
+- `4XMD9FWmQws` 14585: the passer (box 10) was `player-jump-shot`; now `player-in-possession`.
+- `1jDaJBkUGmc` 1405 and 6510: the game ball was boxed as `rim` and as `ball-in-basket`; both are now `ball`.
+- `4XMD9FWmQws` 1935: one player box 5 px narrower.
+
+Dev now has 60 ball, 71 rim, 38 in-possession, 5 jump-shot and 2 ball-in-basket boxes (58, 72, 37, 6 and 3 before). Detection and ball rows were scored again on the fixed gold (`docs/metrics.md`, 2026-11-24). With the fixes, 8 of the 100 holders differ from box gold.
 
 ### How to answer holder questions
 
