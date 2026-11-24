@@ -1,7 +1,7 @@
 # Google Colab for training, alternating with Modal by credit availability
 
 - **Date:** 2026-11-23
-- **Status:** Accepted
+- **Status:** Superseded by [2026-11-24](2026-11-24-colab-first-training-modal-under-30.md) for decision 1 (training platform); decisions 2 to 4 stand
 - **Area:** Infra
 - **Decider:** Tomasz
 

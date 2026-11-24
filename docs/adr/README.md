@@ -71,4 +71,5 @@ What changes in code, configs, metrics, or future milestones?
 | 2026-11-18 | Style & Git | [Borda Python coding/testing style, pre-commit hooks, and squash-merge workflow](2026-11-18-python-style-and-quality-standards.md) | Accepted |
 | 2026-11-18 | Demo & Language | [English-only codebase and demo site; single analysis view + synthetic coach showcase](2026-11-18-english-only-codebase-and-demo.md) | Accepted |
 | 2026-11-20 | Dependencies | [Follow upstream migration guides (`supervision` → `trackers`) via new backends](2026-11-20-upstream-migration-policy.md) | Accepted |
-| 2026-11-23 | Compute | [Google Colab for training, alternating with Modal by credit availability](2026-11-23-colab-for-training-alternating-with-modal.md) | Accepted |
+| 2026-11-23 | Compute | [Google Colab for training, alternating with Modal by credit availability](2026-11-23-colab-for-training-alternating-with-modal.md) | Superseded (training platform) by [2026-11-24](2026-11-24-colab-first-training-modal-under-30.md) |
+| 2026-11-24 | Compute | [Training on Colab first; Modal only while the month's Modal usage is below 30 USD](2026-11-24-colab-first-training-modal-under-30.md) | Accepted |
