@@ -3,23 +3,26 @@
 from __future__ import annotations
 
 import json
-import shutil
 from pathlib import Path
 
 import pytest
 
-from bga.eval.holders import BOXES_PATH, OPS_PATH, build_holders, parse_op, read_op_history, read_ops
+from bga.eval.holders import BOXES_PATH, build_holders, parse_op, read_op_history, read_ops
 from tools.labeler.holders_api import load_holders_state, save_holder_answer
 
-#: A flagged frame of the committed ops file: Energa Trefl - Dziki, shot 3, frame 1160, proposed box 8.
+#: A box-gold frame (Energa Trefl - Dziki, shot 3) where box 8 is a player and box gold has no holder.
 FLAGGED = ("1jDaJBkUGmc", 1160)
+#: Ops lines on real box-gold frames, independent of the decisions in the committed ops file.
+OPS_TEXT = (
+    "# test ops\nholder 1jDaJBkUGmc 975 9 implementer  # shooter holds\nholder 1jDaJBkUGmc 1160 8 flagged  # held?\n"
+)
 
 
 @pytest.fixture
 def ops_copy(tmp_path: Path) -> Path:
-    """A copy of the committed ops file, so answers never touch the real one."""
+    """A small ops file with one implementer line and one open question, so answers never touch the real one."""
     path = tmp_path / "ops.txt"
-    shutil.copy(OPS_PATH, path)
+    path.write_text(OPS_TEXT, encoding="utf-8")
     return path
 
 
@@ -66,7 +69,7 @@ class TestHoldersPage:
 
     def test_state_lists_flagged_frames_first(self, ops_copy: Path) -> None:
         items = load_holders_state(ops_path=ops_copy)["items"]
-        assert [it["origin"] for it in items[:10]] == ["flagged"] * 10
+        assert [(it["origin"], it["frame"]) for it in items] == [("flagged", 1160), ("implementer", 975)]
 
     def test_answer_keeps_original_line_and_applies_decision(self, ops_copy: Path, tmp_path: Path) -> None:
         out = tmp_path / "holders.json"
