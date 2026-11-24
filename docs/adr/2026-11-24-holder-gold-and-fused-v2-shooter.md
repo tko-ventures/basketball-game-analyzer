@@ -13,13 +13,13 @@ Post-M9 issue #40: `ball-plk-fused` scored shooter accuracy 0.455 (5/11) and fra
 
 ## Decision
 
-1. **`data/gold/v1/holders.json`** ([gold.md](../gold.md#holder-gold-v1-2026-11-24)): each box-gold frame's holder under the 2026-11-20 definition, as a box index. Box gold is untouched. The implementer's first pass changed 11 of the 100 frames and flagged 10 for Tomasz. `bga eval-ball` scores possession against it.
+1. **`data/gold/v1/holders.json`** ([gold.md](../gold.md#holder-gold-v1-2026-11-24)): each box-gold frame's holder under the 2026-11-20 definition, as a box index. Box gold is untouched. The implementer's first pass changed 11 of the 100 frames and flagged 10. Tomasz answered all 21 on the labeller's `/holders` page, keeping the 5 shooters and the 1 ball in flight and overruling the 5 holds called from a single frame. In the end 9 frames differ from box gold. `bga eval-ball` scores possession against it.
 2. **`configs/ball-plk-fused-v2.yaml`** sets three opt-in `ball/fused` params: `shot_release_rim_excl_rw: 2.0` (search for the release before the ball enters 2 rim widths of the rim), `shot_team_window_s: 2.0` (the team holding most over 2 s wins a contested release), and `ball_far_penalty: 1.5` (a tracked ball far from a player counts against that player holding it). Their defaults are off, so `ball-plk-fused` keeps its hash and outputs.
 
-Dev (holder gold, commit `2b62a1e`): shooter accuracy 0.455 → **0.727** (8/11). Possession 0.658 → 0.671, holder F1 0.710 → 0.724. Shot F1 (1.000) and outcome accuracy (0.727) are unchanged. Plateaus: rim exclusion from 1.5 to 4 rim widths, team window 2–3 s.
+Dev (final holder gold, commit `bc3b98d`): shooter accuracy 0.455 → **0.727** (8/11). Possession 0.645 → 0.658, holder F1 0.686 → 0.699. Shot F1 (1.000) and outcome accuracy (0.727) are unchanged. Plateaus: rim exclusion from 1.5 to 4 rim widths, team window 2–3 s.
 
 ## Consequences
 
-- To accept: Tomasz decides the 10 flagged holder frames, then the held-out game is scored once with his approval.
+- To accept: the held-out game is scored once with Tomasz's approval (the holder questions are answered).
 - On acceptance, `ball-plk-fused-v2` replaces `ball-plk-fused` as the active Layer 7 config in `docs/architecture.md`.
 - Remaining shooter misses (an alley-oop, two crowded-paint layups) and outcome misses come from missed ball or player detections, so they go to a detector round (#40 `plk-r4`), not more Layer 7 logic.
