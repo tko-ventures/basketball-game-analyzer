@@ -51,6 +51,7 @@ What changes in code, configs, metrics, or future milestones?
 | 2026-11-23 | Numbers & Identity (L5/L5b) | [PARSeq fine-tuned from scene-text weights + roster log-prob, co-visible assignment & game-level clustering](2026-11-23-jersey-number-reading-parseq-and-roster-scoring.md) | Accepted *(open licence check)* |
 | 2026-11-23 | Ingest (L0 / M10) | [Stay on YouTube PLK highlights for R&D; split full-game ingest into M10](2026-11-23-highlights-footage-and-m10-ingest-milestone.md) | Accepted |
 | 2026-11-23 | Positions & Export (L6 / M8) | [Keep `positions/bbox_bottom` on linked tracks + PLK court; reject zero-shot COCO `ankles_pose`; ship Parquet export & upgraded radar](2026-11-23-positions-bbox-bottom-over-coco-pose-and-parquet-export.md) | Accepted |
+| 2026-11-24 | Ball, Possession & Shots (L7 / M9) | [Adopt `ball/fused` over `ball/skalski`; skip tiled ball inference; ship gold `v1/events.json` and `.ball.parquet`](2026-11-24-ball-fused-tracking-possession-and-rim-shots.md) | Accepted |
 
 ### Data & evaluation
 

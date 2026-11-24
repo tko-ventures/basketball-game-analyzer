@@ -1,6 +1,6 @@
 # Architecture
 
-*What is built in this repository as of 2026-11-23 (M0–M8 shipped, M9 next).*
+*What is built in this repository as of 2026-11-24 (M0–M9 shipped, M10 next).*
 
 This document is the canonical human-oriented overview of the system design and current active stack. Exact backend schemas, CLI flags, and config inventories live in the code (`src/bga/*/base.py`, `bga backends`, `configs/`).
 
@@ -35,7 +35,7 @@ The pipeline processes video in **sequences** (`bga.stage.Sequence`): one contin
 
 ### Layer DAG
 
-Layers and their upstream dependencies are fixed in `bga.config.LAYERS`. Optional upstreams are `court`, `appearance`, and `numbers` globally (`OPTIONAL_UPSTREAM`), plus `link` for `positions` (`OPTIONAL_BY_LAYER`):
+Layers and their upstream dependencies are fixed in `bga.config.LAYERS`. Optional upstreams are `court`, `appearance`, and `numbers` globally (`OPTIONAL_UPSTREAM`), plus `link` for `positions` and `link`/`court`/`positions` for `ball` (`OPTIONAL_BY_LAYER`):
 
 ```text
 shots ─┬─> court ────────────────┐
@@ -45,7 +45,8 @@ shots ─┬─> court ────────────────┐
                    │     ├─> numbers   (reads detect, track)
                    │     ├─> link      (reads track, team; optional appearance, court, numbers)
                    │     │     └─> identity (reads link, track, team; optional numbers, appearance; shot or clip scope)
-                   │     └─> positions (reads link or track, court)
+                   │     ├─> positions (reads link or track, court)
+                   │     └─> ball      (reads detect, track, team; optional link, court, positions)
 ```
 
 Each layer defines its exact JSON/array output contract in `src/bga/<layer>/base.py`.
@@ -66,6 +67,7 @@ Every layer supports multiple swappable backends registered via `@register(layer
 | `numbers` | `parseq` (`numbers-parseq-r2`) | Fine-tuned PARSeq scene-text reader (`stop_on_confirm: false`, logging crop probabilities) | Crop top-1 under roster: 0.963 dev / 0.970 held-out (4–7 ms/crop); refusal 0.447 / 0.500 | [2026-11-23](adr/2026-11-23-jersey-number-reading-parseq-and-roster-scoring.md) |
 | `identity` | `game` / `covisible_assign` (`identity-game`) | Layer 5b: roster log-prob voting, co-visible LSA uniqueness (`identity-covisible-assign`), and clip-scoped cross-shot appearance clustering (`identity-game`) | Dev (69 tracks): 0.841 shot / 0.913 game (2 / 3 wrong); held-out (26 tracks): 0.846 / 0.846 (2 wrong, 0.923 conf) | [2026-11-23](adr/2026-11-23-jersey-number-reading-parseq-and-roster-scoring.md) |
 | `positions` | `bbox_bottom` (`positions-plk-bbox`) | Projects linked-track box bottom-centre via PLK homography (`w > 0` guard) + `clean_paths` (`smooth_window: 9`); `ankles_pose` kept as comparator | 0.358 m keyframe median dev (vs. 1.540 m baseline), 99.4% on-court, 0.0 ms/frame | [2026-11-23](adr/2026-11-23-positions-bbox-bottom-over-coco-pose-and-parquet-export.md) |
+| `ball` | `fused` (`ball-plk-fused`) | Static rim-FP filter + DAG DP ball trajectory, Viterbi HMM possession, rim-trajectory made/missed shot classification & FIBA 2/3-pt scoring (`skalski` kept as baseline) | Dev (9 shots): ball F1 0.794, poss acc 0.618, holder F1 0.617, team acc 0.703, shot F1 1.000 (11/11), outcome acc 0.818, 0.36 ms/frame | [2026-11-24](adr/2026-11-24-ball-fused-tracking-possession-and-rim-shots.md) |
 
 Other registered backends remain available for baselines, ablations, and reproducibility: Roboflow NBA models (`roboflow_keypoints`, `roboflow_inference`), vendored/upstream ByteTrack (`bytetrack`, `trackers`), SAM 2.1 propagation (`sam2`, CUDA-only), SmolVLM2 OCR (`smolvlm_ocr`), and crop classifiers (`crop_cls`).
 
@@ -97,7 +99,7 @@ Other registered backends remain available for baselines, ablations, and reprodu
 
 ### Evaluation (`bga eval*`)
 
-Six dedicated CLI commands evaluate layers against the gold set and append rows to [`docs/metrics.md`](metrics.md) (with `--write`). Every `eval` command refuses weights that are neither `pretrained:` nor backed by a local `weights/<id>/train.json`:
+Seven dedicated CLI commands evaluate layers against the gold set and append rows to [`docs/metrics.md`](metrics.md) (with `--write`). Every `eval` command refuses weights that are neither `pretrained:` nor backed by a local `weights/<id>/train.json`:
 
 | Command | Gold target | Primary metrics |
 |---|---|---|
@@ -107,8 +109,9 @@ Six dedicated CLI commands evaluate layers against the gold set and append rows 
 | `bga eval-appearance` | Clean `v0` gold boxes | Teammate re-association (1 s, 3 s) and cross-shot rank-1 / MRR |
 | `bga eval-numbers` | `data/gold/v1/numbers.json` (376 crops) | Free & roster top-1, non-number refusal rate, calibration (ECE), ms/crop |
 | `bga eval-positions` | Gold court keyframes + linked tracks | Keyframe median/p90 error (m), on-court share, coverage, speed p95 & >10 m/s spikes, ms/frame |
+| `bga eval-ball` | `data/gold/v1/boxes.json` + `events.json` | Ball F1/R/med px, possession acc, holder F1, team acc, shot F1, outcome acc, shooter acc, ms/frame |
 
-Other top-level CLI commands: `bga run`, `bga train`, `bga export` (17-column per-player per-frame Parquet), `bga radar` (broadcast + 2D FIBA court overlay video with team colours and `#jersey` labels), and `bga backends`.
+Other top-level CLI commands: `bga run`, `bga train`, `bga export` (17-column per-player per-frame Parquet + sibling `<seq>.ball.parquet` when `ball` is configured), `bga radar` (broadcast + 2D FIBA court overlay video with team colours, `#jersey` labels, ball/holder ring, and cumulative shot markers), and `bga backends`.
 
 ---
 
@@ -118,17 +121,18 @@ Other top-level CLI commands: `bga run`, `bga train`, `bga export` (17-column pe
 
 - **Source clips (`data/clip_ids.txt` → `data/raw/`):** 39 PLK YouTube highlight clips (1080p50 H.264, gitignored).
 - **Labels & rosters (`data/labels/`, `data/rosters/`):** Per-clip shot/kit/box JSONs, 19 PLK club rosters (2024/25–2026/27), versioned training manifests (`detect/`, `appearance/`, `numbers/`, `court/`), and replayable audit logs (`data/labels/review/*.ops.txt`).
-- **Gold set (`data/gold/v0/`, `data/gold/v1/`):** 4 PLK games (3 dev + 1 held-out `Tnuscrm9RyU`), 3 central shots each. Track gold (`v0`) is MOTChallenge format; box gold, court keyframes, and number crops are `v1`.
+- **Gold set (`data/gold/v0/`, `data/gold/v1/`):** 4 PLK games (3 dev + 1 held-out `Tnuscrm9RyU`), 3 central shots each. Track gold (`v0`) is MOTChallenge format; box gold, court keyframes, number crops, and verified shot events (`events.json`) are `v1`.
 - **Synthetic fixtures (`data/fixtures/synthetic/`):** 8 deterministic simulated possessions (`bga.tracking2d/v0`, see [`docs/fixtures.md`](fixtures.md)) used solely by the coach demo page.
 
 ### Labeller (`tools/labeler/server.py`)
 
-A local stdlib HTTP server on port `8765` with four focused web pages:
+A local stdlib HTTP server on port `8765` with five focused web pages:
 
 - `/` — track review, shot tagging, and identity confirmation
 - `/court` — landmark dots + painted-line pins with live Levenberg-Marquardt court fitting
 - `/boxes` — box geometry (`box_gold_v1`), ball queues (`mode: ball`), and possession/dead-ball queues (`mode: possession`)
 - `/numbers` — crop-level jersey-number verification against context frames
+- `/events` — shot-event verification (`made`/`missed`, 2/3-pt, click-on-player shooter, scorebug start/end comparison) writing `data/gold/v1/events.json`
 
 ### Demo site
 
@@ -146,7 +150,7 @@ Published to `https://basketball-analyzer.demo.tko.ventures` via `scripts/deploy
 |---|---|---|
 | `src/bga/` | Pipeline package: layers, registry, config/hashing, eval, training, Colab & Modal runners | Yes |
 | `configs/` | Inference run configs (`*.yaml`) and training configs (`train/*.yaml`) | Yes |
-| `tools/labeler/` | Local labelling HTTP server and 4 web UI pages | Yes |
+| `tools/labeler/` | Local labelling HTTP server and 5 web UI pages | Yes |
 | `scripts/` | Labelling/review helpers, gold export, sweeps, probes, demo builders | Yes |
 | `tests/` | Pytest suite + doctests (including gold-leakage and contract tests) | Yes |
 | `data/labels/`, `data/rosters/`, `data/gold/`, `data/fixtures/` | Committed labels, rosters, gold sets, synthetic fixtures | Yes |

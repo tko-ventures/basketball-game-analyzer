@@ -8,3 +8,6 @@ Output per sequence, aligned with the detect output's boxes:
 """
 
 from bga.stage import Backend as TeamBackend  # noqa: F401  # re-exported: the team layer's backend protocol
+
+#: Team label emitted by Layer 3 for referee detections.
+REF_TEAM = "ref"

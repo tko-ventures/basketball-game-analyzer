@@ -1137,6 +1137,17 @@ class LabelerHandler(BaseHTTPRequestHandler):
     def _get_number_queue(self, q: dict[str, str]) -> None:
         self._json(load_number_queue(self.app.labels_dir, q.get("set", "spotcheck")))
 
+    def _get_events_page(self, q: dict[str, str]) -> None:
+        self._bytes((STATIC / "events.html").read_bytes(), "text/html; charset=utf-8")
+
+    def _get_events_state(self, q: dict[str, str]) -> None:
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location("events_api", Path(__file__).with_name("events_api.py"))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        self._json(mod.load_events_state())
+
     def _get_clips(self, q: dict[str, str]) -> None:
         self._json({
             "clips": self.app.list_clips(),
@@ -1176,6 +1187,9 @@ class LabelerHandler(BaseHTTPRequestHandler):
         "/numbers": _get_numbers_page,
         "/numbers/": _get_numbers_page,
         "/api/numbers/queue": _get_number_queue,
+        "/events": _get_events_page,
+        "/events/": _get_events_page,
+        "/api/events/state": _get_events_state,
         "/api/clips": _get_clips,
         "/api/clip": _get_clip,
         "/api/frame": _get_frame,
@@ -1205,6 +1219,17 @@ class LabelerHandler(BaseHTTPRequestHandler):
         except ValueError as e:
             self._err(400, str(e))
 
+    def _post_events_save(self, body: dict, q: dict[str, str]) -> None:
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location("events_api", Path(__file__).with_name("events_api.py"))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        try:
+            self._json({"ok": True, **mod.save_events_state(body)})
+        except ValueError as e:
+            self._err(400, str(e))
+
     def _post_shots(self, body: dict, q: dict[str, str]) -> None:
         self.app.shots.start(q["path"], float(body.get("threshold", DEFAULT_THRESHOLD)))
         self._json({"started": True})
@@ -1214,6 +1239,7 @@ class LabelerHandler(BaseHTTPRequestHandler):
         "/api/court/labels": _post_court_labels,
         "/api/boxes/frame": _post_box_frame,
         "/api/numbers/review": _post_number_review,
+        "/api/events/save": _post_events_save,
         "/api/shots": _post_shots,
     }
 

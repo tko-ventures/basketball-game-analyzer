@@ -658,6 +658,80 @@ def eval_positions(
         METRICS_MD.write_text(_insert_rows(METRICS_MD.read_text(), POSITIONS_HEADER, rows, POSITIONS_INTRO))
 
 
+#: Header of the ball, possession, and shots table in ``docs/metrics.md`` written by ``bga eval-ball``.
+BALL_HEADER = (
+    "| date | commit | config | ball backend | detect weights | split (shots, frames) "
+    "| ball F1 (R, med px) | poss acc | holder F1 | team acc | shot F1 (P/R, pred/gt) "
+    "| outcome acc | shooter acc | ms/frame | notes |\n"
+    "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n"
+)
+#: Section heading and explanation placed above the ball table when it is first added.
+BALL_INTRO = (
+    "## Ball, possession, and shots\n\n"
+    "Scored by `bga eval-ball` on the gold shots, dev unless `--held-out`. **ball F1 (R, med px):** tracked `ball_px`"
+    " matched to gold `v1` `ball` boxes within `max(25 px, box_side)`. **poss acc / holder F1 / team acc:** per-frame"
+    " holder track matched to gold `v1` `player-in-possession` at IoU >= 0.5 (and exact `None` when unheld)."
+    " **shot F1 / outcome acc / shooter acc:** shot attempts matched to `data/gold/v1/events.json` within 0.8 s on"
+    " `rim_frame`, made/missed accuracy on matched shots, and shooter track match against gold `v0` tracks."
+    " **ms/frame:** Layer 7 stage on M1 Max.\n\n"
+)
+
+
+@app.command("eval-ball", help="Score each config's ball, possession, and shot-event layer on the gold shots.")
+def eval_ball(
+    config: Annotated[list[Path], typer.Option(help="one or more run configs with a ball layer")],
+    set_: Annotated[list[str], typer.Option("--set", help="override applied to every config")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
+    held_out: Annotated[bool, typer.Option(help="score the held-out game instead (once per milestone)")] = False,
+    write: Annotated[bool, typer.Option(help="append rows to docs/metrics.md")] = False,
+    note: str = "",
+    verbose: bool = False,
+) -> None:
+    """Score each config's Layer 7 ``ball`` backend on gold ``v1`` boxes and ``events.json``.
+
+    Args:
+        config: Run configs, scored side by side.
+        set_: Overrides applied to every config.
+        held_out: Score the held-out game instead of dev (once per milestone).
+        write: Add the rows to the ball, possession, and shots table in ``docs/metrics.md``.
+        note: Text for the notes column.
+        verbose: Log progress.
+
+    Raises:
+        typer.BadParameter: When a layer's trained weights have no ``train.json``.
+
+    Examples:
+        >>> eval_ball([Path("configs/ball-plk-fused.yaml")])  # doctest: +SKIP
+
+    """
+    from bga.eval.ball import score as ball_score
+
+    _setup_logging(verbose)
+    rows = []
+    for path in config:
+        cfg = load_config(path, set_)
+        _require_provenance(cfg)
+        cfg.layers["shots"].params["held_out"] = "only" if held_out else "exclude"
+        s = ball_score(cfg)
+        ball_b = cfg.layers["ball"].backend
+        det_w = _weights_cell(cfg.layers["detect"].weights)
+        shot_cell = (
+            f"{_fmt(s['shot_f1'])} ({_fmt(s['shot_p'], 2)}/{_fmt(s['shot_r'], 2)}, {s['shot_pred']}/{s['shot_gt']})"
+            if s["shot_gt"]
+            else f"– ({s['shot_pred']}/0)"
+        )
+        rows.append(
+            f"| {dt.date.today().isoformat()} | {pipeline.git_commit()} | `{cfg.name}`@{cfg.config_hash()} "
+            f"| {ball_b} | {det_w} | {'held-out' if held_out else 'dev'} ({s['sequences']}, {s['box_frames']}) "
+            f"| {_fmt(s['ball_f1'])} ({_fmt(s['ball_r'], 2)}, {_fmt(s['ball_med_px'], 1)}) "
+            f"| {_fmt(s['poss_acc'])} | {_fmt(s['holder_f1'])} | {_fmt(s['team_acc'])} "
+            f"| {shot_cell} | {_fmt(s['shot_outcome_acc'])} | {_fmt(s['shot_shooter_acc'])} "
+            f"| {_fmt(s['ms_per_frame'], 2)} | {note} |"
+        )
+    typer.echo(BALL_HEADER + "\n".join(rows))
+    if write:
+        METRICS_MD.write_text(_insert_rows(METRICS_MD.read_text(), BALL_HEADER, rows, BALL_INTRO))
+
+
 def _shots_split(held_out: bool, all_splits: bool) -> str:
     """Resolve ``shots.params.held_out`` from ``--held-out`` and ``--all-splits`` flags."""
     if all_splits:
@@ -694,7 +768,7 @@ def export_(
     """
     import pyarrow.parquet as pq
 
-    from bga.export.parquet import export_sequence, rows_to_table, sequence_rows
+    from bga.export.parquet import export_ball_sequence, export_sequence, rows_to_table, sequence_rows
 
     _setup_logging(verbose)
     cfg = load_config(config, set_)
@@ -705,6 +779,8 @@ def export_(
     for s in seqs:
         path = export_sequence(cfg, s)
         typer.echo(path)
+        if "ball" in cfg.layers:
+            typer.echo(export_ball_sequence(cfg, s))
         if out is not None:
             all_rows.extend(sequence_rows(cfg, s))
     if out is not None:

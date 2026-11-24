@@ -15,7 +15,7 @@ from typing import Any
 import yaml
 from pydantic import BaseModel, ConfigDict, Field
 
-#: Pipeline order and upstream layers (plan section 5, L0 to L6, plus L3b appearance and L5b identity).
+#: Pipeline order and upstream layers (plan section 5, L0 to L7, plus L3b appearance and L5b identity).
 LAYERS: dict[str, tuple[str, ...]] = {
     "shots": (),
     "court": ("shots",),
@@ -27,13 +27,18 @@ LAYERS: dict[str, tuple[str, ...]] = {
     "link": ("track", "team", "appearance", "court", "numbers"),
     "identity": ("link", "track", "team", "numbers", "appearance"),
     "positions": ("track", "link", "court"),
+    "ball": ("detect", "track", "link", "team", "court", "positions"),
 }
 
 
 #: Upstream layers a config may leave out: their readers then work without them.
 OPTIONAL_UPSTREAM = frozenset({"court", "appearance", "numbers"})
-#: Upstream layers optional only for specific consumers (``positions`` uses ``link`` when configured, else ``track``).
-OPTIONAL_BY_LAYER: dict[str, frozenset[str]] = {"positions": frozenset({"link"})}
+#: Upstream layers optional only for specific consumers (``positions`` uses ``link`` when configured, else ``track``;
+#: ``ball`` reads ``link``, ``team``, ``court``, and ``positions`` when configured).
+OPTIONAL_BY_LAYER: dict[str, frozenset[str]] = {
+    "positions": frozenset({"link"}),
+    "ball": frozenset({"link", "team", "court", "positions"}),
+}
 
 #: Shots params that only choose sequences; kept out of the hashes so dev and held-out runs, and runs over different
 #: clip lists, share dirs.

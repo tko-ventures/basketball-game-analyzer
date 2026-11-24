@@ -1,11 +1,14 @@
 """Parquet export per sequence (plan section 5, Export contract).
 
-Schema (per frame per player):
+Player table schema (per frame per player):
     ``game_id, clip, frame_idx, t_video_s, shot_id, camera, game_clock, track_id, player_uid,
     team, jersey_number, player_name, bbox_xyxy_px, foot_px, x_m, y_m, confidence``
 
+Ball table schema (per frame, exported alongside players when ``ball`` is configured):
+    ``frame_idx, x_m, y_m, holder_track_id, in_flight``
+
 Court coordinates are in metres on the FIBA court (``CourtConfiguration(League.FIBA, CENTIMETERS) / 100``).
-Written to ``runs/<clip>/export/<config>@<hash8>/<sequence>.parquet``.
+Written to ``runs/<clip>/export/<config>@<hash8>/<sequence>.parquet`` (and ``<sequence>.ball.parquet``).
 
 """
 
@@ -45,6 +48,15 @@ PLAYER_SCHEMA = pa.schema([
     pa.field("x_m", pa.float32(), nullable=True),
     pa.field("y_m", pa.float32(), nullable=True),
     pa.field("confidence", pa.float32(), nullable=False),
+])
+
+#: Exact per-frame ball parquet schema from ``docs/PLAN.md`` §5 Export contract.
+BALL_SCHEMA = pa.schema([
+    pa.field("frame_idx", pa.int32(), nullable=False),
+    pa.field("x_m", pa.float32(), nullable=True),
+    pa.field("y_m", pa.float32(), nullable=True),
+    pa.field("holder_track_id", pa.int32(), nullable=True),
+    pa.field("in_flight", pa.bool_(), nullable=False),
 ])
 
 _YT_ID_RE = re.compile(r"^\d{8}_([A-Za-z0-9_-]{11})_")
@@ -237,9 +249,61 @@ def rows_to_table(rows: list[dict[str, Any]]) -> pa.Table:
     return pa.Table.from_pylist(rows, schema=PLAYER_SCHEMA)
 
 
+def ball_rows(cfg: RunConfig, seq: Sequence, runs: Path = Path("runs")) -> list[dict[str, Any]]:
+    """Build per-frame ball export rows matching :data:`BALL_SCHEMA` for one sequence.
+
+    Args:
+        cfg: Run config including the ``ball`` layer.
+        seq: Sequence to export.
+        runs: Root of pipeline run outputs.
+
+    Returns:
+        List of row dicts ordered by ``frame_idx``.
+
+    """
+    ball_out = load_output(cfg, runs, seq, "ball")
+    frames_map = ball_out.get("frames", {})
+    rows: list[dict[str, Any]] = []
+    for f in seq.frames:
+        fr = frames_map.get(str(f), {})
+        tid = fr.get("holder_track_id")
+        rows.append({
+            "frame_idx": int(f),
+            "x_m": float(fr["x_m"]) if fr.get("x_m") is not None else None,
+            "y_m": float(fr["y_m"]) if fr.get("y_m") is not None else None,
+            "holder_track_id": int(tid) if tid is not None else None,
+            "in_flight": bool(fr.get("in_flight", tid is None)),
+        })
+    return rows
+
+
+def ball_rows_to_table(rows: list[dict[str, Any]]) -> pa.Table:
+    """Convert row dicts from :func:`ball_rows` into a typed :class:`pyarrow.Table`.
+
+    Args:
+        rows: List of per-frame ball row dicts.
+
+    Returns:
+        Arrow table strictly adhering to :data:`BALL_SCHEMA`.
+
+    Examples:
+        >>> row = {"frame_idx": 0, "x_m": 10.0, "y_m": 7.5, "holder_track_id": 1, "in_flight": False}
+        >>> tbl = ball_rows_to_table([row])
+        >>> tbl.num_rows, tbl.column_names
+        (1, ['frame_idx', 'x_m', 'y_m', 'holder_track_id', 'in_flight'])
+
+    """
+    return pa.Table.from_pylist(rows, schema=BALL_SCHEMA)
+
+
 def export_path(cfg: RunConfig, seq: Sequence, runs: Path = Path("runs")) -> Path:
     """Default parquet destination for one sequence: ``runs/<clip>/export/<config>@<hash8>/<sequence>.parquet``."""
     return runs / seq.clip / "export" / f"{cfg.name.split('[')[0]}@{cfg.config_hash()}" / f"{seq.name}.parquet"
+
+
+def ball_export_path(cfg: RunConfig, seq: Sequence, runs: Path = Path("runs")) -> Path:
+    """Default ball parquet destination: ``runs/<clip>/export/<config>@<hash8>/<sequence>.ball.parquet``."""
+    return runs / seq.clip / "export" / f"{cfg.name.split('[')[0]}@{cfg.config_hash()}" / f"{seq.name}.ball.parquet"
 
 
 def export_sequence(
@@ -265,5 +329,30 @@ def export_sequence(
     dest = out or export_path(cfg, seq, runs)
     dest.parent.mkdir(parents=True, exist_ok=True)
     table = rows_to_table(sequence_rows(cfg, seq, runs=runs, rosters=rosters))
+    pq.write_table(table, dest)
+    return dest
+
+
+def export_ball_sequence(
+    cfg: RunConfig,
+    seq: Sequence,
+    runs: Path = Path("runs"),
+    out: Path | None = None,
+) -> Path:
+    """Write one sequence's per-frame ball table to parquet and return its path.
+
+    Args:
+        cfg: Run config including ``ball``, whose outputs are already on disk under ``runs``.
+        seq: Sequence to export.
+        runs: Root of pipeline run outputs.
+        out: Optional explicit destination path; defaults to :func:`ball_export_path`.
+
+    Returns:
+        Path of the written ``.ball.parquet`` file.
+
+    """
+    dest = out or ball_export_path(cfg, seq, runs)
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    table = ball_rows_to_table(ball_rows(cfg, seq, runs=runs))
     pq.write_table(table, dest)
     return dest
