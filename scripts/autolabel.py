@@ -580,21 +580,25 @@ def manifest(r: Round) -> None:
 
 
 def _people_fixes(r: Round, draft: dict) -> dict:
-    """People boxes from the round's people queue: (clip, frame) -> boxes when done, None when skipped.
+    """People boxes from the round's people queue: (clip, frame) -> boxes when done, None otherwise.
 
-    Raises SystemExit while a frame is still to do, so no manifest is built on half-fixed people.
+    A frame left to do or skipped stays out of the manifest (its people are known to be incomplete); the count is
+    printed, so build the manifest only once the reviewer has finished the queue.
 
     """
     path = Path(f"data/labels/box_queue_r{r.n}people.json")
-    out = {}
-    for f in json.loads(path.read_text())["frames"] if path.exists() else []:
-        if f["status"] == "todo":
-            raise SystemExit(f"{path}: {f['clip']} {f['frame']} is still to do")
-        out[(f["clip"], f["frame"])] = (
+    frames = json.loads(path.read_text())["frames"] if path.exists() else []
+    out = {
+        (f["clip"], f["frame"]): (
             [[*map(float, b["xyxy"]), b["cls"]] for b in f["boxes"] if b["cls"] in PERSON]
             if f["status"] == "done"
             else None
         )
+        for f in frames
+    }
+    left = sum(v is None for v in out.values())
+    if left:
+        print(f"{path}: {left} of {len(out)} frames not done; they stay out of the manifest")
     return out
 
 

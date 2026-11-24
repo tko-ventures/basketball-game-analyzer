@@ -1,7 +1,7 @@
 {
  "version": "r4people",
  "title": "People queue, round 4",
- "instructions": "<b>People in a crowded frame.</b> Flagged boxes cover two people: split them (drag the box onto one, <kbd>\u21e7</kbd>-drag a box for the other). The note says who has no box yet: <kbd>\u21e7</kbd>-drag one for each on-court player or referee. <kbd>Enter</kbd>: frame done \u00b7 <kbd>S</kbd> skip \u00b7 <kbd>[</kbd> <kbd>]</kbd> previous / next frame.",
+ "instructions": "<b>People in a crowded frame.</b> The note says how many on-court players or referees have no box yet, and which boxes are flagged as covering two people.<br>No box: press <kbd>1</kbd> (player) or <kbd>6</kbd> (referee), then <kbd>\u21e7</kbd>-drag a tight box. A flagged box on two people: drag its edges onto one of them (or select it and <kbd>X</kbd> to delete it), then <kbd>\u21e7</kbd>-drag a box for the other. <kbd>\u2325</kbd>-drag moves a selected box.<br><kbd>Enter</kbd>: frame done, next \u00b7 <kbd>[</kbd> <kbd>]</kbd> previous / next frame \u00b7 <kbd>U</kbd> undo \u00b7 scroll to zoom, <kbd>F</kbd> fit. A frame you cannot fix: leave it with <kbd>]</kbd>; it stays out of training.",
  "classes": [
   "player",
   "player-in-possession",

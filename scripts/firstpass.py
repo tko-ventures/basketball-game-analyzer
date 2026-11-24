@@ -37,10 +37,13 @@ from autolabel import PERSON, Round, proposals
 #: Holder action from the first pass to the holder's class (the labeller's rule: a shooter keeps the shot class).
 ACTION_CLASS = {"hold": "player-in-possession", "jump-shot": "player-jump-shot", "layup-dunk": "player-layup-dunk"}
 PEOPLE_INSTRUCTIONS = (
-    "<b>People in a crowded frame.</b> Flagged boxes cover two people: split them (drag the box onto one, "
-    "<kbd>⇧</kbd>-drag a box for the other). The note says who has no box yet: <kbd>⇧</kbd>-drag one for each "
-    "on-court player or referee. <kbd>Enter</kbd>: frame done · <kbd>S</kbd> skip · <kbd>[</kbd> <kbd>]</kbd> "
-    "previous / next frame."
+    "<b>People in a crowded frame.</b> The note says how many on-court players or referees have no box yet, and "
+    "which boxes are flagged as covering two people.<br>"
+    "No box: press <kbd>1</kbd> (player) or <kbd>6</kbd> (referee), then <kbd>⇧</kbd>-drag a tight box. "
+    "A flagged box on two people: drag its edges onto one of them (or select it and <kbd>X</kbd> to delete it), "
+    "then <kbd>⇧</kbd>-drag a box for the other. <kbd>⌥</kbd>-drag moves a selected box.<br>"
+    "<kbd>Enter</kbd>: frame done, next · <kbd>[</kbd> <kbd>]</kbd> previous / next frame · <kbd>U</kbd> undo · "
+    "scroll to zoom, <kbd>F</kbd> fit. A frame you cannot fix: leave it with <kbd>]</kbd>; it stays out of training."
 )
 
 

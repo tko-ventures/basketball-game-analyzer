@@ -522,6 +522,10 @@ window.addEventListener("resize", () => { if (S.imgOk) { fit(); render(); } });
     $("help").innerHTML = S.q.instructions || "";
     $("classes").style.display = "none";
   }
+  if (!choiceMode() && S.q.instructions) {  // another full-edit queue (e.g. r4people) brings its own title and help
+    document.querySelector("header b").textContent = S.q.title || "Boxes";
+    $("help").innerHTML = S.q.instructions;
+  }
   if (!S.q.frames.length) { $("where").textContent = "No queue: run scripts/box_gold_v1.py prefill."; return; }
   const i = Number(new URLSearchParams(location.search).get("i"));
   go(Number.isFinite(i) && i > 0 ? i : Math.max(0, S.q.frames.findIndex((f) => f.status === "todo")));
