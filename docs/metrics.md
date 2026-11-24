@@ -160,7 +160,7 @@ Scored by `bga eval-positions` on the gold shots, dev unless `--held-out`. **kf 
 
 ## Ball, possession, and shots
 
-Scored by `bga eval-ball` on the gold shots, dev unless `--held-out`. **ball F1 (R, med px):** tracked `ball_px` matched to gold `v1` `ball` boxes within `max(25 px, box_side)`. **poss acc / holder F1 / team acc:** per-frame holder track matched to gold `v1` `player-in-possession` at IoU >= 0.5 (and exact `None` when unheld). **shot F1 / outcome acc / shooter acc:** shot attempts matched to `data/gold/v1/events.json` within 0.8 s on `rim_frame`, made/missed accuracy on matched shots, and shooter track match against gold `v0` tracks. **ms/frame:** Layer 7 stage on M1 Max.
+Scored by `bga eval-ball` on the gold shots, dev unless `--held-out`. **ball F1 (R, med px):** tracked `ball_px` matched to gold `v1` `ball` boxes within `max(25 px, box_side)`. **poss acc / holder F1 / team acc:** per-frame holder track matched to the gold holder box at IoU >= 0.5 (and exact `None` when unheld): from `data/gold/v1/holders.json` (2026-11-20 possession definition) from 2026-11-24, `player-in-possession` boxes before. **shot F1 / outcome acc / shooter acc:** shot attempts matched to `data/gold/v1/events.json` within 0.8 s on `rim_frame`, made/missed accuracy on matched shots, and shooter track match against gold `v0` tracks. **ms/frame:** Layer 7 stage on M1 Max.
 
 | date | commit | config | ball backend | detect weights | split (shots, frames) | ball F1 (R, med px) | poss acc | holder F1 | team acc | shot F1 (P/R, pred/gt) | outcome acc | shooter acc | ms/frame | notes |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|

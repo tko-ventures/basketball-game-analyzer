@@ -182,6 +182,26 @@ Classes with fewer than about 20 boxes are too small for a stable AP of their ow
 
 Tomasz reviews in the labeller at `/boxes`. Each frame shows flagged boxes first, and a loupe shows the selected box at up to 8× for pixel-level edges. Enter marks the frame done. `scripts/box_gold_v1.py export` writes `data/gold/v1/boxes.json` from the frames marked done.
 
+## Holder gold v1 (2026-11-24)
+
+Box gold v1 was labelled on 2026-11-18, two days before the possession schema of 2026-11-20 ([ADR](adr/2026-11-20-detector-classes-and-possession-schema.md)) defined the holder as whoever holds or dribbles the ball, a shooter still holding it included. A shooter boxed as `player-jump-shot` or `player-layup-dunk` was therefore never a holder in box gold, and some clear holds were left as `player`. `data/gold/v1/holders.json` gives each of the 100 frames its holder under the 2026-11-20 definition, as the index of a person box in the frame's `boxes.json` entry (or none). `bga eval-ball` scores possession against it; box gold is unchanged, so detection rows still score the boxes Tomasz drew.
+
+`scripts/holders_gold_v1.py` builds it from the `player-in-possession` boxes and the ops file `data/labels/review/holders_v1.ops.txt`.
+
+The implementer's first pass (ledger row of 2026-11-24) checked every frame on crops around the gold ball, and the wide frames without a gold ball again at full resolution:
+
+| Against box gold | Frames |
+|---|---|
+| unchanged | 79 |
+| changed (5 shooters still holding the ball, 5 clear holds or dribbles, 1 possession box on a shooter whose ball is already in flight) | 11 |
+| flagged for Tomasz, box gold kept until he decides (release or hold, dribble or loose ball, a dead-ball hold) | 10 |
+
+Box gold also has no ball box in two wide frames where the ball is visible at full resolution (`1jDaJBkUGmc` 1405, dribbled; 6510, in a shooter's raised hands). That is box geometry and waits for Tomasz.
+
+### How to decide the flagged frames
+
+Each flagged line in the ops file proposes an answer. Change its status to `tomasz` (keeping or changing the box index, or `none`) and rerun `uv run scripts/holders_gold_v1.py`.
+
 ## Number crops (v1, 2026-11-22)
 
 `data/gold/v1/numbers.json` scores number readers crop by crop, independent of detector and tracker. Written by `scripts/number_gold.py export` from `data/labels/numbers/gold_crops.json`. The implementer read every crop; Tomasz then checked a sample of 30 and every crop the implementer had left `illegible` (110 crops, 7 min 53 s), and his answer is the label wherever he gave one.
