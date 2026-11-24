@@ -200,7 +200,7 @@ Box gold also has no ball box in two wide frames where the ball is visible at fu
 
 ### How to decide the flagged frames
 
-Each flagged line in the ops file proposes an answer. Change its status to `tomasz` (keeping or changing the box index, or `none`) and rerun `uv run scripts/holders_gold_v1.py`.
+Open the labeller's `/holders` page (`uv run python tools/labeler/server.py`, then http://127.0.0.1:8765/holders). Each question shows the gold frame zoomed around the ball, the frames from 0.6 s before to 0.6 s after it (Space plays them), and the proposed holder. Press A to accept the proposal or N for no holder, or click a player box and press Enter. Each answer is saved straight away: a `tomasz` line goes under the flagged line in the ops file, and `data/gold/v1/holders.json` is rebuilt. The second tab shows the implementer's applied changes for a second look. `bga.eval.holders` holds the logic, which `scripts/holders_gold_v1.py` also runs.
 
 ## Number crops (v1, 2026-11-22)
 

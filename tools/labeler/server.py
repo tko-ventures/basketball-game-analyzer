@@ -30,6 +30,7 @@ from collections.abc import Callable
 from enum import StrEnum
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from types import ModuleType
 from typing import ClassVar
 from urllib.parse import parse_qs, urlparse
 
@@ -983,6 +984,8 @@ class App:
         self.rosters_dir = rosters_dir
         self.cache_dir = labels_dir / ".cache"
         self.clips = ClipRegistry()
+        self.holders_ops = REPO / "data/labels/review/holders_v1.ops.txt"
+        self.holders_out = REPO / "data/gold/v1/holders.json"
         self.shots = ShotJobs(labels_dir)
 
     def list_clips(self) -> list[dict]:
@@ -1057,6 +1060,16 @@ class App:
         cdir.mkdir(parents=True, exist_ok=True)
         cpath.write_bytes(buf.tobytes())
         return buf.tobytes()
+
+
+def _load_sibling(name: str) -> ModuleType:
+    """Import a module that sits next to this file (the labeller runs as a script, not a package)."""
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location(name, Path(__file__).with_name(f"{name}.py"))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
 
 
 type _GetRoute = Callable[[LabelerHandler, dict[str, str]], None]
@@ -1148,6 +1161,13 @@ class LabelerHandler(BaseHTTPRequestHandler):
         spec.loader.exec_module(mod)
         self._json(mod.load_events_state())
 
+    def _get_holders_page(self, q: dict[str, str]) -> None:
+        self._bytes((STATIC / "holders.html").read_bytes(), "text/html; charset=utf-8")
+
+    def _get_holders_state(self, q: dict[str, str]) -> None:
+        mod = _load_sibling("holders_api")
+        self._json(mod.load_holders_state(ops_path=self.app.holders_ops))
+
     def _get_clips(self, q: dict[str, str]) -> None:
         self._json({
             "clips": self.app.list_clips(),
@@ -1190,6 +1210,9 @@ class LabelerHandler(BaseHTTPRequestHandler):
         "/events": _get_events_page,
         "/events/": _get_events_page,
         "/api/events/state": _get_events_state,
+        "/holders": _get_holders_page,
+        "/holders/": _get_holders_page,
+        "/api/holders/state": _get_holders_state,
         "/api/clips": _get_clips,
         "/api/clip": _get_clip,
         "/api/frame": _get_frame,
@@ -1230,6 +1253,15 @@ class LabelerHandler(BaseHTTPRequestHandler):
         except ValueError as e:
             self._err(400, str(e))
 
+    def _post_holders_answer(self, body: dict, q: dict[str, str]) -> None:
+        mod = _load_sibling("holders_api")
+        try:
+            counts = mod.save_holder_answer(body, ops_path=self.app.holders_ops, out_path=self.app.holders_out)
+        except (KeyError, ValueError) as e:
+            self._err(400, str(e))
+            return
+        self._json({"ok": True, **counts})
+
     def _post_shots(self, body: dict, q: dict[str, str]) -> None:
         self.app.shots.start(q["path"], float(body.get("threshold", DEFAULT_THRESHOLD)))
         self._json({"started": True})
@@ -1240,6 +1272,7 @@ class LabelerHandler(BaseHTTPRequestHandler):
         "/api/boxes/frame": _post_box_frame,
         "/api/numbers/review": _post_number_review,
         "/api/events/save": _post_events_save,
+        "/api/holders/answer": _post_holders_answer,
         "/api/shots": _post_shots,
     }
 
@@ -1320,9 +1353,12 @@ def main(argv: list[str] | None = None) -> None:
     )
     ap.add_argument("--labels-dir", default="data/labels")
     ap.add_argument("--rosters-dir", default="data/rosters")
+    ap.add_argument("--holders-ops", default="data/labels/review/holders_v1.ops.txt", help="/holders ops file")
+    ap.add_argument("--holders-out", default="data/gold/v1/holders.json", help="/holders gold written on answer")
     a = ap.parse_args(argv)
     clips_dirs = [REPO / d for d in (a.clips_dir or ["data/clips", "data/raw"])]
     app = App(clips_dirs, REPO / a.labels_dir, REPO / a.rosters_dir)
+    app.holders_ops, app.holders_out = REPO / a.holders_ops, REPO / a.holders_out
     srv = ThreadingHTTPServer((a.host, a.port), make_handler(app))
     print(f"Labeller on http://{a.host}:{a.port}  (repo {REPO})")
     with contextlib.suppress(KeyboardInterrupt):
