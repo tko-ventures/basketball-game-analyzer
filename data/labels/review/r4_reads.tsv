@@ -1,0 +1,241 @@
+idx	ball	drop	missing	holder	action	flag	note
+0	unsure		0	unsure	-	yes	ball not visible; may be at #7's (box 6) waist, strip unclear; boxes 1 and 3 at left edge may be one person (red shoes / green shoe, can't tell)
+1	B		0	17	layup-dunk	yes	Dziki #7 (box 17) going up close in the paint, ball raised; may be a short jumper instead of a layup; c0 is next to the ball
+2	c0		1	nobox	-	yes	white-kit shooter jumping at ~x735,y920-1080 (left of box 2) has no box; c0 looks like the ball in his raised hands; the other cyan box at right is a cheerleader pompom
+3	B		1	11	hold	yes	box 11 holds the ball at chest; the box on white #25 has an unreadable index; a dark player partly hidden behind #25 (~x1500,y990-1100) may have no box
+4	B		0	14	hold	yes	box 14 is dribbling (ball mid-bounce); top-left boxes 9 and 0 may be duplicates on one person at the crop edge, can't tell
+5	c0		1	nobox	layup-dunk	yes	Dziki #22 rising to the rim (x1365-1470,y140-420) has no box; c0 at the rim is the ball in his hand; c1 is a shoe
+6	B		0	8	hold	no	white player dribbling; box 11 is the Dziki defender leaning over him
+7	B		1	nobox	-	yes	Dziki #22 shooter (~x1400-1470,y1075-1310) has no box; ball is at the release point above his hands, could already be out of his hands; c0 is a head in box 10
+8	B		0	8	hold	no	shot cuts after +0.0 s; labels 4 and 9 at the left edge sit in the crowd area, box edges can't be seen
+9	B		0	9	hold	yes	box 9 dribbling; a person in black at the top-left sideline (~x1060,y40-160) has no box, could be a referee or a coach
+10	unsure		1	unsure	-	yes	no clear ball; c2 at the rim, c1 below it near box 9's raised hands; a Dziki player at ~x345-390,y1000-1180 (left of box 9) may have no box
+11	c0		1	nobox	jump-shot	yes	Dziki shooter in the air (~x1245-1340,y940-1170) between boxes 7 and 14 has no box; c0 is the ball above his head; yellow box 14 overlaps white box 10, so a referee or player box may be wrong
+12	unsure		0	unsure	-	yes	c0 is at chest height between white #11 (box 5) and Dziki box 8, can't confirm it is the ball; person lying by the baseline at left is off court
+13	B		1	nobox	jump-shot	yes	Dziki #15 shooting with the ball overhead (x1300-1460,y300-560) has no box; a white defender's arm is visible behind him (possible second missing person)
+14	B		0	4	hold	no	box 4 dribbling, box 3 is the defender; people at bottom-left are bench or crowd
+15	none		0	nobody	-	no	no ball visible in the crop (strip shows only the referee and a white player)
+16	B		0	16	hold	yes	box 15 may be a duplicate of 16 on the long-haired Dziki ball handler (15 also covers the legs); c0 and c1 sit on the referee's head
+17	B		1	unsure	-	yes	Dziki #18 shooter (~x1370-1430,y340-560) has no box; ball at the release point, can't tell whether it is still in his hands; c0 is near the net
+18	none		0	nobody	-	no	ball not visible; probably with the Dziki player cut off at the bottom (box 4)
+19	B		0	20	hold	no	white #25 holding the ball
+20	B		0	15	jump-shot	no	dark-kit shooter, ball overhead; box 15 is white, not shot class; yellow ref box 6 also takes in #25's upper body
+21	B		0	unsure	-	yes	ball at an outstretched hand by the rim, in flight from +0.1 s (tip or block?); box 12 may cover both a red and a dark player
+22	B		0	unsure	-	yes	ball looks in the air between #9 (box 2) and dark box 14, whose arm reaches toward it; pass or catch moment
+23	B		1	14	jump-shot	yes	dark #0 with the ball overhead; may be a free throw (players lined on the lane); a red player behind #0 (~x1300-1390,y1100-1320) has no box; c0 is a jersey
+24	none		1	nobody	-	yes	referee at the left baseline (~x225-275,y245-410) has no box; no ball visible
+25	B		0	11	hold	no	red #2 (box 11) dribbling; box 14 (magenta) is the defender #11
+26	none		0	unsure	-	yes	no ball visible in a crowded group (boxes 6, 5, 3)
+27	B	12d	0	unsure	-	yes	12 and 13 look like one dark player (13 is more complete); ball contested or tapped, loose by +0.1 s; c1 and c2 are jerseys, c0 is a shoe
+28	B		0	13	hold	no	box 13 dribbling, ball mid-bounce
+29	B		0	nobody	-	no	ball in flight in front of the crowd (long shot); shooter box 13 is cut at the bottom
+30	unsure		1	unsure	-	yes	referee under the basket (~x510-555,y940-1100) has no box; c1 sits in the cluster of boxes 15/6/7, can't confirm it is the ball; c0 is a hip
+31	B		1	nobody	-	yes	ball at the rim in flight; a grey-shirt referee under the rim (~x1440,y1135-1200) seems to have no box
+32	B		1	16	hold	yes	red player in box 16 securing the ball overhead (rebound); a dark player lying on the floor at left (~x200-270,y360-460) has no box
+33	unsure		0	unsure	-	yes	c0 is between dark box 4 and red box 2, can't confirm it is the ball; box 2 may hold two red players; shot cut at -0.2 s
+34	B		0	13	layup-dunk	no	red player under the rim with the ball overhead, released by +0.1 s; boxes 16 and 7 may be duplicates on one dark player (possibly two heads, can't tell)
+35	B		2	nobox	layup-dunk	yes	red finisher at the rim and dark #45 (~x1380-1480,y1060-1320) both have no box; ball at his hand by the rim, release unclear; left-edge boxes 5/6/7/3 may stack on one person
+36	B		0	7	hold	no	box 7 dribbling; box 12 (also magenta) overlaps box 11 on red #3, may be a duplicate or the hidden defender behind
+37	B		0	11	jump-shot	no	dark #1 rising to shoot with the ball overhead
+38	B		0	nobody	-	no	ball loose or passed in the air; magenta box 12 does not have it
+39	unsure	11x	1	unsure	-	yes	box 11 seems to merge a red and a dark player under the basket; referee at the baseline (~x1360-1410,y990-1120) has no box; ball hidden
+40	B		1	13	hold	yes	referee in the centre (~x540-630,y320-515) has no box
+41	B		0	5	hold	no	navy #33 dribbling
+42	B		1	11	hold	yes	bald referee at right (~x785-880,y1035-1320) has no box; yellow label 12 at the top has no visible box
+43	B		1	nobody	-	yes	ball in flight after release; navy shooter (~x1390-1480,y1100-1320) has no box
+44	unsure		0	unsure	-	yes	ball visible in the strip at -0.2/-0.1 s (in flight), not found at +0.0 s; box 1 may also hold a white player behind navy #13
+45	none		0	nobody	-	no	no ball in the crop; yellow label 3 overlaps white box 5 at the left edge
+46	B		0	8	hold	yes	box 8 dribbling; box 13 may be a partial duplicate of the ball handler, can't tell
+47	B		0	nobody	-	no	ball at the rim in flight
+48	B		1	unsure	-	yes	referee at baseline left of 7 (x~270) has no box; ball just above 5's head, probably just released by 5 (pass or shot); 14 is a small box on a foreground head at the bottom, check
+49	none		0	nobody	-	no	no ball visible in the crop
+50	B		1	nobody	-	yes	shot in flight at backboard; referee on baseline (x~470, below rim) has no box
+51	none		0	unsure	-	yes	ball not visible; may be hidden in cluster 6/11
+52	unsure		1	unsure	-	yes	referee on baseline (x~455) has no box; no ball seen; 6 at left is driving with something light near his hand
+53	B		0	unsure	-	yes	ball held overhead by a player rising in front of referee 14 (layup); cannot tell whether that is 5, 6 or an unboxed player
+54	unsure		1	unsure	-	yes	c0 near 12/5 is not clearly the ball; referee on baseline above 12 (x~545) has no box
+55	B		2	nobox	-	yes	white shooter releasing a floater has no box (ball at fingertips, may already be released); navy defender between shooter and 0 has no box
+56	B		1	nobox	-	yes	white layup shooter between 6 and 8 has no box; ball at his raised hands
+57	B		0	nobody	-	yes	B looks like the ball high in arc against the crowd, verify it is not a fan; shot in flight
+58	B		0	nobody	-	no	shot in flight toward rim
+59	B		0	9	hold	no	
+60	unsure		0	unsure	-	yes	c0 at 6's head is not clearly the ball; ball possibly with 4 or 6
+61	B		0	unsure	-	yes	ball at rim touching 13's raised hand; either 13 layup-dunk still in contact or just released
+62	B		0	11	hold	yes	strip shows white #1 (box 11) dribbling with his left hand; draft magenta 10 is the green defender
+63	B		0	14	jump-shot	no	
+64	unsure	10d	0	unsure	-	yes	green #31 shooting, ball not visible in his hands; 10 and 14 both seem to be on #31 (keep 14), verify
+65	unsure		0	unsure	-	yes	B is on referee 15's arm, not clearly the ball; c1 at 10's right hand is possible
+66	B		0	9	hold	no	
+67	B		0	5	hold	no	catching a pass at +0.0, in hands at +0.1; referee at bottom right is cut by more than half
+68	B	9x	1	11	layup-dunk	yes	9 covers a green and a white player; white blocker just left of 11 has no box; 11 putback with knee up
+69	B		0	nobody	-	no	ball in flight near the stanchion
+70	B		0	7	hold	no	
+71	B	10n	0	nobody	-	no	shot already left 12's hands; yellow 10 is a coach in a suit, not a referee
+72	B		0	9	hold	no	
+73	unsure		0	unsure	-	yes	no ball seen; yellow 7 at bottom is a head, possibly a photographer
+74	B		0	14	jump-shot	yes	ball just above 14's head; may already be released
+75	B	12n	0	17	jump-shot	no	yellow 12 is a coach in a suit; magenta 15 at bottom left is not the holder
+76	unsure		0	unsure	-	yes	c2 on 0's chest is not clearly the ball; no ball seen
+77	B	10n	1	nobody	-	yes	two B boxes: upper one (above 4/8) is the ball, lower one is on a green arm; referee on baseline (x~1410) has no box; yellow 10 is a coach in a suit; 6 at left edge may be a camera operator
+78	unsure		1	unsure	-	yes	c1/c2 at 13's chest are unclear; referee on baseline above 12 (x~557) has no box
+79	B		1	nobox	-	yes	green layup shooter between 16 and 9 has no box; ball at or just off his fingertips
+80	unsure		0	unsure	-	yes	B below the rim could be the ball or a cheerleader pom-pom
+81	B	13n	0	unsure	-	yes	handoff between 10 (green #29) and 14; yellow 13 is a coach in a suit
+82	B		1	nobody	-	yes	3-point shot in flight against the crowd; green shooter right of 6 (x~590) appears to have no box
+83	unsure		0	unsure	-	yes	c0 at 9's hand may be the ball, not clear
+84	unsure		0	unsure	-	yes	no ball seen; c1/c2 not on the ball
+85	B		0	11	jump-shot	no	magenta 7 at the bottom is not the holder
+86	B		0	11	hold	no	
+87	unsure	12n	0	unsure	-	yes	yellow 12 is a coach in a suit; no ball seen
+88	unsure		0	unsure	-	yes	c0 is the referee's head; no ball seen
+89	B		1	3	hold	yes	referee at left (x~1040) has no box
+90	B		1	5	hold	yes	referee at left edge (x~35) has no box
+91	unsure		0	unsure	-	yes	c0 at 11's raised hand is not clearly the ball
+92	unsure	9n	0	unsure	-	yes	B and c1 sit on the red Suzuki S on the backboard, not the ball; yellow 9 is a coach in a suit
+93	B		2	nobox	-	yes	white #16 shooter between 8 and 5 has no box; ball at top of his hands, may be releasing; foreground referee at bottom left (x~1170) has no box
+94	B		1	nobody	-	yes	pass or bounce in flight; referee on baseline (x~612) has no box
+95	unsure		1	unsure	-	yes	referee on baseline (x~1410) has no box; no ball seen
+96	unsure		0	unsure	-	yes	no ball visible in strip; c0 (near hand of player in box 7) and c1 (near box 9) are possible but cannot confirm
+97	B		1	12	layup-dunk	yes	missing: beige player jumping with arms up between boxes 9 and 10 (may be partly inside 9); 2/3/4 are edge boxes, extent not visible
+98	unsure		0	unsure	-	yes	B sits at the top of yellow box 11 (may be that person's head, not the ball); 11 looks like an off-court person behind the shooter, check it; shooter #19 (box 5) has arms up
+99	B		1	nobox	-	yes	holder is the white-kit player with the ball overhead, right of box 10 and unboxed; looks like a close shot attempt
+100	unsure		0	unsure	-	yes	no ball seen; maybe a dribble by the blue player in box 2, not confirmed
+101	B		0	14	jump-shot	yes	ball in 14's hands at set point, released by +0.1; box 16 (blue defender contesting) has red shot class but is not the shooter
+102	unsure		1	unsure	-	yes	B is high above the backboard against the crowd, maybe the ball in flight, cannot confirm; missing: referee in grey at the baseline right of box 8
+103	missing		0	unsure	-	yes	orange ball-like object at chest height on the right edge of box 1, between boxes 1 and 12; holder unclear
+104	B		0	unsure	-	yes	shooter 18 is at the release point; ball may just have left his hands; box 17 (red) is on defender #37 and is too wide
+105	unsure		1	unsure	-	yes	c1 at the rim may be the ball (shot at rim), not confirmed; missing: referee standing at right near the stanchion
+106	B		0	nobody	-	yes	B is a blurred orange streak by the backboard, likely the ball in flight
+107	unsure		0	unsure	-	yes	no ball visible in crop or strip; c0/c1 are in the crowd
+108	B		1	10	jump-shot	yes	missing: blue defender contesting with arm up, right of box 10; box 4 may merge a blue and a beige player
+109	unsure		0	unsure	-	yes	no ball visible; c0/c2 are in the crowd
+110	B		0	nobody	-	yes	ball at the backboard above the rim; possibly 1 missing: referee in grey under the basket above boxes 14/18 (not counted, unsure)
+111	unsure		1	unsure	-	yes	no ball visible; missing: referee at the right edge by the stanchion
+112	unsure		0	unsure	-	yes	c0/c1/c2 are all in the 12/16/6/5 cluster; cannot tell which (if any) is the ball
+113	B		0	6	hold	no	beige player holding/dribbling low; box 6 slightly wide
+114	B		2	nobody	-	yes	ball released toward the rim; missing: jumping beige #11 shooter and blue defender left of the rim, above boxes 1 and 8
+115	unsure		3	unsure	-	yes	two orange B boxes: one in the crowd top right is wrong; the one near the rim with c0/c2 may be the ball; missing: beige jumper, blue #10 jumper, referee in grey at right
+116	unsure		0	unsure	-	yes	possible low dribble at waist height on the right edge of box 4 (blue player), not confirmed
+117	B		0	13	hold	no	dribbling
+118	B		0	unsure	-	yes	ball between box 2 (beige #2) and magenta 14; strip suggests #2 is handling it, unclear
+119	B		0	0	hold	yes	blue player in box 0 dribbling/holding; draft marked no holder, please verify
+120	B		0	nobody	-	no	ball just left #7's hands under the rim
+121	B		2	unsure	-	yes	ball at the rim; two players jumping at the rim (white and dark) have no boxes; maybe a dunk or tip by the dark player
+122	B		0	unsure	-	yes	ball stays near the raised hand of the dark player in box 15 across the strip, likely 15 holding it, not sure
+123	B		1	9	hold	yes	driving with the ball; missing: referee in grey standing at left
+124	c0	1d	0	4	hold	yes	verify that c0 at player 4's hip is the ball; 1 is a partial duplicate of 14 on the same dark player
+125	B		0	nobody	-	no	ball in flight (moving across the strip)
+126	unsure		0	nobody	-	yes	B is in front of the bench by the coach, maybe a spare ball; shooter 13 is in follow-through; box 11 may merge a white and a dark player
+127	B		0	9	hold	yes	both 13 and 9 are magenta; strip shows white #15 (box 9) handling the ball while 13 jumps to contest
+128	B		0	16	hold	yes	box 6 may cover white #16 and a dark player behind him; possible referee in black at the baseline under the basket
+129	B		1	19	jump-shot	yes	missing (unsure): person in black at right under the basket, maybe a referee
+130	B		0	unsure	-	yes	ball at the rim with 17's hand up; likely a dunk/finish (17 layup-dunk), unclear whether still in hand
+131	B		1	nobody	-	yes	ball in flight; missing: referee in black at right under the basket
+132	B		0	15	hold	yes	15 stops at the knees; 12 may be a fuller duplicate of the same white player
+133	unsure		1	unsure	-	yes	no ball visible; c0/c1 at the top; missing: referee in grey at the baseline under the basket
+134	B		0	nobody	-	no	ball in flight after release by #45 (magenta 15)
+135	unsure		0	unsure	-	yes	c2 at the backboard may be the ball (rebound fight), not confirmed
+136	unsure		0	unsure	-	yes	no ball visible (c0 is the rim); box 8 may merge white #32 and a dark player
+137	B		0	nobody	-	no	ball at the rim
+138	B		1	nobox	-	yes	white player finishing a layup, ball at his fingertips; he has no box (left of 15); may have just released
+139	none		0	nobody	-	no	ball out of crop
+140	B		0	7	hold	yes	dribbling; 13 and 12 may be duplicates on the dark player at the top
+141	B		0	13	jump-shot	no	ball at set point, released by +0.2
+142	unsure		1	unsure	-	yes	no ball seen; c0/c1 are in the crowd; missing: referee in grey at left
+143	unsure		1	14	layup-dunk	yes	B (at 14's side) vs c1 (at the rim by 14's hand): unclear which is the ball; missing: referee in grey at right; 13 and 6 may overlap on white #3
+144	B		1	14	jump-shot	yes	B is on the ball above 14's head before release; unboxed referee at the baseline left of the stanchion (x~430); yellow 8 at the bottom edge is a cut-off person and its class is unclear
+145	missing		1	unsure	-	yes	ball at the rim in 17's hand (dunk or layup), not on c0-c2, which are in the crowd; unboxed referee on the left (x~990); narrow box 11 between 17 and 7 may be a duplicate on the dunker's legs
+146	unsure		0	unsure	-	yes	c2 between 3 and 15 may be the ball but I cannot confirm it; boxes 0 and 2 at the left edge may both be on white #10
+147	none		0	unsure	-	yes	B and c0 are both in the crowd (wrong); no ball visible on court, possibly hidden in the 7/11 cluster
+148	B		1	nobody	-	yes	ball at the backboard just after release by a jumping white #7 who has no box (14 is the dark defender)
+149	B		0	7	hold	no	dribbling
+150	B		0	unsure	-	yes	release moment of 13's shot: ball at the fingertips, and the strip suggests it is just leaving; 7 at the bottom edge is a head of someone possibly off court
+151	B		0	13	hold	no	
+152	B		0	18	hold	no	dribbling
+153	B		0	8	hold	yes	15 at the bottom looks like a bench or baseline person raising an arm; check whether n
+154	unsure		0	unsure	-	yes	c0 just above 10's head (white #7) may be the ball in an overhead hold or pass; cannot confirm
+155	B		0	nobody	-	yes	ball under the rim after 14's dunk or layup; 14 also contains the dark defender behind him, who has no box of his own (possible x)
+156	none		1	nobody	-	yes	white player at the rim (x~720, y~40-140, arms up) has no box; ball is above the crop, probably a shot in flight
+157	unsure		0	unsure	-	yes	c0 at dark 6's hand on the drive may be the ball
+158	B		1	15	layup-dunk	yes	B is on the ball in 15's hands under the basket; person in grey at the baseline (x~410) looks like an unboxed referee; layup or short jumper is unclear
+159	none		0	nobody	-	no	no ball visible; the strip turns into a broadcast transition at +0.1
+160	unsure		1	unsure	-	yes	c1 between 15 and 4 may be the ball; unboxed referee at the baseline (x~650)
+161	B		0	12	hold	no	dribbling
+162	B		0	12	hold	yes	8 may overlap the holder's legs; a second magenta box (11) sits at the bottom-left edge
+163	none		0	nobody	-	no	shot cut at -0.2 s (close-up)
+164	unsure		2	nobox	-	yes	dark jump shooter (x~465, y~140-290) has no box; ball above his head at c2 or c1 (cannot tell which); unboxed referee on the left (x~100); yellow 10 is a player (dark #1) with the referee class
+165	unsure		1	unsure	-	yes	ball may be c2 at the hands of jumping 12, or c1 at 7's hand; unboxed referee on the left (x~1040)
+166	B		1	nobody	-	yes	ball at the rim after 15's layup; unboxed referee (x~320)
+167	B		0	6	hold	no	dribbling; 17 is also magenta but has no ball
+168	B	18x	0	nobox	-	yes	ball dribbled by the dark driver, who sits inside 18 with the white defender and has no box of his own
+169	B		0	19	jump-shot	no	
+170	B		0	nobody	-	yes	pass in flight; yellow 6 and white 4 at the right edge may be on the same white player; yellow 11 at the left edge is in the bench area
+171	B		0	4	hold	yes	labels 10 and 8 at the top edge may be two boxes on one cut-off person
+172	B		0	14	hold	no	rebound secured; 5 and 6 at the bottom overlap heavily (possible duplicate)
+173	B		0	15	jump-shot	no	
+174	unsure	6x	1	unsure	-	yes	dark jumper at x~370 (arms up) has no box; 6 covers the dark player plus the white bald player below him; B at 6's top-left is not clearly on the ball
+175	B		1	14	hold	yes	unboxed referee at mid-baseline (x~1260)
+176	unsure		1	unsure	-	yes	c0/c2 inside 16 at the dark player's hands may be the ball; unboxed referee (x~600)
+177	B		0	nobody	-	no	ball at the rim after 8's shot
+178	B		1	nobody	-	yes	loose ball above 13 and 15 (rebound); unboxed referee (x~370)
+179	B		0	nobody	-	no	shot in flight; red 18 is cut off at the bottom edge
+180	B		1	16	hold	yes	dark defender directly behind 16 has no box of his own (or is inside 16)
+181	unsure		0	unsure	-	yes	B sits on a static backboard mark (same position across the strip), not the ball; no ball visible, maybe in the 6/8 cluster under the rim; 13 at the baseline may be a photographer
+182	B		0	nobody	-	no	pass in flight
+183	B		0	10	hold	no	dribbling
+184	B	10x	0	nobody	-	yes	ball just released; 10 covers both the grey shooter and the dark defender contesting him
+185	unsure		1	unsure	-	yes	dark dunker hanging on the rim (x~1470) has no box; ball at the rim at c1/c2 (overlapping)
+186	B		0	10	hold	no	referee in the foreground at the bottom is cut off by more than half and ignored
+187	B		0	11	hold	no	dribbling
+188	c0		0	11	hold	yes	B is on a cheerleader pom-pom or the crowd; c0 at dark 11's chest looks like the ball but I am not certain
+189	B		1	nobox	-	yes	left B is on the ball in the dark layup shooter's hands (x~1440); he has no box (4 is the grey defender); a second B inside yellow 9 (referee) is wrong; release timing unsure
+190	B		1	nobody	-	yes	ball at the backboard after a shot; unboxed referee on the left (x~60)
+191	none		1	unsure	-	yes	no ball visible; unboxed referee on the left (x~1005)
+192	unsure	12d	1	unsure	-	yes	no ball seen; c1 on rim/net, can't tell if ball in net; c2 in crowd; 12 seems second box on dark #1 (box 4); referee at baseline x~600 unboxed
+193	B		1	unsure	-	yes	ball raised high near 9/7 in traffic, can't tell if held or loose rebound; referee under basket (behind) unboxed
+194	B		0	13	hold	yes	ball at 13's raised hands (#41 dark), probable rebound grab; +0.2 strip is a cut
+195	B		2	unsure	-	yes	shooter (light kit, left of ref 16) has no box, plus a dark player beside him; B at/just above his hands, release unclear; c1 is a second candidate on the same ball
+196	B	9d	0	unsure	-	yes	ball low on floor left of 14; strip shows it moving steadily left, either a loose ball or a crossover by 14; 9 looks like a second box on dark player 8 (could be a third player)
+197	c0		1	unsure	-	yes	ball on floor near c0, grey 4 reaching for it (loose ball or dribble); c1 on fallen 11's hand, not the ball; light-kit player sitting near baseline x~1600 unboxed
+198	unsure		0	unsure	-	yes	possible dark ball low between #12's legs (box 5) at bottom; can't confirm
+199	B		1	nobody	-	yes	ball in flight; shooter (light kit, x~1340, arms up) has no box; c0 near his hands
+200	B		1	nobody	-	yes	ball just released in front of ref 11; shooter yellow #9 (x~360) has no box
+201	c0		0	14	jump-shot	yes	c0 at 14's raised hands, ball looks still in hands; release timing unsure
+202	B		1	nobody	-	yes	ball at rim on finish; shooter yellow #5 (x~480, right of 8) has no box
+203	B		1	13	hold	no	navy ball-handler driving; 13 box is loose; referee at far baseline x~1250 unboxed; navy #25 behind 4 mostly occluded
+204	B		0	7	hold	no	7 box extends down over scoreboard
+205	unsure	5x	0	unsure	-	yes	no ball seen; 5 seems to cover two yellow players (one behind)
+206	B		0	nobody	-	yes	ball just above shooter's hands on a short jumper/layup; can't tell whether 15 or 4 is the yellow shooter's box
+207	B		0	nobody	-	yes	ball above rim, ~40 px above 15's hand on layup; release borderline
+208	B	11d	0	9	hold	no	11 is second box on dribbler (9 covers full stride)
+209	unsure		0	unsure	-	yes	no ball seen; c0 on rim; yellow 6 may be holding it at waist; navy player partly hidden behind 6
+210	unsure		0	unsure	-	yes	no ball seen in paint; c1 just above yellow 12's raised hand, possibly a ball being passed to him; c0 in crowd
+211	B		2	nobody	-	yes	ball in flight; shooter navy #45 (x~1530) has no box; navy player behind 0 also unboxed
+212	unsure		0	unsure	-	yes	c0 at top-left of 14 may be ball in a raised hand (yellow leaper); c1 is yellow 13's head; possible referee at left edge x~40
+213	B		1	nobody	-	yes	ball in flight; shooter (x~1375, arm up) has no box
+214	B		0	12	hold	no	yellow driver with ball; 13 is navy defender behind
+215	B		0	12	hold	no	yellow #2 dribbling; 8 vs 14 at top-left may be a duplicate or merged box, unclear
+216	unsure		0	unsure	-	yes	no ball seen; heavy traffic around 7/10/11
+217	unsure		1	unsure	-	yes	c1 on yellow 6's chest may be ball in hands; navy player between 6 and 4 (x~1390) seems unboxed
+218	unsure		1	unsure	-	yes	ball not found; strip hints it is low near yellow 5 (bent, maybe dribbling); c0/c1/c2 are bench/signage; referee at sideline x~915 unboxed
+219	unsure	3d	0	unsure	-	yes	no ball seen; 3 and 12 look like the same yellow player, unsure; light-kit #13 at top right appears off court
+220	B	8x	0	nobody	-	yes	ball in air near rim, dropping in strip; 8 spans tan dreadlocked player and blue player
+221	B		0	10	jump-shot	no	set/jump shot, ball at forehead rising
+222	B		0	10	hold	no	blue #13 dribbling
+223	B		0	nobody	-	yes	ball in flight from shooter 11; boxes 4/8 may cover 3 players with 2 boxes
+224	unsure	17d	0	unsure	-	yes	B is near 8's raised hand, may be a catch or a pass; 17 duplicates 12 on same blue player
+225	unsure		0	unsure	-	yes	c2 near low hands of bent tan 5, maybe the ball; c0 in traffic
+226	unsure		0	unsure	-	yes	no ball seen; neon object at 6's feet is shoes
+227	B		0	6	hold	no	triple-threat hold
+228	none		0	nobody	-	no	ball not in crop; strip has a cut between -0.1 and 0.0
+229	unsure		0	unsure	-	yes	blue #9 (10) arms up near rim may hold ball above head (not visible); c0/c2 in crowd
+230	B		0	4	hold	no	blue #0 dribbling; top-left 8/5/7 labels overlap on two blue players, check for a duplicate
+231	B	8x	0	nobody	-	yes	ball released at rim; 8 seems to cover tan player and blue #5 jumper (blue #5 has no own box)
+232	none	7x	0	nobody	-	yes	dead-ball look, no ball in crop; 7 seems to span tan player and blue #15
+233	unsure	12d	0	unsure	-	yes	c0 at tan 3's chest may be ball in hands; 12 seems duplicate of blue player 8 (could be someone behind)
+234	B	17n	0	15	hold	no	17 (yellow) is coach in white shirt on sideline, not a referee
+235	B		0	8	hold	yes	tan 8 dribbling; cluster 15/16/12/6/7 around referee looks like duplicates, can't resolve
+236	B		0	12	hold	no	tan #2 low crossover
+237	B	15d,13n	0	17	jump-shot	yes	15 and 17 both magenta on the same tan rising shooter (15 upper body only); 13 (yellow) is a suited staff/coach; layup vs jumper unclear (rim out of crop)
+238	B		0	nobody	-	no	ball just under the net; 13 (yellow) label at left edge may be a cameraman box
+239	B		3	nobody	-	yes	ball in flight; shooter (tan, x~1400, c0 at hands), blue contester and tan #0 behind have no boxes

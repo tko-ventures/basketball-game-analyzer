@@ -1,0 +1,7155 @@
+{
+ "version": "r4balls",
+ "mode": "ball",
+ "title": "Ball queue, round 4",
+ "instructions": "<b>One question per frame: where is the game ball?</b><br>The loupe above shows the detector's best guess. <kbd>Space</kbd>: yes, that is the ball (frame done, next). <kbd>Tab</kbd>: show the next guess. Or <b>click</b> any guess on the frame (orange, or dashed: weaker).<br>No guess on the ball: <kbd>\u21e7</kbd>-drag a tight box around it, then <kbd>Enter</kbd>. A guess on the ball but loose: drag its edges in the loupe, then <kbd>Enter</kbd>.<br><kbd>N</kbd> no ball visible \u00b7 <kbd>S</kbd> can't tell, skip \u00b7 <kbd>[</kbd> <kbd>]</kbd> previous / next frame \u00b7 scroll to zoom, <kbd>F</kbd> fit \u00b7 <kbd>U</kbd> undo.<br>Game ball only: in hands, in the air, on the floor. Nothing in the crowd, on boards or on shorts.",
+ "classes": [
+  "ball"
+ ],
+ "frames": [
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 0,
+   "frame": 50,
+   "status": "todo",
+   "note": "ball not visible; may be at #7's (box 6) waist, strip unclear; boxes 1 and 3 at left edge may be one person (red shoes / green shoe, can't tell)",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1458.7,
+      509.3,
+      1483.8,
+      535.0
+     ],
+     "cls": "ball",
+     "score": 0.3006
+    },
+    {
+     "xyxy": [
+      776.4,
+      34.5,
+      813.0,
+      68.8
+     ],
+     "cls": "ball",
+     "score": 0.2887
+    },
+    {
+     "xyxy": [
+      409.9,
+      586.7,
+      435.3,
+      610.9
+     ],
+     "cls": "ball",
+     "score": 0.1453
+    }
+   ]
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 1,
+   "frame": 640,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1286.6,
+      456.3,
+      1312.1,
+      487.6
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 2,
+   "frame": 930,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1213.9,
+      414.7,
+      1243.4,
+      447.1
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 4,
+   "frame": 1455,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      649.1,
+      458.2,
+      674.7,
+      487.7
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 9,
+   "frame": 2940,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1383.8,
+      636.3,
+      1418.3,
+      669.2
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 9,
+   "frame": 3045,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      661.5,
+      309.1,
+      685.7,
+      337.6
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 11,
+   "frame": 3365,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1217.6,
+      747.2,
+      1259.4,
+      785.8
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 11,
+   "frame": 3520,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      845.0,
+      263.5,
+      876.5,
+      295.0
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 11,
+   "frame": 3655,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1121.2,
+      508.6,
+      1154.6,
+      543.0
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 12,
+   "frame": 3775,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      588.4,
+      782.8,
+      630.4,
+      826.3
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 14,
+   "frame": 4280,
+   "status": "todo",
+   "note": "no clear ball; c2 at the rim, c1 below it near box 9's raised hands; a Dziki player at (left of box 9) may have no box",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1247.3,
+      345.4,
+      1272.3,
+      370.0
+     ],
+     "cls": "ball",
+     "score": 0.4269
+    },
+    {
+     "xyxy": [
+      491.8,
+      300.4,
+      532.4,
+      330.4
+     ],
+     "cls": "ball",
+     "score": 0.165
+    },
+    {
+     "xyxy": [
+      530.6,
+      236.9,
+      563.5,
+      263.3
+     ],
+     "cls": "ball",
+     "score": 0.1125
+    }
+   ]
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 15,
+   "frame": 4720,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1188.6,
+      357.0,
+      1219.9,
+      387.0
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 16,
+   "frame": 5240,
+   "status": "todo",
+   "note": "c0 is at chest height between white #11 (box 5) and Dziki box 8, can't confirm it is the ball; person lying by the baseline at left is off court",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      594.1,
+      541.6,
+      619.3,
+      570.6
+     ],
+     "cls": "ball",
+     "score": 0.2024
+    }
+   ]
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 19,
+   "frame": 5930,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1232.8,
+      548.1,
+      1265.3,
+      582.3
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 20,
+   "frame": 6250,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      682.2,
+      704.9,
+      709.9,
+      741.8
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 21,
+   "frame": 6520,
+   "status": "todo",
+   "note": "no ball visible in the crop (strip shows only the referee and a white player)",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      466.5,
+      464.2,
+      482.6,
+      485.0
+     ],
+     "cls": "ball",
+     "score": 0.1097
+    }
+   ]
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 22,
+   "frame": 6960,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      858.7,
+      497.1,
+      887.1,
+      525.6
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 22,
+   "frame": 7065,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1167.1,
+      307.4,
+      1193.1,
+      334.0
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 22,
+   "frame": 7350,
+   "status": "todo",
+   "note": "ball not visible; probably with the Dziki player cut off at the bottom (box 4)",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      679.7,
+      237.3,
+      717.0,
+      277.4
+     ],
+     "cls": "ball",
+     "score": 0.2828
+    },
+    {
+     "xyxy": [
+      608.4,
+      313.6,
+      633.8,
+      341.3
+     ],
+     "cls": "ball",
+     "score": 0.1045
+    }
+   ]
+  },
+  {
+   "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "clip": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
+   "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
+   "shot": 24,
+   "frame": 8155,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      572.5,
+      507.9,
+      597.3,
+      535.9
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 0,
+   "frame": 205,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1639.4,
+      378.6,
+      1674.7,
+      411.8
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 1,
+   "frame": 580,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      895.4,
+      358.7,
+      932.2,
+      396.3
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 1,
+   "frame": 635,
+   "status": "todo",
+   "note": "ball looks in the air between #9 (box 2) and dark box 14, whose arm reaches toward it; pass or catch moment",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      856.2,
+      512.9,
+      882.8,
+      546.0
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    },
+    {
+     "id": 1,
+     "xyxy": [
+      1461.8,
+      438.0,
+      1492.5,
+      469.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 3,
+   "frame": 1100,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      840.3,
+      598.3,
+      886.7,
+      641.2
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 6,
+   "frame": 2380,
+   "status": "todo",
+   "note": "referee at the left baseline has no box; no ball visible",
+   "boxes": [],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 7,
+   "frame": 2880,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      552.6,
+      652.0,
+      585.7,
+      682.9
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 7,
+   "frame": 3030,
+   "status": "todo",
+   "note": "no ball visible in a crowded group (boxes 6, 5, 3)",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      121.6,
+      461.4,
+      155.0,
+      493.4
+     ],
+     "cls": "ball",
+     "score": 0.2653
+    },
+    {
+     "xyxy": [
+      1360.6,
+      91.5,
+      1399.2,
+      119.9
+     ],
+     "cls": "ball",
+     "score": 0.1199
+    }
+   ]
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 10,
+   "frame": 3475,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      760.5,
+      592.2,
+      799.5,
+      629.2
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 10,
+   "frame": 3555,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      447.3,
+      628.6,
+      479.7,
+      661.1
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 10,
+   "frame": 3655,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      861.4,
+      302.6,
+      903.4,
+      343.8
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 11,
+   "frame": 3995,
+   "status": "todo",
+   "note": "referee under the basket has no box; c1 sits in the cluster of boxes 15/6/7, can't confirm it is the ball; c0 is a hip",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      703.2,
+      524.9,
+      723.3,
+      557.2
+     ],
+     "cls": "ball",
+     "score": 0.1151
+    },
+    {
+     "xyxy": [
+      873.2,
+      457.7,
+      892.2,
+      486.5
+     ],
+     "cls": "ball",
+     "score": 0.1116
+    }
+   ]
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 11,
+   "frame": 4050,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      738.0,
+      240.1,
+      766.6,
+      271.2
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 11,
+   "frame": 4095,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      725.5,
+      450.1,
+      765.1,
+      490.9
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 13,
+   "frame": 4445,
+   "status": "todo",
+   "note": "c0 is between dark box 4 and red box 2, can't confirm it is the ball; box 2 may hold two red players; shot cut at -0.2 s",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      632.2,
+      524.8,
+      658.6,
+      552.2
+     ],
+     "cls": "ball",
+     "score": 0.1203
+    }
+   ]
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 15,
+   "frame": 5200,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      573.0,
+      359.0,
+      601.6,
+      392.3
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 18,
+   "frame": 5985,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1081.4,
+      258.6,
+      1113.5,
+      296.9
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 19,
+   "frame": 6210,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1284.1,
+      782.8,
+      1325.6,
+      819.0
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 20,
+   "frame": 6560,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      347.3,
+      467.9,
+      381.8,
+      506.3
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 21,
+   "frame": 6975,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1306.3,
+      551.0,
+      1339.5,
+      587.3
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "clip": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
+   "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
+   "shot": 23,
+   "frame": 7750,
+   "status": "todo",
+   "note": "box 11 seems to merge a red and a dark player under the basket; referee at the baseline has no box; ball hidden",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1444.5,
+      350.8,
+      1477.7,
+      381.4
+     ],
+     "cls": "ball",
+     "score": 0.2658
+    }
+   ]
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 0,
+   "frame": 50,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1169.6,
+      678.1,
+      1204.0,
+      715.7
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 1,
+   "frame": 480,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1556.5,
+      741.7,
+      1600.3,
+      779.7
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 3,
+   "frame": 1195,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1099.2,
+      792.8,
+      1132.3,
+      828.9
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 6,
+   "frame": 2350,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1019.3,
+      233.4,
+      1053.9,
+      269.0
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 8,
+   "frame": 2920,
+   "status": "todo",
+   "note": "ball visible in the strip at -0.2/-0.1 s (in flight), not found at +0.0 s; box 1 may also hold a white player behind navy #13",
+   "boxes": [],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 9,
+   "frame": 3040,
+   "status": "todo",
+   "note": "no ball in the crop; yellow label 3 overlaps white box 5 at the left edge",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      673.2,
+      198.9,
+      712.6,
+      241.3
+     ],
+     "cls": "ball",
+     "score": 0.1142
+    }
+   ]
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 10,
+   "frame": 3575,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      837.7,
+      726.2,
+      881.0,
+      765.2
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 11,
+   "frame": 4040,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      634.8,
+      205.8,
+      664.4,
+      236.9
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 13,
+   "frame": 4770,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      874.3,
+      373.4,
+      913.8,
+      416.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 14,
+   "frame": 4990,
+   "status": "todo",
+   "note": "no ball visible in the crop",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      678.9,
+      593.3,
+      713.0,
+      623.6
+     ],
+     "cls": "ball",
+     "score": 0.1135
+    }
+   ]
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 15,
+   "frame": 5520,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      689.1,
+      142.3,
+      722.5,
+      171.6
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 18,
+   "frame": 6350,
+   "status": "todo",
+   "note": "ball not visible; may be hidden in cluster 6/11",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1612.1,
+      1006.9,
+      1663.6,
+      1062.2
+     ],
+     "cls": "ball",
+     "score": 0.1757
+    }
+   ]
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 19,
+   "frame": 6855,
+   "status": "todo",
+   "note": "referee on baseline has no box; no ball seen; 6 at left is driving with something light near his hand",
+   "boxes": [],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 19,
+   "frame": 6945,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      841.4,
+      369.1,
+      869.6,
+      398.0
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 19,
+   "frame": 6985,
+   "status": "todo",
+   "note": "c0 near 12/5 is not clearly the ball; referee on baseline above 12 has no box",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      870.7,
+      437.5,
+      893.6,
+      465.4
+     ],
+     "cls": "ball",
+     "score": 0.4778
+    }
+   ]
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 20,
+   "frame": 7060,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1193.9,
+      487.8,
+      1244.9,
+      530.8
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 20,
+   "frame": 7145,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      695.7,
+      269.0,
+      735.2,
+      305.7
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 24,
+   "frame": 8400,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      773.8,
+      182.3,
+      809.1,
+      218.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 24,
+   "frame": 8445,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1241.7,
+      176.5,
+      1277.0,
+      211.2
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "clip": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
+   "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
+   "shot": 26,
+   "frame": 9240,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1244.2,
+      435.2,
+      1268.6,
+      460.1
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 0,
+   "frame": 220,
+   "status": "todo",
+   "note": "c0 at 6's head is not clearly the ball; ball possibly with 4 or 6",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      614.2,
+      385.2,
+      635.4,
+      409.4
+     ],
+     "cls": "ball",
+     "score": 0.2724
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 0,
+   "frame": 255,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      614.8,
+      192.5,
+      642.6,
+      223.0
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 1,
+   "frame": 570,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1182.0,
+      515.9,
+      1212.2,
+      545.2
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 3,
+   "frame": 1380,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      487.6,
+      521.4,
+      523.2,
+      555.6
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 3,
+   "frame": 1630,
+   "status": "todo",
+   "note": "green #31 shooting, ball not visible in his hands; 10 and 14 both seem to be on #31 (keep 14), verify",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1553.7,
+      25.1,
+      1603.9,
+      73.1
+     ],
+     "cls": "ball",
+     "score": 0.1656
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 9,
+   "frame": 4180,
+   "status": "todo",
+   "note": "B is on referee 15's arm, not clearly the ball; c1 at 10's right hand is possible",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1103.0,
+      348.0,
+      1127.6,
+      377.3
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1281.5,
+      423.9,
+      1301.2,
+      450.8
+     ],
+     "cls": "ball",
+     "score": 0.4371
+    },
+    {
+     "xyxy": [
+      1348.8,
+      484.0,
+      1379.7,
+      514.7
+     ],
+     "cls": "ball",
+     "score": 0.3997
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 10,
+   "frame": 4590,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      679.1,
+      656.0,
+      710.4,
+      690.7
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 11,
+   "frame": 5140,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      907.2,
+      459.5,
+      932.8,
+      485.3
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 12,
+   "frame": 5400,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1171.0,
+      413.5,
+      1195.6,
+      446.2
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 12,
+   "frame": 5440,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1447.0,
+      293.3,
+      1473.7,
+      320.6
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 13,
+   "frame": 5780,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      875.0,
+      587.5,
+      905.8,
+      620.6
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 14,
+   "frame": 6250,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      997.0,
+      381.4,
+      1029.2,
+      411.8
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 15,
+   "frame": 6645,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      488.6,
+      591.3,
+      521.1,
+      622.8
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 15,
+   "frame": 6775,
+   "status": "todo",
+   "note": "no ball seen; yellow 7 at bottom is a head, possibly a photographer",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      871.4,
+      26.5,
+      899.4,
+      51.2
+     ],
+     "cls": "ball",
+     "score": 0.3183
+    },
+    {
+     "xyxy": [
+      672.1,
+      166.2,
+      703.4,
+      195.4
+     ],
+     "cls": "ball",
+     "score": 0.1689
+    },
+    {
+     "xyxy": [
+      1675.2,
+      0.3,
+      1720.3,
+      32.0
+     ],
+     "cls": "ball",
+     "score": 0.1346
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 16,
+   "frame": 7065,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      777.7,
+      309.4,
+      807.9,
+      338.9
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 20,
+   "frame": 8535,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1346.0,
+      460.4,
+      1377.2,
+      491.6
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 20,
+   "frame": 8660,
+   "status": "todo",
+   "note": "c2 on 0's chest is not clearly the ball; no ball seen",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      209.7,
+      622.1,
+      235.8,
+      654.9
+     ],
+     "cls": "ball",
+     "score": 0.373
+    },
+    {
+     "xyxy": [
+      1407.3,
+      98.5,
+      1428.4,
+      120.2
+     ],
+     "cls": "ball",
+     "score": 0.3077
+    },
+    {
+     "xyxy": [
+      1142.2,
+      347.6,
+      1164.3,
+      370.8
+     ],
+     "cls": "ball",
+     "score": 0.1344
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 22,
+   "frame": 9460,
+   "status": "todo",
+   "note": "two B boxes: upper one (above 4/8) is the ball, lower one is on a green arm; referee on baseline has no box; yellow 10 is a coach in a suit; 6 at left edge may be a camera operator",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      895.7,
+      302.9,
+      921.4,
+      328.1
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    },
+    {
+     "id": 1,
+     "xyxy": [
+      953.2,
+      401.8,
+      978.8,
+      429.6
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      429.1,
+      539.1,
+      457.4,
+      572.5
+     ],
+     "cls": "ball",
+     "score": 0.2126
+    },
+    {
+     "xyxy": [
+      447.6,
+      519.1,
+      472.6,
+      548.2
+     ],
+     "cls": "ball",
+     "score": 0.1108
+    },
+    {
+     "xyxy": [
+      435.1,
+      519.5,
+      472.4,
+      569.1
+     ],
+     "cls": "ball",
+     "score": 0.1041
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 22,
+   "frame": 9505,
+   "status": "todo",
+   "note": "c1/c2 at 13's chest are unclear; referee on baseline above 12 has no box",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      930.6,
+      421.2,
+      958.2,
+      448.8
+     ],
+     "cls": "ball",
+     "score": 0.2192
+    },
+    {
+     "xyxy": [
+      925.4,
+      409.3,
+      948.2,
+      435.2
+     ],
+     "cls": "ball",
+     "score": 0.1942
+    },
+    {
+     "xyxy": [
+      942.5,
+      427.3,
+      964.7,
+      453.2
+     ],
+     "cls": "ball",
+     "score": 0.1615
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "clip": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
+   "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
+   "shot": 23,
+   "frame": 9835,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      895.5,
+      300.4,
+      925.8,
+      333.9
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 0,
+   "frame": 340,
+   "status": "todo",
+   "note": "B below the rim could be the ball or a cheerleader pom-pom",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1092.9,
+      352.8,
+      1121.4,
+      383.0
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      279.9,
+      407.8,
+      301.4,
+      431.2
+     ],
+     "cls": "ball",
+     "score": 0.2795
+    },
+    {
+     "xyxy": [
+      414.7,
+      373.4,
+      442.6,
+      401.3
+     ],
+     "cls": "ball",
+     "score": 0.101
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 1,
+   "frame": 485,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1216.3,
+      537.2,
+      1242.4,
+      563.8
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 1,
+   "frame": 545,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1146.1,
+      259.2,
+      1170.8,
+      284.8
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 2,
+   "frame": 910,
+   "status": "todo",
+   "note": "c0 at 9's hand may be the ball, not clear",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      986.0,
+      493.3,
+      1013.9,
+      521.2
+     ],
+     "cls": "ball",
+     "score": 0.311
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 3,
+   "frame": 1200,
+   "status": "todo",
+   "note": "no ball seen; c1/c2 not on the ball",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      700.7,
+      517.7,
+      724.1,
+      545.6
+     ],
+     "cls": "ball",
+     "score": 0.2119
+    },
+    {
+     "xyxy": [
+      1146.4,
+      541.3,
+      1173.2,
+      568.7
+     ],
+     "cls": "ball",
+     "score": 0.1899
+    },
+    {
+     "xyxy": [
+      898.5,
+      437.0,
+      927.0,
+      467.5
+     ],
+     "cls": "ball",
+     "score": 0.1568
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 5,
+   "frame": 1975,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1162.1,
+      394.8,
+      1198.2,
+      428.8
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 6,
+   "frame": 2430,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1144.2,
+      593.3,
+      1174.4,
+      622.1
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 7,
+   "frame": 2890,
+   "status": "todo",
+   "note": "yellow 12 is a coach in a suit; no ball seen",
+   "boxes": [],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 9,
+   "frame": 3885,
+   "status": "todo",
+   "note": "c0 is the referee's head; no ball seen",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1164.4,
+      327.0,
+      1187.8,
+      352.2
+     ],
+     "cls": "ball",
+     "score": 0.1339
+    },
+    {
+     "xyxy": [
+      380.9,
+      368.1,
+      406.8,
+      395.5
+     ],
+     "cls": "ball",
+     "score": 0.1139
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 10,
+   "frame": 3930,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      443.6,
+      620.3,
+      476.4,
+      647.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 10,
+   "frame": 4000,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      530.0,
+      645.6,
+      562.2,
+      671.4
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 11,
+   "frame": 4390,
+   "status": "todo",
+   "note": "c0 at 11's raised hand is not clearly the ball",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1264.1,
+      445.2,
+      1285.3,
+      470.9
+     ],
+     "cls": "ball",
+     "score": 0.1519
+    },
+    {
+     "xyxy": [
+      941.3,
+      119.8,
+      966.1,
+      139.5
+     ],
+     "cls": "ball",
+     "score": 0.1109
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 11,
+   "frame": 4595,
+   "status": "todo",
+   "note": "B and c1 sit on the red Suzuki S on the backboard, not the ball; yellow 9 is a coach in a suit",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1259.9,
+      230.8,
+      1286.1,
+      257.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1383.4,
+      460.1,
+      1406.6,
+      490.4
+     ],
+     "cls": "ball",
+     "score": 0.2109
+    },
+    {
+     "xyxy": [
+      1251.0,
+      222.9,
+      1274.8,
+      249.9
+     ],
+     "cls": "ball",
+     "score": 0.122
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 13,
+   "frame": 5300,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      596.1,
+      524.3,
+      635.7,
+      563.0
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 14,
+   "frame": 5735,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1213.9,
+      561.6,
+      1236.8,
+      588.2
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 15,
+   "frame": 6030,
+   "status": "todo",
+   "note": "referee on baseline has no box; no ball seen",
+   "boxes": [],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 20,
+   "frame": 7660,
+   "status": "todo",
+   "note": "no ball visible in strip; c0 (near hand of player in box 7) and c1 (near box 9) are possible but cannot confirm",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      712.8,
+      520.6,
+      739.5,
+      547.4
+     ],
+     "cls": "ball",
+     "score": 0.2084
+    },
+    {
+     "xyxy": [
+      589.2,
+      534.6,
+      613.8,
+      560.9
+     ],
+     "cls": "ball",
+     "score": 0.1742
+    },
+    {
+     "xyxy": [
+      613.2,
+      436.9,
+      635.4,
+      461.9
+     ],
+     "cls": "ball",
+     "score": 0.1375
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 20,
+   "frame": 7795,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1470.3,
+      451.7,
+      1496.2,
+      477.7
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 21,
+   "frame": 8275,
+   "status": "todo",
+   "note": "B sits at the top of yellow box 11 (may be that person's head, not the ball); 11 looks like an off-court person behind the shooter, check it; shooter #19 (box 5) has arms up",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      756.0,
+      323.3,
+      773.3,
+      344.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      960.1,
+      474.6,
+      976.2,
+      494.0
+     ],
+     "cls": "ball",
+     "score": 0.2
+    },
+    {
+     "xyxy": [
+      925.0,
+      196.4,
+      948.3,
+      225.7
+     ],
+     "cls": "ball",
+     "score": 0.1662
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "clip": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
+   "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
+   "shot": 22,
+   "frame": 8490,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1197.0,
+      464.7,
+      1229.6,
+      499.1
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 0,
+   "frame": 5,
+   "status": "todo",
+   "note": "no ball seen; maybe a dribble by the blue player in box 2, not confirmed",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      880.0,
+      68.5,
+      911.4,
+      98.1
+     ],
+     "cls": "ball",
+     "score": 0.2473
+    },
+    {
+     "xyxy": [
+      324.7,
+      375.1,
+      351.2,
+      402.6
+     ],
+     "cls": "ball",
+     "score": 0.1914
+    },
+    {
+     "xyxy": [
+      790.9,
+      341.1,
+      814.4,
+      368.2
+     ],
+     "cls": "ball",
+     "score": 0.1176
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 2,
+   "frame": 600,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      612.8,
+      441.2,
+      646.2,
+      474.8
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 2,
+   "frame": 685,
+   "status": "todo",
+   "note": "B is high above the backboard against the crowd, maybe the ball in flight, cannot confirm; missing: referee in grey at the baseline right of box 8",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1070.2,
+      193.3,
+      1095.6,
+      222.3
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 4,
+   "frame": 1440,
+   "status": "todo",
+   "note": "orange ball-like object at chest height on the right edge of box 1, between boxes 1 and 12; holder unclear",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      933.2,
+      459.3,
+      968.8,
+      494.3
+     ],
+     "cls": "ball",
+     "score": 0.334
+    },
+    {
+     "xyxy": [
+      823.1,
+      174.3,
+      848.3,
+      199.8
+     ],
+     "cls": "ball",
+     "score": 0.2934
+    },
+    {
+     "xyxy": [
+      928.2,
+      441.5,
+      953.9,
+      470.6
+     ],
+     "cls": "ball",
+     "score": 0.1719
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 6,
+   "frame": 2175,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      442.2,
+      451.3,
+      471.6,
+      491.1
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 7,
+   "frame": 2530,
+   "status": "todo",
+   "note": "c1 at the rim may be the ball (shot at rim), not confirmed; missing: referee standing at right near the stanchion",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      795.9,
+      147.2,
+      824.4,
+      175.4
+     ],
+     "cls": "ball",
+     "score": 0.3168
+    },
+    {
+     "xyxy": [
+      1156.6,
+      258.9,
+      1183.1,
+      284.3
+     ],
+     "cls": "ball",
+     "score": 0.2563
+    },
+    {
+     "xyxy": [
+      561.9,
+      190.9,
+      591.6,
+      222.4
+     ],
+     "cls": "ball",
+     "score": 0.1594
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 9,
+   "frame": 3065,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      637.1,
+      208.1,
+      661.4,
+      233.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 9,
+   "frame": 3145,
+   "status": "todo",
+   "note": "no ball visible in crop or strip; c0/c1 are in the crowd",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1002.6,
+      123.5,
+      1034.2,
+      148.5
+     ],
+     "cls": "ball",
+     "score": 0.3612
+    },
+    {
+     "xyxy": [
+      369.4,
+      162.5,
+      413.0,
+      209.4
+     ],
+     "cls": "ball",
+     "score": 0.1172
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 10,
+   "frame": 3730,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      867.3,
+      550.6,
+      899.8,
+      581.7
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 11,
+   "frame": 4170,
+   "status": "todo",
+   "note": "no ball visible; c0/c2 are in the crowd",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      994.7,
+      130.7,
+      1022.3,
+      155.6
+     ],
+     "cls": "ball",
+     "score": 0.2623
+    },
+    {
+     "xyxy": [
+      1621.6,
+      45.9,
+      1666.6,
+      91.2
+     ],
+     "cls": "ball",
+     "score": 0.204
+    },
+    {
+     "xyxy": [
+      751.4,
+      287.9,
+      783.1,
+      307.9
+     ],
+     "cls": "ball",
+     "score": 0.1779
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 12,
+   "frame": 4520,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      559.4,
+      191.0,
+      587.7,
+      218.0
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 14,
+   "frame": 5335,
+   "status": "todo",
+   "note": "no ball visible; missing: referee at the right edge by the stanchion",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      493.8,
+      346.2,
+      520.5,
+      372.5
+     ],
+     "cls": "ball",
+     "score": 0.2968
+    },
+    {
+     "xyxy": [
+      503.3,
+      379.6,
+      535.3,
+      406.2
+     ],
+     "cls": "ball",
+     "score": 0.1581
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 15,
+   "frame": 5540,
+   "status": "todo",
+   "note": "c0/c1/c2 are all in the 12/16/6/5 cluster; cannot tell which (if any) is the ball",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1099.7,
+      410.6,
+      1125.5,
+      435.4
+     ],
+     "cls": "ball",
+     "score": 0.438
+    },
+    {
+     "xyxy": [
+      973.7,
+      364.2,
+      1005.1,
+      391.0
+     ],
+     "cls": "ball",
+     "score": 0.3069
+    },
+    {
+     "xyxy": [
+      1013.6,
+      375.3,
+      1041.8,
+      404.3
+     ],
+     "cls": "ball",
+     "score": 0.267
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 16,
+   "frame": 5745,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      501.1,
+      701.9,
+      540.2,
+      744.4
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 20,
+   "frame": 7050,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1279.5,
+      334.6,
+      1300.6,
+      362.2
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 21,
+   "frame": 7270,
+   "status": "todo",
+   "note": "two orange B boxes: one in the crowd top right is wrong; the one near the rim with c0/c2 may be the ball; missing: beige jumper, blue #10 jumper, referee in grey at right",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1300.4,
+      312.7,
+      1326.5,
+      340.2
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    },
+    {
+     "id": 1,
+     "xyxy": [
+      1562.0,
+      207.8,
+      1600.2,
+      246.4
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1248.4,
+      297.6,
+      1280.1,
+      328.7
+     ],
+     "cls": "ball",
+     "score": 0.1903
+    },
+    {
+     "xyxy": [
+      1087.6,
+      276.8,
+      1113.7,
+      302.2
+     ],
+     "cls": "ball",
+     "score": 0.1333
+    },
+    {
+     "xyxy": [
+      1263.0,
+      324.6,
+      1291.2,
+      352.7
+     ],
+     "cls": "ball",
+     "score": 0.1211
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 23,
+   "frame": 7830,
+   "status": "todo",
+   "note": "possible low dribble at waist height on the right edge of box 4 (blue player), not confirmed",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      981.4,
+      204.6,
+      1010.5,
+      230.4
+     ],
+     "cls": "ball",
+     "score": 0.3556
+    },
+    {
+     "xyxy": [
+      1039.8,
+      443.6,
+      1067.2,
+      471.1
+     ],
+     "cls": "ball",
+     "score": 0.2951
+    },
+    {
+     "xyxy": [
+      1001.1,
+      415.7,
+      1022.5,
+      437.9
+     ],
+     "cls": "ball",
+     "score": 0.2193
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 24,
+   "frame": 7920,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1198.9,
+      605.9,
+      1230.0,
+      636.0
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 24,
+   "frame": 8160,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      997.9,
+      480.1,
+      1018.9,
+      504.0
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "clip": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
+   "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
+   "shot": 25,
+   "frame": 8705,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1078.3,
+      459.4,
+      1104.0,
+      487.9
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 2,
+   "frame": 1125,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1162.0,
+      436.3,
+      1195.2,
+      472.0
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 4,
+   "frame": 1755,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      898.8,
+      386.6,
+      931.3,
+      418.3
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 4,
+   "frame": 1785,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1070.7,
+      500.5,
+      1097.8,
+      532.9
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 7,
+   "frame": 2785,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      505.0,
+      548.5,
+      535.1,
+      577.7
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 8,
+   "frame": 2945,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      395.8,
+      605.8,
+      416.6,
+      626.1
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 8,
+   "frame": 3305,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1020.7,
+      476.9,
+      1051.2,
+      512.1
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 9,
+   "frame": 3485,
+   "status": "todo",
+   "note": "B is in front of the bench by the coach, maybe a spare ball; shooter 13 is in follow-through; box 11 may merge a white and a dark player",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      457.6,
+      315.0,
+      485.5,
+      344.3
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      780.6,
+      462.5,
+      803.4,
+      489.2
+     ],
+     "cls": "ball",
+     "score": 0.2247
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 10,
+   "frame": 3725,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1112.6,
+      649.1,
+      1142.2,
+      679.1
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 10,
+   "frame": 3850,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      905.6,
+      437.7,
+      929.1,
+      464.1
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 10,
+   "frame": 3915,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      844.5,
+      186.9,
+      873.0,
+      218.0
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 11,
+   "frame": 4430,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      645.6,
+      415.0,
+      682.1,
+      445.9
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 12,
+   "frame": 4765,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      914.5,
+      262.8,
+      942.6,
+      288.1
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 13,
+   "frame": 4925,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      947.3,
+      354.5,
+      976.7,
+      382.7
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 14,
+   "frame": 5340,
+   "status": "todo",
+   "note": "no ball visible; c0/c1 at the top; missing: referee in grey at the baseline under the basket",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      991.1,
+      173.8,
+      1014.9,
+      202.7
+     ],
+     "cls": "ball",
+     "score": 0.4766
+    },
+    {
+     "xyxy": [
+      979.6,
+      213.0,
+      1005.0,
+      244.2
+     ],
+     "cls": "ball",
+     "score": 0.1015
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 15,
+   "frame": 5570,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1056.9,
+      353.5,
+      1080.2,
+      378.9
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 16,
+   "frame": 6225,
+   "status": "todo",
+   "note": "c2 at the backboard may be the ball (rebound fight), not confirmed",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      687.8,
+      721.2,
+      719.6,
+      755.4
+     ],
+     "cls": "ball",
+     "score": 0.254
+    },
+    {
+     "xyxy": [
+      774.1,
+      579.3,
+      806.0,
+      612.4
+     ],
+     "cls": "ball",
+     "score": 0.2413
+    },
+    {
+     "xyxy": [
+      698.0,
+      299.2,
+      724.2,
+      330.3
+     ],
+     "cls": "ball",
+     "score": 0.2283
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 17,
+   "frame": 6495,
+   "status": "todo",
+   "note": "no ball visible (c0 is the rim); box 8 may merge white #32 and a dark player",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      492.3,
+      323.6,
+      521.6,
+      347.2
+     ],
+     "cls": "ball",
+     "score": 0.1225
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 19,
+   "frame": 7205,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      645.5,
+      319.1,
+      674.0,
+      353.2
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 20,
+   "frame": 7485,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      601.3,
+      375.3,
+      626.5,
+      406.3
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "clip": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
+   "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
+   "shot": 24,
+   "frame": 8690,
+   "status": "todo",
+   "note": "ball out of crop",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1511.9,
+      499.2,
+      1524.1,
+      518.9
+     ],
+     "cls": "ball",
+     "score": 0.371
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 0,
+   "frame": 95,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      924.1,
+      558.2,
+      957.6,
+      591.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 0,
+   "frame": 160,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      721.1,
+      464.9,
+      755.4,
+      500.6
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 3,
+   "frame": 1230,
+   "status": "todo",
+   "note": "no ball seen; c0/c1 are in the crowd; missing: referee in grey at left",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      831.8,
+      293.4,
+      855.9,
+      317.0
+     ],
+     "cls": "ball",
+     "score": 0.3345
+    },
+    {
+     "xyxy": [
+      899.7,
+      285.6,
+      924.5,
+      306.3
+     ],
+     "cls": "ball",
+     "score": 0.2338
+    },
+    {
+     "xyxy": [
+      774.0,
+      554.7,
+      808.6,
+      588.9
+     ],
+     "cls": "ball",
+     "score": 0.2275
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 5,
+   "frame": 1880,
+   "status": "todo",
+   "note": "B (at 14's side) vs c1 (at the rim by 14's hand): unclear which is the ball; missing: referee in grey at right; 13 and 6 may overlap on white #3",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1139.2,
+      371.8,
+      1169.5,
+      399.1
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      966.9,
+      453.7,
+      995.6,
+      480.5
+     ],
+     "cls": "ball",
+     "score": 0.1927
+    },
+    {
+     "xyxy": [
+      1105.8,
+      297.4,
+      1135.0,
+      333.7
+     ],
+     "cls": "ball",
+     "score": 0.1058
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 6,
+   "frame": 2185,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      238.9,
+      482.3,
+      279.0,
+      517.9
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 9,
+   "frame": 3300,
+   "status": "todo",
+   "note": "ball at the rim in 17's hand (dunk or layup), not on c0-c2, which are in the crowd; unboxed referee on the left; narrow box 11 between 17 and 7 may be a duplicate on the dunker's legs",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      892.6,
+      278.4,
+      912.0,
+      301.7
+     ],
+     "cls": "ball",
+     "score": 0.2576
+    },
+    {
+     "xyxy": [
+      885.8,
+      298.7,
+      905.9,
+      318.8
+     ],
+     "cls": "ball",
+     "score": 0.2321
+    },
+    {
+     "xyxy": [
+      792.5,
+      296.6,
+      814.5,
+      318.8
+     ],
+     "cls": "ball",
+     "score": 0.1863
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 10,
+   "frame": 3480,
+   "status": "todo",
+   "note": "c2 between 3 and 15 may be the ball but I cannot confirm it; boxes 0 and 2 at the left edge may both be on white #10",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      360.0,
+      83.6,
+      389.2,
+      104.6
+     ],
+     "cls": "ball",
+     "score": 0.2605
+    },
+    {
+     "xyxy": [
+      320.1,
+      5.3,
+      353.2,
+      36.7
+     ],
+     "cls": "ball",
+     "score": 0.1261
+    },
+    {
+     "xyxy": [
+      673.0,
+      436.7,
+      686.8,
+      456.3
+     ],
+     "cls": "ball",
+     "score": 0.1222
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 10,
+   "frame": 3585,
+   "status": "todo",
+   "note": "B and c0 are both in the crowd (wrong); no ball visible on court, possibly hidden in the 7/11 cluster",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      344.9,
+      85.5,
+      374.2,
+      108.6
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      538.8,
+      165.3,
+      565.8,
+      191.2
+     ],
+     "cls": "ball",
+     "score": 0.1014
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 10,
+   "frame": 3725,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1213.6,
+      263.7,
+      1236.1,
+      289.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 11,
+   "frame": 3885,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      397.1,
+      569.9,
+      426.0,
+      607.0
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 12,
+   "frame": 4285,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1082.3,
+      444.8,
+      1115.5,
+      472.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 12,
+   "frame": 4635,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      999.0,
+      485.0,
+      1026.0,
+      510.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 13,
+   "frame": 4875,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      692.4,
+      519.1,
+      721.0,
+      546.8
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 17,
+   "frame": 6040,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1028.5,
+      388.2,
+      1049.0,
+      408.6
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 18,
+   "frame": 6335,
+   "status": "todo",
+   "note": "c0 just above 10's head (white #7) may be the ball in an overhead hold or pass; cannot confirm",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1114.9,
+      429.0,
+      1137.6,
+      455.5
+     ],
+     "cls": "ball",
+     "score": 0.1354
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 18,
+   "frame": 6400,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1246.2,
+      285.9,
+      1270.6,
+      313.9
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 18,
+   "frame": 6465,
+   "status": "todo",
+   "note": "white player at the rim has no box; ball is above the crop, probably a shot in flight",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1140.8,
+      197.2,
+      1164.5,
+      221.9
+     ],
+     "cls": "ball",
+     "score": 0.2969
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 23,
+   "frame": 7605,
+   "status": "todo",
+   "note": "c0 at dark 6's hand on the drive may be the ball",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1211.3,
+      516.2,
+      1230.0,
+      534.8
+     ],
+     "cls": "ball",
+     "score": 0.2156
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 25,
+   "frame": 8305,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1178.7,
+      374.8,
+      1202.2,
+      402.6
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "clip": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
+   "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
+   "shot": 26,
+   "frame": 8925,
+   "status": "todo",
+   "note": "no ball visible; the strip turns into a broadcast transition at +0.1",
+   "boxes": [],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 1,
+   "frame": 635,
+   "status": "todo",
+   "note": "c1 between 15 and 4 may be the ball; unboxed referee at the baseline",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      886.2,
+      114.4,
+      911.0,
+      139.1
+     ],
+     "cls": "ball",
+     "score": 0.3992
+    },
+    {
+     "xyxy": [
+      942.8,
+      402.0,
+      966.9,
+      425.5
+     ],
+     "cls": "ball",
+     "score": 0.3804
+    },
+    {
+     "xyxy": [
+      863.4,
+      235.1,
+      886.6,
+      259.7
+     ],
+     "cls": "ball",
+     "score": 0.1232
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 2,
+   "frame": 960,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      766.0,
+      764.3,
+      797.1,
+      795.4
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 2,
+   "frame": 1270,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1249.1,
+      500.5,
+      1273.3,
+      529.1
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 5,
+   "frame": 1675,
+   "status": "todo",
+   "note": "shot cut at -0.2 s (close-up)",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      953.4,
+      302.7,
+      975.1,
+      327.4
+     ],
+     "cls": "ball",
+     "score": 0.1745
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 5,
+   "frame": 1870,
+   "status": "todo",
+   "note": "dark jump shooter has no box; ball above his head at c2 or c1 (cannot tell which); unboxed referee on the left; yellow 10 is a player (dark #1) with the referee class",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1029.2,
+      420.2,
+      1061.9,
+      450.5
+     ],
+     "cls": "ball",
+     "score": 0.1846
+    },
+    {
+     "xyxy": [
+      767.6,
+      406.2,
+      805.3,
+      430.2
+     ],
+     "cls": "ball",
+     "score": 0.1796
+    },
+    {
+     "xyxy": [
+      743.6,
+      406.4,
+      776.3,
+      428.8
+     ],
+     "cls": "ball",
+     "score": 0.131
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 5,
+   "frame": 1905,
+   "status": "todo",
+   "note": "ball may be c2 at the hands of jumping 12, or c1 at 7's hand; unboxed referee on the left",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      867.8,
+      537.2,
+      889.5,
+      560.8
+     ],
+     "cls": "ball",
+     "score": 0.3939
+    },
+    {
+     "xyxy": [
+      723.5,
+      789.8,
+      752.1,
+      818.4
+     ],
+     "cls": "ball",
+     "score": 0.1541
+    },
+    {
+     "xyxy": [
+      841.3,
+      426.4,
+      871.9,
+      451.4
+     ],
+     "cls": "ball",
+     "score": 0.154
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 6,
+   "frame": 2120,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      636.6,
+      287.2,
+      666.6,
+      317.7
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 7,
+   "frame": 2325,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1462.6,
+      709.5,
+      1488.4,
+      740.8
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 7,
+   "frame": 2430,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1071.6,
+      509.7,
+      1098.9,
+      536.3
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 8,
+   "frame": 2765,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      931.4,
+      188.5,
+      957.5,
+      214.0
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 9,
+   "frame": 3040,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      820.4,
+      412.7,
+      847.9,
+      441.6
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 10,
+   "frame": 3290,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      734.4,
+      781.8,
+      762.4,
+      813.0
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 11,
+   "frame": 3820,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1177.9,
+      418.2,
+      1205.6,
+      448.2
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 14,
+   "frame": 4675,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      597.9,
+      422.9,
+      628.6,
+      452.1
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 15,
+   "frame": 4990,
+   "status": "todo",
+   "note": "dark jumper at (arms up) has no box; 6 covers the dark player plus the white bald player below him; B at 6's top-left is not clearly on the ball",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1225.5,
+      462.2,
+      1254.6,
+      494.8
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      611.5,
+      328.7,
+      638.5,
+      350.8
+     ],
+     "cls": "ball",
+     "score": 0.2429
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 16,
+   "frame": 5450,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      790.2,
+      597.8,
+      817.5,
+      626.2
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 18,
+   "frame": 5985,
+   "status": "todo",
+   "note": "c0/c2 inside 16 at the dark player's hands may be the ball; unboxed referee",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      955.4,
+      574.4,
+      982.2,
+      598.3
+     ],
+     "cls": "ball",
+     "score": 0.2274
+    },
+    {
+     "xyxy": [
+      1335.7,
+      328.2,
+      1361.4,
+      353.3
+     ],
+     "cls": "ball",
+     "score": 0.1189
+    },
+    {
+     "xyxy": [
+      952.8,
+      592.6,
+      983.5,
+      617.7
+     ],
+     "cls": "ball",
+     "score": 0.107
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 21,
+   "frame": 7295,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      604.7,
+      343.0,
+      633.5,
+      373.9
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 21,
+   "frame": 7330,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      595.5,
+      456.5,
+      622.7,
+      486.2
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "clip": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
+   "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
+   "shot": 22,
+   "frame": 7565,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1022.8,
+      374.7,
+      1052.8,
+      404.7
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 0,
+   "frame": 215,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1122.8,
+      523.4,
+      1152.9,
+      553.4
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 0,
+   "frame": 280,
+   "status": "todo",
+   "note": "B sits on a static backboard mark (same position across the strip), not the ball; no ball visible, maybe in the 6/8 cluster under the rim; 13 at the baseline may be a photographer",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1276.8,
+      232.4,
+      1306.2,
+      262.0
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 1,
+   "frame": 685,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1040.3,
+      446.8,
+      1068.2,
+      474.2
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 3,
+   "frame": 1335,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      807.0,
+      701.4,
+      847.2,
+      743.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 7,
+   "frame": 2180,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      777.3,
+      285.8,
+      801.2,
+      311.7
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 9,
+   "frame": 2955,
+   "status": "todo",
+   "note": "dark dunker hanging on the rim has no box; ball at the rim at c1/c2 (overlapping)",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      520.8,
+      392.9,
+      542.8,
+      417.2
+     ],
+     "cls": "ball",
+     "score": 0.4216
+    },
+    {
+     "xyxy": [
+      545.0,
+      270.8,
+      573.9,
+      299.5
+     ],
+     "cls": "ball",
+     "score": 0.2406
+    },
+    {
+     "xyxy": [
+      545.9,
+      276.8,
+      574.3,
+      316.9
+     ],
+     "cls": "ball",
+     "score": 0.181
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 12,
+   "frame": 3885,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1033.5,
+      657.8,
+      1069.4,
+      693.9
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 12,
+   "frame": 3950,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      831.9,
+      603.7,
+      861.2,
+      634.4
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 12,
+   "frame": 4065,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1090.3,
+      402.5,
+      1109.8,
+      426.2
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 13,
+   "frame": 4290,
+   "status": "todo",
+   "note": "left B is on the ball in the dark layup shooter's hands; he has no box (4 is the grey defender); a second B inside yellow 9 (referee) is wrong; release timing unsure",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      814.5,
+      387.9,
+      837.0,
+      415.2
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    },
+    {
+     "id": 1,
+     "xyxy": [
+      886.4,
+      432.6,
+      919.1,
+      463.7
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 14,
+   "frame": 4475,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      569.8,
+      188.2,
+      595.6,
+      212.9
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 14,
+   "frame": 4555,
+   "status": "todo",
+   "note": "no ball visible; unboxed referee on the left",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1059.2,
+      106.4,
+      1092.3,
+      139.3
+     ],
+     "cls": "ball",
+     "score": 0.2211
+    },
+    {
+     "xyxy": [
+      1164.8,
+      917.5,
+      1200.4,
+      956.2
+     ],
+     "cls": "ball",
+     "score": 0.1175
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 19,
+   "frame": 6185,
+   "status": "todo",
+   "note": "no ball seen; c1 on rim/net, can't tell if ball in net; c2 in crowd; 12 seems second box on dark #1 (box 4); referee at baseline unboxed",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1173.9,
+      111.1,
+      1203.3,
+      140.9
+     ],
+     "cls": "ball",
+     "score": 0.1335
+    },
+    {
+     "xyxy": [
+      644.3,
+      289.8,
+      680.6,
+      312.2
+     ],
+     "cls": "ball",
+     "score": 0.1317
+    },
+    {
+     "xyxy": [
+      827.7,
+      181.8,
+      850.0,
+      204.7
+     ],
+     "cls": "ball",
+     "score": 0.1308
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 19,
+   "frame": 6510,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      628.7,
+      403.8,
+      655.9,
+      431.1
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 19,
+   "frame": 6590,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      557.2,
+      367.6,
+      581.0,
+      390.7
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 22,
+   "frame": 7330,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1180.5,
+      248.9,
+      1203.0,
+      275.4
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 23,
+   "frame": 7740,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      594.9,
+      454.4,
+      620.8,
+      477.3
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 24,
+   "frame": 8040,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1120.5,
+      485.2,
+      1142.5,
+      510.7
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 25,
+   "frame": 8130,
+   "status": "todo",
+   "note": "possible dark ball low between #12's legs (box 5) at bottom; can't confirm",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      971.6,
+      86.8,
+      1001.7,
+      118.4
+     ],
+     "cls": "ball",
+     "score": 0.4502
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "clip": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
+   "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
+   "shot": 26,
+   "frame": 8425,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1035.7,
+      219.7,
+      1063.2,
+      247.8
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 1,
+   "frame": 420,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      689.0,
+      431.3,
+      718.0,
+      460.7
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 1,
+   "frame": 470,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1241.8,
+      385.9,
+      1268.1,
+      417.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 1,
+   "frame": 530,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1276.5,
+      296.9,
+      1300.7,
+      325.2
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 2,
+   "frame": 685,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      865.0,
+      569.0,
+      888.3,
+      593.8
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 7,
+   "frame": 2465,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      960.6,
+      880.2,
+      1005.4,
+      917.2
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 8,
+   "frame": 3030,
+   "status": "todo",
+   "note": "no ball seen; 5 seems to cover two yellow players (one behind)",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1338.1,
+      552.9,
+      1363.8,
+      582.3
+     ],
+     "cls": "ball",
+     "score": 0.3235
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 9,
+   "frame": 3280,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1096.8,
+      395.0,
+      1121.4,
+      422.8
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 9,
+   "frame": 3305,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1184.9,
+      303.4,
+      1210.3,
+      330.2
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 11,
+   "frame": 3845,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1047.1,
+      710.5,
+      1078.8,
+      743.2
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 12,
+   "frame": 4310,
+   "status": "todo",
+   "note": "no ball seen; c0 on rim; yellow 6 may be holding it at waist; navy player partly hidden behind 6",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1249.3,
+      388.8,
+      1286.5,
+      408.7
+     ],
+     "cls": "ball",
+     "score": 0.1315
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 12,
+   "frame": 4685,
+   "status": "todo",
+   "note": "no ball seen in paint; c1 just above yellow 12's raised hand, possibly a ball being passed to him; c0 in crowd",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      956.7,
+      450.9,
+      980.5,
+      474.8
+     ],
+     "cls": "ball",
+     "score": 0.1385
+    },
+    {
+     "xyxy": [
+      1024.7,
+      409.7,
+      1046.7,
+      436.0
+     ],
+     "cls": "ball",
+     "score": 0.1219
+    },
+    {
+     "xyxy": [
+      1416.4,
+      526.0,
+      1435.1,
+      548.4
+     ],
+     "cls": "ball",
+     "score": 0.1144
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 16,
+   "frame": 5955,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1171.5,
+      271.9,
+      1202.4,
+      303.8
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 17,
+   "frame": 6280,
+   "status": "todo",
+   "note": "c0 at top-left of 14 may be ball in a raised hand (yellow leaper); c1 is yellow 13's head; possible referee at left edge",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      859.6,
+      485.7,
+      882.4,
+      511.9
+     ],
+     "cls": "ball",
+     "score": 0.3241
+    },
+    {
+     "xyxy": [
+      448.3,
+      604.4,
+      478.4,
+      632.6
+     ],
+     "cls": "ball",
+     "score": 0.2516
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 18,
+   "frame": 6620,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      900.8,
+      262.0,
+      923.9,
+      286.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 19,
+   "frame": 6895,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      874.9,
+      551.2,
+      902.9,
+      579.1
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 21,
+   "frame": 7680,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      786.3,
+      761.9,
+      818.9,
+      795.0
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 21,
+   "frame": 7860,
+   "status": "todo",
+   "note": "no ball seen; heavy traffic around 7/10/11",
+   "boxes": [],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 22,
+   "frame": 8270,
+   "status": "todo",
+   "note": "c1 on yellow 6's chest may be ball in hands; navy player between 6 and 4 seems unboxed",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1112.1,
+      565.6,
+      1139.5,
+      587.2
+     ],
+     "cls": "ball",
+     "score": 0.1585
+    },
+    {
+     "xyxy": [
+      1076.5,
+      530.1,
+      1109.5,
+      560.4
+     ],
+     "cls": "ball",
+     "score": 0.1554
+    },
+    {
+     "xyxy": [
+      116.2,
+      182.6,
+      147.3,
+      207.1
+     ],
+     "cls": "ball",
+     "score": 0.106
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 24,
+   "frame": 8865,
+   "status": "todo",
+   "note": "ball not found; strip hints it is low near yellow 5 (bent, maybe dribbling); c0/c1/c2 are bench/signage; referee at sideline unboxed",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1467.2,
+      530.0,
+      1491.5,
+      557.8
+     ],
+     "cls": "ball",
+     "score": 0.2453
+    },
+    {
+     "xyxy": [
+      1443.1,
+      520.1,
+      1470.6,
+      550.6
+     ],
+     "cls": "ball",
+     "score": 0.2042
+    },
+    {
+     "xyxy": [
+      1359.4,
+      560.6,
+      1378.9,
+      583.9
+     ],
+     "cls": "ball",
+     "score": 0.1674
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "clip": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
+   "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
+   "shot": 25,
+   "frame": 9055,
+   "status": "todo",
+   "note": "no ball seen; 3 and 12 look like the same yellow player, unsure; light-kit #13 at top right appears off court",
+   "boxes": [],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 1,
+   "frame": 765,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      557.0,
+      337.7,
+      586.6,
+      367.0
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 3,
+   "frame": 1180,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      618.5,
+      545.5,
+      650.9,
+      576.8
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 8,
+   "frame": 3120,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1468.1,
+      550.8,
+      1497.2,
+      583.6
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 8,
+   "frame": 3345,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1032.1,
+      373.1,
+      1066.8,
+      409.7
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 8,
+   "frame": 3460,
+   "status": "todo",
+   "note": "B is near 8's raised hand, may be a catch or a pass; 17 duplicates 12 on same blue player",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      578.7,
+      366.4,
+      603.9,
+      393.1
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 10,
+   "frame": 4025,
+   "status": "todo",
+   "note": "c2 near low hands of bent tan 5, maybe the ball; c0 in traffic",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      862.9,
+      442.9,
+      886.3,
+      473.9
+     ],
+     "cls": "ball",
+     "score": 0.4045
+    },
+    {
+     "xyxy": [
+      1271.5,
+      63.7,
+      1302.7,
+      92.7
+     ],
+     "cls": "ball",
+     "score": 0.1643
+    },
+    {
+     "xyxy": [
+      684.2,
+      559.9,
+      720.2,
+      593.2
+     ],
+     "cls": "ball",
+     "score": 0.131
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 10,
+   "frame": 4090,
+   "status": "todo",
+   "note": "no ball seen; neon object at 6's feet is shoes",
+   "boxes": [],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 11,
+   "frame": 4130,
+   "status": "todo",
+   "note": "triple-threat hold",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      491.5,
+      763.5,
+      531.4,
+      803.0
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    },
+    {
+     "id": 1,
+     "xyxy": [
+      1327.3,
+      491.2,
+      1357.7,
+      520.7
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "det",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": [
+    {
+     "xyxy": [
+      1334.4,
+      513.4,
+      1358.7,
+      540.8
+     ],
+     "cls": "ball",
+     "score": 0.1107
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 12,
+   "frame": 4475,
+   "status": "todo",
+   "note": "ball not in crop; strip has a cut between -0.1 and 0.0",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      896.9,
+      338.5,
+      924.3,
+      367.7
+     ],
+     "cls": "ball",
+     "score": 0.1404
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 12,
+   "frame": 4765,
+   "status": "todo",
+   "note": "blue #9 (10) arms up near rim may hold ball above head (not visible); c0/c2 in crowd",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      1260.3,
+      308.3,
+      1284.6,
+      332.6
+     ],
+     "cls": "ball",
+     "score": 0.4349
+    },
+    {
+     "xyxy": [
+      331.6,
+      508.3,
+      350.2,
+      532.7
+     ],
+     "cls": "ball",
+     "score": 0.1768
+    },
+    {
+     "xyxy": [
+      740.6,
+      224.3,
+      765.9,
+      247.0
+     ],
+     "cls": "ball",
+     "score": 0.1386
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 15,
+   "frame": 5465,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      783.8,
+      587.4,
+      826.8,
+      627.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 15,
+   "frame": 5560,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1400.2,
+      284.1,
+      1430.0,
+      312.4
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 15,
+   "frame": 5695,
+   "status": "todo",
+   "note": "dead-ball look, no ball in crop; 7 seems to span tan player and blue #15",
+   "boxes": [],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 17,
+   "frame": 6410,
+   "status": "todo",
+   "note": "c0 at tan 3's chest may be ball in hands; 12 seems duplicate of blue player 8 (could be someone behind)",
+   "boxes": [],
+   "candidates": [
+    {
+     "xyxy": [
+      785.6,
+      393.9,
+      803.7,
+      411.9
+     ],
+     "cls": "ball",
+     "score": 0.1772
+    }
+   ]
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 18,
+   "frame": 6695,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      911.7,
+      509.7,
+      941.7,
+      535.1
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 18,
+   "frame": 6830,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1162.5,
+      479.5,
+      1188.4,
+      508.1
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 22,
+   "frame": 8195,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1111.0,
+      781.8,
+      1149.5,
+      824.1
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 22,
+   "frame": 8325,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1148.8,
+      363.9,
+      1176.8,
+      390.1
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 22,
+   "frame": 8415,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      640.1,
+      319.0,
+      666.9,
+      348.4
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  },
+  {
+   "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "clip": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
+   "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
+   "shot": 23,
+   "frame": 8880,
+   "status": "done",
+   "note": "first pass (implementer)",
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      868.0,
+      215.4,
+      896.7,
+      242.6
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "first-pass",
+     "flags": [],
+     "hints": [],
+     "alt": {}
+    }
+   ],
+   "candidates": []
+  }
+ ],
+ "meta": {
+  "review_seconds": {}
+ }
+}
