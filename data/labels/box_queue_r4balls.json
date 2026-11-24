@@ -2,7 +2,7 @@
  "version": "r4balls",
  "mode": "ball",
  "title": "Ball queue, round 4",
- "instructions": "<b>One question per frame: where is the game ball?</b><br>The loupe above shows the detector's best guess. <kbd>Space</kbd>: yes, that is the ball (frame done, next). <kbd>Tab</kbd>: show the next guess. Or <b>click</b> any guess on the frame (orange, or dashed: weaker).<br>No guess on the ball: <kbd>\u21e7</kbd>-drag a tight box around it, then <kbd>Enter</kbd>. A guess on the ball but loose: drag its edges in the loupe, then <kbd>Enter</kbd>.<br><kbd>N</kbd> no ball visible \u00b7 <kbd>S</kbd> can't tell, skip \u00b7 <kbd>[</kbd> <kbd>]</kbd> previous / next frame \u00b7 scroll to zoom, <kbd>F</kbd> fit \u00b7 <kbd>U</kbd> undo.<br>Game ball only: in hands, in the air, on the floor. Nothing in the crowd, on boards or on shorts.",
+ "instructions": "<b>One question per frame: where is the game ball?</b><br>The loupe above shows the detector's best guess. <kbd>Space</kbd>: yes, that is the ball (frame done, next). <kbd>Tab</kbd>: show the next guess. Or <b>click</b> any guess on the frame (orange, or dashed: weaker).<br>No guess on the ball: <kbd>⇧</kbd>-drag a tight box around it, then <kbd>Enter</kbd>. A guess on the ball but loose: drag its edges in the loupe, then <kbd>Enter</kbd>.<br><kbd>N</kbd> no ball visible · <kbd>S</kbd> can't tell, skip · <kbd>[</kbd> <kbd>]</kbd> previous / next frame · scroll to zoom, <kbd>F</kbd> fit · <kbd>U</kbd> undo.<br>Game ball only: in hands, in the air, on the floor. Nothing in the crowd, on boards or on shorts.",
  "classes": [
   "ball"
  ],
@@ -13,16 +13,34 @@
    "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
    "shot": 0,
    "frame": 50,
-   "status": "todo",
+   "status": "done",
    "note": "ball not visible; may be at #7's (box 6) waist, strip unclear; boxes 1 and 3 at left edge may be one person (red shoes / green shoe, can't tell)",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1515.5,
+      485.5,
+      1529,
+      507
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
       1458.7,
       509.3,
       1483.8,
-      535.0
+      535
      ],
      "cls": "ball",
      "score": 0.3006
@@ -31,7 +49,7 @@
      "xyxy": [
       776.4,
       34.5,
-      813.0,
+      813,
       68.8
      ],
      "cls": "ball",
@@ -47,7 +65,8 @@
      "cls": "ball",
      "score": 0.1453
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:31:00"
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -307,16 +326,34 @@
    "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
    "shot": 14,
    "frame": 4280,
-   "status": "todo",
+   "status": "done",
    "note": "no clear ball; c2 at the rim, c1 below it near box 9's raised hands; a Dziki player at (left of box 9) may have no box",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      520.5,
+      269,
+      553,
+      296
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
       1247.3,
       345.4,
       1272.3,
-      370.0
+      370
      ],
      "cls": "ball",
      "score": 0.4269
@@ -341,7 +378,8 @@
      "cls": "ball",
      "score": 0.1125
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:31:20"
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -377,11 +415,11 @@
    "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
    "shot": 16,
    "frame": 5240,
-   "status": "todo",
+   "status": "done",
    "note": "c0 is at chest height between white #11 (box 5) and Dziki box 8, can't confirm it is the ball; person lying by the baseline at left is off court",
-   "boxes": [],
-   "candidates": [
+   "boxes": [
     {
+     "id": 0,
      "xyxy": [
       594.1,
       541.6,
@@ -389,9 +427,18 @@
       570.6
      ],
      "cls": "ball",
-     "score": 0.2024
+     "score": 0.2024,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
     }
-   ]
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-24T16:31:32"
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -455,21 +502,40 @@
    "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
    "shot": 21,
    "frame": 6520,
-   "status": "todo",
+   "status": "done",
    "note": "no ball visible in the crop (strip shows only the referee and a white player)",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      462.5,
+      464,
+      483,
+      488
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
       466.5,
       464.2,
       482.6,
-      485.0
+      485
      ],
      "cls": "ball",
      "score": 0.1097
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:31:44"
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -512,9 +578,9 @@
      "id": 0,
      "xyxy": [
       1167.1,
-      307.4,
+      309.4,
       1193.1,
-      334.0
+      337
      ],
      "cls": "ball",
      "team": "",
@@ -522,10 +588,13 @@
      "src": "first-pass",
      "flags": [],
      "hints": [],
-     "alt": {}
+     "alt": {},
+     "edited": true,
+     "checked": true
     }
    ],
-   "candidates": []
+   "candidates": [],
+   "saved_at": "2026-11-24T16:31:53"
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -533,15 +602,33 @@
    "video": "data/raw/20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka.mp4",
    "shot": 22,
    "frame": 7350,
-   "status": "todo",
+   "status": "done",
    "note": "ball not visible; probably with the Dziki player cut off at the bottom (box 4)",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      731.5,
+      651,
+      751.5,
+      682.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
       679.7,
       237.3,
-      717.0,
+      717,
       277.4
      ],
      "cls": "ball",
@@ -557,7 +644,8 @@
      "cls": "ball",
      "score": 0.1045
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:33:09"
   },
   {
    "youtube_id": "20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka",
@@ -649,7 +737,7 @@
    "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
    "shot": 1,
    "frame": 635,
-   "status": "todo",
+   "status": "done",
    "note": "ball looks in the air between #9 (box 2) and dark box 14, whose arm reaches toward it; pass or catch moment",
    "boxes": [
     {
@@ -657,8 +745,8 @@
      "xyxy": [
       856.2,
       512.9,
-      882.8,
-      546.0
+      886.8,
+      546
      ],
      "cls": "ball",
      "team": "",
@@ -666,26 +754,13 @@
      "src": "det",
      "flags": [],
      "hints": [],
-     "alt": {}
-    },
-    {
-     "id": 1,
-     "xyxy": [
-      1461.8,
-      438.0,
-      1492.5,
-      469.5
-     ],
-     "cls": "ball",
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [],
-     "alt": {}
+     "alt": {},
+     "edited": true,
+     "checked": true
     }
    ],
-   "candidates": []
+   "candidates": [],
+   "saved_at": "2026-11-24T16:34:55"
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -700,9 +775,9 @@
      "id": 0,
      "xyxy": [
       840.3,
-      598.3,
+      597.3,
       886.7,
-      641.2
+      646.2
      ],
      "cls": "ball",
      "team": "",
@@ -710,10 +785,13 @@
      "src": "first-pass",
      "flags": [],
      "hints": [],
-     "alt": {}
+     "alt": {},
+     "edited": true,
+     "checked": true
     }
    ],
-   "candidates": []
+   "candidates": [],
+   "saved_at": "2026-11-24T16:35:00"
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -721,10 +799,11 @@
    "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
    "shot": 6,
    "frame": 2380,
-   "status": "todo",
+   "status": "done",
    "note": "referee at the left baseline has no box; no ball visible",
    "boxes": [],
-   "candidates": []
+   "candidates": [],
+   "saved_at": "2026-11-24T16:35:04"
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -760,7 +839,7 @@
    "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
    "shot": 7,
    "frame": 3030,
-   "status": "todo",
+   "status": "done",
    "note": "no ball visible in a crowded group (boxes 6, 5, 3)",
    "boxes": [],
    "candidates": [
@@ -768,7 +847,7 @@
      "xyxy": [
       121.6,
       461.4,
-      155.0,
+      155,
       493.4
      ],
      "cls": "ball",
@@ -784,7 +863,8 @@
      "cls": "ball",
      "score": 0.1199
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:35:10"
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -876,7 +956,7 @@
    "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
    "shot": 11,
    "frame": 3995,
-   "status": "todo",
+   "status": "done",
    "note": "referee under the basket has no box; c1 sits in the cluster of boxes 15/6/7, can't confirm it is the ball; c0 is a hip",
    "boxes": [],
    "candidates": [
@@ -900,7 +980,8 @@
      "cls": "ball",
      "score": 0.1116
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:35:21"
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -964,9 +1045,27 @@
    "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
    "shot": 13,
    "frame": 4445,
-   "status": "todo",
+   "status": "done",
    "note": "c0 is between dark box 4 and red box 2, can't confirm it is the ball; box 2 may hold two red players; shot cut at -0.2 s",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      586.5,
+      476.5,
+      603,
+      499.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
@@ -978,7 +1077,8 @@
      "cls": "ball",
      "score": 0.1203
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:36:49"
   },
   {
    "youtube_id": "20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka",
@@ -1126,11 +1226,11 @@
    "video": "data/raw/20251219_vevXM24gp3U_SKROT_Energa_Czarni_-_Dziki_12._kolejka.mp4",
    "shot": 23,
    "frame": 7750,
-   "status": "todo",
+   "status": "done",
    "note": "box 11 seems to merge a red and a dark player under the basket; referee at the baseline has no box; ball hidden",
-   "boxes": [],
-   "candidates": [
+   "boxes": [
     {
+     "id": 0,
      "xyxy": [
       1444.5,
       350.8,
@@ -1138,9 +1238,18 @@
       381.4
      ],
      "cls": "ball",
-     "score": 0.2658
+     "score": 0.2658,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
     }
-   ]
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-24T16:37:00"
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -1260,10 +1369,11 @@
    "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
    "shot": 8,
    "frame": 2920,
-   "status": "todo",
+   "status": "done",
    "note": "ball visible in the strip at -0.2/-0.1 s (in flight), not found at +0.0 s; box 1 may also hold a white player behind navy #13",
    "boxes": [],
-   "candidates": []
+   "candidates": [],
+   "saved_at": "2026-11-24T16:37:09"
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -1271,9 +1381,27 @@
    "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
    "shot": 9,
    "frame": 3040,
-   "status": "todo",
+   "status": "done",
    "note": "no ball in the crop; yellow label 3 overlaps white box 5 at the left edge",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      563.5,
+      669,
+      595.5,
+      706.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
@@ -1285,7 +1413,8 @@
      "cls": "ball",
      "score": 0.1142
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:37:16"
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -1377,7 +1506,7 @@
    "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
    "shot": 14,
    "frame": 4990,
-   "status": "todo",
+   "status": "done",
    "note": "no ball visible in the crop",
    "boxes": [],
    "candidates": [
@@ -1385,13 +1514,14 @@
      "xyxy": [
       678.9,
       593.3,
-      713.0,
+      713,
       623.6
      ],
      "cls": "ball",
      "score": 0.1135
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:37:27"
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -1427,11 +1557,11 @@
    "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
    "shot": 18,
    "frame": 6350,
-   "status": "todo",
+   "status": "done",
    "note": "ball not visible; may be hidden in cluster 6/11",
-   "boxes": [],
-   "candidates": [
+   "boxes": [
     {
+     "id": 0,
      "xyxy": [
       1612.1,
       1006.9,
@@ -1439,9 +1569,18 @@
       1062.2
      ],
      "cls": "ball",
-     "score": 0.1757
+     "score": 0.1757,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
     }
-   ]
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-24T16:37:30"
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -1449,10 +1588,11 @@
    "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
    "shot": 19,
    "frame": 6855,
-   "status": "todo",
+   "status": "done",
    "note": "referee on baseline has no box; no ball seen; 6 at left is driving with something light near his hand",
    "boxes": [],
-   "candidates": []
+   "candidates": [],
+   "saved_at": "2026-11-24T16:37:36"
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -1488,9 +1628,28 @@
    "video": "data/raw/20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka.mp4",
    "shot": 19,
    "frame": 6985,
-   "status": "todo",
+   "status": "done",
    "note": "c0 near 12/5 is not clearly the ball; referee on baseline above 12 has no box",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      871,
+      432.5,
+      895.5,
+      460.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
@@ -1502,7 +1661,8 @@
      "cls": "ball",
      "score": 0.4778
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:37:46"
   },
   {
    "youtube_id": "20251228_TUtBwzsraKs_SKROT_Dziki_-_Tasomix_Rosiek_Stal_13._kolejka",
@@ -1650,9 +1810,28 @@
    "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
    "shot": 0,
    "frame": 220,
-   "status": "todo",
+   "status": "done",
    "note": "c0 at 6's head is not clearly the ball; ball possibly with 4 or 6",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      612.5,
+      384.5,
+      640.5,
+      411
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
@@ -1664,7 +1843,8 @@
      "cls": "ball",
      "score": 0.2724
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:37:56"
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -1756,7 +1936,7 @@
    "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
    "shot": 3,
    "frame": 1630,
-   "status": "todo",
+   "status": "done",
    "note": "green #31 shooting, ball not visible in his hands; 10 and 14 both seem to be on #31 (keep 14), verify",
    "boxes": [],
    "candidates": [
@@ -1770,7 +1950,8 @@
      "cls": "ball",
      "score": 0.1656
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:38:13"
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -1778,28 +1959,11 @@
    "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
    "shot": 9,
    "frame": 4180,
-   "status": "todo",
+   "status": "done",
    "note": "B is on referee 15's arm, not clearly the ball; c1 at 10's right hand is possible",
    "boxes": [
     {
-     "id": 0,
-     "xyxy": [
-      1103.0,
-      348.0,
-      1127.6,
-      377.3
-     ],
-     "cls": "ball",
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [],
-     "alt": {}
-    }
-   ],
-   "candidates": [
-    {
+     "id": 1,
      "xyxy": [
       1281.5,
       423.9,
@@ -1807,19 +1971,29 @@
       450.8
      ],
      "cls": "ball",
-     "score": 0.4371
-    },
+     "score": 0.4371,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
     {
      "xyxy": [
       1348.8,
-      484.0,
+      484,
       1379.7,
       514.7
      ],
      "cls": "ball",
      "score": 0.3997
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:38:20"
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -2023,7 +2197,7 @@
    "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
    "shot": 15,
    "frame": 6775,
-   "status": "todo",
+   "status": "done",
    "note": "no ball seen; yellow 7 at bottom is a head, possibly a photographer",
    "boxes": [],
    "candidates": [
@@ -2052,12 +2226,13 @@
       1675.2,
       0.3,
       1720.3,
-      32.0
+      32
      ],
      "cls": "ball",
      "score": 0.1346
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:38:32"
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -2121,11 +2296,11 @@
    "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
    "shot": 20,
    "frame": 8660,
-   "status": "todo",
+   "status": "done",
    "note": "c2 on 0's chest is not clearly the ball; no ball seen",
-   "boxes": [],
-   "candidates": [
+   "boxes": [
     {
+     "id": 0,
      "xyxy": [
       209.7,
       622.1,
@@ -2133,8 +2308,17 @@
       654.9
      ],
      "cls": "ball",
-     "score": 0.373
-    },
+     "score": 0.373,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
     {
      "xyxy": [
       1407.3,
@@ -2155,7 +2339,8 @@
      "cls": "ball",
      "score": 0.1344
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:38:36"
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -2163,42 +2348,9 @@
    "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
    "shot": 22,
    "frame": 9460,
-   "status": "todo",
+   "status": "done",
    "note": "two B boxes: upper one (above 4/8) is the ball, lower one is on a green arm; referee on baseline has no box; yellow 10 is a coach in a suit; 6 at left edge may be a camera operator",
-   "boxes": [
-    {
-     "id": 0,
-     "xyxy": [
-      895.7,
-      302.9,
-      921.4,
-      328.1
-     ],
-     "cls": "ball",
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [],
-     "alt": {}
-    },
-    {
-     "id": 1,
-     "xyxy": [
-      953.2,
-      401.8,
-      978.8,
-      429.6
-     ],
-     "cls": "ball",
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [],
-     "alt": {}
-    }
-   ],
+   "boxes": [],
    "candidates": [
     {
      "xyxy": [
@@ -2230,7 +2382,8 @@
      "cls": "ball",
      "score": 0.1041
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:38:38"
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -2238,9 +2391,27 @@
    "video": "data/raw/20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka.mp4",
    "shot": 22,
    "frame": 9505,
-   "status": "todo",
+   "status": "done",
    "note": "c1/c2 at 13's chest are unclear; referee on baseline above 12 has no box",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      793,
+      235.5,
+      815,
+      260
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
@@ -2272,7 +2443,8 @@
      "cls": "ball",
      "score": 0.1615
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:40:08"
   },
   {
    "youtube_id": "20260117_SswWgXybNB8_SKROT_Dziki_-_WKS_l_sk_16._kolejka",
@@ -2308,26 +2480,9 @@
    "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
    "shot": 0,
    "frame": 340,
-   "status": "todo",
+   "status": "done",
    "note": "B below the rim could be the ball or a cheerleader pom-pom",
-   "boxes": [
-    {
-     "id": 0,
-     "xyxy": [
-      1092.9,
-      352.8,
-      1121.4,
-      383.0
-     ],
-     "cls": "ball",
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [],
-     "alt": {}
-    }
-   ],
+   "boxes": [],
    "candidates": [
     {
      "xyxy": [
@@ -2349,7 +2504,8 @@
      "cls": "ball",
      "score": 0.101
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:40:11"
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -2413,13 +2569,31 @@
    "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
    "shot": 2,
    "frame": 910,
-   "status": "todo",
+   "status": "done",
    "note": "c0 at 9's hand may be the ball, not clear",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      655.5,
+      257,
+      680,
+      282.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
-      986.0,
+      986,
       493.3,
       1013.9,
       521.2
@@ -2427,7 +2601,8 @@
      "cls": "ball",
      "score": 0.311
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:40:26"
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -2435,7 +2610,7 @@
    "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
    "shot": 3,
    "frame": 1200,
-   "status": "todo",
+   "status": "done",
    "note": "no ball seen; c1/c2 not on the ball",
    "boxes": [],
    "candidates": [
@@ -2462,14 +2637,15 @@
     {
      "xyxy": [
       898.5,
-      437.0,
-      927.0,
+      437,
+      927,
       467.5
      ],
      "cls": "ball",
      "score": 0.1568
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:40:33"
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -2511,8 +2687,8 @@
     {
      "id": 0,
      "xyxy": [
-      1144.2,
-      593.3,
+      1141.2,
+      585.3,
       1174.4,
       622.1
      ],
@@ -2522,10 +2698,13 @@
      "src": "first-pass",
      "flags": [],
      "hints": [],
-     "alt": {}
+     "alt": {},
+     "edited": true,
+     "checked": true
     }
    ],
-   "candidates": []
+   "candidates": [],
+   "saved_at": "2026-11-24T16:40:44"
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -2533,10 +2712,29 @@
    "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
    "shot": 7,
    "frame": 2890,
-   "status": "todo",
+   "status": "done",
    "note": "yellow 12 is a coach in a suit; no ball seen",
-   "boxes": [],
-   "candidates": []
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      678,
+      260.5,
+      705.5,
+      288
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-24T16:40:57"
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -2544,14 +2742,14 @@
    "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
    "shot": 9,
    "frame": 3885,
-   "status": "todo",
+   "status": "skip",
    "note": "c0 is the referee's head; no ball seen",
    "boxes": [],
    "candidates": [
     {
      "xyxy": [
       1164.4,
-      327.0,
+      327,
       1187.8,
       352.2
      ],
@@ -2568,7 +2766,8 @@
      "cls": "ball",
      "score": 0.1139
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:41:12"
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -2632,7 +2831,7 @@
    "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
    "shot": 11,
    "frame": 4390,
-   "status": "todo",
+   "status": "skip",
    "note": "c0 at 11's raised hand is not clearly the ball",
    "boxes": [],
    "candidates": [
@@ -2656,7 +2855,8 @@
      "cls": "ball",
      "score": 0.1109
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:41:23"
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -2664,26 +2864,9 @@
    "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
    "shot": 11,
    "frame": 4595,
-   "status": "todo",
+   "status": "done",
    "note": "B and c1 sit on the red Suzuki S on the backboard, not the ball; yellow 9 is a coach in a suit",
-   "boxes": [
-    {
-     "id": 0,
-     "xyxy": [
-      1259.9,
-      230.8,
-      1286.1,
-      257.5
-     ],
-     "cls": "ball",
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [],
-     "alt": {}
-    }
-   ],
+   "boxes": [],
    "candidates": [
     {
      "xyxy": [
@@ -2697,7 +2880,7 @@
     },
     {
      "xyxy": [
-      1251.0,
+      1251,
       222.9,
       1274.8,
       249.9
@@ -2705,7 +2888,8 @@
      "cls": "ball",
      "score": 0.122
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:41:25"
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -2769,10 +2953,11 @@
    "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
    "shot": 15,
    "frame": 6030,
-   "status": "todo",
+   "status": "done",
    "note": "referee on baseline has no box; no ball seen",
    "boxes": [],
-   "candidates": []
+   "candidates": [],
+   "saved_at": "2026-11-24T16:41:35"
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -2780,7 +2965,7 @@
    "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
    "shot": 20,
    "frame": 7660,
-   "status": "todo",
+   "status": "skip",
    "note": "no ball visible in strip; c0 (near hand of player in box 7) and c1 (near box 9) are possible but cannot confirm",
    "boxes": [],
    "candidates": [
@@ -2814,7 +2999,8 @@
      "cls": "ball",
      "score": 0.1375
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:41:44"
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -2850,24 +3036,26 @@
    "video": "data/raw/20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka.mp4",
    "shot": 21,
    "frame": 8275,
-   "status": "todo",
+   "status": "done",
    "note": "B sits at the top of yellow box 11 (may be that person's head, not the ball); 11 looks like an off-court person behind the shooter, check it; shooter #19 (box 5) has arms up",
    "boxes": [
     {
      "id": 0,
      "xyxy": [
-      756.0,
-      323.3,
-      773.3,
-      344.5
+      925,
+      196.4,
+      948.3,
+      225.7
      ],
      "cls": "ball",
+     "score": 0.1662,
      "team": "",
      "tid": null,
-     "src": "det",
+     "src": "det-candidate",
      "flags": [],
      "hints": [],
-     "alt": {}
+     "alt": {},
+     "checked": true
     }
    ],
    "candidates": [
@@ -2876,22 +3064,13 @@
       960.1,
       474.6,
       976.2,
-      494.0
+      494
      ],
      "cls": "ball",
      "score": 0.2
-    },
-    {
-     "xyxy": [
-      925.0,
-      196.4,
-      948.3,
-      225.7
-     ],
-     "cls": "ball",
-     "score": 0.1662
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:41:51"
   },
   {
    "youtube_id": "20260125_lwxZaHLNDmU_SKROT_Dziki_-_Miasto_Szk_a_17._kolejka",
@@ -2905,7 +3084,7 @@
     {
      "id": 0,
      "xyxy": [
-      1197.0,
+      1197,
       464.7,
       1229.6,
       499.1
@@ -2919,7 +3098,8 @@
      "alt": {}
     }
    ],
-   "candidates": []
+   "candidates": [],
+   "saved_at": "2026-11-24T16:41:52"
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -2927,13 +3107,31 @@
    "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
    "shot": 0,
    "frame": 5,
-   "status": "todo",
+   "status": "done",
    "note": "no ball seen; maybe a dribble by the blue player in box 2, not confirmed",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      135,
+      478.5,
+      146,
+      502.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
-      880.0,
+      880,
       68.5,
       911.4,
       98.1
@@ -2961,7 +3159,8 @@
      "cls": "ball",
      "score": 0.1176
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:42:48"
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -2989,7 +3188,8 @@
      "alt": {}
     }
    ],
-   "candidates": []
+   "candidates": [],
+   "saved_at": "2026-11-24T16:42:49"
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -2997,27 +3197,29 @@
    "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
    "shot": 2,
    "frame": 685,
-   "status": "todo",
+   "status": "done",
    "note": "B is high above the backboard against the crowd, maybe the ball in flight, cannot confirm; missing: referee in grey at the baseline right of box 8",
    "boxes": [
     {
      "id": 0,
      "xyxy": [
-      1070.2,
-      193.3,
-      1095.6,
-      222.3
+      1067.5,
+      194,
+      1097.5,
+      224
      ],
      "cls": "ball",
      "team": "",
      "tid": null,
-     "src": "det",
+     "src": "human",
      "flags": [],
      "hints": [],
-     "alt": {}
+     "alt": {},
+     "checked": true
     }
    ],
-   "candidates": []
+   "candidates": [],
+   "saved_at": "2026-11-24T16:42:55"
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -3025,9 +3227,28 @@
    "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
    "shot": 4,
    "frame": 1440,
-   "status": "todo",
+   "status": "done",
    "note": "orange ball-like object at chest height on the right edge of box 1, between boxes 1 and 12; holder unclear",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      823.1,
+      174.3,
+      848.3,
+      199.8
+     ],
+     "cls": "ball",
+     "score": 0.2934,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
@@ -3041,16 +3262,6 @@
     },
     {
      "xyxy": [
-      823.1,
-      174.3,
-      848.3,
-      199.8
-     ],
-     "cls": "ball",
-     "score": 0.2934
-    },
-    {
-     "xyxy": [
       928.2,
       441.5,
       953.9,
@@ -3059,7 +3270,8 @@
      "cls": "ball",
      "score": 0.1719
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:42:46"
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -3069,25 +3281,9 @@
    "frame": 2175,
    "status": "done",
    "note": "first pass (implementer)",
-   "boxes": [
-    {
-     "id": 0,
-     "xyxy": [
-      442.2,
-      451.3,
-      471.6,
-      491.1
-     ],
-     "cls": "ball",
-     "team": "",
-     "tid": null,
-     "src": "first-pass",
-     "flags": [],
-     "hints": [],
-     "alt": {}
-    }
-   ],
-   "candidates": []
+   "boxes": [],
+   "candidates": [],
+   "saved_at": "2026-11-24T16:42:45"
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -3095,9 +3291,28 @@
    "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
    "shot": 7,
    "frame": 2530,
-   "status": "todo",
+   "status": "done",
    "note": "c1 at the rim may be the ball (shot at rim), not confirmed; missing: referee standing at right near the stanchion",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1156.6,
+      258.9,
+      1183.1,
+      284.3
+     ],
+     "cls": "ball",
+     "score": 0.2563,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
@@ -3111,16 +3326,6 @@
     },
     {
      "xyxy": [
-      1156.6,
-      258.9,
-      1183.1,
-      284.3
-     ],
-     "cls": "ball",
-     "score": 0.2563
-    },
-    {
-     "xyxy": [
       561.9,
       190.9,
       591.6,
@@ -3129,7 +3334,8 @@
      "cls": "ball",
      "score": 0.1594
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:42:40"
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -3157,7 +3363,8 @@
      "alt": {}
     }
    ],
-   "candidates": []
+   "candidates": [],
+   "saved_at": "2026-11-24T16:42:57"
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -3165,9 +3372,27 @@
    "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
    "shot": 9,
    "frame": 3145,
-   "status": "todo",
+   "status": "done",
    "note": "no ball visible in crop or strip; c0/c1 are in the crowd",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      944.5,
+      410.5,
+      965.5,
+      434
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
@@ -3183,13 +3408,14 @@
      "xyxy": [
       369.4,
       162.5,
-      413.0,
+      413,
       209.4
      ],
      "cls": "ball",
      "score": 0.1172
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:43:05"
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -3225,7 +3451,7 @@
    "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
    "shot": 11,
    "frame": 4170,
-   "status": "todo",
+   "status": "done",
    "note": "no ball visible; c0/c2 are in the crowd",
    "boxes": [],
    "candidates": [
@@ -3259,7 +3485,8 @@
      "cls": "ball",
      "score": 0.1779
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:43:13"
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -3295,7 +3522,7 @@
    "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
    "shot": 14,
    "frame": 5335,
-   "status": "todo",
+   "status": "skip",
    "note": "no ball visible; missing: referee at the right edge by the stanchion",
    "boxes": [],
    "candidates": [
@@ -3319,7 +3546,8 @@
      "cls": "ball",
      "score": 0.1581
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:43:21"
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -3327,11 +3555,11 @@
    "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
    "shot": 15,
    "frame": 5540,
-   "status": "todo",
+   "status": "done",
    "note": "c0/c1/c2 are all in the 12/16/6/5 cluster; cannot tell which (if any) is the ball",
-   "boxes": [],
-   "candidates": [
+   "boxes": [
     {
+     "id": 0,
      "xyxy": [
       1099.7,
       410.6,
@@ -3339,14 +3567,23 @@
       435.4
      ],
      "cls": "ball",
-     "score": 0.438
-    },
+     "score": 0.438,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
     {
      "xyxy": [
       973.7,
       364.2,
       1005.1,
-      391.0
+      391
      ],
      "cls": "ball",
      "score": 0.3069
@@ -3361,7 +3598,8 @@
      "cls": "ball",
      "score": 0.267
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:43:24"
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -3425,7 +3663,7 @@
    "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
    "shot": 21,
    "frame": 7270,
-   "status": "todo",
+   "status": "done",
    "note": "two orange B boxes: one in the crowd top right is wrong; the one near the rim with c0/c2 may be the ball; missing: beige jumper, blue #10 jumper, referee in grey at right",
    "boxes": [
     {
@@ -3442,23 +3680,8 @@
      "src": "det",
      "flags": [],
      "hints": [],
-     "alt": {}
-    },
-    {
-     "id": 1,
-     "xyxy": [
-      1562.0,
-      207.8,
-      1600.2,
-      246.4
-     ],
-     "cls": "ball",
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [],
-     "alt": {}
+     "alt": {},
+     "checked": true
     }
    ],
    "candidates": [
@@ -3484,7 +3707,7 @@
     },
     {
      "xyxy": [
-      1263.0,
+      1263,
       324.6,
       1291.2,
       352.7
@@ -3492,7 +3715,8 @@
      "cls": "ball",
      "score": 0.1211
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:43:27"
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -3500,7 +3724,7 @@
    "video": "data/raw/20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka.mp4",
    "shot": 23,
    "frame": 7830,
-   "status": "todo",
+   "status": "skip",
    "note": "possible low dribble at waist height on the right edge of box 4 (blue player), not confirmed",
    "boxes": [],
    "candidates": [
@@ -3534,7 +3758,8 @@
      "cls": "ball",
      "score": 0.2193
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:43:47"
   },
   {
    "youtube_id": "20260308_sZ5Rab-32uk_SKROT_Dziki_-_AMW_Arka_21._kolejka",
@@ -3794,14 +4019,14 @@
    "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
    "shot": 9,
    "frame": 3485,
-   "status": "todo",
+   "status": "done",
    "note": "B is in front of the bench by the coach, maybe a spare ball; shooter 13 is in follow-through; box 11 may merge a white and a dark player",
    "boxes": [
     {
      "id": 0,
      "xyxy": [
       457.6,
-      315.0,
+      315,
       485.5,
       344.3
      ],
@@ -3811,7 +4036,8 @@
      "src": "det",
      "flags": [],
      "hints": [],
-     "alt": {}
+     "alt": {},
+     "checked": true
     }
    ],
    "candidates": [
@@ -3825,7 +4051,8 @@
      "cls": "ball",
      "score": 0.2247
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:43:56"
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -4001,11 +4228,11 @@
    "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
    "shot": 14,
    "frame": 5340,
-   "status": "todo",
+   "status": "done",
    "note": "no ball visible; c0/c1 at the top; missing: referee in grey at the baseline under the basket",
-   "boxes": [],
-   "candidates": [
+   "boxes": [
     {
+     "id": 0,
      "xyxy": [
       991.1,
       173.8,
@@ -4013,19 +4240,29 @@
       202.7
      ],
      "cls": "ball",
-     "score": 0.4766
-    },
+     "score": 0.4766,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
     {
      "xyxy": [
       979.6,
-      213.0,
-      1005.0,
+      213,
+      1005,
       244.2
      ],
      "cls": "ball",
      "score": 0.1015
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:43:59"
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -4061,9 +4298,28 @@
    "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
    "shot": 16,
    "frame": 6225,
-   "status": "todo",
+   "status": "done",
    "note": "c2 at the backboard may be the ball (rebound fight), not confirmed",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      698,
+      299.2,
+      724.2,
+      330.3
+     ],
+     "cls": "ball",
+     "score": 0.2283,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
@@ -4079,23 +4335,14 @@
      "xyxy": [
       774.1,
       579.3,
-      806.0,
+      806,
       612.4
      ],
      "cls": "ball",
      "score": 0.2413
-    },
-    {
-     "xyxy": [
-      698.0,
-      299.2,
-      724.2,
-      330.3
-     ],
-     "cls": "ball",
-     "score": 0.2283
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:44:01"
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -4103,9 +4350,27 @@
    "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
    "shot": 17,
    "frame": 6495,
-   "status": "todo",
+   "status": "done",
    "note": "no ball visible (c0 is the rim); box 8 may merge white #32 and a dark player",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      938.5,
+      259,
+      963.5,
+      286
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
@@ -4117,7 +4382,8 @@
      "cls": "ball",
      "score": 0.1225
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:44:14"
   },
   {
    "youtube_id": "20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka",
@@ -4181,7 +4447,7 @@
    "video": "data/raw/20260313_cG4oqryldrw_SKROT_MKS_-_Dziki_22._kolejka.mp4",
    "shot": 24,
    "frame": 8690,
-   "status": "todo",
+   "status": "done",
    "note": "ball out of crop",
    "boxes": [],
    "candidates": [
@@ -4195,7 +4461,8 @@
      "cls": "ball",
      "score": 0.371
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:44:18"
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -4259,16 +4526,34 @@
    "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
    "shot": 3,
    "frame": 1230,
-   "status": "todo",
+   "status": "done",
    "note": "no ball seen; c0/c1 are in the crowd; missing: referee in grey at left",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      747.5,
+      385,
+      764,
+      404.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
       831.8,
       293.4,
       855.9,
-      317.0
+      317
      ],
      "cls": "ball",
      "score": 0.3345
@@ -4285,7 +4570,7 @@
     },
     {
      "xyxy": [
-      774.0,
+      774,
       554.7,
       808.6,
       588.9
@@ -4293,7 +4578,8 @@
      "cls": "ball",
      "score": 0.2275
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:44:32"
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -4301,24 +4587,25 @@
    "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
    "shot": 5,
    "frame": 1880,
-   "status": "todo",
+   "status": "done",
    "note": "B (at 14's side) vs c1 (at the rim by 14's hand): unclear which is the ball; missing: referee in grey at right; 13 and 6 may overlap on white #3",
    "boxes": [
     {
      "id": 0,
      "xyxy": [
-      1139.2,
-      371.8,
-      1169.5,
-      399.1
+      1141,
+      371,
+      1166,
+      400.5
      ],
      "cls": "ball",
      "team": "",
      "tid": null,
-     "src": "det",
+     "src": "human",
      "flags": [],
      "hints": [],
-     "alt": {}
+     "alt": {},
+     "checked": true
     }
    ],
    "candidates": [
@@ -4336,13 +4623,14 @@
      "xyxy": [
       1105.8,
       297.4,
-      1135.0,
+      1135,
       333.7
      ],
      "cls": "ball",
      "score": 0.1058
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:44:43"
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -4378,15 +4666,33 @@
    "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
    "shot": 9,
    "frame": 3300,
-   "status": "todo",
+   "status": "done",
    "note": "ball at the rim in 17's hand (dunk or layup), not on c0-c2, which are in the crowd; unboxed referee on the left; narrow box 11 between 17 and 7 may be a duplicate on the dunker's legs",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      699,
+      269.5,
+      719,
+      288
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
       892.6,
       278.4,
-      912.0,
+      912,
       301.7
      ],
      "cls": "ball",
@@ -4412,7 +4718,8 @@
      "cls": "ball",
      "score": 0.1863
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:44:52"
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -4420,13 +4727,31 @@
    "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
    "shot": 10,
    "frame": 3480,
-   "status": "todo",
+   "status": "done",
    "note": "c2 between 3 and 15 may be the ball but I cannot confirm it; boxes 0 and 2 at the left edge may both be on white #10",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      673,
+      431.5,
+      687.5,
+      453.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
-      360.0,
+      360,
       83.6,
       389.2,
       104.6
@@ -4446,7 +4771,7 @@
     },
     {
      "xyxy": [
-      673.0,
+      673,
       436.7,
       686.8,
       456.3
@@ -4454,7 +4779,8 @@
      "cls": "ball",
      "score": 0.1222
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:44:57"
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -4462,26 +4788,9 @@
    "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
    "shot": 10,
    "frame": 3585,
-   "status": "todo",
+   "status": "skip",
    "note": "B and c0 are both in the crowd (wrong); no ball visible on court, possibly hidden in the 7/11 cluster",
-   "boxes": [
-    {
-     "id": 0,
-     "xyxy": [
-      344.9,
-      85.5,
-      374.2,
-      108.6
-     ],
-     "cls": "ball",
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [],
-     "alt": {}
-    }
-   ],
+   "boxes": [],
    "candidates": [
     {
      "xyxy": [
@@ -4493,7 +4802,8 @@
      "cls": "ball",
      "score": 0.1014
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:45:01"
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -4669,21 +4979,40 @@
    "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
    "shot": 18,
    "frame": 6335,
-   "status": "todo",
+   "status": "done",
    "note": "c0 just above 10's head (white #7) may be the ball in an overhead hold or pass; cannot confirm",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1091.5,
+      349.5,
+      1109,
+      372
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
       1114.9,
-      429.0,
+      429,
       1137.6,
       455.5
      ],
      "cls": "ball",
      "score": 0.1354
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:45:16"
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -4719,7 +5048,7 @@
    "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
    "shot": 18,
    "frame": 6465,
-   "status": "todo",
+   "status": "done",
    "note": "white player at the rim has no box; ball is above the crop, probably a shot in flight",
    "boxes": [],
    "candidates": [
@@ -4733,7 +5062,8 @@
      "cls": "ball",
      "score": 0.2969
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:45:25"
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -4741,7 +5071,7 @@
    "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
    "shot": 23,
    "frame": 7605,
-   "status": "todo",
+   "status": "skip",
    "note": "c0 at dark 6's hand on the drive may be the ball",
    "boxes": [],
    "candidates": [
@@ -4749,13 +5079,14 @@
      "xyxy": [
       1211.3,
       516.2,
-      1230.0,
+      1230,
       534.8
      ],
      "cls": "ball",
      "score": 0.2156
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:45:30"
   },
   {
    "youtube_id": "20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka",
@@ -4791,10 +5122,11 @@
    "video": "data/raw/20260321_hUoD7ptXzCE_SKROT_King_-_Dziki_23._kolejka.mp4",
    "shot": 26,
    "frame": 8925,
-   "status": "todo",
+   "status": "done",
    "note": "no ball visible; the strip turns into a broadcast transition at +0.1",
    "boxes": [],
-   "candidates": []
+   "candidates": [],
+   "saved_at": "2026-11-24T16:45:32"
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -4802,24 +5134,33 @@
    "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
    "shot": 1,
    "frame": 635,
-   "status": "todo",
+   "status": "done",
    "note": "c1 between 15 and 4 may be the ball; unboxed referee at the baseline",
-   "boxes": [],
-   "candidates": [
+   "boxes": [
     {
+     "id": 0,
      "xyxy": [
       886.2,
       114.4,
-      911.0,
+      911,
       139.1
      ],
      "cls": "ball",
-     "score": 0.3992
-    },
+     "score": 0.3992,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
     {
      "xyxy": [
       942.8,
-      402.0,
+      402,
       966.9,
       425.5
      ],
@@ -4836,7 +5177,8 @@
      "cls": "ball",
      "score": 0.1232
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:45:35"
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -4900,7 +5242,7 @@
    "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
    "shot": 5,
    "frame": 1675,
-   "status": "todo",
+   "status": "skip",
    "note": "shot cut at -0.2 s (close-up)",
    "boxes": [],
    "candidates": [
@@ -4914,7 +5256,8 @@
      "cls": "ball",
      "score": 0.1745
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:45:43"
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -4922,9 +5265,28 @@
    "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
    "shot": 5,
    "frame": 1870,
-   "status": "todo",
+   "status": "done",
    "note": "dark jump shooter has no box; ball above his head at c2 or c1 (cannot tell which); unboxed referee on the left; yellow 10 is a player (dark #1) with the referee class",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      743.6,
+      406.4,
+      776.3,
+      428.8
+     ],
+     "cls": "ball",
+     "score": 0.131,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
@@ -4945,18 +5307,9 @@
      ],
      "cls": "ball",
      "score": 0.1796
-    },
-    {
-     "xyxy": [
-      743.6,
-      406.4,
-      776.3,
-      428.8
-     ],
-     "cls": "ball",
-     "score": 0.131
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:45:50"
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -4964,11 +5317,11 @@
    "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
    "shot": 5,
    "frame": 1905,
-   "status": "todo",
+   "status": "done",
    "note": "ball may be c2 at the hands of jumping 12, or c1 at 7's hand; unboxed referee on the left",
-   "boxes": [],
-   "candidates": [
+   "boxes": [
     {
+     "id": 0,
      "xyxy": [
       867.8,
       537.2,
@@ -4976,8 +5329,17 @@
       560.8
      ],
      "cls": "ball",
-     "score": 0.3939
-    },
+     "score": 0.3939,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
     {
      "xyxy": [
       723.5,
@@ -4998,7 +5360,8 @@
      "cls": "ball",
      "score": 0.154
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:45:58"
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -5230,7 +5593,7 @@
    "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
    "shot": 15,
    "frame": 4990,
-   "status": "todo",
+   "status": "done",
    "note": "dark jumper at (arms up) has no box; 6 covers the dark player plus the white bald player below him; B at 6's top-left is not clearly on the ball",
    "boxes": [
     {
@@ -5247,7 +5610,8 @@
      "src": "det",
      "flags": [],
      "hints": [],
-     "alt": {}
+     "alt": {},
+     "checked": true
     }
    ],
    "candidates": [
@@ -5261,7 +5625,8 @@
      "cls": "ball",
      "score": 0.2429
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:46:04"
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -5297,11 +5662,11 @@
    "video": "data/raw/20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka.mp4",
    "shot": 18,
    "frame": 5985,
-   "status": "todo",
+   "status": "done",
    "note": "c0/c2 inside 16 at the dark player's hands may be the ball; unboxed referee",
-   "boxes": [],
-   "candidates": [
+   "boxes": [
     {
+     "id": 0,
      "xyxy": [
       955.4,
       574.4,
@@ -5309,8 +5674,17 @@
       598.3
      ],
      "cls": "ball",
-     "score": 0.2274
-    },
+     "score": 0.2274,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
     {
      "xyxy": [
       1335.7,
@@ -5331,7 +5705,8 @@
      "cls": "ball",
      "score": 0.107
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:46:10"
   },
   {
    "youtube_id": "20260410_zZqAUytpmgc_SKROT_Arriva_LOTTO_Twarde_Pierniki_-_Dziki_26._kolejka",
@@ -5451,27 +5826,11 @@
    "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
    "shot": 0,
    "frame": 280,
-   "status": "todo",
+   "status": "done",
    "note": "B sits on a static backboard mark (same position across the strip), not the ball; no ball visible, maybe in the 6/8 cluster under the rim; 13 at the baseline may be a photographer",
-   "boxes": [
-    {
-     "id": 0,
-     "xyxy": [
-      1276.8,
-      232.4,
-      1306.2,
-      262.0
-     ],
-     "cls": "ball",
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [],
-     "alt": {}
-    }
-   ],
-   "candidates": []
+   "boxes": [],
+   "candidates": [],
+   "saved_at": "2026-11-24T16:46:13"
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -5563,9 +5922,27 @@
    "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
    "shot": 9,
    "frame": 2955,
-   "status": "todo",
+   "status": "done",
    "note": "dark dunker hanging on the rim has no box; ball at the rim at c1/c2 (overlapping)",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      517,
+      395.5,
+      542.5,
+      417.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
@@ -5579,7 +5956,7 @@
     },
     {
      "xyxy": [
-      545.0,
+      545,
       270.8,
       573.9,
       299.5
@@ -5597,7 +5974,8 @@
      "cls": "ball",
      "score": 0.181
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:46:25"
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -5689,43 +6067,11 @@
    "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
    "shot": 13,
    "frame": 4290,
-   "status": "todo",
+   "status": "done",
    "note": "left B is on the ball in the dark layup shooter's hands; he has no box (4 is the grey defender); a second B inside yellow 9 (referee) is wrong; release timing unsure",
-   "boxes": [
-    {
-     "id": 0,
-     "xyxy": [
-      814.5,
-      387.9,
-      837.0,
-      415.2
-     ],
-     "cls": "ball",
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [],
-     "alt": {}
-    },
-    {
-     "id": 1,
-     "xyxy": [
-      886.4,
-      432.6,
-      919.1,
-      463.7
-     ],
-     "cls": "ball",
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [],
-     "alt": {}
-    }
-   ],
-   "candidates": []
+   "boxes": [],
+   "candidates": [],
+   "saved_at": "2026-11-24T16:46:27"
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -5761,7 +6107,7 @@
    "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
    "shot": 14,
    "frame": 4555,
-   "status": "todo",
+   "status": "skip",
    "note": "no ball visible; unboxed referee on the left",
    "boxes": [],
    "candidates": [
@@ -5785,7 +6131,8 @@
      "cls": "ball",
      "score": 0.1175
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:46:33"
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -5793,9 +6140,27 @@
    "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
    "shot": 19,
    "frame": 6185,
-   "status": "todo",
+   "status": "done",
    "note": "no ball seen; c1 on rim/net, can't tell if ball in net; c2 in crowd; 12 seems second box on dark #1 (box 4); referee at baseline unboxed",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1131,
+      389,
+      1149,
+      411.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
@@ -5821,13 +6186,14 @@
      "xyxy": [
       827.7,
       181.8,
-      850.0,
+      850,
       204.7
      ],
      "cls": "ball",
      "score": 0.1308
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:46:41"
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -5975,9 +6341,27 @@
    "video": "data/raw/20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka.mp4",
    "shot": 25,
    "frame": 8130,
-   "status": "todo",
+   "status": "done",
    "note": "possible dark ball low between #12's legs (box 5) at bottom; can't confirm",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      775.5,
+      424.5,
+      793,
+      443.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
@@ -5989,7 +6373,8 @@
      "cls": "ball",
      "score": 0.4502
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:46:49"
   },
   {
    "youtube_id": "20260418_xTfkhQ0wO20_SKROT_Dziki_-_Energa_Czarni_27._kolejka",
@@ -6165,7 +6550,7 @@
    "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
    "shot": 8,
    "frame": 3030,
-   "status": "todo",
+   "status": "done",
    "note": "no ball seen; 5 seems to cover two yellow players (one behind)",
    "boxes": [],
    "candidates": [
@@ -6179,7 +6564,8 @@
      "cls": "ball",
      "score": 0.3235
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:46:52"
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -6271,7 +6657,7 @@
    "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
    "shot": 12,
    "frame": 4310,
-   "status": "todo",
+   "status": "skip",
    "note": "no ball seen; c0 on rim; yellow 6 may be holding it at waist; navy player partly hidden behind 6",
    "boxes": [],
    "candidates": [
@@ -6285,7 +6671,8 @@
      "cls": "ball",
      "score": 0.1315
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:46:58"
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -6293,7 +6680,7 @@
    "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
    "shot": 12,
    "frame": 4685,
-   "status": "todo",
+   "status": "done",
    "note": "no ball seen in paint; c1 just above yellow 12's raised hand, possibly a ball being passed to him; c0 in crowd",
    "boxes": [],
    "candidates": [
@@ -6312,7 +6699,7 @@
       1024.7,
       409.7,
       1046.7,
-      436.0
+      436
      ],
      "cls": "ball",
      "score": 0.1219
@@ -6320,14 +6707,15 @@
     {
      "xyxy": [
       1416.4,
-      526.0,
+      526,
       1435.1,
       548.4
      ],
      "cls": "ball",
      "score": 0.1144
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:47:06"
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -6363,11 +6751,11 @@
    "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
    "shot": 17,
    "frame": 6280,
-   "status": "todo",
+   "status": "done",
    "note": "c0 at top-left of 14 may be ball in a raised hand (yellow leaper); c1 is yellow 13's head; possible referee at left edge",
-   "boxes": [],
-   "candidates": [
+   "boxes": [
     {
+     "id": 0,
      "xyxy": [
       859.6,
       485.7,
@@ -6375,8 +6763,17 @@
       511.9
      ],
      "cls": "ball",
-     "score": 0.3241
-    },
+     "score": 0.3241,
+     "team": "",
+     "tid": null,
+     "src": "det-candidate",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
+   "candidates": [
     {
      "xyxy": [
       448.3,
@@ -6387,7 +6784,8 @@
      "cls": "ball",
      "score": 0.2516
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:47:07"
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -6479,10 +6877,11 @@
    "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
    "shot": 21,
    "frame": 7860,
-   "status": "todo",
+   "status": "skip",
    "note": "no ball seen; heavy traffic around 7/10/11",
    "boxes": [],
-   "candidates": []
+   "candidates": [],
+   "saved_at": "2026-11-24T16:47:17"
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -6490,7 +6889,7 @@
    "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
    "shot": 22,
    "frame": 8270,
-   "status": "todo",
+   "status": "skip",
    "note": "c1 on yellow 6's chest may be ball in hands; navy player between 6 and 4 seems unboxed",
    "boxes": [],
    "candidates": [
@@ -6524,7 +6923,8 @@
      "cls": "ball",
      "score": 0.106
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:47:22"
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -6532,14 +6932,14 @@
    "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
    "shot": 24,
    "frame": 8865,
-   "status": "todo",
+   "status": "done",
    "note": "ball not found; strip hints it is low near yellow 5 (bent, maybe dribbling); c0/c1/c2 are bench/signage; referee at sideline unboxed",
    "boxes": [],
    "candidates": [
     {
      "xyxy": [
       1467.2,
-      530.0,
+      530,
       1491.5,
       557.8
      ],
@@ -6566,7 +6966,8 @@
      "cls": "ball",
      "score": 0.1674
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:47:26"
   },
   {
    "youtube_id": "20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka",
@@ -6574,10 +6975,30 @@
    "video": "data/raw/20260425_enJCkGVWlHI_SKROT_Tasomix_Rosiek_Stal_-_Dziki_28._kolejka.mp4",
    "shot": 25,
    "frame": 9055,
-   "status": "todo",
+   "status": "done",
    "note": "no ball seen; 3 and 12 look like the same yellow player, unsure; light-kit #13 at top right appears off court",
-   "boxes": [],
-   "candidates": []
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      545.5,
+      534,
+      563,
+      561
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true,
+     "edited": true
+    }
+   ],
+   "candidates": [],
+   "saved_at": "2026-11-24T16:47:40"
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -6697,27 +7118,11 @@
    "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
    "shot": 8,
    "frame": 3460,
-   "status": "todo",
+   "status": "done",
    "note": "B is near 8's raised hand, may be a catch or a pass; 17 duplicates 12 on same blue player",
-   "boxes": [
-    {
-     "id": 0,
-     "xyxy": [
-      578.7,
-      366.4,
-      603.9,
-      393.1
-     ],
-     "cls": "ball",
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [],
-     "alt": {}
-    }
-   ],
-   "candidates": []
+   "boxes": [],
+   "candidates": [],
+   "saved_at": "2026-11-24T16:47:43"
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -6725,9 +7130,27 @@
    "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
    "shot": 10,
    "frame": 4025,
-   "status": "todo",
+   "status": "done",
    "note": "c2 near low hands of bent tan 5, maybe the ball; c0 in traffic",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      732.5,
+      333.5,
+      757.5,
+      359.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
@@ -6759,7 +7182,8 @@
      "cls": "ball",
      "score": 0.131
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:47:50"
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -6767,10 +7191,11 @@
    "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
    "shot": 10,
    "frame": 4090,
-   "status": "todo",
+   "status": "done",
    "note": "no ball seen; neon object at 6's feet is shoes",
    "boxes": [],
-   "candidates": []
+   "candidates": [],
+   "saved_at": "2026-11-24T16:47:53"
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -6778,42 +7203,9 @@
    "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
    "shot": 11,
    "frame": 4130,
-   "status": "todo",
+   "status": "done",
    "note": "triple-threat hold",
-   "boxes": [
-    {
-     "id": 0,
-     "xyxy": [
-      491.5,
-      763.5,
-      531.4,
-      803.0
-     ],
-     "cls": "ball",
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [],
-     "alt": {}
-    },
-    {
-     "id": 1,
-     "xyxy": [
-      1327.3,
-      491.2,
-      1357.7,
-      520.7
-     ],
-     "cls": "ball",
-     "team": "",
-     "tid": null,
-     "src": "det",
-     "flags": [],
-     "hints": [],
-     "alt": {}
-    }
-   ],
+   "boxes": [],
    "candidates": [
     {
      "xyxy": [
@@ -6825,7 +7217,8 @@
      "cls": "ball",
      "score": 0.1107
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:47:55"
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -6833,9 +7226,27 @@
    "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
    "shot": 12,
    "frame": 4475,
-   "status": "todo",
+   "status": "done",
    "note": "ball not in crop; strip has a cut between -0.1 and 0.0",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      355,
+      378.5,
+      379,
+      405.5
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
@@ -6847,7 +7258,8 @@
      "cls": "ball",
      "score": 0.1404
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:48:01"
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -6855,9 +7267,27 @@
    "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
    "shot": 12,
    "frame": 4765,
-   "status": "todo",
+   "status": "done",
    "note": "blue #9 (10) arms up near rim may hold ball above head (not visible); c0/c2 in crowd",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      1126,
+      269.5,
+      1148,
+      290
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
@@ -6884,12 +7314,13 @@
       740.6,
       224.3,
       765.9,
-      247.0
+      247
      ],
      "cls": "ball",
      "score": 0.1386
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:48:10"
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -6953,10 +7384,11 @@
    "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
    "shot": 15,
    "frame": 5695,
-   "status": "todo",
+   "status": "done",
    "note": "dead-ball look, no ball in crop; 7 seems to span tan player and blue #15",
    "boxes": [],
-   "candidates": []
+   "candidates": [],
+   "saved_at": "2026-11-24T16:48:13"
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -6964,9 +7396,27 @@
    "video": "data/raw/20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka.mp4",
    "shot": 17,
    "frame": 6410,
-   "status": "todo",
+   "status": "done",
    "note": "c0 at tan 3's chest may be ball in hands; 12 seems duplicate of blue player 8 (could be someone behind)",
-   "boxes": [],
+   "boxes": [
+    {
+     "id": 0,
+     "xyxy": [
+      649.5,
+      475,
+      664.5,
+      501
+     ],
+     "cls": "ball",
+     "team": "",
+     "tid": null,
+     "src": "human",
+     "flags": [],
+     "hints": [],
+     "alt": {},
+     "checked": true
+    }
+   ],
    "candidates": [
     {
      "xyxy": [
@@ -6978,7 +7428,8 @@
      "cls": "ball",
      "score": 0.1772
     }
-   ]
+   ],
+   "saved_at": "2026-11-24T16:48:18"
   },
   {
    "youtube_id": "20260430_FCaYkdygkYI_SKROT_Dziki_-_Anwil_29._kolejka",
@@ -7150,6 +7601,8 @@
   }
  ],
  "meta": {
-  "review_seconds": {}
+  "review_seconds": {
+   "2026-11-24": 1102.0
+  }
  }
 }
