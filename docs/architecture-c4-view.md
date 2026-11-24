@@ -299,6 +299,10 @@ flowchart TB
         c_vm["Colab GPU Runtime (T4 / L4 / G4 / A100 / H100)\nPreinstalled CUDA PyTorch + delta pip install\nAlways terminated in finally block"]:::svc
     end
 
+    subgraph gha_node["«Deployment Node: GitHub Actions (ubuntu-latest, CPU only)»"]
+        gha_ci["CI (.github/workflows/ci.yml)\nuv sync --frozen + pytest (doctests, gold leakage)\n+ pre-commit hooks; no videos, weights or GPU"]:::svc
+    end
+
     subgraph vercel_node["«Deployment Node: Vercel Edge Network»"]
         v_cdn["Static Site CDN\nbasketball-analyzer.demo.tko.ventures\nX-Robots-Tag: noindex, nofollow\nMP4 Cache-Control: 3600s"]:::svc
     end
@@ -312,6 +316,7 @@ flowchart TB
     mac_sec -.-> mac_inf
     mac_inf <-->|"bga train --platform colab\n15 MiB chunks via google-colab-cli"| c_vm
     mac_fs -->|"scripts/deploy_demo.sh\n(clean main only)"| v_cdn
+    mac_fs -->|"git push / pull request"| gha_ci
 ```
 
 ---

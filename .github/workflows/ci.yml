@@ -1,0 +1,55 @@
+# CI: the merge gate from AGENTS.md "Tooling" (`uv run pre-commit run --all-files` and `uv run pytest`).
+# Tests need no videos, weights, network or GPU; doctests import every module under src/ and tools/, so the
+# extras those modules import at top level are installed (heavy model extras such as court, plus, prefill and onnx
+# are not needed).
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pytest:
+    name: pytest (unit, doctests, gold leakage)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      # setup-uv publishes no floating major tag, so it is pinned to a release.
+      - uses: astral-sh/setup-uv@v10.4.0
+        with:
+          python-version: "3.12"
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+          # Keep only wheels built from source (git pins); registry wheels such as torch re-download faster.
+          prune-cache: true
+      - name: Install locked dependencies
+        run: uv sync --frozen --extra remote --extra eval --extra track --extra demo --extra parseq
+      - name: Run pytest
+        run: uv run --no-sync pytest -rs
+
+  pre-commit:
+    name: pre-commit hooks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.4.0
+        with:
+          python-version: "3.12"
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+      - uses: actions/cache@v6
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml') }}
+      - name: Run pre-commit on all files
+        run: uv run --frozen --only-group dev pre-commit run --all-files --show-diff-on-failure

@@ -26,6 +26,9 @@ TEAM_BGR = {"home": (240, 240, 240), "away": (45, 55, 220), "ref": (130, 130, 13
 TEAM_TXT_BGR = {"home": (20, 20, 20), "away": (255, 255, 255), "ref": (255, 255, 255), "": (255, 255, 255)}
 #: Ball and holder-ring highlight colour in BGR (vivid basketball orange).
 BALL_BGR = (0, 145, 255)
+#: Video codecs tried in order: H.264 plays in browsers, but Linux OpenCV wheels ship no H.264 encoder, so MPEG-4
+#: Part 2 is the fallback there (``scripts/transcode_h264.sh`` converts it for the web).
+RADAR_FOURCCS = ("avc1", "mp4v")
 
 
 def track_teams(tracks: dict, teams: dict) -> dict[int, str]:
@@ -234,6 +237,38 @@ def _index_positions(
     return pos, foot, airborne
 
 
+def _open_writer(path: Path, fps: float, size: tuple[int, int]) -> cv2.VideoWriter:
+    """Open a video writer with the first codec in :data:`RADAR_FOURCCS` that this OpenCV build can encode.
+
+    Args:
+        path: Output ``.mp4`` path.
+        fps: Frames per second.
+        size: Frame ``(width, height)`` in pixels.
+
+    Returns:
+        An opened writer.
+
+    Raises:
+        RuntimeError: If no codec in :data:`RADAR_FOURCCS` can be opened.
+
+    Examples:
+        >>> import tempfile
+        >>> with tempfile.TemporaryDirectory() as tmp:
+        ...     writer = _open_writer(Path(tmp) / "radar.mp4", 25.0, (64, 48))
+        ...     opened = writer.isOpened()
+        ...     writer.release()
+        >>> opened
+        True
+
+    """
+    for fourcc in RADAR_FOURCCS:
+        writer = cv2.VideoWriter(str(path), cv2.VideoWriter_fourcc(*fourcc), fps, size)
+        if writer.isOpened():
+            return writer
+        writer.release()
+    raise RuntimeError(f"no video codec in {RADAR_FOURCCS} can be opened for {path}")
+
+
 def render(cfg: RunConfig, seq: Sequence, runs: Path = Path("runs"), width: int = 960) -> Path:
     """Write the radar video of one sequence: annotated broadcast frame above, FIBA 2D court below.
 
@@ -301,7 +336,7 @@ def render(cfg: RunConfig, seq: Sequence, runs: Path = Path("runs"), width: int 
         rad_resized = cv2.resize(rad, (width, round(rad.shape[0] * width / rad.shape[1])))
         frame = np.vstack([top, rad_resized])
         if writer is None:
-            writer = cv2.VideoWriter(str(out), cv2.VideoWriter_fourcc(*"avc1"), seq.fps / stride, frame.shape[1::-1])
+            writer = _open_writer(out, seq.fps / stride, frame.shape[1::-1])
         writer.write(frame)
     read.close()
     if writer is not None:
