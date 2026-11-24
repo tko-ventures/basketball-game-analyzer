@@ -62,3 +62,12 @@ http://127.0.0.1:8765/numbers checks the labels of the gold number crops (`data/
 written by `scripts/number_gold.py`). It opens on the 30-crop spot check; `?set=illegible` shows the crops labelled illegible and `?set=all` every crop. Each crop is shown
 close up and in context. `Enter` means the label is right; type the digits and press `Enter` for another number, or press
 `I` for illegible and `X` for not a number. Each answer saves at once; the keys are listed on the page.
+
+## Holder gold (`/holders`)
+
+http://127.0.0.1:8765/holders answers the holder-gold frames flagged for Tomasz (`data/labels/review/holders_v1.ops.txt`,
+see `docs/gold.md`, "Holder gold v1"). Each question shows the gold frame zoomed around the ball, with the frames from 0.6 s
+before to 0.6 s after it below (`Space` plays them, `↑` `↓` step). `A` accepts the proposed holder, `N` means nobody holds
+the ball, or click a player box and press `Enter`; `←` `→` move without answering and `?` lists the keys. Each answer saves at
+once as a `tomasz` line under the flagged one and rebuilds `data/gold/v1/holders.json`. The second tab shows the implementer's
+applied changes. `--holders-ops` and `--holders-out` point the page at copies for testing.

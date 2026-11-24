@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Who holds the ball? — holder gold v1</title>
+<style>
+  :root {
+    --bg: #161615; --panel: #20201f; --card: #262624; --line: #383835;
+    --text: #f1f0ec; --muted: #9c9b92; --ok: #4fd165; --warn: #f5a623;
+    --home: #e55353; --away: #4a90e2; --ball: #ff9100; --sel: #4fd165; --prop: #f5c542;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 13.5px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    display: flex; flex-direction: column; height: 100vh; overflow: hidden;
+  }
+  header {
+    display: flex; gap: 14px; align-items: center; padding: 8px 14px; flex: none;
+    background: var(--panel); border-bottom: 1px solid var(--line);
+  }
+  header b { font-size: 14.5px; }
+  .tabs { display: flex; gap: 4px; background: #141413; padding: 3px; border-radius: 7px; border: 1px solid var(--line); }
+  .tabs button { background: transparent; border: none; color: var(--muted); padding: 4px 10px; border-radius: 5px;
+    font-size: 12.5px; cursor: pointer; font-weight: 500; }
+  .tabs button.on { background: #3a3a37; color: var(--text); }
+  .prog { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--muted); }
+  .bar { width: 140px; height: 7px; background: #2e2e2b; border-radius: 4px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: var(--ok); transition: width .25s; }
+  #status { margin-left: auto; font-size: 12px; color: var(--muted); }
+  #status.ok { color: var(--ok); } #status.err { color: var(--home); }
+  .kbd { display: inline-block; min-width: 18px; padding: 0 5px; border: 1px solid #55554f; border-bottom-width: 2px;
+    border-radius: 4px; font: 11px/16px ui-monospace, Menlo, monospace; text-align: center; color: var(--text); background: #2b2b29; }
+
+  main { flex: 1; display: grid; grid-template-columns: 1fr 380px; min-height: 0; }
+  #stage { display: flex; flex-direction: column; gap: 10px; padding: 12px 14px; min-width: 0; min-height: 0; }
+  #viewWrap { position: relative; flex: 1; min-height: 0; background: #000; border-radius: 8px; overflow: hidden;
+    display: flex; align-items: center; justify-content: center; }
+  #view { max-width: 100%; max-height: 100%; cursor: pointer; }
+  #viewTag { position: absolute; left: 10px; top: 10px; padding: 3px 9px; border-radius: 999px; font-size: 12px;
+    background: rgba(0,0,0,.65); border: 1px solid #444; }
+  #viewTag.gold { border-color: var(--prop); color: var(--prop); }
+  #hoverTip { position: absolute; pointer-events: none; padding: 3px 8px; border-radius: 6px; font-size: 12px;
+    background: rgba(20,20,19,.92); border: 1px solid #555; display: none; white-space: nowrap; }
+  #zoomBtns { position: absolute; right: 10px; top: 10px; display: flex; gap: 4px; }
+  #zoomBtns button, .btn { background: #2b2b29; color: var(--text); border: 1px solid #47473f; border-radius: 6px;
+    padding: 5px 10px; font: inherit; font-size: 12.5px; cursor: pointer; }
+  #zoomBtns button.on { border-color: var(--text); }
+  .btn:hover, #zoomBtns button:hover { border-color: #8a8a80; }
+
+  #strip { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 6px; flex: none; }
+  .thumb { position: relative; border-radius: 6px; overflow: hidden; cursor: pointer; border: 2px solid transparent;
+    background: #000; }
+  .thumb canvas { display: block; width: 100%; height: auto; }
+  .thumb span { position: absolute; left: 4px; bottom: 3px; font: 11px ui-monospace, Menlo, monospace;
+    background: rgba(0,0,0,.7); padding: 0 4px; border-radius: 3px; }
+  .thumb.gold { border-color: rgba(245,197,66,.55); }
+  .thumb.on { border-color: var(--text); }
+  #stripHelp { font-size: 12px; color: var(--muted); display: flex; gap: 14px; flex: none; flex-wrap: wrap; }
+
+  aside { border-left: 1px solid var(--line); background: var(--panel); display: flex; flex-direction: column; min-height: 0; }
+  .card { padding: 14px 16px; border-bottom: 1px solid var(--line); }
+  .meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; color: var(--muted); font-size: 12.5px; }
+  .badge { padding: 1px 8px; border-radius: 999px; font-size: 11.5px; font-weight: 600; }
+  .badge.dev { background: #2d3b2f; color: #8fdc9b; } .badge.held { background: #3a2f4d; color: #c3a4f5; }
+  .badge.flagged { background: #4a3c14; color: var(--prop); } .badge.tomasz { background: #1f4027; color: var(--ok); }
+  .badge.implementer { background: #2f3640; color: #9fb7d6; }
+  .question { margin-top: 10px; font-size: 15px; line-height: 1.4; }
+  .facts { margin-top: 10px; display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 12.5px; }
+  .facts dt { color: var(--muted); } .facts dd { margin: 0; }
+  .sw { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px; vertical-align: 0; }
+  .answer { display: grid; gap: 8px; }
+  .answer button { display: flex; align-items: center; justify-content: space-between; gap: 10px; text-align: left;
+    width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #47473f; background: var(--card);
+    color: var(--text); font: inherit; cursor: pointer; }
+  .answer button:hover { border-color: #8a8a80; }
+  .answer button.primary { border-color: var(--prop); }
+  .answer button.save { border-color: var(--sel); }
+  .answer button:disabled { opacity: .4; cursor: default; }
+  .answer small { color: var(--muted); display: block; font-size: 11.5px; }
+  #current { margin-top: 2px; font-size: 12.5px; color: var(--muted); }
+  #current b { color: var(--ok); }
+  #list { flex: 1; overflow-y: auto; padding: 6px 8px 10px; }
+  #list h4 { margin: 10px 8px 4px; font-size: 11.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  #list .it { display: flex; gap: 8px; align-items: center; padding: 6px 8px; border-radius: 6px; cursor: pointer; font-size: 12.5px; }
+  #list .it:hover { background: var(--card); } #list .it.on { background: #33332f; }
+  #list .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; background: var(--prop); }
+  #list .dot.done { background: var(--ok); } #list .dot.impl { background: #6f88a8; }
+  #list .ans { margin-left: auto; color: var(--muted); font-size: 11.5px; }
+  dialog { background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 10px; max-width: 520px; }
+  dialog td { padding: 3px 12px 3px 0; vertical-align: top; }
+  #done { display: none; position: absolute; inset: 0; align-items: center; justify-content: center; flex-direction: column;
+    gap: 8px; background: rgba(0,0,0,.72); font-size: 16px; }
+</style>
+</head>
+<body>
+<header>
+  <b>Who holds the ball?</b>
+  <div class="tabs" id="tabs">
+    <button data-tab="questions" class="on">Questions</button>
+    <button data-tab="changes">Implementer's changes</button>
+  </div>
+  <div class="prog"><div class="bar"><i id="progBar" style="width:0"></i></div><span id="progTxt"></span></div>
+  <span id="status"></span>
+  <button class="btn" id="helpBtn" title="Keyboard (?)">Keys <span class="kbd">?</span></button>
+</header>
+<main>
+  <section id="stage">
+    <div id="viewWrap">
+      <canvas id="view"></canvas>
+      <div id="viewTag"></div>
+      <div id="hoverTip"></div>
+      <div id="zoomBtns">
+        <button id="zoomClose" class="on" title="Zoom around the ball (Z)">Close-up</button>
+        <button id="zoomFull" title="Whole frame (F)">Whole frame</button>
+      </div>
+      <div id="done"><div>All flagged frames answered. Thank you!</div>
+        <div class="muted" style="color:var(--muted);font-size:13px">holders.json is rebuilt on every answer. You can still revise any frame from the list.</div></div>
+    </div>
+    <div id="strip"></div>
+    <div id="stripHelp">
+      <span><span class="kbd">Space</span> play the clip around the frame</span>
+      <span><span class="kbd">↑</span><span class="kbd">↓</span> step frames</span>
+      <span>Boxes are drawn on the gold frame (0.0 s) only; on the others they are faint.</span>
+    </div>
+  </section>
+  <aside>
+    <div class="card">
+      <div class="meta" id="meta"></div>
+      <div class="question" id="question"></div>
+      <dl class="facts" id="facts"></dl>
+    </div>
+    <div class="card answer">
+      <button class="primary" id="btnAccept"><span><span id="accTitle">Accept the proposal</span><small id="accSub"></small></span><span class="kbd">A</span></button>
+      <button id="btnNone"><span>Nobody holds it<small>ball in flight, loose, or not in play</small></span><span class="kbd">N</span></button>
+      <button class="save" id="btnSave" disabled><span>Save the player I clicked<small id="selSub">click a player box in the picture</small></span><span class="kbd">↵</span></button>
+      <div id="current"></div>
+    </div>
+    <div id="list"></div>
+  </aside>
+</main>
+<dialog id="help">
+  <h3 style="margin-top:0">Keys and mouse</h3>
+  <table>
+    <tr><td><b>Click a box</b></td><td>select that player as the holder, then <span class="kbd">↵</span> to save</td></tr>
+    <tr><td><span class="kbd">A</span></td><td>accept the proposal and go to the next question</td></tr>
+    <tr><td><span class="kbd">N</span></td><td>nobody holds the ball, next question</td></tr>
+    <tr><td><span class="kbd">↵</span></td><td>save the selected player, next question</td></tr>
+    <tr><td><span class="kbd">←</span> <span class="kbd">→</span></td><td>previous / next item without answering</td></tr>
+    <tr><td><span class="kbd">Space</span></td><td>play or stop the frames around the gold frame</td></tr>
+    <tr><td><span class="kbd">↑</span> <span class="kbd">↓</span></td><td>step through those frames</td></tr>
+    <tr><td><span class="kbd">Z</span> / <span class="kbd">F</span></td><td>close-up / whole frame</td></tr>
+    <tr><td><span class="kbd">Esc</span></td><td>clear the selection</td></tr>
+  </table>
+  <p style="color:var(--muted);font-size:12.5px">The holder is whoever holds or dribbles the ball, mid-bounce and inbounders included; a shooter still holding the ball is the holder. A ball in flight has no holder.</p>
+  <form method="dialog"><button class="btn">Close</button></form>
+</dialog>
+<script>
+"use strict";
+const S = { items: [], tab: "questions", idx: 0, sel: null, stripI: 0, zoom: "close", playing: null, hover: null,
+  imgs: new Map() };
+const $ = (id) => document.getElementById(id);
+const view = $("view"), ctx = view.getContext("2d");
+const CLS = { "player": "player", "player-in-possession": "in possession", "player-jump-shot": "jump shot",
+  "player-layup-dunk": "layup / dunk", "player-shot-block": "shot block" };
+
+function visible() {
+  return S.items.filter((it) => it.origin === (S.tab === "questions" ? "flagged" : "implementer"));
+}
+function cur() { return visible()[S.idx]; }
+function img(video, f) {
+  const k = `${video}#${f}`;
+  if (!S.imgs.has(k)) {
+    const im = new Image();
+    im.src = `/api/frame?path=${encodeURIComponent(video)}&idx=${f}`;
+    im.onload = () => { if (cur() && cur().video === video) { render(); renderStrip(); } };
+    S.imgs.set(k, im);
+  }
+  return S.imgs.get(k);
+}
+function person(it, i) { return it.people.find((p) => p.idx === i); }
+function who(it, i) {
+  if (i === null || i === undefined) return "nobody";
+  const p = person(it, i);
+  return p ? `box ${i} · ${p.team || "?"} · ${CLS[p.cls] || p.cls}` : `box ${i}`;
+}
+function teamColor(t) { return t === "home" ? "#e55353" : t === "away" ? "#4a90e2" : "#9c9b92"; }
+
+function region(it, W, H) {
+  if (S.zoom === "full") return [0, 0, W, H];
+  const pts = [];
+  if (it.ball) pts.push(it.ball);
+  for (const i of [it.proposed, it.answer, it.box_gold, S.sel]) if (i !== null && i !== undefined && person(it, i)) pts.push(person(it, i).xyxy);
+  if (!pts.length) return [0, 0, W, H];
+  let x1 = Math.min(...pts.map((b) => b[0])), y1 = Math.min(...pts.map((b) => b[1]));
+  let x2 = Math.max(...pts.map((b) => b[2])), y2 = Math.max(...pts.map((b) => b[3]));
+  const cx = (x1 + x2) / 2, cy = (y1 + y2) / 2;
+  let w = Math.max(x2 - x1 + 260, 720), h = Math.max(y2 - y1 + 200, 450);
+  if (w / h > 16 / 10) h = w * 10 / 16; else w = h * 16 / 10;
+  w = Math.min(w, W); h = Math.min(h, H);
+  const x = Math.min(Math.max(cx - w / 2, 0), W - w), y = Math.min(Math.max(cy - h / 2, 0), H - h);
+  return [x, y, w, h];
+}
+
+function render() {
+  const it = cur();
+  if (!it) return;
+  const f = it.strip[S.stripI];
+  const im = img(it.video, f);
+  if (!im.complete || !im.naturalWidth) return;
+  const [rx, ry, rw, rh] = region(it, im.naturalWidth, im.naturalHeight);
+  const wrap = $("viewWrap").getBoundingClientRect();
+  const scale = Math.min(wrap.width / rw, wrap.height / rh);
+  view.width = Math.round(rw * scale); view.height = Math.round(rh * scale);
+  S.tf = { rx, ry, scale };
+  ctx.drawImage(im, rx, ry, rw, rh, 0, 0, view.width, view.height);
+  const gold = f === it.frame;
+  const T = (b) => [(b[0] - rx) * scale, (b[1] - ry) * scale, (b[2] - b[0]) * scale, (b[3] - b[1]) * scale];
+  for (const p of it.people) {
+    const [x, y, w, h] = T(p.xyxy);
+    const chosen = S.sel === p.idx, ans = it.answer === p.idx, prop = it.proposed === p.idx, hov = S.hover === p.idx;
+    ctx.save();
+    ctx.globalAlpha = gold ? 1 : 0.35;
+    ctx.setLineDash(prop && !chosen && !ans ? [8, 5] : []);
+    ctx.lineWidth = chosen || ans ? 4 : prop || hov ? 3 : 1.5;
+    ctx.strokeStyle = chosen ? "#4fd165" : ans ? "#4fd165" : prop ? "#f5c542" : hov ? "#ffffff" : teamColor(p.team);
+    ctx.strokeRect(x, y, w, h);
+    ctx.setLineDash([]);
+    const tag = `${p.idx}${prop ? " · proposed" : ""}${ans ? " · your answer" : ""}`;
+    ctx.font = "600 13px -apple-system, sans-serif";
+    const tw = ctx.measureText(tag).width + 10;
+    ctx.fillStyle = ctx.strokeStyle; ctx.fillRect(x, y - 19, tw, 19);
+    ctx.fillStyle = "#111"; ctx.fillText(tag, x + 5, y - 5);
+    ctx.restore();
+  }
+  if (it.ball) {
+    const [x, y, w, h] = T(it.ball);
+    ctx.save(); ctx.globalAlpha = gold ? 1 : 0.35; ctx.strokeStyle = "#ff9100"; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.arc(x + w / 2, y + h / 2, Math.max(w, h) / 2 + 7, 0, 2 * Math.PI); ctx.stroke(); ctx.restore();
+  }
+  const dt = (f - it.frame) / it.fps;
+  const tag = $("viewTag");
+  tag.textContent = gold ? `gold frame ${it.frame}` : `${dt > 0 ? "+" : ""}${dt.toFixed(2)} s · frame ${f}`;
+  tag.className = gold ? "gold" : "";
+}
+
+function renderStrip() {
+  const it = cur();
+  const el = $("strip");
+  if (!it) { el.innerHTML = ""; return; }
+  if (el.dataset.key !== it.key) {
+    el.dataset.key = it.key;
+    el.innerHTML = it.strip.map((f, i) => {
+      const dt = (f - it.frame) / it.fps;
+      return `<div class="thumb${f === it.frame ? " gold" : ""}" data-i="${i}"><canvas width="240" height="150"></canvas><span>${f === it.frame ? "0.0 s" : (dt > 0 ? "+" : "") + dt.toFixed(1) + " s"}</span></div>`;
+    }).join("");
+    el.querySelectorAll(".thumb").forEach((t) => t.addEventListener("click", () => { stop(); S.stripI = +t.dataset.i; render(); renderStrip(); }));
+  }
+  el.querySelectorAll(".thumb").forEach((t, i) => {
+    t.classList.toggle("on", i === S.stripI);
+    const im = img(it.video, it.strip[i]);
+    if (!im.complete || !im.naturalWidth) return;
+    const c = t.querySelector("canvas"), g = c.getContext("2d");
+    const [rx, ry, rw, rh] = region(it, im.naturalWidth, im.naturalHeight);
+    g.drawImage(im, rx, ry, rw, rh, 0, 0, c.width, c.height);
+  });
+}
+
+function renderSide() {
+  const it = cur();
+  const vis = visible();
+  const flagged = S.items.filter((x) => x.origin === "flagged");
+  const answered = flagged.filter((x) => x.status === "tomasz").length;
+  $("progBar").style.width = `${flagged.length ? 100 * answered / flagged.length : 0}%`;
+  $("progTxt").textContent = `${answered} of ${flagged.length} questions answered`;
+  $("done").style.display = S.tab === "questions" && flagged.length && answered === flagged.length && it && it.status === "tomasz" && S.justFinished ? "flex" : "none";
+  if (!it) { $("question").textContent = "Nothing here."; return; }
+  $("meta").innerHTML = `<span class="badge ${it.held_out ? "held" : "dev"}">${it.held_out ? "held-out" : "dev"}</span>`
+    + `<span class="badge ${it.status}">${it.status === "tomasz" ? "answered" : it.status}</span>`
+    + `<span>${it.youtube_id} · shot ${it.shot} · frame ${it.frame}</span><span>${S.idx + 1} / ${vis.length}</span>`;
+  $("question").textContent = it.question || "(no note)";
+  const sw = (i) => i === null || i === undefined || !person(it, i) ? "" : `<span class="sw" style="background:${teamColor(person(it, i).team)}"></span>`;
+  $("facts").innerHTML = `<dt>${it.origin === "implementer" ? "Changed to" : "Proposal"}</dt><dd>${sw(it.proposed)}${who(it, it.proposed)}</dd>`
+    + `<dt>Box gold</dt><dd>${sw(it.box_gold)}${who(it, it.box_gold)}</dd>`
+    + `<dt>Ball box</dt><dd>${it.ball ? "drawn" : "<span style='color:var(--warn)'>none in box gold</span>"}</dd>`;
+  $("accTitle").textContent = it.origin === "implementer" ? "Confirm the implementer's change" : "Accept the proposal";
+  $("accSub").textContent = who(it, it.proposed);
+  $("btnSave").disabled = S.sel === null;
+  $("selSub").textContent = S.sel === null ? "click a player box in the picture" : who(it, S.sel);
+  $("current").innerHTML = it.status === "tomasz" ? `Your answer: <b>${who(it, it.answer)}</b>` : "";
+  const group = (title, rows) => rows.length ? `<h4>${title}</h4>` + rows.map(({ x, i }) => {
+    const done = x.status === "tomasz";
+    return `<div class="it${i === S.idx ? " on" : ""}" data-i="${i}"><span class="dot${done ? " done" : x.origin === "implementer" ? " impl" : ""}"></span>`
+      + `<span>${x.youtube_id} · ${x.frame}</span><span class="ans">${done ? who(x, x.answer).split(" · ")[0] : ""}</span></div>`;
+  }).join("") : "";
+  const rows = vis.map((x, i) => ({ x, i }));
+  $("list").innerHTML = group(S.tab === "questions" ? "To answer" : "Changed by the implementer", rows.filter((r) => r.x.status !== "tomasz"))
+    + group("Answered", rows.filter((r) => r.x.status === "tomasz"));
+  $("list").querySelectorAll(".it").forEach((e) => e.addEventListener("click", () => go(+e.dataset.i)));
+}
+
+function go(i) {
+  stop();
+  const vis = visible();
+  if (!vis.length) { S.idx = 0; renderAll(); return; }
+  S.idx = (i + vis.length) % vis.length;
+  S.sel = null; S.justFinished = false; S.hover = null;
+  $("hoverTip").style.display = "none";
+  const it = cur();
+  S.stripI = it.strip.indexOf(it.frame);
+  it.strip.forEach((f) => img(it.video, f));
+  const nxt = vis[(S.idx + 1) % vis.length];
+  nxt.strip.forEach((f) => img(nxt.video, f));
+  renderAll();
+}
+function renderAll() { render(); renderStrip(); renderSide(); }
+function nextOpen() {
+  const vis = visible();
+  for (let k = 1; k <= vis.length; k++) {
+    const j = (S.idx + k) % vis.length;
+    if (vis[j].status !== "tomasz") return go(j);
+  }
+  S.justFinished = true; renderAll();
+}
+
+async function answer(holder) {
+  const it = cur();
+  if (!it) return;
+  setStatus("Saving…", "");
+  try {
+    const res = await fetch("/api/holders/answer", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ youtube_id: it.youtube_id, frame: it.frame, holder }) });
+    const out = await res.json();
+    if (!res.ok) throw new Error(out.error || res.status);
+    it.status = "tomasz"; it.answer = holder;
+    setStatus(`Saved · holders.json rebuilt (${out.flagged} still flagged)`, "ok");
+    nextOpen();
+  } catch (e) { setStatus(`Not saved: ${e.message}`, "err"); }
+}
+function setStatus(t, cls) { const s = $("status"); s.textContent = t; s.className = cls; }
+
+function play() {
+  if (S.playing) return stop();
+  const it = cur();
+  S.playing = setInterval(() => { S.stripI = (S.stripI + 1) % it.strip.length; render(); renderStrip(); }, 260);
+}
+function stop() { if (S.playing) { clearInterval(S.playing); S.playing = null; } }
+
+function hit(ev) {
+  const it = cur();
+  if (!it || !S.tf) return null;
+  const r = view.getBoundingClientRect();
+  const x = (ev.clientX - r.left) * (view.width / r.width) / S.tf.scale + S.tf.rx;
+  const y = (ev.clientY - r.top) * (view.height / r.height) / S.tf.scale + S.tf.ry;
+  const inside = it.people.filter((p) => x >= p.xyxy[0] && x <= p.xyxy[2] && y >= p.xyxy[1] && y <= p.xyxy[3]);
+  inside.sort((a, b) => (a.xyxy[2] - a.xyxy[0]) * (a.xyxy[3] - a.xyxy[1]) - (b.xyxy[2] - b.xyxy[0]) * (b.xyxy[3] - b.xyxy[1]));
+  return inside.length ? inside[0] : null;
+}
+view.addEventListener("mousemove", (ev) => {
+  const p = hit(ev), tip = $("hoverTip");
+  const h = p ? p.idx : null;
+  if (h !== S.hover) { S.hover = h; render(); }
+  if (!p) { tip.style.display = "none"; return; }
+  const r = $("viewWrap").getBoundingClientRect();
+  tip.style.display = "block"; tip.style.left = `${ev.clientX - r.left + 14}px`; tip.style.top = `${ev.clientY - r.top + 10}px`;
+  tip.textContent = `box ${p.idx} · ${p.team || "?"} · ${CLS[p.cls] || p.cls}${p.tid ? " · track " + p.tid : ""}`;
+});
+view.addEventListener("mouseleave", () => { S.hover = null; $("hoverTip").style.display = "none"; render(); });
+view.addEventListener("click", (ev) => { const p = hit(ev); S.sel = p ? p.idx : null; render(); renderSide(); });
+
+$("btnAccept").onclick = () => answer(cur().proposed);
+$("btnNone").onclick = () => answer(null);
+$("btnSave").onclick = () => S.sel !== null && answer(S.sel);
+$("zoomClose").onclick = () => setZoom("close");
+$("zoomFull").onclick = () => setZoom("full");
+$("helpBtn").onclick = () => $("help").showModal();
+function setZoom(z) { S.zoom = z; $("zoomClose").classList.toggle("on", z === "close"); $("zoomFull").classList.toggle("on", z === "full"); render(); renderStrip(); }
+$("tabs").querySelectorAll("button").forEach((b) => b.addEventListener("click", () => {
+  S.tab = b.dataset.tab;
+  $("tabs").querySelectorAll("button").forEach((x) => x.classList.toggle("on", x === b));
+  $("strip").dataset.key = ""; go(0);
+}));
+window.addEventListener("resize", render);
+document.addEventListener("keydown", (e) => {
+  if ($("help").open || e.metaKey || e.ctrlKey || e.altKey) return;
+  const it = cur();
+  const k = e.key;
+  if (k === "?") { $("help").showModal(); return; }
+  if (!it) return;
+  if (k === "a" || k === "A") answer(it.proposed);
+  else if (k === "n" || k === "N") answer(null);
+  else if (k === "Enter") { if (S.sel !== null) answer(S.sel); }
+  else if (k === "ArrowRight") go(S.idx + 1);
+  else if (k === "ArrowLeft") go(S.idx - 1);
+  else if (k === " ") play();
+  else if (k === "ArrowDown") { stop(); S.stripI = Math.min(S.stripI + 1, it.strip.length - 1); render(); renderStrip(); }
+  else if (k === "ArrowUp") { stop(); S.stripI = Math.max(S.stripI - 1, 0); render(); renderStrip(); }
+  else if (k === "z" || k === "Z") setZoom("close");
+  else if (k === "f" || k === "F") setZoom("full");
+  else if (k === "Escape") { S.sel = null; render(); renderSide(); }
+  else return;
+  e.preventDefault();
+});
+
+(async () => {
+  const res = await fetch("/api/holders/state");
+  const st = await res.json();
+  S.items = st.items;
+  go(0);
+  const first = visible().findIndex((x) => x.status !== "tomasz");
+  if (first > 0) go(first);
+})();
+</script>
+</body>
+</html>

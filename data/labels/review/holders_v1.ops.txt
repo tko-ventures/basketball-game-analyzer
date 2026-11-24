@@ -1,0 +1,53 @@
+# Holder gold v1, implementer's first pass, 2026-11-24 (ledger row of that date; sheets runs/_scratch/ball/audit/).
+# Box gold v1 was labelled on 2026-11-18, before the 2026-11-20 possession schema
+# (docs/adr/2026-11-20-detector-classes-and-possession-schema.md): whoever holds or dribbles the ball is the holder,
+# mid-bounce and inbounders included, and a shooter still holding the ball keeps the shot class and is the holder.
+# A ball in flight has no holder. Every one of the 100 frames was checked; the frames below differ from box gold.
+#
+#   holder <youtube_id> <frame> <box index|none> <implementer|flagged>  # reason
+#
+# "implementer": clear under the definition, applied. "flagged": a human call; box gold stays until Tomasz decides,
+# and the proposed answer is the one written here.
+holder 4XMD9FWmQws 14645 4 implementer  # jump shooter holds the ball above his head, the blocker's hand on it
+holder 4XMD9FWmQws 14645 4 tomasz  # jump shooter holds the ball above his head, the blocker's hand on it
+holder 4XMD9FWmQws 14765 9 implementer  # ball held at the chest with both hands
+holder 4XMD9FWmQws 14765 none tomasz  # ball held at the chest with both hands
+holder OSp445e0mXU 6750 2 implementer  # ball held at the hip
+holder OSp445e0mXU 6750 none tomasz  # ball held at the hip
+holder OSp445e0mXU 6810 8 implementer  # ball in the hand at the hip, dribbling
+holder OSp445e0mXU 6810 none tomasz  # ball in the hand at the hip, dribbling
+holder 1jDaJBkUGmc 975 9 implementer  # jump shooter gathers, ball in both hands at the waist
+holder 1jDaJBkUGmc 975 9 tomasz  # jump shooter gathers, ball in both hands at the waist
+holder 1jDaJBkUGmc 1280 3 implementer  # jump shooter holds the ball above his head
+holder 1jDaJBkUGmc 1280 3 tomasz  # jump shooter holds the ball above his head
+holder 1jDaJBkUGmc 6570 6 implementer  # ball held at the hip
+holder 1jDaJBkUGmc 6570 none tomasz  # ball held at the hip
+holder Tnuscrm9RyU 3980 none implementer  # possession box on the shooter, but the ball is 254 px above him in flight
+holder Tnuscrm9RyU 3980 none tomasz  # possession box on the shooter, but the ball is 254 px above him in flight
+holder Tnuscrm9RyU 4210 8 implementer  # jump shooter holds the ball at head height
+holder Tnuscrm9RyU 4210 8 tomasz  # jump shooter holds the ball at head height
+holder Tnuscrm9RyU 7280 9 implementer  # layup, ball in both hands above the head
+holder Tnuscrm9RyU 7280 9 tomasz  # layup, ball in both hands above the head
+holder 4XMD9FWmQws 14585 10 flagged  # jump shooter, ball at the fingertips: still held or just released?
+holder 4XMD9FWmQws 14585 10 tomasz  # Tomasz: not a shot but a pass to #3, so box 10 is the passer holding the ball (box gold calls it player-jump-shot)
+holder OSp445e0mXU 880 none flagged  # ball bouncing ahead of the players: dribble (whose?) or loose ball?
+holder OSp445e0mXU 880 none tomasz  # ball bouncing ahead of the players: dribble (whose?) or loose ball?
+holder OSp445e0mXU 1060 6 flagged  # layup at the rim, hand under the ball: still held or released?
+holder OSp445e0mXU 1060 6 tomasz  # layup at the rim, hand under the ball: still held or released?
+holder OSp445e0mXU 3445 none flagged  # ball on the floor beside a walking player: dribble or loose ball?
+holder OSp445e0mXU 3445 none tomasz  # ball on the floor beside a walking player: dribble or loose ball?
+holder 1jDaJBkUGmc 1160 8 flagged  # ball at shoulder height beside the player: held (catch) or a pass in flight?
+holder 1jDaJBkUGmc 1160 none tomasz  # ball at shoulder height beside the player: held (catch) or a pass in flight?
+holder Tnuscrm9RyU 790 6 flagged  # ball in one raised palm: catch, or a pass leaving the hand?
+holder Tnuscrm9RyU 790 none tomasz  # ball in one raised palm: catch, or a pass leaving the hand?
+holder Tnuscrm9RyU 4270 none flagged  # ball low under a jumping finisher: loose or held?
+holder Tnuscrm9RyU 4270 none tomasz  # ball low under a jumping finisher: loose or held?
+holder Tnuscrm9RyU 7405 3 flagged  # dead ball after the play, held at the hip: count it as held?
+holder Tnuscrm9RyU 7405 none tomasz  # dead ball after the play, held at the hip: count it as held?
+# Wide frames with no ball box, checked again at full resolution around the predicted holder (runs/_scratch/ball/noball.jpg):
+holder 1jDaJBkUGmc 1405 7 implementer  # ball clearly visible bouncing at the dribbler's feet; box gold has no ball box here
+holder 1jDaJBkUGmc 1405 none tomasz  # ball clearly visible bouncing at the dribbler's feet; box gold has no ball box here
+holder 1jDaJBkUGmc 6510 9 flagged  # ball visible in the raised hands; box gold has no ball box: held or just released?
+holder 1jDaJBkUGmc 6510 none tomasz  # ball visible in the raised hands; box gold has no ball box: held or just released?
+holder 1jDaJBkUGmc 2520 10 flagged  # something orange at the player's chest, half under the score graphic: the ball?
+holder 1jDaJBkUGmc 2520 15 tomasz  # something orange at the player's chest, half under the score graphic: the ball?

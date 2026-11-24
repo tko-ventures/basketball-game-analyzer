@@ -52,6 +52,7 @@ What changes in code, configs, metrics, or future milestones?
 | 2026-11-23 | Ingest (L0 / M10) | [Stay on YouTube PLK highlights for R&D; split full-game ingest into M10](2026-11-23-highlights-footage-and-m10-ingest-milestone.md) | Accepted |
 | 2026-11-23 | Positions & Export (L6 / M8) | [Keep `positions/bbox_bottom` on linked tracks + PLK court; reject zero-shot COCO `ankles_pose`; ship Parquet export & upgraded radar](2026-11-23-positions-bbox-bottom-over-coco-pose-and-parquet-export.md) | Accepted |
 | 2026-11-24 | Ball, Possession & Shots (L7 / M9) | [Adopt `ball/fused` over `ball/skalski`; skip tiled ball inference; ship gold `v1/events.json` and `.ball.parquet`](2026-11-24-ball-fused-tracking-possession-and-rim-shots.md) | Accepted |
+| 2026-11-24 | Ingest (L0 / M10) | [Full-length YouTube game recordings are the M10 footage; improve existing layers first](2026-11-24-full-length-youtube-games-for-m10.md) | Accepted |
 
 ### Data & evaluation
 
@@ -59,6 +60,7 @@ What changes in code, configs, metrics, or future milestones?
 |---|---|---|---|
 | 2026-11-02 | Gold & Eval | [Gold set v0/v1 protocol, 4 PLK games (1 held-out), and metrics-row gate](2026-11-02-gold-set-and-evaluation-protocol.md) | Accepted |
 | 2026-11-22 | Pipeline / Cache | [Pipeline hardening invariants and immutable cache/weight hashes](2026-11-22-pipeline-hardening-and-cache-invariants.md) | Accepted |
+| 2026-11-24 | Gold & Eval / Ball (L7) | [Holder gold under the 2026-11-20 definition; `ball-plk-fused-v2` for shooter attribution](2026-11-24-holder-gold-and-fused-v2-shooter.md) | Accepted |
 
 ### Infrastructure, licences & process
 

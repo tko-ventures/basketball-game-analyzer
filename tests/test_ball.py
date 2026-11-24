@@ -25,10 +25,10 @@ from bga.ball.base import (
     pack_output,
     shot_points,
 )
-from bga.ball.fused import FusedBall, _filter_ball_candidates, _track_ball
+from bga.ball.fused import FusedBall, _filter_ball_candidates, _find_shooter, _possession_emissions, _track_ball
 from bga.ball.skalski import SkalskiBall
 from bga.config import LAYERS, OPTIONAL_BY_LAYER, LayerConfig, RunConfig
-from bga.eval.ball import score, score_boxes, score_events
+from bga.eval.ball import load_holders, score, score_boxes, score_events
 from bga.export.parquet import BALL_SCHEMA, export_ball_sequence
 from bga.export.radar import render
 from bga.stage import Sequence
@@ -170,6 +170,20 @@ def _long_dropout_candidates() -> tuple[
         else:
             cands[f] = [(300.0 + i * 10.0, 400.0, 0.80)]
     return frames, cands, det_frames
+
+
+def _rim_approach_state(rim_holder_team: str) -> tuple[BallTrackState, list[tuple[float, float, float] | None]]:
+    """Ten steps at 10 fps: home player 1 holds, releases at step 5, the ball reaches the rim at step 9.
+
+    From step 6 on, the ball is within 2 rim widths and player 2 (``rim_holder_team``) stands under it holding.
+
+    """
+    frames = list(range(0, 50, 5))
+    holders = {f: (1 if f <= 25 else 2) for f in frames}
+    rel: list[tuple[float, float, float] | None] = [(0.0, -6.0 + 0.5 * i, 6.0 - 0.5 * i) for i in range(6)]
+    rel += [(0.0, -1.5, 1.5), (0.0, -1.0, 1.0), (0.0, -0.5, 0.5), (0.0, 0.0, 0.0)]
+    state = BallTrackState(frames, {}, {}, holders, {1: "home", 2: rim_holder_team}, {})
+    return state, rel
 
 
 def _make_blank_video(path: Path, n_frames: int = 6) -> None:
@@ -422,6 +436,44 @@ class TestFusedBall:
         assert out["shots"][0]["outcome"] == "made"
         assert out["shots"][0]["shooter_track_id"] == 1
 
+    @pytest.mark.parametrize(
+        ("excl_rw", "expected"),
+        [
+            pytest.param(0.0, (2, 45), id="m9-last-holder-at-rim"),
+            pytest.param(2.0, (1, 25), id="search-before-rim-zone"),
+        ],
+    )
+    def test_shooter_search_skips_holders_in_rim_zone(self, excl_rw: float, expected: tuple[int, int]) -> None:
+        state, rel = _rim_approach_state("away")
+        params = {**FusedBall.defaults, "shot_release_rim_excl_rw": excl_rw}
+        assert _find_shooter(state, 9, rel, params, 10.0) == expected
+
+    @pytest.mark.parametrize(
+        ("window_s", "expected"),
+        [
+            pytest.param(0.0, (2, 25), id="last-holder"),
+            pytest.param(2.0, (1, 20), id="team-in-possession"),
+        ],
+    )
+    def test_team_window_prefers_team_in_possession(self, window_s: float, expected: tuple[int, int]) -> None:
+        state, rel = _rim_approach_state("away")
+        state.holders[25] = 2  # a defender's box overlaps the shooter at release
+        params = {**FusedBall.defaults, "shot_release_rim_excl_rw": 2.0, "shot_team_window_s": window_s}
+        assert _find_shooter(state, 9, rel, params, 10.0) == expected
+
+    @pytest.mark.parametrize(
+        ("penalty", "expected"),
+        [
+            pytest.param(0.0, 0.0, id="off"),
+            pytest.param(1.5, -1.5, id="ball-two-radii-away"),
+        ],
+    )
+    def test_far_ball_penalty_scores_against_far_player(self, penalty: float, expected: float) -> None:
+        tracks = [(1, [0.0, 0.0, 50.0, 100.0], "player")]
+        params = {**FusedBall.defaults, "ball_far_penalty": penalty}
+        em = _possession_emissions([], tracks, {1: "home"}, [180.0, 50.0], 0.9, params)
+        assert em[1] == pytest.approx(expected)
+
 
 class TestSkalskiBall:
     """Reference Skalski baseline backend."""
@@ -480,6 +532,39 @@ class TestEvalBall:
         ]
         bm = score_boxes(ball_by_seq, tracks_by_seq, gold_frames)
         assert (bm["ball_f1"], bm["poss_acc"], bm["holder_f1"], bm["team_acc"]) == (1.0, 1.0, 1.0, 1.0)
+
+    @pytest.mark.parametrize(
+        ("holder", "expected"),
+        [
+            pytest.param(1, (1.0, 1.0), id="holder-gold-agrees"),
+            pytest.param(None, (0.5, 0.0), id="holder-gold-says-unheld"),
+        ],
+    )
+    def test_scores_boxes_against_holder_gold(
+        self,
+        eval_sample: tuple[dict[str, dict[str, Any]], dict[str, Any]],
+        tmp_path: Path,
+        holder: int | None,
+        expected: tuple[float, float],
+    ) -> None:
+        ball_by_seq, tracks_by_seq = eval_sample
+        gold_frames = [
+            {
+                "youtube_id": "vid",
+                "shot": 1,
+                "frame": 0,
+                "boxes": [
+                    {"cls": "ball", "xyxy": [95.0, 95.0, 115.0, 115.0]},
+                    {"cls": "player-jump-shot", "xyxy": [10.0, 10.0, 60.0, 110.0], "team": "home"},
+                ],
+            },
+            {"youtube_id": "vid", "shot": 1, "frame": 5, "boxes": []},
+        ]
+        rows = [{"youtube_id": "vid", "shot": 1, "frame": 0, "holder": holder, "status": "implementer"}]
+        path = tmp_path / "holders.json"
+        path.write_text(json.dumps({"version": "v1", "frames": rows}), encoding="utf-8")
+        bm = score_boxes(ball_by_seq, tracks_by_seq, gold_frames, load_holders(path))
+        assert (bm["poss_acc"], bm["holder_f1"]) == expected
 
     def test_scores_events(self, eval_sample: tuple[dict[str, dict[str, Any]], dict[str, Any]]) -> None:
         ball_by_seq, tracks_by_seq = eval_sample

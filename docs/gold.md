@@ -182,6 +182,36 @@ Classes with fewer than about 20 boxes are too small for a stable AP of their ow
 
 Tomasz reviews in the labeller at `/boxes`. Each frame shows flagged boxes first, and a loupe shows the selected box at up to 8× for pixel-level edges. Enter marks the frame done. `scripts/box_gold_v1.py export` writes `data/gold/v1/boxes.json` from the frames marked done.
 
+## Holder gold v1 (2026-11-24)
+
+Box gold v1 was labelled on 2026-11-18, two days before the possession schema of 2026-11-20 ([ADR](adr/2026-11-20-detector-classes-and-possession-schema.md)) defined the holder as whoever holds or dribbles the ball, a shooter still holding it included. A shooter boxed as `player-jump-shot` or `player-layup-dunk` was therefore never a holder in box gold. `data/gold/v1/holders.json` gives each of the 100 frames its holder under the 2026-11-20 definition, as the index of a person box in the frame's `boxes.json` entry (or none). `bga eval-ball` scores possession against it; box gold is unchanged, so detection rows still score the boxes Tomasz drew.
+
+`scripts/holders_gold_v1.py` builds it from the `player-in-possession` boxes and the ops file `data/labels/review/holders_v1.ops.txt`.
+
+The implementer's first pass (ledger row of 2026-11-24) checked every frame on crops around the gold ball, and the wide frames without a gold ball again at full resolution. It changed 11 frames and flagged 10 for Tomasz. Tomasz then answered all 21 on the `/holders` page, which shows the frames from 0.6 s before to 0.6 s after each gold frame:
+
+| First pass | Frames | Tomasz's answers |
+|---|---|---|
+| shooter still holding the ball, no holder in box gold | 5 | all 5 kept |
+| possession box on a shooter whose ball is already in flight | 1 | kept (no holder) |
+| hold or dribble judged from the single frame, no holder in box gold | 5 | all 5 overruled (no holder) |
+| flagged: release or hold, dribble or loose ball, a dead-ball hold | 10 | 3 holders (1 a pass, not a shot, in `4XMD9FWmQws` 14585; 1 another player than proposed), 7 no holder |
+
+A single frame overstates holds: all five holds called from one frame were passes or catches in the neighbouring frames.
+
+### Box gold fixes (2026-11-24)
+
+The holder review turned up three box-gold errors, which Tomasz fixed at `/boxes` before `scripts/box_gold_v1.py export`. No box index moved, so the holders still point at the right boxes:
+- `4XMD9FWmQws` 14585: the passer (box 10) was `player-jump-shot`; now `player-in-possession`.
+- `1jDaJBkUGmc` 1405 and 6510: the game ball was boxed as `rim` and as `ball-in-basket`; both are now `ball`.
+- `4XMD9FWmQws` 1935: one player box 5 px narrower.
+
+Dev now has 60 ball, 71 rim, 38 in-possession, 5 jump-shot and 2 ball-in-basket boxes (58, 72, 37, 6 and 3 before). Detection and ball rows were scored again on the fixed gold (`docs/metrics.md`, 2026-11-24). With the fixes, 8 of the 100 holders differ from box gold.
+
+### How to answer holder questions
+
+Open the labeller's `/holders` page (`uv run python tools/labeler/server.py`, then http://127.0.0.1:8765/holders). Each question shows the gold frame zoomed around the ball, the frames from 0.6 s before to 0.6 s after it (Space plays them), and the proposed holder. Press A to accept the proposal or N for no holder, or click a player box and press Enter. Each answer is saved straight away: a `tomasz` line goes under the flagged line in the ops file, and `data/gold/v1/holders.json` is rebuilt. The second tab shows the implementer's applied changes for a second look. `bga.eval.holders` holds the logic, which `scripts/holders_gold_v1.py` also runs.
+
 ## Number crops (v1, 2026-11-22)
 
 `data/gold/v1/numbers.json` scores number readers crop by crop, independent of detector and tracker. Written by `scripts/number_gold.py export` from `data/labels/numbers/gold_crops.json`. The implementer read every crop; Tomasz then checked a sample of 30 and every crop the implementer had left `illegible` (110 crops, 7 min 53 s), and his answer is the label wherever he gave one.

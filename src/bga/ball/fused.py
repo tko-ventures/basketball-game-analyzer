@@ -387,12 +387,15 @@ def _possession_emissions(
         max_r = float(params["ball_hold_radius_px"])
         ball_w = float(params["ball_prox_weight"])
         w = ball_w * min(1.0, bconf / 0.45)
+        far_w = float(params.get("ball_far_penalty", 0.0)) * min(1.0, bconf / 0.45)
         nearest_d = float("inf")
         for tid, xyxy in players:
             d = point_to_box_dist(bpx[0], bpx[1], xyxy)
             nearest_d = min(nearest_d, d)
             if d <= max_r:
                 scores[tid] += w * (1.0 - d / max_r)
+            elif far_w > 0.0:
+                scores[tid] -= far_w * min(1.0, (d - max_r) / max_r)
         if nearest_d > max_r * 1.35:
             scores[None] += float(params["poss_flight_bonus"])
     return scores
@@ -543,6 +546,76 @@ def _rim_hit_clusters(
     return clusters
 
 
+def _approach_start(rel: list[tuple[float, float, float] | None], rim_idx: int, excl_rw: float, max_steps: int) -> int:
+    """Step index where the ball was last seen outside ``excl_rw`` rim widths before arriving at ``rim_idx``.
+
+    Holders assigned while the ball is at the rim are players standing under it, not the shooter, so the release is
+    searched for before the ball entered the rim zone. ``excl_rw <= 0`` keeps ``rim_idx`` (the M9 behaviour).
+
+    Examples:
+        >>> rel = [(0.0, -3.0, 3.0), (0.0, -1.0, 1.0), None, (0.0, 0.0, 0.0)]
+        >>> _approach_start(rel, 3, 1.5, 10), _approach_start(rel, 3, 0.0, 10)
+        (0, 3)
+
+    """
+    if excl_rw <= 0.0:
+        return rim_idx
+    lo = max(0, rim_idx - max_steps)
+    j = rim_idx
+    while j > lo and (rel[j] is None or rel[j][2] <= excl_rw):
+        j -= 1
+    return j
+
+
+def _possession_team(state: BallTrackState, idx: int, window: int) -> str | None:
+    """Return the team that held the ball on most steps of ``window`` steps up to ``idx``, or ``None``.
+
+    Examples:
+        >>> st = BallTrackState([0, 1, 2, 3], {}, {}, {0: 1, 1: 1, 2: 2, 3: None}, {1: "home", 2: "away"}, {})
+        >>> _possession_team(st, 3, 4), _possession_team(st, 3, 0)
+        ('home', None)
+
+    """
+    if window <= 0:
+        return None
+    counts: dict[str, int] = {}
+    for j in range(max(0, idx - window + 1), idx + 1):
+        tid = state.holders.get(state.frames[j])
+        team = state.teams.get(tid) if tid is not None else None
+        if team in ("home", "away"):
+            counts[team] = counts.get(team, 0) + 1
+    return max(counts, key=counts.__getitem__) if counts else None
+
+
+def _find_shooter(
+    state: BallTrackState,
+    rim_idx: int,
+    rel: list[tuple[float, float, float] | None],
+    params: dict[str, Any],
+    eff_fps: float,
+) -> tuple[int | None, int | None]:
+    """Return ``(shooter_track_id, release_frame)``: the last holder before the ball's approach to the rim.
+
+    With ``shot_release_rim_excl_rw > 0`` the search starts where the ball was last outside the rim zone. With
+    ``shot_team_window_s > 0`` the shooter is the last holder from the team that held the ball most in that window
+    before the release (a defender whose box overlaps the shooter at release loses to the team in possession).
+
+    """
+    lookback = max(2, round(float(params["shot_release_lookback_s"]) * eff_fps))
+    start = _approach_start(rel, rim_idx, float(params.get("shot_release_rim_excl_rw", 0.0)), lookback)
+    shooter, release = last_holder_before(state.frames, start, state.holders, lookback)
+    window = round(float(params.get("shot_team_window_s", 0.0)) * eff_fps)
+    team = _possession_team(state, start, window)
+    if shooter is None or team is None or state.teams.get(shooter) == team:
+        return shooter, release
+    lo = max(0, start - lookback)
+    for j in range(start, lo - 1, -1):
+        tid = state.holders.get(state.frames[j])
+        if tid is not None and state.teams.get(tid) == team:
+            return tid, state.frames[j]
+    return shooter, release
+
+
 def _detect_shots(
     seq: Sequence,
     state: BallTrackState,
@@ -560,7 +633,6 @@ def _detect_shots(
         max(2, round(float(params["shot_approach_s"]) * eff_fps)),
         max(1, round(float(params["shot_arc_s"]) * eff_fps)),
     )
-    lookback = max(2, round(float(params["shot_release_lookback_s"]) * eff_fps))
     fallback_pre = max(1, round(0.3 * eff_fps))
     shots: list[dict[str, Any]] = []
     anchors: dict[int, tuple[float, float]] = {}
@@ -569,7 +641,7 @@ def _detect_shots(
         rim_idx = min(cl, key=lambda j: rel[j][2] if rel[j] is not None else 1e9)
         rim_f = state.frames[rim_idx]
         outcome, end_f = _classify_shot_outcome(state, rim_idx, rel, det_frames, params, eff_fps)
-        shooter_tid, release_f = last_holder_before(state.frames, rim_idx, state.holders, lookback)
+        shooter_tid, release_f = _find_shooter(state, rim_idx, rel, params, eff_fps)
         start_f = release_f if release_f is not None else state.frames[max(0, cl[0] - fallback_pre)]
         pt = (
             pos_by_tid.get(shooter_tid, {}).get(release_f)
@@ -634,12 +706,15 @@ class FusedBall(BaseBackend):
         "poss_none_stay_bonus": 0.25,
         "poss_switch_penalty": 0.85,
         "poss_drop_penalty": 0.35,
+        "ball_far_penalty": 0.0,
         "shot_rim_radius_rw": 0.95,
         "shot_approach_s": 1.4,
         "shot_arc_s": 0.8,
         "shot_cooldown_s": 1.2,
         "shot_post_s": 0.9,
         "shot_release_lookback_s": 2.0,
+        "shot_release_rim_excl_rw": 0.0,
+        "shot_team_window_s": 0.0,
         "bib_conf": 0.20,
     }
 

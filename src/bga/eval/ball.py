@@ -5,8 +5,10 @@ Scores any Layer 7 (``ball``) backend against two gold sources:
 1. ``data/gold/v1/boxes.json`` (76 dev / 24 held-out frames):
    - ``ball_f1`` / ``ball_r`` / ``ball_med_px``: tracked ``ball_px`` matched to gold ``ball`` boxes within
      ``max(25 px, box_side)``.
-   - ``poss_acc`` / ``holder_f1`` / ``team_acc``: predicted ``holder_track_id`` box matched to gold
-     ``player-in-possession`` boxes at ``IoU >= 0.5`` (and exact ``None`` match when no holder is labelled).
+   - ``poss_acc`` / ``holder_f1`` / ``team_acc``: predicted ``holder_track_id`` box matched to the gold holder box
+     at ``IoU >= 0.5`` (and exact ``None`` match when no holder is labelled). The holder comes from
+     ``data/gold/v1/holders.json`` (the 2026-11-20 possession definition) when present, else from the frame's
+     ``player-in-possession`` box.
 2. ``data/gold/v1/events.json`` (verified shot-attempt ground truth):
    - ``shot_f1`` / ``shot_outcome_acc`` / ``shot_shooter_acc``: greedy 1-to-1 matching of predicted shots to
      gold shots on sequences listed in ``verified_sequences`` within ``rim_tol_frames`` (default 40 source
@@ -36,6 +38,7 @@ log = logging.getLogger(__name__)
 #: Default paths for gold v1 boxes and shot events.
 GOLD_V1_BOXES = Path("data/gold/v1/boxes.json")
 GOLD_V1_EVENTS = Path("data/gold/v1/events.json")
+GOLD_V1_HOLDERS = Path("data/gold/v1/holders.json")
 GOLD_V0_ROOT = Path("data/gold/v0")
 #: Maximum source-frame gap between predicted and gold shot frame for a match (0.8 s at 50 fps).
 DEFAULT_RIM_TOL_FRAMES = 40
@@ -96,10 +99,40 @@ def _score_frame_holder(
     return 0, 0, 1, 0, team_ok, team_tot
 
 
+def load_holders(path: Path = GOLD_V1_HOLDERS) -> dict[tuple[str, int], int | None] | None:
+    """Read holder gold as ``{(youtube_id, frame): box index | None}``, or ``None`` when the file is absent.
+
+    Args:
+        path: Path to ``data/gold/v1/holders.json``.
+
+    Returns:
+        The holder box index (into the frame's ``boxes.json`` boxes) of each gold frame, ``None`` where unheld.
+
+    Examples:
+        >>> load_holders(Path("missing.json")) is None
+        True
+
+    """
+    if not path.exists():
+        return None
+    rows = json.loads(path.read_text(encoding="utf-8"))["frames"]
+    return {(r["youtube_id"], int(r["frame"])): r["holder"] for r in rows}
+
+
+def _gold_holder(fr: dict[str, Any], holders: dict[tuple[str, int], int | None] | None) -> list[dict[str, Any]]:
+    """Return the frame's gold holder box as a 0- or 1-element list (holder gold first, then box classes)."""
+    key = (fr["youtube_id"], int(fr["frame"]))
+    if holders is not None and key in holders:
+        idx = holders[key]
+        return [] if idx is None else [fr["boxes"][idx]]
+    return [b for b in fr["boxes"] if b["cls"] == "player-in-possession"]
+
+
 def score_boxes(
     ball_by_seq: dict[str, dict[str, Any]],
     tracks_by_seq: dict[str, dict[str, list[list[Any]]]],
     gold_frames: list[dict[str, Any]],
+    holders: dict[tuple[str, int], int | None] | None = None,
 ) -> dict[str, Any]:
     """Score per-frame ball position and possession against ``data/gold/v1/boxes.json`` frames.
 
@@ -107,6 +140,7 @@ def score_boxes(
         ball_by_seq: Mapping ``seq_name -> Layer 7 output dict``.
         tracks_by_seq: Mapping ``seq_name -> {frame_str: [[tid, x1, y1, x2, y2, ...], ...]}``.
         gold_frames: Filtered list of frame entries from ``boxes.json``.
+        holders: Holder gold from :func:`load_holders`; frames it lacks fall back to ``player-in-possession`` boxes.
 
     Returns:
         Dict of ball-tracking and possession metrics (``NaN`` if ``gold_frames`` is empty).
@@ -121,6 +155,8 @@ def score_boxes(
         >>> m = score_boxes({"s_s1": ball["s1"]}, {"s_s1": tracks["s1"]}, gf)
         >>> (m["ball_f1"], m["holder_f1"], m["poss_acc"], m["team_acc"])
         (1.0, 1.0, 1.0, 1.0)
+        >>> score_boxes({"s_s1": ball["s1"]}, {"s_s1": tracks["s1"]}, gf, holders={("s", 0): None})["poss_acc"]
+        0.0
 
     """
     b_tp = b_fp = b_fn = 0
@@ -140,7 +176,7 @@ def score_boxes(
         b_tp, b_fp, b_fn = b_tp + btp, b_fp + bfp, b_fn + bfn
         if err is not None:
             b_errs.append(err)
-        gt_h = [b for b in fr["boxes"] if b["cls"] == "player-in-possession"]
+        gt_h = _gold_holder(fr, holders)
         htp, hfp, hfn, fok, tok, ttot = _score_frame_holder(gt_h, row, tracks_by_seq.get(sname, {}).get(fstr, []))
         h_tp, h_fp, h_fn = h_tp + htp, h_fp + hfp, h_fn + hfn
         frame_ok, team_ok, team_tot = frame_ok + fok, team_ok + tok, team_tot + ttot
@@ -311,6 +347,7 @@ def score(
     boxes_path: Path = GOLD_V1_BOXES,
     events_path: Path = GOLD_V1_EVENTS,
     gold_v0_root: Path = GOLD_V0_ROOT,
+    holders_path: Path = GOLD_V1_HOLDERS,
 ) -> dict[str, Any]:
     """Run ``cfg`` (reusing cached outputs) and score its ``ball`` layer across all selected sequences.
 
@@ -323,6 +360,7 @@ def score(
         boxes_path: Path to ``data/gold/v1/boxes.json``.
         events_path: Path to ``data/gold/v1/events.json`` (skipped gracefully if absent).
         gold_v0_root: Path to ``data/gold/v0`` MOTChallenge tracks.
+        holders_path: Path to ``data/gold/v1/holders.json`` (``player-in-possession`` boxes are used if absent).
 
     Returns:
         Combined metrics dict covering ball tracking, possession, shot events, latency, and unverified sequences.
@@ -340,7 +378,7 @@ def score(
     unverified = sorted(s for s in ball_by_seq if s not in verified)
     if events_path.exists() and unverified:
         log.warning("Skipping shot-event scoring on unverified sequences: %s", ", ".join(unverified))
-    box_m = score_boxes(ball_by_seq, tracks_by_seq, gold_frames)
+    box_m = score_boxes(ball_by_seq, tracks_by_seq, gold_frames, load_holders(holders_path))
     ev_m = score_events(
         ball_by_seq,
         tracks_by_seq,

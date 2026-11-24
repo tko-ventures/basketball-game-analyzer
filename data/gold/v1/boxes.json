@@ -24,7 +24,7 @@
      "xyxy": [
       592,
       531,
-      728,
+      723,
       720
      ],
      "cls": "player",
@@ -2639,7 +2639,7 @@
       970,
       633
      ],
-     "cls": "player-jump-shot",
+     "cls": "player-in-possession",
      "team": "home",
      "tid": 1023
     },
@@ -11235,7 +11235,7 @@
       1332,
       530
      ],
-     "cls": "rim",
+     "cls": "ball",
      "team": "",
      "tid": null
     },
@@ -14314,7 +14314,7 @@
       778.5,
       294
      ],
-     "cls": "ball-in-basket",
+     "cls": "ball",
      "team": "",
      "tid": null
     },
