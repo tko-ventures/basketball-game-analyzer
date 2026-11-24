@@ -29,7 +29,7 @@ holder Tnuscrm9RyU 4210 8 tomasz  # jump shooter holds the ball at head height
 holder Tnuscrm9RyU 7280 9 implementer  # layup, ball in both hands above the head
 holder Tnuscrm9RyU 7280 9 tomasz  # layup, ball in both hands above the head
 holder 4XMD9FWmQws 14585 10 flagged  # jump shooter, ball at the fingertips: still held or just released?
-holder 4XMD9FWmQws 14585 10 tomasz  # jump shooter, ball at the fingertips: still held or just released?
+holder 4XMD9FWmQws 14585 10 tomasz  # Tomasz: not a shot but a pass to #3, so box 10 is the passer holding the ball (box gold calls it player-jump-shot)
 holder OSp445e0mXU 880 none flagged  # ball bouncing ahead of the players: dribble (whose?) or loose ball?
 holder OSp445e0mXU 880 none tomasz  # ball bouncing ahead of the players: dribble (whose?) or loose ball?
 holder OSp445e0mXU 1060 6 flagged  # layup at the rim, hand under the ball: still held or released?

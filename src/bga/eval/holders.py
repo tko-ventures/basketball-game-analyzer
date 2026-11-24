@@ -262,7 +262,8 @@ def build_holders(
         out_path: Where to write ``holders.json``.
 
     Returns:
-        Counts ``frames``, ``changed`` (applied lines), ``flagged`` and ``tomasz``.
+        Counts ``frames``, ``decided`` (applied lines), ``differs`` (holder differs from box gold), ``flagged`` and
+        ``tomasz``.
 
     Raises:
         ValueError: When an op names a frame missing from box gold or a box that is not a player.
@@ -280,6 +281,7 @@ def build_holders(
     if missing:
         raise ValueError(f"ops name frames not in box gold: {missing}")
     rows = []
+    differs = 0
     for key, fr in frames.items():
         row: dict[str, Any] = {"youtube_id": key[0], "shot": fr["shot"], "frame": key[1]}
         row["holder"], row["status"] = box_gold_holder(fr), "box_gold"
@@ -291,12 +293,14 @@ def build_holders(
                 row["status"], row["proposed"] = op.status.value, op.holder
             else:
                 row["holder"], row["status"] = op.holder, op.status.value
+        differs += row["holder"] != box_gold_holder(fr)
         rows.append(row)
     doc = {"version": "v1", "definition": DEFINITION, "boxes": boxes_path.as_posix(), "frames": rows}
     write_atomic(out_path, json.dumps(doc, indent=1) + "\n")
     return {
         "frames": len(rows),
-        "changed": sum(r["status"] in ("implementer", "tomasz") for r in rows),
+        "decided": sum(r["status"] in ("implementer", "tomasz") for r in rows),
+        "differs": differs,
         "flagged": sum(r["status"] == "flagged" for r in rows),
         "tomasz": sum(r["status"] == "tomasz" for r in rows),
     }

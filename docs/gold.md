@@ -184,21 +184,24 @@ Tomasz reviews in the labeller at `/boxes`. Each frame shows flagged boxes first
 
 ## Holder gold v1 (2026-11-24)
 
-Box gold v1 was labelled on 2026-11-18, two days before the possession schema of 2026-11-20 ([ADR](adr/2026-11-20-detector-classes-and-possession-schema.md)) defined the holder as whoever holds or dribbles the ball, a shooter still holding it included. A shooter boxed as `player-jump-shot` or `player-layup-dunk` was therefore never a holder in box gold, and some clear holds were left as `player`. `data/gold/v1/holders.json` gives each of the 100 frames its holder under the 2026-11-20 definition, as the index of a person box in the frame's `boxes.json` entry (or none). `bga eval-ball` scores possession against it; box gold is unchanged, so detection rows still score the boxes Tomasz drew.
+Box gold v1 was labelled on 2026-11-18, two days before the possession schema of 2026-11-20 ([ADR](adr/2026-11-20-detector-classes-and-possession-schema.md)) defined the holder as whoever holds or dribbles the ball, a shooter still holding it included. A shooter boxed as `player-jump-shot` or `player-layup-dunk` was therefore never a holder in box gold. `data/gold/v1/holders.json` gives each of the 100 frames its holder under the 2026-11-20 definition, as the index of a person box in the frame's `boxes.json` entry (or none). `bga eval-ball` scores possession against it; box gold is unchanged, so detection rows still score the boxes Tomasz drew.
 
 `scripts/holders_gold_v1.py` builds it from the `player-in-possession` boxes and the ops file `data/labels/review/holders_v1.ops.txt`.
 
-The implementer's first pass (ledger row of 2026-11-24) checked every frame on crops around the gold ball, and the wide frames without a gold ball again at full resolution:
+The implementer's first pass (ledger row of 2026-11-24) checked every frame on crops around the gold ball, and the wide frames without a gold ball again at full resolution. It changed 11 frames and flagged 10 for Tomasz. Tomasz then answered all 21 on the `/holders` page, which shows the frames from 0.6 s before to 0.6 s after each gold frame:
 
-| Against box gold | Frames |
-|---|---|
-| unchanged | 79 |
-| changed (5 shooters still holding the ball, 5 clear holds or dribbles, 1 possession box on a shooter whose ball is already in flight) | 11 |
-| flagged for Tomasz, box gold kept until he decides (release or hold, dribble or loose ball, a dead-ball hold) | 10 |
+| First pass | Frames | Tomasz's answers |
+|---|---|---|
+| shooter still holding the ball, no holder in box gold | 5 | all 5 kept |
+| possession box on a shooter whose ball is already in flight | 1 | kept (no holder) |
+| hold or dribble judged from the single frame, no holder in box gold | 5 | all 5 overruled (no holder) |
+| flagged: release or hold, dribble or loose ball, a dead-ball hold | 10 | 3 holders (1 a pass, not a shot, in `4XMD9FWmQws` 14585; 1 another player than proposed), 7 no holder |
 
-Box gold also has no ball box in two wide frames where the ball is visible at full resolution (`1jDaJBkUGmc` 1405, dribbled; 6510, in a shooter's raised hands). That is box geometry and waits for Tomasz.
+Result: 9 of the 100 frames differ from box gold. A single frame overstates holds: all five holds called from one frame were passes or catches in the neighbouring frames.
 
-### How to decide the flagged frames
+Box gold still needs two kinds of fixes, both box geometry or class for Tomasz: in `4XMD9FWmQws` 14585 box 10 is `player-jump-shot` but the player is passing; and the implementer saw a ball at full resolution in `1jDaJBkUGmc` 1405 and 6510, where box gold has none (Tomasz answered no holder for both).
+
+### How to answer holder questions
 
 Open the labeller's `/holders` page (`uv run python tools/labeler/server.py`, then http://127.0.0.1:8765/holders). Each question shows the gold frame zoomed around the ball, the frames from 0.6 s before to 0.6 s after it (Space plays them), and the proposed holder. Press A to accept the proposal or N for no holder, or click a player box and press Enter. Each answer is saved straight away: a `tomasz` line goes under the flagged line in the ops file, and `data/gold/v1/holders.json` is rebuilt. The second tab shows the implementer's applied changes for a second look. `bga.eval.holders` holds the logic, which `scripts/holders_gold_v1.py` also runs.
 

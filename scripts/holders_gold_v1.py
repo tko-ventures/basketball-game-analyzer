@@ -16,8 +16,8 @@ from bga.eval.holders import HOLDERS_PATH, build_holders
 def main() -> None:
     counts = build_holders()
     print(
-        f"{HOLDERS_PATH}: {counts['frames']} frames, {counts['changed']} changed from box gold "
-        f"({counts['tomasz']} by Tomasz), {counts['flagged']} flagged for Tomasz"
+        f"{HOLDERS_PATH}: {counts['frames']} frames, {counts['decided']} decided ({counts['tomasz']} by Tomasz), "
+        f"{counts['differs']} differ from box gold, {counts['flagged']} flagged for Tomasz"
     )
 
 
