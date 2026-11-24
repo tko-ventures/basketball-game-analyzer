@@ -1,0 +1,47 @@
+name: plk-r4-l4
+layer: detect
+backend: rfdetr_torch
+description: >
+  Fourth PLK detector on Colab L4 (#40): identical data, resolution, lr, seed, eval interval and early stopping to
+  plk-r4 (plk-r3-poss plus round 4's 228 hard frames in train_manifest_r4_poss.json), with batch_size 2 and
+  grad_accum_steps 8 (same effective batch 16, as used in plk-r1 and plk-r2) to fit Colab L4's 24 GB VRAM.
+base_weights:
+  name: rf-detr-large-2026.pth
+  url: https://repo.roboflow.com/rfdetr/rf-detr-large-2026.pth
+  licence: Apache-2.0
+package: rfdetr[train]==1.12.1
+sources:
+  - kind: roboflow
+    ref: roboflow-jvuqo/basketball-player-detection-3-ycjdo/18
+    licence: CC-BY-4.0
+  - kind: manifest
+    path: data/labels/detect/train_manifest_r1_poss.json
+    sha256: 42cfae200b1dbc8a86426d311917ba552023e7c10fcf1358e51f102ca71a1e9b
+    image_width: 1920
+  - kind: manifest
+    path: data/labels/detect/train_manifest_r2_poss.json
+    sha256: 3fa86b6e2b1c7775ce77110beb85ca08d88d45f1ebb7dcc4b1bfcdae13ebe4f1
+    image_width: 1920
+  - kind: manifest
+    path: data/labels/detect/train_manifest_r3_poss.json
+    sha256: fbade80ccc91e0b7f94d2f2e9a17bb42bd0d4ce82da7eaad1ff84d810249f92b
+    image_width: 1920
+  - kind: manifest
+    path: data/labels/detect/train_manifest_r4_poss.json
+    sha256: 784c40ca6f7ef23af7d916a602b51b561003cd443263b4417e710164aa53ff66
+    image_width: 1920
+recipe:
+  variant: RFDETRLarge
+  resolution: 1280
+  epochs: 50
+  batch_size: 2
+  grad_accum_steps: 8
+  lr: 0.0001
+  seed: 0
+  select_on: val/mAP_50_95
+  eval_interval: 5
+  early_stopping_patience: 2
+platform:
+  name: colab
+  gpu: L4
+  timeout_h: 4
