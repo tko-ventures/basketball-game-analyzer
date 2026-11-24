@@ -59,7 +59,7 @@ Every layer supports multiple swappable backends registered via `@register(layer
 |---|---|---|---|---|
 | `shots` | `gold` / `clips` | Selects gold eval shots or non-gold training shots | M10 adds raw full-game ingest | [2026-11-23](adr/2026-11-23-highlights-footage-and-m10-ingest-milestone.md) |
 | `court` | `rfdetr_keypoint` (`court-plk-v1-smooth4`) | PLK fine-tuned RF-DETR Keypoint → RANSAC homography + 4-frame median smoothing | 0.21 m paint error dev, 0.20 m held-out (vs. 0.89 m NBA baseline) | [2026-11-02](adr/2026-11-02-court-keypoint-finetune-and-smoothing.md) |
-| `detect` | `rfdetr_torch` (`detect-plk-r3-poss`) | PLK fine-tuned RF-DETR Large @ 1280 px on MPS; 6 active classes incl. `player-in-possession` | AP50 dev: people 0.966, ball 0.766, number 0.848, possession 0.559 | [2026-11-19](adr/2026-11-19-detector-rfdetr-large-1280px-mps.md), [2026-11-20](adr/2026-11-20-detector-classes-and-possession-schema.md) |
+| `detect` | `rfdetr_torch` (`detect-plk-r3-poss`) | PLK fine-tuned RF-DETR Large @ 1280 px on MPS; 6 active classes incl. `player-in-possession` | AP50 dev: people 0.966, ball 0.787, number 0.848, possession 0.576 | [2026-11-19](adr/2026-11-19-detector-rfdetr-large-1280px-mps.md), [2026-11-20](adr/2026-11-20-detector-classes-and-possession-schema.md) |
 | `team` | `siglip_kmeans` (`fit_fps: 5.0`, fixed seed) | SigLIP + UMAP + KMeans per shot; aligns clusters via clip `light`/`dark` kit metadata | ~1.00 track accuracy on dev & held-out | [2026-11-20](adr/2026-11-20-team-classification-siglip-5fps.md) |
 | `appearance` | `reid` (`plk-r1-shot-last`) | OSNet x1.0 fine-tuned on PLK crops; float16 L2-normalised embeddings | Used in BoT-SORT & kept for M7 cross-shot identity (0.946 rank-1) | [2026-11-22](adr/2026-11-22-tracking-botsort-plk-reid-and-greedy-link.md) |
 | `track` | `trackers` (`BoTSORTTracker` + PLK re-ID) | BoT-SORT with camera-motion compensation and tuned re-ID (runs on Modal L4) | ~64 ms/frame on L4 | [2026-11-22](adr/2026-11-22-tracking-botsort-plk-reid-and-greedy-link.md) |
@@ -67,7 +67,7 @@ Every layer supports multiple swappable backends registered via `@register(layer
 | `numbers` | `parseq` (`numbers-parseq-r2`) | Fine-tuned PARSeq scene-text reader (`stop_on_confirm: false`, logging crop probabilities) | Crop top-1 under roster: 0.963 dev / 0.970 held-out (4–7 ms/crop); refusal 0.447 / 0.500 | [2026-11-23](adr/2026-11-23-jersey-number-reading-parseq-and-roster-scoring.md) |
 | `identity` | `game` / `covisible_assign` (`identity-game`) | Layer 5b: roster log-prob voting, co-visible LSA uniqueness (`identity-covisible-assign`), and clip-scoped cross-shot appearance clustering (`identity-game`) | Dev (69 tracks): 0.841 shot / 0.913 game (2 / 3 wrong); held-out (26 tracks): 0.846 / 0.846 (2 wrong, 0.923 conf) | [2026-11-23](adr/2026-11-23-jersey-number-reading-parseq-and-roster-scoring.md) |
 | `positions` | `bbox_bottom` (`positions-plk-bbox`) | Projects linked-track box bottom-centre via PLK homography (`w > 0` guard) + `clean_paths` (`smooth_window: 9`); `ankles_pose` kept as comparator | 0.358 m keyframe median dev (vs. 1.540 m baseline), 99.4% on-court, 0.0 ms/frame | [2026-11-23](adr/2026-11-23-positions-bbox-bottom-over-coco-pose-and-parquet-export.md) |
-| `ball` | `fused` (`ball-plk-fused`) | Static rim-FP filter + DAG DP ball trajectory, Viterbi HMM possession, rim-trajectory made/missed shot classification & FIBA 2/3-pt scoring (`skalski` kept as baseline) | Dev (9 shots): ball F1 0.794, poss acc 0.618, holder F1 0.617, team acc 0.703, shot F1 1.000 (11/11), outcome acc 0.818, 0.36 ms/frame | [2026-11-24](adr/2026-11-24-ball-fused-tracking-possession-and-rim-shots.md) |
+| `ball` | `fused` (`ball-plk-fused-v2`) | Static rim-FP filter + DAG DP ball trajectory, Viterbi HMM possession (a far tracked ball counts against a holder), rim-trajectory made/missed shot classification & FIBA 2/3-pt scoring; the shooter is the last holder before the ball enters the rim zone, from the team in possession (`skalski` kept as baseline) | Dev (9 shots, holder gold): ball F1 0.791, poss acc 0.658, holder F1 0.699, team acc 0.860, shot F1 1.000 (11/11), outcome acc 0.727, shooter acc 0.727, 0.25 ms/frame; held-out poss acc 0.750, holder F1 0.788 | [2026-11-24](adr/2026-11-24-ball-fused-tracking-possession-and-rim-shots.md), [2026-11-24 v2](adr/2026-11-24-holder-gold-and-fused-v2-shooter.md) |
 
 Other registered backends remain available for baselines, ablations, and reproducibility: Roboflow NBA models (`roboflow_keypoints`, `roboflow_inference`), vendored/upstream ByteTrack (`bytetrack`, `trackers`), SAM 2.1 propagation (`sam2`, CUDA-only), SmolVLM2 OCR (`smolvlm_ocr`), and crop classifiers (`crop_cls`).
 
@@ -109,7 +109,7 @@ Seven dedicated CLI commands evaluate layers against the gold set and append row
 | `bga eval-appearance` | Clean `v0` gold boxes | Teammate re-association (1 s, 3 s) and cross-shot rank-1 / MRR |
 | `bga eval-numbers` | `data/gold/v1/numbers.json` (376 crops) | Free & roster top-1, non-number refusal rate, calibration (ECE), ms/crop |
 | `bga eval-positions` | Gold court keyframes + linked tracks | Keyframe median/p90 error (m), on-court share, coverage, speed p95 & >10 m/s spikes, ms/frame |
-| `bga eval-ball` | `data/gold/v1/boxes.json` + `events.json` | Ball F1/R/med px, possession acc, holder F1, team acc, shot F1, outcome acc, shooter acc, ms/frame |
+| `bga eval-ball` | `data/gold/v1/boxes.json` + `holders.json` + `events.json` | Ball F1/R/med px, possession acc, holder F1, team acc, shot F1, outcome acc, shooter acc, ms/frame |
 
 Other top-level CLI commands: `bga run`, `bga train`, `bga export` (17-column per-player per-frame Parquet + sibling `<seq>.ball.parquet` when `ball` is configured), `bga radar` (broadcast + 2D FIBA court overlay video with team colours, `#jersey` labels, ball/holder ring, and cumulative shot markers), and `bga backends`.
 
@@ -126,13 +126,14 @@ Other top-level CLI commands: `bga run`, `bga train`, `bga export` (17-column pe
 
 ### Labeller (`tools/labeler/server.py`)
 
-A local stdlib HTTP server on port `8765` with five focused web pages:
+A local stdlib HTTP server on port `8765` with six focused web pages:
 
 - `/` — track review, shot tagging, and identity confirmation
 - `/court` — landmark dots + painted-line pins with live Levenberg-Marquardt court fitting
 - `/boxes` — box geometry (`box_gold_v1`), ball queues (`mode: ball`), and possession/dead-ball queues (`mode: possession`)
 - `/numbers` — crop-level jersey-number verification against context frames
 - `/events` — shot-event verification (`made`/`missed`, 2/3-pt, click-on-player shooter, scorebug start/end comparison) writing `data/gold/v1/events.json`
+- `/holders` — ball-holder questions on the box-gold frames (frame strip around each, accept / nobody / click a player) writing `data/labels/review/holders_v1.ops.txt` and rebuilding `data/gold/v1/holders.json`
 
 ### Demo site
 

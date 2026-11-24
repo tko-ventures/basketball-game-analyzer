@@ -72,7 +72,7 @@ flowchart TB
     subgraph local["«System Boundary: Local Workstation — Apple M1 Max (MPS)»"]
         cli["«Container: CLI & Pipeline»\nbga CLI (src/bga/cli.py)\nPython 3.12, Typer, PyTorch MPS,\nOpenCV, PyArrow, Pydantic"]:::container
 
-        labeler["«Container: Local Web App»\nLabeller Server (tools/labeler/server.py)\nStdlib ThreadingHTTPServer :8765\nPages: /, /court, /boxes, /numbers, /events"]:::container
+        labeler["«Container: Local Web App»\nLabeller Server (tools/labeler/server.py)\nStdlib ThreadingHTTPServer :8765\nPages: /, /court, /boxes, /numbers, /events, /holders"]:::container
 
         scripts["«Container: Batch Utilities»\nData, QA & Demo Scripts (scripts/)\nClip fetch, roster fetch, contact sheets,\nSAM2 prefill, demo/coach builders"]:::container
 
@@ -169,7 +169,7 @@ flowchart TB
 
         L6["«L6: positions — 2D FIBA court (x_m, y_m)»\nActive: bbox_bottom (linked-track box foot +\nw>0 guard + clean_paths smooth_window=9)\nComparator: ankles_pose (COCO 17-kp + airborne hold)"]:::layer
 
-        L7["«L7: ball — ball, possession & shots»\nActive: fused (rim-FP filter + DAG DP ball +\nViterbi HMM possession + rim-trajectory shots)\nBaseline: skalski (pip + ShotEventTracker)"]:::layer
+        L7["«L7: ball — ball, possession & shots»\nActive: fused, ball-plk-fused-v2 (rim-FP filter +\nDAG DP ball + Viterbi HMM possession +\nrim-trajectory shots, shooter before rim zone)\nBaseline: skalski (pip + ShotEventTracker)"]:::layer
 
         L0 --> L1
         L0 --> L2

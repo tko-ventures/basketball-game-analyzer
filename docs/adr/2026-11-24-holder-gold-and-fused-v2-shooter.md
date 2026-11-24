@@ -1,7 +1,7 @@
 # Holder gold under the 2026-11-20 definition; `ball-plk-fused-v2` for shooter attribution
 
 - **Date:** 2026-11-24
-- **Status:** Proposed
+- **Status:** Accepted (Tomasz, 2026-11-24)
 - **Area:** Data & Eval / Pipeline (ball, L7)
 - **Decider:** Tomasz / Implementer
 
@@ -21,6 +21,5 @@ Dev (final holder gold, commit `bc3b98d`): shooter accuracy 0.455 → **0.727** 
 ## Consequences
 
 - Held-out game `Tnuscrm9RyU` (scored once with Tomasz's approval, 2026-11-24, final holder gold): possession 0.667 → **0.750** and holder F1 0.743 → **0.788** against `ball-plk-fused` (`ball-plk-skalski`: 0.750 / 0.759). Shot F1 (1.000), outcome accuracy (1.000) and shooter accuracy (0.600, 3/5) are unchanged; the two wrong shooters are a crowded layup whose holder is lost before release and a jump shot with the wrong player boxed at release, both detection or tracking misses.
-- To accept: Tomasz's sign-off. The held-out game has been scored and the holder questions are answered.
-- On acceptance, `ball-plk-fused-v2` replaces `ball-plk-fused` as the active Layer 7 config in `docs/architecture.md`.
+- Accepted 2026-11-24: `ball-plk-fused-v2` is the active Layer 7 config (`docs/architecture.md`).
 - Remaining shooter misses (an alley-oop, two crowded-paint layups) and outcome misses come from missed ball or player detections, so they go to a detector round (#40 `plk-r4`), not more Layer 7 logic.
