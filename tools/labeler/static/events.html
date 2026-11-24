@@ -1,0 +1,892 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Gold Shot Events — M9 Verification</title>
+<style>
+  :root {
+    --bg: #161615; --panel: #20201f; --card: #262624; --line: #383835;
+    --text: #f1f0ec; --muted: #9c9b92; --ok: #4fd165; --warn: #f5a623;
+    --blue: #4a90e2; --red: #e55353; --orange: #ff9100;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 13.5px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    display: flex; flex-direction: column; height: 100vh; overflow: hidden;
+  }
+  header {
+    display: flex; gap: 14px; align-items: center; padding: 8px 14px;
+    background: var(--panel); border-bottom: 1px solid var(--line); flex: none;
+  }
+  header b { font-size: 14.5px; letter-spacing: -.01em; }
+  .pill-tabs { display: flex; gap: 4px; background: #141413; padding: 3px; border-radius: 7px; border: 1px solid var(--line); }
+  .pill-tabs button {
+    background: transparent; border: none; color: var(--muted); padding: 4px 10px;
+    border-radius: 5px; font-size: 12.5px; cursor: pointer; font-weight: 500;
+  }
+  .pill-tabs button.on { background: var(--blue); color: #fff; }
+  .pill-tabs button.heldout.on { background: #8e5ce6; color: #fff; }
+  .prog { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--muted); }
+  .bar { width: 120px; height: 7px; background: #2e2e2b; border-radius: 4px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: var(--ok); transition: width .2s; }
+  #saveStatus { margin-left: auto; font-size: 12px; color: var(--muted); }
+  #saveStatus.ok { color: var(--ok); }
+  #saveStatus.err { color: var(--red); }
+
+  main { flex: 1; display: grid; grid-template-columns: 1fr 410px; min-height: 0; }
+  #stage {
+    display: flex; flex-direction: column; padding: 12px 14px 10px; gap: 10px;
+    min-width: 0; min-height: 0; overflow-y: auto;
+  }
+  #seqBar { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; }
+  .seq-btn {
+    background: var(--card); color: var(--muted); border: 1px solid var(--line);
+    border-radius: 6px; padding: 4px 8px; font-size: 12px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 5px;
+  }
+  .seq-btn:hover { border-color: #666; color: var(--text); }
+  .seq-btn.on { border-color: var(--blue); background: #1d2c3f; color: #fff; }
+  .seq-btn.done { border-color: #2f6b3a; }
+  .seq-btn .dot { width: 7px; height: 7px; border-radius: 50%; background: #555; }
+  .seq-btn.done .dot { background: var(--ok); }
+  .seq-btn .cnt { background: #333330; padding: 0 5px; border-radius: 8px; font-size: 11px; color: var(--text); }
+
+  #canvasWrap {
+    position: relative; background: #000; border: 1px solid var(--line);
+    border-radius: 8px; overflow: hidden; width: 100%; aspect-ratio: 16 / 9;
+    max-height: calc(100vh - 305px); display: flex; align-items: center; justify-content: center;
+  }
+  #cv { width: 100%; height: 100%; object-fit: contain; cursor: crosshair; display: block; }
+  #hud {
+    position: absolute; top: 8px; left: 8px; right: 8px; pointer-events: none;
+    display: flex; justify-content: space-between; font-size: 12px;
+  }
+  .hud-tag {
+    background: rgba(15,15,15,.78); padding: 3px 8px; border-radius: 5px;
+    border: 1px solid rgba(255,255,255,.12); font-variant-numeric: tabular-nums;
+  }
+  #clickHint {
+    position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+    background: rgba(20,20,20,.82); color: #ddd; font-size: 11.5px;
+    padding: 3px 10px; border-radius: 12px; pointer-events: none;
+    border: 1px solid rgba(255,145,0,.4);
+  }
+
+  #controls {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+    padding: 9px 12px; display: flex; flex-direction: column; gap: 8px;
+  }
+  .ctrl-row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .ctrl-row button {
+    background: var(--card); color: var(--text); border: 1px solid var(--line);
+    border-radius: 6px; padding: 5px 9px; font-size: 12px; cursor: pointer;
+  }
+  .ctrl-row button:hover { border-color: #666; }
+  .ctrl-row button.on { background: #1f334a; border-color: var(--blue); }
+  .sep { width: 1px; height: 20px; background: var(--line); margin: 0 2px; }
+  #scrubWrap { position: relative; height: 26px; display: flex; align-items: center; }
+  #scrub { width: 100%; margin: 0; accent-color: var(--orange); cursor: pointer; }
+  #markers { position: absolute; left: 8px; right: 8px; top: 0; height: 8px; pointer-events: none; }
+  .mk {
+    position: absolute; top: 0; width: 9px; height: 9px; transform: translateX(-50%) rotate(45deg);
+    border: 1px solid #111;
+  }
+  .mk.made { background: var(--ok); }
+  .mk.missed { background: var(--red); }
+
+  #scoreCompare {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px;
+  }
+  .sb-box { display: flex; flex-direction: column; gap: 4px; }
+  .sb-head { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--muted); }
+  .sb-box canvas { width: auto; max-width: 100%; height: 74px; object-fit: contain; display: block; margin: 0 auto; background: #0b0b0b; border-radius: 5px; border: 1px solid #30302d; }
+
+  #side {
+    background: var(--panel); border-left: 1px solid var(--line);
+    display: flex; flex-direction: column; min-height: 0; overflow-y: auto; padding: 12px 13px; gap: 10px;
+  }
+  details#guide {
+    background: #1b2430; border: 1px solid #2e4866; border-radius: 8px; padding: 8px 11px; font-size: 12.5px;
+  }
+  details#guide summary { cursor: pointer; font-weight: 600; color: #b7d7ff; user-select: none; }
+  details#guide ol { margin: 7px 0 5px; padding-left: 18px; color: #dbe6f2; }
+  details#guide li { margin: 3px 0; }
+  .keys { font-size: 11.5px; color: var(--muted); margin-top: 5px; line-height: 1.6; }
+  kbd { background: #343430; border: 1px solid #4c4c47; border-radius: 3px; padding: 0 5px; font-size: 11px; color: var(--text); }
+
+  #seqMeta {
+    background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px;
+    font-size: 12px; display: flex; flex-direction: column; gap: 3px;
+  }
+  .team-line { display: flex; gap: 10px; flex-wrap: wrap; }
+  .swatch { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+
+  #evList { display: flex; flex-direction: column; gap: 8px; }
+  .ev-card {
+    background: var(--card); border: 1.5px solid var(--line); border-radius: 8px;
+    padding: 9px 10px; display: flex; flex-direction: column; gap: 8px; cursor: pointer;
+  }
+  .ev-card.sel { border-color: var(--orange); background: #2b2924; }
+  .ev-top { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+  .ev-title { font-weight: 600; font-size: 13px; }
+  .badge { font-size: 11px; padding: 1px 7px; border-radius: 10px; font-weight: 600; }
+  .badge.made { background: #1d4425; color: var(--ok); }
+  .badge.missed { background: #4a2020; color: #ff8080; }
+  .btn-group { display: flex; gap: 5px; }
+  .btn-group button {
+    flex: 1; background: #1d1d1b; color: var(--muted); border: 1px solid var(--line);
+    border-radius: 6px; padding: 6px 6px; font-size: 12px; cursor: pointer; font-weight: 600;
+  }
+  .btn-group button.on-made { background: #1d4425; border-color: var(--ok); color: var(--ok); }
+  .btn-group button.on-missed { background: #4a2020; border-color: var(--red); color: #ff8d8d; }
+  .btn-group button.on-opt { background: #1f334a; border-color: var(--blue); color: #fff; }
+  .field-row { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+  .field-row label { width: 62px; color: var(--muted); flex: none; }
+  .field-row select, .field-row input {
+    flex: 1; background: #181816; color: var(--text); border: 1px solid var(--line);
+    border-radius: 5px; padding: 4px 6px; font: inherit; min-width: 0;
+  }
+  .mini-btn {
+    background: #2f2f2c; color: var(--text); border: 1px solid var(--line);
+    border-radius: 5px; padding: 3px 7px; font-size: 11.5px; cursor: pointer; flex: none;
+  }
+  .mini-btn:hover { border-color: #777; }
+  .del-btn { background: #3b1e1e; color: #ff9c9c; border: 1px solid #633; border-radius: 5px; padding: 3px 7px; font-size: 11.5px; cursor: pointer; }
+  .del-btn:hover { border-color: var(--red); }
+
+  .action-row { display: flex; gap: 7px; }
+  .add-btn {
+    flex: 1; background: #262e38; color: #a7d0ff; border: 1px dashed #4a78ad;
+    border-radius: 7px; padding: 8px; font-size: 12.5px; cursor: pointer; font-weight: 600;
+  }
+  .add-btn:hover { border-style: solid; }
+  .verify-btn {
+    flex: 1.3; background: #1e4226; color: #b7f5c2; border: 1px solid #358547;
+    border-radius: 7px; padding: 9px; font-size: 13px; cursor: pointer; font-weight: 700;
+  }
+  .verify-btn:hover { border-color: var(--ok); }
+  .verify-btn.is-done { background: #233326; color: var(--ok); }
+
+  #heldoutBox {
+    margin-top: auto; background: #23202a; border: 1px solid #493b6b;
+    border-radius: 8px; padding: 9px 10px; font-size: 12px; display: flex; flex-direction: column; gap: 6px;
+  }
+  #heldoutBox b { color: #d3c2ff; }
+  .ho-opt { display: flex; gap: 6px; align-items: flex-start; cursor: pointer; color: #ddd; }
+  .ho-opt input { margin-top: 2px; accent-color: #9e74ff; }
+  #emptyEv { color: var(--muted); font-size: 12.5px; padding: 10px; text-align: center; border: 1px dashed var(--line); border-radius: 8px; }
+</style>
+</head>
+<body>
+<header>
+  <b>Gold Shot Events</b>
+  <div class="pill-tabs">
+    <button id="tabDev" class="on">Dev (9 shots)</button>
+    <button id="tabHeld" class="heldout">Held-out (3 shots)</button>
+  </div>
+  <div class="prog">
+    <div class="bar"><i id="barFill" style="width:0%"></i></div>
+    <span id="progTxt">0 / 9 verified</span>
+  </div>
+  <span id="saveStatus">Loading…</span>
+</header>
+
+<main>
+  <section id="stage">
+    <div id="seqBar"></div>
+
+    <div id="canvasWrap">
+      <canvas id="cv" width="1280" height="720"></canvas>
+      <div id="hud">
+        <span class="hud-tag" id="hudLeft">—</span>
+        <span class="hud-tag" id="hudRight">—</span>
+      </div>
+      <div id="clickHint">Tip: click any player box on the video to assign them as shooter</div>
+    </div>
+
+    <div id="controls">
+      <div id="scrubWrap">
+        <div id="markers"></div>
+        <input id="scrub" type="range" min="0" max="1" value="0">
+      </div>
+      <div class="ctrl-row">
+        <button id="btnPlay">▶ Play <kbd>Space</kbd></button>
+        <button id="btnSlow" title="Half speed">0.5×</button>
+        <span class="sep"></span>
+        <button id="btnBack25">-25f</button>
+        <button id="btnBack5">-5f <kbd>←</kbd></button>
+        <button id="btnFwd5">+5f <kbd>→</kbd></button>
+        <button id="btnFwd25">+25f</button>
+        <span class="sep"></span>
+        <button id="btnGoRel">Go to Release</button>
+        <button id="btnGoRim">Go to Rim</button>
+        <span class="sep"></span>
+        <button id="btnBoxes" class="on">Boxes <kbd>B</kbd></button>
+        <button id="btnBall" class="on">Ball dot <kbd>O</kbd></button>
+      </div>
+    </div>
+
+    <div id="scoreCompare">
+      <div class="sb-box">
+        <div class="sb-head">
+          <span><b>Scorebug — Start of shot</b></span>
+          <span id="sbStartF">—</span>
+        </div>
+        <canvas id="sbStart" width="520" height="80"></canvas>
+      </div>
+      <div class="sb-box">
+        <div class="sb-head">
+          <span><b>Scorebug — End of shot</b> <button id="btnSbPos" class="mini-btn" style="margin-left:6px">Region: Bottom-Center</button></span>
+          <span id="sbEndF">—</span>
+        </div>
+        <canvas id="sbEnd" width="520" height="80"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <aside id="side">
+    <details id="guide" open>
+      <summary>How to verify (takes ~2 min for all 9 dev shots)</summary>
+      <ol>
+        <li><b>Play or scrub</b> around each shot's <code>rim_frame</code> (green/red diamond on timeline). Compare the <b>Scorebug Start vs End</b> strip if the net is obstructed.</li>
+        <li>Confirm <b>Made</b> (<kbd>M</kbd>) vs <b>Missed</b> (<kbd>X</kbd>) and <b>2 pt</b> (<kbd>2</kbd>) vs <b>3 pt</b> (<kbd>3</kbd>).</li>
+        <li>Click <b>Go to Release</b>, then <b>click the shooter's box on the video</b> (or pick them in the Shooter dropdown).</li>
+        <li>Delete any false positive, or scrub to a missing shot's rim contact and click <b>+ Add shot</b> (<kbd>A</kbd>).</li>
+        <li>Hit <b>✓ Verified &amp; Next</b> (<kbd>Enter</kbd>). Everything autosaves to <code>data/gold/v1/events.json</code>.</li>
+      </ol>
+      <div class="keys">
+        <kbd>Space</kbd> Play/Pause · <kbd>←</kbd>/<kbd>→</kbd> ±5f · <kbd>Shift+←/→</kbd> ±25f ·
+        <kbd>M</kbd> Made · <kbd>X</kbd> Missed · <kbd>2</kbd>/<kbd>3</kbd> pts ·
+        <kbd>R</kbd> set rim frame · <kbd>S</kbd> set release frame · <kbd>A</kbd> add shot · <kbd>Enter</kbd> verify &amp; next
+      </div>
+    </details>
+
+    <div id="seqMeta"></div>
+
+    <div id="evList"></div>
+
+    <div class="action-row">
+      <button id="btnAdd" class="add-btn">+ Add shot here <kbd>A</kbd></button>
+      <button id="btnVerify" class="verify-btn">✓ Verified &amp; Next <kbd>Enter</kbd></button>
+    </div>
+
+    <div id="heldoutBox">
+      <b>Question 2 — After dev is verified, how should we close M9?</b>
+      <label class="ho-opt">
+        <input type="radio" name="hoPref" value="boxes_only">
+        <span>Run <code>bga eval-ball --held-out --write</code> once on <code>boxes.json</code> only (no held-out event labels needed)</span>
+      </label>
+      <label class="ho-opt">
+        <input type="radio" name="hoPref" value="with_heldout_events">
+        <span>I will also label the 3 <b>Held-out</b> shots (purple tab above) — score held-out on both boxes &amp; events</span>
+      </label>
+      <label class="ho-opt">
+        <input type="radio" name="hoPref" value="defer">
+        <span>Hold off on held-out scoring for now — log dev rows only</span>
+      </label>
+    </div>
+  </aside>
+</main>
+
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+
+let STATE = null;
+let split = "dev"; // "dev" | "heldout"
+let curSeqName = null;
+let curFrameIdx = 0; // index into seq.frames
+let selEvIdx = 0;    // index into events of current sequence
+let playing = false;
+let slowMo = false;
+let playTimer = null;
+let showBoxes = true;
+let showBall = true;
+let sbCorner = 0; // 0: bottom-left, 1: top-left, 2: bottom-right
+const SB_CORNERS = [
+  { name: "Bottom-Center", fx: 0.21, fy: 0.85, fw: 0.58, fh: 0.13 },
+  { name: "Bottom-Left",   fx: 0.00, fy: 0.85, fw: 0.48, fh: 0.14 },
+  { name: "Top-Left",      fx: 0.00, fy: 0.00, fw: 0.48, fh: 0.14 },
+  { name: "Bottom-Right",  fx: 0.52, fy: 0.85, fw: 0.48, fh: 0.14 },
+];
+const imgCache = new Map();
+let hoverTid = null;
+let saveTimer = null;
+
+function seqsForSplit() {
+  return STATE.sequences.filter((s) => (split === "heldout" ? s.held_out : !s.held_out));
+}
+function curSeq() {
+  return STATE.sequences.find((s) => s.sequence === curSeqName);
+}
+function seqEvents(name) {
+  return STATE.events.filter((e) => e.sequence === name);
+}
+function frameUrl(video, f) {
+  return `/api/frame?path=${encodeURIComponent(video)}&idx=${f}`;
+}
+function getFrameImg(video, f) {
+  const key = `${video}#${f}`;
+  let entry = imgCache.get(key);
+  if (!entry) {
+    const img = new Image();
+    entry = { img, loaded: false };
+    img.onload = () => {
+      entry.loaded = true;
+      const s = curSeq();
+      if (s && s.video === video) {
+        if (s.frames[curFrameIdx] === f) drawMain();
+        if (s.frames[0] === f || s.frames[s.frames.length - 1] === f) drawScorebugs();
+      }
+    };
+    img.src = frameUrl(video, f);
+    imgCache.set(key, entry);
+  }
+  return entry;
+}
+
+function prefetchAround(seq, idx) {
+  for (let d = -4; d <= 10; d++) {
+    const j = idx + d;
+    if (j >= 0 && j < seq.frames.length) getFrameImg(seq.video, seq.frames[j]);
+  }
+  getFrameImg(seq.video, seq.frames[0]);
+  getFrameImg(seq.video, seq.frames[seq.frames.length - 1]);
+}
+
+function nearestFrameIdx(seq, targetFrame) {
+  let best = 0, bestD = Infinity;
+  seq.frames.forEach((f, i) => {
+    const d = Math.abs(f - targetFrame);
+    if (d < bestD) { bestD = d; best = i; }
+  });
+  return best;
+}
+
+function scheduleSave() {
+  $("saveStatus").textContent = "Saving…";
+  $("saveStatus").className = "";
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveNow, 180);
+}
+
+async function saveNow() {
+  try {
+    const res = await fetch("/api/events/save", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        events: STATE.events,
+        verified_sequences: STATE.verified_sequences,
+        run_held_out: STATE.run_held_out,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "save failed");
+    STATE.saved = true;
+    $("saveStatus").textContent = `Saved (${data.count} events, ${data.verified} verified) → data/gold/v1/events.json`;
+    $("saveStatus").className = "ok";
+  } catch (err) {
+    $("saveStatus").textContent = `Save error: ${err.message}`;
+    $("saveStatus").className = "err";
+  }
+}
+
+function updateHeader() {
+  const list = seqsForSplit();
+  const vset = new Set(STATE.verified_sequences);
+  const done = list.filter((s) => vset.has(s.sequence)).length;
+  $("progTxt").textContent = `${done} / ${list.length} verified`;
+  $("barFill").style.width = `${list.length ? (100 * done / list.length) : 0}%`;
+  $("tabDev").classList.toggle("on", split === "dev");
+  $("tabHeld").classList.toggle("on", split === "heldout");
+}
+
+function renderSeqBar() {
+  const bar = $("seqBar");
+  bar.innerHTML = "";
+  const vset = new Set(STATE.verified_sequences);
+  seqsForSplit().forEach((s, i) => {
+    const btn = document.createElement("button");
+    btn.className = "seq-btn" + (s.sequence === curSeqName ? " on" : "") + (vset.has(s.sequence) ? " done" : "");
+    const cnt = seqEvents(s.sequence).length;
+    btn.innerHTML = `<span class="dot"></span><span>${i + 1}. ${s.sequence}</span><span class="cnt">${cnt}</span>`;
+    btn.onclick = () => selectSequence(s.sequence);
+    bar.appendChild(btn);
+  });
+}
+
+function selectSequence(name) {
+  stopPlay();
+  curSeqName = name;
+  const s = curSeq();
+  const evs = seqEvents(name);
+  selEvIdx = 0;
+  if (evs.length > 0) {
+    curFrameIdx = nearestFrameIdx(s, evs[0].rim_frame - 10);
+  } else {
+    curFrameIdx = Math.floor(s.frames.length / 2);
+  }
+  $("scrub").max = Math.max(0, s.frames.length - 1);
+  $("scrub").value = curFrameIdx;
+  prefetchAround(s, curFrameIdx);
+  renderSeqBar();
+  renderSeqMeta();
+  renderEvents();
+  renderMarkers();
+  drawMain();
+  drawScorebugs();
+  updateHeader();
+}
+
+function renderSeqMeta() {
+  const s = curSeq();
+  const t0 = (s.frames[0] / s.fps).toFixed(1);
+  const t1 = (s.frames[s.frames.length - 1] / s.fps).toFixed(1);
+  $("seqMeta").innerHTML = `
+    <div><b>${s.sequence}</b> ${s.held_out ? '<span class="badge" style="background:#3e2b66;color:#d6c2ff">HELD-OUT</span>' : ''}
+      <span style="color:var(--muted);float:right">${s.frames.length} frames (${t0}s – ${t1}s)</span>
+    </div>
+    <div class="team-line">
+      <span><span class="swatch" style="background:#f0f0f0"></span><b>Home:</b> ${s.home_team}${s.home_kit ? ` (${s.home_kit})` : ""}</span>
+      <span><span class="swatch" style="background:#e55353"></span><b>Away:</b> ${s.away_team}${s.away_kit ? ` (${s.away_kit})` : ""}</span>
+    </div>
+  `;
+  const isDone = STATE.verified_sequences.includes(s.sequence);
+  const vb = $("btnVerify");
+  vb.classList.toggle("is-done", isDone);
+  vb.innerHTML = isDone ? '✓ Verified (click for Next) <kbd>Enter</kbd>' : '✓ Mark Verified &amp; Next <kbd>Enter</kbd>';
+}
+
+function renderMarkers() {
+  const s = curSeq();
+  const box = $("markers");
+  box.innerHTML = "";
+  const n = Math.max(1, s.frames.length - 1);
+  seqEvents(s.sequence).forEach((ev) => {
+    const idx = nearestFrameIdx(s, ev.rim_frame);
+    const d = document.createElement("div");
+    d.className = `mk ${ev.outcome}`;
+    d.style.left = `${(100 * idx) / n}%`;
+    d.title = `rim f=${ev.rim_frame} (${ev.outcome} ${ev.points}pt)`;
+    box.appendChild(d);
+  });
+}
+
+function shooterLabel(seq, gtTid) {
+  if (gtTid == null) return "— unassigned —";
+  const id = seq.identities.find((p) => p.gt_tid === gtTid);
+  if (!id) return `gt#${gtTid}`;
+  const num = id.number ? `#${id.number} ` : "";
+  const nm = id.name || "(unnamed)";
+  return `${num}${nm} [${id.team}] (gt#${id.gt_tid})`;
+}
+
+function renderEvents() {
+  const s = curSeq();
+  const evs = seqEvents(s.sequence);
+  if (selEvIdx >= evs.length) selEvIdx = Math.max(0, evs.length - 1);
+  const list = $("evList");
+  list.innerHTML = "";
+  if (!evs.length) {
+    list.innerHTML = `<div id="emptyEv">No shots recorded for <b>${s.sequence}</b> yet.<br>Scrub to rim contact and press <kbd>A</kbd> to add one (or mark Verified if this shot has no FG attempt).</div>`;
+    return;
+  }
+  evs.forEach((ev, idx) => {
+    const card = document.createElement("div");
+    card.className = "ev-card" + (idx === selEvIdx ? " sel" : "");
+    card.onclick = (e) => {
+      if (e.target.closest("button, select, input")) return;
+      selEvIdx = idx;
+      renderEvents();
+      drawMain();
+    };
+
+    const opts = [`<option value="">— select or click player on video —</option>`];
+    ["home", "away"].forEach((tm) => {
+      const group = s.identities.filter((p) => p.team === tm);
+      if (!group.length) return;
+      const tname = tm === "home" ? s.home_team : s.away_team;
+      opts.push(`<optgroup label="${tm.toUpperCase()} — ${tname}">`);
+      group.forEach((p) => {
+        const sel = ev.shooter_gt_tid === p.gt_tid ? "selected" : "";
+        const txt = `${p.number ? "#" + p.number + " " : ""}${p.name || "(unnamed)"} (gt#${p.gt_tid})`;
+        opts.push(`<option value="${p.gt_tid}" ${sel}>${txt}</option>`);
+      });
+      opts.push(`</optgroup>`);
+    });
+
+    card.innerHTML = `
+      <div class="ev-top">
+        <span class="ev-title">Shot #${idx + 1}</span>
+        <span class="badge ${ev.outcome}">${ev.outcome.toUpperCase()} · ${ev.points}pt · ${ev.shot_type}</span>
+        <button class="del-btn" data-act="del" title="Delete false positive">Delete</button>
+      </div>
+      <div class="btn-group">
+        <button data-act="made" class="${ev.outcome === "made" ? "on-made" : ""}">✓ Made <kbd>M</kbd></button>
+        <button data-act="missed" class="${ev.outcome === "missed" ? "on-missed" : ""}">✕ Missed <kbd>X</kbd></button>
+      </div>
+      <div class="btn-group">
+        <button data-act="p2" class="${ev.points === 2 ? "on-opt" : ""}">2 pt <kbd>2</kbd></button>
+        <button data-act="p3" class="${ev.points === 3 ? "on-opt" : ""}">3 pt <kbd>3</kbd></button>
+        <button data-act="jump" class="${ev.shot_type === "jump" ? "on-opt" : ""}">Jump</button>
+        <button data-act="layup" class="${ev.shot_type === "layup" ? "on-opt" : ""}">Layup</button>
+      </div>
+      <div class="field-row">
+        <label>Rim f</label>
+        <input type="number" data-act="rimInput" value="${ev.rim_frame}" style="max-width:78px">
+        <button class="mini-btn" data-act="goRim">Go</button>
+        <button class="mini-btn" data-act="setRim" title="Set rim_frame to current frame">Use curr <kbd>R</kbd></button>
+      </div>
+      <div class="field-row">
+        <label>Release f</label>
+        <input type="number" data-act="relInput" value="${ev.release_frame ?? ""}" placeholder="opt" style="max-width:78px">
+        <button class="mini-btn" data-act="goRel">Go</button>
+        <button class="mini-btn" data-act="setRel" title="Set release_frame to current frame">Use curr <kbd>S</kbd></button>
+      </div>
+      <div class="field-row">
+        <label>Shooter</label>
+        <select data-act="shooter">${opts.join("")}</select>
+      </div>
+      <div class="field-row">
+        <label>Team</label>
+        <div class="btn-group" style="flex:1">
+          <button data-act="thome" class="${ev.shooter_team === "home" ? "on-opt" : ""}">Home (${s.home_team.split(" ")[0]})</button>
+          <button data-act="taway" class="${ev.shooter_team === "away" ? "on-opt" : ""}">Away (${s.away_team.split(" ")[0]})</button>
+        </div>
+      </div>
+      <div class="field-row">
+        <label>Note</label>
+        <input type="text" data-act="note" value="${(ev.note || "").replace(/"/g, "&quot;")}" placeholder="optional note">
+      </div>
+    `;
+
+    card.querySelectorAll("[data-act]").forEach((el) => {
+      const act = el.dataset.act;
+      if (act === "made" || act === "missed") {
+        el.onclick = () => { selEvIdx = idx; ev.outcome = act; onEventMutated(); };
+      } else if (act === "p2" || act === "p3") {
+        el.onclick = () => { selEvIdx = idx; ev.points = act === "p2" ? 2 : 3; onEventMutated(); };
+      } else if (act === "jump" || act === "layup") {
+        el.onclick = () => { selEvIdx = idx; ev.shot_type = act; onEventMutated(); };
+      } else if (act === "thome" || act === "taway") {
+        el.onclick = () => { selEvIdx = idx; ev.shooter_team = act === "thome" ? "home" : "away"; onEventMutated(); };
+      } else if (act === "goRim") {
+        el.onclick = () => { selEvIdx = idx; jumpToFrame(ev.rim_frame); renderEvents(); };
+      } else if (act === "setRim") {
+        el.onclick = () => { selEvIdx = idx; ev.rim_frame = s.frames[curFrameIdx]; onEventMutated(); };
+      } else if (act === "goRel") {
+        el.onclick = () => { selEvIdx = idx; jumpToFrame(ev.release_frame ?? Math.max(s.frames[0], ev.rim_frame - 45)); renderEvents(); };
+      } else if (act === "setRel") {
+        el.onclick = () => { selEvIdx = idx; ev.release_frame = s.frames[curFrameIdx]; onEventMutated(); };
+      } else if (act === "rimInput") {
+        el.onchange = () => { ev.rim_frame = parseInt(el.value, 10) || ev.rim_frame; onEventMutated(); };
+      } else if (act === "relInput") {
+        el.onchange = () => { ev.release_frame = el.value ? parseInt(el.value, 10) : null; onEventMutated(); };
+      } else if (act === "shooter") {
+        el.onchange = () => {
+          selEvIdx = idx;
+          const v = el.value ? parseInt(el.value, 10) : null;
+          ev.shooter_gt_tid = v;
+          const p = s.identities.find((x) => x.gt_tid === v);
+          if (p) ev.shooter_team = p.team;
+          onEventMutated();
+        };
+      } else if (act === "note") {
+        el.oninput = () => { ev.note = el.value; scheduleSave(); };
+      } else if (act === "del") {
+        el.onclick = () => {
+          const gi = STATE.events.indexOf(ev);
+          if (gi >= 0) STATE.events.splice(gi, 1);
+          onEventMutated();
+        };
+      }
+    });
+    list.appendChild(card);
+  });
+}
+
+function onEventMutated() {
+  renderSeqBar();
+  renderEvents();
+  renderMarkers();
+  drawMain();
+  scheduleSave();
+}
+
+function jumpToFrame(targetF) {
+  const s = curSeq();
+  curFrameIdx = nearestFrameIdx(s, targetF);
+  $("scrub").value = curFrameIdx;
+  prefetchAround(s, curFrameIdx);
+  drawMain();
+}
+
+function currentBoxes(seq, f) {
+  if (seq.gt_boxes[String(f)]) return seq.gt_boxes[String(f)];
+  const keys = Object.keys(seq.gt_boxes).map(Number);
+  if (!keys.length) return [];
+  const near = keys.reduce((a, b) => (Math.abs(b - f) < Math.abs(a - f) ? b : a));
+  return Math.abs(near - f) <= 10 ? seq.gt_boxes[String(near)] : [];
+}
+
+function drawMain() {
+  const s = curSeq();
+  if (!s) return;
+  const f = s.frames[curFrameIdx];
+  const cv = $("cv");
+  const ctx = cv.getContext("2d");
+  const entry = getFrameImg(s.video, f);
+  const evs = seqEvents(s.sequence);
+  const activeEv = evs[selEvIdx] || null;
+
+  $("hudLeft").textContent = `${s.sequence} · f=${f} (${(f / s.fps).toFixed(2)}s)`;
+  $("hudRight").textContent = activeEv
+    ? `Shot #${selEvIdx + 1}: ${activeEv.outcome.toUpperCase()} ${activeEv.points}pt · Δrim=${f - activeEv.rim_frame >= 0 ? "+" : ""}${f - activeEv.rim_frame}f`
+    : "No shot selected";
+
+  if (!entry.loaded) {
+    ctx.fillStyle = "#111";
+    ctx.fillRect(0, 0, cv.width, cv.height);
+    ctx.fillStyle = "#888";
+    ctx.font = "18px sans-serif";
+    ctx.fillText("Loading frame…", 30, 50);
+    return;
+  }
+  const img = entry.img;
+  if (cv.width !== img.naturalWidth || cv.height !== img.naturalHeight) {
+    cv.width = img.naturalWidth;
+    cv.height = img.naturalHeight;
+  }
+  ctx.drawImage(img, 0, 0);
+
+  if (showBoxes) {
+    const boxes = currentBoxes(s, f);
+    const idMap = new Map(s.identities.map((p) => [p.gt_tid, p]));
+    boxes.forEach(([tid, x1, y1, x2, y2, team]) => {
+      if (team !== "home" && team !== "away") return;
+      const isShooter = activeEv && activeEv.shooter_gt_tid === tid;
+      const isHover = hoverTid === tid;
+      const col = isShooter ? "#ff9100" : team === "home" ? "#f0f0f0" : "#ff5252";
+      ctx.strokeStyle = col;
+      ctx.lineWidth = isShooter ? 6 : isHover ? 5 : 2.5;
+      ctx.strokeRect(x1, y1, x2 - x1, y2 - y1);
+
+      const p = idMap.get(tid);
+      const lbl = p ? `${p.number ? "#" + p.number + " " : ""}${p.name ? p.name.split(" ").slice(-1)[0] : "gt#" + tid}` : `gt#${tid}`;
+      ctx.font = `bold ${isShooter ? 22 : 17}px -apple-system, sans-serif`;
+      const tw = ctx.measureText(lbl).width + 12;
+      const th = isShooter ? 28 : 22;
+      const ly = Math.max(th, y1 - 3);
+      ctx.fillStyle = isShooter ? "#ff9100" : team === "home" ? "rgba(240,240,240,0.9)" : "rgba(220,55,55,0.92)";
+      ctx.fillRect(x1, ly - th, tw, th);
+      ctx.fillStyle = isShooter || team === "home" ? "#111" : "#fff";
+      ctx.fillText(lbl, x1 + 6, ly - 6);
+    });
+  }
+
+  if (showBall && !s.held_out) {
+    const bpx = (STATE.ball_px[s.sequence] || {})[String(f)];
+    if (bpx) {
+      ctx.beginPath();
+      ctx.arc(bpx[0], bpx[1], 14, 0, Math.PI * 2);
+      ctx.strokeStyle = "#ff9100";
+      ctx.lineWidth = 4;
+      ctx.stroke();
+    }
+  }
+}
+
+function drawScorebugs() {
+  const s = curSeq();
+  if (!s) return;
+  const f0 = s.frames[0], f1 = s.frames[s.frames.length - 1];
+  $("sbStartF").textContent = `f=${f0}`;
+  $("sbEndF").textContent = `f=${f1}`;
+  const c = SB_CORNERS[sbCorner];
+  $("btnSbPos").textContent = `Region: ${c.name}`;
+
+  [[f0, $("sbStart")], [f1, $("sbEnd")]].forEach(([f, canvas]) => {
+    const ctx = canvas.getContext("2d");
+    const entry = getFrameImg(s.video, f);
+    ctx.fillStyle = "#0b0b0b";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    if (!entry.loaded) return;
+    const im = entry.img;
+    const sx = Math.round(im.naturalWidth * c.fx);
+    const sy = Math.round(im.naturalHeight * c.fy);
+    const sw = Math.round(im.naturalWidth * c.fw);
+    const sh = Math.round(im.naturalHeight * c.fh);
+    if (canvas.width !== sw || canvas.height !== sh) {
+      canvas.width = sw;
+      canvas.height = sh;
+    }
+    ctx.drawImage(im, sx, sy, sw, sh, 0, 0, sw, sh);
+  });
+}
+
+function hitTestPlayer(clientX, clientY) {
+  const s = curSeq();
+  if (!s) return null;
+  const cv = $("cv");
+  const rect = cv.getBoundingClientRect();
+  const scale = Math.min(rect.width / cv.width, rect.height / cv.height);
+  const ox = (rect.width - cv.width * scale) / 2;
+  const oy = (rect.height - cv.height * scale) / 2;
+  const x = (clientX - rect.left - ox) / scale;
+  const y = (clientY - rect.top - oy) / scale;
+  const boxes = currentBoxes(s, s.frames[curFrameIdx]);
+  let best = null, bestArea = Infinity;
+  boxes.forEach(([tid, x1, y1, x2, y2, team]) => {
+    if (team !== "home" && team !== "away") return;
+    if (x >= x1 && x <= x2 && y >= y1 && y <= y2) {
+      const area = (x2 - x1) * (y2 - y1);
+      if (area < bestArea) { bestArea = area; best = { tid, team }; }
+    }
+  });
+  return best;
+}
+
+function stopPlay() {
+  playing = false;
+  clearInterval(playTimer);
+  $("btnPlay").innerHTML = '▶ Play <kbd>Space</kbd>';
+}
+
+function togglePlay() {
+  if (playing) { stopPlay(); return; }
+  const s = curSeq();
+  playing = true;
+  $("btnPlay").innerHTML = '⏸ Pause <kbd>Space</kbd>';
+  const ms = slowMo ? 200 : 100; // stride 5 of 50fps = 10Hz = 100ms per step
+  playTimer = setInterval(() => {
+    curFrameIdx = (curFrameIdx + 1) % s.frames.length;
+    $("scrub").value = curFrameIdx;
+    prefetchAround(s, curFrameIdx);
+    drawMain();
+  }, ms);
+}
+
+function step(delta) {
+  stopPlay();
+  const s = curSeq();
+  curFrameIdx = Math.max(0, Math.min(s.frames.length - 1, curFrameIdx + delta));
+  $("scrub").value = curFrameIdx;
+  prefetchAround(s, curFrameIdx);
+  drawMain();
+}
+
+function addShotAtCurrent() {
+  const s = curSeq();
+  const f = s.frames[curFrameIdx];
+  const ev = {
+    sequence: s.sequence,
+    youtube_id: s.youtube_id,
+    shot: s.shot,
+    rim_frame: f,
+    release_frame: Math.max(s.frames[0], f - 45),
+    outcome: "made",
+    points: 2,
+    shot_type: "jump",
+    shooter_team: "home",
+    shooter_gt_tid: null,
+    note: "",
+  };
+  STATE.events.push(ev);
+  selEvIdx = seqEvents(s.sequence).length - 1;
+  onEventMutated();
+}
+
+function verifyAndNext() {
+  const s = curSeq();
+  if (!STATE.verified_sequences.includes(s.sequence)) {
+    STATE.verified_sequences.push(s.sequence);
+  }
+  scheduleSave();
+  const list = seqsForSplit();
+  const i = list.findIndex((x) => x.sequence === s.sequence);
+  const next = list[(i + 1) % list.length];
+  if (next && next.sequence !== s.sequence) selectSequence(next.sequence);
+  else { renderSeqBar(); renderSeqMeta(); updateHeader(); }
+}
+
+// Event listeners
+$("tabDev").onclick = () => { split = "dev"; selectSequence(seqsForSplit()[0].sequence); };
+$("tabHeld").onclick = () => { split = "heldout"; selectSequence(seqsForSplit()[0].sequence); };
+$("scrub").oninput = (e) => { stopPlay(); curFrameIdx = parseInt(e.target.value, 10); prefetchAround(curSeq(), curFrameIdx); drawMain(); };
+$("btnPlay").onclick = togglePlay;
+$("btnSlow").onclick = () => { slowMo = !slowMo; $("btnSlow").classList.toggle("on", slowMo); if (playing) { stopPlay(); togglePlay(); } };
+$("btnBack25").onclick = () => step(-5);
+$("btnBack5").onclick = () => step(-1);
+$("btnFwd5").onclick = () => step(1);
+$("btnFwd25").onclick = () => step(5);
+$("btnGoRel").onclick = () => {
+  const ev = seqEvents(curSeqName)[selEvIdx];
+  if (ev) jumpToFrame(ev.release_frame ?? Math.max(curSeq().frames[0], ev.rim_frame - 45));
+};
+$("btnGoRim").onclick = () => {
+  const ev = seqEvents(curSeqName)[selEvIdx];
+  if (ev) jumpToFrame(ev.rim_frame);
+};
+$("btnBoxes").onclick = () => { showBoxes = !showBoxes; $("btnBoxes").classList.toggle("on", showBoxes); drawMain(); };
+$("btnBall").onclick = () => { showBall = !showBall; $("btnBall").classList.toggle("on", showBall); drawMain(); };
+$("btnSbPos").onclick = () => { sbCorner = (sbCorner + 1) % SB_CORNERS.length; drawScorebugs(); };
+$("btnAdd").onclick = addShotAtCurrent;
+$("btnVerify").onclick = verifyAndNext;
+
+$("cv").onmousemove = (e) => {
+  const hit = hitTestPlayer(e.clientX, e.clientY);
+  const tid = hit ? hit.tid : null;
+  if (tid !== hoverTid) { hoverTid = tid; drawMain(); }
+};
+$("cv").onclick = (e) => {
+  const hit = hitTestPlayer(e.clientX, e.clientY);
+  if (!hit) return;
+  const evs = seqEvents(curSeqName);
+  if (!evs.length) return;
+  const ev = evs[selEvIdx];
+  ev.shooter_gt_tid = hit.tid;
+  ev.shooter_team = hit.team;
+  onEventMutated();
+};
+
+document.querySelectorAll('input[name="hoPref"]').forEach((r) => {
+  r.onchange = () => { STATE.run_held_out = r.value; scheduleSave(); };
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.target.matches("input, select, textarea")) return;
+  const evs = seqEvents(curSeqName);
+  const ev = evs[selEvIdx];
+  if (e.code === "Space") { e.preventDefault(); togglePlay(); }
+  else if (e.key === "ArrowLeft") { e.preventDefault(); step(e.shiftKey ? -5 : -1); }
+  else if (e.key === "ArrowRight") { e.preventDefault(); step(e.shiftKey ? 5 : 1); }
+  else if (e.key === "b" || e.key === "B") { $("btnBoxes").click(); }
+  else if (e.key === "o" || e.key === "O") { $("btnBall").click(); }
+  else if (e.key === "a" || e.key === "A") { e.preventDefault(); addShotAtCurrent(); }
+  else if (e.key === "Enter") { e.preventDefault(); verifyAndNext(); }
+  else if (ev && (e.key === "m" || e.key === "M")) { ev.outcome = "made"; onEventMutated(); }
+  else if (ev && (e.key === "x" || e.key === "X")) { ev.outcome = "missed"; onEventMutated(); }
+  else if (ev && e.key === "2") { ev.points = 2; onEventMutated(); }
+  else if (ev && e.key === "3") { ev.points = 3; onEventMutated(); }
+  else if (ev && (e.key === "r" || e.key === "R")) { ev.rim_frame = curSeq().frames[curFrameIdx]; onEventMutated(); }
+  else if (ev && (e.key === "s" || e.key === "S")) { ev.release_frame = curSeq().frames[curFrameIdx]; onEventMutated(); }
+});
+
+(async () => {
+  const res = await fetch("/api/events/state");
+  STATE = await res.json();
+  if (STATE.run_held_out) {
+    const r = document.querySelector(`input[name="hoPref"][value="${STATE.run_held_out}"]`);
+    if (r) r.checked = true;
+  }
+  $("saveStatus").textContent = STATE.saved
+    ? `Loaded saved data/gold/v1/events.json (${STATE.events.length} events)`
+    : `Pre-seeded ${STATE.events.length} draft dev shots (edits autosave to data/gold/v1/events.json)`;
+  selectSequence(seqsForSplit()[0].sequence);
+})();
+</script>
+</body>
+</html>

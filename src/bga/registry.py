@@ -34,6 +34,8 @@ BACKEND_MODULES = (
     "bga.court.rfdetr_keypoint",
     "bga.positions.bbox_bottom",
     "bga.positions.ankles_pose",
+    "bga.ball.skalski",
+    "bga.ball.fused",
 )
 
 
