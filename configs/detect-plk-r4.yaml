@@ -1,0 +1,28 @@
+name: detect-plk-r4
+description: >
+  The baseline with the detect layer swapped for plk-r4, trained by configs/train/detect-rfdetr_torch-plk-r4.yaml:
+  plk-r3-poss's data plus round 4 (228 hard frames, #40). Scored against detect-plk-r3-poss.yaml, which differs only
+  by the detect weights.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: roboflow_keypoints
+    params: {model_id: basketball-court-detection-2/14}
+    weights: pretrained:roboflow/basketball-court-detection-2/14
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r4@14b28a52
+  team:
+    backend: siglip_kmeans
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  track:
+    backend: bytetrack
+  positions:
+    backend: bbox_bottom
+  numbers:
+    backend: smolvlm_ocr
+    params: {model_id: basketball-jersey-numbers-ocr/3}
+    weights: pretrained:roboflow/basketball-jersey-numbers-ocr/3
