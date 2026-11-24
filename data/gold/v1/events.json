@@ -9,7 +9,10 @@
     "4XMD9FWmQws_s78",
     "OSp445e0mXU_s10",
     "OSp445e0mXU_s19",
-    "OSp445e0mXU_s2"
+    "OSp445e0mXU_s2",
+    "Tnuscrm9RyU_s18",
+    "Tnuscrm9RyU_s2",
+    "Tnuscrm9RyU_s33"
   ],
   "events": [
     {
@@ -154,6 +157,72 @@
       "shooter_team": "away",
       "shooter_gt_tid": 1008,
       "note": "Player #42 (who is not marked correctly in frames [1055; 1145]) releases the ball in frame 1070. The ball is not marked correctly in frames 1070 and 1085"
+    },
+    {
+      "sequence": "Tnuscrm9RyU_s18",
+      "youtube_id": "Tnuscrm9RyU",
+      "shot": 18,
+      "rim_frame": 4031,
+      "release_frame": 3965,
+      "outcome": "missed",
+      "points": 3,
+      "shot_type": "jump",
+      "shooter_team": "away",
+      "shooter_gt_tid": 1025,
+      "note": "Player #9 made a shot"
+    },
+    {
+      "sequence": "Tnuscrm9RyU_s18",
+      "youtube_id": "Tnuscrm9RyU",
+      "shot": 18,
+      "rim_frame": 4230,
+      "release_frame": 4230,
+      "outcome": "made",
+      "points": 2,
+      "shot_type": "layup",
+      "shooter_team": "away",
+      "shooter_gt_tid": 1024,
+      "note": "It's dunk"
+    },
+    {
+      "sequence": "Tnuscrm9RyU_s2",
+      "youtube_id": "Tnuscrm9RyU",
+      "shot": 2,
+      "rim_frame": 745,
+      "release_frame": 695,
+      "outcome": "made",
+      "points": 2,
+      "shot_type": "layup",
+      "shooter_team": "away",
+      "shooter_gt_tid": 1010,
+      "note": "Player #0 made the shot"
+    },
+    {
+      "sequence": "Tnuscrm9RyU_s33",
+      "youtube_id": "Tnuscrm9RyU",
+      "shot": 33,
+      "rim_frame": 7115,
+      "release_frame": 7065,
+      "outcome": "missed",
+      "points": 3,
+      "shot_type": "jump",
+      "shooter_team": "home",
+      "shooter_gt_tid": 1031,
+      "note": ""
+    },
+    {
+      "sequence": "Tnuscrm9RyU_s33",
+      "youtube_id": "Tnuscrm9RyU",
+      "shot": 33,
+      "rim_frame": 7330,
+      "release_frame": 7290,
+      "outcome": "made",
+      "points": 2,
+      "shot_type": "jump",
+      "shooter_team": "home",
+      "shooter_gt_tid": 1036,
+      "note": ""
     }
-  ]
+  ],
+  "run_held_out": "with_heldout_events"
 }
