@@ -181,9 +181,11 @@ def set_answer(youtube_id: str, frame: int, holder: int | None, path: Path = OPS
     ]
     if not hits:
         raise ValueError(f"no holder line for {youtube_id} frame {frame}")
-    new = format_op(youtube_id, frame, HolderOp(holder, OpStatus.TOMASZ, hits[0][1].note))
     last, last_op = hits[-1]
-    if last_op.status is OpStatus.TOMASZ and len(hits) > 1:
+    replace = last_op.status is OpStatus.TOMASZ and len(hits) > 1
+    note = last_op.note if replace else hits[0][1].note  # a re-answer keeps the note written on the answer
+    new = format_op(youtube_id, frame, HolderOp(holder, OpStatus.TOMASZ, note))
+    if replace:
         lines[last] = new
     else:
         lines.insert(last + 1, new)

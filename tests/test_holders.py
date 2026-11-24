@@ -90,6 +90,15 @@ class TestHoldersPage:
             1,
         )
 
+    def test_second_answer_keeps_note_written_on_first(self, ops_copy: Path, tmp_path: Path) -> None:
+        out = tmp_path / "holders.json"
+        body = {"youtube_id": FLAGGED[0], "frame": FLAGGED[1], "holder": 8}
+        save_holder_answer(body, ops_path=ops_copy, out_path=out)
+        text = ops_copy.read_text(encoding="utf-8").replace("8 tomasz  # held?", "8 tomasz  # Tomasz: a pass")
+        ops_copy.write_text(text, encoding="utf-8")
+        save_holder_answer(body, ops_path=ops_copy, out_path=out)
+        assert read_ops(ops_copy)[FLAGGED].note == "Tomasz: a pass"
+
     def test_answer_rejects_frame_outside_box_gold(self, ops_copy: Path, tmp_path: Path) -> None:
         with pytest.raises(ValueError, match="not a box-gold frame"):
             save_holder_answer(
