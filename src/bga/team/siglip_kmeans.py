@@ -21,6 +21,7 @@ from bga.detect.base import PERSON_CLASSES
 from bga.device import pick_device
 from bga.registry import register
 from bga.stage import BaseBackend, FrameReader, Sequence
+from bga.team.base import REF_TEAM
 
 
 def central_crop(img: np.ndarray, box: Seq[float], factor: float, cy: float = 0.5) -> np.ndarray:
@@ -214,7 +215,7 @@ class SiglipKMeans(BaseBackend):
                     keys.append((f, i))
                     crops.append(c)
                     fit_mask.append((f - seq.frames[0]) % step == 0)
-        out = {str(f): ["ref" if d[5] == "referee" else "" for d in dets[str(f)]] for f in seq.frames}
+        out = {str(f): [REF_TEAM if d[5] == "referee" else "" for d in dets[str(f)]] for f in seq.frames}
         if len(crops) < 4:
             return {"frames": out, "clusters": {}}
         fit = [c for c, m in zip(crops, fit_mask, strict=True) if m]

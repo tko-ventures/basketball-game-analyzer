@@ -41,12 +41,15 @@ from __future__ import annotations
 import itertools
 import math
 from collections import Counter
-from collections.abc import Sequence
+from collections.abc import Sequence as Seq
+from dataclasses import dataclass
 from typing import Any
 
 import numpy as np
 
 from bga.positions.base import COURT_M, court_scale, project
+from bga.stage import Sequence
+from bga.team.base import REF_TEAM
 
 #: Left and right FIBA basket centres in metres on the 28 x 15 m court (1.575 m from each baseline).
 BASKETS_M: tuple[tuple[float, float], tuple[float, float]] = ((1.575, 7.5), (26.425, 7.5))
@@ -56,6 +59,46 @@ THREE_PT_ARC_M = 6.75
 THREE_PT_CORNER_HALF_W_M = 6.60
 #: Distance from each baseline to where the corner straight line meets the FIBA three-point arc.
 THREE_PT_CORNER_X_M = 2.99
+
+
+@dataclass(frozen=True)
+class BallTrackState:
+    """Per-frame ball, rim, and possession state shared by shot detection and output packing.
+
+    Attributes:
+        frames: Ordered source frame indices of the sequence.
+        ball_px: Image-space ball centre ``[cx, cy] | None`` per frame.
+        ball_conf: Detection confidence of the selected ball per frame (``0.0`` when undetected).
+        holders: Ball holder ``track_id | None`` per frame.
+        teams: Majority team map ``tid -> label`` (``"home"``, ``"away"``, ``"ref"``).
+        rims: Tracked rim box ``[x1, y1, x2, y2, conf]`` per frame.
+
+    """
+
+    frames: list[int]
+    ball_px: dict[int, list[float] | None]
+    ball_conf: dict[int, float]
+    holders: dict[int, int | None]
+    teams: dict[int, str]
+    rims: dict[int, list[float]]
+
+
+def effective_fps(seq: Sequence) -> float:
+    """Sequence sample rate in frames per second, accounting for frame stride.
+
+    Args:
+        seq: Sequence whose ``fps`` and ``frames`` define the sampling cadence.
+
+    Returns:
+        Effective sampled frames per second.
+
+    Examples:
+        >>> effective_fps(Sequence("s", "c", "v.mp4", 1, [0, 5, 10], 50.0))
+        10.0
+
+    """
+    stride = seq.frames[1] - seq.frames[0] if len(seq.frames) > 1 else 1
+    return float(seq.fps) / max(1, stride)
 
 
 def nearest_basket(x_m: float, y_m: float) -> tuple[float, float]:
@@ -112,7 +155,7 @@ def shot_points(x_m: float | None, y_m: float | None, basket: tuple[float, float
     return 3 if near_baseline and abs(y_m - by) >= THREE_PT_CORNER_HALF_W_M else 2
 
 
-def bbox_iou(a: Sequence[float], b: Sequence[float]) -> float:
+def bbox_iou(a: Seq[float], b: Seq[float]) -> float:
     """Intersection-over-Union of two ``[x1, y1, x2, y2]`` boxes.
 
     Args:
@@ -138,7 +181,7 @@ def bbox_iou(a: Sequence[float], b: Sequence[float]) -> float:
     return float(inter / ua) if ua > 0.0 else 0.0
 
 
-def point_to_box_dist(px: float, py: float, box: Sequence[float]) -> float:
+def point_to_box_dist(px: float, py: float, box: Seq[float]) -> float:
     """Euclidean distance from point ``(px, py)`` to the boundary of ``box`` (``0.0`` if inside).
 
     Args:
@@ -169,7 +212,7 @@ def track_teams_map(tracks_out: dict[str, Any], team_out: dict[str, Any] | None)
         team_out: Output dict of ``team`` (``frames`` mapping), or ``None``.
 
     Returns:
-        Mapping ``track_id -> team_label`` (``"home"``, ``"away"``, ``"referee"``, etc.).
+        Mapping ``track_id -> team_label`` (``"home"``, ``"away"``, ``"ref"``, etc.).
 
     Examples:
         >>> t_out = {"frames": {"0": [[1, 0, 0, 10, 20, 0.9, "player", 0]]}}
@@ -244,7 +287,7 @@ def is_referee_track(tid: int, cls: str, teams: dict[int, str]) -> bool:
     Args:
         tid: Track id.
         cls: Detection class string on this frame.
-        teams: Majority team map ``tid -> label``.
+        teams: Majority team map ``tid -> label`` (referee label is ``"ref"``).
 
     Returns:
         ``True`` if referee, ``False`` otherwise.
@@ -252,15 +295,17 @@ def is_referee_track(tid: int, cls: str, teams: dict[int, str]) -> bool:
     Examples:
         >>> is_referee_track(1, "referee", {})
         True
+        >>> is_referee_track(3, "player", {3: "ref"})
+        True
         >>> is_referee_track(2, "player", {2: "home"})
         False
 
     """
-    return cls == "referee" or teams.get(tid) == "referee"
+    return cls == "referee" or teams.get(tid) == REF_TEAM
 
 
 def match_box_to_track(
-    box: Sequence[float],
+    box: Seq[float],
     tracks: list[tuple[int, list[float], str]],
     teams: dict[int, str],
     *,
@@ -350,13 +395,18 @@ def interpolate_ball_2d(
     tracks_by_f: dict[int, list[tuple[int, list[float], str]]],
     ball_px: dict[int, list[float] | None],
     court_out: dict[str, Any] | None,
+    *,
     shot_anchors: dict[int, tuple[float, float]] | None = None,
+    max_interp_frames: int = 125,
+    max_blind_frames: int = 25,
 ) -> dict[int, tuple[float, float] | None]:
     """Compute per-frame 2D ball court coordinates in metres.
 
     While held, the ball takes the holder's 2D court position. Between release and reception (or through a shot's
-    target basket anchor), the 2D position is linearly interpolated in flight. Outside the first and last held
-    anchors, falls back to homography-projected ``ball_px`` or the nearest anchor.
+    target basket anchor), the 2D position is linearly interpolated across spans up to ``max_interp_frames`` when
+    a ball is tracked in the gap (or up to ``max_blind_frames`` for brief blind occlusions). Longer gaps without
+    ball evidence and frames outside the first/last anchors fall back only to homography-projected ``ball_px``
+    (leaving coordinates ``None`` when no ball was detected).
 
     Args:
         frames: Ordered source frame indices of the sequence.
@@ -366,6 +416,8 @@ def interpolate_ball_2d(
         ball_px: Tracked image-space ball centre ``[cx, cy] | None`` per frame.
         court_out: Output dict of ``court`` layer, or ``None``.
         shot_anchors: Optional ``frame -> (bx, by)`` rim anchors inserted at shot rim-contact frames.
+        max_interp_frames: Maximum source-frame span bridged when ball detections exist in the gap.
+        max_blind_frames: Maximum source-frame span bridged when no ball detection exists in the gap.
 
     Returns:
         Mapping ``frame -> (x_m, y_m) | None``.
@@ -394,15 +446,19 @@ def interpolate_ball_2d(
         span = frames[i1] - frames[i0]
         if span <= 0:
             continue
-        for j in range(i0 + 1, i1):
-            t = (frames[j] - frames[i0]) / span
-            out[frames[j]] = (p0[0] + t * (p1[0] - p0[0]), p0[1] + t * (p1[1] - p0[1]))
-    first_i, first_p = anchors[0]
+        has_ball = any(ball_px.get(frames[j]) is not None for j in range(i0 + 1, i1))
+        if span <= max_interp_frames and (has_ball or span <= max_blind_frames):
+            for j in range(i0 + 1, i1):
+                t = (frames[j] - frames[i0]) / span
+                out[frames[j]] = (p0[0] + t * (p1[0] - p0[0]), p0[1] + t * (p1[1] - p0[1]))
+        else:
+            for j in range(i0 + 1, i1):
+                out[frames[j]] = _project_ball_px(ball_px.get(frames[j]), frames[j], court_out)
+    first_i, last_i = anchors[0][0], anchors[-1][0]
     for j in range(first_i):
-        out[frames[j]] = _project_ball_px(ball_px.get(frames[j]), frames[j], court_out) or first_p
-    last_i, last_p = anchors[-1]
+        out[frames[j]] = _project_ball_px(ball_px.get(frames[j]), frames[j], court_out)
     for j in range(last_i + 1, len(frames)):
-        out[frames[j]] = _project_ball_px(ball_px.get(frames[j]), frames[j], court_out) or last_p
+        out[frames[j]] = _project_ball_px(ball_px.get(frames[j]), frames[j], court_out)
     return out
 
 
@@ -437,26 +493,18 @@ def last_holder_before(
 
 
 def pack_output(
-    frames: list[int],
+    state: BallTrackState,
     pos_2d: dict[int, tuple[float, float] | None],
-    ball_px: dict[int, list[float] | None],
-    ball_conf: dict[int, float],
-    holders: dict[int, int | None],
-    teams: dict[int, str],
-    rims: dict[int, list[float]],
     shots: list[dict[str, Any]],
     ms_per_frame: float,
 ) -> dict[str, Any]:
     """Pack per-frame ball/possession predictions and shot events into the Layer 7 output contract.
 
+    ``in_flight`` is ``True`` only when no player holds the ball and a tracked ``ball_px`` exists on that frame.
+
     Args:
-        frames: Ordered source frame indices.
+        state: Per-frame ball, rim, and possession state.
         pos_2d: 2D court coordinates ``(x_m, y_m) | None`` per frame.
-        ball_px: Image-space ball centre ``[cx, cy] | None`` per frame.
-        ball_conf: Detection confidence of the selected ball per frame (``0.0`` when undetected).
-        holders: Holder ``track_id | None`` per frame.
-        teams: Majority team map ``tid -> label``.
-        rims: Tracked rim box ``[x1, y1, x2, y2, conf]`` per frame.
         shots: List of shot-event dicts.
         ms_per_frame: Layer runtime in milliseconds per frame.
 
@@ -464,39 +512,41 @@ def pack_output(
         JSON-serialisable Layer 7 output dictionary.
 
     Examples:
-        >>> out = pack_output([0], {0: (10.0, 7.5)}, {0: [500.0, 300.0]}, {0: 0.8}, {0: 1}, {1: "home"}, {}, [], 0.1)
+        >>> st = BallTrackState([0], {0: [500.0, 300.0]}, {0: 0.8}, {0: 1}, {1: "home"}, {})
+        >>> out = pack_output(st, {0: (10.0, 7.5)}, [], 0.1)
         >>> out["frames"]["0"]["holder_track_id"], out["stats"]["held_frames"]
         (1, 1)
 
     """
     frame_rows: dict[str, dict[str, Any]] = {}
-    held = in_flight = det_n = 0
-    for f in frames:
-        tid = holders.get(f)
+    held = in_flight_n = det_n = 0
+    for f in state.frames:
+        tid = state.holders.get(f)
         pt = pos_2d.get(f)
-        px = ball_px.get(f)
+        px = state.ball_px.get(f)
+        in_flight = tid is None and px is not None
         if tid is not None:
             held += 1
-        else:
-            in_flight += 1
+        elif in_flight:
+            in_flight_n += 1
         if px is not None:
             det_n += 1
         frame_rows[str(f)] = {
             "x_m": round(pt[0], 3) if pt is not None else None,
             "y_m": round(pt[1], 3) if pt is not None else None,
             "ball_px": [round(px[0], 1), round(px[1], 1)] if px is not None else None,
-            "ball_conf": round(float(ball_conf.get(f, 0.0)), 3),
+            "ball_conf": round(float(state.ball_conf.get(f, 0.0)), 3),
             "holder_track_id": tid,
-            "holder_team": teams.get(tid) if tid is not None else None,
-            "in_flight": tid is None,
+            "holder_team": state.teams.get(tid) if tid is not None else None,
+            "in_flight": in_flight,
         }
     return {
         "frames": frame_rows,
         "shots": shots,
-        "rims": {str(f): [round(v, 2) for v in box] for f, box in rims.items()},
+        "rims": {str(f): [round(v, 2) for v in box] for f, box in state.rims.items()},
         "stats": {
             "held_frames": held,
-            "in_flight_frames": in_flight,
+            "in_flight_frames": in_flight_n,
             "ball_det_frames": det_n,
             "shots_made": sum(1 for s in shots if s["outcome"] == "made"),
             "shots_missed": sum(1 for s in shots if s["outcome"] == "missed"),

@@ -7,16 +7,19 @@ Scores any Layer 7 (``ball``) backend against two gold sources:
      ``max(25 px, box_side)``.
    - ``poss_acc`` / ``holder_f1`` / ``team_acc``: predicted ``holder_track_id`` box matched to gold
      ``player-in-possession`` boxes at ``IoU >= 0.5`` (and exact ``None`` match when no holder is labelled).
-2. ``data/gold/v1/events.json`` (optional shot-attempt ground truth):
+2. ``data/gold/v1/events.json`` (verified shot-attempt ground truth):
    - ``shot_f1`` / ``shot_outcome_acc`` / ``shot_shooter_acc``: greedy 1-to-1 matching of predicted shots to
-     gold shots within ``rim_tol_frames`` (default 40 source frames = 0.8 s at 50 fps), checking ``outcome``
-     (``made`` / ``missed``) and shooter track IoU against ``data/gold/v0/<seq>/gt/gt.txt``.
+     gold shots on sequences listed in ``verified_sequences`` within ``rim_tol_frames`` (default 40 source
+     frames = 0.8 s at 50 fps, matching on ``rim_frame`` or ``start_frame`` vs gold ``release_frame`` when
+     ``rim_frame`` is ``None``), checking ``outcome`` (``made`` / ``missed``) and shooter track IoU against
+     ``data/gold/v0/<seq>/gt/gt.txt``.
 
 """
 
 from __future__ import annotations
 
 import json
+import logging
 import math
 import statistics
 from pathlib import Path
@@ -28,11 +31,13 @@ from bga.config import RunConfig
 from bga.eval.scores import read_gt
 from bga.stage import Sequence
 
+log = logging.getLogger(__name__)
+
 #: Default paths for gold v1 boxes and shot events.
 GOLD_V1_BOXES = Path("data/gold/v1/boxes.json")
 GOLD_V1_EVENTS = Path("data/gold/v1/events.json")
 GOLD_V0_ROOT = Path("data/gold/v0")
-#: Maximum source-frame gap between predicted and gold ``rim_frame`` for a shot match (0.8 s at 50 fps).
+#: Maximum source-frame gap between predicted and gold shot frame for a match (0.8 s at 50 fps).
 DEFAULT_RIM_TOL_FRAMES = 40
 
 
@@ -161,15 +166,23 @@ def _match_shots(
     pred_shots: list[dict[str, Any]],
     rim_tol_frames: int,
 ) -> list[tuple[int, int]]:
-    """Greedy closest-``rim_frame`` 1-to-1 matching between gold and predicted shots in one sequence."""
+    """Greedy closest-frame 1-to-1 matching between gold and predicted shots in one sequence.
+
+    Matches predicted ``rim_frame`` against gold ``rim_frame``; when a backend emits ``rim_frame: None``
+    (e.g. a timeout-based miss), falls back to matching ``start_frame`` against gold ``release_frame``.
+
+    """
     pairs: list[tuple[int, int, int]] = []
     for gi, gs in enumerate(gt_shots):
         g_rim = int(gs["rim_frame"])
+        g_rel = int(gs["release_frame"]) if gs.get("release_frame") is not None else g_rim
         for pi, ps in enumerate(pred_shots):
             p_rim = ps.get("rim_frame")
-            if p_rim is None:
-                p_rim = ps.get("end_frame", ps.get("start_frame", 0))
-            dist = abs(int(p_rim) - g_rim)
+            if p_rim is not None:
+                dist = abs(int(p_rim) - g_rim)
+            else:
+                p_start = ps.get("start_frame", ps.get("end_frame", 0))
+                dist = abs(int(p_start) - g_rel)
             if dist <= rim_tol_frames:
                 pairs.append((dist, gi, pi))
     pairs.sort()
@@ -217,6 +230,7 @@ def score_events(
     gold_v0_root: Path = GOLD_V0_ROOT,
     *,
     rim_tol_frames: int = DEFAULT_RIM_TOL_FRAMES,
+    verified_sequences: set[str] | None = None,
 ) -> dict[str, Any]:
     """Score predicted shot attempts, made/missed outcomes, and shooters against ``events.json``.
 
@@ -225,10 +239,12 @@ def score_events(
         tracks_by_seq: Mapping ``seq_name -> {frame_str: track_rows}``.
         gold_events: List of gold shot dicts (``sequence``, ``rim_frame``, ``outcome``, etc.).
         gold_v0_root: Root directory of MOTChallenge gold tracks (for ``shooter_gt_tid`` IoU check).
-        rim_tol_frames: Maximum source-frame difference on ``rim_frame`` for a valid match.
+        rim_tol_frames: Maximum source-frame difference for a valid match.
+        verified_sequences: When provided, restrict both gold events and predictions to these sequence names so
+            unverified prefill drafts are never scored as gold.
 
     Returns:
-        Dict of shot detection, outcome, and shooter metrics (``NaN`` if no gold events cover the run).
+        Dict of shot detection, outcome, and shooter metrics (``NaN`` if no verified gold events cover the run).
 
     Examples:
         >>> ball = {"s1": {"shots": [{"start_frame": 10, "rim_frame": 50, "outcome": "made", "shooter_team": "home"}]}}
@@ -238,14 +254,19 @@ def score_events(
         (1.0, 1.0, 1.0)
 
     """
+    eval_seqs = (
+        {s: v for s, v in ball_by_seq.items() if s in verified_sequences}
+        if verified_sequences is not None
+        else ball_by_seq
+    )
     gt_by_seq: dict[str, list[dict[str, Any]]] = {}
     for ev in gold_events:
-        if ev["sequence"] in ball_by_seq:
+        if ev["sequence"] in eval_seqs:
             gt_by_seq.setdefault(ev["sequence"], []).append(ev)
-    if not gt_by_seq:
+    if not eval_seqs or (verified_sequences is None and not gt_by_seq):
         return {
             "shot_gt": 0,
-            "shot_pred": sum(len(v.get("shots", [])) for v in ball_by_seq.values()),
+            "shot_pred": sum(len(v.get("shots", [])) for v in eval_seqs.values()),
             "shot_p": float("nan"),
             "shot_r": float("nan"),
             "shot_f1": float("nan"),
@@ -254,7 +275,7 @@ def score_events(
         }
 
     tp = fp = fn = out_ok = shoot_ok = shoot_tot = 0
-    for sname, ball_out in ball_by_seq.items():
+    for sname, ball_out in eval_seqs.items():
         gt_list = gt_by_seq.get(sname, [])
         pred_list = ball_out.get("shots", [])
         matches = _match_shots(gt_list, pred_list, rim_tol_frames)
@@ -293,6 +314,9 @@ def score(
 ) -> dict[str, Any]:
     """Run ``cfg`` (reusing cached outputs) and score its ``ball`` layer across all selected sequences.
 
+    Only sequences listed in ``verified_sequences`` in ``events_path`` are included in shot-event metrics;
+    any unverified selected sequence is logged and reported in ``unverified_sequences``.
+
     Args:
         cfg: Run config including ``ball``.
         runs: Root of pipeline run outputs.
@@ -301,7 +325,7 @@ def score(
         gold_v0_root: Path to ``data/gold/v0`` MOTChallenge tracks.
 
     Returns:
-        Combined metrics dict covering ball tracking, possession, shot events, and latency.
+        Combined metrics dict covering ball tracking, possession, shot events, latency, and unverified sequences.
 
     """
     seqs: list[Sequence] = pipeline.run(cfg, runs=runs)
@@ -310,13 +334,25 @@ def score(
     tracks_by_seq = {s.name: pipeline.load_output(cfg, runs, s, track_layer)["frames"] for s in seqs}
 
     gold_frames = json.loads(boxes_path.read_text(encoding="utf-8"))["frames"] if boxes_path.exists() else []
-    gold_events = json.loads(events_path.read_text(encoding="utf-8")).get("events", []) if events_path.exists() else []
+    events_doc = json.loads(events_path.read_text(encoding="utf-8")) if events_path.exists() else {}
+    gold_events = events_doc.get("events", [])
+    verified = set(events_doc.get("verified_sequences", []))
+    unverified = sorted(s for s in ball_by_seq if s not in verified)
+    if events_path.exists() and unverified:
+        log.warning("Skipping shot-event scoring on unverified sequences: %s", ", ".join(unverified))
     box_m = score_boxes(ball_by_seq, tracks_by_seq, gold_frames)
-    ev_m = score_events(ball_by_seq, tracks_by_seq, gold_events, gold_v0_root=gold_v0_root)
+    ev_m = score_events(
+        ball_by_seq,
+        tracks_by_seq,
+        gold_events,
+        gold_v0_root=gold_v0_root,
+        verified_sequences=verified,
+    )
     ms_vals = [float(v.get("ms_per_frame", 0.0)) for v in ball_by_seq.values()]
     return {
         "sequences": len(seqs),
         **box_m,
         **ev_m,
+        "unverified_sequences": unverified,
         "ms_per_frame": statistics.mean(ms_vals) if ms_vals else 0.0,
     }
