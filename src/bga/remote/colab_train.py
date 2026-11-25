@@ -23,7 +23,7 @@ import tarfile
 import tempfile
 import time
 import uuid
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Literal
@@ -47,6 +47,10 @@ POLL_INTERVAL_S: float = 15.0
 POLL_LOG_CHUNK_BYTES: int = 262_144
 #: Consecutive transient poll errors tolerated before aborting (covers laptop sleep / Wi-Fi reconnect).
 MAX_POLL_ERRORS: int = 12
+#: Maximum attempts for post-training download steps so a transient blip cannot lose finished weights.
+DOWNLOAD_RETRIES: int = 4
+#: Base delay (seconds) before retrying a failed post-training download call.
+DOWNLOAD_RETRY_DELAY_S: float = 5.0
 #: Extra packages to install per trainer on top of Colab's preinstalled CUDA PyTorch environment.
 SETUP_PACKAGES: dict[str, tuple[str, ...]] = {
     "train_keypoint": (RFDETR_PACKAGE, RFDETR_PLUS_PACKAGE),
@@ -224,6 +228,19 @@ def _run_colab(
     return subprocess.run(cmd, **kwargs)  # noqa: S603  # resolved colab CLI executable with controlled arguments
 
 
+def _staging_tempdir(preferred_dir: Path | None = None) -> tempfile.TemporaryDirectory[str]:
+    """Create a temporary staging directory, resilient to a deleted inherited ``TMPDIR``."""
+    if preferred_dir is not None:
+        preferred_dir.mkdir(parents=True, exist_ok=True)
+        return tempfile.TemporaryDirectory(prefix=".bga-tmp-", dir=preferred_dir)
+    default_tmp = Path(tempfile.gettempdir())
+    if default_tmp.is_dir():
+        return tempfile.TemporaryDirectory(prefix="bga-colab-")
+    fallback = Path.home() / ".cache" / "bga" / "tmp"
+    fallback.mkdir(parents=True, exist_ok=True)
+    return tempfile.TemporaryDirectory(prefix="bga-colab-", dir=fallback)
+
+
 def get_usage() -> UsageInfo | None:
     """Query Colab Compute Unit balance and rate via ``colab usage``.
 
@@ -309,7 +326,7 @@ def upload_file(
         _run_colab(["upload", "-s", session, str(local_path), remote_path])
         return [remote_path]
     parts: list[str] = []
-    with tempfile.TemporaryDirectory() as tmp, local_path.open("rb") as src:
+    with _staging_tempdir() as tmp, local_path.open("rb") as src:
         idx = 0
         while True:
             data = src.read(chunk_bytes)
@@ -664,6 +681,36 @@ def _wait_for_remote_training(
         time.sleep(poll_interval_s)
 
 
+def _retry_transfer[T](
+    session: str,
+    label: str,
+    action: Callable[[], T],
+    *,
+    max_attempts: int = DOWNLOAD_RETRIES,
+    retry_delay_s: float = DOWNLOAD_RETRY_DELAY_S,
+) -> T:
+    """Retry a post-training Colab RPC or download on transient proxy/network errors."""
+    for attempt in range(1, max_attempts + 1):
+        try:
+            return action()
+        except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as exc:
+            if attempt >= max_attempts:
+                raise
+            if _session_alive(session) is False:
+                raise RuntimeError(f"Colab session {session} is no longer active on server during {label}") from exc
+            delay = retry_delay_s * attempt
+            log.warning(
+                "transient Colab error during %s on %s (%d/%d); retrying in %.0fs",
+                label,
+                session,
+                attempt,
+                max_attempts,
+                delay,
+            )
+            time.sleep(delay)
+    raise AssertionError("unreachable")  # pragma: no cover
+
+
 def _remote_prepare_downloads_script(filenames: Sequence[str], chunk_bytes: int) -> str:
     """Return a remote script that chunks oversized outputs and writes ``download/_manifest.json``."""
     names_json = json.dumps(list(filenames))
@@ -710,6 +757,16 @@ for name in {names_json}:
 """.lstrip()
 
 
+def _download_one(session: str, remote_path: str, local_path: Path) -> None:
+    """Download a single remote path into ``local_path``, retrying transient proxy failures."""
+
+    def _pull() -> None:
+        local_path.unlink(missing_ok=True)
+        _run_colab(["download", "-s", session, remote_path, str(local_path)], cmd_timeout=180.0)
+
+    _retry_transfer(session, f"download {remote_path}", _pull)
+
+
 def download_outputs(
     session: str,
     filenames: Sequence[str],
@@ -734,24 +791,31 @@ def download_outputs(
 
     """
     local_dir.mkdir(parents=True, exist_ok=True)
-    _exec_code(session, _remote_prepare_downloads_script(filenames, chunk_bytes), timeout=120.0)
+    _retry_transfer(
+        session,
+        "prepare downloads",
+        lambda: _exec_code(session, _remote_prepare_downloads_script(filenames, chunk_bytes), timeout=120.0),
+    )
     manifest_local = local_dir / "_manifest.json"
-    _run_colab(["download", "-s", session, f"{REMOTE_ROOT}/download/_manifest.json", str(manifest_local)])
+    _download_one(session, f"{REMOTE_ROOT}/download/_manifest.json", manifest_local)
     manifest: dict[str, Any] = json.loads(manifest_local.read_text())
     manifest_local.unlink(missing_ok=True)
 
-    with tempfile.TemporaryDirectory() as tmp:
+    with _staging_tempdir(local_dir) as tmp:
+        tmp_dir = Path(tmp)
         for name, remote_parts in manifest.get("files", {}).items():
             dst = local_dir / name
             if len(remote_parts) == 1:
-                _run_colab(["download", "-s", session, remote_parts[0], str(dst)])
+                _download_one(session, remote_parts[0], dst)
                 continue
-            with dst.open("wb") as out_f:
+            staged = tmp_dir / name
+            with staged.open("wb") as out_f:
                 for idx, part_remote in enumerate(remote_parts):
-                    part_local = Path(tmp) / f"{name}.part{idx:03d}"
-                    _run_colab(["download", "-s", session, part_remote, str(part_local)])
+                    part_local = tmp_dir / f"{name}.part{idx:03d}"
+                    _download_one(session, part_remote, part_local)
                     out_f.write(part_local.read_bytes())
                     part_local.unlink()
+            staged.replace(dst)
     return manifest
 
 
@@ -781,7 +845,7 @@ def _upload_inputs(session: str, spec: ColabJobSpec) -> dict[str, Any]:
         timeout=60.0,
     )
     chunks: dict[str, list[str]] = {}
-    with tempfile.TemporaryDirectory() as tmp:
+    with _staging_tempdir() as tmp:
         tmp_dir = Path(tmp)
         src_tar = pack_directory(ROOT / "src/bga", tmp_dir / "bga_src.tar.gz", compress=True, arcroot="bga")
         src_remote = f"{REMOTE_ROOT}/upload/bga_src.tar.gz"

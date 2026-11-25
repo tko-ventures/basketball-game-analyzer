@@ -57,6 +57,7 @@ class FakeColabCli:
         remote_files: dict[str, bytes] | None = None,
         fail_on: str | None = None,
         poll_responses: list[str | Exception] | None = None,
+        download_errors: list[Exception | None] | None = None,
         sessions_stdout: str | None = None,
         sessions_returncode: int = 0,
     ) -> None:
@@ -66,6 +67,7 @@ class FakeColabCli:
         self.usage_outputs = list(usage_outputs or [])
         self.fail_on = fail_on
         self.poll_responses: list[str | Exception] = list(poll_responses or [])
+        self.download_errors: list[Exception | None] = list(download_errors or [])
         self.sessions_stdout = sessions_stdout
         self.sessions_returncode = sessions_returncode
         self.last_session: str = ""
@@ -102,6 +104,10 @@ class FakeColabCli:
             self.uploaded[remote_path] = local_path.read_bytes()
             return subprocess.CompletedProcess(cmd, 0, stdout="", stderr="")
         if subcmd == "download":
+            if self.download_errors:
+                err = self.download_errors.pop(0)
+                if err is not None:
+                    raise err
             remote_path, local_path = args[3], Path(args[4])
             local_path.write_bytes(self.remote_files[remote_path])
             return subprocess.CompletedProcess(cmd, 0, stdout="", stderr="")
@@ -241,6 +247,20 @@ class TestPackAndChunkTransfer:
         ]
         assert b"".join(fake.uploaded[p] for p in parts) == b"abcdefghij"
 
+    def test_upload_file_falls_back_when_tmpdir_vanished(
+        self, tmp_path: Path, patch_colab, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        fake = patch_colab(FakeColabCli())
+        monkeypatch.setattr(colab_train.tempfile, "gettempdir", lambda: str(tmp_path / "deleted-tmpdir"))
+        monkeypatch.setattr(colab_train.Path, "home", classmethod(lambda _cls: tmp_path))
+        payload = tmp_path / "big.bin"
+        payload.write_bytes(b"abcdefgh")
+
+        parts = colab_train.upload_file("sess", payload, "content/bga_run/upload/big.bin", chunk_bytes=4)
+
+        assert len(parts) == 2
+        assert b"".join(fake.uploaded[p] for p in parts) == b"abcdefgh"
+
     def test_download_outputs_reassembles_chunked_file(self, tmp_path: Path, patch_colab) -> None:
         manifest = {
             "files": {
@@ -272,10 +292,49 @@ class TestPackAndChunkTransfer:
         assert json.loads((out_dir / "result.json").read_text()) == {"seconds": 12.0}
         assert fake.calls[0][0] == "exec"
 
+    def test_download_outputs_ignores_deleted_tmpdir_and_retries_transient_errors(
+        self, tmp_path: Path, patch_colab, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        manifest = {
+            "files": {
+                "weights.pth": [
+                    f"{colab_train.REMOTE_ROOT}/download/weights.pth.part000",
+                    f"{colab_train.REMOTE_ROOT}/download/weights.pth.part001",
+                ],
+            },
+            "missing": [],
+            "error": None,
+        }
+        fake = patch_colab(
+            FakeColabCli(
+                remote_files={
+                    f"{colab_train.REMOTE_ROOT}/download/_manifest.json": json.dumps(manifest).encode(),
+                    f"{colab_train.REMOTE_ROOT}/download/weights.pth.part000": b"hello-",
+                    f"{colab_train.REMOTE_ROOT}/download/weights.pth.part001": b"world",
+                },
+                download_errors=[
+                    None,  # _manifest.json succeeds
+                    subprocess.CalledProcessError(1, ["colab", "download"]),  # part000 transient drop
+                    None,  # part000 retry succeeds
+                    subprocess.TimeoutExpired(["colab", "download"], 180.0),  # part001 timeout
+                    None,  # part001 retry succeeds
+                ],
+                sessions_stdout="[sess] gpu-l4-abc | Hardware: L4 | Shape: Standard | Variant: GPU\n",
+            )
+        )
+        monkeypatch.setattr(colab_train.tempfile, "gettempdir", lambda: str(tmp_path / "deleted-tmpdir"))
+
+        out_dir = tmp_path / "out"
+        pulled = colab_train.download_outputs("sess", ("weights.pth",), out_dir, chunk_bytes=6)
+
+        assert pulled["missing"] == []
+        assert (out_dir / "weights.pth").read_bytes() == b"hello-world"
+        assert sum(call[0] == "sessions" for call in fake.calls) == 2
+
 
 class TestWaitForRemoteTraining:
     def test_streams_multibyte_utf8_chunks_until_done(self, patch_colab, capsys: pytest.CaptureFixture[str]) -> None:
-        raw = "┏━┓ ok\n".encode()
+        raw = "\u250f\u2501\u2513 ok\n".encode()
         split = 4  # splits the 3-byte box-drawing character across polls
         patch_colab(
             FakeColabCli(
@@ -289,7 +348,7 @@ class TestWaitForRemoteTraining:
         rc = colab_train._wait_for_remote_training("sess", timeout_s=60.0, poll_interval_s=0.0)
 
         assert rc == 0
-        assert capsys.readouterr().out == "┏━┓ ok\n"
+        assert capsys.readouterr().out == "\u250f\u2501\u2513 ok\n"
 
     def test_recovers_from_transient_poll_errors_when_session_stays_alive(
         self, patch_colab, capsys: pytest.CaptureFixture[str]
