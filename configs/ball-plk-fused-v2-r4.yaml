@@ -1,8 +1,8 @@
 name: ball-plk-fused-v2-r4
 description: >
-  ball-plk-fused-v2 (the active Layer 7 config) with the detect layer swapped for plk-r4 (#40: round 4 of hard
-  frames, crowded paint and airborne shooters). Scored against ball-plk-fused-v2, which differs only by the detect
-  weights.
+  ball-plk-fused-v2 (the active Layer 7 config) with the detect layer swapped for plk-r4-l4 (#40: round 4 of hard
+  frames, crowded paint and airborne shooters; trained on Colab L4 via configs/train/detect-rfdetr_torch-plk-r4-l4.yaml).
+  Scored against ball-plk-fused-v2, which differs only by the detect weights.
 layers:
   shots:
     backend: gold
@@ -14,7 +14,7 @@ layers:
   detect:
     backend: rfdetr_torch
     params: {confidence: 0.05}
-    weights: detect/rfdetr_torch/plk-r4@14b28a52
+    weights: detect/rfdetr_torch/plk-r4-l4@c5abaa28
   team:
     backend: siglip_kmeans
     params: {seed: 0, fit_fps: 5.0}
