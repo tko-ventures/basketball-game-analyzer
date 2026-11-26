@@ -246,7 +246,7 @@ flowchart LR
     end
 
     subgraph remote_exec["«Remote Training Backends»"]
-        colab_r["«Component»\nColab Runner\n(remote/colab_train.py)\nChunked 15MiB transfers,\nlive logs, CU usage, auto-stop"]:::runner
+        colab_r["«Component»\nColab Runner\n(remote/colab_train.py)\nChunked 15MiB transfers,\ndetached trainer + polled logs,\nCU usage, auto-stop"]:::runner
 
         modal_r["«Component»\nModal Runner\n(remote/modal_train.py)\nDetached / --wait / --resume,\nmulti-GPU DDP, periodic vol commit"]:::runner
 
