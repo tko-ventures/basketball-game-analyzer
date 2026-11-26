@@ -12,12 +12,12 @@
    "end": 3980,
    "fps": 50.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 3800,
-     "rim_frame": 3850,
-     "outcome": "missed",
+     "rim_frame": 3835,
+     "outcome": "made",
      "points": 2,
      "shooter": {
       "xyxy": [
@@ -34,7 +34,7 @@
    "frames": [
     {
      "frame": 3590,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        407.2,
@@ -53,14 +53,27 @@
       },
       "note": "ball at raised hand of light player in box 6, looks like a handoff or short pass from 23 arriving; control unclear"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      416.4,
+      494.1,
+      438.4,
+      516.1
+     ],
+     "holder": {
+      "xyxy": [
+       342.0,
+       439.2,
+       457.8,
+       591.9
+      ],
+      "team": "home"
+     },
      "origin": "flagged",
      "note": "ball at raised hand of light player in box 6, looks like a handoff or short pass from 23 arriving; control unclear"
     },
     {
      "frame": 3640,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        671.0,
@@ -79,14 +92,27 @@
       },
       "note": "low dribble between light player 8 and dark defender 7 who reaches for it; light player 6 also close, dribbler not certain"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      671.0,
+      518.3,
+      694.6,
+      543.4
+     ],
+     "holder": {
+      "xyxy": [
+       599.8,
+       400.4,
+       692.5,
+       560.5
+      ],
+      "team": "home"
+     },
      "origin": "flagged",
      "note": "low dribble between light player 8 and dark defender 7 who reaches for it; light player 6 also close, dribbler not certain"
     },
     {
      "frame": 3690,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        779.9,
@@ -125,7 +151,7 @@
     },
     {
      "frame": 3740,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1026.0,
@@ -144,14 +170,27 @@
       },
       "note": "light driver squeezed between dark players goes up to shoot; boxes 6, 7 and 8 overlap and holder is mostly hidden, box number uncertain"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      1089.5,
+      553.9,
+      1111.5,
+      575.9
+     ],
+     "holder": {
+      "xyxy": [
+       1028.7,
+       479.0,
+       1133.6,
+       688.8
+      ],
+      "team": "home"
+     },
      "origin": "flagged",
      "note": "light driver squeezed between dark players goes up to shoot; boxes 6, 7 and 8 overlap and holder is mostly hidden, box number uncertain"
     },
     {
      "frame": 3790,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1000.6,
@@ -170,14 +209,27 @@
       },
       "note": "23 rising for jump shot, ball above head at release point; b is on an arm; boxes 7 and 9 both cover the shooter, cannot tell which is his"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      1000.6,
+      422.5,
+      1025.5,
+      451.9
+     ],
+     "holder": {
+      "xyxy": [
+       954.7,
+       443.5,
+       1061.2,
+       691.1
+      ],
+      "team": "home"
+     },
      "origin": "flagged",
      "note": "23 rising for jump shot, ball above head at release point; b is on an arm; boxes 7 and 9 both cover the shooter, cannot tell which is his"
     },
     {
      "frame": 3840,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1227.5,
@@ -200,7 +252,7 @@
     },
     {
      "frame": 3890,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
      "ball": null,
      "holder": null,
@@ -209,7 +261,7 @@
     },
     {
      "frame": 3940,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1189.7,
@@ -228,7 +280,12 @@
       },
       "note": "after made basket dark player in box 7 gathers the bouncing ball next to his hand; not yet clearly controlled and ball may not be in play"
      },
-     "ball": null,
+     "ball": [
+      1189.7,
+      511.2,
+      1219.2,
+      544.5
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "after made basket dark player in box 7 gathers the bouncing ball next to his hand; not yet clearly controlled and ball may not be in play"
@@ -245,12 +302,29 @@
    "end": 8128,
    "fps": 50.0,
    "held_out": false,
-   "events_status": "first_pass",
-   "events": [],
+   "events_status": "done",
+   "events": [
+    {
+     "release_frame": 7950,
+     "rim_frame": 7950,
+     "outcome": "missed",
+     "points": 3,
+     "shooter": {
+      "xyxy": [
+       296.1,
+       510.3,
+       402.6,
+       809.0
+      ],
+      "team": "home"
+     },
+     "note": "Shooter is player 55, shot blocked right after release by defending player 10"
+    }
+   ],
    "frames": [
     {
      "frame": 7785,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        436.1,
@@ -268,7 +342,7 @@
     },
     {
      "frame": 7835,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1080.9,
@@ -307,7 +381,7 @@
     },
     {
      "frame": 7885,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        876.4,
@@ -326,14 +400,27 @@
       },
       "note": "jump shot, ball on top of raised hands at release point; boxes 6, 7, 8 and 9 overlap"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      876.4,
+      404.0,
+      906.3,
+      433.6
+     ],
+     "holder": {
+      "xyxy": [
+       844.4,
+       409.8,
+       922.8,
+       627.7
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "jump shot, ball on top of raised hands at release point; boxes 6, 7, 8 and 9 overlap"
     },
     {
      "frame": 7935,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        339.3,
@@ -372,7 +459,7 @@
     },
     {
      "frame": 7985,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        145.4,
@@ -395,7 +482,7 @@
     },
     {
      "frame": 8035,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
      "ball": null,
      "holder": null,
@@ -404,7 +491,7 @@
     },
     {
      "frame": 8085,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
      "ball": null,
      "holder": null,
@@ -423,21 +510,29 @@
    "end": 12100,
    "fps": 50.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 11955,
-     "rim_frame": 11975,
-     "outcome": "missed",
+     "rim_frame": 11960,
+     "outcome": "made",
      "points": 2,
-     "shooter": null,
-     "note": ""
+     "shooter": {
+      "xyxy": [
+       652.6,
+       284.9,
+       758.4,
+       531.4
+      ],
+      "team": "home"
+     },
+     "note": "Shooter is player 9"
     }
    ],
    "frames": [
     {
      "frame": 11705,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1588.1,
@@ -476,16 +571,21 @@
     },
     {
      "frame": 11755,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
-     "ball": null,
+     "ball": [
+      1466.7,
+      430.6,
+      1488.7,
+      452.6
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "wide view; ball not found in the cluster on the left"
     },
     {
      "frame": 11805,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1334.8,
@@ -504,14 +604,27 @@
       },
       "note": "light player dribbling low with dark defender on his back; boxes 8 and 9 nearly coincide, dribbler believed to be 8 (taller box reaching the floor)"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      1334.8,
+      490.2,
+      1362.0,
+      517.5
+     ],
+     "holder": {
+      "xyxy": [
+       1263.9,
+       389.9,
+       1372.4,
+       536.7
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "light player dribbling low with dark defender on his back; boxes 8 and 9 nearly coincide, dribbler believed to be 8 (taller box reaching the floor)"
     },
     {
      "frame": 11855,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1033.9,
@@ -550,7 +663,7 @@
     },
     {
      "frame": 11905,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        642.1,
@@ -569,14 +682,27 @@
       },
       "note": "dark 9 lifts ball for a layup in a crowd; boxes 3 and 6 overlap, holder believed to be 6"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      642.1,
+      436.4,
+      677.4,
+      467.3
+     ],
+     "holder": {
+      "xyxy": [
+       626.2,
+       450.4,
+       721.5,
+       658.2
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "dark 9 lifts ball for a layup in a crowd; boxes 3 and 6 overlap, holder believed to be 6"
     },
     {
      "frame": 11955,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        691.8,
@@ -599,7 +725,7 @@
     },
     {
      "frame": 12005,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        731.7,
@@ -610,14 +736,19 @@
       "holder": null,
       "note": "two rings; b under the net looks like the ball dropping (rebound), a at 23's hands looks like hands only"
      },
-     "ball": null,
+     "ball": [
+      731.7,
+      356.7,
+      757.5,
+      388.1
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "two rings; b under the net looks like the ball dropping (rebound), a at 23's hands looks like hands only"
     },
     {
      "frame": 12055,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        569.8,
@@ -642,15 +773,7 @@
       596.5,
       527.4
      ],
-     "holder": {
-      "xyxy": [
-       551.6,
-       434.1,
-       661.8,
-       642.9
-      ],
-      "team": "home"
-     },
+     "holder": null,
      "origin": "first_pass",
      "note": "light player holds rebound at hip"
     }
@@ -666,21 +789,29 @@
    "end": 17063,
    "fps": 50.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 16915,
      "rim_frame": 16975,
      "outcome": "made",
-     "points": 2,
-     "shooter": null,
-     "note": ""
+     "points": 3,
+     "shooter": {
+      "xyxy": [
+       893.0,
+       445.7,
+       986.7,
+       833.2
+      ],
+      "team": "away"
+     },
+     "note": "Shooter is player 1"
     }
    ],
    "frames": [
     {
      "frame": 16655,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        834.9,
@@ -699,14 +830,27 @@
       },
       "note": "ball in a crowd of four near 23's hands, leaves to the left 0.2 s later (pass or deflection); boxes 7, 8 and 9 overlap; b is a hand of light player 1"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      670.1,
+      620.1,
+      692.1,
+      642.1
+     ],
+     "holder": {
+      "xyxy": [
+       657.2,
+       559.9,
+       766.2,
+       828.1
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "ball in a crowd of four near 23's hands, leaves to the left 0.2 s later (pass or deflection); boxes 7, 8 and 9 overlap; b is a hand of light player 1"
     },
     {
      "frame": 16705,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": null,
       "holder": {
@@ -720,14 +864,19 @@
       },
       "note": "ring a is on the contact between 23 and 15, no ball there; ball seems to be in the hands of dark player in box 2 top-left, hard to see"
      },
-     "ball": null,
+     "ball": [
+      657.7,
+      347.7,
+      679.7,
+      369.7
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "ring a is on the contact between 23 and 15, no ball there; ball seems to be in the hands of dark player in box 2 top-left, hard to see"
     },
     {
      "frame": 16755,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": null,
       "holder": {
@@ -741,14 +890,27 @@
       },
       "note": "no ring and ball not clearly seen; dark player in box 8 appears to be the dribbler, guarded by light 9"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      775.5,
+      482.1,
+      797.5,
+      504.1
+     ],
+     "holder": {
+      "xyxy": [
+       788.9,
+       359.3,
+       887.4,
+       493.8
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "no ring and ball not clearly seen; dark player in box 8 appears to be the dribbler, guarded by light 9"
     },
     {
      "frame": 16805,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        863.1,
@@ -787,7 +949,7 @@
     },
     {
      "frame": 16855,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1113.3,
@@ -798,14 +960,19 @@
       "holder": null,
       "note": "ball in a crowd in the lane after the drive, a holder may exist among boxes 5, 6 and 7 but cannot be made out; b is the hand of light player 4"
      },
-     "ball": null,
+     "ball": [
+      1113.3,
+      517.6,
+      1146.7,
+      546.8
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "ball in a crowd in the lane after the drive, a holder may exist among boxes 5, 6 and 7 but cannot be made out; b is the hand of light player 4"
     },
     {
      "frame": 16905,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        918.0,
@@ -844,7 +1011,7 @@
     },
     {
      "frame": 16955,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1147.9,
@@ -867,9 +1034,14 @@
     },
     {
      "frame": 17005,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
-     "ball": null,
+     "ball": [
+      1247.5,
+      560.4,
+      1269.5,
+      582.4
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "wide view; ball not found, referee signals with both arms up so ball is probably under the basket"
@@ -886,7 +1058,7 @@
    "end": 21680,
    "fps": 50.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 21570,
@@ -902,13 +1074,13 @@
       ],
       "team": "away"
      },
-     "note": ""
+     "note": "It's a dunk by player 9, directly from an alley oop pass"
     }
    ],
    "frames": [
     {
      "frame": 21270,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1296.8,
@@ -931,7 +1103,7 @@
     },
     {
      "frame": 21320,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        782.1,
@@ -949,7 +1121,7 @@
     },
     {
      "frame": 21370,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        895.0,
@@ -988,7 +1160,7 @@
     },
     {
      "frame": 21420,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        909.9,
@@ -999,14 +1171,19 @@
       "holder": null,
       "note": "ball between dark 2 and dark 4, looks like a short pass in flight but could still be at 2's hand"
      },
-     "ball": null,
+     "ball": [
+      909.9,
+      464.4,
+      934.3,
+      485.9
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "ball between dark 2 and dark 4, looks like a short pass in flight but could still be at 2's hand"
     },
     {
      "frame": 21470,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        896.4,
@@ -1025,23 +1202,49 @@
       },
       "note": "two dark players in line, boxes 2 and 6 overlap; ball at hip of front player 6 or knee of rear player 2, cannot tell who dribbles"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      761.3,
+      447.1,
+      783.3,
+      470.4
+     ],
+     "holder": {
+      "xyxy": [
+       712.1,
+       395.7,
+       787.5,
+       540.3
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "two dark players in line, boxes 2 and 6 overlap; ball at hip of front player 6 or knee of rear player 2, cannot tell who dribbles"
     },
     {
      "frame": 21520,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
-     "ball": null,
-     "holder": null,
+     "ball": [
+      1106.9,
+      312.9,
+      1127.7,
+      339.7
+     ],
+     "holder": {
+      "xyxy": [
+       1096.1,
+       309.3,
+       1144.7,
+       483.6
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "ring a sits on the head of light player 6; game ball not visible in the picture"
     },
     {
      "frame": 21570,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1292.2,
@@ -1052,14 +1255,27 @@
       "holder": null,
       "note": "ball at the rim or in the net after dark 8's layup or dunk; could still be on his hand; b looks like rim padding"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      1292.2,
+      265.2,
+      1324.4,
+      300.1
+     ],
+     "holder": {
+      "xyxy": [
+       1272.6,
+       329.8,
+       1345.7,
+       563.8
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "ball at the rim or in the net after dark 8's layup or dunk; could still be on his hand; b looks like rim padding"
     },
     {
      "frame": 21620,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1372.4,
@@ -1084,15 +1300,7 @@
       1398.8,
       461.5
      ],
-     "holder": {
-      "xyxy": [
-       1341.1,
-       412.9,
-       1433.2,
-       620.5
-      ],
-      "team": "home"
-     },
+     "holder": null,
      "origin": "first_pass",
      "note": "inbounder holds ball behind the baseline"
     }
@@ -1108,21 +1316,29 @@
    "end": 26795,
    "fps": 50.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
-     "release_frame": 26660,
-     "rim_frame": 26710,
-     "outcome": "missed",
-     "points": 2,
-     "shooter": null,
-     "note": ""
+     "release_frame": 26630,
+     "rim_frame": 26690,
+     "outcome": "made",
+     "points": 3,
+     "shooter": {
+      "xyxy": [
+       546.1,
+       258.5,
+       622.7,
+       501.6
+      ],
+      "team": "away"
+     },
+     "note": "Shooter is player 21"
     }
    ],
    "frames": [
     {
      "frame": 26435,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        658.5,
@@ -1141,14 +1357,27 @@
       },
       "note": "dark player bent forward dribbling with light 9 on him; rings a and b overlap on the same spot; boxes 8 and 9 overlap"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      658.5,
+      600.2,
+      687.2,
+      627.6
+     ],
+     "holder": {
+      "xyxy": [
+       539.7,
+       538.9,
+       681.7,
+       711.7
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "dark player bent forward dribbling with light 9 on him; rings a and b overlap on the same spot; boxes 8 and 9 overlap"
     },
     {
      "frame": 26485,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1005.4,
@@ -1167,14 +1396,27 @@
       },
       "note": "blurred ball at the hip of dark player 6 right after a handoff from 1; control timing unclear; b is in the cluster, not a ball"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      1005.4,
+      623.1,
+      1036.2,
+      652.4
+     ],
+     "holder": {
+      "xyxy": [
+       960.8,
+       548.1,
+       1048.9,
+       754.9
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "blurred ball at the hip of dark player 6 right after a handoff from 1; control timing unclear; b is in the cluster, not a ball"
     },
     {
      "frame": 26535,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1095.8,
@@ -1193,14 +1435,27 @@
       },
       "note": "light 9 goes up to shoot against dark 33, ball at his hand at release or being blocked"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      1095.8,
+      455.6,
+      1127.6,
+      486.4
+     ],
+     "holder": {
+      "xyxy": [
+       1089.3,
+       490.0,
+       1190.4,
+       726.6
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "light 9 goes up to shoot against dark 33, ball at his hand at release or being blocked"
     },
     {
      "frame": 26585,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        668.6,
@@ -1226,16 +1481,21 @@
     },
     {
      "frame": 26635,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
-     "ball": null,
+     "ball": [
+      653.2,
+      169.5,
+      675.2,
+      191.5
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "wide view, clock running; ball not found"
     },
     {
      "frame": 26685,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1120.4,
@@ -1246,14 +1506,19 @@
       "holder": null,
       "note": "ring a is beside the basket on something pale against the stands, cannot confirm it is the ball; players lined up watching, nobody holds a ball"
      },
-     "ball": null,
+     "ball": [
+      1182.1,
+      281.8,
+      1204.1,
+      303.8
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "ring a is beside the basket on something pale against the stands, cannot confirm it is the ball; players lined up watching, nobody holds a ball"
     },
     {
      "frame": 26735,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1190.2,
@@ -1272,21 +1537,8 @@
       },
       "note": "dark player holds ball at hip, pivoting; top ring is in the crowd"
      },
-     "ball": [
-      1190.2,
-      532.5,
-      1217.8,
-      561.5
-     ],
-     "holder": {
-      "xyxy": [
-       1177.3,
-       459.8,
-       1305.2,
-       673.6
-      ],
-      "team": "away"
-     },
+     "ball": null,
+     "holder": null,
      "origin": "first_pass",
      "note": "dark player holds ball at hip, pivoting; top ring is in the crowd"
     }
@@ -1302,29 +1554,29 @@
    "end": 1525,
    "fps": 50.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
-     "release_frame": 1410,
-     "rim_frame": 1450,
-     "outcome": "missed",
+     "release_frame": 1435,
+     "rim_frame": 1445,
+     "outcome": "made",
      "points": 2,
      "shooter": {
       "xyxy": [
-       1143.6,
-       399.8,
-       1242.1,
-       600.5
+       1251.5,
+       283.4,
+       1342.8,
+       514.0
       ],
       "team": "home"
      },
-     "note": ""
+     "note": "Shooter is player 1"
     }
    ],
    "frames": [
     {
      "frame": 1200,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        505.4,
@@ -1363,7 +1615,7 @@
     },
     {
      "frame": 1250,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        547.2,
@@ -1402,7 +1654,7 @@
     },
     {
      "frame": 1300,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        508.6,
@@ -1441,7 +1693,7 @@
     },
     {
      "frame": 1350,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        693.4,
@@ -1480,7 +1732,7 @@
     },
     {
      "frame": 1400,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1173.8,
@@ -1519,7 +1771,7 @@
     },
     {
      "frame": 1450,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1239.0,
@@ -1542,7 +1794,7 @@
     },
     {
      "frame": 1500,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
      "ball": null,
      "holder": null,
@@ -1561,29 +1813,29 @@
    "end": 2294,
    "fps": 50.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
-     "release_frame": 2220,
-     "rim_frame": 2225,
-     "outcome": "missed",
-     "points": 2,
+     "release_frame": 2160,
+     "rim_frame": 2220,
+     "outcome": "made",
+     "points": 3,
      "shooter": {
       "xyxy": [
-       949.8,
-       400.6,
-       1039.6,
-       569.4
+       1366.3,
+       354.1,
+       1454.2,
+       547.3
       ],
       "team": "away"
      },
-     "note": ""
+     "note": "Shooter is player 3"
     }
    ],
    "frames": [
     {
      "frame": 1945,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1632.2,
@@ -1622,7 +1874,7 @@
     },
     {
      "frame": 1995,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1490.4,
@@ -1661,7 +1913,7 @@
     },
     {
      "frame": 2045,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1410.7,
@@ -1700,16 +1952,29 @@
     },
     {
      "frame": 2095,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
-     "ball": null,
-     "holder": null,
+     "ball": [
+      1412.4,
+      550.6,
+      1434.4,
+      572.6
+     ],
+     "holder": {
+      "xyxy": [
+       1371.5,
+       498.2,
+       1471.3,
+       652.2
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "wide view; ball not visible, likely with dark player 3 guarded by light 0"
     },
     {
      "frame": 2145,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1386.1,
@@ -1728,14 +1993,27 @@
       },
       "note": "jump shot, ball at or above the shooter's head; rings a and b overlap, a looks like the ball and b the head; release timing unclear"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      1386.1,
+      400.3,
+      1411.8,
+      427.5
+     ],
+     "holder": {
+      "xyxy": [
+       1366.9,
+       383.8,
+       1427.7,
+       579.6
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "jump shot, ball at or above the shooter's head; rings a and b overlap, a looks like the ball and b the head; release timing unclear"
     },
     {
      "frame": 2195,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        955.5,
@@ -1746,16 +2024,26 @@
       "holder": null,
       "note": "a is on the backboard logo; b in the upper right is probably the shot in flight but blurred against the crowd"
      },
-     "ball": null,
+     "ball": [
+      955.5,
+      145.9,
+      977.3,
+      170.4
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "a is on the backboard logo; b in the upper right is probably the shot in flight but blurred against the crowd"
     },
     {
      "frame": 2245,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
-     "ball": null,
+     "ball": [
+      740.2,
+      289.9,
+      762.2,
+      311.9
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "ring a sits on the head of dark player 3; ball not visible, looks like after the buzzer"
@@ -1772,21 +2060,29 @@
    "end": 4126,
    "fps": 50.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 4015,
      "rim_frame": 4020,
-     "outcome": "missed",
+     "outcome": "made",
      "points": 2,
-     "shooter": null,
+     "shooter": {
+      "xyxy": [
+       588.8,
+       338.5,
+       729.4,
+       574.9
+      ],
+      "team": "away"
+     },
      "note": ""
     }
    ],
    "frames": [
     {
      "frame": 3830,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1732.0,
@@ -1825,7 +2121,7 @@
     },
     {
      "frame": 3880,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1609.4,
@@ -1864,7 +2160,7 @@
     },
     {
      "frame": 3930,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1104.4,
@@ -1903,7 +2199,7 @@
     },
     {
      "frame": 3980,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        782.8,
@@ -1922,14 +2218,27 @@
       },
       "note": "dark driver lifts ball for layup or floater, ball at raised hand, may be just released; boxes 6, 8 and 9 overlap"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      782.8,
+      459.3,
+      804.5,
+      481.8
+     ],
+     "holder": {
+      "xyxy": [
+       790.6,
+       450.9,
+       855.8,
+       610.7
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "dark driver lifts ball for layup or floater, ball at raised hand, may be just released; boxes 6, 8 and 9 overlap"
     },
     {
      "frame": 4030,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        696.8,
@@ -1940,14 +2249,19 @@
       "holder": null,
       "note": "ring a sits on the rim: ball at the rim after a layup or the red rim itself, cannot separate"
      },
-     "ball": null,
+     "ball": [
+      696.8,
+      301.2,
+      719.8,
+      326.8
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "ring a sits on the rim: ball at the rim after a layup or the red rim itself, cannot separate"
     },
     {
      "frame": 4080,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        900.5,
@@ -1966,7 +2280,12 @@
       },
       "note": "light #45 holds the ball in his outstretched right hand; labels 8 and 3 sit on overlapping boxes at his top-left, number uncertain"
      },
-     "ball": null,
+     "ball": [
+      591.3,
+      484.3,
+      613.3,
+      506.3
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "light #45 holds the ball in his outstretched right hand; labels 8 and 3 sit on overlapping boxes at his top-left, number uncertain"
@@ -1983,29 +2302,45 @@
    "end": 5297,
    "fps": 50.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
-     "release_frame": 4855,
-     "rim_frame": 4855,
+     "release_frame": 4790,
+     "rim_frame": 4850,
      "outcome": "missed",
      "points": 3,
-     "shooter": null,
-     "note": ""
+     "shooter": {
+      "xyxy": [
+       1543.9,
+       514.1,
+       1651.7,
+       889.1
+      ],
+      "team": "away"
+     },
+     "note": "Shooter is player 23"
     },
     {
-     "release_frame": 5205,
-     "rim_frame": 5210,
-     "outcome": "missed",
+     "release_frame": 5170,
+     "rim_frame": 5175,
+     "outcome": "made",
      "points": 2,
-     "shooter": null,
+     "shooter": {
+      "xyxy": [
+       632.3,
+       364.6,
+       725.1,
+       589.4
+      ],
+      "team": "home"
+     },
      "note": ""
     }
    ],
    "frames": [
     {
      "frame": 4780,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        726.1,
@@ -2031,7 +2366,7 @@
     },
     {
      "frame": 4830,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1140.8,
@@ -2049,7 +2384,7 @@
     },
     {
      "frame": 4880,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        942.2,
@@ -2068,14 +2403,19 @@
       },
       "note": "ball in a tight group at left (dark boxes 7/9, light boxes 6 and 3); the light player with lime shoes seems to hold it, box number uncertain; ring b is in the crowd"
      },
-     "ball": null,
+     "ball": [
+      1186.1,
+      424.2,
+      1211.9,
+      450.1
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "ball in a tight group at left (dark boxes 7/9, light boxes 6 and 3); the light player with lime shoes seems to hold it, box number uncertain; ring b is in the crowd"
     },
     {
      "frame": 4930,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1264.6,
@@ -2114,7 +2454,7 @@
     },
     {
      "frame": 4980,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        466.8,
@@ -2140,7 +2480,7 @@
     },
     {
      "frame": 5030,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        346.9,
@@ -2166,7 +2506,7 @@
     },
     {
      "frame": 5080,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        818.1,
@@ -2185,14 +2525,27 @@
       },
       "note": "ring a at shoulder/head height of sprinting light box 6; ball seen in his hand 0.2s later but not separable from his head in the labelled frame; ring b is not the ball"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      818.1,
+      414.5,
+      841.4,
+      439.9
+     ],
+     "holder": {
+      "xyxy": [
+       793.8,
+       393.6,
+       861.1,
+       565.0
+      ],
+      "team": "home"
+     },
      "origin": "flagged",
      "note": "ring a at shoulder/head height of sprinting light box 6; ball seen in his hand 0.2s later but not separable from his head in the labelled frame; ring b is not the ball"
     },
     {
      "frame": 5130,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        854.7,
@@ -2231,7 +2584,7 @@
     },
     {
      "frame": 5180,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        617.9,
@@ -2254,7 +2607,7 @@
     },
     {
      "frame": 5230,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        578.5,
@@ -2273,8 +2626,21 @@
       },
       "note": "ball after the made basket, a dark player under the hoop collecting it; boxes 4 and 5 overlap, and hold versus dead ball unclear"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      578.5,
+      493.1,
+      607.4,
+      524.0
+     ],
+     "holder": {
+      "xyxy": [
+       567.2,
+       452.8,
+       630.3,
+       654.1
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "ball after the made basket, a dark player under the hoop collecting it; boxes 4 and 5 overlap, and hold versus dead ball unclear"
     }
@@ -2290,12 +2656,29 @@
    "end": 7233,
    "fps": 50.0,
    "held_out": false,
-   "events_status": "first_pass",
-   "events": [],
+   "events_status": "done",
+   "events": [
+    {
+     "release_frame": 7010,
+     "rim_frame": 7070,
+     "outcome": "made",
+     "points": 3,
+     "shooter": {
+      "xyxy": [
+       791.6,
+       286.9,
+       846.2,
+       465.7
+      ],
+      "team": "away"
+     },
+     "note": ""
+    }
+   ],
    "frames": [
     {
      "frame": 6865,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        661.7,
@@ -2334,7 +2717,7 @@
     },
     {
      "frame": 6915,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        723.9,
@@ -2373,7 +2756,7 @@
     },
     {
      "frame": 6965,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        858.2,
@@ -2412,7 +2795,7 @@
     },
     {
      "frame": 7015,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        824.4,
@@ -2423,23 +2806,33 @@
       "holder": null,
       "note": "ring a against the crowd above the players, ring b at the raised hands/head of dark box 7 at the bottom edge; shot just released or still in his hands, cannot tell which ring is the ball"
      },
-     "ball": null,
+     "ball": [
+      865.8,
+      211.4,
+      887.8,
+      233.4
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "ring a against the crowd above the players, ring b at the raised hands/head of dark box 7 at the bottom edge; shot just released or still in his hands, cannot tell which ring is the ball"
     },
     {
      "frame": 7065,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
-     "ball": null,
+     "ball": [
+      1231.8,
+      239.1,
+      1253.8,
+      261.1
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "ring a is a pink object in the crowd, static in all frames; game ball not in the picture"
     },
     {
      "frame": 7115,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1276.1,
@@ -2458,14 +2851,19 @@
       },
       "note": "ball low at the hand of light box 3 near the baseline; he seems to be collecting a bouncing ball, control unclear"
      },
-     "ball": null,
+     "ball": [
+      1276.1,
+      531.9,
+      1300.1,
+      560.3
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "ball low at the hand of light box 3 near the baseline; he seems to be collecting a bouncing ball, control unclear"
     },
     {
      "frame": 7165,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1285.6,
@@ -2476,7 +2874,12 @@
       "holder": null,
       "note": "ball free to the right of the light group, no hand on it; a light player with lime shoes (box 9?) has it 0.2s later; pass, loose ball or dribble unclear"
      },
-     "ball": null,
+     "ball": [
+      1285.6,
+      501.5,
+      1308.8,
+      528.1
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "ball free to the right of the light group, no hand on it; a light player with lime shoes (box 9?) has it 0.2s later; pass, loose ball or dribble unclear"
@@ -2493,21 +2896,29 @@
    "end": 8158,
    "fps": 50.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 8000,
      "rim_frame": 8040,
-     "outcome": "missed",
+     "outcome": "made",
      "points": 2,
-     "shooter": null,
+     "shooter": {
+      "xyxy": [
+       986.1,
+       392.2,
+       1068.8,
+       612.6
+      ],
+      "team": "away"
+     },
      "note": ""
     }
    ],
    "frames": [
     {
      "frame": 7700,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": null,
       "holder": {
@@ -2521,14 +2932,27 @@
       },
       "note": "ring a looks like the head of light box 7; ball not clearly visible inside the cluster; dark #7 (box 3) dribbled it 0.2-0.4s before with light players reaching in"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      469.2,
+      439.5,
+      491.5,
+      470.6
+     ],
+     "holder": {
+      "xyxy": [
+       450.8,
+       414.2,
+       523.8,
+       567.4
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "ring a looks like the head of light box 7; ball not clearly visible inside the cluster; dark #7 (box 3) dribbled it 0.2-0.4s before with light players reaching in"
     },
     {
      "frame": 7750,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        602.8,
@@ -2547,14 +2971,27 @@
       },
       "note": "hand-off between two dark players (box 7 bending, box 3 = jersey 7); rings a and b overlap on the same spot; jersey 7 has it 0.2s later, moment of exchange unclear"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      602.8,
+      465.6,
+      629.2,
+      496.6
+     ],
+     "holder": {
+      "xyxy": [
+       540.3,
+       428.3,
+       649.0,
+       558.6
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "hand-off between two dark players (box 7 bending, box 3 = jersey 7); rings a and b overlap on the same spot; jersey 7 has it 0.2s later, moment of exchange unclear"
     },
     {
      "frame": 7800,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        610.0,
@@ -2573,14 +3010,27 @@
       },
       "note": "ball low in a crowd; box 8 covers a dark player bent over the ball and a light defender; who controls it is unclear"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      610.0,
+      456.5,
+      634.4,
+      483.8
+     ],
+     "holder": {
+      "xyxy": [
+       602.1,
+       396.4,
+       710.4,
+       550.7
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "ball low in a crowd; box 8 covers a dark player bent over the ball and a light defender; who controls it is unclear"
     },
     {
      "frame": 7850,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        606.1,
@@ -2606,7 +3056,7 @@
     },
     {
      "frame": 7900,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        879.0,
@@ -2617,14 +3067,19 @@
       "holder": null,
       "note": "ring a high against the crowd at rim height left of the hoop, likely a shot or lob in flight; hard to tell from spectators"
      },
-     "ball": null,
+     "ball": [
+      879.0,
+      324.2,
+      901.3,
+      349.2
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "ring a high against the crowd at rim height left of the hoop, likely a shot or lob in flight; hard to tell from spectators"
     },
     {
      "frame": 7950,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1210.7,
@@ -2663,7 +3118,7 @@
     },
     {
      "frame": 8000,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1038.0,
@@ -2674,14 +3129,27 @@
       "holder": null,
       "note": "ball just above the raised hands of a dark player under the hoop (boxes 8/6/7 overlap); layup just released or still at the fingertips; ring b at the left edge is not the ball"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      1038.0,
+      389.7,
+      1062.5,
+      416.1
+     ],
+     "holder": {
+      "xyxy": [
+       989.0,
+       428.1,
+       1067.3,
+       628.0
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "ball just above the raised hands of a dark player under the hoop (boxes 8/6/7 overlap); layup just released or still at the fingertips; ring b at the left edge is not the ball"
     },
     {
      "frame": 8050,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1078.9,
@@ -2704,7 +3172,7 @@
     },
     {
      "frame": 8100,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1196.1,
@@ -2723,7 +3191,12 @@
       },
       "note": "ring a at head height of dark box 6 (fair hair), who seems to hold the rebound; ball not separable from his head"
      },
-     "ball": null,
+     "ball": [
+      1070.3,
+      540.5,
+      1092.3,
+      562.5
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "ring a at head height of dark box 6 (fair hair), who seems to hold the rebound; ball not separable from his head"
@@ -2740,19 +3213,19 @@
    "end": 664,
    "fps": 50.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
-     "release_frame": 520,
+     "release_frame": 510,
      "rim_frame": 570,
-     "outcome": "missed",
-     "points": 2,
+     "outcome": "made",
+     "points": 3,
      "shooter": {
       "xyxy": [
-       688.2,
-       455.0,
-       765.9,
-       633.7
+       697.5,
+       428.4,
+       765.7,
+       643.1
       ],
       "team": "away"
      },
@@ -2762,7 +3235,7 @@
    "frames": [
     {
      "frame": 375,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        543.4,
@@ -2773,14 +3246,19 @@
       "holder": null,
       "note": "short pass or hand-off from dark box 5 arriving at the raised hand of dark #2 (box 6); catch not yet clear"
      },
-     "ball": null,
+     "ball": [
+      543.4,
+      597.7,
+      573.6,
+      628.0
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "short pass or hand-off from dark box 5 arriving at the raised hand of dark #2 (box 6); catch not yet clear"
     },
     {
      "frame": 425,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        493.7,
@@ -2819,7 +3297,7 @@
     },
     {
      "frame": 475,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        697.1,
@@ -2858,7 +3336,7 @@
     },
     {
      "frame": 525,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        885.4,
@@ -2881,7 +3359,7 @@
     },
     {
      "frame": 575,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1266.5,
@@ -2892,16 +3370,26 @@
       "holder": null,
       "note": "ring a on the rim: the shot arriving at the rim or the red rim itself (same spot is ringed in the next item); ring b is in the crowd"
      },
-     "ball": null,
+     "ball": [
+      1266.5,
+      370.9,
+      1290.7,
+      393.1
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "ring a on the rim: the shot arriving at the rim or the red rim itself (same spot is ringed in the next item); ring b is in the crowd"
     },
     {
      "frame": 625,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
-     "ball": null,
+     "ball": [
+      1314.4,
+      552.4,
+      1336.4,
+      574.4
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "ring a on the rim again, looks like the rim and not the ball; ball not found, players stand below the basket"
@@ -2918,19 +3406,19 @@
    "end": 2485,
    "fps": 50.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
-     "release_frame": 2410,
-     "rim_frame": 2415,
-     "outcome": "missed",
-     "points": 2,
+     "release_frame": 2345,
+     "rim_frame": 2410,
+     "outcome": "made",
+     "points": 3,
      "shooter": {
       "xyxy": [
-       1241.8,
-       441.9,
-       1358.1,
-       654.0
+       416.3,
+       357.9,
+       517.6,
+       607.9
       ],
       "team": "away"
      },
@@ -2940,7 +3428,7 @@
    "frames": [
     {
      "frame": 2200,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        88.3,
@@ -2979,7 +3467,7 @@
     },
     {
      "frame": 2250,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        321.4,
@@ -3018,7 +3506,7 @@
     },
     {
      "frame": 2300,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        452.0,
@@ -3057,16 +3545,21 @@
     },
     {
      "frame": 2350,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
-     "ball": null,
+     "ball": [
+      555.6,
+      280.7,
+      583.6,
+      306.8
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "ring a is a spare ball on the rack behind the baseline (static in all frames); game ball not in the picture"
     },
     {
      "frame": 2400,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1186.3,
@@ -3077,16 +3570,26 @@
       "holder": null,
       "note": "ring a just above-left of the backboard, probably the shot dropping toward the hoop, blurred against the crowd; ring b is a spectator"
      },
-     "ball": null,
+     "ball": [
+      1186.3,
+      205.9,
+      1215.1,
+      232.3
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "ring a just above-left of the backboard, probably the shot dropping toward the hoop, blurred against the crowd; ring b is a spectator"
     },
     {
      "frame": 2450,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
-     "ball": null,
+     "ball": [
+      1240.5,
+      414.6,
+      1262.5,
+      436.6
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "ring a is the spare ball on the rack again; game ball not in the picture"
@@ -3103,21 +3606,29 @@
    "end": 4122,
    "fps": 50.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
-     "release_frame": 4000,
-     "rim_frame": 4040,
-     "outcome": "missed",
-     "points": 2,
-     "shooter": null,
+     "release_frame": 3980,
+     "rim_frame": 4035,
+     "outcome": "made",
+     "points": 3,
+     "shooter": {
+      "xyxy": [
+       705.5,
+       280.3,
+       784.5,
+       511.4
+      ],
+      "team": "away"
+     },
      "note": ""
     }
    ],
    "frames": [
     {
      "frame": 3740,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        264.6,
@@ -3156,7 +3667,7 @@
     },
     {
      "frame": 3790,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        278.6,
@@ -3195,7 +3706,7 @@
     },
     {
      "frame": 3840,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        223.4,
@@ -3234,7 +3745,7 @@
     },
     {
      "frame": 3890,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        265.2,
@@ -3245,14 +3756,19 @@
       "holder": null,
       "note": "ball low beside dark box 4, who did not have it 0.2s before; bounce pass arriving or first dribble, control unclear"
      },
-     "ball": null,
+     "ball": [
+      265.2,
+      519.2,
+      292.6,
+      548.0
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "ball low beside dark box 4, who did not have it 0.2s before; bounce pass arriving or first dribble, control unclear"
     },
     {
      "frame": 3940,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        609.8,
@@ -3291,7 +3807,7 @@
     },
     {
      "frame": 3990,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        901.7,
@@ -3314,7 +3830,7 @@
     },
     {
      "frame": 4040,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1466.3,
@@ -3337,7 +3853,7 @@
     },
     {
      "frame": 4090,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1500.7,
@@ -3356,7 +3872,12 @@
       },
       "note": "ball at the hands of dark #0 (box 9) right after a short pass seen in the air 0.2s before; play looks stopped after the basket, may be a dead ball"
      },
-     "ball": null,
+     "ball": [
+      1500.7,
+      462.5,
+      1524.5,
+      490.4
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "ball at the hands of dark #0 (box 9) right after a short pass seen in the air 0.2s before; play looks stopped after the basket, may be a dead ball"
@@ -3373,11 +3894,11 @@
    "end": 5808,
    "fps": 50.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 5365,
-     "rim_frame": 5380,
+     "rim_frame": 5390,
      "outcome": "missed",
      "points": 2,
      "shooter": {
@@ -3393,8 +3914,8 @@
     },
     {
      "release_frame": 5705,
-     "rim_frame": 5735,
-     "outcome": "missed",
+     "rim_frame": 5725,
+     "outcome": "made",
      "points": 2,
      "shooter": {
       "xyxy": [
@@ -3411,7 +3932,7 @@
    "frames": [
     {
      "frame": 5365,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1024.8,
@@ -3422,14 +3943,27 @@
       "holder": null,
       "note": "ring a on the rim: ball on the rim after a layup or the red rim itself, cannot separate; players contest below"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      900.8,
+      353.6,
+      922.8,
+      375.6
+     ],
+     "holder": {
+      "xyxy": [
+       820.5,
+       381.5,
+       884.4,
+       553.4
+      ],
+      "team": "home"
+     },
      "origin": "flagged",
      "note": "ring a on the rim: ball on the rim after a layup or the red rim itself, cannot separate; players contest below"
     },
     {
      "frame": 5415,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        994.2,
@@ -3452,7 +3986,7 @@
     },
     {
      "frame": 5465,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1010.2,
@@ -3471,14 +4005,27 @@
       },
       "note": "dark #45 holds the rebound above his head; labels 10 and 4 sit on overlapping boxes at his top-left, number uncertain"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      1020.9,
+      439.0,
+      1042.9,
+      461.0
+     ],
+     "holder": {
+      "xyxy": [
+       999.8,
+       372.2,
+       1093.0,
+       567.5
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "dark #45 holds the rebound above his head; labels 10 and 4 sit on overlapping boxes at his top-left, number uncertain"
     },
     {
      "frame": 5515,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        463.2,
@@ -3517,7 +4064,7 @@
     },
     {
      "frame": 5565,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        578.0,
@@ -3556,7 +4103,7 @@
     },
     {
      "frame": 5615,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        962.4,
@@ -3595,7 +4142,7 @@
     },
     {
      "frame": 5665,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        767.5,
@@ -3634,7 +4181,7 @@
     },
     {
      "frame": 5715,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        779.2,
@@ -3657,9 +4204,14 @@
     },
     {
      "frame": 5765,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
-     "ball": null,
+     "ball": [
+      800.5,
+      430.1,
+      822.5,
+      452.1
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "ring a is on the fair head of light #11 (box 6); ball not found in the picture"
@@ -3676,19 +4228,19 @@
    "end": 7488,
    "fps": 50.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
-     "release_frame": 7375,
-     "rim_frame": 7405,
-     "outcome": "missed",
+     "release_frame": 7380,
+     "rim_frame": 7400,
+     "outcome": "made",
      "points": 2,
      "shooter": {
       "xyxy": [
-       671.6,
-       388.3,
-       758.4,
-       641.9
+       659.1,
+       409.9,
+       751.7,
+       616.4
       ],
       "team": "away"
      },
@@ -3698,7 +4250,7 @@
    "frames": [
     {
      "frame": 7210,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1382.8,
@@ -3737,7 +4289,7 @@
     },
     {
      "frame": 7260,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1294.1,
@@ -3776,7 +4328,7 @@
     },
     {
      "frame": 7310,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1014.0,
@@ -3815,7 +4367,7 @@
     },
     {
      "frame": 7360,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        693.1,
@@ -3854,7 +4406,7 @@
     },
     {
      "frame": 7410,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        790.4,
@@ -3865,14 +4417,19 @@
       "holder": null,
       "note": "two rings: a at the rim (likely the shot arriving), b at the raised hands of light box 7 under the hoop; ball not separable from the rim"
      },
-     "ball": null,
+     "ball": [
+      810.1,
+      305.2,
+      837.6,
+      329.2
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "two rings: a at the rim (likely the shot arriving), b at the raised hands of light box 7 under the hoop; ball not separable from the rim"
     },
     {
      "frame": 7460,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        788.0,
@@ -3905,21 +4462,29 @@
    "end": 8748,
    "fps": 50.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
-     "release_frame": 8645,
-     "rim_frame": 8675,
-     "outcome": "missed",
+     "release_frame": 8655,
+     "rim_frame": 8665,
+     "outcome": "made",
      "points": 2,
-     "shooter": null,
+     "shooter": {
+      "xyxy": [
+       1323.6,
+       471.4,
+       1417.3,
+       688.4
+      ],
+      "team": "home"
+     },
      "note": ""
     }
    ],
    "frames": [
     {
      "frame": 8465,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        795.4,
@@ -3938,14 +4503,27 @@
       },
       "note": "ball at the chest of sprinting light box 7, blurred; he has it 0.2s later, cannot rule out a pass just arriving"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      795.4,
+      461.6,
+      818.5,
+      486.9
+     ],
+     "holder": {
+      "xyxy": [
+       720.2,
+       423.9,
+       834.6,
+       579.3
+      ],
+      "team": "home"
+     },
      "origin": "flagged",
      "note": "ball at the chest of sprinting light box 7, blurred; he has it 0.2s later, cannot rule out a pass just arriving"
     },
     {
      "frame": 8515,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1139.3,
@@ -3984,7 +4562,7 @@
     },
     {
      "frame": 8565,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        888.1,
@@ -4023,16 +4601,24 @@
     },
     {
      "frame": 8615,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
      "ball": null,
-     "holder": null,
+     "holder": {
+      "xyxy": [
+       1068.0,
+       540.2,
+       1159.3,
+       708.0
+      ],
+      "team": "home"
+     },
      "origin": "flagged",
      "note": "wide view, no ring; ball not found, probably with the yellow driver in the cluster of boxes 5-8 whose numbers overlap"
     },
     {
      "frame": 8665,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1325.2,
@@ -4055,7 +4641,7 @@
     },
     {
      "frame": 8715,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1332.9,
@@ -4088,7 +4674,7 @@
    "end": 305,
    "fps": 50.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 185,
@@ -4110,7 +4696,7 @@
    "frames": [
     {
      "frame": 25,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        567.6,
@@ -4149,7 +4735,7 @@
     },
     {
      "frame": 75,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        430.9,
@@ -4188,7 +4774,7 @@
     },
     {
      "frame": 125,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        590.4,
@@ -4227,7 +4813,7 @@
     },
     {
      "frame": 175,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        858.4,
@@ -4246,14 +4832,27 @@
       },
       "note": "jump shot at the release point; ball at fingertips, may have just left the hand (in flight at +0.2 s)"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      858.4,
+      459.0,
+      893.2,
+      489.4
+     ],
+     "holder": {
+      "xyxy": [
+       834.7,
+       458.6,
+       944.8,
+       748.9
+      ],
+      "team": "home"
+     },
      "origin": "flagged",
      "note": "jump shot at the release point; ball at fingertips, may have just left the hand (in flight at +0.2 s)"
     },
     {
      "frame": 225,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1281.6,
@@ -4276,7 +4875,7 @@
     },
     {
      "frame": 275,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1442.9,
@@ -4301,15 +4900,7 @@
       1473.2,
       622.3
      ],
-     "holder": {
-      "xyxy": [
-       1420.5,
-       485.8,
-       1553.4,
-       785.1
-      ],
-      "team": "away"
-     },
+     "holder": null,
      "origin": "first_pass",
      "note": "green 22 brings down a rebound; boxes 7 and 8 overlap, 22 is the taller box 8"
     }
@@ -4325,12 +4916,29 @@
    "end": 2060,
    "fps": 50.0,
    "held_out": true,
-   "events_status": "first_pass",
-   "events": [],
+   "events_status": "done",
+   "events": [
+    {
+     "release_frame": 1885,
+     "rim_frame": 1890,
+     "outcome": "made",
+     "points": 2,
+     "shooter": {
+      "xyxy": [
+       1277.6,
+       352.1,
+       1396.2,
+       643.0
+      ],
+      "team": "home"
+     },
+     "note": ""
+    }
+   ],
    "frames": [
     {
      "frame": 1680,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        428.0,
@@ -4369,7 +4977,7 @@
     },
     {
      "frame": 1730,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        450.7,
@@ -4408,7 +5016,7 @@
     },
     {
      "frame": 1780,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        230.3,
@@ -4419,14 +5027,27 @@
       "holder": null,
       "note": "pass leaving the hand of light 1 (box 9) toward box 6; cannot tell if already released"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      230.3,
+      543.1,
+      267.2,
+      580.9
+     ],
+     "holder": {
+      "xyxy": [
+       220.3,
+       556.1,
+       335.4,
+       832.3
+      ],
+      "team": "home"
+     },
      "origin": "flagged",
      "note": "pass leaving the hand of light 1 (box 9) toward box 6; cannot tell if already released"
     },
     {
      "frame": 1830,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": null,
       "holder": {
@@ -4440,14 +5061,19 @@
       },
       "note": "wide view, no ring; ball seems to be in the hands of box 2 on the left wing, too small to confirm"
      },
-     "ball": null,
+     "ball": [
+      543.8,
+      449.1,
+      565.8,
+      471.1
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "wide view, no ring; ball seems to be in the hands of box 2 on the left wing, too small to confirm"
     },
     {
      "frame": 1880,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1331.0,
@@ -4466,14 +5092,27 @@
       },
       "note": "dunk or layup at the rim; ball at the hand, cannot tell if released"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      1331.0,
+      302.5,
+      1360.8,
+      333.1
+     ],
+     "holder": {
+      "xyxy": [
+       1232.1,
+       345.3,
+       1362.0,
+       620.8
+      ],
+      "team": "home"
+     },
      "origin": "flagged",
      "note": "dunk or layup at the rim; ball at the hand, cannot tell if released"
     },
     {
      "frame": 1930,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1302.9,
@@ -4496,7 +5135,7 @@
     },
     {
      "frame": 1980,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1357.8,
@@ -4519,7 +5158,7 @@
     },
     {
      "frame": 2030,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1440.4,
@@ -4552,11 +5191,11 @@
    "end": 2761,
    "fps": 50.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 2660,
-     "rim_frame": 2695,
+     "rim_frame": 2680,
      "outcome": "made",
      "points": 2,
      "shooter": {
@@ -4574,7 +5213,7 @@
    "frames": [
     {
      "frame": 2445,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1300.8,
@@ -4597,7 +5236,7 @@
     },
     {
      "frame": 2495,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        297.7,
@@ -4616,14 +5255,27 @@
       },
       "note": "green player recovering a loose ball; ball at his hands but out in front of him again at +0.2 s, control unclear"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      297.7,
+      674.2,
+      329.6,
+      708.6
+     ],
+     "holder": {
+      "xyxy": [
+       168.3,
+       604.3,
+       329.3,
+       878.8
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "green player recovering a loose ball; ball at his hands but out in front of him again at +0.2 s, control unclear"
     },
     {
      "frame": 2545,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        405.6,
@@ -4662,7 +5314,7 @@
     },
     {
      "frame": 2595,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        654.4,
@@ -4701,7 +5353,7 @@
     },
     {
      "frame": 2645,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        462.5,
@@ -4720,14 +5372,27 @@
       },
       "note": "shot at the release point with light box 9 contesting; boxes 9 and 10 overlap, ball in flight at +0.2 s"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      462.5,
+      453.3,
+      498.4,
+      489.6
+     ],
+     "holder": {
+      "xyxy": [
+       455.3,
+       451.3,
+       614.1,
+       791.6
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "shot at the release point with light box 9 contesting; boxes 9 and 10 overlap, ball in flight at +0.2 s"
     },
     {
      "frame": 2695,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        610.4,
@@ -4760,30 +5425,51 @@
    "end": 3832,
    "fps": 50.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
-     "release_frame": 3700,
-     "rim_frame": 3700,
-     "outcome": "missed",
+     "release_frame": 3680,
+     "rim_frame": 3695,
+     "outcome": "made",
      "points": 2,
-     "shooter": null,
+     "shooter": {
+      "xyxy": [
+       1089.3,
+       296.5,
+       1218.3,
+       581.3
+      ],
+      "team": "away"
+     },
      "note": ""
     }
    ],
    "frames": [
     {
      "frame": 3470,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
-     "ball": null,
-     "holder": null,
+     "ball": [
+      313.8,
+      501.3,
+      335.8,
+      523.3
+     ],
+     "holder": {
+      "xyxy": [
+       279.0,
+       432.3,
+       346.3,
+       615.8
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "wide view, no ring; ball not found, probably in the left cluster of boxes 4, 5, 6, 8"
     },
     {
      "frame": 3520,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        398.8,
@@ -4822,7 +5508,7 @@
     },
     {
      "frame": 3570,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        332.6,
@@ -4861,7 +5547,7 @@
     },
     {
      "frame": 3620,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        820.9,
@@ -4880,14 +5566,27 @@
       },
       "note": "crowded screen; ball barely visible in ring a between the green driver and a light defender; boxes 6, 7, 9, 3 overlap, green driver is probably box 7"
      },
-     "ball": null,
-     "holder": null,
+     "ball": [
+      612.2,
+      484.3,
+      634.2,
+      506.3
+     ],
+     "holder": {
+      "xyxy": [
+       449.2,
+       408.0,
+       635.2,
+       592.2
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "crowded screen; ball barely visible in ring a between the green driver and a light defender; boxes 6, 7, 9, 3 overlap, green driver is probably box 7"
     },
     {
      "frame": 3670,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1078.8,
@@ -4926,7 +5625,7 @@
     },
     {
      "frame": 3720,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1352.2,
@@ -4945,16 +5644,26 @@
       },
       "note": "ball hard to see against the light kit; ring a is on the headband player's head, ring b at his chest is probably the ball; ball is in the air near light 3 at +0.2 s"
      },
-     "ball": null,
+     "ball": [
+      1216.3,
+      306.9,
+      1238.3,
+      328.9
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "ball hard to see against the light kit; ring a is on the headband player's head, ring b at his chest is probably the ball; ball is in the air near light 3 at +0.2 s"
     },
     {
      "frame": 3770,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
-     "ball": null,
+     "ball": [
+      1269.5,
+      469.7,
+      1291.5,
+      491.7
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "picture shows only the stands; ring a is on a spectator, game ball not visible"
@@ -4971,21 +5680,29 @@
    "end": 5451,
    "fps": 50.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
-     "release_frame": 5405,
-     "rim_frame": 5410,
-     "outcome": "missed",
-     "points": 2,
-     "shooter": null,
+     "release_frame": 5340,
+     "rim_frame": 5400,
+     "outcome": "made",
+     "points": 3,
+     "shooter": {
+      "xyxy": [
+       669.2,
+       310.8,
+       762.9,
+       562.8
+      ],
+      "team": "away"
+     },
      "note": ""
     }
    ],
    "frames": [
     {
      "frame": 5165,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        758.2,
@@ -5024,16 +5741,29 @@
     },
     {
      "frame": 5215,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
-     "ball": null,
-     "holder": null,
+     "ball": [
+      848.9,
+      781.5,
+      870.9,
+      803.5
+     ],
+     "holder": {
+      "xyxy": [
+       844.7,
+       633.0,
+       1011.5,
+       841.9
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "wide view, no ring; ball not found, probably with the green dribbler left of the key near boxes 5 and 10"
     },
     {
      "frame": 5265,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1245.7,
@@ -5051,7 +5781,7 @@
     },
     {
      "frame": 5315,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        699.0,
@@ -5090,16 +5820,21 @@
     },
     {
      "frame": 5365,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
-     "ball": null,
+     "ball": [
+      966.7,
+      119.7,
+      1000.3,
+      148.0
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "wide view, no ring; ball not found, probably a shot in flight (clock 0.5 s)"
     },
     {
      "frame": 5415,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1485.2,
@@ -5132,30 +5867,51 @@
    "end": 6878,
    "fps": 50.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 6805,
-     "rim_frame": 6820,
+     "rim_frame": 6815,
      "outcome": "made",
      "points": 2,
-     "shooter": null,
+     "shooter": {
+      "xyxy": [
+       1004.7,
+       339.8,
+       1078.3,
+       671.0
+      ],
+      "team": "away"
+     },
      "note": ""
     }
    ],
    "frames": [
     {
      "frame": 6520,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
-     "ball": null,
-     "holder": null,
+     "ball": [
+      135.5,
+      599.9,
+      157.5,
+      621.9
+     ],
+     "holder": {
+      "xyxy": [
+       141.2,
+       505.2,
+       244.6,
+       700.2
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "ring a is on a static red object in the stands (same spot as in 6620); a second ring is cut off at the right edge; game ball not visible in the picture"
     },
     {
      "frame": 6570,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        110.9,
@@ -5194,16 +5950,29 @@
     },
     {
      "frame": 6620,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
-     "ball": null,
-     "holder": null,
+     "ball": [
+      106.5,
+      594.7,
+      133.8,
+      627.9
+     ],
+     "holder": {
+      "xyxy": [
+       73.1,
+       528.6,
+       221.0,
+       762.8
+      ],
+      "team": "away"
+     },
      "origin": "flagged",
      "note": "ring a is on a static red object in the stands (same spot as in 6520); game ball not visible in the picture"
     },
     {
      "frame": 6670,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        335.7,
@@ -5242,7 +6011,7 @@
     },
     {
      "frame": 6720,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        559.7,
@@ -5281,7 +6050,7 @@
     },
     {
      "frame": 6770,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        872.6,
@@ -5300,14 +6069,19 @@
       },
       "note": "light player takes the ball one-handed above his head (rebound or block); control at this frame unclear, he has it at +0.2 s"
      },
-     "ball": null,
+     "ball": [
+      872.6,
+      366.2,
+      903.7,
+      399.6
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "light player takes the ball one-handed above his head (rebound or block); control at this frame unclear, he has it at +0.2 s"
     },
     {
      "frame": 6820,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1073.0,
@@ -5340,7 +6114,7 @@
    "end": 8414,
    "fps": 50.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 8255,
@@ -5362,7 +6136,7 @@
    "frames": [
     {
      "frame": 7980,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1457.6,
@@ -5385,7 +6159,7 @@
     },
     {
      "frame": 8030,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1316.3,
@@ -5424,7 +6198,7 @@
     },
     {
      "frame": 8080,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1315.2,
@@ -5463,16 +6237,29 @@
     },
     {
      "frame": 8130,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
-     "ball": null,
-     "holder": null,
+     "ball": [
+      1301.5,
+      615.1,
+      1336.4,
+      649.9
+     ],
+     "holder": {
+      "xyxy": [
+       1220.5,
+       553.3,
+       1362.9,
+       717.6
+      ],
+      "team": "home"
+     },
      "origin": "flagged",
      "note": "picture shows only the stands; ring a is on a yellow object in the crowd, game ball not visible"
     },
     {
      "frame": 8180,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        787.9,
@@ -5511,16 +6298,29 @@
     },
     {
      "frame": 8230,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
-     "ball": null,
-     "holder": null,
+     "ball": [
+      131.1,
+      811.9,
+      153.1,
+      833.9
+     ],
+     "holder": {
+      "xyxy": [
+       0.7,
+       689.6,
+       168.8,
+       992.1
+      ],
+      "team": "home"
+     },
      "origin": "flagged",
      "note": "picture shows only the stands; ring a is on the same yellow object in the crowd, game ball not visible"
     },
     {
      "frame": 8280,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        568.5,
@@ -5543,7 +6343,7 @@
     },
     {
      "frame": 8330,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        894.5,
@@ -5554,14 +6354,19 @@
       "holder": null,
       "note": "rebound coming down between green box 7 and light box 6; green has it by +0.4 s, control at this frame unclear"
      },
-     "ball": null,
+     "ball": [
+      894.5,
+      435.5,
+      925.6,
+      464.4
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "rebound coming down between green box 7 and light box 6; green has it by +0.4 s, control at this frame unclear"
     },
     {
      "frame": 8380,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
      "ball": null,
      "holder": null,
@@ -5580,21 +6385,29 @@
    "end": 9480,
    "fps": 50.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 9335,
      "rim_frame": 9395,
-     "outcome": "missed",
+     "outcome": "made",
      "points": 3,
-     "shooter": null,
+     "shooter": {
+      "xyxy": [
+       1353.4,
+       407.1,
+       1437.7,
+       698.0
+      ],
+      "team": "home"
+     },
      "note": ""
     }
    ],
    "frames": [
     {
      "frame": 9190,
-     "status": "flagged",
+     "status": "done",
      "proposal": {
       "ball": [
        1382.7,
@@ -5613,14 +6426,19 @@
       },
       "note": "light player airborne with the ball at head height (catch or jump pass); ball is away from him at +0.4 s, control at this frame unclear"
      },
-     "ball": null,
+     "ball": [
+      1382.7,
+      226.9,
+      1409.3,
+      252.9
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "light player airborne with the ball at head height (catch or jump pass); ball is away from him at +0.4 s, control at this frame unclear"
     },
     {
      "frame": 9240,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1460.6,
@@ -5659,16 +6477,29 @@
     },
     {
      "frame": 9290,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
-     "ball": null,
-     "holder": null,
+     "ball": [
+      1371.0,
+      569.8,
+      1393.0,
+      591.8
+     ],
+     "holder": {
+      "xyxy": [
+       1346.6,
+       528.5,
+       1484.6,
+       740.2
+      ],
+      "team": "home"
+     },
      "origin": "flagged",
      "note": "ring a is on the PGE logo of the board; game ball not visible, probably with light 3 below the bottom edge"
     },
     {
      "frame": 9340,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        1244.1,
@@ -5691,7 +6522,7 @@
     },
     {
      "frame": 9390,
-     "status": "first_pass",
+     "status": "done",
      "proposal": {
       "ball": [
        556.7,
@@ -5714,9 +6545,14 @@
     },
     {
      "frame": 9440,
-     "status": "flagged",
+     "status": "done",
      "proposal": null,
-     "ball": null,
+     "ball": [
+      444.3,
+      578.5,
+      466.3,
+      600.5
+     ],
      "holder": null,
      "origin": "flagged",
      "note": "ring a is on the hand of green 13, no ball there; dead ball after the basket, game ball not visible (appears at the left at +0.2 s)"
