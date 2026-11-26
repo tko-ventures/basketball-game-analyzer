@@ -10,11 +10,11 @@ Scores any Layer 7 (``ball``) backend against two gold sources:
      ``data/gold/v1/holders.json`` (the 2026-11-20 possession definition) when present, else from the frame's
      ``player-in-possession`` box.
 2. ``data/gold/v1/events.json`` (verified shot-attempt ground truth):
-   - ``shot_f1`` / ``shot_outcome_acc`` / ``shot_shooter_acc``: greedy 1-to-1 matching of predicted shots to
-     gold shots on sequences listed in ``verified_sequences`` within ``rim_tol_frames`` (default 40 source
-     frames = 0.8 s at 50 fps, matching on ``rim_frame`` or ``start_frame`` vs gold ``release_frame`` when
-     ``rim_frame`` is ``None``), checking ``outcome`` (``made`` / ``missed``) and shooter track IoU against
-     ``data/gold/v0/<seq>/gt/gt.txt``.
+   - ``shot_f1`` / ``shot_outcome_acc`` (with ``shot_made_r`` / ``shot_missed_r``) / ``shot_shooter_acc``: greedy
+     1-to-1 matching of predicted shots to gold shots on sequences listed in ``verified_sequences`` within
+     ``rim_tol_frames`` (default 40 source frames = 0.8 s at 50 fps, matching on ``rim_frame`` or ``start_frame``
+     vs gold ``release_frame`` when ``rim_frame`` is ``None``), checking ``outcome`` (``made`` / ``missed``) and
+     shooter track IoU against ``data/gold/v0/<seq>/gt/gt.txt``.
 
 """
 
@@ -359,6 +359,9 @@ def score_events(
 ) -> dict[str, Any]:
     """Score predicted shot attempts, made/missed outcomes, and shooters against ``events.json``.
 
+    ``shot_made_r`` and ``shot_missed_r`` are the outcome recalls of matched attempts whose gold outcome is made or
+    missed: with far more made than missed gold attempts, ``shot_outcome_acc`` alone mostly measures made recall.
+
     Args:
         ball_by_seq: Mapping ``seq_name -> Layer 7 output dict``.
         tracks_by_seq: Mapping ``seq_name -> {frame_str: track_rows}``.
@@ -377,6 +380,8 @@ def score_events(
         >>> m = score_events(ball, {"s1": {}}, gt)
         >>> (m["shot_f1"], m["shot_outcome_acc"], m["shot_shooter_acc"])
         (1.0, 1.0, 1.0)
+        >>> (m["shot_made_r"], m["shot_missed_r"])
+        (1.0, nan)
 
     """
     eval_seqs = (
@@ -396,10 +401,13 @@ def score_events(
             "shot_r": float("nan"),
             "shot_f1": float("nan"),
             "shot_outcome_acc": float("nan"),
+            "shot_made_r": float("nan"),
+            "shot_missed_r": float("nan"),
             "shot_shooter_acc": float("nan"),
         }
 
     tp = fp = fn = out_ok = shoot_ok = shoot_tot = 0
+    by_outcome = {o: [0, 0] for o in ("made", "missed")}  # gold outcome -> [right, total] over matched attempts
     for sname, ball_out in eval_seqs.items():
         gt_list = gt_by_seq.get(sname, [])
         pred_list = ball_out.get("shots", [])
@@ -413,6 +421,9 @@ def score_events(
         for gi, pi in matches:
             gs, ps = gt_list[gi], pred_list[pi]
             out_ok += int(ps.get("outcome") == gs.get("outcome"))
+            if gs.get("outcome") in by_outcome:
+                by_outcome[gs["outcome"]][0] += int(ps.get("outcome") == gs["outcome"])
+                by_outcome[gs["outcome"]][1] += 1
             if (
                 gs.get("shooter_gt_tid") is not None
                 or gs.get("shooter_xyxy") is not None
@@ -429,6 +440,8 @@ def score_events(
         "shot_r": sr,
         "shot_f1": sf1,
         "shot_outcome_acc": out_ok / tp if tp else float("nan"),
+        "shot_made_r": by_outcome["made"][0] / by_outcome["made"][1] if by_outcome["made"][1] else float("nan"),
+        "shot_missed_r": by_outcome["missed"][0] / by_outcome["missed"][1] if by_outcome["missed"][1] else float("nan"),
         "shot_shooter_acc": shoot_ok / shoot_tot if shoot_tot else float("nan"),
     }
 

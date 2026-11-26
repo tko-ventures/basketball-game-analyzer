@@ -644,6 +644,20 @@ class TestEvalBall:
         assert (em["shot_gt"], em["shot_pred"], em["shot_p"], em["shot_r"]) == (2, 1, 1.0, 0.5)
         assert (em["shot_outcome_acc"], em["shot_shooter_acc"]) == (1.0, 1.0)
 
+    def test_outcome_recall_splits_by_gold_outcome(self) -> None:
+        shots = [
+            {"start_frame": 0, "rim_frame": 50, "outcome": "made"},
+            {"start_frame": 150, "rim_frame": 200, "outcome": "made"},
+            {"start_frame": 300, "rim_frame": 350, "outcome": "made"},
+        ]
+        gt_events = [
+            {"sequence": "vid_s1", "rim_frame": 50, "outcome": "made"},
+            {"sequence": "vid_s1", "rim_frame": 200, "outcome": "missed"},
+            {"sequence": "vid_s1", "rim_frame": 350, "outcome": "missed"},
+        ]
+        em = score_events({"vid_s1": {"frames": {}, "shots": shots}}, {"vid_s1": {}}, gt_events)
+        assert (em["shot_outcome_acc"], em["shot_made_r"], em["shot_missed_r"]) == (pytest.approx(1 / 3), 1.0, 0.0)
+
     def test_matches_null_rim_frame_against_gold_release_frame(self) -> None:
         ball_by_seq = {
             "vid_s1": {

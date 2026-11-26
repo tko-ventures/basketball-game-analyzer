@@ -662,7 +662,7 @@ def eval_positions(
 BALL_HEADER = (
     "| date | commit | config | ball backend | detect weights | split (shots, frames) "
     "| ball F1 (R, med px) | poss acc | holder F1 | team acc | shot F1 (P/R, pred/gt) "
-    "| outcome acc | shooter acc | ms/frame | notes |\n"
+    "| outcome acc (made R / missed R) | shooter acc | ms/frame | notes |\n"
     "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n"
 )
 #: Section heading and explanation placed above the ball table when it is first added.
@@ -675,7 +675,8 @@ BALL_INTRO = (
     " `data/gold/v1/holders.json` + `shot_gold.json` (2026-11-20 possession definition) from 2026-11-24,"
     " `player-in-possession` boxes before."
     " **shot F1 / outcome acc / shooter acc:** shot attempts matched to `events.json` + `shot_gold.json` within 0.8 s"
-    " on `rim_frame`, made/missed accuracy on matched shots, and shooter track match against gold `v0` tracks or"
+    " on `rim_frame`, made/missed accuracy on matched shots (with the recall of gold-made and gold-missed attempts"
+    " from 2026-11-26), and shooter track match against gold `v0` tracks or"
     " shot-gold `shooter_xyxy` boxes."
     " **ms/frame:** Layer 7 stage on M1 Max.\n\n"
 )
@@ -735,7 +736,8 @@ def eval_ball(
             f"| {ball_b} | {det_w} | {'held-out' if held_out else 'dev'} ({s['sequences']}, {s['box_frames']}) "
             f"| {_fmt(s['ball_f1'])} ({_fmt(s['ball_r'], 2)}, {_fmt(s['ball_med_px'], 1)}) "
             f"| {_fmt(s['poss_acc'])} | {_fmt(s['holder_f1'])} | {_fmt(s['team_acc'])} "
-            f"| {shot_cell} | {_fmt(s['shot_outcome_acc'])} | {_fmt(s['shot_shooter_acc'])} "
+            f"| {shot_cell} | {_fmt(s['shot_outcome_acc'])} "
+            f"({_fmt(s['shot_made_r'], 2)}/{_fmt(s['shot_missed_r'], 2)}) | {_fmt(s['shot_shooter_acc'])} "
             f"| {_fmt(s['ms_per_frame'], 2)} | {note} |"
         )
     typer.echo(BALL_HEADER + "\n".join(rows))
