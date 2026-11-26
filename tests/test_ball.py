@@ -27,6 +27,7 @@ from bga.ball.base import (
 )
 from bga.ball.fused import (
     FusedBall,
+    _ball_node_score,
     _filter_ball_candidates,
     _find_shooter,
     _loose_ball_bonus,
@@ -481,6 +482,21 @@ class TestFusedBall:
         params = {**FusedBall.defaults, "ball_far_penalty": penalty}
         em = _possession_emissions([], tracks, {1: "home"}, [180.0, 50.0], 0.9, params)
         assert em[1] == pytest.approx(expected)
+
+    @pytest.mark.parametrize(
+        ("bonus", "ball_x", "expected"),
+        [
+            pytest.param(0.0, 930.0, 0.0, id="off"),
+            pytest.param(0.6, 930.0, 0.6, id="at-rim-centre"),
+            pytest.param(0.6, 960.0, 0.3, id="three-quarter-rim-width-away"),
+            pytest.param(0.6, 1100.0, 0.0, id="outside-reach"),
+        ],
+    )
+    def test_rim_bonus_lifts_candidates_near_rim(self, bonus: float, ball_x: float, expected: float) -> None:
+        rim = [910.0, 200.0, 950.0, 210.0, 0.9]
+        params = {**FusedBall.defaults, "ball_rim_bonus": bonus, "ball_rim_bonus_rw": 1.5}
+        base = _ball_node_score(ball_x, 205.0, 0.5, [], [], {}, params)
+        assert _ball_node_score(ball_x, 205.0, 0.5, [], [], {}, params, rim) - base == pytest.approx(expected)
 
     @pytest.mark.parametrize(
         ("bonus", "expected"),

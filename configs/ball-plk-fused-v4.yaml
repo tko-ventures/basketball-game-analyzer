@@ -1,0 +1,64 @@
+name: ball-plk-fused-v4
+description: >
+  Layer 7 v4 on plk-r3-poss (#46: #47, #50): ball-plk-fused-v2-loose plus two shot changes. A ball candidate within
+  1.5 rim widths of the rim gains up to +0.6 in the DP tracker, so the trajectory through the rim is not outscored
+  by faint detections next to players; and a rim arrival must follow the ball at or above rim height (strict arc),
+  so faint rim-hardware hits reached from below are not shots. Scored against ball-plk-fused-v2-loose.
+layers:
+  shots:
+    backend: gold
+    params: {version: v0, stride: 5}
+  court:
+    backend: rfdetr_keypoint
+    params: {smooth_window: 4}
+    weights: court/rfdetr_keypoint/plk-v1@c26b7841
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r3-poss@c62744fe
+  team:
+    backend: siglip_kmeans
+    params: {seed: 0, fit_fps: 5.0}
+    weights: pretrained:hf/google/siglip-base-patch16-224
+  appearance:
+    backend: reid
+    params: {model: osnet_x1_0_sportsmot, min_score: 0.1}
+    weights: appearance/reid/plk-r1-shot-last@bef4a309
+  track:
+    backend: trackers
+    weights: appearance/reid/plk-r1-shot-last@bef4a309
+    params:
+      tracker: botsort
+      cmc: internal
+      reid_model: weights
+      reid_config: {fusion: adaptive, appearance_threshold: 0.12, proximity_threshold: 1.0, appearance_weight: 0.6}
+      args:
+        track_activation_threshold: 0.8
+        minimum_iou_threshold_first_assoc: 0.1
+        minimum_iou_threshold_second_assoc: 0.2
+        minimum_iou_threshold_unconfirmed_assoc: 0.3
+        high_conf_det_threshold: 0.3
+  link:
+    backend: greedy
+    params: {max_gap_s: 10.0, max_cost: 0.3, ends: 5, max_speed_mps: 8.0, court_slack_m: 2.0, max_per_team: 5}
+  numbers:
+    backend: parseq
+    weights: numbers/parseq/r2@c4b3dde8
+    params: {stop_on_confirm: false}
+  identity:
+    backend: game
+    params: {roster: true, margin: 8.0, max_dist: 0.18}
+  positions:
+    backend: bbox_bottom
+  ball:
+    backend: fused
+    params:
+      shot_release_rim_excl_rw: 2.0
+      shot_team_window_s: 2.0
+      ball_far_penalty: 1.5
+      poss_loose_bonus: 1.0
+      poss_loose_pre_s: 0.3
+      poss_loose_post_s: 2.5
+      ball_rim_bonus: 0.6
+      ball_rim_bonus_rw: 1.5
+      shot_strict_arc: true

@@ -246,9 +246,23 @@ def _ball_node_score(
     tracks: list[tuple[int, list[float], str]],
     teams: dict[int, str],
     params: dict[str, Any],
+    rim: list[float] | None = None,
 ) -> float:
-    """Unary score for a candidate ball detection: confidence + possession/player proximity + rim context."""
+    """Unary score for a candidate ball detection: confidence + possession/player proximity + rim context.
+
+    With ``ball_rim_bonus > 0`` a candidate within ``ball_rim_bonus_rw`` rim widths of the rim gains up to that bonus
+    (linearly less with distance), so the trajectory through the rim is not outscored by faint detections next to
+    players, which collect the possession and player bonuses.
+
+    """
     score = conf - float(params["ball_prior"])
+    rim_bonus = float(params.get("ball_rim_bonus", 0.0))
+    if rim is not None and rim_bonus > 0.0:
+        rcx, rcy, rw = _rim_center_w(rim)
+        nd = math.hypot(bx - rcx, by - rcy) / rw
+        reach = float(params.get("ball_rim_bonus_rw", 1.5))
+        if nd <= reach:
+            score += rim_bonus * (1.0 - nd / reach)
     pip_boxes = [b for b in boxes if b[5] == "player-in-possession" and float(b[4]) >= 0.15]
     if pip_boxes:
         d_pip = min(point_to_box_dist(bx, by, b[:4]) for b in pip_boxes)
@@ -307,6 +321,7 @@ def _track_ball(
     params: dict[str, Any],
     *,
     eff_fps: float = 10.0,
+    rims: dict[int, list[float]] | None = None,
 ) -> tuple[dict[int, list[float] | None], dict[int, float]]:
     """Find the maximum-score multi-segment ball trajectory via time-ordered DAG dynamic programming.
 
@@ -319,7 +334,7 @@ def _track_ball(
         boxes = det_frames.get(str(f), [])
         tracks = tracks_by_f.get(f, [])
         for bx, by, conf in candidates.get(f, []):
-            sc = _ball_node_score(bx, by, conf, boxes, tracks, teams, params)
+            sc = _ball_node_score(bx, by, conf, boxes, tracks, teams, params, (rims or {}).get(f))
             nodes.append((idx, bx, by, conf, sc))
 
     ball_px: dict[int, list[float] | None] = dict.fromkeys(frames)
@@ -533,8 +548,20 @@ def _rim_hit_clusters(
     cooldown: int,
     approach_steps: int,
     arc_steps: int,
+    *,
+    strict_arc: bool = False,
 ) -> list[list[int]]:
-    """Find separated clusters of step indices where the ball arrives at the rim from outside."""
+    """Find separated clusters of step indices where the ball arrives at the rim from outside.
+
+    With ``strict_arc`` the ball must have been at or above rim height in the ``arc_steps`` before the hit; a point
+    at rim height reached straight from below (rim hardware, a ball under the basket) no longer counts.
+
+    Examples:
+        >>> rel = [(0.0, 4.0, 4.0), (0.0, 4.2, 4.2), (0.4, 0.0, 0.4)]
+        >>> _rim_hit_clusters(rel, 0.95, 5, 5, 5), _rim_hit_clusters(rel, 0.95, 5, 5, 5, strict_arc=True)
+        ([[2]], [])
+
+    """
     hits: list[int] = []
     for i, pt in enumerate(rel):
         if pt is None or pt[2] > rim_r:
@@ -542,7 +569,8 @@ def _rim_hit_clusters(
         _, ndy, _ = pt
         pre = [rel[j] for j in range(max(0, i - approach_steps), i) if rel[j] is not None]
         pre_recent = [rel[j] for j in range(max(0, i - arc_steps), i) if rel[j] is not None]
-        if pre and any(p[2] >= 1.25 for p in pre) and (any(p[1] <= 0.15 for p in pre_recent) or ndy <= 0.15):
+        from_above = any(p[1] <= 0.15 for p in pre_recent) or (ndy <= 0.15 and not strict_arc)
+        if pre and any(p[2] >= 1.25 for p in pre) and from_above:
             hits.append(i)
     clusters: list[list[int]] = []
     for idx in hits:
@@ -563,6 +591,7 @@ def _shot_rim_clusters(
         max(2, round(float(params["shot_cooldown_s"]) * eff_fps)),
         max(2, round(float(params["shot_approach_s"]) * eff_fps)),
         max(1, round(float(params["shot_arc_s"]) * eff_fps)),
+        strict_arc=bool(params.get("shot_strict_arc", False)),
     )
 
 
@@ -754,6 +783,8 @@ class FusedBall(BaseBackend):
         "poss_switch_penalty": 0.85,
         "poss_drop_penalty": 0.35,
         "ball_far_penalty": 0.0,
+        "ball_rim_bonus": 0.0,
+        "ball_rim_bonus_rw": 1.5,
         "poss_loose_bonus": 0.0,
         "poss_loose_pre_s": 0.0,
         "poss_loose_post_s": 0.0,
@@ -763,6 +794,7 @@ class FusedBall(BaseBackend):
         "shot_cooldown_s": 1.2,
         "shot_post_s": 0.9,
         "shot_release_lookback_s": 2.0,
+        "shot_strict_arc": False,
         "shot_release_rim_excl_rw": 0.0,
         "shot_team_window_s": 0.0,
         "bib_conf": 0.20,
@@ -805,7 +837,9 @@ class FusedBall(BaseBackend):
             tracks_by_f=tracks_by_f,
             teams=teams,
         )
-        ball_px, ball_conf = _track_ball(seq.frames, cands, det_frames, tracks_by_f, teams, self.p, eff_fps=eff_fps)
+        ball_px, ball_conf = _track_ball(
+            seq.frames, cands, det_frames, tracks_by_f, teams, self.p, eff_fps=eff_fps, rims=rims
+        )
         rel = _rim_relative_ball(seq.frames, ball_px, rims)
         loose = _loose_ball_bonus(seq.frames, _shot_rim_clusters(rel, self.p, eff_fps), rel, self.p, eff_fps)
         holders = _track_possession(seq.frames, det_frames, tracks_by_f, teams, ball_px, ball_conf, self.p, loose)
