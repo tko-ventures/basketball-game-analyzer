@@ -7,6 +7,7 @@
     uv run scripts/shot_gold.py prefill     # data/labels/.cache/shot_gold/<sequence>.json, for /shotgold
     uv run scripts/shot_gold.py sheets      # runs/_scratch/shot_gold/{holders,events}/sheet_NNN.jpg and items.json
     uv run scripts/shot_gold.py apply       # data/labels/review/shot_gold_{holders,events}.tsv into the queue
+    uv run scripts/shot_gold.py apply-free-throws   # data/labels/review/shot_gold_free_throws.tsv: full-game shots
     uv run scripts/shot_gold.py export      # confirmed answers -> data/gold/v1/shot_gold.json
     uv run scripts/shot_gold.py status
 
@@ -53,6 +54,7 @@ BOXES_DIR = Path("data/labels/.cache/shot_gold")
 SCRATCH = Path("runs/_scratch/shot_gold")
 HOLDERS_TSV = Path("data/labels/review/shot_gold_holders.tsv")
 EVENTS_TSV = Path("data/labels/review/shot_gold_events.tsv")
+FREE_THROWS_TSV = Path("data/labels/review/shot_gold_free_throws.tsv")
 PEOPLE = ("player", "player-in-possession", "player-jump-shot", "player-layup-dunk", "player-shot-block")
 FONT = cv2.FONT_HERSHEY_SIMPLEX
 
@@ -430,6 +432,45 @@ def cmd_apply(args):
     print(f"{QUEUE_PATH}: {progress(queue)}")
 
 
+def cmd_apply_free_throws(args):
+    """Propose free throws (1-point attempts) on every full-game shot and reopen it for Tomasz (#53).
+
+    Confirmed field goals stay; the proposals are added beside them, and the shot is marked ``free_throws: proposed``
+    so the page shows it as "free throws to check" and confirming it records its free throws as labelled.
+
+    """
+    full = {g["youtube_id"] for g in json.loads(GOLD_INDEX.read_text(encoding="utf-8"))["games"] if g.get("full_game")}
+    queue = load_queue()
+    by_seq = {}
+    for r in read_tsv(FREE_THROWS_TSV):
+        if "#ft" in r["id"]:
+            by_seq.setdefault(r["id"].split("#")[0], []).append(r)
+    added = shots = 0
+    for shot in queue["shots"]:
+        if shot["youtube_id"] not in full or shot.get("free_throws"):
+            continue
+        events = [ev for ev in shot["events"] if ev["points"] != 1]
+        for r in by_seq.get(shot["sequence"], []):
+            rim = int(r["rim_frame"])
+            release = int(r["release_frame"]) if r["release_frame"].isdigit() else rim - round(shot["fps"])
+            unclear = r["outcome"] not in ("made", "missed")
+            note = ("outcome unclear; " if unclear else "") + r["note"]
+            events.append({
+                "release_frame": min(max(release, shot["start"]), rim),
+                "rim_frame": rim,
+                "outcome": "missed" if unclear else r["outcome"],
+                "points": 1,
+                "shooter": None,
+                "note": f"free throw ({r['kit']} kit): {note}",
+            })
+            added += 1
+        set_shot_events(queue, {"sequence": shot["sequence"], "events": events}, Status.FIRST_PASS)
+        shot["free_throws"] = "proposed"
+        shots += 1
+    save_queue(queue)
+    print(f"{QUEUE_PATH}: {added} free throws proposed on {shots} full-game shots; {progress(queue)}")
+
+
 def cmd_export(args):
     doc = export_shot_gold()
     print(
@@ -462,6 +503,7 @@ def main():
         ("prefill", cmd_prefill),
         ("sheets", cmd_sheets),
         ("apply", cmd_apply),
+        ("apply-free-throws", cmd_apply_free_throws),
         ("export", cmd_export),
         ("status", cmd_status),
     ):

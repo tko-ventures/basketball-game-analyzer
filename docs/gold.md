@@ -334,3 +334,9 @@ Confirmed export (2026-11-26): Tomasz confirmed all 60 full-game shots and 422 f
 - **Full-game dev (Gliwice):** 40 shots, 29 attempts (11 made, 18 missed; 20 two-pointers, 9 threes; every attempt with a shooter box), 268 frames (152 with holder).
 - **Full-game held-out (PGE Start):** 20 shots, 22 attempts (9 made, 13 missed; 15 two-pointers, 7 threes), 154 frames (80 with holder).
 - **All shot gold:** 86 shots, 79 attempts, 610 frames. Full-game sequences are 60 fps; `bga eval-ball` matches shots within 0.8 s at each sequence's frame rate.
+
+### Free throws (2026-11-26, #53)
+
+Tomasz decided that free throws are shots, captured as their own category. In shot gold a free throw is an attempt worth **1 point** (labeller key `1`), with release frame, rim frame, outcome and shooter like any attempt. Free throws were left out of the 26 highlight shots, so they are labelled only on the full-game shots: `uv run scripts/shot_gold.py apply-free-throws` adds the first-pass free throws (`data/labels/review/shot_gold_free_throws.tsv`) to every full-game shot and marks it `free_throws: proposed` ("free throws to check" on the page); confirming the shot marks them `labelled`, and the export lists those shots in `free_throw_sequences`. `bga eval-ball` scores field goals (2 and 3 points) in its shot columns and free throws in their own column, only on those shots.
+
+First pass: 13 free throws in 13 of the 60 shots (dev 7: 4 made, 3 missed; held-out 6: all made), none overlapping a confirmed field goal. A free throw whose rim frame falls outside its shot is left out. Release frames are estimates; every free-throw shooter still needs a click.
