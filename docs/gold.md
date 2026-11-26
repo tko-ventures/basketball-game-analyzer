@@ -329,3 +329,8 @@ The 26 shots above hold 37 made and 7 missed attempts (gold v1 included), becaus
 First pass (2026-11-26, ledger rows of that date):
 - **Holders:** 422 frames, 272 settled by the first pass and 150 flagged for Tomasz (92 dev, 58 held-out).
 - **Shot attempts:** 55 proposed in 35 of the 60 shots. Dev: 30 (9 made, 21 missed). Held-out: 25 (8 made, 12 missed, 5 with an unclear outcome, proposed as missed with the doubt in the note). Two attempts showed only on the rim close-ups, because the detector's moment came before the shot or on the rebound.
+
+Confirmed export (2026-11-26): Tomasz confirmed all 60 full-game shots and 422 frames on `/shotgold` (8 of the 272 first-pass holder frames changed). `data/gold/v1/shot_gold.json` now holds:
+- **Full-game dev (Gliwice):** 40 shots, 29 attempts (11 made, 18 missed; 20 two-pointers, 9 threes; every attempt with a shooter box), 268 frames (152 with holder).
+- **Full-game held-out (PGE Start):** 20 shots, 22 attempts (9 made, 13 missed; 15 two-pointers, 7 threes), 154 frames (80 with holder).
+- **All shot gold:** 86 shots, 79 attempts, 610 frames. Full-game sequences are 60 fps; `bga eval-ball` matches shots within 0.8 s at each sequence's frame rate.
