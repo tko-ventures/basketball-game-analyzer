@@ -1,0 +1,83 @@
+idx	accept	still_missing	note
+2	p0:player	0	p0 is the airborne white shooter at the rim
+3	p0:player	0	p0 is the red player partly hidden behind white #25
+5	p0:player	0	p0 is red #22 airborne; p1 is cut off at the left edge
+7	p0:player	1	p0 is red #22 shooting; the white defender behind him has no box
+10	p1:player	0	p1 is a red player under the rim; p0 is cut off at the left edge
+11	p0:player	1	p0 is the red shooter; p1 is a crowd sliver at the top left
+13	p0:player	1	p0 is red #15; the white defender behind him has no box
+17	p1:player	1	p1 is red #15 jumping; p0 spans white #45 and a red player, so rejected; p2 is not visible; p3 is crowd at the left edge
+23	p0:player	0	p0 is the white shooter (navy #0 has his own box); p1 is a head cut off at the bottom edge
+24	p0:referee	0	p0 is the baseline referee; p1 is not visible
+30	p0:referee	0	p0 is the baseline referee; p1 is not visible
+31	p0:referee	0	p0 is the referee under the basket
+32		1	no green box visible; the fallen navy player at left has no box
+35	p0:player,p2:player	0	p0 is navy #45 (loose box); p2 is the white player jumping; p1 and p3 are not visible
+39		0	no green boxes visible
+40		1	p0 is legs cut off at the top edge; the referee in the foreground has no box
+42	p0:referee	0	p0 is the bald referee behind the score bug; p1 is legs at the top edge that already have a grey box
+43	p0:player	0	p0 is the yellow shooter with arms up; p1 is not visible
+48		1	no green box visible; the referee at left has no box
+50		1	no green box visible; the referee at the baseline has no box
+52		1	no green box visible; the referee at the baseline has no box
+54	p1:referee	0	p1 is the referee partly hidden behind white #25; p0 is not visible
+55	p0:player	1	p0 is the white player laying up; p1 is legs cut off at the top; the yellow player at right may have no box
+56	p0:player	0	p0 is the white player airborne; p1 is not visible
+68	p0:player,p2:player	0	p0 is the white player hanging at the rim; p2 is the green player behind a white player (box stops above the feet); p1 at the left edge is unclear
+77		2	the white player jumping near the rim and the referee under the basket have no box
+78		1	the referee at the baseline has no box
+79	p0:player	0	p0 is the green player driving to the basket; p1 is not visible
+82	p0:player	0	p0 is the green shooter; p1 is at the left edge
+89		1	p0 is not visible; the referee at left has no box
+90		1	the referee at the left edge has no box
+93	p0:player,p1:referee	1	p0 is white #16 shooting; p1 is the baseline referee; the foreground referee at bottom left has no box
+94	p0:referee	0	p0 is the referee behind green #3
+95	p0:referee	0	p0 is the baseline referee; p1 is at the left edge
+97	p0:player	0	p0 is the white shooter; p3 may duplicate a grey box; p1 and p2 are cut off at the crop edges
+99	p0:player	0	p0 is the white shooter; p1 is not visible
+102	p0:referee	1	p0 is the referee at right (cut at the bottom); p1 is a crowded spot that may be two people; the navy player there may have no box
+105	p0:referee	0	p0 is the baseline referee at right
+108	p0:player	0	p0 is the navy defender with his arm up; p1 is a person in black at the left edge, likely staff
+111		1	the referee at the right sideline has no box
+114	p0:player	0	p0 is the navy player airborne
+115	p0:referee,p1:player	1	p0 is the sideline referee; p1 is a white player; p2 spans a white jumper and navy #11, so rejected; p3 and p4 are not visible
+121	p0:player	1	p0 is the white player at the rim (navy defender behind him has no box); p4/p6 at the crop edge or in the crowd; p5 is crowd/staff off court
+123		1	p0 is a sliver at the crop's left edge; the referee to its right has no box
+129	p2:referee	0	p0 is a coach in a suit; p3 is at the crop edge
+131	p0:player,p1:referee	0	p0 is a navy player cut off at the knees; p2 is at the crop edge (bench)
+133	p0:referee	0	p1 is crowd at the crop edge
+138	p0:player	1	p0 is the white #18 shooter; the navy defender overlapping him has no box
+142		1	no proposal visible; the referee on the left sideline has no box
+143		0	p0 is a man in a grey/dark shirt by the stanchion; may be a referee but he stands against the crowd, so rejected as unsure
+144		1	no proposals; the referee on the far sideline has no box
+145	p0:referee	0	p1 is not visible in the crop
+148	p0:player	0	white #7 jumping near the baseline
+156		1	p1 covers the white shooter plus navy #45 in front (two people); the shooter is still missing
+158	p0:referee	0	referee on the baseline under the basket
+160	p1:referee	0	p2 is crowd at the crop edge
+164	p1:player	1	airborne navy player; the referee on the left sideline has no box
+165	p0:referee	0	
+166	p1:referee	0	
+168		0	p0 is a coach in black on the sideline
+174	p0:player,p1:player	0	p0 is the airborne navy shooter, p1 the bald white player; p2 is a coach; p3/p4 are at the crop edge
+175		1	p0 is at the crop edge; the referee on the baseline has no box
+176	p0:referee	0	
+178		1	p0 is a seated person behind the basket; the referee on the baseline has no box
+180		0	no proposal visible
+185	p0:player	0	dunker hanging on the rim
+189	p0:player	0	airborne red-jersey player
+190		1	no proposal visible; the referee at the left baseline has no box
+191	p1:referee	0	
+192		1	p0 is a man in a suit (staff); the referee by the sideline has no box
+193		1	no proposals; the referee under the basket behind the players has no box
+195	p0:player	0	p1 is at the crop edge
+197	p0:player	0	p0 is a white player sitting on the floor; p1 is staff in black by the bench; p2/p3 are at the crop edge
+199	p0:player	0	
+200	p0:player	0	yellow #9
+202	p0:player	0	p0 is yellow #5 dunking; p1 is a man in a suit
+203	p1:player	0	p1 is navy #25, partly hidden; p0 is a coach in black
+211	p0:player	1	p0 is navy #45; p1 covers a navy player and a yellow player (two people), so the navy player is still missing
+213	p0:player	0	navy player cut off at the crop bottom
+217	p2:player	2	p2 is a yellow player on the floor; p0/p1 sit in a tangled cluster (unsure who they cover); p3 is a photographer; p4 is at the crop edge
+218	p0:referee	0	p1 is a photographer in grey; p2 is at the crop edge
+239	p0:player,p2:player	2	white players with arms up under the basket; the blue player between them and white #1 have no box; p4 is the bench

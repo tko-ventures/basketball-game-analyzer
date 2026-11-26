@@ -8,6 +8,7 @@ review.
     uv run --extra court scripts/autolabel.py central     # court-landmark score per shot, all clips
     uv run --extra court scripts/autolabel.py check       # the central rule against the shots tagged by hand
     uv run scripts/autolabel.py sample                    # training frames from central shots, gold clips excluded
+    uv run scripts/autolabel.py mine --round 4            # round 4 instead of sample: hard frames (see mine())
     uv run --extra prefill scripts/autolabel.py prefill   # NBA detector v16 (all but ball) and v6 (ball), conf 0.1
     uv run --extra court scripts/autolabel.py draft       # keep >= 0.3, NMS, drop people off the court
     uv run scripts/autolabel.py ballqueue                 # data/labels/box_queue_r1balls.json for Tomasz
@@ -43,7 +44,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 #: Shot scores of every clip, computed once (round 1) and shared by every round.
 CENTRAL = Path("runs/autolabel/r1/central.json")
 #: Round 2 on: the prefill is the previous round's PLK detector (docs/metrics.md, detection table).
-PREFILL_WEIGHTS = {2: "detect/rfdetr_torch/plk-r1@7ab3f6fa", 3: "detect/rfdetr_torch/plk-r2@b13bfb19"}
+PREFILL_WEIGHTS = {
+    2: "detect/rfdetr_torch/plk-r1@7ab3f6fa",
+    3: "detect/rfdetr_torch/plk-r2@b13bfb19",
+    4: "detect/rfdetr_torch/plk-r3-poss@c62744fe",
+}
 #: Score at which a draft box is kept: 0.3 for the NBA detectors of round 1, 0.5 for the PLK detector.
 KEEP_BY_ROUND = {1: 0.3}
 #: A frame's ball is accepted without review when one ball scores at least AUTO_HI[round] and no other ball AUTO_LO,
@@ -175,6 +180,113 @@ def sample(r: Round, per_clip: int, seed: int) -> None:
     print(f"{len(frames)} frames from {len({f['clip'] for f in frames})} clips -> {r.out / 'frames.json'}")
 
 
+#: Cached plk-r3-poss detections (every 5th frame, confidence 0.05) of the crops-reid-r1 central shots: the pool that
+#: round 4 mines for hard frames.
+MINE_CACHE = "runs/*/detect/rfdetr_torch@eace3dfd/*_s*.json"
+SHOT_CLASSES = {"player-jump-shot", "player-layup-dunk", "player-shot-block"}
+#: Hard-frame buckets in priority order, with frames per clip (#40: crowded paint, shots, contact, unsure ball).
+MINE_QUOTA = {"paint": 8, "shot": 5, "contact": 4, "ball": 3}
+MINE_GAP_S, MINE_PER_SHOT, MINE_PREV_GAP_S = 0.5, 3, 0.5
+
+
+def hard_bucket(dets: list) -> str | None:
+    """The hard-frame bucket of one frame's detections, or None for an easy frame.
+
+    paint: four or more players (score >= 0.5) under a rim, horizontally within 4 rim widths, with the ball near the
+    rim, unsure or missing, or a shot class present. shot: a shot class at 0.3 or more. contact: a holder overlapping
+    another player (IoU >= 0.3). ball: at least four players and the best ball below 0.5, or a second ball at 0.3.
+
+    >>> rim = [900, 400, 960, 420, 0.9, "rim"]
+    >>> ppl = [[900 + 30 * i, 450, 960 + 30 * i, 700, 0.9, "player"] for i in range(4)]
+    >>> hard_bucket([rim, *ppl])
+    'paint'
+    >>> hard_bucket(ppl + [[100, 100, 110, 110, 0.9, "ball"]]) is None
+    True
+
+    """
+    people = [d for d in dets if d[5] in PERSON and d[4] >= 0.5]
+    players = [d for d in people if d[5] != "referee"]
+    balls = sorted((d for d in dets if d[5] == "ball"), key=lambda d: -d[4])
+    top = balls[0][4] if balls else 0.0
+    shot = max([d[4] for d in dets if d[5] in SHOT_CLASSES] + [0.0])
+    for rim in (d for d in dets if d[5] == "rim" and d[4] >= 0.5):
+        w, cx = rim[2] - rim[0], (rim[0] + rim[2]) / 2
+        crowd = sum(abs((q[0] + q[2]) / 2 - cx) < 4 * w and q[3] > rim[3] for q in players)
+        ball_near = top >= 0.3 and abs((balls[0][0] + balls[0][2]) / 2 - cx) < 3 * w
+        if crowd >= 4 and (ball_near or top < 0.5 or shot >= 0.3):
+            return "paint"
+    if shot >= 0.3:
+        return "shot"
+    holders = [d for d in players if d[5] == "player-in-possession" and d[4] >= 0.3]
+    if any(_iou(h, q) >= 0.3 for h in holders for q in players if q[:4] != h[:4]):
+        return "contact"
+    if len(people) >= MIN_PEOPLE and (top < 0.5 or (len(balls) > 1 and balls[1][4] >= 0.3)):
+        return "ball"
+    return None
+
+
+def mine(r: Round, seed: int) -> None:
+    """Round 4: hard frames from the cached detections of non-gold central shots, instead of random ``sample``.
+
+    Each cached frame gets a hard_bucket. Per clip, MINE_QUOTA frames are drawn from each bucket (unused quota goes to
+    the next bucket), at least MINE_GAP_S apart within a shot, at most MINE_PER_SHOT per shot, and MINE_PREV_GAP_S from
+    earlier rounds' frames.
+
+    """
+    import random
+    from collections import Counter
+
+    cen = json.loads(CENTRAL.read_text())
+    rng = random.Random(seed + 1000 * (r.n - 1))
+    pools = _mine_pools(r, cen)
+    frames, counts = [], Counter()
+    for stem, by_bucket in sorted(pools.items()):
+        fps, picked, carry = cen[stem]["fps"], [], 0
+        for bucket, quota in MINE_QUOTA.items():
+            want, cands = quota + carry, by_bucket.get(bucket, [])
+            rng.shuffle(cands)
+            got = 0
+            for shot, f in cands:
+                if got == want:
+                    break
+                same = [g for s, g, _ in picked if s == shot]
+                if len(same) < MINE_PER_SHOT and all(abs(f - g) >= MINE_GAP_S * fps for g in same):
+                    picked.append((shot, f, bucket))
+                    got += 1
+            carry = want - got
+            counts[bucket] += got
+        for shot, f, bucket in sorted(picked):
+            frames.append({"clip": stem, "video": cen[stem]["clip"], "shot": shot, "frame": f, "bucket": bucket})
+    (r.out / "frames.json").write_text(
+        json.dumps({"seed": seed, "mined": MINE_CACHE, "quota": MINE_QUOTA, "frames": frames}, indent=1)
+    )
+    print(f"{len(frames)} frames from {len(pools)} clips {dict(counts)} -> {r.out / 'frames.json'}")
+
+
+def _mine_pools(r: Round, cen: dict) -> dict:
+    """Hard frames of the cached detections per clip and bucket, gold clips and earlier rounds' frames left out."""
+    import glob
+    from collections import defaultdict
+
+    gold = {g["youtube_id"] for g in json.loads(Path("data/labels/gold.json").read_text())["games"]}
+    taken = defaultdict(list)
+    for k in range(1, r.n):
+        for f in json.loads(Path(f"runs/autolabel/r{k}/frames.json").read_text())["frames"]:
+            taken[f["clip"]].append(f["frame"])
+    pools = defaultdict(lambda: defaultdict(list))
+    for path in sorted(glob.glob(MINE_CACHE)):
+        stem, shot = Path(path).parts[1], int(path.rsplit("_s", 1)[1][: -len(".json")])
+        central_shot = next((s for s in cen[stem]["shots"] if s["shot"] == shot), None)
+        if any(g in stem for g in gold) or central_shot is None or central_shot["median"] < CENTRAL_K:
+            continue
+        fps = cen[stem]["fps"]
+        for k, dets in json.loads(Path(path).read_text())["frames"].items():
+            f, b = int(k), hard_bucket(dets)
+            if b and all(abs(f - g) >= MINE_PREV_GAP_S * fps for g in taken[stem]):
+                pools[stem][b].append((shot, f))
+    return pools
+
+
 #: Prefill models: version 16 for every class but the ball, version 6 for the ball (docs/decisions.md, 2026-11-18).
 PREFILL_MODELS = {"basketball-player-detection-3-ycjdo/16": "not-ball", "basketball-player-detection-3-ycjdo/6": "ball"}
 
@@ -246,6 +358,22 @@ def _iou(a, b) -> float:
     iy = max(0.0, min(a[3], b[3]) - max(a[1], b[1]))
     u = (a[2] - a[0]) * (a[3] - a[1]) + (b[2] - b[0]) * (b[3] - b[1]) - ix * iy
     return ix * iy / u if u > 0 else 0.0
+
+
+def proposals(f: dict, min_score: float = 0.15, max_iou: float = 0.3) -> list:
+    """The draft's weaker people boxes that overlap no kept person (nor a stronger proposal) at IoU max_iou.
+
+    >>> f = {"boxes": [[0, 0, 10, 20, 0.9, "player"]], "candidates": [[0, 0, 10, 20, 0.3, "player"],
+    ...      [50, 0, 60, 20, 0.3, "player-jump-shot"], [51, 0, 61, 20, 0.2, "player"], [80, 0, 90, 9, 0.1, "player"]]}
+    >>> [c[5] for c in proposals(f)]
+    ['player-jump-shot']
+
+    """
+    kept, out = [b for b in f["boxes"] if b[5] in PERSON], []
+    for c in sorted((c for c in f["candidates"] if c[5] in PERSON and c[4] >= min_score), key=lambda c: -c[4]):
+        if all(_iou(c, k) < max_iou for k in kept + out):
+            out.append(c)
+    return out
 
 
 def draft(r: Round) -> None:
@@ -399,8 +527,13 @@ def manifest(r: Round) -> None:
     from bga.train.leakage import assert_no_gold
 
     q = json.loads(r.ball_queue.read_text())
-    draft = {(f["clip"], f["frame"]): f for f in json.loads((r.out / "draft.json").read_text())["frames"]}
-    done = [f for f in q["frames"] if f["status"] == "done"]
+    fp = r.out / "draft_fp.json"  # the implementer's first pass (scripts/firstpass.py), when the round has one
+    draft = {
+        (f["clip"], f["frame"]): f
+        for f in json.loads((fp if fp.exists() else r.out / "draft.json").read_text())["frames"]
+    }
+    people = _people_fixes(r, draft) if fp.exists() else {}
+    done = [f for f in q["frames"] if f["status"] == "done" and people.get((f["clip"], f["frame"]), True) is not None]
     clips = sorted({f["clip"] for f in done})
     valid = set(clips[:: max(1, len(clips) // VALID_CLIPS)][:VALID_CLIPS])
     if r.n >= 2:  # the same validation clips in every round, so no clip trains in one round and validates in another
@@ -408,7 +541,9 @@ def manifest(r: Round) -> None:
     frames = []
     for f in done:
         d = draft[(f["clip"], f["frame"])]
-        boxes = [[*b[:4], b[5]] for b in d["boxes"] if b[5] != "ball"] + [[*b["xyxy"], "ball"] for b in f["boxes"]]
+        mine = people.get((f["clip"], f["frame"]))
+        boxes = [[*b[:4], b[5]] for b in d["boxes"] if b[5] != "ball" and (mine is None or b[5] not in PERSON)]
+        boxes += (mine or []) + [[*b["xyxy"], "ball"] for b in f["boxes"]]
         frames.append({
             "clip": f["clip"],
             "video": f["video"],
@@ -444,6 +579,29 @@ def manifest(r: Round) -> None:
     print(f"{len(frames)} frames ({sum(f['split'] == 'valid' for f in frames)} valid) -> {r.manifest}; {dict(c)}")
 
 
+def _people_fixes(r: Round, draft: dict) -> dict:
+    """People boxes from the round's people queue: (clip, frame) -> boxes when done, None otherwise.
+
+    A frame left to do or skipped stays out of the manifest (its people are known to be incomplete); the count is
+    printed, so build the manifest only once the reviewer has finished the queue.
+
+    """
+    path = Path(f"data/labels/box_queue_r{r.n}people.json")
+    frames = json.loads(path.read_text())["frames"] if path.exists() else []
+    out = {
+        (f["clip"], f["frame"]): (
+            [[*map(float, b["xyxy"]), b["cls"]] for b in f["boxes"] if b["cls"] in PERSON]
+            if f["status"] == "done"
+            else None
+        )
+        for f in frames
+    }
+    left = sum(v is None for v in out.values())
+    if left:
+        print(f"{path}: {left} of {len(out)} frames not done; they stay out of the manifest")
+    return out
+
+
 POSS_QUEUE = Path("data/labels/box_queue_possession.json")
 POSS_INSTRUCTIONS = (
     "<b>One question per frame: who has the ball?</b> The ball is the orange box.<br>"
@@ -464,7 +622,8 @@ def possession_queue(rounds: list[int]) -> None:
     """Add the finished frames with a ball of the given rounds to the possession queue (/boxes?set=possession).
 
     Each frame holds the round manifest's people boxes and its ball. Frames already in the queue keep their status
-    and boxes, so later rounds can be added without touching decisions made.
+    and boxes, so later rounds can be added without touching decisions made. A round with a first pass
+    (draft_fp.json) adds the frames whose holder it settled as done, with that holder (or nobody), for spot checks.
 
     """
     q = (
@@ -485,11 +644,20 @@ def possession_queue(rounds: list[int]) -> None:
     added = 0
     for rnd in rounds:
         man = json.loads(Path(f"data/labels/detect/train_manifest_r{rnd}.json").read_text())
+        fp_path = Round(rnd).out / "draft_fp.json"
+        fp = (
+            {(f["clip"], f["frame"]): f["fp"] for f in json.loads(fp_path.read_text())["frames"]}
+            if fp_path.exists()
+            else {}
+        )
         for f in man["frames"]:
             balls = [b for b in f["boxes"] if b[4] == "ball"]
             if not balls or (f["clip"], f["frame"]) in have:
                 continue
             boxes = [b for b in f["boxes"] if b[4] in PERSON] + balls[:1]
+            settled = fp.get((f["clip"], f["frame"]), {})
+            holder = next((i for i, b in enumerate(boxes) if b[:4] == settled.get("holder")), None)
+            done = settled.get("holder_decided", False) and (settled.get("holder") is None or holder is not None)
             q["frames"].append({
                 "youtube_id": f["clip"],
                 "clip": f["clip"],
@@ -497,10 +665,10 @@ def possession_queue(rounds: list[int]) -> None:
                 "shot": f["shot"],
                 "frame": f["frame"],
                 "round": rnd,
-                "status": "todo",
-                "holder": None,
+                "status": "done" if done else "todo",
+                "holder": holder if done else None,
                 "dead_ball": False,
-                "note": "",
+                "note": "first pass (implementer)" if done else settled.get("note", ""),
                 "candidates": [],
                 "boxes": [
                     {
@@ -597,6 +765,7 @@ def main(argv=None):
             "central",
             "check",
             "sample",
+            "mine",
             "prefill",
             "draft",
             "ballqueue",
@@ -617,6 +786,7 @@ def main(argv=None):
         "central": lambda: central(a.force),
         "check": check,
         "sample": lambda: sample(r, a.per_clip, a.seed),
+        "mine": lambda: mine(r, a.seed),
         "prefill": lambda: prefill(r),
         "draft": lambda: draft(r),
         "ballqueue": lambda: ball_queue(r, a.force),

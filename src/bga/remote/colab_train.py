@@ -1,27 +1,32 @@
 """``bga train`` on Google Colab GPUs via ``google-colab-cli`` (``colab``).
 
 Provisions an ephemeral Colab GPU runtime, uploads the local ``bga`` package and built dataset (chunked so
-large archives stay below Jupyter's Contents API body limit), installs only the trainer's missing packages on
-top of Colab's preinstalled CUDA PyTorch, runs :func:`bga.train.dispatch.run_trainer` with live streamed
-output, downloads the collected checkpoints and logs into ``runs/train/<id>/output/``, and always terminates
-the session in ``finally`` so idle runtimes never burn Compute Units.
+large archives stay below Jupyter's Contents API body limit), starts :func:`bga.train.dispatch.run_trainer`
+detached on the VM so laptop sleep, transient network drops, or proxy-token expiry do not kill training,
+polls status and streams remote logs over short reconnecting calls, downloads the collected checkpoints and
+logs into ``runs/train/<id>/output/``, and always terminates the session in ``finally`` so idle runtimes
+never burn Compute Units.
 
 """
 
 from __future__ import annotations
 
+import base64
+import codecs
 import json
 import logging
 import re
 import shutil
 import subprocess
+import sys
 import tarfile
 import tempfile
+import time
 import uuid
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 from bga.train.config import ROOT, TrainConfig
 from bga.train.dispatch import PARSEQ_PACKAGE, REID_PACKAGE, RFDETR_PACKAGE, RFDETR_PLUS_PACKAGE
@@ -36,6 +41,16 @@ HIGH_MEM_GPUS: frozenset[str] = frozenset({"A100"})
 CHUNK_BYTES: int = 15 * 1024 * 1024
 #: Working directory on the Colab VM (relative to Jupyter's root ``/``).
 REMOTE_ROOT: str = "content/bga_run"
+#: Seconds between status/log polls while detached training runs on Colab.
+POLL_INTERVAL_S: float = 15.0
+#: Maximum raw bytes read from ``train.log`` per poll call.
+POLL_LOG_CHUNK_BYTES: int = 262_144
+#: Consecutive transient poll errors tolerated before aborting (covers laptop sleep / Wi-Fi reconnect).
+MAX_POLL_ERRORS: int = 12
+#: Maximum attempts for post-training download steps so a transient blip cannot lose finished weights.
+DOWNLOAD_RETRIES: int = 4
+#: Base delay (seconds) before retrying a failed post-training download call.
+DOWNLOAD_RETRY_DELAY_S: float = 5.0
 #: Extra packages to install per trainer on top of Colab's preinstalled CUDA PyTorch environment.
 SETUP_PACKAGES: dict[str, tuple[str, ...]] = {
     "train_keypoint": (RFDETR_PACKAGE, RFDETR_PLUS_PACKAGE),
@@ -48,6 +63,7 @@ SETUP_PACKAGES: dict[str, tuple[str, ...]] = {
 _BALANCE_RE = re.compile(r"Current balance:\s*([0-9]+(?:\.[0-9]+)?)\s+compute units")
 _RATE_RE = re.compile(r"Usage rate:\s*([0-9]+(?:\.[0-9]+)?)/hr")
 _ASSIGNMENTS_RE = re.compile(r"Active assignments:\s*([0-9]+)")
+_POLL_MARKER = "_BGA_POLL_JSON_:"
 
 
 @dataclass(frozen=True)
@@ -71,6 +87,17 @@ class ColabJobSpec:
     gpu: str
     commit: str
     init_file: Path | None = None
+
+
+@dataclass(frozen=True)
+class _PollResult:
+    """Status and log delta returned by a single remote poll."""
+
+    state: Literal["running", "done", "crashed"]
+    offset: int
+    chunk: bytes
+    more: bool
+    exit_code: int | None
 
 
 def validate_colab_gpu(gpu: str) -> str:
@@ -186,16 +213,32 @@ def _run_colab(
     capture: bool = True,
     check: bool = True,
     input_text: str | None = None,
+    cmd_timeout: float | None = None,
 ) -> subprocess.CompletedProcess[str]:
     """Invoke the ``colab`` CLI with fixed argument lists."""
     cmd = [_colab_bin(), *args]
-    return subprocess.run(  # noqa: S603  # resolved colab CLI executable with controlled arguments
-        cmd,
-        input=input_text,
-        capture_output=capture,
-        text=True,
-        check=check,
-    )
+    kwargs: dict[str, Any] = {
+        "input": input_text,
+        "capture_output": capture,
+        "text": True,
+        "check": check,
+    }
+    if cmd_timeout is not None:
+        kwargs["timeout"] = cmd_timeout
+    return subprocess.run(cmd, **kwargs)  # noqa: S603  # resolved colab CLI executable with controlled arguments
+
+
+def _staging_tempdir(preferred_dir: Path | None = None) -> tempfile.TemporaryDirectory[str]:
+    """Create a temporary staging directory, resilient to a deleted inherited ``TMPDIR``."""
+    if preferred_dir is not None:
+        preferred_dir.mkdir(parents=True, exist_ok=True)
+        return tempfile.TemporaryDirectory(prefix=".bga-tmp-", dir=preferred_dir)
+    default_tmp = Path(tempfile.gettempdir())
+    if default_tmp.is_dir():
+        return tempfile.TemporaryDirectory(prefix="bga-colab-")
+    fallback = Path.home() / ".cache" / "bga" / "tmp"
+    fallback.mkdir(parents=True, exist_ok=True)
+    return tempfile.TemporaryDirectory(prefix="bga-colab-", dir=fallback)
 
 
 def get_usage() -> UsageInfo | None:
@@ -283,7 +326,7 @@ def upload_file(
         _run_colab(["upload", "-s", session, str(local_path), remote_path])
         return [remote_path]
     parts: list[str] = []
-    with tempfile.TemporaryDirectory() as tmp, local_path.open("rb") as src:
+    with _staging_tempdir() as tmp, local_path.open("rb") as src:
         idx = 0
         while True:
             data = src.read(chunk_bytes)
@@ -299,18 +342,25 @@ def upload_file(
     return parts
 
 
-def _exec_code(session: str, code: str, *, timeout: float = 0.0, stream: bool = False) -> None:
+def _exec_code(
+    session: str,
+    code: str,
+    *,
+    timeout: float = 0.0,
+    stream: bool = False,
+) -> subprocess.CompletedProcess[str]:
     """Execute a Python snippet on a Colab session via stdin."""
-    _run_colab(
+    return _run_colab(
         ["exec", "-s", session, "--timeout", str(timeout)],
         capture=not stream,
         check=True,
         input_text=code,
+        cmd_timeout=timeout + 60.0 if timeout > 0 else None,
     )
 
 
 def _remote_train_script() -> str:
-    """Return the self-contained Python script executed on the Colab GPU VM."""
+    """Return the self-contained Python trainer script run detached on the Colab GPU VM."""
     return f"""
 import importlib.util
 import json
@@ -327,6 +377,7 @@ OUT = ROOT / "output"
 OUT.mkdir(parents=True, exist_ok=True)
 (OUT / "_ok.txt").unlink(missing_ok=True)
 (OUT / "_error.txt").unlink(missing_ok=True)
+(OUT / "_exit_code.txt").unlink(missing_ok=True)
 
 
 def _reassemble(chunks: dict) -> None:
@@ -362,6 +413,7 @@ def _install_packages(packages: list[str]) -> None:
     subprocess.run(cmd, check=True)
 
 
+exit_code = 1
 try:
     meta = json.loads((ROOT / "upload" / "job.json").read_text())
     _reassemble(meta.get("chunks", {{}}))
@@ -414,12 +466,249 @@ try:
     (OUT / "result.json").write_text(json.dumps(result, indent=1))
     (OUT / "_ok.txt").write_text("ok\\n")
     print("[bga-colab] training finished cleanly", flush=True)
+    exit_code = 0
 except BaseException:
     tb = traceback.format_exc()
     (OUT / "_error.txt").write_text(tb)
     print(tb, file=sys.stderr, flush=True)
     raise
+finally:
+    (OUT / "_exit_code.txt").write_text(f"{{exit_code}}\\n")
 """.lstrip()
+
+
+def _remote_start_script() -> str:
+    """Return a short snippet that spawns ``upload/run_train.py`` detached from the Jupyter kernel."""
+    return f"""
+import shlex
+import subprocess
+import sys
+from pathlib import Path
+
+ROOT = Path("/{REMOTE_ROOT}")
+OUT = ROOT / "output"
+OUT.mkdir(parents=True, exist_ok=True)
+for name in ("_ok.txt", "_error.txt", "_exit_code.txt", "_pid.txt"):
+    (OUT / name).unlink(missing_ok=True)
+log_path = ROOT / "train.log"
+log_path.write_text("")
+script = ROOT / "upload" / "run_train.py"
+pid_path = OUT / "_pid.txt"
+cmd = (
+    f"nohup {{shlex.quote(sys.executable)}} -u {{shlex.quote(str(script))}} "
+    f"> {{shlex.quote(str(log_path))}} 2>&1 </dev/null & echo $! > {{shlex.quote(str(pid_path))}}"
+)
+subprocess.run(["/bin/sh", "-c", cmd], check=True, start_new_session=True)
+""".lstrip()
+
+
+def _remote_poll_script(offset: int, *, max_bytes: int = POLL_LOG_CHUNK_BYTES) -> str:
+    """Return a short snippet that reads new log bytes and detached-trainer status."""
+    return f"""
+import base64
+import json
+import os
+from pathlib import Path
+
+ROOT = Path("/{REMOTE_ROOT}")
+OUT = ROOT / "output"
+log_path = ROOT / "train.log"
+offset = {offset}
+max_bytes = {max_bytes}
+
+data = b""
+more = False
+if log_path.exists():
+    size = log_path.stat().st_size
+    if size > offset:
+        with log_path.open("rb") as f:
+            f.seek(offset)
+            data = f.read(max_bytes)
+        more = size > offset + len(data)
+
+
+def _pid_alive(pid: int) -> bool:
+    stat_path = Path(f"/proc/{{pid}}/stat")
+    if stat_path.exists():
+        try:
+            text = stat_path.read_text()
+            state = text[text.rfind(")") + 2 : text.rfind(")") + 3]
+            return state != "Z"
+        except OSError:
+            return False
+    try:
+        os.kill(pid, 0)
+    except OSError:
+        return False
+    return True
+
+
+exit_path = OUT / "_exit_code.txt"
+pid_path = OUT / "_pid.txt"
+exit_code = None
+if exit_path.exists():
+    state = "done"
+    try:
+        exit_code = int(exit_path.read_text().strip())
+    except ValueError:
+        exit_code = 1
+elif pid_path.exists():
+    try:
+        pid = int(pid_path.read_text().strip())
+        state = "running" if _pid_alive(pid) else "crashed"
+    except ValueError:
+        state = "crashed"
+else:
+    state = "crashed"
+
+payload = {{
+    "state": state,
+    "offset": offset + len(data),
+    "data_b64": base64.b64encode(data).decode("ascii"),
+    "more": more,
+    "exit_code": exit_code,
+}}
+print("{_POLL_MARKER}" + json.dumps(payload), flush=True)
+""".lstrip()
+
+
+def _parse_poll_output(stdout: str) -> _PollResult:
+    """Parse the ``_BGA_POLL_JSON_:`` payload emitted by :func:`_remote_poll_script`."""
+    for line in reversed(stdout.splitlines()):
+        if not line.startswith(_POLL_MARKER):
+            continue
+        raw: dict[str, Any] = json.loads(line[len(_POLL_MARKER) :])
+        return _PollResult(
+            state=raw["state"],
+            offset=int(raw["offset"]),
+            chunk=base64.b64decode(raw["data_b64"]),
+            more=bool(raw["more"]),
+            exit_code=int(raw["exit_code"]) if raw.get("exit_code") is not None else None,
+        )
+    raise RuntimeError(f"Colab status poll returned no {_POLL_MARKER} line")
+
+
+def _session_alive(session: str) -> bool | None:
+    """Check whether ``session`` is still listed on Colab (also refreshes cached proxy tokens).
+
+    Returns ``True`` when listed, ``False`` when the server confirms it is gone, or ``None`` when the check
+    itself failed (e.g. local network offline).
+
+    """
+    try:
+        proc = _run_colab(["sessions"], capture=True, check=False, cmd_timeout=60.0)
+    except subprocess.TimeoutExpired:
+        return None
+    if proc.returncode != 0:
+        return None
+    tag = f"[{session}]"
+    return any(line.split()[:1] == [tag] for line in proc.stdout.splitlines())
+
+
+def _handle_poll_error(
+    session: str,
+    exc: subprocess.SubprocessError,
+    consecutive_errors: int,
+    max_poll_errors: int,
+) -> int:
+    """Classify a failed poll: fail fast if the VM vanished, otherwise allow transient retries."""
+    if _session_alive(session) is False:
+        raise RuntimeError(f"Colab session {session} is no longer active on server") from exc
+    consecutive_errors += 1
+    if consecutive_errors >= max_poll_errors:
+        raise RuntimeError(
+            f"lost connection to Colab session {session} after {consecutive_errors} consecutive poll failures"
+        ) from exc
+    log.warning(
+        "transient Colab poll error on %s (%d/%d); retrying in %.0fs",
+        session,
+        consecutive_errors,
+        max_poll_errors,
+        POLL_INTERVAL_S,
+    )
+    return consecutive_errors
+
+
+def _wait_for_remote_training(
+    session: str,
+    *,
+    timeout_s: float,
+    poll_interval_s: float = POLL_INTERVAL_S,
+    max_poll_errors: int = MAX_POLL_ERRORS,
+) -> int:
+    """Poll detached remote training until completion, streaming ``train.log`` to stdout."""
+    deadline = time.time() + timeout_s
+    offset = 0
+    consecutive_errors = 0
+    decoder = codecs.getincrementaldecoder("utf-8")("replace")
+
+    while True:
+        try:
+            proc = _exec_code(session, _remote_poll_script(offset), timeout=60.0, stream=False)
+            poll = _parse_poll_output(proc.stdout)
+        except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as exc:
+            consecutive_errors = _handle_poll_error(session, exc, consecutive_errors, max_poll_errors)
+            if time.time() >= deadline:
+                raise TimeoutError(f"Colab training on {session} exceeded {timeout_s / 3600:.1f}h timeout") from exc
+            time.sleep(poll_interval_s)
+            continue
+
+        consecutive_errors = 0
+        offset = poll.offset
+        if poll.chunk:
+            sys.stdout.write(decoder.decode(poll.chunk))
+            sys.stdout.flush()
+
+        if poll.more:
+            continue
+        if poll.state == "done":
+            tail = decoder.decode(b"", final=True)
+            if tail:
+                sys.stdout.write(tail)
+                sys.stdout.flush()
+            return 1 if poll.exit_code is None else poll.exit_code
+        if poll.state == "crashed":
+            tail = decoder.decode(b"", final=True)
+            if tail:
+                sys.stdout.write(tail)
+                sys.stdout.flush()
+            raise RuntimeError(
+                f"Colab trainer process on {session} exited unexpectedly without writing an exit code "
+                "(possible OOM or SIGKILL)"
+            )
+        if time.time() >= deadline:
+            raise TimeoutError(f"Colab training on {session} exceeded {timeout_s / 3600:.1f}h timeout")
+        time.sleep(poll_interval_s)
+
+
+def _retry_transfer[T](
+    session: str,
+    label: str,
+    action: Callable[[], T],
+    *,
+    max_attempts: int = DOWNLOAD_RETRIES,
+    retry_delay_s: float = DOWNLOAD_RETRY_DELAY_S,
+) -> T:
+    """Retry a post-training Colab RPC or download on transient proxy/network errors."""
+    for attempt in range(1, max_attempts + 1):
+        try:
+            return action()
+        except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as exc:
+            if attempt >= max_attempts:
+                raise
+            if _session_alive(session) is False:
+                raise RuntimeError(f"Colab session {session} is no longer active on server during {label}") from exc
+            delay = retry_delay_s * attempt
+            log.warning(
+                "transient Colab error during %s on %s (%d/%d); retrying in %.0fs",
+                label,
+                session,
+                attempt,
+                max_attempts,
+                delay,
+            )
+            time.sleep(delay)
+    raise AssertionError("unreachable")  # pragma: no cover
 
 
 def _remote_prepare_downloads_script(filenames: Sequence[str], chunk_bytes: int) -> str:
@@ -468,6 +757,16 @@ for name in {names_json}:
 """.lstrip()
 
 
+def _download_one(session: str, remote_path: str, local_path: Path) -> None:
+    """Download a single remote path into ``local_path``, retrying transient proxy failures."""
+
+    def _pull() -> None:
+        local_path.unlink(missing_ok=True)
+        _run_colab(["download", "-s", session, remote_path, str(local_path)], cmd_timeout=180.0)
+
+    _retry_transfer(session, f"download {remote_path}", _pull)
+
+
 def download_outputs(
     session: str,
     filenames: Sequence[str],
@@ -492,24 +791,31 @@ def download_outputs(
 
     """
     local_dir.mkdir(parents=True, exist_ok=True)
-    _exec_code(session, _remote_prepare_downloads_script(filenames, chunk_bytes), timeout=120.0)
+    _retry_transfer(
+        session,
+        "prepare downloads",
+        lambda: _exec_code(session, _remote_prepare_downloads_script(filenames, chunk_bytes), timeout=120.0),
+    )
     manifest_local = local_dir / "_manifest.json"
-    _run_colab(["download", "-s", session, f"{REMOTE_ROOT}/download/_manifest.json", str(manifest_local)])
+    _download_one(session, f"{REMOTE_ROOT}/download/_manifest.json", manifest_local)
     manifest: dict[str, Any] = json.loads(manifest_local.read_text())
     manifest_local.unlink(missing_ok=True)
 
-    with tempfile.TemporaryDirectory() as tmp:
+    with _staging_tempdir(local_dir) as tmp:
+        tmp_dir = Path(tmp)
         for name, remote_parts in manifest.get("files", {}).items():
             dst = local_dir / name
             if len(remote_parts) == 1:
-                _run_colab(["download", "-s", session, remote_parts[0], str(dst)])
+                _download_one(session, remote_parts[0], dst)
                 continue
-            with dst.open("wb") as out_f:
+            staged = tmp_dir / name
+            with staged.open("wb") as out_f:
                 for idx, part_remote in enumerate(remote_parts):
-                    part_local = Path(tmp) / f"{name}.part{idx:03d}"
-                    _run_colab(["download", "-s", session, part_remote, str(part_local)])
+                    part_local = tmp_dir / f"{name}.part{idx:03d}"
+                    _download_one(session, part_remote, part_local)
                     out_f.write(part_local.read_bytes())
                     part_local.unlink()
+            staged.replace(dst)
     return manifest
 
 
@@ -530,7 +836,7 @@ def stop_session(session: str) -> None:
 
 
 def _upload_inputs(session: str, spec: ColabJobSpec) -> dict[str, Any]:
-    """Pack and upload ``src/bga``, dataset, optional ``init.pth``, and ``job.json`` to the session."""
+    """Pack and upload ``src/bga``, dataset, optional ``init.pth``, ``run_train.py``, and ``job.json``."""
     _exec_code(
         session,
         f"from pathlib import Path\n"
@@ -539,7 +845,7 @@ def _upload_inputs(session: str, spec: ColabJobSpec) -> dict[str, Any]:
         timeout=60.0,
     )
     chunks: dict[str, list[str]] = {}
-    with tempfile.TemporaryDirectory() as tmp:
+    with _staging_tempdir() as tmp:
         tmp_dir = Path(tmp)
         src_tar = pack_directory(ROOT / "src/bga", tmp_dir / "bga_src.tar.gz", compress=True, arcroot="bga")
         src_remote = f"{REMOTE_ROOT}/upload/bga_src.tar.gz"
@@ -555,6 +861,10 @@ def _upload_inputs(session: str, spec: ColabJobSpec) -> dict[str, Any]:
             init_rel = f"{REMOTE_ROOT}/upload/init.pth"
             log.info("uploading warm-start weights %s to Colab session %s", spec.init_file.name, session)
             chunks[init_rel] = upload_file(session, spec.init_file, init_rel)
+
+        script_local = tmp_dir / "run_train.py"
+        script_local.write_text(_remote_train_script())
+        upload_file(session, script_local, f"{REMOTE_ROOT}/upload/run_train.py")
 
         meta = {
             "trainer": spec.trainer_name,
@@ -577,8 +887,9 @@ def _upload_inputs(session: str, spec: ColabJobSpec) -> dict[str, Any]:
 def launch_colab(spec: ColabJobSpec) -> dict[str, Any]:
     """Run a full training job on a Google Colab GPU and download outputs locally.
 
-    Creates a Colab session, uploads code and dataset, runs the trainer with streamed logs, pulls the setup's
-    output files into ``spec.output_dir``, and always terminates the session before returning.
+    Creates a Colab session, uploads code and dataset, starts the trainer detached on the VM, polls status and
+    streams logs across reconnecting calls (tolerating laptop sleep or transient network drops), pulls the
+    setup's output files into ``spec.output_dir``, and always terminates the session before returning.
 
     Args:
         spec: Job configuration, trainer name, paths, validated GPU, commit and optional warm-start weights.
@@ -589,7 +900,8 @@ def launch_colab(spec: ColabJobSpec) -> dict[str, Any]:
 
     Raises:
         ValueError: When the requested GPU is unsupported on Colab or ``recipe.devices > 1``.
-        RuntimeError: When the ``colab`` CLI is missing or remote training fails.
+        RuntimeError: When the ``colab`` CLI is missing, the session vanishes, or remote training fails.
+        TimeoutError: When remote training exceeds ``spec.cfg.platform.timeout_h``.
 
     Examples:
         >>> launch_colab(spec)["platform"]  # doctest: +SKIP
@@ -614,8 +926,9 @@ def launch_colab(spec: ColabJobSpec) -> dict[str, Any]:
     try:
         usage_during = get_usage()
         _upload_inputs(session, spec)
-        log.info("starting %s on Colab session %s", spec.trainer_name, session)
-        _exec_code(session, _remote_train_script(), timeout=0.0, stream=True)
+        log.info("starting %s detached on Colab session %s", spec.trainer_name, session)
+        _exec_code(session, _remote_start_script(), timeout=60.0)
+        _wait_for_remote_training(session, timeout_s=float(spec.cfg.platform.timeout_h) * 3600.0)
         manifest = download_outputs(session, spec.pull_files, spec.output_dir)
     finally:
         log.info("stopping Colab session %s", session)

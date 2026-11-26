@@ -46,6 +46,7 @@ What changes in code, configs, metrics, or future milestones?
 | 2026-11-02 | Court (L1) | [Fine-tune RF-DETR Keypoint on PLK halls with median smoothing](2026-11-02-court-keypoint-finetune-and-smoothing.md) | Accepted |
 | 2026-11-19 | Detect (L2) | [RF-DETR Large at 1280 px on PyTorch/MPS; drop XL, DEIM, YOLO26, and court filter](2026-11-19-detector-rfdetr-large-1280px-mps.md) | Accepted |
 | 2026-11-20 | Detect / M9 | [Six active box classes, split visual holder from `dead_ball`, adopt `plk-r3-poss`](2026-11-20-detector-classes-and-possession-schema.md) | Accepted |
+| 2026-11-26 | Detect (L2) / Ball (L7) | [Detector round 4 (`plk-r4-l4`) stays a comparator; `plk-r3-poss` and `ball-plk-fused-v2` remain active](2026-11-26-detector-r4-kept-as-comparator.md) | Accepted |
 | 2026-11-20 | Team (L3) | [Fit `siglip_kmeans` per shot at 5 fps with fixed seed and required kit metadata](2026-11-20-team-classification-siglip-5fps.md) | Accepted |
 | 2026-11-22 | Track / Link (L3b, L4) | [BoT-SORT with PLK re-ID encoder + greedy link (5-per-team cap); drop SAM 2.1 and `bytetrack_court`](2026-11-22-tracking-botsort-plk-reid-and-greedy-link.md) | Accepted |
 | 2026-11-23 | Numbers & Identity (L5/L5b) | [PARSeq fine-tuned from scene-text weights + roster log-prob, co-visible assignment & game-level clustering](2026-11-23-jersey-number-reading-parseq-and-roster-scoring.md) | Accepted *(open licence check)* |
@@ -71,4 +72,5 @@ What changes in code, configs, metrics, or future milestones?
 | 2026-11-18 | Style & Git | [Borda Python coding/testing style, pre-commit hooks, and squash-merge workflow](2026-11-18-python-style-and-quality-standards.md) | Accepted |
 | 2026-11-18 | Demo & Language | [English-only codebase and demo site; single analysis view + synthetic coach showcase](2026-11-18-english-only-codebase-and-demo.md) | Accepted |
 | 2026-11-20 | Dependencies | [Follow upstream migration guides (`supervision` → `trackers`) via new backends](2026-11-20-upstream-migration-policy.md) | Accepted |
-| 2026-11-23 | Compute | [Google Colab for training, alternating with Modal by credit availability](2026-11-23-colab-for-training-alternating-with-modal.md) | Accepted |
+| 2026-11-23 | Compute | [Google Colab for training, alternating with Modal by credit availability](2026-11-23-colab-for-training-alternating-with-modal.md) | Superseded (training platform) by [2026-11-24](2026-11-24-colab-first-training-modal-under-30.md) |
+| 2026-11-24 | Compute | [Training on Colab first; Modal only while the month's Modal usage is below 30 USD](2026-11-24-colab-first-training-modal-under-30.md) | Accepted |

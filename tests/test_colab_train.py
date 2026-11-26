@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import base64
 import json
 import subprocess
 import tarfile
@@ -13,7 +14,7 @@ from bga.remote import colab_train
 from bga.train.config import BaseWeights, ManifestSource, Platform, Recipe, TrainConfig
 
 
-def _sample_config(*, gpu: str = "L4", devices: int | None = None) -> TrainConfig:
+def _sample_config(*, gpu: str = "L4", devices: int | None = None, timeout_h: float = 4.0) -> TrainConfig:
     """Build a minimal valid ``TrainConfig`` for unit tests."""
     return TrainConfig(
         name="demo",
@@ -22,9 +23,28 @@ def _sample_config(*, gpu: str = "L4", devices: int | None = None) -> TrainConfi
         base_weights=BaseWeights(name="resnet18", url="https://example.invalid/w", licence="Apache-2.0"),
         sources=[ManifestSource(path="data/labels/numbers/demo.json", sha256="0" * 64)],
         recipe=Recipe(resolution=64, epochs=1, batch_size=8, lr=1e-3, select_on="val/top1", devices=devices),
-        platform=Platform(name="colab", gpu=gpu),
+        platform=Platform(name="colab", gpu=gpu, timeout_h=timeout_h),
         package="timm==1.0.30",
     )
+
+
+def _poll_line(
+    state: str,
+    *,
+    offset: int = 0,
+    chunk: bytes = b"",
+    more: bool = False,
+    exit_code: int | None = None,
+) -> str:
+    """Format a synthetic ``_BGA_POLL_JSON_:`` line matching ``_remote_poll_script``."""
+    payload = {
+        "state": state,
+        "offset": offset,
+        "data_b64": base64.b64encode(chunk).decode("ascii"),
+        "more": more,
+        "exit_code": exit_code,
+    }
+    return f"{colab_train._POLL_MARKER}{json.dumps(payload)}\n"
 
 
 class FakeColabCli:
@@ -36,12 +56,21 @@ class FakeColabCli:
         usage_outputs: list[str] | None = None,
         remote_files: dict[str, bytes] | None = None,
         fail_on: str | None = None,
+        poll_responses: list[str | Exception] | None = None,
+        download_errors: list[Exception | None] | None = None,
+        sessions_stdout: str | None = None,
+        sessions_returncode: int = 0,
     ) -> None:
         self.calls: list[list[str]] = []
         self.uploaded: dict[str, bytes] = {}
         self.remote_files: dict[str, bytes] = dict(remote_files or {})
         self.usage_outputs = list(usage_outputs or [])
         self.fail_on = fail_on
+        self.poll_responses: list[str | Exception] = list(poll_responses or [])
+        self.download_errors: list[Exception | None] = list(download_errors or [])
+        self.sessions_stdout = sessions_stdout
+        self.sessions_returncode = sessions_returncode
+        self.last_session: str = ""
 
     def __call__(
         self,
@@ -51,35 +80,60 @@ class FakeColabCli:
         capture_output: bool = True,
         text: bool = True,
         check: bool = True,
+        timeout: float | None = None,
     ) -> subprocess.CompletedProcess[str]:
         args = cmd[1:]
         self.calls.append(args)
         subcmd = args[0]
+        if subcmd == "new" and "-s" in args:
+            self.last_session = args[args.index("-s") + 1]
         if self.fail_on == subcmd:
             raise subprocess.CalledProcessError(1, cmd)
         if subcmd == "usage":
             out = self.usage_outputs.pop(0) if self.usage_outputs else ""
             return subprocess.CompletedProcess(cmd, 0, stdout=out, stderr="")
+        if subcmd == "sessions":
+            out = (
+                f"[{self.last_session}] gpu-l4-abc | Hardware: L4 | Shape: Standard | Variant: GPU\n"
+                if self.sessions_stdout is None
+                else self.sessions_stdout
+            )
+            return subprocess.CompletedProcess(cmd, self.sessions_returncode, stdout=out, stderr="")
         if subcmd == "upload":
             local_path, remote_path = Path(args[3]), args[4]
             self.uploaded[remote_path] = local_path.read_bytes()
             return subprocess.CompletedProcess(cmd, 0, stdout="", stderr="")
         if subcmd == "download":
+            if self.download_errors:
+                err = self.download_errors.pop(0)
+                if err is not None:
+                    raise err
             remote_path, local_path = args[3], Path(args[4])
             local_path.write_bytes(self.remote_files[remote_path])
             return subprocess.CompletedProcess(cmd, 0, stdout="", stderr="")
+        if subcmd == "exec" and input and colab_train._POLL_MARKER in input:
+            return self._handle_poll(cmd)
         return subprocess.CompletedProcess(cmd, 0, stdout="", stderr="")
+
+    def _handle_poll(self, cmd: list[str]) -> subprocess.CompletedProcess[str]:
+        if not self.poll_responses:
+            return subprocess.CompletedProcess(cmd, 0, stdout=_poll_line("done", exit_code=0), stderr="")
+        nxt = self.poll_responses.pop(0)
+        if isinstance(nxt, Exception):
+            raise nxt
+        return subprocess.CompletedProcess(cmd, 0, stdout=nxt, stderr="")
 
 
 @pytest.fixture
 def patch_colab(monkeypatch: pytest.MonkeyPatch):
-    """Patch ``shutil.which`` and ``subprocess.run`` in ``colab_train`` with a :class:`FakeColabCli`."""
+    """Patch ``shutil.which``, ``subprocess.run``, and ``time.sleep`` in ``colab_train``."""
 
     def _install(fake: FakeColabCli) -> FakeColabCli:
         monkeypatch.setattr(
             colab_train.shutil, "which", lambda name: "/usr/local/bin/colab" if name == "colab" else None
         )
         monkeypatch.setattr(colab_train.subprocess, "run", fake)
+        monkeypatch.setattr(colab_train.time, "sleep", lambda _s: None)
         return fake
 
     return _install
@@ -136,6 +190,25 @@ class TestUsageAndCcu:
         assert colab_train.compute_ccu(None, None, None, 120.0) == (None, None)
 
 
+class TestRemoteScriptsSyntax:
+    @pytest.mark.parametrize(
+        ("label", "source"),
+        [
+            pytest.param("train", colab_train._remote_train_script(), id="train-script"),
+            pytest.param("start", colab_train._remote_start_script(), id="start-script"),
+            pytest.param("poll", colab_train._remote_poll_script(0), id="poll-script"),
+            pytest.param(
+                "prepare-downloads",
+                colab_train._remote_prepare_downloads_script(("result.json",), 1024),
+                id="prepare-downloads-script",
+            ),
+        ],
+    )
+    def test_generated_remote_scripts_compile(self, label: str, source: str) -> None:
+        code = compile(source, f"<remote-{label}>", "exec")
+        assert code is not None
+
+
 class TestPackAndChunkTransfer:
     def test_pack_directory_excludes_pycache_and_pyc(self, tmp_path: Path) -> None:
         src = tmp_path / "pkg"
@@ -174,6 +247,20 @@ class TestPackAndChunkTransfer:
         ]
         assert b"".join(fake.uploaded[p] for p in parts) == b"abcdefghij"
 
+    def test_upload_file_falls_back_when_tmpdir_vanished(
+        self, tmp_path: Path, patch_colab, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        fake = patch_colab(FakeColabCli())
+        monkeypatch.setattr(colab_train.tempfile, "gettempdir", lambda: str(tmp_path / "deleted-tmpdir"))
+        monkeypatch.setattr(colab_train.Path, "home", classmethod(lambda _cls: tmp_path))
+        payload = tmp_path / "big.bin"
+        payload.write_bytes(b"abcdefgh")
+
+        parts = colab_train.upload_file("sess", payload, "content/bga_run/upload/big.bin", chunk_bytes=4)
+
+        assert len(parts) == 2
+        assert b"".join(fake.uploaded[p] for p in parts) == b"abcdefgh"
+
     def test_download_outputs_reassembles_chunked_file(self, tmp_path: Path, patch_colab) -> None:
         manifest = {
             "files": {
@@ -204,6 +291,123 @@ class TestPackAndChunkTransfer:
         assert (out_dir / "weights.safetensors").read_bytes() == b"part1-part2"
         assert json.loads((out_dir / "result.json").read_text()) == {"seconds": 12.0}
         assert fake.calls[0][0] == "exec"
+
+    def test_download_outputs_ignores_deleted_tmpdir_and_retries_transient_errors(
+        self, tmp_path: Path, patch_colab, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        manifest = {
+            "files": {
+                "weights.pth": [
+                    f"{colab_train.REMOTE_ROOT}/download/weights.pth.part000",
+                    f"{colab_train.REMOTE_ROOT}/download/weights.pth.part001",
+                ],
+            },
+            "missing": [],
+            "error": None,
+        }
+        fake = patch_colab(
+            FakeColabCli(
+                remote_files={
+                    f"{colab_train.REMOTE_ROOT}/download/_manifest.json": json.dumps(manifest).encode(),
+                    f"{colab_train.REMOTE_ROOT}/download/weights.pth.part000": b"hello-",
+                    f"{colab_train.REMOTE_ROOT}/download/weights.pth.part001": b"world",
+                },
+                download_errors=[
+                    None,  # _manifest.json succeeds
+                    subprocess.CalledProcessError(1, ["colab", "download"]),  # part000 transient drop
+                    None,  # part000 retry succeeds
+                    subprocess.TimeoutExpired(["colab", "download"], 180.0),  # part001 timeout
+                    None,  # part001 retry succeeds
+                ],
+                sessions_stdout="[sess] gpu-l4-abc | Hardware: L4 | Shape: Standard | Variant: GPU\n",
+            )
+        )
+        monkeypatch.setattr(colab_train.tempfile, "gettempdir", lambda: str(tmp_path / "deleted-tmpdir"))
+
+        out_dir = tmp_path / "out"
+        pulled = colab_train.download_outputs("sess", ("weights.pth",), out_dir, chunk_bytes=6)
+
+        assert pulled["missing"] == []
+        assert (out_dir / "weights.pth").read_bytes() == b"hello-world"
+        assert sum(call[0] == "sessions" for call in fake.calls) == 2
+
+
+class TestWaitForRemoteTraining:
+    def test_streams_multibyte_utf8_chunks_until_done(self, patch_colab, capsys: pytest.CaptureFixture[str]) -> None:
+        raw = "\u250f\u2501\u2513 ok\n".encode()
+        split = 4  # splits the 3-byte box-drawing character across polls
+        patch_colab(
+            FakeColabCli(
+                poll_responses=[
+                    _poll_line("running", offset=split, chunk=raw[:split], more=True),
+                    _poll_line("done", offset=len(raw), chunk=raw[split:], more=False, exit_code=0),
+                ]
+            )
+        )
+
+        rc = colab_train._wait_for_remote_training("sess", timeout_s=60.0, poll_interval_s=0.0)
+
+        assert rc == 0
+        assert capsys.readouterr().out == "\u250f\u2501\u2513 ok\n"
+
+    def test_recovers_from_transient_poll_errors_when_session_stays_alive(
+        self, patch_colab, capsys: pytest.CaptureFixture[str]
+    ) -> None:
+        fake = FakeColabCli(
+            poll_responses=[
+                subprocess.CalledProcessError(1, ["colab", "exec"]),
+                subprocess.TimeoutExpired(["colab", "exec"], 120.0),
+                _poll_line("done", offset=5, chunk=b"done\n", exit_code=0),
+            ],
+            sessions_stdout="[sess] gpu-l4-abc | Hardware: L4 | Shape: Standard | Variant: GPU\n",
+        )
+        patch_colab(fake)
+
+        rc = colab_train._wait_for_remote_training("sess", timeout_s=60.0, poll_interval_s=0.0, max_poll_errors=5)
+
+        assert rc == 0
+        assert capsys.readouterr().out == "done\n"
+        assert sum(call[0] == "sessions" for call in fake.calls) == 2
+
+    def test_fails_fast_when_session_disappears_from_server(self, patch_colab) -> None:
+        fake = FakeColabCli(
+            poll_responses=[subprocess.CalledProcessError(1, ["colab", "exec"])],
+            sessions_stdout="[colab] No active sessions found on server.\n",
+        )
+        patch_colab(fake)
+
+        with pytest.raises(RuntimeError, match="no longer active on server"):
+            colab_train._wait_for_remote_training("sess", timeout_s=60.0, poll_interval_s=0.0, max_poll_errors=10)
+
+        assert sum(call[0] == "exec" for call in fake.calls) == 1
+
+    def test_aborts_after_consecutive_network_errors(self, patch_colab) -> None:
+        fake = FakeColabCli(
+            poll_responses=[
+                subprocess.CalledProcessError(1, ["colab", "exec"]),
+                subprocess.CalledProcessError(1, ["colab", "exec"]),
+                subprocess.CalledProcessError(1, ["colab", "exec"]),
+            ],
+            sessions_returncode=1,
+        )
+        patch_colab(fake)
+
+        with pytest.raises(RuntimeError, match="3 consecutive poll failures"):
+            colab_train._wait_for_remote_training("sess", timeout_s=60.0, poll_interval_s=0.0, max_poll_errors=3)
+
+    def test_raises_when_remote_process_crashes_without_exit_code(self, patch_colab) -> None:
+        patch_colab(FakeColabCli(poll_responses=[_poll_line("crashed", offset=0, chunk=b"")]))
+
+        with pytest.raises(RuntimeError, match="exited unexpectedly"):
+            colab_train._wait_for_remote_training("sess", timeout_s=60.0, poll_interval_s=0.0)
+
+    def test_raises_timeout_when_deadline_exceeded(self, patch_colab, monkeypatch: pytest.MonkeyPatch) -> None:
+        ticks = iter([1000.0, 1005.0, 2000.0])
+        monkeypatch.setattr(colab_train.time, "time", lambda: next(ticks))
+        patch_colab(FakeColabCli(poll_responses=[_poll_line("running"), _poll_line("running")]))
+
+        with pytest.raises(TimeoutError, match="exceeded"):
+            colab_train._wait_for_remote_training("sess", timeout_s=10.0, poll_interval_s=0.0)
 
 
 class TestLaunchColab:
@@ -256,6 +460,7 @@ class TestLaunchColab:
         assert result["ccu"] == 0.5
         assert result["ccu_rate"] == 4.82
         assert result["ccu_balance_after"] == 199.5
+        assert f"{colab_train.REMOTE_ROOT}/upload/run_train.py" in fake.uploaded
         assert any(call[0] == "stop" for call in fake.calls)
         assert "--high-mem" not in next(call for call in fake.calls if call[0] == "new")
 
