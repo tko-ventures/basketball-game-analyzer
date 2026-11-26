@@ -345,7 +345,8 @@ def apply_holders(queue):
         clear = r["sure"] == "yes" and r["ball"] != "other" and (r["holder"] == "none" or holder is not None)
         body = {"sequence": shot["sequence"], "frame": it["frame"], "ball": ball, "holder": holder, "note": r["note"]}
         set_frame_label(queue, body, Status.FIRST_PASS if clear else Status.FLAGGED)
-        fr["proposal"] = {"ball": fr["ball"], "holder": fr["holder"], "note": r["note"]}
+        unread = not clear and ball is None and holder is None
+        fr["proposal"] = None if unread else {"ball": fr["ball"], "holder": fr["holder"], "note": r["note"]}
         if not clear:
             fr["ball"], fr["holder"] = None, None
         settled, flagged = settled + clear, flagged + (not clear)

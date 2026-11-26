@@ -1,0 +1,32 @@
+id	is_shot	rim_frame	outcome	release_frame	shooter	kit	points	note
+4XMD9FWmQws_s10#0	yes		missed		7	light	2	contested jumper in paint by light #23; green box 9 is a dark defender; dark player takes rebound under rim f3860-f3880, verify miss
+4XMD9FWmQws_s33#0	yes		missed	11955	unboxed	dark	2	close shot at rim by dark #9 (no box); light player has ball at f12005 and next sheet is a light fast break with score unchanged
+4XMD9FWmQws_s33#1	no					-		light #20 dribbling upcourt after the rebound; clip end, frames repeat
+4XMD9FWmQws_s49#0	yes		made	16915		dark	2	mid-range jumper by dark #1 = box 9 (green box 7 wrong); ball in net f16975-f16980; arc partly hidden by score bar, 2 likely
+4XMD9FWmQws_s64#0	yes	21570	made		8	dark	2	dunk by dark #9 = box 8 (green box 2 is a light player at the FT line); hangs on rim
+4XMD9FWmQws_s64#1	no					-		light player holds ball out of bounds for the inbound after the dunk
+4XMD9FWmQws_s81#0	yes		unclear	off		dark	2	dark player drives from FT line, ball still in hands at f26670; ball not clearly visible in row 1, net looks filled f26730-f26740, maybe made
+OSp445e0mXU_s3#0	yes		unclear		8	light	2	fast-break layup; release f1410 or f1415; light player jumps under rim f1470-f1480, likely missed; rim contact may be before f1450
+OSp445e0mXU_s5#0	yes		unclear		7	dark	2	close shot in a crowd at Q1 buzzer (1.1 s); boxes 7 and 3 overlap, shooter and kit not sure (dark by direction of play); ball not visible
+OSp445e0mXU_s12#0	yes		unclear			dark	2	scramble right under rim, shot or tip; shooter not identifiable (green box 3 is a light player standing, looks wrong); kit by direction of play; light player jumps at rim f4040-f4050, likely missed; low confidence
+OSp445e0mXU_s15#0	yes	4855	missed	off		dark	3	ball already at backboard at f4855; shooter looks like green #23 in right corner = box 4, contested by box 9, ref signals 3-pt attempt; green box 6 wrong; next sheet 7 s later: score unchanged, light fast break
+OSp445e0mXU_s15#1	yes		unclear	off		light	2	fast-break baseline layup by light player in green box 7, already landing past the baseline at f5195; green players reach up under rim; low confidence it is a shot and not a pass
+OSp445e0mXU_s23#0	yes		unclear	8000		dark	2	layup by green-kit player in green box 6, ball still in hand at f7990-f7995; rim contact probably about f8000-f8005, before row 1, proposed rim f8040 looks late; ball not visible in row 1
+1jDaJBkUGmc_s1#0	yes		unclear		9	dark	unclear	jumper by dark #2 from the top of the arc, feet on or just behind the line, likely 3; ball seems to go through net f575-f590, no rebound action, maybe made
+1jDaJBkUGmc_s6#0	yes		unclear		12	dark	2	close shot by dark #25 over yellow #2 (green box 6 is that defender); boxes overlap, #25 looks like box 12; ball not clearly visible at rim
+1jDaJBkUGmc_s10#0	no					-		dark ball handler dribbling near midcourt under pressure; rim empty
+1jDaJBkUGmc_s10#1	yes		unclear	off		dark	unclear	jumper by dark player in box 7, already in follow-through at f3990; green box 2 is the yellow defender; at arc top-left, likely 3; ball seems to drop through net f4040-f4050, maybe made
+1jDaJBkUGmc_s14#0	yes		missed		8	light	2	short shot in paint by yellow player (box 8), green box 7 is the dark defender with arm up, boxes overlap so shooter not sure; rebound contest under rim f5400-f5410
+1jDaJBkUGmc_s14#1	yes		unclear		9	dark	2	fast-break layup by dark #11 contested by yellow box 6; ball on or over rim f5720-f5735, outcome not visible
+1jDaJBkUGmc_s19#0	yes		unclear		9	dark	2	floater by dark #2 from the paint over yellow #21; ball not distinguishable at rim; no rebound scramble, maybe made
+1jDaJBkUGmc_s23#0	yes		unclear	8645		light	2	close turnaround by yellow player at right of the cluster (boxes 8/9, not green box 6); release f8645 not certain; ball not distinguishable at rim
+Tnuscrm9RyU_s0#0	yes		made		9	light	2	jumper by light #3 from the FT line; ball drops through net f240-f245
+Tnuscrm9RyU_s8#0	no					-		dead ball: players standing and walking, green-kit player tosses ball at rim from the paint after a whistle (not his team's basket)
+Tnuscrm9RyU_s11#0	yes		made		9	dark	2	short jumper near left baseline over light #21; ball sits on rim f2685-f2700 then drops through net f2715-f2725, verify
+Tnuscrm9RyU_s17#0	yes	3700	unclear	off		dark	unclear	shot clock 0.6; ball just above rim at f3700 with light defender (box 9) leaping at rim; shooter not identifiable, green box 5 is light #3 boxing out; kit by direction of play; ball seen low at f3735
+Tnuscrm9RyU_s25#0	yes	5410	missed	off		dark	unclear	Q3 buzzer shot (clock 0.0); ball already past rim and falling to the right at f5405-f5415, rim contact before row 1; shooter unknown (green box 3 only watches), kit by direction of play; both refs have an arm up, likely 3
+Tnuscrm9RyU_s32#0	no					-		dark ball handler dribbling near midcourt; rim empty, ball adverts under the basket
+Tnuscrm9RyU_s32#1	no					-		drive only: green-kit player still holds ball through f6740, rim empty through f6765; the layup is the next sheet
+Tnuscrm9RyU_s32#2	yes	6820	made	6805		dark	2	layup by green-kit player in green box 9, proposed release f6810 is late (release f6800-f6805); ball lingers on rim f6815-f6830, drops through net, light player collects it under net at f6860; verify made
+Tnuscrm9RyU_s36#0	yes		made		8	light	3	corner three by light #11, ref signals 3-pt attempt; ball passes rim f8310 and drops straight below net, no rebound action; later sheet shows home score 74 (71 here)
+Tnuscrm9RyU_s39#0	yes		unclear	9335		light	3	long jumper from far wing by light player in green box 9 at 1.9 s, ball still on hands at f9330; ball drops at right edge of net at f9400, possibly front-rim miss; behind arc as far as visible, verify 3

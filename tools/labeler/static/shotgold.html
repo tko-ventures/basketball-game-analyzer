@@ -222,6 +222,8 @@
       <li><span class="kbd">Enter</span> saves what the picture shows and opens the next frame. <span class="kbd">N</span> saves
         "nobody holds it" in one key.</li>
     </ol>
+    <p>The yellow note on the right is what the first pass saw and why it was not sure. Box numbers in a note are the first
+      pass's own and do not show here. A dashed yellow box or ring is the first pass's proposal where it differs from what is shown.</p>
     <div class="rule"><b>Who is the holder.</b> Whoever holds or dribbles the ball. A dribbler holds it also while the ball is between hand and floor.
       An inbounder holding the ball counts. A shooter counts until the ball leaves the hands.<br>
       <b>Nobody</b>: the ball is in flight (pass or shot), loose, being tipped or fought for, or in a referee's hands.<br>
@@ -644,7 +646,8 @@ function renderHolderSide() {
   const { shot, fr } = it, d = S.draft;
   $("meta").innerHTML = metaHtml(shot, fr.status, ` · frame ${fr.frame}`) + `<span>${S.ii + 1} / ${items.length}</span>`;
   $("teams").innerHTML = teamsHtml(shot);
-  $("note").textContent = fr.note || (fr.proposal && fr.proposal.note) || "";
+  const why = fr.note || (fr.proposal && fr.proposal.note) || "";
+  $("note").textContent = why ? `First pass: ${why}` : "";
   const prop = fr.proposal;
   const propTxt = !prop ? "none" : prop.holder ? teamName(shot, prop.holder.team) : "nobody";
   $("facts").innerHTML = `<dt>First pass</dt><dd>${prop && prop.holder ? `<span class="sw" style="background:${teamColor(prop.holder.team)}"></span>` : ""}${propTxt}${prop && !prop.ball ? " · no ball in view" : ""}</dd>`
@@ -670,7 +673,7 @@ function renderShotSide() {
   const shot = curShot();
   $("meta").innerHTML = metaHtml(shot, shot.dirty ? "todo" : shot.events_status, ` · ${((shot.end - shot.start + 1) / shot.fps).toFixed(1)} s`) + `<span>${S.si + 1} / ${S.shots.length}</span>`;
   $("teams").innerHTML = teamsHtml(shot);
-  $("note").textContent = shot.events_note || "";
+  $("note").textContent = shot.events_note ? `First pass: ${shot.events_note}` : "";
   $("facts").innerHTML = shot.dirty ? `<dt>Changes</dt><dd style="color:var(--warn)">not saved yet · Enter saves</dd>` : "";
   const f = shot.grid[S.fi];
   const cards = shot.draft.map((e, i) => {

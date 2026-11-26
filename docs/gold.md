@@ -261,3 +261,46 @@ Open the labeller's `/holders` page (`uv run python tools/labeler/server.py`, th
 - **Stale holders:** two holder boxes are another player (n079, n282), as in the team audit.
 
 Number accuracy per track still reads `identities.csv`, so these gaps belong to track gold v1.
+
+## Shot gold (2026-11-26)
+
+Gold v1 scores the ball layer on 16 shot attempts and 100 frames, too few to tell one more right shooter from noise ([ADR](adr/2026-11-26-shot-gold-more-layer7-gold.md)). Shot gold adds 26 shots of the same four games, labelled only for what that layer needs. It lives in one working file, `data/labels/shot_gold.json` (`bga.eval.shot_gold`); a shot or a frame counts as gold once Tomasz has confirmed it (`status: done`).
+
+### Contents
+
+| | Dev | Held-out |
+|---|---|---|
+| Shots | 18 (6 per game) | 8 |
+| Frames, one a second | 133 | 55 |
+
+- **Shots:** central shots of at least 6 s that are not in gold v0, spread evenly over each clip by shot index (`pick_shots`). The choice reads the shot list only, never a model's output.
+- **Per shot, its shot attempts:** release frame, rim frame, made or missed, 2 or 3 points, and the shooter's box and team at the release frame.
+- **Per frame:** the ball box, or none when the ball is not in view, and the holder's box and team, or nobody.
+- **No training use:** every frame of the gold games is refused by the leakage guard, as before.
+
+### Conventions
+
+- **Shot attempt:** every try at the basket in live play: jump shots, layups, dunks and tip-ins, and also blocked shots and airballs, which are missed. Free throws are left out.
+- **Rim frame:** the ball touches the rim or the backboard, or passes through or past the ring. For a blocked shot it is the frame of the block.
+- **Release frame:** the first frame with the ball out of the shooter's hands. For a dunk it equals the rim frame.
+- **Shooter:** the player who sends the ball at the basket; on an alley-oop or a tip-in, the finisher.
+- **Holder:** the 2026-11-20 definition, as in holder gold v1. A dribbler holds the ball also between hand and floor; a ball in flight, loose, fought for or in a referee's hands has no holder; a receiver holds it from the frame it is under control.
+- **Frames are judged with their neighbours.** The page shows 0.6 s either side of each frame, and the first pass read 0.4 s either side, because single-frame hold calls were all overruled in holder gold v1.
+
+### Boxes offered for clicking
+
+`configs/shot-gold-prefill.yaml` runs the active detector (`plk-r3-poss`) on the 26 shots, and `scripts/shot_gold.py prefill` caches its person, ball and rim boxes under `data/labels/.cache/shot_gold/`. A holder or shooter is a click on one of those boxes, or a box Tomasz drags when the player has none. A ball is a click: it takes the detector's ball box when the click lands within 30 px of one, else a 22 px box at the click. So box geometry leans towards the detector; scoring matches boxes at IoU 0.4 to 0.5 and the ball within 25 px, where that matters little. The held-out shots went through the detector for these boxes only; no held-out score was read.
+
+### First pass (2026-11-26)
+
+`scripts/shot_gold.py sheets` draws the implementer's sheets (ledger rows of 2026-11-26):
+- **Holders:** each of the 188 frames at 1.2 times its size around the detector's ball, with numbered person boxes and the ball candidates ringed, beside the same region 0.4 and 0.2 s before and after (47 sheets).
+- **Shot attempts:** each moment where the detector's ball comes within 2 rim widths of a rim, at most one per second (31 moments in 24 of the 26 shots): the rim over 0.9 s, the proposed release over 0.4 s, and the whole release frame with numbered boxes.
+
+Result (ledgers `data/labels/review/shot_gold_holders.tsv` and `data/labels/review/shot_gold_events.tsv`, applied via `scripts/shot_gold.py apply`):
+- **Holders:** 95 of 188 frames settled by the first pass (67 player, 28 nobody; 63 dev, 32 held-out) and 93 flagged for Tomasz (70 dev, 23 held-out).
+- **Shot attempts:** 25 proposed attempts across 23 of the 26 shots (18 dev, 7 held-out; 3 shots with 0 attempts; 6 candidate sheets rejected as non-shots). Outcome: 6 made, 5 missed, 14 unclear; points: 18 two-pointers, 3 threes, 4 unclear; 12 carry a proposed shooter box and 13 need a click or release-frame adjustment. Every shot stays unconfirmed until Tomasz saves it on Tab 1.
+
+### How to label
+
+Open the labeller's `/shotgold` page (`uv run python tools/labeler/server.py`, then http://127.0.0.1:8765/shotgold). **How to** (`?`) holds the instructions and every key; `tools/labeler/README.md` lists them too. Tab 1 is the shot attempts of each shot, tab 2 the frames the first pass could not settle, tab 3 the frames it settled, for a second look. Each answer saves at once.
