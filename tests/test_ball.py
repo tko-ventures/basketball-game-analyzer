@@ -719,6 +719,37 @@ class TestEvalBall:
         assert math.isnan(res["shot_f1"])
         assert "unverified sequences" in caplog.text
 
+    @pytest.mark.parametrize(
+        ("shooter_frame", "expected"),
+        [
+            pytest.param(1, 1.0, id="gold-box-0.4s-before-start"),
+            pytest.param(None, 0.0, id="no-gold-box-near-start"),
+        ],
+    )
+    def test_shooter_match_uses_nearest_gold_frame_boxing_the_shooter(
+        self, tmp_path: Path, shooter_frame: int | None, expected: float
+    ) -> None:
+        gt_dir = tmp_path / "vid_s1" / "gt"
+        gt_dir.mkdir(parents=True)
+        (tmp_path / "vid_s1" / "frames.txt").write_text("0\n20\n", encoding="utf-8")
+        (tmp_path / "vid_s1" / "identities.csv").write_text(
+            "tid,team,number,name,team_name,note\n1,home,10,Shooter,Home,\n2,away,5,Defender,Away,\n",
+            encoding="utf-8",
+        )
+        shooter_rows = "" if shooter_frame is None else f"{shooter_frame},1,100,100,60,120,1,1,1\n"
+        (gt_dir / "gt.txt").write_text(shooter_rows + "2,2,400,100,60,120,1,2,1\n", encoding="utf-8")
+        box = [9, 100.0, 100.0, 160.0, 220.0, 0.9, "player", 0]
+        ball_by_seq = {
+            "vid_s1": {
+                "frames": {},
+                "shots": [{"start_frame": 20, "rim_frame": 60, "outcome": "made", "shooter_track_id": 9}],
+            }
+        }
+        tracks_by_seq = {"vid_s1": {"0": [box], "20": [box]}}
+        gt_events = [{"sequence": "vid_s1", "rim_frame": 60, "outcome": "made", "shooter_gt_tid": 1}]
+        em = score_events(ball_by_seq, tracks_by_seq, gt_events, gold_v0_root=tmp_path)
+        assert em["shot_shooter_acc"] == expected
+
     def test_shooter_match_requires_best_overlapping_gt_box(self, tmp_path: Path) -> None:
         # Predicted box overlaps defender (gt#2) at IoU ~0.85 and true shooter (gt#1) at IoU ~0.48 -> must NOT match.
         gt_dir = tmp_path / "vid_s1" / "gt"

@@ -45,6 +45,9 @@ GOLD_V0_ROOT = Path("data/gold/v0")
 DEFAULT_RIM_TOL_FRAMES = 40
 #: Maximum source-frame gap for matching a predicted shooter track to a shot-gold box (0.2 s at 50 fps).
 SHOOTER_BOX_TOL_FRAMES = 10
+#: Largest gap, in source frames, between a predicted shot's start and a gold ``v0`` frame boxing the shooter: gold
+#: tracks often lose the shooter in the air, and the nearest frame then holds no box of theirs (0.5 s at 50 fps).
+SHOOTER_GT_GAP_FRAMES = 25
 
 
 def _f1(tp: int, fp: int, fn: int) -> tuple[float, float, float]:
@@ -326,7 +329,12 @@ def _shooter_matches(
     tracks: dict[str, list[list[Any]]],
     gt_by_f: dict[int, list[tuple[Any, ...]]],
 ) -> bool:
-    """Check whether a predicted shooter matches gold ``shooter_gt_tid``, ``shooter_xyxy``, or fallback team."""
+    """Check whether a predicted shooter matches gold ``shooter_gt_tid``, ``shooter_xyxy``, or fallback team.
+
+    Against a gold ``v0`` track, boxes are compared on the gold frame nearest the predicted start where that track has
+    a box (within ``SHOOTER_GT_GAP_FRAMES``); an attempt whose gold shooter has no box that close does not match.
+
+    """
     gt_tid = gs.get("shooter_gt_tid")
     if gt_tid is None:
         if gs.get("shooter_xyxy") is not None:
@@ -336,10 +344,18 @@ def _shooter_matches(
     if pred_tid is None or not gt_by_f:
         return False
     sf = int(ps.get("start_frame", gs["rim_frame"]))
-    pbox = _box_for_tid(tracks.get(str(sf), []), int(pred_tid))
+    boxed = [
+        f
+        for f, rows in gt_by_f.items()
+        if abs(f - sf) <= SHOOTER_GT_GAP_FRAMES and any(int(g[0]) == int(gt_tid) for g in rows)
+    ]
+    if not boxed:
+        return False
+    near_f = min(boxed, key=lambda f: abs(f - sf))
+    track_f = _nearest_track_frame(tracks, int(pred_tid), near_f, SHOOTER_BOX_TOL_FRAMES)
+    pbox = _box_for_tid(tracks.get(str(track_f), []), int(pred_tid)) if track_f is not None else None
     if pbox is None:
         return False
-    near_f = min(gt_by_f, key=lambda f: abs(f - sf))
     best_iou, best_tid = 0.0, None
     for g in gt_by_f[near_f]:
         ov = bbox_iou(pbox, g[1:5])
