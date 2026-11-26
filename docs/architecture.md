@@ -31,6 +31,7 @@ The pipeline processes video in **sequences** (`bga.stage.Sequence`): one contin
 
 - **`shots/gold`** selects the 12 gold shots across 4 PLK games (9 dev shots, 3 held-out shots from `Tnuscrm9RyU`) at stride 5 (every 5th frame of 50 fps video).
 - **`shots/clips`** selects shots (≥ 3 s) from named non-gold clips for training-data harvesting, enforcing a gold-leakage check.
+- **`shots/shot_gold`** selects the shot-gold sequences of `data/labels/shot_gold.json`: further shots of the gold games, labelled for Layer 7 only (shot attempts, ball and holder on one frame a second).
 - `FrameReader` decodes sequentially across small frame steps (≤ 64 frames) instead of seeking, cutting decode latency from ~122 ms to ~4 ms per frame.
 
 ### Layer DAG
@@ -57,7 +58,7 @@ Every layer supports multiple swappable backends registered via `@register(layer
 
 | Layer | Active backend & config | What it does | Current benchmark / status | ADR |
 |---|---|---|---|---|
-| `shots` | `gold` / `clips` | Selects gold eval shots or non-gold training shots | M10 adds raw full-game ingest | [2026-11-23](adr/2026-11-23-highlights-footage-and-m10-ingest-milestone.md) |
+| `shots` | `gold` / `clips` / `shot_gold` | Selects gold eval shots, non-gold training shots, or the shot-gold sequences | M10 adds raw full-game ingest | [2026-11-23](adr/2026-11-23-highlights-footage-and-m10-ingest-milestone.md) |
 | `court` | `rfdetr_keypoint` (`court-plk-v1-smooth4`) | PLK fine-tuned RF-DETR Keypoint → RANSAC homography + 4-frame median smoothing | 0.21 m paint error dev, 0.20 m held-out (vs. 0.89 m NBA baseline) | [2026-11-02](adr/2026-11-02-court-keypoint-finetune-and-smoothing.md) |
 | `detect` | `rfdetr_torch` (`detect-plk-r3-poss`) | PLK fine-tuned RF-DETR Large @ 1280 px on MPS; 6 active classes incl. `player-in-possession` | AP50 dev: people 0.966, ball 0.787, number 0.848, possession 0.576 | [2026-11-19](adr/2026-11-19-detector-rfdetr-large-1280px-mps.md), [2026-11-20](adr/2026-11-20-detector-classes-and-possession-schema.md) |
 | `team` | `siglip_kmeans` (`fit_fps: 5.0`, fixed seed) | SigLIP + UMAP + KMeans per shot; aligns clusters via clip `light`/`dark` kit metadata | ~1.00 track accuracy on dev & held-out | [2026-11-20](adr/2026-11-20-team-classification-siglip-5fps.md) |
@@ -126,7 +127,7 @@ Other top-level CLI commands: `bga run`, `bga train`, `bga export` (17-column pe
 
 ### Labeller (`tools/labeler/server.py`)
 
-A local stdlib HTTP server on port `8765` with six focused web pages:
+A local stdlib HTTP server on port `8765` with seven focused web pages:
 
 - `/` — track review, shot tagging, and identity confirmation
 - `/court` — landmark dots + painted-line pins with live Levenberg-Marquardt court fitting
@@ -134,6 +135,7 @@ A local stdlib HTTP server on port `8765` with six focused web pages:
 - `/numbers` — crop-level jersey-number verification against context frames
 - `/events` — shot-event verification (`made`/`missed`, 2/3-pt, click-on-player shooter, scorebug start/end comparison) writing `data/gold/v1/events.json`
 - `/holders` — ball-holder questions on the box-gold frames (frame strip around each, accept / nobody / click a player) writing `data/labels/review/holders_v1.ops.txt` and rebuilding `data/gold/v1/holders.json`
+- `/shotgold` — shot gold: per shot its shot attempts (release, rim, outcome, points, shooter), and per sampled frame the ball and the holder with the frames around it, writing `data/labels/shot_gold.json`
 
 ### Demo site
 

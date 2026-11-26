@@ -42,7 +42,7 @@ OPTIONAL_BY_LAYER: dict[str, frozenset[str]] = {
 
 #: Shots params that only choose sequences; kept out of the hashes so dev and held-out runs, and runs over different
 #: clip lists, share dirs.
-SELECTION_PARAMS = frozenset({"version", "held_out", "root", "labels", "clips", "min_s"})
+SELECTION_PARAMS = frozenset({"version", "held_out", "root", "labels", "clips", "min_s", "queue"})
 
 
 class LayerConfig(BaseModel):

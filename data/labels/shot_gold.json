@@ -1,0 +1,2063 @@
+{
+ "version": 1,
+ "definition": "Whoever holds or dribbles the ball, mid-bounce and inbounders included; a shooter still holding the ball is the holder. A ball in flight, loose, or in a referee's hands has no holder (2026-11-20 possession schema).",
+ "stride": 5,
+ "shots": [
+  {
+   "sequence": "4XMD9FWmQws_s10",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 10,
+   "start": 3563,
+   "end": 3980,
+   "fps": 50.0,
+   "held_out": false,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 3590,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 3640,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 3690,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 3740,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 3790,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 3840,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 3890,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 3940,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "4XMD9FWmQws_s22",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 22,
+   "start": 7757,
+   "end": 8128,
+   "fps": 50.0,
+   "held_out": false,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 7785,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 7835,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 7885,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 7935,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 7985,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 8035,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 8085,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "4XMD9FWmQws_s33",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 33,
+   "start": 11677,
+   "end": 12100,
+   "fps": 50.0,
+   "held_out": false,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 11705,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 11755,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 11805,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 11855,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 11905,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 11955,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 12005,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 12055,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "4XMD9FWmQws_s49",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 49,
+   "start": 16628,
+   "end": 17063,
+   "fps": 50.0,
+   "held_out": false,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 16655,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 16705,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 16755,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 16805,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 16855,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 16905,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 16955,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 17005,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "4XMD9FWmQws_s64",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 64,
+   "start": 21244,
+   "end": 21680,
+   "fps": 50.0,
+   "held_out": false,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 21270,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 21320,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 21370,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 21420,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 21470,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 21520,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 21570,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 21620,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "4XMD9FWmQws_s81",
+   "youtube_id": "4XMD9FWmQws",
+   "clip": "20250213_4XMD9FWmQws_PGE_Start_Dziki_Skrot_meczu",
+   "shot": 81,
+   "start": 26406,
+   "end": 26795,
+   "fps": 50.0,
+   "held_out": false,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 26435,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 26485,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 26535,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 26585,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 26635,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 26685,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 26735,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "OSp445e0mXU_s3",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 3,
+   "start": 1173,
+   "end": 1525,
+   "fps": 50.0,
+   "held_out": false,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 1200,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 1250,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 1300,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 1350,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 1400,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 1450,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 1500,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "OSp445e0mXU_s5",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 5,
+   "start": 1917,
+   "end": 2294,
+   "fps": 50.0,
+   "held_out": false,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 1945,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 1995,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 2045,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 2095,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 2145,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 2195,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 2245,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "OSp445e0mXU_s12",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 12,
+   "start": 3805,
+   "end": 4126,
+   "fps": 50.0,
+   "held_out": false,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 3830,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 3880,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 3930,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 3980,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 4030,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 4080,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "OSp445e0mXU_s15",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 15,
+   "start": 4753,
+   "end": 5297,
+   "fps": 50.0,
+   "held_out": false,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 4780,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 4830,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 4880,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 4930,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 4980,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 5030,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 5080,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 5130,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 5180,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 5230,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "OSp445e0mXU_s20",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 20,
+   "start": 6837,
+   "end": 7233,
+   "fps": 50.0,
+   "held_out": false,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 6865,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 6915,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 6965,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 7015,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 7065,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 7115,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 7165,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "OSp445e0mXU_s23",
+   "youtube_id": "OSp445e0mXU",
+   "clip": "20260328_OSp445e0mXU_SKROT_Dziki_-_Legia_24._kolejka",
+   "shot": 23,
+   "start": 7673,
+   "end": 8158,
+   "fps": 50.0,
+   "held_out": false,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 7700,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 7750,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 7800,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 7850,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 7900,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 7950,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 8000,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 8050,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 8100,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "1jDaJBkUGmc_s1",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 1,
+   "start": 349,
+   "end": 664,
+   "fps": 50.0,
+   "held_out": false,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 375,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 425,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 475,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 525,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 575,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 625,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "1jDaJBkUGmc_s6",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 6,
+   "start": 2173,
+   "end": 2485,
+   "fps": 50.0,
+   "held_out": false,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 2200,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 2250,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 2300,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 2350,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 2400,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 2450,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "1jDaJBkUGmc_s10",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 10,
+   "start": 3713,
+   "end": 4122,
+   "fps": 50.0,
+   "held_out": false,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 3740,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 3790,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 3840,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 3890,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 3940,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 3990,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 4040,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 4090,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "1jDaJBkUGmc_s14",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 14,
+   "start": 5340,
+   "end": 5808,
+   "fps": 50.0,
+   "held_out": false,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 5365,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 5415,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 5465,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 5515,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 5565,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 5615,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 5665,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 5715,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 5765,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "1jDaJBkUGmc_s19",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 19,
+   "start": 7185,
+   "end": 7488,
+   "fps": 50.0,
+   "held_out": false,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 7210,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 7260,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 7310,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 7360,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 7410,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 7460,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "1jDaJBkUGmc_s23",
+   "youtube_id": "1jDaJBkUGmc",
+   "clip": "20260514_1jDaJBkUGmc_SKROT_Energa_Trefl_-_Dziki_1._mecz_1_4_play-off",
+   "shot": 23,
+   "start": 8438,
+   "end": 8748,
+   "fps": 50.0,
+   "held_out": false,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 8465,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 8515,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 8565,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 8615,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 8665,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 8715,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "Tnuscrm9RyU_s0",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 0,
+   "start": 0,
+   "end": 305,
+   "fps": 50.0,
+   "held_out": true,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 25,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 75,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 125,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 175,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 225,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 275,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "Tnuscrm9RyU_s8",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 8,
+   "start": 1655,
+   "end": 2060,
+   "fps": 50.0,
+   "held_out": true,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 1680,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 1730,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 1780,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 1830,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 1880,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 1930,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 1980,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 2030,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "Tnuscrm9RyU_s11",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 11,
+   "start": 2419,
+   "end": 2761,
+   "fps": 50.0,
+   "held_out": true,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 2445,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 2495,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 2545,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 2595,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 2645,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 2695,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "Tnuscrm9RyU_s17",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 17,
+   "start": 3442,
+   "end": 3832,
+   "fps": 50.0,
+   "held_out": true,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 3470,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 3520,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 3570,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 3620,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 3670,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 3720,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 3770,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "Tnuscrm9RyU_s25",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 25,
+   "start": 5140,
+   "end": 5451,
+   "fps": 50.0,
+   "held_out": true,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 5165,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 5215,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 5265,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 5315,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 5365,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 5415,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "Tnuscrm9RyU_s32",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 32,
+   "start": 6492,
+   "end": 6878,
+   "fps": 50.0,
+   "held_out": true,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 6520,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 6570,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 6620,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 6670,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 6720,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 6770,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 6820,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "Tnuscrm9RyU_s36",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 36,
+   "start": 7953,
+   "end": 8414,
+   "fps": 50.0,
+   "held_out": true,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 7980,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 8030,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 8080,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 8130,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 8180,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 8230,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 8280,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 8330,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 8380,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "sequence": "Tnuscrm9RyU_s39",
+   "youtube_id": "Tnuscrm9RyU",
+   "clip": "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski",
+   "shot": 39,
+   "start": 9165,
+   "end": 9480,
+   "fps": 50.0,
+   "held_out": true,
+   "events_status": "todo",
+   "events": [],
+   "frames": [
+    {
+     "frame": 9190,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 9240,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 9290,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 9340,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 9390,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    },
+    {
+     "frame": 9440,
+     "status": "todo",
+     "proposal": null,
+     "ball": null,
+     "holder": null,
+     "origin": "todo",
+     "note": ""
+    }
+   ]
+  }
+ ]
+}

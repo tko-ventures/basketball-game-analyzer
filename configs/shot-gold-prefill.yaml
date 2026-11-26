@@ -1,0 +1,13 @@
+name: shot-gold-prefill
+description: >
+  The active detector (plk-r3-poss) on the shot-gold sequences (data/labels/shot_gold.json), dev and held-out, to
+  offer person and ball boxes for clicking on the labeller's /shotgold page (scripts/shot_gold.py prefill). A
+  labelling aid, not a scored config: no held-out number is read from it.
+layers:
+  shots:
+    backend: shot_gold
+    params: {stride: 5, held_out: all}
+  detect:
+    backend: rfdetr_torch
+    params: {confidence: 0.05}
+    weights: detect/rfdetr_torch/plk-r3-poss@c62744fe
