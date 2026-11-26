@@ -156,7 +156,7 @@ class TestCleanEvent:
             pytest.param({"rim_frame": 150}, "after rim frame", id="release-after-rim"),
             pytest.param({"rim_frame": 900}, "outside the shot", id="rim-outside-shot"),
             pytest.param({"outcome": "blocked"}, "outcome", id="unknown-outcome"),
-            pytest.param({"points": 1}, "points", id="free-throw-points"),
+            pytest.param({"points": 4}, "points", id="unknown-points"),
             pytest.param({"shooter": {"xyxy": [0, 0, 5, 5], "team": "ref"}}, "team", id="shooter-without-side"),
             pytest.param({"shooter": {"xyxy": [9, 0, 5, 5], "team": "home"}}, "positive size", id="inverted-box"),
         ],
@@ -271,3 +271,20 @@ class TestExportShotGold:
         assert doc["frames"][0]["frame"] == 151
         assert doc["events"][0]["shooter_xyxy"] == [10.0, 20.0, 50.0, 120.0]
         assert doc["events"][0]["shooter_team"] == "home"
+
+    @pytest.mark.parametrize(
+        ("free_throws", "expected"),
+        [
+            pytest.param("proposed", ["abc123XYZ_s1"], id="proposed-then-confirmed"),
+            pytest.param(None, [], id="never-proposed"),
+        ],
+    )
+    def test_lists_shots_whose_free_throws_were_labelled(
+        self, queue_path: Path, tmp_path: Path, free_throws: str | None, expected: list[str]
+    ) -> None:
+        queue = load_queue(queue_path)
+        queue["shots"][0]["free_throws"] = free_throws
+        save_queue(queue, queue_path)
+        save_shot_events({"sequence": "abc123XYZ_s1", "events": [{**ATTEMPT, "points": 1}]}, queue_path)
+        doc = export_shot_gold(queue_path, tmp_path / "shot_gold.json")
+        assert doc["free_throw_sequences"] == expected

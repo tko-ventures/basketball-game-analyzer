@@ -38,7 +38,7 @@ from bga.ball.fused import (
 )
 from bga.ball.skalski import SkalskiBall
 from bga.config import LAYERS, OPTIONAL_BY_LAYER, LayerConfig, RunConfig
-from bga.eval.ball import load_holders, load_shot_gold, score, score_boxes, score_events
+from bga.eval.ball import load_holders, load_shot_gold, score, score_boxes, score_events, score_free_throws
 from bga.export.parquet import BALL_SCHEMA, export_ball_sequence
 from bga.export.radar import render
 from bga.stage import Sequence
@@ -657,6 +657,29 @@ class TestEvalBall:
         fps_by_seq = None if fps is None else {"vid_s1": fps}
         em = score_events(ball_by_seq, {"vid_s1": {}}, gt_events, fps_by_seq=fps_by_seq)
         assert em["shot_f1"] == expected_f1
+
+    @pytest.mark.parametrize(
+        ("gold_points", "pred_kind", "expected"),
+        [
+            pytest.param(2, "field_goal", (1, 1), id="field-goal-scored"),
+            pytest.param(1, "field_goal", (0, 1), id="gold-free-throw-left-out"),
+            pytest.param(2, "free_throw", (1, 0), id="predicted-free-throw-left-out"),
+        ],
+    )
+    def test_field_goal_scores_leave_free_throws_out(self, gold_points: int, pred_kind: str, expected: tuple) -> None:
+        shots = [{"start_frame": 0, "rim_frame": 50, "outcome": "made", "kind": pred_kind}]
+        gt_events = [{"sequence": "vid_s1", "rim_frame": 50, "outcome": "made", "points": gold_points}]
+        em = score_events({"vid_s1": {"frames": {}, "shots": shots}}, {"vid_s1": {}}, gt_events)
+        assert (em["shot_gt"], em["shot_pred"]) == expected
+
+    @pytest.mark.parametrize(
+        ("labelled", "expected_gt"),
+        [pytest.param({"vid_s1"}, 1, id="labelled-sequence"), pytest.param(set(), 0, id="unlabelled-sequence")],
+    )
+    def test_free_throws_scored_only_where_labelled(self, labelled: set, expected_gt: int) -> None:
+        ball = {"vid_s1": {"shots": [{"rim_frame": 50, "outcome": "made", "kind": "free_throw"}]}}
+        gt_events = [{"sequence": "vid_s1", "rim_frame": 50, "outcome": "made", "points": 1}]
+        assert score_free_throws(ball, gt_events, labelled)["ft_gt"] == expected_gt
 
     def test_outcome_recall_splits_by_gold_outcome(self) -> None:
         shots = [

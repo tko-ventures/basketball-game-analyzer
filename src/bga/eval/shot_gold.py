@@ -42,6 +42,10 @@ EDGE_S = 0.5
 MIN_SHOT_S = 6.0
 #: Shot outcomes.
 OUTCOMES = ("made", "missed")
+#: Points of an attempt; 1 marks a free throw (decided 2026-11-26, #53), 2 and 3 field goals.
+POINTS = (1, 2, 3)
+#: ``free_throws`` value of a shot whose free throws were proposed for labelling, and once Tomasz confirmed them.
+FT_PROPOSED, FT_LABELLED = "proposed", "labelled"
 #: Sides a holder or shooter can belong to.
 TEAMS = ("home", "away")
 #: The holder definition shown on the page and recorded in the file.
@@ -365,7 +369,8 @@ def clean_event(event: dict[str, Any], shot: dict[str, Any]) -> dict[str, Any]:
     """Validate one shot attempt of a shot.
 
     Args:
-        event: ``release_frame``, ``rim_frame``, ``outcome``, ``points``, ``shooter`` and an optional ``note``.
+        event: ``release_frame``, ``rim_frame``, ``outcome``, ``points`` (1 for a free throw), ``shooter`` and an
+            optional ``note``.
         shot: The shot record it belongs to.
 
     Returns:
@@ -379,6 +384,8 @@ def clean_event(event: dict[str, Any], shot: dict[str, Any]) -> dict[str, Any]:
         >>> ev = {"release_frame": 200, "rim_frame": 240, "outcome": "made", "points": 3, "shooter": None}
         >>> clean_event(ev, shot)["points"]
         3
+        >>> clean_event({**ev, "points": 1}, shot)["points"]
+        1
         >>> clean_event({**ev, "rim_frame": 150}, shot)
         Traceback (most recent call last):
         ...
@@ -393,8 +400,8 @@ def clean_event(event: dict[str, Any], shot: dict[str, Any]) -> dict[str, Any]:
         raise ValueError(f"{shot['sequence']}: release frame {release} is after rim frame {rim}")
     if event.get("outcome") not in OUTCOMES:
         raise ValueError(f"outcome must be one of {OUTCOMES}, got {event.get('outcome')!r}")
-    if event.get("points") not in (2, 3):
-        raise ValueError(f"points must be 2 or 3, got {event.get('points')!r}")
+    if event.get("points") not in POINTS:
+        raise ValueError(f"points must be one of {POINTS}, got {event.get('points')!r}")
     return {
         "release_frame": release,
         "rim_frame": rim,
@@ -442,6 +449,9 @@ def set_frame_label(queue: dict[str, Any], body: dict[str, Any], status: Status 
 def set_shot_events(queue: dict[str, Any], body: dict[str, Any], status: Status = Status.DONE) -> dict[str, Any]:
     """Record the shot attempts of one shot, replacing the earlier list.
 
+    Tomasz's answer on a shot whose free throws were proposed (``free_throws == "proposed"``) also marks its free
+    throws as labelled, so free-throw scores only count shots where free throws were looked for.
+
     Args:
         queue: The working file's content, changed in place.
         body: ``{"sequence", "events": [attempt, ...]}``.
@@ -457,12 +467,17 @@ def set_shot_events(queue: dict[str, Any], body: dict[str, Any], status: Status 
         >>> q = {"shots": [{"sequence": "a_s1", "start": 0, "end": 99, "events": [], "events_status": "todo"}]}
         >>> set_shot_events(q, {"sequence": "a_s1", "events": []})["events_status"]
         'done'
+        >>> q["shots"][0]["free_throws"] = "proposed"
+        >>> set_shot_events(q, {"sequence": "a_s1", "events": []})["free_throws"]
+        'labelled'
 
     """
     shot = find_shot(queue, str(body["sequence"]))
     events = [clean_event(ev, shot) for ev in body.get("events", [])]
     shot["events"] = sorted(events, key=lambda ev: ev["rim_frame"])
     shot["events_status"] = status.value
+    if status == Status.DONE and shot.get("free_throws") == FT_PROPOSED:
+        shot["free_throws"] = FT_LABELLED
     return shot
 
 
@@ -495,8 +510,9 @@ def export_shot_gold(queue_path: Path = QUEUE_PATH, out_path: Path = EXPORT_PATH
     """Export confirmed shot-gold answers to ``data/gold/v1/shot_gold.json`` for ``bga eval-ball``.
 
     Only shots with ``events_status == "done"`` enter ``verified_sequences`` and ``events``, and only frames with
-    ``status == "done"`` enter ``frames``. Working-file draft fields (``proposal``, ``origin``, ``events_note``) are
-    omitted.
+    ``status == "done"`` enter ``frames``. ``free_throw_sequences`` lists the verified shots whose free throws were
+    labelled too (1-point attempts); elsewhere free throws were left out. Working-file draft fields (``proposal``,
+    ``origin``, ``events_note``) are omitted.
 
     Args:
         queue_path: Working file edited by ``/shotgold``.
@@ -577,6 +593,9 @@ def export_shot_gold(queue_path: Path = QUEUE_PATH, out_path: Path = EXPORT_PATH
         "definition": queue.get("definition", DEFINITION),
         "stride": int(queue.get("stride", STRIDE)),
         "verified_sequences": sorted(verified),
+        "free_throw_sequences": sorted(
+            s["sequence"] for s in queue["shots"] if s.get("free_throws") == FT_LABELLED and s["sequence"] in verified
+        ),
         "shots": shots,
         "frames": frames,
         "events": events,

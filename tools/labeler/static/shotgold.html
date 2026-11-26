@@ -196,7 +196,7 @@
       <li><b>Release</b>: go to the first frame where the ball has left the shooter's hands and press <span class="kbd">S</span>.</li>
       <li><b>Rim</b>: go to the frame where the ball reaches the basket and press <span class="kbd">R</span>.</li>
       <li><b>Outcome and points</b>: <span class="kbd">M</span> made or <span class="kbd">X</span> missed; <span class="kbd">2</span> or
-        <span class="kbd">3</span> points.</li>
+        <span class="kbd">3</span> points, or <span class="kbd">1</span> for a free throw.</li>
       <li><b>Shooter</b>: <span class="kbd">G</span> jumps to the release frame; click the shooter's box there. If the shooter has no
         box, drag one around the whole player. <span class="kbd">T</span> switches the team.</li>
       <li><span class="kbd">Enter</span> confirms the shot's attempts and opens the next shot.</li>
@@ -204,7 +204,8 @@
     <p>An attempt is missing: go to its rim frame and press <span class="kbd">A</span>. An attempt is not a shot: select it and press
       <span class="kbd">⌫</span>. No attempt in the whole shot: empty the list and press <span class="kbd">Enter</span>.</p>
     <div class="rule"><b>What counts.</b> Every try at the basket in live play: jump shots, layups, dunks, tip-ins, and also blocked
-      shots and airballs (both are <i>missed</i>). Free throws are left out.<br>
+      shots and airballs (both are <i>missed</i>). Free throws count too, as 1-point attempts (<span class="kbd">1</span>); in a
+      shot marked "free throws to check", add every free throw, made or missed.<br>
       <b>Rim frame</b>: the ball touches the rim or the backboard, or passes through or past the ring. For a blocked shot it is the frame of the block.<br>
       <b>Release frame</b>: the first frame with the ball out of the shooter's hands. For a dunk, use the rim frame for both.<br>
       <b>Shooter</b>: the player who sends the ball at the basket. On an alley-oop or a tip-in that is the finisher, not the passer.<br>
@@ -242,7 +243,7 @@
         <tr><td><span class="kbd">S</span> / <span class="kbd">R</span></td><td>set release / rim frame here</td></tr>
         <tr><td><span class="kbd">G</span> / <span class="kbd">H</span></td><td>go to release / rim frame</td></tr>
         <tr><td><span class="kbd">M</span> / <span class="kbd">X</span></td><td>made / missed</td></tr>
-        <tr><td><span class="kbd">2</span> / <span class="kbd">3</span></td><td>points</td></tr>
+        <tr><td><span class="kbd">1</span> / <span class="kbd">2</span> / <span class="kbd">3</span></td><td>points (1 = free throw)</td></tr>
         <tr><td><b>Click</b> / <b>drag</b></td><td>shooter's box, on the release frame</td></tr>
         <tr><td><span class="kbd">T</span></td><td>switch the shooter's team</td></tr>
         <tr><td><span class="kbd">A</span></td><td>add an attempt with its rim here</td></tr>
@@ -634,7 +635,9 @@ function renderSide() {
 function metaHtml(shot, status, extra) {
   const lab = { todo: "to do", flagged: "your call", first_pass: "first pass", done: "confirmed" }[status] || status;
   return `<span class="badge ${shot.held_out ? "held" : "dev"}">${shot.held_out ? "held-out" : "dev"}</span>`
-    + `<span class="badge ${status}">${lab}</span><span>${shot.youtube_id} · shot ${shot.shot}${extra}</span>`;
+    + `<span class="badge ${status}">${lab}</span>`
+    + (shot.free_throws === "proposed" ? `<span class="badge flagged">free throws to check</span>` : "")
+    + `<span>${shot.youtube_id} · shot ${shot.shot}${extra}</span>`;
 }
 function renderHolderSide() {
   const it = curItem(), items = holderItems();
@@ -683,7 +686,7 @@ function renderShotSide() {
       + `<h5><span style="white-space:nowrap">Attempt ${i + 1}</span><span style="color:var(--muted);font-weight:400;font-size:12px;white-space:nowrap">${fmtT(shot, e.release_frame)} → ${fmtT(shot, e.rim_frame)} · ${dur} s</span><button class="btn x" data-act="del" title="Delete this attempt (⌫)">Delete</button></h5>`
       + `<div class="row"><span class="lbl">Frames</span><button class="btn" data-act="rel">Release here <span class="kbd">S</span></button><button class="btn" data-act="rim">Rim here <span class="kbd">R</span></button></div>`
       + `<div class="row"><span class="lbl">Outcome</span><button class="btn made${e.outcome === "made" ? " on" : ""}" data-act="made">Made <span class="kbd">M</span></button><button class="btn missed${e.outcome === "missed" ? " on" : ""}" data-act="missed">Missed <span class="kbd">X</span></button>`
-      + `<button class="btn${e.points === 2 ? " on" : ""}" data-act="p2">2 pt <span class="kbd">2</span></button><button class="btn${e.points === 3 ? " on" : ""}" data-act="p3">3 pt <span class="kbd">3</span></button></div>`
+      + `<button class="btn${e.points === 1 ? " on" : ""}" data-act="p1">FT <span class="kbd">1</span></button><button class="btn${e.points === 2 ? " on" : ""}" data-act="p2">2 pt <span class="kbd">2</span></button><button class="btn${e.points === 3 ? " on" : ""}" data-act="p3">3 pt <span class="kbd">3</span></button></div>`
       + `<div class="row"><span class="lbl">Shooter</span>${e.shooter ? `<span><span class="sw" style="background:${teamColor(e.shooter.team)}"></span>${teamName(shot, e.shooter.team)}</span><button class="btn" data-act="team">Switch team <span class="kbd">T</span></button>` : `<span class="warn">not set · press <span class="kbd">G</span>, then click the shooter</span>`}</div>`
       + (why && e.shooter ? `<div class="row warn">${why}</div>` : "")
       + `<input data-act="note" placeholder="Note (optional)" value="${(e.note || "").replace(/"/g, "&quot;")}">`
@@ -715,6 +718,7 @@ function shotAct(act) {
   if (act === "rel") { if (e.release_frame !== f) { e.release_frame = f; e.shooter = null; } }
   else if (act === "rim") { e.rim_frame = f; }
   else if (act === "made" || act === "missed") e.outcome = act;
+  else if (act === "p1") e.points = 1;
   else if (act === "p2") e.points = 2;
   else if (act === "p3") e.points = 3;
   else if (act === "team") { if (e.shooter) { e.shooter.team = e.shooter.team === "home" ? "away" : "home"; S.team = e.shooter.team; } }
@@ -851,7 +855,7 @@ document.addEventListener("keydown", (e) => {
   if (k === " ") { e.preventDefault(); return play(); }
   if (low === "t") { e.preventDefault(); return switchTeam(); }
   if (S.tab === "shots") {
-    const acts = { s: "rel", r: "rim", m: "made", x: "missed", "2": "p2", "3": "p3", Backspace: "del", Delete: "del" };
+    const acts = { s: "rel", r: "rim", m: "made", x: "missed", "1": "p1", "2": "p2", "3": "p3", Backspace: "del", Delete: "del" };
     if (k === "ArrowLeft") { stop(); seek(S.fi - (e.shiftKey ? 5 : 1)); }
     else if (k === "ArrowRight") { stop(); seek(S.fi + (e.shiftKey ? 5 : 1)); }
     else if (k === "ArrowUp") goShot(S.si - 1);
