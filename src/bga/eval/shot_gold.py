@@ -90,13 +90,14 @@ def pick_shots(shots: list[dict[str, Any]], taken: set[int], fps: float, count: 
     return [cand[int((k + 0.5) * len(cand) / count)] for k in range(count)]
 
 
-def sample_frames(start: int, end: int, fps: float) -> list[int]:
-    """List the frames of a shot to label: one every ``FRAME_STEP_S`` on the stride grid, away from the cuts.
+def sample_frames(start: int, end: int, fps: float, step_s: float = FRAME_STEP_S) -> list[int]:
+    """List the frames of a shot to label: one every ``step_s`` on the stride grid, away from the cuts.
 
     Args:
         start: The shot's first frame.
         end: The shot's last frame, included.
         fps: The clip's frame rate.
+        step_s: Seconds between two labelled frames.
 
     Returns:
         Source frame indices, ascending.
@@ -104,9 +105,11 @@ def sample_frames(start: int, end: int, fps: float) -> list[int]:
     Examples:
         >>> sample_frames(546, 800, 50.0)
         [575, 625, 675, 725, 775]
+        >>> sample_frames(546, 800, 60.0, step_s=2.0)
+        [580, 700]
 
     """
-    edge, step = round(EDGE_S * fps), max(STRIDE, round(FRAME_STEP_S * fps / STRIDE) * STRIDE)
+    edge, step = round(EDGE_S * fps), max(STRIDE, round(step_s * fps / STRIDE) * STRIDE)
     first = math.ceil((start + edge) / STRIDE) * STRIDE
     return list(range(first, end - edge + 1, step))
 
@@ -114,7 +117,9 @@ def sample_frames(start: int, end: int, fps: float) -> list[int]:
 def build_queue(
     per_dev_game: int, per_held_out_game: int, gold_index: Path = GOLD_INDEX, labels_dir: Path = LABELS_DIR
 ) -> dict[str, Any]:
-    """Build an empty working file: the picked shots of every gold game and their frames to label.
+    """Build an empty working file: the picked shots of every highlight gold game and their frames to label.
+
+    Full-game gold games (``full_game`` in the index) join the working file through :func:`add_game` instead.
 
     Args:
         per_dev_game: Shots picked from each dev game.
@@ -133,25 +138,104 @@ def build_queue(
     """
     out: list[dict[str, Any]] = []
     for game in json.loads(gold_index.read_text(encoding="utf-8"))["games"]:
+        if game.get("full_game"):
+            continue
         labels = json.loads((labels_dir / f"{game['clip']}.json").read_text(encoding="utf-8"))
         fps = float(labels["fps"])
         count = per_held_out_game if game["held_out"] else per_dev_game
         for i in pick_shots(labels["shots"], {s["shot"] for s in game["shots"]}, fps, count):
             start, end = int(labels["shots"][i]["start"]), int(labels["shots"][i]["end"])
-            out.append({
-                "sequence": f"{game['youtube_id']}_s{i}",
-                "youtube_id": game["youtube_id"],
-                "clip": game["clip"],
-                "shot": i,
-                "start": start,
-                "end": end,
-                "fps": fps,
-                "held_out": bool(game["held_out"]),
-                "events_status": Status.TODO.value,
-                "events": [],
-                "frames": [_empty_frame(f) for f in sample_frames(start, end, fps)],
-            })
+            out.append(_shot_record(game, i, start, end, fps, FRAME_STEP_S))
     return {"version": 1, "definition": DEFINITION, "stride": STRIDE, "shots": out}
+
+
+def trim_window(start: int, end: int, fps: float, max_s: float) -> tuple[int, int]:
+    """Keep the middle ``max_s`` seconds of a shot; a shot no longer than that is kept whole.
+
+    Full-game shots of the main camera can run for minutes; the middle window keeps a sequence's labelling load fixed
+    without looking at what happens in it.
+
+    Args:
+        start: The shot's first frame.
+        end: The shot's last frame, included.
+        fps: The clip's frame rate.
+        max_s: Longest window kept, in seconds.
+
+    Returns:
+        The window's ``(start, end)``, inclusive.
+
+    Examples:
+        >>> trim_window(0, 5999, 60.0, 40.0)
+        (1800, 4199)
+        >>> trim_window(100, 999, 60.0, 40.0)
+        (100, 999)
+
+    """
+    keep = round(max_s * fps)
+    if end - start + 1 <= keep:
+        return start, end
+    first = start + (end - start + 1 - keep) // 2
+    return first, first + keep - 1
+
+
+def add_game(
+    queue: dict[str, Any], game: dict[str, Any], labels: dict[str, Any], count: int, step_s: float, max_s: float
+) -> list[str]:
+    """Append ``count`` shots of one more game to the working file, keeping every shot and answer already in it.
+
+    Shots are chosen by :func:`pick_shots` from the game's tagged shot list (so never from a model's output), cut to
+    their middle ``max_s`` seconds, and labelled every ``step_s`` seconds.
+
+    Args:
+        queue: The working file's content; edited in place.
+        game: The game's entry in the gold-set index (``clip``, ``youtube_id``, ``held_out``, ``shots``).
+        labels: The game's label file (``fps`` and the tagged ``shots``).
+        count: Shots to pick.
+        step_s: Seconds between two labelled frames.
+        max_s: Longest window kept of a shot, in seconds.
+
+    Returns:
+        The sequence names added (none when the game is already in the working file).
+
+    Raises:
+        ValueError: When the game already has shots in the working file.
+
+    Examples:
+        >>> shots = [{"start": 3000 * i, "end": 3000 * i + 2999, "camera": "central"} for i in range(4)]
+        >>> game = {"clip": "c", "youtube_id": "yt", "held_out": False, "shots": []}
+        >>> q = {"shots": []}
+        >>> add_game(q, game, {"fps": 60.0, "shots": shots}, 2, 2.0, 20.0)
+        ['yt_s1', 'yt_s3']
+        >>> q["shots"][0]["start"], q["shots"][0]["end"], len(q["shots"][0]["frames"])
+        (3900, 5099, 10)
+
+    """
+    if any(s["youtube_id"] == game["youtube_id"] for s in queue["shots"]):
+        raise ValueError(f"{game['youtube_id']} already has shots in the working file")
+    fps = float(labels["fps"])
+    added = []
+    for i in pick_shots(labels["shots"], {s["shot"] for s in game["shots"]}, fps, count):
+        start, end = trim_window(int(labels["shots"][i]["start"]), int(labels["shots"][i]["end"]), fps, max_s)
+        queue["shots"].append(_shot_record(game, i, start, end, fps, step_s))
+        added.append(queue["shots"][-1]["sequence"])
+    return added
+
+
+def _shot_record(game: dict[str, Any], shot: int, start: int, end: int, fps: float, step_s: float) -> dict[str, Any]:
+    """Return an unlabelled shot record of the working file."""
+    return {
+        "sequence": f"{game['youtube_id']}_s{shot}",
+        "youtube_id": game["youtube_id"],
+        "clip": game["clip"],
+        "shot": shot,
+        "start": start,
+        "end": end,
+        "fps": fps,
+        "held_out": bool(game["held_out"]),
+        "events_status": Status.TODO.value,
+        "events": [],
+        "frames": [_empty_frame(f) for f in sample_frames(start, end, fps, step_s)],
+    }
 
 
 def _empty_frame(frame: int) -> dict[str, Any]:

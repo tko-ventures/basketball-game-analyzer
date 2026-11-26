@@ -62,6 +62,10 @@ class TestGuard:
         with pytest.raises(ValueError, match="gold clips in a training manifest"):
             assert_no_gold({pattern.format(gold_clip)})
 
+    def test_refuses_another_upload_of_a_gold_game(self):
+        with pytest.raises(ValueError, match="gold clips in a training manifest"):
+            assert_no_gold({"20261011_Fulq9md9DZc_SKROT_Dziki_-_PGE_Start_2._kolejka"})
+
     def test_accepts_a_non_gold_clip(self):
         assert_no_gold({"20251113_kW4HG-5MLNM_SKROT_Dziki_-_King_8._kolejka"})
 

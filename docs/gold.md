@@ -13,7 +13,7 @@ v0 was prefilled by the public models the baseline uses (Skalski's player detect
 
 ## Contents
 
-- **Games:** 4 games, 3 central shots each, listed in `data/labels/gold.json`. The held-out game is `Tnuscrm9RyU` (Dziki – Zastal, 2026/27). It is scored once per milestone and never trained on.
+- **Games:** 4 highlight games, 3 central shots each, listed in `data/labels/gold.json`. The held-out game is `Tnuscrm9RyU` (Dziki – Zastal, 2026/27). It is scored once per milestone and never trained on. Two full-length games (`full_game: true`, one dev, one held-out) hold shot gold only (section "Shot gold").
 - **Track gold:** `data/gold/v0/<youtube_id>_s<shot>/` holds one MOTChallenge sequence per shot, every 5th frame at 50 fps:
   - `gt/gt.txt`: `frame,id,x,y,w,h,1,class,visibility`, where class is 1 home, 2 away, 3 referee, 4 other;
   - `frames.txt`: the source frame index of each sequence frame;
@@ -311,3 +311,17 @@ Tomasz confirmed all 26 shots and all 188 frames on `/shotgold`. `uv run scripts
 - **Dev:** 18 shots, 20 shot attempts (17 made, 3 missed; 11 two-pointers, 9 threes; every attempt carries a shooter box and team), 133 frames (119 with ball, 72 with holder).
 - **Held-out:** 8 shots, 8 shot attempts (8 made, 0 missed; 5 two-pointers, 3 threes; every attempt carries a shooter box and team), 55 frames (53 with ball, 32 with holder).
 - **Combined Layer 7 gold (`bga eval-ball`):** 27 dev shots / 209 frames / 31 attempts and 11 held-out shots / 79 frames / 13 attempts (use `--no-shot-gold` to score gold `v1` alone).
+
+### Full-game shots (2026-11-26)
+
+The 26 shots above hold 37 made and 7 missed attempts (gold v1 included), because highlights show mostly baskets. Outcome accuracy on them mostly measures how often a backend says "made" (#48). Two full-length YouTube games add live play in which about half the attempts miss. Both games are gold games in `data/labels/gold.json` (`full_game: true`), so no training set may use them.
+
+| Game | Split | Shots picked | Seconds | Frames (every 3 s) |
+|---|---|---|---|---|
+| `hSXPCy5NedU` Dziki – Tauron GTK Gliwice, 2026-02-15 | Dev | 40 | 792 | 268 |
+| `1A79NXz9CFM` Dziki – PGE Start Lublin, 2026-10-11 | Held-out | 20 | 455 | 154 |
+
+- **Shots:** `tools/labeler/prepare_clips.py` cuts each game with `hist_diff`. The implementer tags every shot of at least 6 s from its middle frame (`sheet_ledger.tsv`): `central` is the main camera with the scorebug on screen. Timeouts and breaks without the scorebug, replays, close-ups and the half-time highlights of other games are `other`, and shorter shots stay `unset`.
+- **Pick:** `uv run scripts/shot_gold.py add --clip <stem> --count N --step-s 3 --max-s 40` picks `N` central shots evenly over the game (`pick_shots`, reading the shot list only), keeps the middle 40 s of each (`trim_window`), and labels a frame every 3 s, a third as often as the highlight shots, so the batch stays reviewable.
+- **Same game, other uploads:** `same_game_ids` in a game's entry names other uploads of that game, and the leakage guard refuses them too. The PGE Start highlights `Fulq9md9DZc` are cut from the same broadcast as `1A79NXz9CFM`.
+- **First pass:** as for the highlight shots, plus rim close-ups every 0.25 s placed by the detector's rim box (never its ball), so attempts the ball detector misses are still read. Such attempts enter the events ledger as `<sequence>#x<n>` rows with explicit frames.

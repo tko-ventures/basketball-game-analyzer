@@ -81,9 +81,9 @@ under **How to** (`?`):
 1. **Shot attempts.** Per shot: `Space` plays, `←` `→` step 0.1 s, `S` and `R` set the release and rim frame, `M` / `X`
    made or missed, `2` / `3` points, `G` jumps to the release frame where a click on a box sets the shooter (drag to draw
    a missing box, `T` switches the team), `A` adds an attempt, `⌫` deletes one, `Enter` confirms the shot.
-2. **Ball holder: your call.** The frames the first pass could not settle, one a second, each with the frames from 0.6 s
-   before to 0.6 s after (`Space` plays them). Click the holder or press `N` for nobody; `Shift`+click puts the ball, `X`
-   means no ball in view; `Enter` saves and opens the next frame.
+2. **Ball holder: your call.** The frames the first pass could not settle, one a second (every 3 s in full-game shots),
+   each with the frames from 0.6 s before to 0.6 s after (`Space` plays them). Click the holder or press `N` for nobody;
+   `Shift`+click puts the ball, `X` means no ball in view; `Enter` saves and opens the next frame.
 3. **Ball holder: first pass.** The frames the first pass settled, for a second look with the same keys.
 
 Each answer saves at once. The boxes offered for clicking are the PLK detector's, cached by `scripts/shot_gold.py prefill`

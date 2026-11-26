@@ -10,6 +10,7 @@ import pytest
 from bga.config import RunConfig
 from bga.eval.shot_gold import (
     Status,
+    add_game,
     clean_event,
     clean_person,
     export_shot_gold,
@@ -20,6 +21,7 @@ from bga.eval.shot_gold import (
     save_queue,
     set_frame_label,
     set_shot_events,
+    trim_window,
 )
 from bga.ingest.shot_gold_shots import ShotGoldShots
 from tools.labeler.shotgold_api import load_boxes, load_shotgold_state, save_frame_answer, save_shot_events
@@ -99,6 +101,52 @@ class TestSampleFrames:
     def test_frames_sit_on_the_grid_away_from_the_cuts(self) -> None:
         frames = sample_frames(1002, 1300, 50.0)
         assert frames == [1030, 1080, 1130, 1180, 1230]
+
+
+class TestTrimWindow:
+    @pytest.mark.parametrize(
+        ("end", "expected"),
+        [
+            pytest.param(2399, (0, 2399), id="short-shot-kept-whole"),
+            pytest.param(5999, (1800, 4199), id="long-shot-keeps-the-middle"),
+        ],
+    )
+    def test_keeps_at_most_max_s_seconds(self, end: int, expected: tuple[int, int]) -> None:
+        assert trim_window(0, end, 60.0, 40.0) == expected
+
+
+class TestAddGame:
+    @pytest.fixture
+    def game(self) -> dict:
+        return {"clip": "20260215_fullGame01_Test", "youtube_id": "fullGame01", "held_out": False, "shots": []}
+
+    @pytest.fixture
+    def game_labels(self) -> dict:
+        return {
+            "fps": 60.0,
+            "shots": [{"start": 3000 * i, "end": 3000 * i + 2999, "camera": "central"} for i in range(4)],
+        }
+
+    def test_keeps_the_shots_already_queued(self, queue_path: Path, game: dict, game_labels: dict) -> None:
+        queue = load_queue(queue_path)
+        add_game(queue, game, game_labels, 2, 2.0, 20.0)
+        assert [s["sequence"] for s in queue["shots"]] == [
+            "abc123XYZ_s1",
+            "abc123XYZ_s4",
+            "fullGame01_s1",
+            "fullGame01_s3",
+        ]
+
+    def test_labels_frames_every_step_s(self, game: dict, game_labels: dict) -> None:
+        queue = {"shots": []}
+        add_game(queue, game, game_labels, 1, 2.0, 20.0)
+        assert [f["frame"] for f in queue["shots"][0]["frames"]][:3] == [6930, 7050, 7170]
+
+    def test_refuses_a_game_already_queued(self, game: dict, game_labels: dict) -> None:
+        queue = {"shots": []}
+        add_game(queue, game, game_labels, 1, 2.0, 20.0)
+        with pytest.raises(ValueError, match="already has shots"):
+            add_game(queue, game, game_labels, 1, 2.0, 20.0)
 
 
 class TestCleanEvent:
