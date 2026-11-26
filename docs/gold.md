@@ -325,3 +325,7 @@ The 26 shots above hold 37 made and 7 missed attempts (gold v1 included), becaus
 - **Pick:** `uv run scripts/shot_gold.py add --clip <stem> --count N --step-s 3 --max-s 40` picks `N` central shots evenly over the game (`pick_shots`, reading the shot list only), keeps the middle 40 s of each (`trim_window`), and labels a frame every 3 s, a third as often as the highlight shots, so the batch stays reviewable.
 - **Same game, other uploads:** `same_game_ids` in a game's entry names other uploads of that game, and the leakage guard refuses them too. The PGE Start highlights `Fulq9md9DZc` are cut from the same broadcast as `1A79NXz9CFM`.
 - **First pass:** as for the highlight shots, plus rim close-ups every 0.25 s placed by the detector's rim box (never its ball), so attempts the ball detector misses are still read. Such attempts enter the events ledger as `<sequence>#x<n>` rows with explicit frames.
+
+First pass (2026-11-26, ledger rows of that date):
+- **Holders:** 422 frames, 272 settled by the first pass and 150 flagged for Tomasz (92 dev, 58 held-out).
+- **Shot attempts:** 55 proposed in 35 of the 60 shots. Dev: 30 (9 made, 21 missed). Held-out: 25 (8 made, 12 missed, 5 with an unclear outcome, proposed as missed with the doubt in the note). Two attempts showed only on the rim close-ups, because the detector's moment came before the shot or on the rebound.

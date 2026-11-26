@@ -30,3 +30,103 @@ Tnuscrm9RyU_s32#1	no					-		drive only: green-kit player still holds ball throug
 Tnuscrm9RyU_s32#2	yes	6820	made	6805		dark	2	layup by green-kit player in green box 9, proposed release f6810 is late (release f6800-f6805); ball lingers on rim f6815-f6830, drops through net, light player collects it under net at f6860; verify made
 Tnuscrm9RyU_s36#0	yes		made		8	light	3	corner three by light #11, ref signals 3-pt attempt; ball passes rim f8310 and drops straight below net, no rebound action; later sheet shows home score 74 (71 here)
 Tnuscrm9RyU_s39#0	yes		unclear	9335		light	3	long jumper from far wing by light player in green box 9 at 1.9 s, ball still on hands at f9330; ball drops at right edge of net at f9400, possibly front-rim miss; behind arc as far as visible, verify 3
+hSXPCy5NedU_s89#0	no					-		dark #0 dribbling on wing, no shot
+hSXPCy5NedU_s89#1	no					-		scramble for loose ball on floor, no shot
+hSXPCy5NedU_s105#0	yes	45530	made	45490	9	light	2	short shot over dark #24 contest, made (5-4 to 7-4)
+hSXPCy5NedU_s129#0	no					-		dark holding ball, no shot
+hSXPCy5NedU_s129#1	no					-		dark holding ball on wing, no shot
+hSXPCy5NedU_s129#2	no					-		dark holding ball overhead, no shot
+hSXPCy5NedU_s129#3	no					-		dark dribbling, no shot
+hSXPCy5NedU_s129#4	yes	58945	missed		8	dark	2	elbow jumper; strip shows rim hit ~58930 (before row 1), bounces out right
+hSXPCy5NedU_s129#5	yes	59605	missed		10	light	unclear	wing jumper off board/rim right, missed; feet near arc
+hSXPCy5NedU_s156#0	yes	71700	missed		9	light	2	floater rolls on rim from ~71685 and falls off; score 18-16 unchanged
+hSXPCy5NedU_s168#0	no					-		free throw, made
+hSXPCy5NedU_s189#0	no					-		light passing at top, no shot
+hSXPCy5NedU_s189#1	yes	94405	made		9	light	2	short contested shot near basket, made
+hSXPCy5NedU_s209#0	no					-		dark dribbling near half court, no shot
+hSXPCy5NedU_s209#1	yes		missed		9	dark	2	FT-line jumper hits rim, off board, out front; boxes 7/8/9 overlap shooter
+hSXPCy5NedU_s220#0	yes		missed	113645	7	light	unclear	wing jumper over dark #11 contest, off board right; score 31-24 unchanged
+hSXPCy5NedU_s220#1	no					-		dark drive, ball not at rim yet; attempt follows, see #x0
+hSXPCy5NedU_s220#2	yes		missed		8	light	unclear	jumper near arc, off rim up-left
+hSXPCy5NedU_s232#0	no					-		dark bringing ball up after score, no shot
+hSXPCy5NedU_s232#1	yes		missed		8	light	unclear	long jumper off rim right, likely three
+hSXPCy5NedU_s242#0	no					-		free throw, made
+hSXPCy5NedU_s258#0	no					-		light dribbling at top, no shot
+hSXPCy5NedU_s258#1	no					-		dark dribbling, no shot
+hSXPCy5NedU_s258#2	yes	142245	made	142185	7	dark	2	jumper inside arc, made (35-30 to 35-32)
+hSXPCy5NedU_s267#0	no					-		dark #4 dribbling, no shot
+hSXPCy5NedU_s267#1	yes	150330	missed	150315	10	light	2	short shot on right block, rolls off rim left
+hSXPCy5NedU_s282#0	no					-		dark #0 dribbling, no shot
+hSXPCy5NedU_s282#1	yes	157405	made		10	dark	2	contested floater in lane, made (40-34 to 40-36)
+hSXPCy5NedU_s298#0	no					-		free-throw setup, no live ball
+hSXPCy5NedU_s298#1	no					-		free throw by light, missed
+hSXPCy5NedU_s298#2	yes	167605	missed		7	light	2	put-back after missed free throw, rattles out; score unchanged
+hSXPCy5NedU_s313#0	yes	173615	missed	173560	9	dark	2	baseline jumper off board; score 48-39 unchanged
+hSXPCy5NedU_s313#1	no					-		dark rebounding light #0's missed jumper (see #x0)
+hSXPCy5NedU_s326#0	yes		missed		9	dark	unclear	top-of-key jumper bounces up off rim, out right; feet near arc
+hSXPCy5NedU_s326#1	yes		missed		8	light	3	right-corner three off rim; score 53-43 unchanged, shot clock reset to 14
+hSXPCy5NedU_s573#0	no					-		free throw
+hSXPCy5NedU_s220#x0	yes	114405	missed	114390		dark	2	close shot after drive bounces on rim, falls out left ~114466; detector moment came before the shot
+hSXPCy5NedU_s313#x0	yes	174890	missed	174835		light	unclear	light #0 left-wing jumper, missed; detector moment fired on the rebound
+hSXPCy5NedU_s582#0	yes	279770	missed	279685	10	dark	3	wing three off rim; score unchanged
+hSXPCy5NedU_s582#1	yes	280070	made	280030	5	dark	2	fast-break layup rolls on rim from ~280035, drops in by 280090
+hSXPCy5NedU_s598#0	yes	287630	missed		4	dark	2	layup off glass, rolls off; GLI stays 47
+hSXPCy5NedU_s608#0	yes	291735	missed	291665	5	dark	2	pull-up near FT circle top, off left rim; green box wrong player
+hSXPCy5NedU_s630#0	yes	301015	made		8	light	2	elbow jumper, swish
+hSXPCy5NedU_s647#0	no					-		post-up by dark, ball still held; no ball at rim in window or strip
+hSXPCy5NedU_s657#0	no					-		dribble far from rim, no ball at rim
+hSXPCy5NedU_s665#0	no					-		dribble on wing, no ball at rim
+hSXPCy5NedU_s665#1	no					-		drive and ball handled low, no ball at rim
+hSXPCy5NedU_s696#0	no					-		light player holds ball in paint, no ball at rim
+hSXPCy5NedU_s722#0	yes	366745	missed		8	dark	2	layup off backboard, rebound light
+hSXPCy5NedU_s733#0	no					-		free throw
+hSXPCy5NedU_s733#1	yes	374290	made	off		light	2	dunk, rim frame before window (~374255)
+hSXPCy5NedU_s780#0	no					-		same jumper as s780#1, window before release
+hSXPCy5NedU_s780#1	yes	406325	made		9	dark	3	corner jumper, swish; GLI 69->72
+hSXPCy5NedU_s789#0	no					-		free throw
+hSXPCy5NedU_s805#0	no					-		free throw
+hSXPCy5NedU_s805#1	no					-		free throw
+hSXPCy5NedU_s813#0	yes	423935	missed	423865	9	dark	2	jumper off rim left, bounces up; score unchanged
+hSXPCy5NedU_s813#1	yes	424570	missed	424545	9	light	2	layup contested by dark, rolls on rim; DZI stays 103
+hSXPCy5NedU_s813#2	yes	425155	missed		7	dark	2	short jumper bounces on rim, off right, light rebound
+hSXPCy5NedU_s843#0	yes	436780	made		5	dark	2	jumper, drops in after sitting on rim (probable); green box 4 overlaps defender, shooter box 5
+hSXPCy5NedU_s856#0	no					-		free throw
+1A79NXz9CFM_s141#0	no					-		replay close-up of an earlier dunk/layup, not live play
+1A79NXz9CFM_s141#1	no					-		free-throw set-up (shooter holding ball at line), no live attempt
+1A79NXz9CFM_s175#0	no					-		baseline catch and pass back out; ball passes below the rim, not a shot
+1A79NXz9CFM_s175#1	yes		missed	67475	9	light	3	three from left wing, off rim, rebound
+1A79NXz9CFM_s175#2	yes	67755	missed	67715	8	light	2	runner from lane, bounces on rim and out, rebound dark
+1A79NXz9CFM_s175#3	yes		unclear	68855	10	dark	2	contested layup/scoop in traffic, ball high off glass onto ring; drops near ring at 68900-68905, cannot see if through
+1A79NXz9CFM_s196#0	no					-		free throw (players lined up on lane), not a live-play attempt
+1A79NXz9CFM_s220#0	no					-		dribble drive far from rim; no ball at rim
+1A79NXz9CFM_s220#1	yes	94935	made	94905	8	light	2	layup/hook under rim, made
+1A79NXz9CFM_s241#0	yes		missed	124545	6	light	2	jumper from lane; ball drops in front of ring without going in (score stays 25-15, shot clock not reset, same team shoots again); verify
+1A79NXz9CFM_s241#1	yes		missed	124765	5	light	3	three from left wing off rim/board, bounces out left
+1A79NXz9CFM_s241#2	no					-		dribbling near top of key; no shot at this moment
+1A79NXz9CFM_s241#3	yes		missed	125310	6	light	2	driving layup, shooter falls into defender (box 9 is the dark defender); ball off rim left
+1A79NXz9CFM_s270#0	yes		made	140955	8	dark	2	pull-up jumper from right elbow, made
+1A79NXz9CFM_s270#1	yes		made	142235	9	light	2	layup, ball drops through ring
+1A79NXz9CFM_s304#0	yes		unclear	171840	9	dark	2	driving layup off glass, ball on ring 171880; light player has ball under rim at 171910 (maybe missed)
+1A79NXz9CFM_s322#0	yes		missed	185620	9	dark	3	three from right wing, off back rim, rebound
+1A79NXz9CFM_s322#1	yes	187050	made	187010	8	light	2	contested floater/layup in lane, drops through net
+1A79NXz9CFM_s595#0	no					-		free throw (made), players lined up on lane; not a live-play attempt
+1A79NXz9CFM_s612#0	yes	267465	unclear	off		dark	2	driving layup off glass; ball in ring 267465-267470, light player holds ball under basket at 267505; looks made but not certain
+1A79NXz9CFM_s637#0	yes	284090	made	284020	8	dark	2	mid-range jumper from left elbow, swish
+1A79NXz9CFM_s637#1	yes	285035	made	285010	9	light	2	contested layup, ball rolls on rim then drops through net (285055)
+1A79NXz9CFM_s659#0	yes	298300	missed	298225	7	light	2	mid-range jumper near free-throw line (light #13, not green box), off rim, bounces out right
+1A79NXz9CFM_s659#1	no					-		catch on the left wing, no shot (shot clock keeps running, ball never at rim)
+1A79NXz9CFM_s659#2	yes	299225	unclear	299205	9	dark	2	close-range contested shot under rim; ball on ring at 299225, light player holds ball under rim at 299255; cannot tell if it dropped through
+1A79NXz9CFM_s679#0	no					-		free throw (rolls on ring, drops in); not a live-play attempt
+1A79NXz9CFM_s698#0	yes	319055	missed	off	unboxed	light	3	three from left wing (shooter unboxed, top of frame, feet just behind arc); release before the five pictures; front rim, out
+1A79NXz9CFM_s698#1	yes	320925	missed	320845	9	light	3	contested three from right wing, ball off right side of ring (320930); fairly sure missed
+1A79NXz9CFM_s723#0	yes		missed		8	dark	2	driving layup high off glass, ball rolls on ring and out (dark #13 reaches for it at 341975-341990); score unchanged 80-52, light gets ball
+1A79NXz9CFM_s723#1	yes	342355	missed	342340	6	light	2	contested shot under rim, ball off glass/rim and bounces high, falls out; score unchanged
+1A79NXz9CFM_s723#2	yes	342855	made	342810	9	dark	2	short jumper in lane, ball drops through net 342855-342870 (fairly sure)
+1A79NXz9CFM_s746#0	no					-		dead ball, referee tossing the ball; no attempt
+1A79NXz9CFM_s746#1	no					-		dribble hand-off on left wing, no shot; ball not at rim
+1A79NXz9CFM_s746#2	yes	357565	unclear	357490	4	dark	unclear	contested jumper from left wing at shot-clock end (box 4, not green box); ball reaches left of ring at 357565 then lost; feet near the arc
+1A79NXz9CFM_s765#0	no					-		dead ball, inbound setup; no attempt
+1A79NXz9CFM_s788#0	no					-		free throw (made, 87-69 to 87-70); not a live-play attempt
+1A79NXz9CFM_s788#1	no					-		dead ball, inbound with referee; no attempt
+1A79NXz9CFM_s814#0	yes	405610	missed	405545	9	dark	3	three from right corner/wing, off back rim, bounces out left
+1A79NXz9CFM_s814#1	yes	406300	made	406280	9	light	2	layup/put-back off glass, rolls on ring and drops through net (406330-406345)
