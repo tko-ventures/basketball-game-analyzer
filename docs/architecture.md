@@ -110,7 +110,7 @@ Seven dedicated CLI commands evaluate layers against the gold set and append row
 | `bga eval-appearance` | Clean `v0` gold boxes | Teammate re-association (1 s, 3 s) and cross-shot rank-1 / MRR |
 | `bga eval-numbers` | `data/gold/v1/numbers.json` (376 crops) | Free & roster top-1, non-number refusal rate, calibration (ECE), ms/crop |
 | `bga eval-positions` | Gold court keyframes + linked tracks | Keyframe median/p90 error (m), on-court share, coverage, speed p95 & >10 m/s spikes, ms/frame |
-| `bga eval-ball` | `data/gold/v1/boxes.json` + `holders.json` + `events.json` | Ball F1/R/med px, possession acc, holder F1, team acc, shot F1, outcome acc, shooter acc, ms/frame |
+| `bga eval-ball` | `data/gold/v1/boxes.json` + `holders.json` + `events.json` + `shot_gold.json` | Ball F1/R/med px, possession acc, holder F1, team acc, shot F1, outcome acc, shooter acc, ms/frame |
 
 Other top-level CLI commands: `bga run`, `bga train`, `bga export` (17-column per-player per-frame Parquet + sibling `<seq>.ball.parquet` when `ball` is configured), `bga radar` (broadcast + 2D FIBA court overlay video with team colours, `#jersey` labels, ball/holder ring, and cumulative shot markers), and `bga backends`.
 

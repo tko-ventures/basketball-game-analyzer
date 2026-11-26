@@ -6,6 +6,7 @@
     uv run scripts/shot_gold.py prefill     # data/labels/.cache/shot_gold/<sequence>.json, for /shotgold
     uv run scripts/shot_gold.py sheets      # runs/_scratch/shot_gold/{holders,events}/sheet_NNN.jpg and items.json
     uv run scripts/shot_gold.py apply       # data/labels/review/shot_gold_{holders,events}.tsv into the queue
+    uv run scripts/shot_gold.py export      # confirmed answers -> data/gold/v1/shot_gold.json
     uv run scripts/shot_gold.py status
 
 The logic of the working file lives in bga.eval.shot_gold (shared with the labeller's /shotgold page); see that
@@ -28,10 +29,12 @@ from bga import pipeline
 from bga.ball.base import bbox_iou
 from bga.config import load_config
 from bga.eval.shot_gold import (
+    EXPORT_PATH,
     QUEUE_PATH,
     STRIDE,
     Status,
     build_queue,
+    export_shot_gold,
     find_shot,
     load_queue,
     progress,
@@ -400,6 +403,14 @@ def cmd_apply(args):
     print(f"{QUEUE_PATH}: {progress(queue)}")
 
 
+def cmd_export(args):
+    doc = export_shot_gold()
+    print(
+        f"{EXPORT_PATH}: {len(doc['shots'])} shots, {len(doc['verified_sequences'])} verified, "
+        f"{len(doc['events'])} attempts, {len(doc['frames'])} frames"
+    )
+
+
 def cmd_status(args):
     queue = load_queue()
     print(progress(queue))
@@ -414,7 +425,13 @@ def main():
     sel.add_argument("--per-held-out", type=int, default=8)
     sel.add_argument("--force", action="store_true")
     sel.set_defaults(fn=cmd_select)
-    for name, fn in (("prefill", cmd_prefill), ("sheets", cmd_sheets), ("apply", cmd_apply), ("status", cmd_status)):
+    for name, fn in (
+        ("prefill", cmd_prefill),
+        ("sheets", cmd_sheets),
+        ("apply", cmd_apply),
+        ("export", cmd_export),
+        ("status", cmd_status),
+    ):
         sub.add_parser(name).set_defaults(fn=fn)
     args = ap.parse_args()
     args.fn(args)

@@ -12,6 +12,7 @@ from bga.eval.shot_gold import (
     Status,
     clean_event,
     clean_person,
+    export_shot_gold,
     load_queue,
     pick_shots,
     progress,
@@ -203,3 +204,22 @@ class TestShotGoldPage:
     def test_box_cache_refuses_names_that_are_not_file_stems(self, tmp_path: Path, name: str) -> None:
         with pytest.raises(ValueError, match="bad sequence name"):
             load_boxes(name, tmp_path)
+
+
+class TestExportShotGold:
+    def test_exports_only_confirmed_shots_and_frames(self, queue_path: Path, tmp_path: Path) -> None:
+        shooter = {"xyxy": [10.0, 20.0, 50.0, 120.0], "team": "home"}
+        save_shot_events({"sequence": "abc123XYZ_s1", "events": [{**ATTEMPT, "shooter": shooter}]}, queue_path)
+        save_frame_answer(
+            {"sequence": "abc123XYZ_s1", "frame": 151, "ball": [12.0, 14.0, 24.0, 26.0], "holder": shooter},
+            queue_path,
+        )
+        out_path = tmp_path / "shot_gold.json"
+        doc = export_shot_gold(queue_path, out_path)
+        assert out_path.exists()
+        assert doc["verified_sequences"] == ["abc123XYZ_s1"]
+        assert [s["sequence"] for s in doc["shots"]] == ["abc123XYZ_s1"]
+        assert len(doc["frames"]) == 1
+        assert doc["frames"][0]["frame"] == 151
+        assert doc["events"][0]["shooter_xyxy"] == [10.0, 20.0, 50.0, 120.0]
+        assert doc["events"][0]["shooter_team"] == "home"

@@ -26,6 +26,8 @@ from bga.paths import write_atomic
 
 #: The working file: the chosen shots, the boxes offered for clicking, the proposals and the labels.
 QUEUE_PATH = Path("data/labels/shot_gold.json")
+#: The exported Layer 7 shot-gold file read by ``bga eval-ball`` (confirmed answers only).
+EXPORT_PATH = Path("data/gold/v1/shot_gold.json")
 #: The gold-set index naming the gold games and the shots already in gold v0 and v1.
 GOLD_INDEX = Path("data/labels/gold.json")
 #: Folder of per-clip label files (shot cuts, camera tags, teams and kits).
@@ -403,3 +405,97 @@ def progress(queue: dict[str, Any]) -> dict[str, int]:
         "shots": len(queue["shots"]),
         "shots_done": sum(s["events_status"] == Status.DONE for s in queue["shots"]),
     }
+
+
+def export_shot_gold(queue_path: Path = QUEUE_PATH, out_path: Path = EXPORT_PATH) -> dict[str, Any]:
+    """Export confirmed shot-gold answers to ``data/gold/v1/shot_gold.json`` for ``bga eval-ball``.
+
+    Only shots with ``events_status == "done"`` enter ``verified_sequences`` and ``events``, and only frames with
+    ``status == "done"`` enter ``frames``. Working-file draft fields (``proposal``, ``origin``, ``events_note``) are
+    omitted.
+
+    Args:
+        queue_path: Working file edited by ``/shotgold``.
+        out_path: Destination gold file under ``data/gold/v1/``.
+
+    Returns:
+        The exported document.
+
+    Examples:
+        >>> import tempfile
+        >>> with tempfile.TemporaryDirectory() as tmp:
+        ...     qp = Path(tmp) / "q.json"
+        ...     op = Path(tmp) / "out.json"
+        ...     shot = {"sequence": "a_s1", "youtube_id": "a", "clip": "c", "shot": 1, "start": 0, "end": 100,
+        ...             "fps": 50.0, "held_out": False, "events_status": "done",
+        ...             "events": [{"release_frame": 20, "rim_frame": 40, "outcome": "made", "points": 2,
+        ...                         "shooter": {"xyxy": [1.0, 2.0, 3.0, 4.0], "team": "home"}, "note": ""}],
+        ...             "frames": [{"frame": 50, "status": "done", "ball": [5.0, 5.0, 9.0, 9.0], "holder": None}]}
+        ...     save_queue({"version": 1, "definition": DEFINITION, "stride": STRIDE, "shots": [shot]}, qp)
+        ...     doc = export_shot_gold(qp, op)
+        ...     (doc["verified_sequences"], len(doc["frames"]), len(doc["events"]), doc["events"][0]["shooter_team"])
+        (['a_s1'], 1, 1, 'home')
+
+    """
+    queue = load_queue(queue_path)
+    shots: list[dict[str, Any]] = []
+    frames: list[dict[str, Any]] = []
+    events: list[dict[str, Any]] = []
+    verified: list[str] = []
+
+    for shot in queue["shots"]:
+        done_frames = [f for f in shot["frames"] if f["status"] == Status.DONE]
+        ev_done = shot["events_status"] == Status.DONE
+        if not done_frames and not ev_done:
+            continue
+        shots.append({
+            "sequence": shot["sequence"],
+            "youtube_id": shot["youtube_id"],
+            "clip": shot["clip"],
+            "shot": int(shot["shot"]),
+            "start": int(shot["start"]),
+            "end": int(shot["end"]),
+            "fps": float(shot["fps"]),
+            "held_out": bool(shot["held_out"]),
+        })
+        frames.extend(
+            {
+                "sequence": shot["sequence"],
+                "youtube_id": shot["youtube_id"],
+                "shot": int(shot["shot"]),
+                "frame": int(fr["frame"]),
+                "held_out": bool(shot["held_out"]),
+                "ball": fr["ball"],
+                "holder": fr["holder"],
+            }
+            for fr in done_frames
+        )
+        if ev_done:
+            verified.append(shot["sequence"])
+            for ev in shot["events"]:
+                shooter = ev.get("shooter")
+                events.append({
+                    "sequence": shot["sequence"],
+                    "youtube_id": shot["youtube_id"],
+                    "shot": int(shot["shot"]),
+                    "held_out": bool(shot["held_out"]),
+                    "release_frame": int(ev["release_frame"]),
+                    "rim_frame": int(ev["rim_frame"]),
+                    "outcome": ev["outcome"],
+                    "points": int(ev["points"]),
+                    "shooter_xyxy": shooter["xyxy"] if shooter else None,
+                    "shooter_team": shooter["team"] if shooter else None,
+                    "note": str(ev.get("note") or ""),
+                })
+
+    doc: dict[str, Any] = {
+        "version": "v1",
+        "definition": queue.get("definition", DEFINITION),
+        "stride": int(queue.get("stride", STRIDE)),
+        "verified_sequences": sorted(verified),
+        "shots": shots,
+        "frames": frames,
+        "events": events,
+    }
+    write_atomic(out_path, json.dumps(doc, indent=1, ensure_ascii=False) + "\n")
+    return doc

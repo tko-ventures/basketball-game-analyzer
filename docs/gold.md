@@ -304,3 +304,10 @@ Result (ledgers `data/labels/review/shot_gold_holders.tsv` and `data/labels/revi
 ### How to label
 
 Open the labeller's `/shotgold` page (`uv run python tools/labeler/server.py`, then http://127.0.0.1:8765/shotgold). **How to** (`?`) holds the instructions and every key; `tools/labeler/README.md` lists them too. Tab 1 is the shot attempts of each shot, tab 2 the frames the first pass could not settle, tab 3 the frames it settled, for a second look. Each answer saves at once.
+
+### Confirmed export (2026-11-26)
+
+Tomasz confirmed all 26 shots and all 188 frames on `/shotgold`. `uv run scripts/shot_gold.py export` writes the confirmed answers to `data/gold/v1/shot_gold.json`:
+- **Dev:** 18 shots, 20 shot attempts (17 made, 3 missed; 11 two-pointers, 9 threes; every attempt carries a shooter box and team), 133 frames (119 with ball, 72 with holder).
+- **Held-out:** 8 shots, 8 shot attempts (8 made, 0 missed; 5 two-pointers, 3 threes; every attempt carries a shooter box and team), 55 frames (53 with ball, 32 with holder).
+- **Combined Layer 7 gold (`bga eval-ball`):** 27 dev shots / 209 frames / 31 attempts and 11 held-out shots / 79 frames / 13 attempts (use `--no-shot-gold` to score gold `v1` alone).

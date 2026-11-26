@@ -203,7 +203,7 @@ flowchart TB
     subgraph consumers["«Component Group: Export & Evaluation Consumers»"]
         exp_pq["«Component: Export»\nParquet Exporter (export/parquet.py)\nTyped 17-col PLAYER_SCHEMA +\nsibling .ball.parquet (BALL_SCHEMA)"]:::output
         exp_rad["«Component: Export»\nRadar Renderer (export/radar.py)\nStacked broadcast + 2D FIBA court MP4\n(players, ball/holder ring, shot markers)"]:::output
-        eval_mod["«Component: Evaluation»\n7 Gold Evaluators (eval/*.py)\neval (TrackEval+churn), eval-court,\neval-detect (COCO), eval-appearance,\neval-numbers, eval-positions,\neval-ball -> docs/metrics.md"]:::output
+        eval_mod["«Component: Evaluation»\n7 Gold Evaluators (eval/*.py)\neval (TrackEval+churn), eval-court,\neval-detect (COCO), eval-appearance,\neval-numbers, eval-positions,\neval-ball (v1 + shot_gold) -> docs/metrics.md"]:::output
     end
 
     orch -->|"Executes configured layers"| dag
