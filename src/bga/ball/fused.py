@@ -527,12 +527,15 @@ def _classify_shot_outcome(
 
     # Check if the ball drops straight beneath the hoop through the net cylinder (|ndx| <= 0.85, ndy in [0.45, 3.0])
     # without first bouncing up (ndy < -0.45) or laterally away (|ndx| > 1.25).
+    # With ``outcome_local_rw > 0`` a tracked point farther than that from the rim is a tracker jump to another
+    # candidate, not the ball bouncing off the rim, so it no longer counts as a miss (it can still be a net hit).
+    local_rw = float(params.get("outcome_local_rw", 0.0))
     net_hits = 0
     for j, pt in post:
         if pt is None:
             continue
-        ndx, ndy, _ = pt
-        if ndy < -0.45 or abs(ndx) > 1.25:
+        ndx, ndy, dist = pt
+        if (ndy < -0.45 or abs(ndx) > 1.25) and not (local_rw > 0.0 and dist > local_rw):
             return "missed", state.frames[j]
         if abs(ndx) <= 0.85 and ndy >= 0.45:
             net_hits += 1
@@ -798,6 +801,7 @@ class FusedBall(BaseBackend):
         "shot_release_rim_excl_rw": 0.0,
         "shot_team_window_s": 0.0,
         "bib_conf": 0.20,
+        "outcome_local_rw": 0.0,
     }
 
     def run(self, seq: Sequence, upstream: dict[str, Any], read: FrameReader) -> dict[str, Any]:

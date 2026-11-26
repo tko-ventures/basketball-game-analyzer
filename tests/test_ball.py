@@ -28,6 +28,7 @@ from bga.ball.base import (
 from bga.ball.fused import (
     FusedBall,
     _ball_node_score,
+    _classify_shot_outcome,
     _filter_ball_candidates,
     _find_shooter,
     _loose_ball_bonus,
@@ -482,6 +483,20 @@ class TestFusedBall:
         params = {**FusedBall.defaults, "ball_far_penalty": penalty}
         em = _possession_emissions([], tracks, {1: "home"}, [180.0, 50.0], 0.9, params)
         assert em[1] == pytest.approx(expected)
+
+    @pytest.mark.parametrize(
+        ("local_rw", "expected"),
+        [
+            pytest.param(0.0, "missed", id="off-far-jump-counts-as-miss"),
+            pytest.param(4.0, "made", id="far-jump-ignored-net-drop-counts"),
+        ],
+    )
+    def test_outcome_ignores_far_tracker_jump(self, local_rw: float, expected: str) -> None:
+        frames = [0, 5, 10, 15]
+        state = BallTrackState(frames, {}, {}, {}, {}, {})
+        rel = [(0.0, 0.0, 0.0), (-5.0, 4.0, 6.4), (0.1, 1.2, 1.2), None]
+        params = {**FusedBall.defaults, "outcome_local_rw": local_rw}
+        assert _classify_shot_outcome(state, 0, rel, {}, params, 10.0)[0] == expected
 
     @pytest.mark.parametrize(
         ("bonus", "ball_x", "expected"),
