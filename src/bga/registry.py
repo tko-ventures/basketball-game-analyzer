@@ -16,6 +16,7 @@ _REGISTRY: dict[tuple[str, str], type] = {}
 BACKEND_MODULES = (
     "bga.ingest.gold_shots",
     "bga.ingest.clip_shots",
+    "bga.ingest.shot_gold_shots",
     "bga.detect.roboflow_inference",
     "bga.detect.rfdetr_torch",
     "bga.team.siglip_kmeans",

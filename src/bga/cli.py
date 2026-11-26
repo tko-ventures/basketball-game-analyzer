@@ -668,13 +668,15 @@ BALL_HEADER = (
 #: Section heading and explanation placed above the ball table when it is first added.
 BALL_INTRO = (
     "## Ball, possession, and shots\n\n"
-    "Scored by `bga eval-ball` on the gold shots, dev unless `--held-out`. **ball F1 (R, med px):** tracked `ball_px`"
-    " matched to gold `v1` `ball` boxes within `max(25 px, box_side)`. **poss acc / holder F1 / team acc:** per-frame"
+    "Scored by `bga eval-ball` on the gold shots, dev unless `--held-out` (both gold `v1` and exported"
+    " `data/gold/v1/shot_gold.json` unless `--no-shot-gold`). **ball F1 (R, med px):** tracked `ball_px`"
+    " matched to gold `ball` boxes within `max(25 px, box_side)`. **poss acc / holder F1 / team acc:** per-frame"
     " holder track matched to the gold holder box at IoU >= 0.5 (and exact `None` when unheld): from"
-    " `data/gold/v1/holders.json` (2026-11-20 possession definition) from 2026-11-24, `player-in-possession` boxes"
-    " before."
-    " **shot F1 / outcome acc / shooter acc:** shot attempts matched to `data/gold/v1/events.json` within 0.8 s on"
-    " `rim_frame`, made/missed accuracy on matched shots, and shooter track match against gold `v0` tracks."
+    " `data/gold/v1/holders.json` + `shot_gold.json` (2026-11-20 possession definition) from 2026-11-24,"
+    " `player-in-possession` boxes before."
+    " **shot F1 / outcome acc / shooter acc:** shot attempts matched to `events.json` + `shot_gold.json` within 0.8 s"
+    " on `rim_frame`, made/missed accuracy on matched shots, and shooter track match against gold `v0` tracks or"
+    " shot-gold `shooter_xyxy` boxes."
     " **ms/frame:** Layer 7 stage on M1 Max.\n\n"
 )
 
@@ -684,16 +686,21 @@ def eval_ball(
     config: Annotated[list[Path], typer.Option(help="one or more run configs with a ball layer")],
     set_: Annotated[list[str], typer.Option("--set", help="override applied to every config")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
     held_out: Annotated[bool, typer.Option(help="score the held-out game instead (once per milestone)")] = False,
+    shot_gold: Annotated[
+        bool,
+        typer.Option("--shot-gold/--no-shot-gold", help="include exported shot gold (data/gold/v1/shot_gold.json)"),
+    ] = True,
     write: Annotated[bool, typer.Option(help="append rows to docs/metrics.md")] = False,
     note: str = "",
     verbose: bool = False,
 ) -> None:
-    """Score each config's Layer 7 ``ball`` backend on gold ``v1`` boxes and ``events.json``.
+    """Score each config's Layer 7 ``ball`` backend on gold ``v1`` and exported shot gold.
 
     Args:
         config: Run configs, scored side by side.
         set_: Overrides applied to every config.
         held_out: Score the held-out game instead of dev (once per milestone).
+        shot_gold: Include exported ``data/gold/v1/shot_gold.json`` alongside gold ``v1``.
         write: Add the rows to the ball, possession, and shots table in ``docs/metrics.md``.
         note: Text for the notes column.
         verbose: Log progress.
@@ -705,15 +712,17 @@ def eval_ball(
         >>> eval_ball([Path("configs/ball-plk-fused.yaml")])  # doctest: +SKIP
 
     """
+    from bga.eval.ball import GOLD_V1_SHOT_GOLD
     from bga.eval.ball import score as ball_score
 
     _setup_logging(verbose)
     rows = []
+    sg_path = GOLD_V1_SHOT_GOLD if shot_gold else None
     for path in config:
         cfg = load_config(path, set_)
         _require_provenance(cfg)
         cfg.layers["shots"].params["held_out"] = "only" if held_out else "exclude"
-        s = ball_score(cfg)
+        s = ball_score(cfg, shot_gold_path=sg_path)
         ball_b = cfg.layers["ball"].backend
         det_w = _weights_cell(cfg.layers["detect"].weights)
         shot_cell = (

@@ -28,7 +28,7 @@ from bga.ball.base import (
 from bga.ball.fused import FusedBall, _filter_ball_candidates, _find_shooter, _possession_emissions, _track_ball
 from bga.ball.skalski import SkalskiBall
 from bga.config import LAYERS, OPTIONAL_BY_LAYER, LayerConfig, RunConfig
-from bga.eval.ball import load_holders, score, score_boxes, score_events
+from bga.eval.ball import load_holders, load_shot_gold, score, score_boxes, score_events
 from bga.export.parquet import BALL_SCHEMA, export_ball_sequence
 from bga.export.radar import render
 from bga.stage import Sequence
@@ -668,6 +668,178 @@ class TestEvalBall:
         gt_events = [{"sequence": "vid_s1", "rim_frame": 50, "outcome": "made", "shooter_gt_tid": 1}]
         em = score_events(ball_by_seq, tracks_by_seq, gt_events, gold_v0_root=tmp_path)
         assert em["shot_shooter_acc"] == 0.0
+
+    @pytest.mark.parametrize(
+        ("pred_tid", "track_frame", "expected"),
+        [
+            pytest.param(1, "20", 1.0, id="exact-release-frame-match"),
+            pytest.param(1, "25", 1.0, id="nearby-frame-fallback"),
+            pytest.param(2, "20", 0.0, id="defender-overlaps-less-than-shooter"),
+            pytest.param(None, "20", 0.0, id="missing-shooter-tid"),
+        ],
+    )
+    def test_shooter_match_by_shot_gold_box(self, pred_tid: int | None, track_frame: str, expected: float) -> None:
+        ball_by_seq = {
+            "vid_s1": {
+                "frames": {},
+                "shots": [
+                    {
+                        "start_frame": 15,
+                        "rim_frame": 60,
+                        "outcome": "made",
+                        "shooter_track_id": pred_tid,
+                        "shooter_team": "home",
+                    }
+                ],
+            }
+        }
+        tracks_by_seq = {
+            "vid_s1": {
+                track_frame: [
+                    [1, 100.0, 100.0, 160.0, 220.0, 0.9, "player", 0],
+                    [2, 118.0, 100.0, 178.0, 220.0, 0.9, "player", 0],
+                ]
+            }
+        }
+        gt_events = [
+            {
+                "sequence": "vid_s1",
+                "release_frame": 20,
+                "rim_frame": 60,
+                "outcome": "made",
+                "shooter_xyxy": [100.0, 100.0, 160.0, 220.0],
+                "shooter_team": "home",
+            }
+        ]
+        em = score_events(ball_by_seq, tracks_by_seq, gt_events)
+        assert em["shot_shooter_acc"] == expected
+
+    def test_load_shot_gold_converts_frames_and_events(self, tmp_path: Path) -> None:
+        sg_path = tmp_path / "shot_gold.json"
+        sg_path.write_text(
+            json.dumps({
+                "version": "v1",
+                "verified_sequences": ["vid_s2"],
+                "shots": [],
+                "frames": [
+                    {
+                        "sequence": "vid_s2",
+                        "youtube_id": "vid",
+                        "shot": 2,
+                        "frame": 10,
+                        "ball": [95.0, 95.0, 115.0, 115.0],
+                        "holder": {"xyxy": [10.0, 10.0, 60.0, 110.0], "team": "home"},
+                    },
+                    {
+                        "sequence": "vid_s2",
+                        "youtube_id": "vid",
+                        "shot": 2,
+                        "frame": 60,
+                        "ball": None,
+                        "holder": None,
+                    },
+                ],
+                "events": [
+                    {
+                        "sequence": "vid_s2",
+                        "release_frame": 10,
+                        "rim_frame": 50,
+                        "outcome": "made",
+                        "shooter_xyxy": [10.0, 10.0, 60.0, 110.0],
+                        "shooter_team": "home",
+                    }
+                ],
+            }),
+            encoding="utf-8",
+        )
+        frames, holders, events, verified = load_shot_gold(sg_path)
+        assert verified == {"vid_s2"}
+        assert holders == {("vid", 10): 1, ("vid", 60): None}
+        assert len(frames) == 2
+        assert len(events) == 1
+
+    def test_score_combines_gold_and_shot_gold(
+        self,
+        export_env: tuple[RunConfig, Path, Sequence, Path],
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        cfg, runs, seq, tmp_path = export_env
+        sg_seq = Sequence("demo_s2", "demo_clip", seq.video, 2, [0, 5], 50.0)
+        sg_path = tmp_path / "shot_gold.json"
+        sg_path.write_text(
+            json.dumps({
+                "version": "v1",
+                "verified_sequences": ["demo_s2"],
+                "shots": [],
+                "frames": [
+                    {
+                        "sequence": "demo_s2",
+                        "youtube_id": "demo",
+                        "shot": 2,
+                        "frame": 0,
+                        "ball": [60.0, 70.0, 80.0, 90.0],
+                        "holder": {"xyxy": [50.0, 40.0, 90.0, 130.0], "team": "home"},
+                    }
+                ],
+                "events": [
+                    {
+                        "sequence": "demo_s2",
+                        "release_frame": 0,
+                        "rim_frame": 5,
+                        "outcome": "made",
+                        "shooter_xyxy": [50.0, 40.0, 90.0, 130.0],
+                        "shooter_team": "home",
+                    }
+                ],
+            }),
+            encoding="utf-8",
+        )
+        sg_cfg = cfg.model_copy(deep=True)
+        sg_cfg.layers["shots"].backend = "shot_gold"
+        sg_cfg.layers["shots"].params = {"stride": 5, "held_out": "exclude", "queue": str(sg_path)}
+        _write_layer(
+            sg_cfg,
+            runs,
+            sg_seq,
+            "track",
+            {"frames": {"0": [[1, 50, 40, 90, 130, 0.9, "player", 0]], "5": []}},
+        )
+        _write_layer(
+            sg_cfg,
+            runs,
+            sg_seq,
+            "ball",
+            {
+                "frames": {"0": {"ball_px": [70.0, 80.0], "holder_track_id": 1, "holder_team": "home"}},
+                "shots": [
+                    {"start_frame": 0, "rim_frame": 5, "outcome": "made", "shooter_track_id": 1, "shooter_team": "home"}
+                ],
+                "ms_per_frame": 0.2,
+            },
+        )
+        monkeypatch.setattr(
+            "bga.eval.ball.pipeline.run",
+            lambda run_cfg, runs=runs: [sg_seq] if run_cfg.layers["shots"].backend == "shot_gold" else [seq],
+        )
+        events_path = tmp_path / "events.json"
+        events_path.write_text(
+            json.dumps({
+                "version": 1,
+                "verified_sequences": [seq.name],
+                "events": [{"sequence": seq.name, "rim_frame": 5, "outcome": "made"}],
+            }),
+            encoding="utf-8",
+        )
+        res = score(
+            cfg,
+            runs=runs,
+            boxes_path=tmp_path / "missing.json",
+            events_path=events_path,
+            holders_path=tmp_path / "missing_holders.json",
+            shot_gold_path=sg_path,
+        )
+        assert (res["sequences"], res["box_frames"], res["shot_gt"], res["shot_f1"]) == (2, 1, 2, 1.0)
+        assert (res["ball_f1"], res["poss_acc"], res["shot_shooter_acc"]) == (1.0, 1.0, 1.0)
 
 
 class TestBallExportAndRadar:

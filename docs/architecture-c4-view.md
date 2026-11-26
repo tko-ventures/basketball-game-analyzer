@@ -72,7 +72,7 @@ flowchart TB
     subgraph local["«System Boundary: Local Workstation — Apple M1 Max (MPS)»"]
         cli["«Container: CLI & Pipeline»\nbga CLI (src/bga/cli.py)\nPython 3.12, Typer, PyTorch MPS,\nOpenCV, PyArrow, Pydantic"]:::container
 
-        labeler["«Container: Local Web App»\nLabeller Server (tools/labeler/server.py)\nStdlib ThreadingHTTPServer :8765\nPages: /, /court, /boxes, /numbers, /events, /holders"]:::container
+        labeler["«Container: Local Web App»\nLabeller Server (tools/labeler/server.py)\nStdlib ThreadingHTTPServer :8765\nPages: /, /court, /boxes, /numbers, /events, /holders, /shotgold"]:::container
 
         scripts["«Container: Batch Utilities»\nData, QA & Demo Scripts (scripts/)\nClip fetch, roster fetch, contact sheets,\nSAM2 prefill, demo/coach builders"]:::container
 
@@ -203,7 +203,7 @@ flowchart TB
     subgraph consumers["«Component Group: Export & Evaluation Consumers»"]
         exp_pq["«Component: Export»\nParquet Exporter (export/parquet.py)\nTyped 17-col PLAYER_SCHEMA +\nsibling .ball.parquet (BALL_SCHEMA)"]:::output
         exp_rad["«Component: Export»\nRadar Renderer (export/radar.py)\nStacked broadcast + 2D FIBA court MP4\n(players, ball/holder ring, shot markers)"]:::output
-        eval_mod["«Component: Evaluation»\n7 Gold Evaluators (eval/*.py)\neval (TrackEval+churn), eval-court,\neval-detect (COCO), eval-appearance,\neval-numbers, eval-positions,\neval-ball -> docs/metrics.md"]:::output
+        eval_mod["«Component: Evaluation»\n7 Gold Evaluators (eval/*.py)\neval (TrackEval+churn), eval-court,\neval-detect (COCO), eval-appearance,\neval-numbers, eval-positions,\neval-ball (v1 + shot_gold) -> docs/metrics.md"]:::output
     end
 
     orch -->|"Executes configured layers"| dag
@@ -384,7 +384,7 @@ Exact backend contracts live in `src/bga/<layer>/base.py`; run `bga backends` fo
 
 | Layer | Package | Upstream | Active Leading Backend | Registered Alternatives |
 |---|---|---|---|---|
-| **L0 `shots`** | `src/bga/ingest/` | *(none)* | `gold` / `clips` | — |
+| **L0 `shots`** | `src/bga/ingest/` | *(none)* | `gold` / `clips` | `shot_gold` |
 | **L1 `court`** | `src/bga/court/` | `shots` | `rfdetr_keypoint` | `roboflow_keypoints` |
 | **L2 `detect`** | `src/bga/detect/` | `shots` | `rfdetr_torch` | `roboflow_inference` |
 | **L3 `team`** | `src/bga/team/` | `detect` | `siglip_kmeans` | — |

@@ -71,3 +71,21 @@ before to 0.6 s after it below (`Space` plays them, `↑` `↓` step). `A` accep
 the ball, or click a player box and press `Enter`; `←` `→` move without answering and `?` lists the keys. Each answer saves at
 once as a `tomasz` line under the flagged one and rebuilds `data/gold/v1/holders.json`. The second tab shows the implementer's
 applied changes. `--holders-ops` and `--holders-out` point the page at copies for testing.
+
+## Shot gold (`/shotgold`)
+
+http://127.0.0.1:8765/shotgold labels the shot-gold shots (`data/labels/shot_gold.json`, see `docs/gold.md`, "Shot gold"):
+26 further shots of the four gold games, for scoring the ball layer. Three tabs, with the instructions and every key
+under **How to** (`?`):
+
+1. **Shot attempts.** Per shot: `Space` plays, `←` `→` step 0.1 s, `S` and `R` set the release and rim frame, `M` / `X`
+   made or missed, `2` / `3` points, `G` jumps to the release frame where a click on a box sets the shooter (drag to draw
+   a missing box, `T` switches the team), `A` adds an attempt, `⌫` deletes one, `Enter` confirms the shot.
+2. **Ball holder: your call.** The frames the first pass could not settle, one a second, each with the frames from 0.6 s
+   before to 0.6 s after (`Space` plays them). Click the holder or press `N` for nobody; `Shift`+click puts the ball, `X`
+   means no ball in view; `Enter` saves and opens the next frame.
+3. **Ball holder: first pass.** The frames the first pass settled, for a second look with the same keys.
+
+Each answer saves at once. The boxes offered for clicking are the PLK detector's, cached by `scripts/shot_gold.py prefill`
+under `data/labels/.cache/shot_gold/`; without the cache the page still takes drawn boxes. `--shotgold-queue` points the
+page at a copy of the working file for testing.

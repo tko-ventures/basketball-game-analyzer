@@ -35,13 +35,16 @@ from bga.stage import Sequence
 
 log = logging.getLogger(__name__)
 
-#: Default paths for gold v1 boxes and shot events.
+#: Default paths for gold v1 boxes, shot events, holders, and exported shot gold.
 GOLD_V1_BOXES = Path("data/gold/v1/boxes.json")
 GOLD_V1_EVENTS = Path("data/gold/v1/events.json")
 GOLD_V1_HOLDERS = Path("data/gold/v1/holders.json")
+GOLD_V1_SHOT_GOLD = Path("data/gold/v1/shot_gold.json")
 GOLD_V0_ROOT = Path("data/gold/v0")
 #: Maximum source-frame gap between predicted and gold shot frame for a match (0.8 s at 50 fps).
 DEFAULT_RIM_TOL_FRAMES = 40
+#: Maximum source-frame gap for matching a predicted shooter track to a shot-gold box (0.2 s at 50 fps).
+SHOOTER_BOX_TOL_FRAMES = 10
 
 
 def _f1(tp: int, fp: int, fn: int) -> tuple[float, float, float]:
@@ -117,6 +120,50 @@ def load_holders(path: Path = GOLD_V1_HOLDERS) -> dict[tuple[str, int], int | No
         return None
     rows = json.loads(path.read_text(encoding="utf-8"))["frames"]
     return {(r["youtube_id"], int(r["frame"])): r["holder"] for r in rows}
+
+
+def load_shot_gold(
+    path: Path = GOLD_V1_SHOT_GOLD,
+) -> tuple[list[dict[str, Any]], dict[tuple[str, int], int | None], list[dict[str, Any]], set[str]]:
+    """Read exported shot gold into ``(gold_frames, holders, gold_events, verified_sequences)``.
+
+    Converts each shot-gold frame into the ``boxes.json`` + ``holders.json`` layout consumed by :func:`score_boxes`,
+    so both gold sets are scored with the exact same ball and holder rules.
+
+    Args:
+        path: Path to ``data/gold/v1/shot_gold.json``.
+
+    Returns:
+        Four-tuple ``(frames, holders, events, verified_sequences)``; all empty when ``path`` is absent.
+
+    Examples:
+        >>> load_shot_gold(Path("missing.json"))
+        ([], {}, [], set())
+
+    """
+    if not path.exists():
+        return [], {}, [], set()
+    doc = json.loads(path.read_text(encoding="utf-8"))
+    frames: list[dict[str, Any]] = []
+    holders: dict[tuple[str, int], int | None] = {}
+    for fr in doc.get("frames", []):
+        boxes: list[dict[str, Any]] = []
+        if fr.get("ball") is not None:
+            boxes.append({"cls": "ball", "xyxy": fr["ball"]})
+        holder = fr.get("holder")
+        key = (fr["youtube_id"], int(fr["frame"]))
+        if holder is not None:
+            holders[key] = len(boxes)
+            boxes.append({"cls": "player-in-possession", "xyxy": holder["xyxy"], "team": holder["team"]})
+        else:
+            holders[key] = None
+        frames.append({
+            "youtube_id": fr["youtube_id"],
+            "shot": int(fr["shot"]),
+            "frame": int(fr["frame"]),
+            "boxes": boxes,
+        })
+    return frames, holders, list(doc.get("events", [])), set(doc.get("verified_sequences", []))
 
 
 def _gold_holder(fr: dict[str, Any], holders: dict[tuple[str, int], int | None] | None) -> list[dict[str, Any]]:
@@ -233,17 +280,59 @@ def _match_shots(
     return matched
 
 
+def _nearest_track_frame(
+    tracks: dict[str, list[list[Any]]],
+    tid: int,
+    target_f: int,
+    max_tol: int,
+) -> int | None:
+    """Find the frame closest to ``target_f`` (within ``max_tol``) where ``tid`` has a track box."""
+    if _box_for_tid(tracks.get(str(target_f), []), tid) is not None:
+        return target_f
+    best_f: int | None = None
+    best_dist = max_tol + 1
+    for fstr, rows in tracks.items():
+        dist = abs(int(fstr) - target_f)
+        if dist < best_dist and _box_for_tid(rows, tid) is not None:
+            best_f, best_dist = int(fstr), dist
+    return best_f
+
+
+def _shooter_matches_box(
+    gs: dict[str, Any],
+    ps: dict[str, Any],
+    tracks: dict[str, list[list[Any]]],
+) -> bool:
+    """Match a predicted shooter track to a shot-gold ``shooter_xyxy`` box at ``release_frame``."""
+    pred_tid = ps.get("shooter_track_id")
+    gt_box = gs.get("shooter_xyxy")
+    if pred_tid is None or gt_box is None or not tracks:
+        return False
+    rf = int(gs.get("release_frame", gs["rim_frame"]))
+    near_f = _nearest_track_frame(tracks, int(pred_tid), rf, SHOOTER_BOX_TOL_FRAMES)
+    if near_f is None:
+        return False
+    best_iou, best_tid = 0.0, None
+    for row in tracks.get(str(near_f), []):
+        ov = bbox_iou(gt_box, [float(row[1]), float(row[2]), float(row[3]), float(row[4])])
+        if ov > best_iou:
+            best_iou, best_tid = ov, int(row[0])
+    return best_iou >= 0.4 and best_tid == int(pred_tid)
+
+
 def _shooter_matches(
     gs: dict[str, Any],
     ps: dict[str, Any],
     tracks: dict[str, list[list[Any]]],
     gt_by_f: dict[int, list[tuple[Any, ...]]],
 ) -> bool:
-    """Check whether a predicted shooter matches gold ``shooter_gt_tid`` (via IoU) or fallback ``shooter_team``."""
+    """Check whether a predicted shooter matches gold ``shooter_gt_tid``, ``shooter_xyxy``, or fallback team."""
     gt_tid = gs.get("shooter_gt_tid")
-    pred_tid = ps.get("shooter_track_id")
     if gt_tid is None:
+        if gs.get("shooter_xyxy") is not None:
+            return _shooter_matches_box(gs, ps, tracks)
         return bool(gs.get("shooter_team") and ps.get("shooter_team") == gs.get("shooter_team"))
+    pred_tid = ps.get("shooter_track_id")
     if pred_tid is None or not gt_by_f:
         return False
     sf = int(ps.get("start_frame", gs["rim_frame"]))
@@ -324,7 +413,11 @@ def score_events(
         for gi, pi in matches:
             gs, ps = gt_list[gi], pred_list[pi]
             out_ok += int(ps.get("outcome") == gs.get("outcome"))
-            if gs.get("shooter_gt_tid") is not None or gs.get("shooter_team") is not None:
+            if (
+                gs.get("shooter_gt_tid") is not None
+                or gs.get("shooter_xyxy") is not None
+                or gs.get("shooter_team") is not None
+            ):
                 shoot_tot += 1
                 shoot_ok += int(_shooter_matches(gs, ps, tracks_by_seq.get(sname, {}), gt_by_f))
 
@@ -340,6 +433,43 @@ def score_events(
     }
 
 
+def _shot_gold_config(cfg: RunConfig, shot_gold_path: Path) -> RunConfig:
+    """Clone ``cfg`` to run its pipeline over ``shots/shot_gold`` using the same stride and split."""
+    sg = cfg.model_copy(deep=True)
+    shots = sg.layers["shots"]
+    params: dict[str, Any] = {
+        "stride": shots.params.get("stride", 5),
+        "held_out": shots.params.get("held_out", "exclude"),
+        "queue": str(shot_gold_path),
+    }
+    if "labels" in shots.params:
+        params["labels"] = shots.params["labels"]
+    shots.backend = "shot_gold"
+    shots.params = params
+    return sg
+
+
+def _collect_run_outputs(
+    cfg: RunConfig,
+    runs: Path,
+    track_layer: str,
+    shot_gold_path: Path | None,
+) -> tuple[list[Sequence], dict[str, dict[str, Any]], dict[str, dict[str, list[list[Any]]]]]:
+    """Run ``cfg`` (and its ``shots/shot_gold`` companion when scoring ``shots/gold``) and load ball/track outputs."""
+    seqs: list[Sequence] = pipeline.run(cfg, runs=runs)
+    ball_by_seq = {s.name: pipeline.load_output(cfg, runs, s, "ball") for s in seqs}
+    tracks_by_seq = {s.name: pipeline.load_output(cfg, runs, s, track_layer)["frames"] for s in seqs}
+    if shot_gold_path is not None and shot_gold_path.exists() and cfg.layers["shots"].backend == "gold":
+        sg_cfg = _shot_gold_config(cfg, shot_gold_path)
+        for s in pipeline.run(sg_cfg, runs=runs):
+            if s.name in ball_by_seq:
+                continue
+            seqs.append(s)
+            ball_by_seq[s.name] = pipeline.load_output(sg_cfg, runs, s, "ball")
+            tracks_by_seq[s.name] = pipeline.load_output(sg_cfg, runs, s, track_layer)["frames"]
+    return seqs, ball_by_seq, tracks_by_seq
+
+
 def score(
     cfg: RunConfig,
     runs: Path = Path("runs"),
@@ -348,11 +478,12 @@ def score(
     events_path: Path = GOLD_V1_EVENTS,
     gold_v0_root: Path = GOLD_V0_ROOT,
     holders_path: Path = GOLD_V1_HOLDERS,
+    shot_gold_path: Path | None = GOLD_V1_SHOT_GOLD,
 ) -> dict[str, Any]:
-    """Run ``cfg`` (reusing cached outputs) and score its ``ball`` layer across all selected sequences.
+    """Run ``cfg`` (reusing cached outputs) and score its ``ball`` layer across gold ``v1`` and shot gold.
 
-    Only sequences listed in ``verified_sequences`` in ``events_path`` are included in shot-event metrics;
-    any unverified selected sequence is logged and reported in ``unverified_sequences``.
+    Only sequences listed in ``verified_sequences`` in ``events_path`` or ``shot_gold_path`` are included in
+    shot-event metrics; any unverified selected sequence is logged and reported in ``unverified_sequences``.
 
     Args:
         cfg: Run config including ``ball``.
@@ -361,24 +492,33 @@ def score(
         events_path: Path to ``data/gold/v1/events.json`` (skipped gracefully if absent).
         gold_v0_root: Path to ``data/gold/v0`` MOTChallenge tracks.
         holders_path: Path to ``data/gold/v1/holders.json`` (``player-in-possession`` boxes are used if absent).
+        shot_gold_path: Path to ``data/gold/v1/shot_gold.json`` (``None`` or missing to score gold ``v1`` only).
 
     Returns:
         Combined metrics dict covering ball tracking, possession, shot events, latency, and unverified sequences.
 
     """
-    seqs: list[Sequence] = pipeline.run(cfg, runs=runs)
     track_layer = "link" if "link" in cfg.layers else "track"
-    ball_by_seq = {s.name: pipeline.load_output(cfg, runs, s, "ball") for s in seqs}
-    tracks_by_seq = {s.name: pipeline.load_output(cfg, runs, s, track_layer)["frames"] for s in seqs}
+    seqs, ball_by_seq, tracks_by_seq = _collect_run_outputs(cfg, runs, track_layer, shot_gold_path)
 
     gold_frames = json.loads(boxes_path.read_text(encoding="utf-8"))["frames"] if boxes_path.exists() else []
+    holders = load_holders(holders_path)
     events_doc = json.loads(events_path.read_text(encoding="utf-8")) if events_path.exists() else {}
-    gold_events = events_doc.get("events", [])
+    gold_events = list(events_doc.get("events", []))
     verified = set(events_doc.get("verified_sequences", []))
+
+    has_shot_gold = shot_gold_path is not None and shot_gold_path.exists()
+    if has_shot_gold:
+        sg_frames, sg_holders, sg_events, sg_verified = load_shot_gold(shot_gold_path)
+        gold_frames = [*gold_frames, *sg_frames]
+        holders = {**(holders or {}), **sg_holders}
+        gold_events = [*gold_events, *sg_events]
+        verified |= sg_verified
+
     unverified = sorted(s for s in ball_by_seq if s not in verified)
-    if events_path.exists() and unverified:
+    if (events_path.exists() or has_shot_gold) and unverified:
         log.warning("Skipping shot-event scoring on unverified sequences: %s", ", ".join(unverified))
-    box_m = score_boxes(ball_by_seq, tracks_by_seq, gold_frames, load_holders(holders_path))
+    box_m = score_boxes(ball_by_seq, tracks_by_seq, gold_frames, holders)
     ev_m = score_events(
         ball_by_seq,
         tracks_by_seq,

@@ -986,6 +986,8 @@ class App:
         self.clips = ClipRegistry()
         self.holders_ops = REPO / "data/labels/review/holders_v1.ops.txt"
         self.holders_out = REPO / "data/gold/v1/holders.json"
+        self.shotgold_queue = REPO / "data/labels/shot_gold.json"
+        self.shotgold_lock = threading.Lock()
         self.shots = ShotJobs(labels_dir)
 
     def list_clips(self) -> list[dict]:
@@ -1168,6 +1170,20 @@ class LabelerHandler(BaseHTTPRequestHandler):
         mod = _load_sibling("holders_api")
         self._json(mod.load_holders_state(ops_path=self.app.holders_ops))
 
+    def _get_shotgold_page(self, q: dict[str, str]) -> None:
+        self._bytes((STATIC / "shotgold.html").read_bytes(), "text/html; charset=utf-8")
+
+    def _get_shotgold_state(self, q: dict[str, str]) -> None:
+        mod = _load_sibling("shotgold_api")
+        self._json(mod.load_shotgold_state(queue_path=self.app.shotgold_queue))
+
+    def _get_shotgold_boxes(self, q: dict[str, str]) -> None:
+        mod = _load_sibling("shotgold_api")
+        try:
+            self._json(mod.load_boxes(q.get("sequence", "")))
+        except ValueError as e:
+            self._err(400, str(e))
+
     def _get_clips(self, q: dict[str, str]) -> None:
         self._json({
             "clips": self.app.list_clips(),
@@ -1213,6 +1229,10 @@ class LabelerHandler(BaseHTTPRequestHandler):
         "/holders": _get_holders_page,
         "/holders/": _get_holders_page,
         "/api/holders/state": _get_holders_state,
+        "/shotgold": _get_shotgold_page,
+        "/shotgold/": _get_shotgold_page,
+        "/api/shotgold/state": _get_shotgold_state,
+        "/api/shotgold/boxes": _get_shotgold_boxes,
         "/api/clips": _get_clips,
         "/api/clip": _get_clip,
         "/api/frame": _get_frame,
@@ -1262,6 +1282,22 @@ class LabelerHandler(BaseHTTPRequestHandler):
             return
         self._json({"ok": True, **counts})
 
+    def _post_shotgold(self, body: dict, save: str) -> None:
+        mod = _load_sibling("shotgold_api")
+        try:
+            with self.app.shotgold_lock:
+                counts = getattr(mod, save)(body, queue_path=self.app.shotgold_queue)
+        except (KeyError, TypeError, ValueError) as e:
+            self._err(400, str(e))
+            return
+        self._json({"ok": True, **counts})
+
+    def _post_shotgold_frame(self, body: dict, q: dict[str, str]) -> None:
+        self._post_shotgold(body, "save_frame_answer")
+
+    def _post_shotgold_events(self, body: dict, q: dict[str, str]) -> None:
+        self._post_shotgold(body, "save_shot_events")
+
     def _post_shots(self, body: dict, q: dict[str, str]) -> None:
         self.app.shots.start(q["path"], float(body.get("threshold", DEFAULT_THRESHOLD)))
         self._json({"started": True})
@@ -1273,6 +1309,8 @@ class LabelerHandler(BaseHTTPRequestHandler):
         "/api/numbers/review": _post_number_review,
         "/api/events/save": _post_events_save,
         "/api/holders/answer": _post_holders_answer,
+        "/api/shotgold/frame": _post_shotgold_frame,
+        "/api/shotgold/events": _post_shotgold_events,
         "/api/shots": _post_shots,
     }
 
@@ -1355,10 +1393,12 @@ def main(argv: list[str] | None = None) -> None:
     ap.add_argument("--rosters-dir", default="data/rosters")
     ap.add_argument("--holders-ops", default="data/labels/review/holders_v1.ops.txt", help="/holders ops file")
     ap.add_argument("--holders-out", default="data/gold/v1/holders.json", help="/holders gold written on answer")
+    ap.add_argument("--shotgold-queue", default="data/labels/shot_gold.json", help="/shotgold working file")
     a = ap.parse_args(argv)
     clips_dirs = [REPO / d for d in (a.clips_dir or ["data/clips", "data/raw"])]
     app = App(clips_dirs, REPO / a.labels_dir, REPO / a.rosters_dir)
     app.holders_ops, app.holders_out = REPO / a.holders_ops, REPO / a.holders_out
+    app.shotgold_queue = REPO / a.shotgold_queue
     srv = ThreadingHTTPServer((a.host, a.port), make_handler(app))
     print(f"Labeller on http://{a.host}:{a.port}  (repo {REPO})")
     with contextlib.suppress(KeyboardInterrupt):

@@ -62,6 +62,7 @@ What changes in code, configs, metrics, or future milestones?
 | 2026-11-02 | Gold & Eval | [Gold set v0/v1 protocol, 4 PLK games (1 held-out), and metrics-row gate](2026-11-02-gold-set-and-evaluation-protocol.md) | Accepted |
 | 2026-11-22 | Pipeline / Cache | [Pipeline hardening invariants and immutable cache/weight hashes](2026-11-22-pipeline-hardening-and-cache-invariants.md) | Accepted |
 | 2026-11-24 | Gold & Eval / Ball (L7) | [Holder gold under the 2026-11-20 definition; `ball-plk-fused-v2` for shooter attribution](2026-11-24-holder-gold-and-fused-v2-shooter.md) | Accepted |
+| 2026-11-26 | Gold & Eval / Ball (L7) | [Shot gold: 26 more shots of the gold games, labelled for the ball layer only](2026-11-26-shot-gold-more-layer7-gold.md) | Accepted |
 
 ### Infrastructure, licences & process
 

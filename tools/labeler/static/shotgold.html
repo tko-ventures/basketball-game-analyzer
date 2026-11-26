@@ -1,0 +1,894 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Shot gold — shot attempts and ball holders</title>
+<style>
+  :root {
+    --bg: #161615; --panel: #20201f; --card: #262624; --line: #383835;
+    --text: #f1f0ec; --muted: #9c9b92; --ok: #4fd165; --warn: #f5a623; --bad: #e55353;
+    --home: #e55353; --away: #4a90e2; --ball: #ff9100; --sel: #4fd165; --prop: #f5c542;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 13.5px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    display: flex; flex-direction: column; height: 100vh; overflow: hidden;
+  }
+  header {
+    display: flex; gap: 14px; align-items: center; padding: 8px 14px; flex: none;
+    background: var(--panel); border-bottom: 1px solid var(--line);
+  }
+  header b { font-size: 14.5px; }
+  .tabs { display: flex; gap: 4px; background: #141413; padding: 3px; border-radius: 7px; border: 1px solid var(--line); }
+  .tabs button { background: transparent; border: none; color: var(--muted); padding: 4px 10px; border-radius: 5px;
+    font: inherit; font-size: 12.5px; cursor: pointer; font-weight: 500; white-space: nowrap; }
+  .tabs button.on { background: #3a3a37; color: var(--text); }
+  .tabs .cnt { margin-left: 6px; padding: 0 6px; border-radius: 999px; background: #4a3c14; color: var(--prop); font-size: 11px; }
+  .tabs .cnt.zero { background: #1f4027; color: var(--ok); }
+  .prog { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+  .bar { width: 120px; height: 7px; background: #2e2e2b; border-radius: 4px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: var(--ok); transition: width .25s; }
+  #status { margin-left: auto; font-size: 12px; color: var(--muted); text-align: right; }
+  #status.ok { color: var(--ok); } #status.err { color: var(--bad); font-weight: 600; }
+  .kbd { display: inline-block; min-width: 18px; padding: 0 5px; border: 1px solid #55554f; border-bottom-width: 2px;
+    border-radius: 4px; font: 11px/16px ui-monospace, Menlo, monospace; text-align: center; color: var(--text); background: #2b2b29; }
+  .btn { background: #2b2b29; color: var(--text); border: 1px solid #47473f; border-radius: 6px;
+    padding: 5px 10px; font: inherit; font-size: 12.5px; cursor: pointer; white-space: nowrap; }
+  .btn:hover { border-color: #8a8a80; } .btn.on { border-color: var(--text); }
+  .btn:disabled { opacity: .4; cursor: default; }
+
+  #task { flex: none; padding: 7px 14px; background: #1b1b1a; border-bottom: 1px solid var(--line); font-size: 13px; }
+  #task b { color: var(--prop); }
+  main { flex: 1; display: grid; grid-template-columns: 1fr 390px; min-height: 0; }
+  #stage { display: flex; flex-direction: column; gap: 8px; padding: 10px 14px; min-width: 0; min-height: 0; }
+  #viewWrap { position: relative; flex: 1; min-height: 0; background: #000; border-radius: 8px; overflow: hidden;
+    display: flex; align-items: center; justify-content: center; }
+  #view { max-width: 100%; max-height: 100%; cursor: crosshair; }
+  #viewTag { position: absolute; left: 10px; top: 10px; padding: 3px 9px; border-radius: 999px; font-size: 12px;
+    background: rgba(0,0,0,.7); border: 1px solid #444; }
+  #viewTag.gold { border-color: var(--prop); color: var(--prop); }
+  #modeTag { position: absolute; left: 50%; transform: translateX(-50%); top: 10px; padding: 4px 12px; border-radius: 999px;
+    font-size: 12.5px; font-weight: 600; background: var(--ball); color: #111; display: none; }
+  #hoverTip { position: absolute; pointer-events: none; padding: 3px 8px; border-radius: 6px; font-size: 12px;
+    background: rgba(20,20,19,.92); border: 1px solid #555; display: none; white-space: nowrap; }
+  #zoomBtns { position: absolute; right: 10px; top: 10px; display: flex; gap: 4px; }
+  #done { display: none; position: absolute; inset: 0; align-items: center; justify-content: center; flex-direction: column;
+    gap: 8px; background: rgba(0,0,0,.78); font-size: 17px; text-align: center; padding: 20px; }
+  #done small { color: var(--muted); font-size: 13px; }
+
+  #strip { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 6px; flex: none; min-width: 0; }
+  .thumb { position: relative; border-radius: 6px; overflow: hidden; cursor: pointer; border: 2px solid transparent; background: #000; min-width: 0; }
+  .thumb canvas { display: block; width: 100%; height: auto; }
+  .thumb span { position: absolute; left: 4px; bottom: 3px; font: 11px ui-monospace, Menlo, monospace;
+    background: rgba(0,0,0,.7); padding: 0 4px; border-radius: 3px; }
+  .thumb.gold { border-color: rgba(245,197,66,.6); } .thumb.on { border-color: var(--text); }
+  #transport { display: none; flex-direction: column; gap: 6px; flex: none; }
+  #timeline { width: 100%; height: 54px; display: block; border-radius: 6px; cursor: pointer; background: #1b1b1a; }
+  .ctrl { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .ctrl .sep { width: 1px; height: 18px; background: var(--line); margin: 0 4px; }
+  #keysRow { font-size: 12px; color: var(--muted); display: flex; gap: 14px; flex: none; flex-wrap: wrap; }
+
+  aside { border-left: 1px solid var(--line); background: var(--panel); display: flex; flex-direction: column; min-height: 0; }
+  .card { padding: 12px 16px; border-bottom: 1px solid var(--line); flex: none; }
+  .meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; color: var(--muted); font-size: 12.5px; }
+  .badge { padding: 1px 8px; border-radius: 999px; font-size: 11.5px; font-weight: 600; }
+  .badge.dev { background: #2d3b2f; color: #8fdc9b; } .badge.held { background: #3a2f4d; color: #c3a4f5; }
+  .badge.flagged, .badge.todo { background: #4a3c14; color: var(--prop); } .badge.done { background: #1f4027; color: var(--ok); }
+  .badge.first_pass { background: #2f3640; color: #9fb7d6; }
+  .teams { margin-top: 8px; display: grid; gap: 2px; font-size: 12.5px; }
+  .sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  .note { margin-top: 9px; padding: 7px 10px; border-radius: 7px; background: #33301f; border: 1px solid #5a5024; font-size: 13px; line-height: 1.4; }
+  .note:empty { display: none; }
+  .facts { margin-top: 10px; display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 13px; }
+  .facts dt { color: var(--muted); } .facts dd { margin: 0; }
+  .answer { display: grid; gap: 7px; }
+  .answer button.big { display: flex; align-items: center; justify-content: space-between; gap: 10px; text-align: left;
+    width: 100%; padding: 9px 12px; border-radius: 8px; border: 1px solid #47473f; background: var(--card);
+    color: var(--text); font: inherit; cursor: pointer; }
+  .answer button.big:hover { border-color: #8a8a80; }
+  .answer button.primary { border-color: var(--sel); background: #1f3324; }
+  .answer button.big small { color: var(--muted); display: block; font-size: 11.5px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+  .ev { border: 1px solid #47473f; border-radius: 8px; padding: 8px 10px; background: var(--card); cursor: pointer; }
+  .ev.on { border-color: var(--text); }
+  .ev h5 { margin: 0 0 6px; font-size: 13px; display: flex; gap: 8px; align-items: center; }
+  .ev h5 .x { margin-left: auto; }
+  .ev .row { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; margin-top: 5px; font-size: 12.5px; }
+  .ev .row .lbl { color: var(--muted); width: 58px; flex: none; }
+  .ev .btn { padding: 3px 8px; }
+  .ev .btn.made.on { background: #1f4027; border-color: var(--ok); color: var(--ok); }
+  .ev .btn.missed.on { background: #45201f; border-color: var(--bad); color: #ff8f8f; }
+  .ev .warn { color: var(--warn); }
+  .ev input { width: 100%; margin-top: 6px; background: #1b1b1a; color: var(--text); border: 1px solid #47473f; border-radius: 6px;
+    padding: 4px 7px; font: inherit; font-size: 12.5px; }
+  #actions { overflow-y: auto; max-height: 52vh; }
+  #list { flex: 1; overflow-y: auto; padding: 6px 8px 10px; min-height: 80px; }
+  #list h4 { margin: 10px 8px 4px; font-size: 11.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  #list .it { display: flex; gap: 8px; align-items: center; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 12.5px; }
+  #list .it:hover { background: var(--card); } #list .it.on { background: #33332f; }
+  #list .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; background: var(--prop); }
+  #list .dot.done { background: var(--ok); } #list .dot.first_pass { background: #6f88a8; }
+  #list .ans { margin-left: auto; color: var(--muted); font-size: 11.5px; }
+
+  dialog { background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 12px;
+    width: min(880px, 94vw); max-height: 92vh; padding: 0; }
+  dialog::backdrop { background: rgba(0,0,0,.6); }
+  #help .in { padding: 20px 26px; overflow-y: auto; max-height: calc(92vh - 60px); }
+  #help h2 { margin: 0 0 4px; font-size: 19px; } #help h3 { margin: 18px 0 6px; font-size: 15px; color: var(--prop); }
+  #help p, #help li { font-size: 13.5px; line-height: 1.5; } #help ol, #help ul { margin: 6px 0; padding-left: 22px; }
+  #help table { border-collapse: collapse; margin-top: 4px; } #help td { padding: 3px 14px 3px 0; vertical-align: top; font-size: 13px; }
+  #help .lead { color: var(--muted); }
+  #help .rule { margin: 8px 0; padding: 8px 12px; border-left: 3px solid var(--prop); background: #2a281d; border-radius: 0 6px 6px 0; }
+  #help .foot { padding: 12px 26px; border-top: 1px solid var(--line); display: flex; justify-content: flex-end; gap: 10px; align-items: center; }
+  #help .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 26px; }
+</style>
+</head>
+<body>
+<header>
+  <b>Shot gold</b>
+  <div class="tabs" id="tabs">
+    <button data-tab="shots" class="on">1 · Shot attempts<span class="cnt" id="cntShots"></span></button>
+    <button data-tab="ask">2 · Ball holder: your call<span class="cnt" id="cntAsk"></span></button>
+    <button data-tab="look">3 · Ball holder: first pass<span class="cnt" id="cntLook"></span></button>
+  </div>
+  <div class="prog"><div class="bar"><i id="progBar" style="width:0"></i></div><span id="progTxt"></span></div>
+  <span id="status"></span>
+  <button class="btn" id="helpBtn" title="Instructions and keys (?)">How to <span class="kbd">?</span></button>
+</header>
+<div id="task"></div>
+<main>
+  <section id="stage">
+    <div id="viewWrap">
+      <canvas id="view"></canvas>
+      <div id="viewTag"></div>
+      <div id="modeTag">Click the ball</div>
+      <div id="hoverTip"></div>
+      <div id="zoomBtns">
+        <button class="btn on" id="zoomClose" title="Close-up (Z)">Close-up</button>
+        <button class="btn" id="zoomFull" title="Whole frame (F)">Whole frame</button>
+      </div>
+      <div id="done"><div id="doneTitle"></div><small id="doneSub"></small></div>
+    </div>
+    <div id="strip"></div>
+    <div id="transport">
+      <canvas id="timeline" height="54"></canvas>
+      <div class="ctrl">
+        <button class="btn" id="btnPlay">Play <span class="kbd">Space</span></button>
+        <button class="btn" id="btnSlow" title="Half speed">0.5×</button>
+        <span class="sep"></span>
+        <button class="btn" data-step="-5">−0.5 s <span class="kbd">⇧←</span></button>
+        <button class="btn" data-step="-1">−0.1 s <span class="kbd">←</span></button>
+        <button class="btn" data-step="1">+0.1 s <span class="kbd">→</span></button>
+        <button class="btn" data-step="5">+0.5 s <span class="kbd">⇧→</span></button>
+        <span class="sep"></span>
+        <button class="btn" id="btnGoRel">Go to release <span class="kbd">G</span></button>
+        <button class="btn" id="btnGoRim">Go to rim <span class="kbd">H</span></button>
+      </div>
+    </div>
+    <div id="keysRow"></div>
+  </section>
+  <aside>
+    <div class="card">
+      <div class="meta" id="meta"></div>
+      <div class="teams" id="teams"></div>
+      <div class="note" id="note"></div>
+      <dl class="facts" id="facts"></dl>
+    </div>
+    <div class="card answer" id="actions"></div>
+    <div id="list"></div>
+  </aside>
+</main>
+
+<dialog id="help">
+  <div class="in">
+    <h2>Shot gold: how to label</h2>
+    <p class="lead">26 more shots from the four gold games (18 dev, 8 held-out), so that a change to the ball and possession layer can be
+      judged on more than 16 shot attempts and 100 frames. Three tabs, in order. Every answer is saved at once to
+      <code>data/labels/shot_gold.json</code>; you can stop and come back at any point.</p>
+
+    <h3>Tab 1 · Shot attempts (26 shots, about 20 minutes)</h3>
+    <p>For each shot, check that the list on the right holds <b>every shot attempt</b> and that each one is right. The first pass
+      has already proposed them; fix what is wrong.</p>
+    <ol>
+      <li><b>Watch the shot</b>: <span class="kbd">Space</span> plays, <span class="kbd">←</span> <span class="kbd">→</span> step 0.1 s,
+        with <span class="kbd">Shift</span> 0.5 s. Click the timeline to jump.</li>
+      <li><b>Release</b>: go to the first frame where the ball has left the shooter's hands and press <span class="kbd">S</span>.</li>
+      <li><b>Rim</b>: go to the frame where the ball reaches the basket and press <span class="kbd">R</span>.</li>
+      <li><b>Outcome and points</b>: <span class="kbd">M</span> made or <span class="kbd">X</span> missed; <span class="kbd">2</span> or
+        <span class="kbd">3</span> points.</li>
+      <li><b>Shooter</b>: <span class="kbd">G</span> jumps to the release frame; click the shooter's box there. If the shooter has no
+        box, drag one around the whole player. <span class="kbd">T</span> switches the team.</li>
+      <li><span class="kbd">Enter</span> confirms the shot's attempts and opens the next shot.</li>
+    </ol>
+    <p>An attempt is missing: go to its rim frame and press <span class="kbd">A</span>. An attempt is not a shot: select it and press
+      <span class="kbd">⌫</span>. No attempt in the whole shot: empty the list and press <span class="kbd">Enter</span>.</p>
+    <div class="rule"><b>What counts.</b> Every try at the basket in live play: jump shots, layups, dunks, tip-ins, and also blocked
+      shots and airballs (both are <i>missed</i>). Free throws are left out.<br>
+      <b>Rim frame</b>: the ball touches the rim or the backboard, or passes through or past the ring. For a blocked shot it is the frame of the block.<br>
+      <b>Release frame</b>: the first frame with the ball out of the shooter's hands. For a dunk, use the rim frame for both.<br>
+      <b>Shooter</b>: the player who sends the ball at the basket. On an alley-oop or a tip-in that is the finisher, not the passer.<br>
+      <b>3 points</b>: both feet behind the three-point line at take-off.</div>
+
+    <h3>Tab 2 · Ball holder: your call (the frames the first pass could not settle)</h3>
+    <p>One frame a second. The big picture is the frame to label; the row below shows 0.6 s before and after it.</p>
+    <ol>
+      <li><b>Play the neighbouring frames first</b> (<span class="kbd">Space</span>, or <span class="kbd">↑</span> <span class="kbd">↓</span>).
+        A single frame overstates holds: a ball next to a hand is often a pass on its way.</li>
+      <li><b>Holder</b>: click the player who holds the ball (green box). <span class="kbd">T</span> switches the team if the label on the box is wrong.
+        No box on the holder: drag one around the whole player.</li>
+      <li><b>Ball</b>: the orange ring must sit on the ball. If it does not, hold <span class="kbd">Shift</span> and click the ball
+        (or press <span class="kbd">B</span>, then click). Ball not in view at all: <span class="kbd">X</span>.</li>
+      <li><span class="kbd">Enter</span> saves what the picture shows and opens the next frame. <span class="kbd">N</span> saves
+        "nobody holds it" in one key.</li>
+    </ol>
+    <p>The yellow note on the right is what the first pass saw and why it was not sure. Box numbers in a note are the first
+      pass's own and do not show here. A dashed yellow box or ring is the first pass's proposal where it differs from what is shown.</p>
+    <div class="rule"><b>Who is the holder.</b> Whoever holds or dribbles the ball. A dribbler holds it also while the ball is between hand and floor.
+      An inbounder holding the ball counts. A shooter counts until the ball leaves the hands.<br>
+      <b>Nobody</b>: the ball is in flight (pass or shot), loose, being tipped or fought for, or in a referee's hands.<br>
+      <b>Catching</b>: the receiver holds it from the frame the ball is under control, not while it arrives.</div>
+
+    <h3>Tab 3 · Ball holder: first pass (a second look)</h3>
+    <p>Frames the first pass settled with the neighbouring frames in view. Same keys. <span class="kbd">Enter</span> confirms a frame as shown;
+      change anything you disagree with first. These count as gold once you have confirmed them.</p>
+
+    <h3>Keys</h3>
+    <div class="cols">
+      <table>
+        <tr><td colspan="2"><b>Tab 1 · Shot attempts</b></td></tr>
+        <tr><td><span class="kbd">Space</span></td><td>play / pause</td></tr>
+        <tr><td><span class="kbd">←</span> <span class="kbd">→</span></td><td>step 0.1 s (<span class="kbd">Shift</span>: 0.5 s)</td></tr>
+        <tr><td><span class="kbd">S</span> / <span class="kbd">R</span></td><td>set release / rim frame here</td></tr>
+        <tr><td><span class="kbd">G</span> / <span class="kbd">H</span></td><td>go to release / rim frame</td></tr>
+        <tr><td><span class="kbd">M</span> / <span class="kbd">X</span></td><td>made / missed</td></tr>
+        <tr><td><span class="kbd">2</span> / <span class="kbd">3</span></td><td>points</td></tr>
+        <tr><td><b>Click</b> / <b>drag</b></td><td>shooter's box, on the release frame</td></tr>
+        <tr><td><span class="kbd">T</span></td><td>switch the shooter's team</td></tr>
+        <tr><td><span class="kbd">A</span></td><td>add an attempt with its rim here</td></tr>
+        <tr><td><span class="kbd">Tab</span></td><td>select the next attempt</td></tr>
+        <tr><td><span class="kbd">⌫</span></td><td>delete the selected attempt</td></tr>
+        <tr><td><span class="kbd">Enter</span></td><td>confirm the shot, next shot</td></tr>
+        <tr><td><span class="kbd">↑</span> <span class="kbd">↓</span></td><td>previous / next shot</td></tr>
+      </table>
+      <table>
+        <tr><td colspan="2"><b>Tabs 2 and 3 · Ball holder</b></td></tr>
+        <tr><td><span class="kbd">Space</span></td><td>play the frames around the labelled one</td></tr>
+        <tr><td><span class="kbd">↑</span> <span class="kbd">↓</span></td><td>step through those frames</td></tr>
+        <tr><td><b>Click</b> a box</td><td>that player holds the ball</td></tr>
+        <tr><td><b>Drag</b></td><td>draw a box for a holder who has none</td></tr>
+        <tr><td><span class="kbd">T</span></td><td>switch the holder's team</td></tr>
+        <tr><td><span class="kbd">Shift</span>+<b>click</b>, or <span class="kbd">B</span></td><td>put the ball here</td></tr>
+        <tr><td><span class="kbd">X</span></td><td>the ball is not in view</td></tr>
+        <tr><td><span class="kbd">Enter</span></td><td>save as shown, next frame</td></tr>
+        <tr><td><span class="kbd">N</span></td><td>nobody holds it, save, next frame</td></tr>
+        <tr><td><span class="kbd">Esc</span></td><td>back to the proposal</td></tr>
+        <tr><td><span class="kbd">←</span> <span class="kbd">→</span></td><td>previous / next frame without saving</td></tr>
+        <tr><td><span class="kbd">Z</span> / <span class="kbd">F</span></td><td>close-up / whole frame (all tabs)</td></tr>
+        <tr><td><span class="kbd">1</span> <span class="kbd">2</span> <span class="kbd">3</span></td><td>with <span class="kbd">Alt</span>: switch tab</td></tr>
+        <tr><td><span class="kbd">?</span></td><td>this page</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="foot"><span class="lead" style="color:var(--muted);font-size:12.5px;margin-right:auto">Press <span class="kbd">?</span> any time to see this again.</span>
+    <form method="dialog"><button class="btn" style="padding:7px 18px;border-color:var(--sel)">Start labelling</button></form></div>
+</dialog>
+
+<script>
+"use strict";
+const S = { shots: [], tab: "shots", si: 0, ii: 0, fi: 0, stripI: 0, zoom: "close", zc: null, playing: null, slow: false,
+  hover: null, imgs: new Map(), boxes: new Map(), draft: null, ev: 0, team: "home", ballMode: false, drag: null, tf: null,
+  finished: false };
+const $ = (id) => document.getElementById(id);
+const view = $("view"), ctx = view.getContext("2d");
+const PEOPLE_MIN = 0.3, BALL_SNAP_PX = 30, BALL_HALF = 11;
+const TASK = {
+  shots: "<b>Shot attempts.</b> Check every attempt of this shot: release <span class='kbd'>S</span>, rim <span class='kbd'>R</span>, made <span class='kbd'>M</span> or missed <span class='kbd'>X</span>, <span class='kbd'>2</span> or <span class='kbd'>3</span> points, and the shooter (press <span class='kbd'>G</span>, click the shooter). <span class='kbd'>Enter</span> confirms and opens the next shot.",
+  ask: "<b>Who holds the ball in the big picture?</b> Play the frames around it first (<span class='kbd'>Space</span>). Click the holder, or <span class='kbd'>N</span> for nobody. Ball ring off the ball: <span class='kbd'>Shift</span>+click the ball. <span class='kbd'>Enter</span> saves and opens the next frame.",
+  look: "<b>Second look at the first pass.</b> <span class='kbd'>Enter</span> confirms the frame as shown; change the holder or the ball first if you disagree.",
+};
+const KEYS = {
+  shots: ["<span class='kbd'>Space</span> play", "<span class='kbd'>←</span><span class='kbd'>→</span> 0.1 s", "<span class='kbd'>A</span> add attempt", "<span class='kbd'>⌫</span> delete attempt", "<span class='kbd'>↑</span><span class='kbd'>↓</span> other shot", "Boxes are the detector's; drag to draw a missing one"],
+  hold: ["<span class='kbd'>Space</span> play the frames around it", "<span class='kbd'>↑</span><span class='kbd'>↓</span> step", "<span class='kbd'>T</span> switch team", "<span class='kbd'>X</span> no ball in view", "<span class='kbd'>←</span><span class='kbd'>→</span> other frame", "Boxes show on the labelled frame only"],
+};
+
+// ---------- data helpers ----------
+function img(video, f, onload) {
+  const k = `${video}#${f}`;
+  if (!S.imgs.has(k)) {
+    const im = new Image();
+    im.src = `/api/frame?path=${encodeURIComponent(video)}&idx=${f}`;
+    im.onload = () => { renderView(); if (S.tab !== "shots") renderStrip(); else drawTimeline(); };
+    S.imgs.set(k, im);
+  }
+  return S.imgs.get(k);
+}
+function ready(im) { return im && im.complete && im.naturalWidth > 0; }
+async function loadBoxes(seq) {
+  if (S.boxes.has(seq)) return;
+  S.boxes.set(seq, {});
+  try {
+    const res = await fetch(`/api/shotgold/boxes?sequence=${encodeURIComponent(seq)}`);
+    S.boxes.set(seq, (await res.json()).frames || {});
+  } catch (e) { /* the page still takes drawn boxes */ }
+  renderView();
+}
+function people(seq, f) {
+  const fr = (S.boxes.get(seq) || {})[f];
+  return fr ? fr.people.filter((b) => b[4] >= PEOPLE_MIN) : [];
+}
+function balls(seq, f) { const fr = (S.boxes.get(seq) || {})[f]; return fr ? fr.balls : []; }
+function holderItems() {
+  const out = [];
+  for (const shot of S.shots) for (const fr of shot.frames) {
+    const first = fr.origin === "first_pass";
+    if ((S.tab === "look") === first) out.push({ shot, fr });
+  }
+  return out;
+}
+function curShot() { return S.tab === "shots" ? S.shots[S.si] : (holderItems()[S.ii] || {}).shot; }
+function curItem() { return holderItems()[S.ii]; }
+function teamName(shot, t) { return t ? `${t === "home" ? "Home" : "Away"} · ${shot[t].team}` : "?"; }
+function teamColor(t) { return t === "home" ? "#e55353" : t === "away" ? "#4a90e2" : "#9c9b92"; }
+function sameBox(a, b) { return a && b && a.every((v, i) => Math.abs(v - b[i]) < 0.6); }
+function setStatus(t, cls) { const s = $("status"); s.textContent = t; s.className = cls || ""; }
+function fmtT(shot, f) { return `${((f - shot.start) / shot.fps).toFixed(2)} s`; }
+
+// ---------- view ----------
+function regionFor(W, H) {
+  if (S.zoom === "full") return [0, 0, W, H];
+  if (S.tab === "shots") {
+    const c = S.zc || [W / 2, H / 2];
+    const w = W / 2, h = H / 2;
+    return [Math.min(Math.max(c[0] - w / 2, 0), W - w), Math.min(Math.max(c[1] - h / 2, 0), H - h), w, h];
+  }
+  const it = curItem(), pts = [];
+  const d = S.draft || {};
+  if (d.ball) pts.push(d.ball);
+  if (d.holder) pts.push(d.holder.xyxy);
+  const p = it.fr.proposal;
+  if (p && p.ball) pts.push(p.ball);
+  if (p && p.holder) pts.push(p.holder.xyxy);
+  if (!pts.length) return [0, 0, W, H];
+  const x1 = Math.min(...pts.map((b) => b[0])), y1 = Math.min(...pts.map((b) => b[1]));
+  const x2 = Math.max(...pts.map((b) => b[2])), y2 = Math.max(...pts.map((b) => b[3]));
+  let w = Math.max(x2 - x1 + 420, 900), h = Math.max(y2 - y1 + 300, 560);
+  if (w / h > 16 / 10) h = w * 10 / 16; else w = h * 16 / 10;
+  w = Math.min(w, W); h = Math.min(h, H);
+  const cx = (x1 + x2) / 2, cy = (y1 + y2) / 2;
+  return [Math.min(Math.max(cx - w / 2, 0), W - w), Math.min(Math.max(cy - h / 2, 0), H - h), w, h];
+}
+function drawBox(b, color, lw, label, dash) {
+  const { rx, ry, scale } = S.tf;
+  const x = (b[0] - rx) * scale, y = (b[1] - ry) * scale, w = (b[2] - b[0]) * scale, h = (b[3] - b[1]) * scale;
+  ctx.save();
+  ctx.setLineDash(dash || []); ctx.lineWidth = lw; ctx.strokeStyle = color; ctx.strokeRect(x, y, w, h);
+  if (label) {
+    ctx.setLineDash([]); ctx.font = "600 13px -apple-system, sans-serif";
+    const tw = ctx.measureText(label).width + 10;
+    ctx.fillStyle = color; ctx.fillRect(x - lw / 2, y - 20, tw, 20);
+    ctx.fillStyle = "#111"; ctx.fillText(label, x + 5 - lw / 2, y - 5);
+  }
+  ctx.restore();
+}
+function drawBall(b, color, dash) {
+  const { rx, ry, scale } = S.tf;
+  const cx = ((b[0] + b[2]) / 2 - rx) * scale, cy = ((b[1] + b[3]) / 2 - ry) * scale;
+  const r = Math.max(b[2] - b[0], b[3] - b[1]) / 2 * scale + 8;
+  ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = 3; ctx.setLineDash(dash || []);
+  ctx.beginPath(); ctx.arc(cx, cy, r, 0, 2 * Math.PI); ctx.stroke(); ctx.restore();
+}
+function renderView() {
+  const shot = curShot();
+  if (!shot) { ctx.clearRect(0, 0, view.width, view.height); return; }
+  const f = S.tab === "shots" ? shot.grid[S.fi] : curItem().fr.strip[S.stripI];
+  const im = img(shot.video, f);
+  if (!ready(im)) return;
+  const [rx, ry, rw, rh] = regionFor(im.naturalWidth, im.naturalHeight);
+  const wrap = $("viewWrap").getBoundingClientRect();
+  const scale = Math.min(wrap.width / rw, wrap.height / rh);
+  view.width = Math.round(rw * scale); view.height = Math.round(rh * scale);
+  S.tf = { rx, ry, scale, f };
+  ctx.drawImage(im, rx, ry, rw, rh, 0, 0, view.width, view.height);
+  if (S.tab === "shots") renderShotOverlay(shot, f); else renderHolderOverlay(shot, f);
+  if (S.drag && S.drag.box) drawBox(S.drag.box, "#ffffff", 2, "", [6, 4]);
+}
+function renderHolderOverlay(shot, f) {
+  const { fr } = curItem(), tag = $("viewTag"), gold = f === fr.frame;
+  const dt = (f - fr.frame) / shot.fps;
+  tag.textContent = gold ? `frame to label · ${fr.frame}` : `${dt > 0 ? "+" : ""}${dt.toFixed(2)} s`;
+  tag.className = gold ? "gold" : "";
+  if (!gold) return;
+  const d = S.draft, hold = d.holder, prop = fr.proposal;
+  for (const p of people(shot.sequence, f)) {
+    if (hold && sameBox(p, hold.xyxy)) continue;
+    drawBox(p, S.hover && sameBox(p, S.hover) ? "#ffffff" : "rgba(255,255,255,.45)", S.hover && sameBox(p, S.hover) ? 2.5 : 1.2);
+  }
+  if (prop && prop.holder && !(hold && sameBox(prop.holder.xyxy, hold.xyxy))) drawBox(prop.holder.xyxy, "#f5c542", 2.5, "first pass", [8, 5]);
+  if (prop && prop.ball && !(d.ball && sameBox(prop.ball, d.ball))) drawBall(prop.ball, "#f5c542", [5, 4]);
+  if (hold) drawBox(hold.xyxy, "#4fd165", 4, `HOLDER · ${teamName(shot, hold.team)}`);
+  if (d.ball) drawBall(d.ball, "#ff9100");
+}
+function renderShotOverlay(shot, f) {
+  const evs = shot.draft, ev = evs[S.ev], tag = $("viewTag");
+  let what = "";
+  evs.forEach((e, i) => { if (e.release_frame === f) what += ` · RELEASE of attempt ${i + 1}`; if (e.rim_frame === f) what += ` · RIM of attempt ${i + 1}`; });
+  tag.textContent = `${fmtT(shot, f)} · frame ${f}${what}`; tag.className = what ? "gold" : "";
+  const onRel = ev && ev.release_frame === f;
+  for (const p of people(shot.sequence, f)) {
+    if (onRel && ev.shooter && sameBox(p, ev.shooter.xyxy)) continue;
+    const hov = S.hover && sameBox(p, S.hover);
+    drawBox(p, hov ? "#ffffff" : onRel ? "rgba(255,255,255,.6)" : "rgba(255,255,255,.22)", hov ? 2.5 : 1.2);
+  }
+  if (onRel && ev.shooter) drawBox(ev.shooter.xyxy, "#4fd165", 4, `SHOOTER · ${teamName(shot, ev.shooter.team)}`);
+}
+
+// ---------- holder tabs ----------
+function renderStrip() {
+  const it = curItem(), el = $("strip");
+  if (!it || S.tab === "shots") { el.innerHTML = ""; el.dataset.key = ""; return; }
+  const { shot, fr } = it, key = `${shot.sequence}:${fr.frame}`;
+  if (el.dataset.key !== key) {
+    el.dataset.key = key;
+    el.innerHTML = fr.strip.map((f, i) => {
+      const dt = (f - fr.frame) / shot.fps;
+      return `<div class="thumb${f === fr.frame ? " gold" : ""}" data-i="${i}"><canvas width="256" height="160"></canvas><span>${f === fr.frame ? "label this" : (dt > 0 ? "+" : "") + dt.toFixed(1) + " s"}</span></div>`;
+    }).join("");
+    el.querySelectorAll(".thumb").forEach((t) => t.addEventListener("click", () => { stop(); S.stripI = +t.dataset.i; renderView(); renderStrip(); }));
+  }
+  el.querySelectorAll(".thumb").forEach((t, i) => {
+    t.classList.toggle("on", i === S.stripI);
+    const im = img(shot.video, fr.strip[i]);
+    if (!ready(im)) return;
+    const c = t.querySelector("canvas"), g = c.getContext("2d");
+    const [rx, ry, rw, rh] = regionFor(im.naturalWidth, im.naturalHeight);
+    g.drawImage(im, rx, ry, rw, rh, 0, 0, c.width, c.height);
+  });
+}
+function initDraft() {
+  const it = curItem();
+  if (!it) { S.draft = null; return; }
+  const fr = it.fr, src = fr.status === "done" || fr.status === "first_pass" ? fr : (fr.proposal || {});
+  S.draft = { ball: src.ball ? [...src.ball] : null, holder: src.holder ? { xyxy: [...src.holder.xyxy], team: src.holder.team } : null };
+  if (S.draft.holder) S.team = S.draft.holder.team;
+  S.ballMode = false;
+}
+function goItem(i) {
+  stop();
+  const items = holderItems();
+  S.finished = false; S.hover = null; S.drag = null;
+  if (!items.length) { S.ii = 0; S.draft = null; renderAll(); return; }
+  S.ii = (i + items.length) % items.length;
+  const { shot, fr } = items[S.ii];
+  S.stripI = fr.strip.indexOf(fr.frame);
+  loadBoxes(shot.sequence);
+  fr.strip.forEach((f) => img(shot.video, f));
+  const nxt = items[(S.ii + 1) % items.length];
+  nxt.fr.strip.forEach((f) => img(nxt.shot.video, f));
+  initDraft();
+  renderAll();
+}
+function nextOpenItem() {
+  const items = holderItems();
+  for (let k = 1; k <= items.length; k++) {
+    const j = (S.ii + k) % items.length;
+    if (items[j].fr.status !== "done") return goItem(j);
+  }
+  S.finished = true; renderAll();
+}
+async function saveFrame(holderOverride) {
+  const it = curItem();
+  if (!it || !S.draft) return;
+  const holder = holderOverride === null ? null : S.draft.holder;
+  if (holder && !holder.team) return setStatus("Pick the holder's team first (T)", "err");
+  setStatus("Saving…");
+  try {
+    const out = await post("/api/shotgold/frame", { sequence: it.shot.sequence, frame: it.fr.frame, ball: S.draft.ball, holder });
+    Object.assign(it.fr, { status: "done", ball: S.draft.ball, holder });
+    setStatus(`Saved · ${out.frames_done} of ${out.frames} frames confirmed`, "ok");
+    nextOpenItem();
+  } catch (e) { setStatus(`Not saved: ${e.message}`, "err"); }
+}
+function placeBall(x, y) {
+  const it = curItem();
+  let best = null, bd = BALL_SNAP_PX;
+  for (const b of balls(it.shot.sequence, it.fr.frame)) {
+    const d = Math.hypot((b[0] + b[2]) / 2 - x, (b[1] + b[3]) / 2 - y);
+    if (d < bd) { bd = d; best = b; }
+  }
+  S.draft.ball = best ? best.slice(0, 4) : [x - BALL_HALF, y - BALL_HALF, x + BALL_HALF, y + BALL_HALF].map((v) => Math.round(v * 10) / 10);
+  S.ballMode = false;
+}
+
+// ---------- shots tab ----------
+function initShotDraft(shot) {
+  if (!shot.draft) { shot.draft = JSON.parse(JSON.stringify(shot.events)); shot.dirty = false; }
+}
+function goShot(i) {
+  stop();
+  S.finished = false; S.hover = null; S.drag = null;
+  S.si = (i + S.shots.length) % S.shots.length;
+  const shot = S.shots[S.si];
+  initShotDraft(shot);
+  loadBoxes(shot.sequence);
+  S.ev = 0;
+  const first = shot.draft[0];
+  S.fi = first ? Math.max(0, nearestGrid(shot, first.release_frame) - 10) : 0;
+  shot.grid.forEach((f) => img(shot.video, f));
+  renderAll();
+}
+function nearestGrid(shot, f) {
+  let bi = 0, bd = Infinity;
+  shot.grid.forEach((g, i) => { const d = Math.abs(g - f); if (d < bd) { bd = d; bi = i; } });
+  return bi;
+}
+function seek(fi) {
+  const shot = curShot();
+  S.fi = Math.min(Math.max(fi, 0), shot.grid.length - 1);
+  renderView(); drawTimeline(); renderSide();
+}
+function selEv() { return curShot().draft[S.ev]; }
+function touch() { curShot().dirty = true; S.finished = false; renderAll(); }
+function addAttempt() {
+  const shot = curShot(), f = shot.grid[S.fi];
+  shot.draft.push({ release_frame: shot.grid[Math.max(0, S.fi - 9)], rim_frame: f, outcome: "made", points: 2, shooter: null, note: "" });
+  shot.draft.sort((a, b) => a.rim_frame - b.rim_frame);
+  S.ev = shot.draft.findIndex((e) => e.rim_frame === f);
+  touch();
+}
+function evProblem(shot, e, i) {
+  if (e.release_frame > e.rim_frame) return `Attempt ${i + 1}: the release is after the rim frame`;
+  if (!e.shooter) return `Attempt ${i + 1} has no shooter: press G, then click the shooter`;
+  return "";
+}
+async function confirmShot() {
+  const shot = curShot();
+  for (let i = 0; i < shot.draft.length; i++) {
+    const why = evProblem(shot, shot.draft[i], i);
+    if (why) { S.ev = i; renderAll(); return setStatus(why, "err"); }
+  }
+  setStatus("Saving…");
+  try {
+    const out = await post("/api/shotgold/events", { sequence: shot.sequence, events: shot.draft });
+    shot.events = JSON.parse(JSON.stringify(shot.draft)); shot.events_status = "done"; shot.dirty = false;
+    setStatus(`Saved · ${out.shots_done} of ${out.shots} shots confirmed`, "ok");
+    for (let k = 1; k <= S.shots.length; k++) {
+      const j = (S.si + k) % S.shots.length;
+      if (S.shots[j].events_status !== "done") return goShot(j);
+    }
+    S.finished = true; renderAll();
+  } catch (e) { setStatus(`Not saved: ${e.message}`, "err"); }
+}
+function drawTimeline() {
+  const shot = curShot(), c = $("timeline");
+  if (!shot || S.tab !== "shots") return;
+  const w = c.clientWidth, h = 54;
+  if (c.width !== w * 2) { c.width = w * 2; c.height = h * 2; }
+  const g = c.getContext("2d");
+  g.setTransform(2, 0, 0, 2, 0, 0); g.clearRect(0, 0, w, h);
+  const n = shot.grid.length, X = (i) => 8 + (w - 16) * (n > 1 ? i / (n - 1) : 0);
+  g.fillStyle = "#2a2a28"; g.fillRect(8, 22, w - 16, 12);
+  shot.grid.forEach((f, i) => { if (ready(S.imgs.get(`${shot.video}#${f}`))) { g.fillStyle = "#44443f"; g.fillRect(X(i) - 1.5, 22, 3.5, 12); } });
+  g.fillStyle = "#8a8a80"; g.font = "10px ui-monospace, Menlo, monospace";
+  for (let s = 0; s <= (shot.end - shot.start) / shot.fps; s++) {
+    const i = nearestGrid(shot, shot.start + s * shot.fps);
+    g.fillRect(X(i), 36, 1, 5); g.fillText(`${s}s`, X(i) - 6, 51);
+  }
+  shot.draft.forEach((e, k) => {
+    const a = X(nearestGrid(shot, e.release_frame)), b = X(nearestGrid(shot, e.rim_frame));
+    const col = e.outcome === "made" ? "#4fd165" : "#e55353";
+    g.globalAlpha = k === S.ev ? 0.55 : 0.28; g.fillStyle = col; g.fillRect(a, 22, Math.max(b - a, 2), 12); g.globalAlpha = 1;
+    g.fillStyle = col; g.font = "600 11px -apple-system, sans-serif";
+    g.fillText("S", a - 3, 17); g.fillText("R", b - 3, 17);
+    g.fillRect(a - 0.75, 19, 1.5, 17); g.fillRect(b - 0.75, 19, 1.5, 17);
+    if (k === S.ev) { g.strokeStyle = "#f1f0ec"; g.lineWidth = 1; g.strokeRect(a - 5, 5, b - a + 10, 31); }
+  });
+  g.fillStyle = "#f1f0ec"; g.fillRect(X(S.fi) - 1, 2, 2, 40);
+  g.beginPath(); g.arc(X(S.fi), 4, 4, 0, 2 * Math.PI); g.fill();
+}
+function timelineSeek(ev) {
+  const shot = curShot(), c = $("timeline"), r = c.getBoundingClientRect();
+  const t = Math.min(Math.max((ev.clientX - r.left - 8) / (r.width - 16), 0), 1);
+  stop(); seek(Math.round(t * (shot.grid.length - 1)));
+}
+
+// ---------- side panel ----------
+function counts() {
+  const frames = S.shots.flatMap((s) => s.frames);
+  return {
+    shotsOpen: S.shots.filter((s) => s.events_status !== "done").length,
+    askOpen: frames.filter((f) => f.origin !== "first_pass" && f.status !== "done").length,
+    lookOpen: frames.filter((f) => f.origin === "first_pass" && f.status !== "done").length,
+    total: frames.length + S.shots.length,
+    done: frames.filter((f) => f.status === "done").length + S.shots.filter((s) => s.events_status === "done").length,
+  };
+}
+function renderHeader() {
+  const c = counts();
+  for (const [id, n] of [["cntShots", c.shotsOpen], ["cntAsk", c.askOpen], ["cntLook", c.lookOpen]]) {
+    $(id).textContent = n ? `${n} left` : "done"; $(id).className = `cnt${n ? "" : " zero"}`;
+  }
+  $("progBar").style.width = `${c.total ? 100 * c.done / c.total : 0}%`;
+  $("progTxt").textContent = `${c.done} of ${c.total} confirmed`;
+  $("task").innerHTML = TASK[S.tab];
+  $("keysRow").innerHTML = KEYS[S.tab === "shots" ? "shots" : "hold"].map((k) => `<span>${k}</span>`).join("");
+  $("strip").style.display = S.tab === "shots" ? "none" : "grid";
+  $("transport").style.display = S.tab === "shots" ? "flex" : "none";
+  $("modeTag").style.display = S.ballMode && S.tab !== "shots" ? "block" : "none";
+  $("zoomClose").textContent = S.tab === "shots" ? "2× zoom" : "Close-up";
+  $("zoomClose").classList.toggle("on", S.zoom === "close"); $("zoomFull").classList.toggle("on", S.zoom === "full");
+  const open = S.tab === "shots" ? c.shotsOpen : S.tab === "ask" ? c.askOpen : c.lookOpen;
+  $("done").style.display = S.finished && !open ? "flex" : "none";
+  const nextTab = S.tab === "shots" ? (c.askOpen ? "tab 2" : c.lookOpen ? "tab 3" : "") : S.tab === "ask" ? (c.lookOpen ? "tab 3" : c.shotsOpen ? "tab 1" : "") : (c.shotsOpen ? "tab 1" : c.askOpen ? "tab 2" : "");
+  $("doneTitle").textContent = nextTab ? "This tab is done." : "All done. Thank you!";
+  $("doneSub").textContent = nextTab ? `Next: ${nextTab} (top left). Anything here can still be revised from the list.` : "Everything is saved in data/labels/shot_gold.json. Tell the implementer and it will be exported and scored.";
+}
+function teamsHtml(shot) {
+  const row = (t) => `<div><span class="sw" style="background:${teamColor(t)}"></span><b>${t === "home" ? "Home" : "Away"}</b> · ${shot[t].team}${shot[t].kit ? ` · ${shot[t].kit} kit` : ""}</div>`;
+  return row("home") + row("away");
+}
+function renderSide() {
+  renderHeader();
+  if (S.tab === "shots") renderShotSide(); else renderHolderSide();
+}
+function metaHtml(shot, status, extra) {
+  const lab = { todo: "to do", flagged: "your call", first_pass: "first pass", done: "confirmed" }[status] || status;
+  return `<span class="badge ${shot.held_out ? "held" : "dev"}">${shot.held_out ? "held-out" : "dev"}</span>`
+    + `<span class="badge ${status}">${lab}</span><span>${shot.youtube_id} · shot ${shot.shot}${extra}</span>`;
+}
+function renderHolderSide() {
+  const it = curItem(), items = holderItems();
+  if (!it) {
+    $("meta").innerHTML = ""; $("teams").innerHTML = ""; $("facts").innerHTML = ""; $("actions").innerHTML = ""; $("list").innerHTML = "";
+    $("note").textContent = S.tab === "ask" ? "No frames here: the first pass settled all of them. See tab 3." : "No frames here yet: the first pass has not settled any frame.";
+    return;
+  }
+  const { shot, fr } = it, d = S.draft;
+  $("meta").innerHTML = metaHtml(shot, fr.status, ` · frame ${fr.frame}`) + `<span>${S.ii + 1} / ${items.length}</span>`;
+  $("teams").innerHTML = teamsHtml(shot);
+  const why = fr.note || (fr.proposal && fr.proposal.note) || "";
+  $("note").textContent = why ? `First pass: ${why}` : "";
+  const prop = fr.proposal;
+  const propTxt = !prop ? "none" : prop.holder ? teamName(shot, prop.holder.team) : "nobody";
+  $("facts").innerHTML = `<dt>First pass</dt><dd>${prop && prop.holder ? `<span class="sw" style="background:${teamColor(prop.holder.team)}"></span>` : ""}${propTxt}${prop && !prop.ball ? " · no ball in view" : ""}</dd>`
+    + `<dt>Shown now</dt><dd><b>${d.holder ? `<span class="sw" style="background:${teamColor(d.holder.team)}"></span>${teamName(shot, d.holder.team)}` : "nobody holds it"}</b> · ${d.ball ? "ball marked" : "<span style='color:var(--warn)'>no ball in view</span>"}</dd>`;
+  $("actions").innerHTML = `<button class="big primary" id="aSave"><span>Save as shown, next frame<small>${d.holder ? "holder: " + teamName(shot, d.holder.team) : "nobody holds it"} · ${d.ball ? "ball marked" : "no ball in view"}</small></span><span class="kbd">↵</span></button>`
+    + `<button class="big" id="aNone"><span>Nobody holds it<small>in flight, loose, fought for, or with a referee</small></span><span class="kbd">N</span></button>`
+    + `<div class="two"><button class="big" id="aTeam" ${d.holder ? "" : "disabled"}><span>Switch team</span><span class="kbd">T</span></button>`
+    + `<button class="big" id="aBall"><span>Put the ball</span><span class="kbd">B</span></button></div>`
+    + `<div class="two"><button class="big" id="aNoBall"><span>No ball in view</span><span class="kbd">X</span></button>`
+    + `<button class="big" id="aReset"><span>Back to proposal</span><span class="kbd">Esc</span></button></div>`;
+  $("aSave").onclick = () => saveFrame(); $("aNone").onclick = () => saveFrame(null);
+  $("aTeam").onclick = switchTeam; $("aBall").onclick = () => { S.ballMode = !S.ballMode; renderAll(); };
+  $("aNoBall").onclick = () => { S.draft.ball = null; renderAll(); }; $("aReset").onclick = () => { initDraft(); renderAll(); };
+  const row = ({ x, i }) => `<div class="it${i === S.ii ? " on" : ""}" data-i="${i}"><span class="dot ${x.fr.status}"></span><span>${x.shot.youtube_id} · s${x.shot.shot} · ${x.fr.frame}</span>`
+    + `<span class="ans">${x.fr.status === "done" ? (x.fr.holder ? x.fr.holder.team : "nobody") : ""}</span></div>`;
+  const rows = items.map((x, i) => ({ x, i }));
+  const open = rows.filter((r) => r.x.fr.status !== "done"), fin = rows.filter((r) => r.x.fr.status === "done");
+  $("list").innerHTML = (open.length ? `<h4>To confirm (${open.length})</h4>` + open.map(row).join("") : "") + (fin.length ? `<h4>Confirmed (${fin.length})</h4>` + fin.map(row).join("") : "");
+  $("list").querySelectorAll(".it").forEach((e) => e.addEventListener("click", () => goItem(+e.dataset.i)));
+  const on = $("list").querySelector(".it.on"); if (on) on.scrollIntoView({ block: "nearest" });
+}
+function renderShotSide() {
+  const shot = curShot();
+  $("meta").innerHTML = metaHtml(shot, shot.dirty ? "todo" : shot.events_status, ` · ${((shot.end - shot.start + 1) / shot.fps).toFixed(1)} s`) + `<span>${S.si + 1} / ${S.shots.length}</span>`;
+  $("teams").innerHTML = teamsHtml(shot);
+  $("note").textContent = shot.events_note ? `First pass: ${shot.events_note}` : "";
+  $("facts").innerHTML = shot.dirty ? `<dt>Changes</dt><dd style="color:var(--warn)">not saved yet · Enter saves</dd>` : "";
+  const f = shot.grid[S.fi];
+  const cards = shot.draft.map((e, i) => {
+    const why = evProblem(shot, e, i);
+    const dur = ((e.rim_frame - e.release_frame) / shot.fps).toFixed(2);
+    return `<div class="ev${i === S.ev ? " on" : ""}" data-i="${i}">`
+      + `<h5><span style="white-space:nowrap">Attempt ${i + 1}</span><span style="color:var(--muted);font-weight:400;font-size:12px;white-space:nowrap">${fmtT(shot, e.release_frame)} → ${fmtT(shot, e.rim_frame)} · ${dur} s</span><button class="btn x" data-act="del" title="Delete this attempt (⌫)">Delete</button></h5>`
+      + `<div class="row"><span class="lbl">Frames</span><button class="btn" data-act="rel">Release here <span class="kbd">S</span></button><button class="btn" data-act="rim">Rim here <span class="kbd">R</span></button></div>`
+      + `<div class="row"><span class="lbl">Outcome</span><button class="btn made${e.outcome === "made" ? " on" : ""}" data-act="made">Made <span class="kbd">M</span></button><button class="btn missed${e.outcome === "missed" ? " on" : ""}" data-act="missed">Missed <span class="kbd">X</span></button>`
+      + `<button class="btn${e.points === 2 ? " on" : ""}" data-act="p2">2 pt <span class="kbd">2</span></button><button class="btn${e.points === 3 ? " on" : ""}" data-act="p3">3 pt <span class="kbd">3</span></button></div>`
+      + `<div class="row"><span class="lbl">Shooter</span>${e.shooter ? `<span><span class="sw" style="background:${teamColor(e.shooter.team)}"></span>${teamName(shot, e.shooter.team)}</span><button class="btn" data-act="team">Switch team <span class="kbd">T</span></button>` : `<span class="warn">not set · press <span class="kbd">G</span>, then click the shooter</span>`}</div>`
+      + (why && e.shooter ? `<div class="row warn">${why}</div>` : "")
+      + `<input data-act="note" placeholder="Note (optional)" value="${(e.note || "").replace(/"/g, "&quot;")}">`
+      + `</div>`;
+  }).join("");
+  $("actions").innerHTML = cards
+    + `<button class="big" id="aAdd"><span>Add an attempt<small>with its rim frame here (${fmtT(shot, f)})</small></span><span class="kbd">A</span></button>`
+    + `<button class="big primary" id="aConfirm"><span>${shot.draft.length ? `These ${shot.draft.length === 1 ? "is the 1 attempt" : `are the ${shot.draft.length} attempts`}, next shot` : "No shot attempt in this shot, next shot"}<small>saves and opens the next unconfirmed shot</small></span><span class="kbd">↵</span></button>`;
+  $("aAdd").onclick = addAttempt; $("aConfirm").onclick = confirmShot;
+  $("actions").querySelectorAll(".ev").forEach((el) => {
+    const i = +el.dataset.i;
+    el.addEventListener("click", (e) => {
+      const act = e.target.closest("[data-act]") ? e.target.closest("[data-act]").dataset.act : "";
+      if (act === "note") return;
+      S.ev = i;
+      if (!act) { seek(nearestGrid(shot, shot.draft[i].release_frame)); return; }
+      shotAct(act);
+    });
+    el.querySelector("input").addEventListener("change", (e) => { shot.draft[i].note = e.target.value; shot.dirty = true; });
+  });
+  const row = (s, i) => `<div class="it${i === S.si ? " on" : ""}" data-i="${i}"><span class="dot ${s.dirty ? "" : s.events_status}"></span><span>${s.youtube_id} · shot ${s.shot}</span>`
+    + `<span class="ans">${s.held_out ? "held-out · " : ""}${(s.draft || s.events).length} attempt${(s.draft || s.events).length === 1 ? "" : "s"}</span></div>`;
+  $("list").innerHTML = `<h4>Shots</h4>` + S.shots.map(row).join("");
+  $("list").querySelectorAll(".it").forEach((e) => e.addEventListener("click", () => goShot(+e.dataset.i)));
+}
+function shotAct(act) {
+  const shot = curShot(), e = selEv(), f = shot.grid[S.fi];
+  if (!e) return;
+  if (act === "rel") { if (e.release_frame !== f) { e.release_frame = f; e.shooter = null; } }
+  else if (act === "rim") { e.rim_frame = f; }
+  else if (act === "made" || act === "missed") e.outcome = act;
+  else if (act === "p2") e.points = 2;
+  else if (act === "p3") e.points = 3;
+  else if (act === "team") { if (e.shooter) { e.shooter.team = e.shooter.team === "home" ? "away" : "home"; S.team = e.shooter.team; } }
+  else if (act === "del") { shot.draft.splice(S.ev, 1); S.ev = Math.max(0, Math.min(S.ev, shot.draft.length - 1)); }
+  touch();
+}
+function switchTeam() {
+  if (S.tab === "shots") return shotAct("team");
+  if (!S.draft || !S.draft.holder) return;
+  S.draft.holder.team = S.draft.holder.team === "home" ? "away" : "home"; S.team = S.draft.holder.team; renderAll();
+}
+
+// ---------- shared ----------
+function renderAll() { renderView(); if (S.tab === "shots") drawTimeline(); else renderStrip(); renderSide(); }
+async function post(url, body) {
+  const res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  const out = await res.json();
+  if (!res.ok) throw new Error(out.error || res.status);
+  return out;
+}
+function play() {
+  if (S.playing) return stop();
+  if (S.tab === "shots") {
+    const shot = curShot();
+    if (S.fi >= shot.grid.length - 1) S.fi = 0;
+    S.playing = setInterval(() => {
+      if (S.fi >= shot.grid.length - 1) return stop();
+      if (!ready(S.imgs.get(`${shot.video}#${shot.grid[S.fi + 1]}`))) return;
+      S.fi += 1; renderView(); drawTimeline();
+    }, S.slow ? 200 : 100);
+  } else {
+    const it = curItem();
+    if (!it) return;
+    S.playing = setInterval(() => { S.stripI = (S.stripI + 1) % it.fr.strip.length; renderView(); renderStrip(); }, 280);
+  }
+  $("btnPlay").firstChild.textContent = "Pause ";
+}
+function stop() {
+  if (!S.playing) return;
+  clearInterval(S.playing); S.playing = null; $("btnPlay").firstChild.textContent = "Play ";
+  if (S.tab === "shots") renderSide();
+}
+function setTab(t) {
+  stop();
+  S.tab = t; S.finished = false; S.ballMode = false; S.hover = null;
+  S.zoom = t === "shots" ? "full" : "close";
+  $("tabs").querySelectorAll("button").forEach((b) => b.classList.toggle("on", b.dataset.tab === t));
+  $("strip").dataset.key = "";
+  if (t === "shots") { const i = S.shots.findIndex((s) => s.events_status !== "done"); goShot(i < 0 ? 0 : i); }
+  else { const i = holderItems().findIndex((x) => x.fr.status !== "done"); goItem(i < 0 ? 0 : i); }
+}
+function setZoom(z) { S.zoom = z; $("strip").dataset.key = ""; renderAll(); }
+function toImage(ev) {
+  const r = view.getBoundingClientRect();
+  return [(ev.clientX - r.left) * (view.width / r.width) / S.tf.scale + S.tf.rx, (ev.clientY - r.top) * (view.height / r.height) / S.tf.scale + S.tf.ry];
+}
+function hitPerson(x, y) {
+  const shot = curShot();
+  const inside = people(shot.sequence, S.tf.f).filter((p) => x >= p[0] && x <= p[2] && y >= p[1] && y <= p[3]);
+  inside.sort((a, b) => (a[2] - a[0]) * (a[3] - a[1]) - (b[2] - b[0]) * (b[3] - b[1]));
+  return inside[0] || null;
+}
+function labelFrameShown() {
+  if (S.tab === "shots") { const e = selEv(); return !!e && e.release_frame === curShot().grid[S.fi]; }
+  const it = curItem(); return !!it && it.fr.strip[S.stripI] === it.fr.frame;
+}
+function setPerson(box) {
+  const xyxy = box.slice(0, 4).map((v) => Math.round(v * 10) / 10);
+  if (S.tab === "shots") { selEv().shooter = { xyxy, team: S.team }; touch(); }
+  else { S.draft.holder = { xyxy, team: S.team }; renderAll(); }
+}
+view.addEventListener("mousedown", (ev) => { if (S.tf && ev.button === 0) { stop(); S.drag = { start: toImage(ev), shift: ev.shiftKey, box: null }; } });
+view.addEventListener("mousemove", (ev) => {
+  if (!S.tf || !curShot()) return;
+  const [x, y] = toImage(ev);
+  if (S.tab === "shots") S.zc = S.zoom === "full" ? [x, y] : S.zc;
+  if (S.drag) {
+    const [sx, sy] = S.drag.start;
+    if (Math.hypot(x - sx, y - sy) * S.tf.scale > 10 && labelFrameShown() && !S.drag.shift && !S.ballMode) {
+      S.drag.box = [Math.min(sx, x), Math.min(sy, y), Math.max(sx, x), Math.max(sy, y)]; renderView();
+    }
+    return;
+  }
+  const p = labelFrameShown() ? hitPerson(x, y) : null, tip = $("hoverTip");
+  if ((p || null) !== S.hover && !(p && S.hover && sameBox(p, S.hover))) { S.hover = p; renderView(); }
+  if (!p) { tip.style.display = "none"; return; }
+  const r = $("viewWrap").getBoundingClientRect();
+  tip.style.display = "block"; tip.style.left = `${ev.clientX - r.left + 14}px`; tip.style.top = `${ev.clientY - r.top + 10}px`;
+  tip.textContent = S.tab === "shots" ? "click: this is the shooter" : "click: this player holds the ball";
+});
+view.addEventListener("mouseleave", () => { S.hover = null; S.drag = null; $("hoverTip").style.display = "none"; renderView(); });
+view.addEventListener("mouseup", (ev) => {
+  if (!S.drag || !S.tf) return;
+  const drag = S.drag; S.drag = null;
+  const [x, y] = toImage(ev);
+  if (S.tab === "shots" && !selEv()) { renderView(); return setStatus("Add an attempt first (A)", "err"); }
+  if (!labelFrameShown()) {
+    if (S.tab === "shots") { seek(nearestGrid(curShot(), selEv().release_frame)); setStatus("Jumped to the release frame: click the shooter here", ""); }
+    else { S.stripI = curItem().fr.strip.indexOf(curItem().fr.frame); renderAll(); setStatus("Back on the frame to label: click here", ""); }
+    return;
+  }
+  if (drag.box && drag.box[2] - drag.box[0] > 12 && drag.box[3] - drag.box[1] > 12) { setStatus("Box drawn", ""); return setPerson(drag.box); }
+  if (S.tab !== "shots" && (drag.shift || S.ballMode)) { placeBall(x, y); return renderAll(); }
+  const p = hitPerson(x, y);
+  if (p) { setStatus("", ""); return setPerson(p); }
+  renderView();
+  setStatus(S.tab === "shots" ? "No box there: drag one around the shooter" : "No box there: drag one around the holder, or Shift+click the ball", "err");
+});
+
+$("zoomClose").onclick = () => setZoom("close"); $("zoomFull").onclick = () => setZoom("full");
+$("helpBtn").onclick = () => $("help").showModal();
+$("btnPlay").onclick = play;
+$("btnSlow").onclick = () => { S.slow = !S.slow; $("btnSlow").classList.toggle("on", S.slow); if (S.playing) { stop(); play(); } };
+$("btnGoRel").onclick = () => { const e = selEv(); if (e) { stop(); seek(nearestGrid(curShot(), e.release_frame)); } };
+$("btnGoRim").onclick = () => { const e = selEv(); if (e) { stop(); seek(nearestGrid(curShot(), e.rim_frame)); } };
+document.querySelectorAll("[data-step]").forEach((b) => b.addEventListener("click", () => { stop(); seek(S.fi + +b.dataset.step); }));
+$("tabs").querySelectorAll("button").forEach((b) => b.addEventListener("click", () => setTab(b.dataset.tab)));
+let tlDown = false;
+$("timeline").addEventListener("mousedown", (e) => { tlDown = true; timelineSeek(e); });
+window.addEventListener("mousemove", (e) => { if (tlDown) timelineSeek(e); });
+window.addEventListener("mouseup", () => { tlDown = false; });
+window.addEventListener("resize", () => { renderView(); drawTimeline(); });
+window.addEventListener("beforeunload", (e) => { if (S.shots.some((s) => s.dirty)) { e.preventDefault(); e.returnValue = ""; } });
+
+document.addEventListener("keydown", (e) => {
+  if ($("help").open) return;
+  if (e.target.matches && e.target.matches("input, textarea")) { if (e.key === "Enter" || e.key === "Escape") e.target.blur(); return; }
+  const k = e.key, low = k.length === 1 ? k.toLowerCase() : k;
+  if (e.altKey && ["1", "2", "3"].includes(e.code.replace("Digit", ""))) { e.preventDefault(); return setTab(["shots", "ask", "look"][+e.code.replace("Digit", "") - 1]); }
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  if (k === "?") { $("help").showModal(); return; }
+  if (low === "z") { e.preventDefault(); return setZoom("close"); }
+  if (low === "f") { e.preventDefault(); return setZoom("full"); }
+  if (k === " ") { e.preventDefault(); return play(); }
+  if (low === "t") { e.preventDefault(); return switchTeam(); }
+  if (S.tab === "shots") {
+    const acts = { s: "rel", r: "rim", m: "made", x: "missed", "2": "p2", "3": "p3", Backspace: "del", Delete: "del" };
+    if (k === "ArrowLeft") { stop(); seek(S.fi - (e.shiftKey ? 5 : 1)); }
+    else if (k === "ArrowRight") { stop(); seek(S.fi + (e.shiftKey ? 5 : 1)); }
+    else if (k === "ArrowUp") goShot(S.si - 1);
+    else if (k === "ArrowDown") goShot(S.si + 1);
+    else if (low === "a") addAttempt();
+    else if (low === "g") $("btnGoRel").click();
+    else if (low === "h") $("btnGoRim").click();
+    else if (k === "Tab") { const n = curShot().draft.length; if (n) { S.ev = (S.ev + 1) % n; renderAll(); } }
+    else if (k === "Enter") confirmShot();
+    else if (acts[low]) { stop(); shotAct(acts[low]); }
+    else return;
+  } else {
+    const it = curItem();
+    if (!it) return;
+    if (k === "Enter" || low === "a") saveFrame();
+    else if (low === "n") saveFrame(null);
+    else if (low === "x") { S.draft.ball = null; renderAll(); }
+    else if (low === "b") { S.ballMode = !S.ballMode; S.stripI = it.fr.strip.indexOf(it.fr.frame); renderAll(); }
+    else if (k === "Escape") { initDraft(); renderAll(); }
+    else if (k === "ArrowRight") goItem(S.ii + 1);
+    else if (k === "ArrowLeft") goItem(S.ii - 1);
+    else if (k === "ArrowDown") { stop(); S.stripI = Math.min(S.stripI + 1, it.fr.strip.length - 1); renderView(); renderStrip(); }
+    else if (k === "ArrowUp") { stop(); S.stripI = Math.max(S.stripI - 1, 0); renderView(); renderStrip(); }
+    else return;
+  }
+  e.preventDefault();
+});
+
+(async () => {
+  const res = await fetch("/api/shotgold/state");
+  const st = await res.json();
+  S.shots = st.shots;
+  S.shots.forEach(initShotDraft);
+  const c = counts();
+  setTab(c.shotsOpen ? "shots" : c.askOpen ? "ask" : c.lookOpen ? "look" : "shots");
+  if (!localStorage.getItem("shotgold.help.v1")) { $("help").showModal(); localStorage.setItem("shotgold.help.v1", "1"); }
+})();
+</script>
+</body>
+</html>
