@@ -25,7 +25,15 @@ from bga.ball.base import (
     pack_output,
     shot_points,
 )
-from bga.ball.fused import FusedBall, _filter_ball_candidates, _find_shooter, _possession_emissions, _track_ball
+from bga.ball.fused import (
+    FusedBall,
+    _filter_ball_candidates,
+    _find_shooter,
+    _loose_ball_bonus,
+    _possession_emissions,
+    _track_ball,
+    _track_possession,
+)
 from bga.ball.skalski import SkalskiBall
 from bga.config import LAYERS, OPTIONAL_BY_LAYER, LayerConfig, RunConfig
 from bga.eval.ball import load_holders, load_shot_gold, score, score_boxes, score_events
@@ -473,6 +481,35 @@ class TestFusedBall:
         params = {**FusedBall.defaults, "ball_far_penalty": penalty}
         em = _possession_emissions([], tracks, {1: "home"}, [180.0, 50.0], 0.9, params)
         assert em[1] == pytest.approx(expected)
+
+    @pytest.mark.parametrize(
+        ("bonus", "expected"),
+        [
+            pytest.param(None, 1, id="off-ball-in-box-is-held"),
+            pytest.param(2.0, None, id="loose-window-ball-in-box-is-unheld"),
+        ],
+    )
+    def test_loose_bonus_releases_ball_overlapping_player(self, bonus: float | None, expected: int | None) -> None:
+        frames = [0, 5, 10]
+        tracks = {f: [(1, [0.0, 0.0, 50.0, 100.0], "player")] for f in frames}
+        ball_px: dict[int, list[float] | None] = {f: [25.0, 50.0] for f in frames}
+        none_bonus = None if bonus is None else dict.fromkeys(frames, bonus)
+        holders = _track_possession(
+            frames, {}, tracks, {1: "home"}, ball_px, dict.fromkeys(frames, 0.9), FusedBall.defaults, none_bonus
+        )
+        assert holders[5] == expected
+
+    def test_loose_bonus_covers_window_around_closest_rim_step(self) -> None:
+        rel = [None, (0.0, -3.0, 3.0), (0.0, -0.5, 0.5), (0.0, 0.1, 0.1), (0.0, 1.0, 1.0), None, None]
+        params = {"poss_loose_bonus": 1.0, "poss_loose_pre_s": 0.1, "poss_loose_post_s": 0.2}
+        frames = [0, 5, 10, 15, 20, 25, 30]
+        assert _loose_ball_bonus(frames, [[2, 3]], rel, params, 10.0) == {10: 1.0, 15: 1.0, 20: 1.0, 25: 1.0}
+
+    def test_loose_bonus_keeps_shooter_released_before_rim(self) -> None:
+        seq, upstream = _synthetic_shot_upstream(made=True)
+        params = {"poss_loose_bonus": 1.0, "poss_loose_pre_s": 0.3, "poss_loose_post_s": 2.5}
+        out = FusedBall(params).run(seq, upstream, _dummy_read)
+        assert [(s["shooter_track_id"], s["outcome"]) for s in out["shots"]] == [(1, "made")]
 
 
 class TestSkalskiBall:
