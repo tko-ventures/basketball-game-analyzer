@@ -43,6 +43,8 @@ GOLD_V1_SHOT_GOLD = Path("data/gold/v1/shot_gold.json")
 GOLD_V0_ROOT = Path("data/gold/v0")
 #: Maximum source-frame gap between predicted and gold shot frame for a match (0.8 s at 50 fps).
 DEFAULT_RIM_TOL_FRAMES = 40
+#: Shot-matching tolerance in seconds; turned into source frames with each sequence's frame rate when it is known.
+DEFAULT_RIM_TOL_S = 0.8
 #: Maximum source-frame gap for matching a predicted shooter track to a shot-gold box (0.2 s at 50 fps).
 SHOOTER_BOX_TOL_FRAMES = 10
 #: Largest gap, in source frames, between a predicted shot's start and a gold ``v0`` frame boxing the shooter: gold
@@ -372,6 +374,7 @@ def score_events(
     *,
     rim_tol_frames: int = DEFAULT_RIM_TOL_FRAMES,
     verified_sequences: set[str] | None = None,
+    fps_by_seq: dict[str, float] | None = None,
 ) -> dict[str, Any]:
     """Score predicted shot attempts, made/missed outcomes, and shooters against ``events.json``.
 
@@ -383,9 +386,12 @@ def score_events(
         tracks_by_seq: Mapping ``seq_name -> {frame_str: track_rows}``.
         gold_events: List of gold shot dicts (``sequence``, ``rim_frame``, ``outcome``, etc.).
         gold_v0_root: Root directory of MOTChallenge gold tracks (for ``shooter_gt_tid`` IoU check).
-        rim_tol_frames: Maximum source-frame difference for a valid match.
+        rim_tol_frames: Maximum source-frame difference for a valid match, for sequences missing from
+            ``fps_by_seq``.
         verified_sequences: When provided, restrict both gold events and predictions to these sequence names so
             unverified prefill drafts are never scored as gold.
+        fps_by_seq: Frame rate of each sequence; shots then match within ``DEFAULT_RIM_TOL_S`` seconds, so 60 fps
+            full games get the same window as 50 fps highlights.
 
     Returns:
         Dict of shot detection, outcome, and shooter metrics (``NaN`` if no verified gold events cover the run).
@@ -427,7 +433,8 @@ def score_events(
     for sname, ball_out in eval_seqs.items():
         gt_list = gt_by_seq.get(sname, [])
         pred_list = ball_out.get("shots", [])
-        matches = _match_shots(gt_list, pred_list, rim_tol_frames)
+        fps = (fps_by_seq or {}).get(sname)
+        matches = _match_shots(gt_list, pred_list, round(DEFAULT_RIM_TOL_S * fps) if fps else rim_tol_frames)
         tp += len(matches)
         fp += len(pred_list) - len(matches)
         fn += len(gt_list) - len(matches)
@@ -554,6 +561,7 @@ def score(
         gold_events,
         gold_v0_root=gold_v0_root,
         verified_sequences=verified,
+        fps_by_seq={s.name: float(s.fps) for s in seqs},
     )
     ms_vals = [float(v.get("ms_per_frame", 0.0)) for v in ball_by_seq.values()]
     return {

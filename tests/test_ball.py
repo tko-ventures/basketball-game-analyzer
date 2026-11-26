@@ -644,6 +644,20 @@ class TestEvalBall:
         assert (em["shot_gt"], em["shot_pred"], em["shot_p"], em["shot_r"]) == (2, 1, 1.0, 0.5)
         assert (em["shot_outcome_acc"], em["shot_shooter_acc"]) == (1.0, 1.0)
 
+    @pytest.mark.parametrize(
+        ("fps", "expected_f1"),
+        [
+            pytest.param(None, 0.0, id="frame-tolerance-40"),
+            pytest.param(60.0, 1.0, id="0.8s-at-60fps-is-48-frames"),
+        ],
+    )
+    def test_match_tolerance_follows_sequence_fps(self, fps: float | None, expected_f1: float) -> None:
+        ball_by_seq = {"vid_s1": {"frames": {}, "shots": [{"start_frame": 0, "rim_frame": 145, "outcome": "made"}]}}
+        gt_events = [{"sequence": "vid_s1", "rim_frame": 100, "outcome": "made"}]
+        fps_by_seq = None if fps is None else {"vid_s1": fps}
+        em = score_events(ball_by_seq, {"vid_s1": {}}, gt_events, fps_by_seq=fps_by_seq)
+        assert em["shot_f1"] == expected_f1
+
     def test_outcome_recall_splits_by_gold_outcome(self) -> None:
         shots = [
             {"start_frame": 0, "rim_frame": 50, "outcome": "made"},
