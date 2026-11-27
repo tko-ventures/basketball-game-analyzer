@@ -760,6 +760,71 @@ def eval_ball(
         METRICS_MD.write_text(_insert_rows(METRICS_MD.read_text(), BALL_HEADER, rows, BALL_INTRO))
 
 
+#: Header of the Layer 0 camera table in ``docs/metrics.md`` written by ``bga eval-ingest``.
+INGEST_HEADER = (
+    "| date | commit | config | camera backend | samples | split (games, shots) | camera acc | central P | central R "
+    "| acc per game | ms/shot | notes |\n"
+    "|---|---|---|---|---|---|---|---|---|---|---|---|\n"
+)
+#: Section heading and explanation placed above the Layer 0 camera table when it is first added.
+INGEST_INTRO = (
+    "## Ingest (Layer 0)\n\n"
+    "Scored by `bga eval-ingest` on the gold games of `data/labels/gold.json`, dev unless `--held-out`. **camera"
+    " acc:** share of label-file shots tagged `central` or `other` (shots of at least 6 s) that the `shots/video`"
+    " config's camera backend tags the same, on the label file's own shot bounds. **central P / R:** precision and"
+    " recall of `central`. **ms/shot:** the classifier on M1 Max, frame reading excluded.\n\n"
+)
+
+
+@app.command("eval-ingest", help="Score each shots/video config's camera classifier on the gold games' camera tags.")
+def eval_ingest(
+    config: Annotated[list[Path], typer.Option(help="one or more run configs whose shots backend is video")],
+    set_: Annotated[list[str], typer.Option("--set", help="override applied to every config")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
+    held_out: Annotated[bool, typer.Option(help="score the held-out games instead (once per milestone)")] = False,
+    write: Annotated[bool, typer.Option(help="append rows to docs/metrics.md")] = False,
+    note: str = "",
+    verbose: bool = False,
+) -> None:
+    """Score each config's Layer 0 camera classifier on the camera tags of the gold games.
+
+    Args:
+        config: Run configs with ``shots.backend: video``, scored side by side.
+        set_: Overrides applied to every config.
+        held_out: Score the held-out games instead of dev (once per milestone).
+        write: Add the rows to the ingest table in ``docs/metrics.md``.
+        note: Text for the notes column.
+        verbose: Log progress.
+
+    Raises:
+        typer.BadParameter: When a config's shots backend is not ``video``.
+
+    Examples:
+        >>> eval_ingest([Path("configs/ingest-siglip-zeroshot.yaml")])  # doctest: +SKIP
+
+    """
+    from bga.eval.ingest import score_camera
+    from bga.ingest.video import VideoShots
+
+    _setup_logging(verbose)
+    rows = []
+    for path in config:
+        cfg = load_config(path, set_)
+        if cfg.layers["shots"].backend != "video":
+            raise typer.BadParameter(f"{path}: shots backend is {cfg.layers['shots'].backend!r}, not 'video'")
+        p = VideoShots(cfg.layers["shots"].params).p
+        s = score_camera(p["camera"], p["samples"], held_out=held_out)
+        games = ", ".join(f"{k} {v:.3f}" for k, v in s.per_game.items())
+        rows.append(
+            f"| {dt.date.today().isoformat()} | {pipeline.git_commit()} | `{cfg.name}`@{cfg.config_hash()} "
+            f"| {p['camera']['backend']} | {p['samples']} | {'held-out' if held_out else 'dev'} ({s.games}, {s.shots}) "
+            f"| {_fmt(s.acc)} | {_fmt(s.central_p)} | {_fmt(s.central_r)} | {games} | {_fmt(s.ms_per_shot, 0)} "
+            f"| {note} |"
+        )
+    typer.echo(INGEST_HEADER + "\n".join(rows))
+    if write:
+        METRICS_MD.write_text(_insert_rows(METRICS_MD.read_text(), INGEST_HEADER, rows, INGEST_INTRO))
+
+
 def _shots_split(held_out: bool, all_splits: bool) -> str:
     """Resolve ``shots.params.held_out`` from ``--held-out`` and ``--all-splits`` flags."""
     if all_splits:
