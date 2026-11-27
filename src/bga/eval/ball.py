@@ -14,7 +14,9 @@ Scores any Layer 7 (``ball``) backend against two gold sources:
      1-to-1 matching of predicted shots to gold shots on sequences listed in ``verified_sequences`` within
      ``rim_tol_frames`` (default 40 source frames = 0.8 s at 50 fps, matching on ``rim_frame`` or ``start_frame``
      vs gold ``release_frame`` when ``rim_frame`` is ``None``), checking ``outcome`` (``made`` / ``missed``) and
-     shooter track IoU against ``data/gold/v0/<seq>/gt/gt.txt``.
+     shooter track IoU against ``data/gold/v0/<seq>/gt/gt.txt``. These count field goals only; ``ft_*`` scores
+     free throws, and ``att_*`` every attempt whatever its kind, both on the shot-gold shots whose free throws were
+     labelled.
 
 """
 
@@ -508,16 +510,8 @@ def score_free_throws(
         (1.0, 0.0)
 
     """
-    tp = fp = fn = out_ok = 0
-    seqs = [s for s in ball_by_seq if s in free_throw_sequences]
-    for sname in seqs:
-        gt_list = [e for e in gold_events if e["sequence"] == sname and is_free_throw(e)]
-        pred_list = [p for p in ball_by_seq[sname].get("shots", []) if is_free_throw(p)]
-        fps = (fps_by_seq or {}).get(sname)
-        matches = _match_shots(gt_list, pred_list, round(DEFAULT_RIM_TOL_S * fps) if fps else DEFAULT_RIM_TOL_FRAMES)
-        tp, fp, fn = tp + len(matches), fp + len(pred_list) - len(matches), fn + len(gt_list) - len(matches)
-        out_ok += sum(pred_list[pi].get("outcome") == gt_list[gi].get("outcome") for gi, pi in matches)
-    if not seqs:
+    tp, fp, fn, out_ok, n_seqs = _count_matches(ball_by_seq, gold_events, free_throw_sequences, fps_by_seq, True)
+    if not n_seqs:
         nan = float("nan")
         return {"ft_gt": 0, "ft_pred": 0, "ft_p": nan, "ft_r": nan, "ft_f1": nan, "ft_outcome_acc": nan}
     p, r, f1 = _f1(tp, fp, fn)
@@ -529,6 +523,66 @@ def score_free_throws(
         "ft_f1": f1,
         "ft_outcome_acc": out_ok / tp if tp else float("nan"),
     }
+
+
+def score_attempts(
+    ball_by_seq: dict[str, dict[str, Any]],
+    gold_events: list[dict[str, Any]],
+    sequences: set[str],
+    fps_by_seq: dict[str, float] | None = None,
+) -> dict[str, Any]:
+    """Score shot attempts whatever their kind, so a free throw called a field goal still counts as found.
+
+    It separates finding an attempt from naming its kind: the field-goal columns count a free throw the tag missed
+    as a false shot, this one does not.
+
+    Args:
+        ball_by_seq: Mapping ``seq_name -> Layer 7 output dict``.
+        gold_events: Gold shot dicts, field goals and free throws.
+        sequences: Sequences whose every attempt, free throws included, was labelled.
+        fps_by_seq: Frame rate of each sequence, for the ``DEFAULT_RIM_TOL_S`` window.
+
+    Returns:
+        ``att_gt``, ``att_pred``, ``att_p``, ``att_r`` and ``att_f1`` (``NaN`` without such sequences).
+
+    Examples:
+        >>> ball = {"s1": {"shots": [{"rim_frame": 50, "kind": "field_goal"}, {"rim_frame": 400}]}}
+        >>> gt = [{"sequence": "s1", "rim_frame": 52, "points": 1}]
+        >>> m = score_attempts(ball, gt, {"s1"}, {"s1": 60.0})
+        >>> (m["att_p"], m["att_r"], m["att_pred"], m["att_gt"])
+        (0.5, 1.0, 2, 1)
+
+    """
+    tp, fp, fn, _, n_seqs = _count_matches(ball_by_seq, gold_events, sequences, fps_by_seq, None)
+    if not n_seqs:
+        nan = float("nan")
+        return {"att_gt": 0, "att_pred": 0, "att_p": nan, "att_r": nan, "att_f1": nan}
+    p, r, f1 = _f1(tp, fp, fn)
+    return {"att_gt": tp + fn, "att_pred": tp + fp, "att_p": p, "att_r": r, "att_f1": f1}
+
+
+def _count_matches(
+    ball_by_seq: dict[str, dict[str, Any]],
+    gold_events: list[dict[str, Any]],
+    sequences: set[str],
+    fps_by_seq: dict[str, float] | None,
+    free_throws: bool | None,
+) -> tuple[int, int, int, int, int]:
+    """Match predicted to gold attempts on ``sequences``: free throws only, field goals only, or all (``None``).
+
+    Returns ``(tp, fp, fn, outcome_right, sequences_scored)``.
+
+    """
+    tp = fp = fn = out_ok = 0
+    seqs = [s for s in ball_by_seq if s in sequences]
+    for sname in seqs:
+        gt_list = [e for e in gold_events if e["sequence"] == sname and free_throws in (None, is_free_throw(e))]
+        pred_list = [p for p in ball_by_seq[sname].get("shots", []) if free_throws in (None, is_free_throw(p))]
+        fps = (fps_by_seq or {}).get(sname)
+        matches = _match_shots(gt_list, pred_list, round(DEFAULT_RIM_TOL_S * fps) if fps else DEFAULT_RIM_TOL_FRAMES)
+        tp, fp, fn = tp + len(matches), fp + len(pred_list) - len(matches), fn + len(gt_list) - len(matches)
+        out_ok += sum(pred_list[pi].get("outcome") == gt_list[gi].get("outcome") for gi, pi in matches)
+    return tp, fp, fn, out_ok, len(seqs)
 
 
 def load_free_throw_sequences(path: Path = GOLD_V1_SHOT_GOLD) -> set[str]:
@@ -640,12 +694,14 @@ def score(
     )
     ft_seqs = load_free_throw_sequences(shot_gold_path) & verified if has_shot_gold else set()
     ft_m = score_free_throws(ball_by_seq, gold_events, ft_seqs, {s.name: float(s.fps) for s in seqs})
+    att_m = score_attempts(ball_by_seq, gold_events, ft_seqs, {s.name: float(s.fps) for s in seqs})
     ms_vals = [float(v.get("ms_per_frame", 0.0)) for v in ball_by_seq.values()]
     return {
         "sequences": len(seqs),
         **box_m,
         **ev_m,
         **ft_m,
+        **att_m,
         "unverified_sequences": unverified,
         "ms_per_frame": statistics.mean(ms_vals) if ms_vals else 0.0,
     }

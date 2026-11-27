@@ -29,6 +29,7 @@ from bga.ball.fused import (
     FusedBall,
     _ball_node_score,
     _classify_shot_outcome,
+    _cluster_rim_index,
     _filter_ball_candidates,
     _find_shooter,
     _loose_ball_bonus,
@@ -132,6 +133,15 @@ def _synthetic_shot_upstream(made: bool, *, stride: int = 5) -> tuple[Sequence, 
         "team": {"frames": team_frames},
         "positions": {"tracks": {"1": pos_pts}},
     }
+    return seq, upstream
+
+
+def _shooterless_shot_upstream() -> tuple[Sequence, dict[str, Any]]:
+    """Build the synthetic made shot with no tracked player, so no shooter can be found."""
+    seq, upstream = _synthetic_shot_upstream(made=True)
+    upstream["track"] = {"frames": {f: [] for f in upstream["track"]["frames"]}}
+    upstream["team"] = {"frames": {f: [] for f in upstream["team"]["frames"]}}
+    upstream["positions"] = {"tracks": {}}
     return seq, upstream
 
 
@@ -562,6 +572,29 @@ class TestFusedBall:
         seq, upstream = _synthetic_shot_upstream(made=True)
         out = FusedBall(params).run(seq, upstream, _dummy_read)
         assert [(s["kind"], s["points"]) for s in out["shots"]] == [expected]
+
+    @pytest.mark.parametrize(
+        ("build", "params", "expected"),
+        [
+            pytest.param(_shooterless_shot_upstream, {}, [None], id="kept-by-default"),
+            pytest.param(_shooterless_shot_upstream, {"shot_require_shooter": True}, [], id="dropped-without-shooter"),
+            pytest.param(
+                lambda: _synthetic_shot_upstream(made=True), {"shot_require_shooter": True}, [1], id="kept-with-shooter"
+            ),
+        ],
+    )
+    def test_require_shooter(self, build: Any, params: dict[str, Any], expected: list[int | None]) -> None:
+        seq, upstream = build()
+        out = FusedBall(params).run(seq, upstream, _dummy_read)
+        assert [s["shooter_track_id"] for s in out["shots"]] == expected
+
+    @pytest.mark.parametrize(
+        ("pick", "expected"),
+        [pytest.param("closest", 3, id="closest-to-rim"), pytest.param("first", 1, id="first-contact")],
+    )
+    def test_cluster_rim_index(self, pick: str, expected: int) -> None:
+        rel = [(0.0, -3.0, 3.0), (-0.5, -0.3, 0.58), (0.1, -1.1, 1.1), (0.07, 0.5, 0.5)]
+        assert _cluster_rim_index([1, 3], rel, pick) == expected
 
 
 class TestSkalskiBall:

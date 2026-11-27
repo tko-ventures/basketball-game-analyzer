@@ -17,7 +17,7 @@ import itertools
 import math
 import statistics
 import time
-from typing import Any, ClassVar
+from typing import Any, ClassVar, Literal
 
 from bga.ball.base import (
     BallTrackState,
@@ -599,6 +599,26 @@ def _shot_rim_clusters(
     )
 
 
+def _cluster_rim_index(
+    cl: list[int], rel: list[tuple[float, float, float] | None], pick: Literal["closest", "first"]
+) -> int:
+    """Pick the step of a rim-arrival cluster that stands for the shot's rim frame.
+
+    ``"closest"`` takes the step nearest the rim centre. ``"first"`` takes the first arrival, the first contact with
+    the rim or board (as shot gold labels it), so a ball that bounces up and lands on the rim again keeps the
+    frame of its first contact.
+
+    Examples:
+        >>> rel = [(0.0, 0.6, 0.6), (0.0, 1.2, 1.2), (0.0, 0.2, 0.2)]
+        >>> _cluster_rim_index([0, 2], rel, "closest"), _cluster_rim_index([0, 2], rel, "first")
+        (2, 0)
+
+    """
+    if pick == "first":
+        return cl[0]
+    return min(cl, key=lambda j: rel[j][2] if rel[j] is not None else 1e9)
+
+
 def _loose_ball_bonus(
     frames: list[int],
     clusters: list[list[int]],
@@ -762,7 +782,8 @@ def _detect_shots(
     """Detect shot attempts, outcomes, shooters, and 2/3-point values from rim-arrival trajectories.
 
     A shot that :func:`_is_free_throw` accepts gets ``kind="free_throw"``, ``shot_type="free_throw"`` and 1 point;
-    every other shot is ``kind="field_goal"``.
+    every other shot is ``kind="field_goal"``. ``shot_rim_pick`` chooses the rim frame of a rim-arrival cluster
+    (:func:`_cluster_rim_index`), and with ``shot_require_shooter`` an arrival without a shooter is no shot.
 
     """
     eff_fps = effective_fps(seq)
@@ -773,10 +794,12 @@ def _detect_shots(
     anchors: dict[int, tuple[float, float]] = {}
 
     for cl in clusters:
-        rim_idx = min(cl, key=lambda j: rel[j][2] if rel[j] is not None else 1e9)
+        rim_idx = _cluster_rim_index(cl, rel, params.get("shot_rim_pick", "closest"))
         rim_f = state.frames[rim_idx]
-        outcome, end_f = _classify_shot_outcome(state, rim_idx, rel, det_frames, params, eff_fps)
         shooter_tid, release_f = _find_shooter(state, rim_idx, rel, params, eff_fps)
+        if shooter_tid is None and params.get("shot_require_shooter", False):
+            continue
+        outcome, end_f = _classify_shot_outcome(state, rim_idx, rel, det_frames, params, eff_fps)
         start_f = release_f if release_f is not None else state.frames[max(0, cl[0] - fallback_pre)]
         pt = (
             pos_by_tid.get(shooter_tid, {}).get(release_f)
@@ -858,6 +881,8 @@ class FusedBall(BaseBackend):
         "shot_post_s": 0.9,
         "shot_release_lookback_s": 2.0,
         "shot_strict_arc": False,
+        "shot_rim_pick": "closest",
+        "shot_require_shooter": False,
         "shot_release_rim_excl_rw": 0.0,
         "shot_team_window_s": 0.0,
         "bib_conf": 0.20,

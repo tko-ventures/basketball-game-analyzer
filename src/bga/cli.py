@@ -662,8 +662,9 @@ def eval_positions(
 BALL_HEADER = (
     "| date | commit | config | ball backend | detect weights | split (shots, frames) "
     "| ball F1 (R, med px) | poss acc | holder F1 | team acc | shot F1 (P/R, pred/gt) "
-    "| outcome acc (made R / missed R) | shooter acc | ms/frame | notes | FT F1 (P/R, pred/gt), outcome acc |\n"
-    "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n"
+    "| outcome acc (made R / missed R) | shooter acc | ms/frame | notes | FT F1 (P/R, pred/gt), outcome acc "
+    "| attempt F1, any kind (P/R, pred/gt) |\n"
+    "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n"
 )
 #: Section heading and explanation placed above the ball table when it is first added.
 BALL_INTRO = (
@@ -678,7 +679,9 @@ BALL_INTRO = (
     " on `rim_frame`, made/missed accuracy on matched shots (with the recall of gold-made and gold-missed attempts"
     " from 2026-11-26), and shooter track match against gold `v0` tracks or"
     " shot-gold `shooter_xyxy` boxes. From 2026-11-26 those columns count field goals only, and **FT F1** scores"
-    " free throws (1-point gold attempts) on the shot-gold shots whose free throws were labelled."
+    " free throws (1-point gold attempts) on the shot-gold shots whose free throws were labelled. From 2026-11-27"
+    " **attempt F1, any kind** scores every attempt on those shots whatever its kind, so a free throw the tag"
+    " misses is a found attempt there and a false field goal in the shot columns."
     " **ms/frame:** Layer 7 stage on M1 Max.\n\n"
 )
 
@@ -738,6 +741,11 @@ def eval_ball(
             if s.get("ft_gt")
             else "–"
         )
+        att_cell = (
+            f"{_fmt(s['att_f1'])} ({_fmt(s['att_p'], 2)}/{_fmt(s['att_r'], 2)}, {s['att_pred']}/{s['att_gt']})"
+            if s.get("att_gt")
+            else "–"
+        )
         rows.append(
             f"| {dt.date.today().isoformat()} | {pipeline.git_commit()} | `{cfg.name}`@{cfg.config_hash()} "
             f"| {ball_b} | {det_w} | {'held-out' if held_out else 'dev'} ({s['sequences']}, {s['box_frames']}) "
@@ -745,7 +753,7 @@ def eval_ball(
             f"| {_fmt(s['poss_acc'])} | {_fmt(s['holder_f1'])} | {_fmt(s['team_acc'])} "
             f"| {shot_cell} | {_fmt(s['shot_outcome_acc'])} "
             f"({_fmt(s['shot_made_r'], 2)}/{_fmt(s['shot_missed_r'], 2)}) | {_fmt(s['shot_shooter_acc'])} "
-            f"| {_fmt(s['ms_per_frame'], 2)} | {note} | {ft_cell} |"
+            f"| {_fmt(s['ms_per_frame'], 2)} | {note} | {ft_cell} | {att_cell} |"
         )
     typer.echo(BALL_HEADER + "\n".join(rows))
     if write:
