@@ -825,6 +825,74 @@ def eval_ingest(
         METRICS_MD.write_text(_insert_rows(METRICS_MD.read_text(), INGEST_HEADER, rows, INGEST_INTRO))
 
 
+#: Header of the Layer 0 cuts table in ``docs/metrics.md`` written by ``bga eval-cuts``.
+CUTS_HEADER = (
+    "| date | commit | config | cuts backend | split (games, gold cuts) | cut P | cut R | P / R per game | FP unread "
+    "| duplicates | notes |\n"
+    "|---|---|---|---|---|---|---|---|---|---|---|\n"
+)
+#: Explanation placed above the Layer 0 cuts table when it is first added.
+CUTS_INTRO = (
+    "Scored by `bga eval-cuts` on `data/labels/cut_gold.json`, game time only (from the first to the last"
+    " `central`-tagged label shot, split at breaks over 150 s). The gold is every cut `hist_diff` or `transnetv2`"
+    " (threshold 0.5) made there, merged within 0.2 s: each one only one detector made is read by eye; the ones both"
+    " made are read on a random sample (real share in the notes) and otherwise taken as real. **cut P / R:** a cut"
+    " hits a hard cut within 0.2 s or a gradual transition's blended frames within 0.2 s; recall is over the cuts the"
+    " two detectors found. **FP unread:** false positives on no gold entry, which a new detector needs read before its"
+    " precision counts. **duplicates:** extra cuts on one transition (not errors).\n\n"
+)
+
+
+@app.command("eval-cuts", help="Score each shots/video config's cut detector on the cut gold of the gold games.")
+def eval_cuts(
+    config: Annotated[list[Path], typer.Option(help="one or more run configs whose shots backend is video")],
+    set_: Annotated[list[str], typer.Option("--set", help="override applied to every config")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
+    held_out: Annotated[bool, typer.Option(help="score the held-out games instead (once per milestone)")] = False,
+    write: Annotated[bool, typer.Option(help="append rows to docs/metrics.md")] = False,
+    note: str = "",
+    verbose: bool = False,
+) -> None:
+    """Score each config's Layer 0 cut detector on the cut gold, computing and caching its cuts once per video.
+
+    Args:
+        config: Run configs with ``shots.backend: video``, scored side by side.
+        set_: Overrides applied to every config.
+        held_out: Score the held-out games instead of dev (once per milestone).
+        write: Add the rows to the cuts table in ``docs/metrics.md``.
+        note: Text for the notes column.
+        verbose: Log progress.
+
+    Raises:
+        typer.BadParameter: When a config's shots backend is not ``video``.
+
+    Examples:
+        >>> eval_cuts([Path("configs/ingest-transnetv2-game-hsv.yaml")])  # doctest: +SKIP
+
+    """
+    from bga.eval.ingest import score_cuts
+
+    _setup_logging(verbose)
+    rows = []
+    for path in config:
+        cfg = load_config(path, set_)
+        if cfg.layers["shots"].backend != "video":
+            raise typer.BadParameter(f"{path}: shots backend is {cfg.layers['shots'].backend!r}, not 'video'")
+        params = cfg.layers["shots"].params
+        s = score_cuts(params, held_out=held_out)
+        k = s.counts
+        games = ", ".join(f"{y} {_fmt(c.precision)}/{_fmt(c.recall)}" for y, c in s.per_game.items())
+        sample = f"agreement sample {s.sample_real}/{s.sample_read} real"
+        rows.append(
+            f"| {dt.date.today().isoformat()} | {pipeline.git_commit()} | `{cfg.name}`@{cfg.config_hash()} "
+            f"| {params['cuts']['backend']} | {'held-out' if held_out else 'dev'} ({s.games}, {k.tp + k.fn}) "
+            f"| {_fmt(k.precision)} | {_fmt(k.recall)} | {games} | {k.unseen} | {k.dup} "
+            f"| {'; '.join(x for x in (note, sample) if x)} |"
+        )
+    typer.echo(CUTS_HEADER + "\n".join(rows))
+    if write:
+        METRICS_MD.write_text(_insert_rows(METRICS_MD.read_text(), CUTS_HEADER, rows, CUTS_INTRO))
+
+
 def _shots_split(held_out: bool, all_splits: bool) -> str:
     """Resolve ``shots.params.held_out`` from ``--held-out`` and ``--all-splits`` flags."""
     if all_splits:

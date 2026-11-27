@@ -110,6 +110,27 @@ class VideoShots(BaseBackend):
         write_atomic(path, json.dumps(value))
         return value
 
+    def game_cuts(self, clip: str, video: str) -> list[dict]:
+        """The cut detector's shots of one video, from the cache or computed once.
+
+        Args:
+            clip: Label stem, the ``runs/<clip>`` directory.
+            video: Path of the video.
+
+        Returns:
+            The shots ``{"start", "end"}``.
+
+        """
+        key = entry_key("cuts", self.p["cuts"])
+
+        def cut() -> list[dict]:
+            log.info("cuts/%s on %s", self.p["cuts"]["backend"], clip)
+            return make_component("cuts", self.p["cuts"]).shots(video)
+
+        return self._cached(
+            Path(self.p["cache"]) / clip / "ingest" / f"cuts-{self.p['cuts']['backend']}@{key}.json", cut
+        )
+
     def game_shots(self, clip: str, video: str) -> tuple[list[dict], list[float]]:
         """Cuts and camera scores of one video, from the cache or computed once.
 
@@ -121,15 +142,10 @@ class VideoShots(BaseBackend):
             The shots ``{"start", "end"}`` and one camera score per shot.
 
         """
+        shots = self.game_cuts(clip, video)
         cuts_key = entry_key("cuts", self.p["cuts"])
         cam_key = entry_key("camera", self.p["camera"], f"{cuts_key}/{self.p['samples']}")
         root = Path(self.p["cache"]) / clip / "ingest"
-
-        def cut() -> list[dict]:
-            log.info("cuts/%s on %s", self.p["cuts"]["backend"], clip)
-            return make_component("cuts", self.p["cuts"]).shots(video)
-
-        shots = self._cached(root / f"cuts-{self.p['cuts']['backend']}@{cuts_key}.json", cut)
 
         def score() -> list[float]:
             log.info("camera/%s on %d shots of %s", self.p["camera"]["backend"], len(shots), clip)
