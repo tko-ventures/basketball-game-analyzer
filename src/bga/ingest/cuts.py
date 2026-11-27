@@ -9,6 +9,7 @@ param of the ``shots/video`` backend (:mod:`bga.ingest.video`).
 from __future__ import annotations
 
 import hashlib
+import shutil
 import subprocess
 from collections.abc import Callable, Iterator
 from pathlib import Path
@@ -158,15 +159,20 @@ def ffmpeg_frames(video: str | Path, hw: tuple[int, int] = TRANSNET_HW) -> Itera
         ``(h, w, 3)`` uint8 RGB frames, in order.
 
     Raises:
-        RuntimeError: When ffmpeg fails.
+        FileNotFoundError: When the video does not exist.
+        RuntimeError: When ffmpeg is not installed or fails.
 
     Examples:
         >>> list(ffmpeg_frames("data/raw/missing.mp4"))
         Traceback (most recent call last):
         ...
-        RuntimeError: ffmpeg could not decode data/raw/missing.mp4: ...
+        FileNotFoundError: no video at data/raw/missing.mp4
 
     """
+    if not Path(video).is_file():
+        raise FileNotFoundError(f"no video at {video}")
+    if shutil.which("ffmpeg") is None:
+        raise RuntimeError("ffmpeg is not installed; cuts/transnetv2 decodes through it")
     h, w = hw
     cmd = ["ffmpeg", "-v", "error", "-i", str(video), "-fps_mode", "passthrough", "-vf", f"scale={w}:{h}"]
     cmd += ["-pix_fmt", "rgb24", "-f", "rawvideo", "pipe:"]
