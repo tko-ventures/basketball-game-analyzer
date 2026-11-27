@@ -1,12 +1,14 @@
-"""Layer outputs on disk: written whole, and ``meta.json`` keeps a record per sequence across runs."""
+"""Layer outputs on disk: written whole, ``meta.json`` keeps a record per sequence, and stale code reruns."""
 
+import importlib
 import json
+import sys
 import time
 
 import numpy as np
 import pytest
 
-from bga import pipeline
+from bga import pipeline, registry
 from bga.config import RunConfig
 from bga.stage import Sequence
 
@@ -26,7 +28,7 @@ def commits(monkeypatch):
 def write(runs, seq, out):
     """Store one sequence's detect output and record it in the clip's meta, as a run over that sequence does."""
     pipeline.write_output(pipeline.output_path(CFG, runs, seq, "detect"), out)
-    pipeline._write_meta(CFG, runs, "detect", [seq], time.perf_counter())
+    pipeline._write_meta(CFG, runs, "detect", [seq], time.perf_counter(), "c0de0000")
 
 
 def meta(runs) -> dict:
@@ -91,3 +93,87 @@ class TestMeta:
         path.write_text(json.dumps({"layer": "detect", "commit": "0000000"}))
         write(tmp_path, S1, {"wall_s": 1.5})
         assert list(meta(tmp_path)["sequences"]) == ["clip_s1"]
+
+
+FAKE_CFG = RunConfig(name="fake", layers={"shots": {"backend": "_fake_shots"}, "detect": {"backend": "_fake_detect"}})
+
+#: Source of a throwaway backend module; ``{value}`` is what its detect output records, ``{doc}`` its docstring.
+FAKE_SOURCE = '''"""{doc}"""
+
+from bga.stage import BaseBackend, Sequence
+
+
+class Shots(BaseBackend):
+    def sequences(self):
+        return [Sequence(name="clip_s1", clip="clip", video="missing.mp4", shot=1, frames=[0], fps=50.0)]
+
+
+class Detect(BaseBackend):
+    def run(self, seq, upstream, read):
+        return {{"frames": {{}}, "value": {value}}}
+'''
+
+
+@pytest.fixture
+def install(tmp_path, monkeypatch):
+    """Write, import and register a throwaway backend module, as editing a backend's code and rerunning does."""
+    pkg = tmp_path / "pkgs" / "fakebackends"
+    pkg.mkdir(parents=True)
+    (pkg / "__init__.py").write_text("")
+    monkeypatch.syspath_prepend(str(pkg.parent))
+    monkeypatch.setattr(sys, "dont_write_bytecode", True)  # a stale .pyc must not mask the rewrite
+
+    def _install(value: int, doc: str = "Fake backends.") -> None:
+        (pkg / "backend.py").write_text(FAKE_SOURCE.format(value=value, doc=doc))
+        monkeypatch.delitem(sys.modules, "fakebackends.backend", raising=False)
+        importlib.invalidate_caches()
+        mod = importlib.import_module("fakebackends.backend")
+        for layer, cls in (("shots", mod.Shots), ("detect", mod.Detect)):
+            cls.layer, cls.name = layer, f"_fake_{layer}"
+            monkeypatch.setitem(registry._REGISTRY, (layer, cls.name), cls)
+
+    yield _install
+    sys.modules.pop("fakebackends.backend", None)
+    sys.modules.pop("fakebackends", None)
+
+
+def fake_output(runs) -> dict:
+    """The fake detect output of the one sequence."""
+    seq = pipeline.sequences(FAKE_CFG)[0]
+    return pipeline.load_output(FAKE_CFG, runs, seq, "detect")
+
+
+class TestStaleCode:
+    def test_output_of_changed_code_is_recomputed(self, tmp_path, install):
+        install(1)
+        pipeline.run(FAKE_CFG, runs=tmp_path)
+        install(2)
+        pipeline.run(FAKE_CFG, runs=tmp_path)
+        assert fake_output(tmp_path)["value"] == 2
+
+    def test_output_is_kept_when_only_a_docstring_changed(self, tmp_path, install):
+        install(1)
+        pipeline.run(FAKE_CFG, runs=tmp_path)
+        path = pipeline.output_path(FAKE_CFG, tmp_path, pipeline.sequences(FAKE_CFG)[0], "detect")
+        before = path.stat().st_mtime_ns
+        install(1, doc="Edited docstring.")
+        pipeline.run(FAKE_CFG, runs=tmp_path)
+        assert path.stat().st_mtime_ns == before
+
+    def test_output_without_a_code_record_is_kept(self, tmp_path, install):
+        install(1)
+        pipeline.run(FAKE_CFG, runs=tmp_path)
+        meta_path = FAKE_CFG.run_dir(tmp_path, "clip", "detect") / "meta.json"
+        legacy = json.loads(meta_path.read_text())
+        del legacy["sequences"]["clip_s1"]["code"]
+        meta_path.write_text(json.dumps(legacy))
+        install(2)
+        pipeline.run(FAKE_CFG, runs=tmp_path)
+        assert fake_output(tmp_path)["value"] == 1
+
+    def test_record_carries_the_code_key(self, tmp_path, install):
+        install(1)
+        pipeline.run(FAKE_CFG, runs=tmp_path)
+        meta_path = FAKE_CFG.run_dir(tmp_path, "clip", "detect") / "meta.json"
+        record = json.loads(meta_path.read_text())["sequences"]["clip_s1"]
+        assert record["code"] == pipeline.code_keys(FAKE_CFG)["detect"]

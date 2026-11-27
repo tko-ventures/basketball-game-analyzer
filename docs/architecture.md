@@ -81,7 +81,8 @@ Other registered backends remain available for baselines, ablations, and reprodu
 - **Configs:** A run is defined by a YAML `RunConfig` (`configs/*.yaml`) specifying `backend`, `params`, and `weights` per layer. CLI overrides use `--set layer.params.key=value`.
 - **Layer hashes:** Each layer gets an 8-char hash covering its own config plus upstream layer hashes (excluding sequence-selection parameters so dev and held-out runs share directories).
 - **Outputs:** Written atomically to `runs/<clip>/<layer>/<backend>@<hash8>/<sequence>.json`, with heavy arrays saved as sibling `.npy` files and provenance recorded per sequence in `meta.json`.
-- **Memory discipline:** `bga.pipeline.run` executes one layer at a time across all sequences (`load()` → infer → `unload()`), keeping at most one heavy model resident in unified memory on the M1 Max. Existing outputs are reused unless `--force <layer>` is passed.
+- **Code keys:** Each sequence record in `meta.json` also carries the layer's 8-char code key (`bga.pipeline.code_keys`). The key hashes the backend module's source and every module it imports from `bga` or from its own package (`bga.codehash`). Docstrings, comments and layout are ignored, and so is `bga.registry`. The keys of upstream layers are chained in. The key covers uncommitted edits, so it is not tied to a commit.
+- **Memory discipline and reuse:** `bga.pipeline.run` executes one layer at a time across all sequences (`load()` → infer → `unload()`), keeping at most one heavy model resident in unified memory on the M1 Max. An existing output is reused unless `--force <layer>` is passed or its recorded code key differs from the current one. Outputs whose records have no code key (written before 2026-11-27) are reused.
 
 ### Local Mac + cloud GPU compute (Colab & Modal)
 

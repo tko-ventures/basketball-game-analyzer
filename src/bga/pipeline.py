@@ -3,20 +3,22 @@
 Each layer runs over every sequence before the next layer starts, so one heavy model is resident at a
 time. Outputs go to ``runs/<clip>/<layer>/<backend>@<hash8>/<sequence>.json`` with a ``meta.json``;
 arrays a backend returns under ``arrays`` go next to it as ``<sequence>.<name>.npy``. An existing output
-is reused unless ``force`` names that layer, so changing one layer's config reruns only that layer and
-the layers downstream of it. Every file is written whole (``bga.paths.write_atomic``), the JSON last, so a
+is reused unless ``force`` names that layer, or its record was made by other code (:func:`code_keys`), so changing
+one layer's config reruns only that layer and the layers downstream of it, and changing a backend's code reruns
+the layers whose code key changed. Every file is written whole (``bga.paths.write_atomic``), the JSON last, so a
 run stopped part way never leaves an output that looks finished.
 
 ``meta.json`` describes the directory: the layer entry and hashes, the config, commit and wall time of the last
 run that wrote there, and under ``sequences`` one record per sequence written since 2026-11-22 (commit, config,
-time written, wall time, and platform, GPU, seconds and USD for remote calls). A run over some of the sequences
-adds or replaces only their records.
+time written, wall time, code key since 2026-11-27, and platform, GPU, seconds and USD for remote calls). A run
+over some of the sequences adds or replaces only their records.
 
 """
 
 from __future__ import annotations
 
 import datetime as dt
+import hashlib
 import json
 import logging
 import subprocess
@@ -26,6 +28,7 @@ from pathlib import Path
 import numpy as np
 
 from bga import registry
+from bga.codehash import source_hash
 from bga.config import LAYERS, RunConfig
 from bga.paths import write_atomic
 from bga.stage import Backend, FrameReader, Sequence
@@ -69,6 +72,79 @@ def make_backend(cfg: RunConfig, layer: str) -> Backend:
     """
     entry = cfg.layers[layer]
     return registry.get(layer, entry.backend)(entry.params, entry.weights)
+
+
+def code_keys(cfg: RunConfig) -> dict[str, str]:
+    """Code key of every configured layer: its backend's source hash, chained with the keys of the layers it reads.
+
+    A layer's key changes when its own backend code changes and when the code of any upstream layer does, since a
+    recomputed upstream output changes what the layer reads.
+
+    Args:
+        cfg: The run config.
+
+    Returns:
+        Layer name to the first 8 hex digits of a SHA-256 over its backend module, source hash and upstream keys.
+
+    Examples:
+        >>> from bga.config import RunConfig
+        >>> cfg = RunConfig(name="demo", layers={"shots": {"backend": "gold"}})
+        >>> keys = code_keys(cfg)
+        >>> list(keys), len(keys["shots"])
+        (['shots'], 8)
+
+    """
+    keys: dict[str, str] = {}
+    for layer in LAYERS:  # upstream layers come first
+        if layer not in cfg.layers:
+            continue
+        module = registry.get(layer, cfg.layers[layer].backend).__module__
+        ups = {u: keys[u] for u in LAYERS[layer] if u in keys}
+        blob = json.dumps({"module": module, "source": source_hash(module), "upstream": ups}, sort_keys=True)
+        keys[layer] = hashlib.sha256(blob.encode()).hexdigest()[:8]
+    return keys
+
+
+def stale_sequences(cfg: RunConfig, runs: Path, seqs: list[Sequence], layer: str, code: str) -> list[Sequence]:
+    """The sequences in ``seqs`` whose stored ``layer`` output was made by code with another key.
+
+    An output whose ``meta.json`` record has no code key (written before 2026-11-27) cannot be checked and is kept.
+
+    Args:
+        cfg: The run config.
+        runs: Root of all run outputs.
+        seqs: Sequences to check; those without an output are skipped.
+        layer: A configured layer name.
+        code: The layer's current key from :func:`code_keys`.
+
+    Returns:
+        The stale sequences, in the order given.
+
+    Examples:
+        >>> import tempfile
+        >>> from bga.config import RunConfig
+        >>> cfg = RunConfig(name="demo", layers={"shots": {"backend": "gold"}})
+        >>> seq = Sequence(name="clip_s2", clip="clip", video="clip.mp4", shot=2, frames=[0], fps=50.0)
+        >>> with tempfile.TemporaryDirectory() as tmp:
+        ...     path = output_path(cfg, Path(tmp), seq, "shots")
+        ...     path.parent.mkdir(parents=True)
+        ...     _ = path.write_text("{}")
+        ...     _ = (path.parent / "meta.json").write_text('{"sequences": {"clip_s2": {"code": "aaaa"}}}')
+        ...     [s.name for s in stale_sequences(cfg, Path(tmp), [seq], "shots", "bbbb")]
+        ['clip_s2']
+
+    """
+    metas: dict[str, dict] = {}
+    stale = []
+    for seq in seqs:
+        if not output_path(cfg, runs, seq, layer).exists():
+            continue
+        if seq.clip not in metas:
+            metas[seq.clip] = _read_meta(cfg.run_dir(runs, seq.clip, layer) / "meta.json").get("sequences") or {}
+        made_by = (metas[seq.clip].get(seq.name) or {}).get("code")
+        if made_by is not None and made_by != code:
+            stale.append(seq)
+    return stale
 
 
 def sequences(cfg: RunConfig, only: list[str] | None = None) -> list[Sequence]:
@@ -245,8 +321,9 @@ def run(
 ) -> list[Sequence]:
     """Run every configured layer over the config's sequences, layer by layer, reusing stored outputs.
 
-    The shots layer only selects sequences. A layer runs on the sequences without an output (all of them when
-    ``force`` names it) and then writes ``meta.json`` per clip. Backends with ``scope == "clip"`` run once per clip
+    The shots layer only selects sequences. A layer runs on the sequences without an output, or whose output was
+    made by code with another key (:func:`stale_sequences`; all of them when ``force`` names it), and then writes
+    ``meta.json`` per clip. Backends with ``scope == "clip"`` run once per clip
     across every selected sequence of that clip. With ``remote``, CUDA backends and ``remote_layers`` run on Modal;
     without it, CUDA backends are skipped with a warning.
 
@@ -270,6 +347,7 @@ def run(
 
     """
     seqs = sequences(cfg, only)
+    keys = code_keys(cfg)
     for layer in LAYERS:
         if layer == "shots" or layer not in cfg.layers or (layers and layer not in layers):
             continue
@@ -279,13 +357,19 @@ def run(
             log.warning("%s/%s needs CUDA: run it with --remote modal; skipped", layer, cfg.layers[layer].backend)
             continue
         todo = [s for s in seqs if (force and layer in force) or not output_path(cfg, runs, s, layer).exists()]
+        stale = stale_sequences(cfg, runs, [s for s in seqs if s not in todo], layer, keys[layer])
+        if stale:
+            log.warning(
+                "%s/%s: %d cached outputs were made by other code; recomputing", layer, backend.name, len(stale)
+            )
+            todo = [s for s in seqs if s in todo or s in stale]
         if not todo:
             continue
         log.info("%s/%s on %d sequences%s", layer, cfg.layers[layer].backend, len(todo), " (modal)" if here else "")
         t0 = time.perf_counter()
         if here:
             gpu = getattr(backend, "gpu", None) if backend.requires == "cuda" else remote_gpu
-            _run_remote(cfg, runs, layer, todo, gpu)
+            _run_remote(cfg, runs, layer, todo, gpu, keys[layer])
             continue
         backend.load()
         try:
@@ -296,11 +380,11 @@ def run(
                 done = todo
         finally:
             backend.unload()
-        _write_meta(cfg, runs, layer, done, t0)
+        _write_meta(cfg, runs, layer, done, t0, keys[layer])
     return seqs
 
 
-def _run_remote(cfg: RunConfig, runs: Path, layer: str, todo: list[Sequence], gpu: str | None) -> None:
+def _run_remote(cfg: RunConfig, runs: Path, layer: str, todo: list[Sequence], gpu: str | None, code: str) -> None:
     """Run one layer on Modal, writing each sequence's output as its call finishes, and the meta of those written."""
     from bga.remote.modal_runner import run_layer
 
@@ -317,10 +401,10 @@ def _run_remote(cfg: RunConfig, runs: Path, layer: str, todo: list[Sequence], gp
         run_layer(layer, cfg.layers[layer].model_dump(), todo, ups, gpu, on_result=keep)
     finally:
         if done:
-            _write_meta(cfg, runs, layer, done, t0)
+            _write_meta(cfg, runs, layer, done, t0, code)
 
 
-def sequence_record(out: dict, commit: str, config: str, written: str) -> dict:
+def sequence_record(out: dict, commit: str, config: str, written: str, code: str | None = None) -> dict:
     """One sequence's record in ``meta.json``: which code and config made its output, when, where and how long.
 
     Args:
@@ -328,10 +412,11 @@ def sequence_record(out: dict, commit: str, config: str, written: str) -> dict:
         commit: Commit that made it.
         config: Config name of the run.
         written: ISO time the output was written.
+        code: The layer's code key (:func:`code_keys`) when the output was made.
 
     Returns:
-        ``{"commit", "config", "written", "wall_s", "platform"}``, with ``gpu``, ``seconds`` and ``usd`` for a remote
-        call; ``platform`` is ``local`` otherwise.
+        ``{"commit", "config", "written", "wall_s", "platform", "code"}``, with ``gpu``, ``seconds`` and ``usd`` for a
+        remote call; ``platform`` is ``local`` otherwise.
 
     Examples:
         >>> sequence_record({"wall_s": 1.5}, "abc1234", "demo", "2026-11-22T20:00:00")["platform"]
@@ -343,6 +428,7 @@ def sequence_record(out: dict, commit: str, config: str, written: str) -> dict:
 
     """
     rec = {"commit": commit, "config": config, "written": written, "wall_s": out.get("wall_s"), "platform": "local"}
+    rec["code"] = code
     remote = out.get("remote")
     if remote:
         rec.update({k: remote.get(k) for k in ("platform", "gpu", "seconds", "usd")})
@@ -387,7 +473,7 @@ def _read_meta(path: Path) -> dict:
         return {}
 
 
-def _write_meta(cfg: RunConfig, runs: Path, layer: str, todo: list[Sequence], t0: float) -> None:
+def _write_meta(cfg: RunConfig, runs: Path, layer: str, todo: list[Sequence], t0: float, code: str) -> None:
     """Record a run in each clip's ``meta.json``: the run's own fields, and the records of the sequences it wrote.
 
     Records of sequences this run did not write are kept.
@@ -399,7 +485,8 @@ def _write_meta(cfg: RunConfig, runs: Path, layer: str, todo: list[Sequence], t0
         records = dict(_read_meta(path).get("sequences") or {})
         for s in todo:
             if s.clip == clip:
-                records[s.name] = sequence_record(load_output(cfg, runs, s, layer), commit, cfg.name, written)
+                out = load_output(cfg, runs, s, layer)
+                records[s.name] = sequence_record(out, commit, cfg.name, written, code)
         meta = {
             "layer": layer,
             "backend": cfg.layers[layer].backend,
@@ -408,6 +495,7 @@ def _write_meta(cfg: RunConfig, runs: Path, layer: str, todo: list[Sequence], t0
             "upstream": {u: cfg.layer_hash(u) for u in LAYERS[layer] if u in cfg.layers},
             "config": cfg.name,
             "commit": commit,
+            "code": code,
             "wall_s": round(time.perf_counter() - t0, 1),
             "sequences": dict(sorted(records.items())),
         }
