@@ -153,7 +153,7 @@ flowchart TB
 
         L1["«L1: court — homography»\nActive: rfdetr_keypoint (PLK + RANSAC + smooth4)\nAlt: roboflow_keypoints\nUses fiba_court.json & propagate.py"]:::layer
 
-        L2["«L2: detect — objects & possession»\nActive: rfdetr_torch (PLK Large @ 1280px MPS;\n6 active classes incl. player-in-possession)\nAlt: roboflow_inference (+ onnx_rfdetr, tiles, nms)"]:::layer
+        L2["«L2: detect — objects & possession»\nActive: rfdetr_torch, plk-r4-l4 (PLK Large @ 1280px MPS;\n6 active classes incl. player-in-possession)\nAlt: roboflow_inference (+ onnx_rfdetr, tiles, nms)"]:::layer
 
         L3["«L3: team — kit classification»\nActive: siglip_kmeans\nSigLIP + UMAP + KMeans @ 5 fps\nAligned via clip light/dark kit meta"]:::layer
 
@@ -169,7 +169,7 @@ flowchart TB
 
         L6["«L6: positions — 2D FIBA court (x_m, y_m)»\nActive: bbox_bottom (linked-track box foot +\nw>0 guard + clean_paths smooth_window=9)\nComparator: ankles_pose (COCO 17-kp + airborne hold)"]:::layer
 
-        L7["«L7: ball — ball, possession & shots»\nActive: fused, ball-plk-fused-v2 (rim-FP filter +\nDAG DP ball + Viterbi HMM possession +\nrim-trajectory shots, shooter before rim zone)\nBaseline: skalski (pip + ShotEventTracker)"]:::layer
+        L7["«L7: ball — ball, possession & shots»\nActive: fused, ball-plk-fused-v6-r4 (rim-FP filter +\nDAG DP ball + Viterbi HMM possession +\nrim-trajectory shots, shooter before rim zone,\nfree throws by scene stillness)\nBaseline: skalski (pip + ShotEventTracker)"]:::layer
 
         L0 --> L1
         L0 --> L2

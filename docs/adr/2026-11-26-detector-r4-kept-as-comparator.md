@@ -1,7 +1,7 @@
 # Detector round 4 (`plk-r4-l4`) stays a comparator; `plk-r3-poss` and `ball-plk-fused-v2` remain active
 
 - **Date:** 2026-11-26
-- **Status:** Accepted (Tomasz, 2026-11-26)
+- **Status:** Superseded by [2026-11-27-detector-r4-and-fused-v6-active.md](2026-11-27-detector-r4-and-fused-v6-active.md)
 - **Area:** Pipeline (detect, L2; ball, L7)
 - **Decider:** Tomasz / Implementer
 
