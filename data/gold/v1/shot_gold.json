@@ -90,6 +90,68 @@
   "hSXPCy5NedU_s856",
   "hSXPCy5NedU_s89"
  ],
+ "free_throw_sequences": [
+  "1A79NXz9CFM_s141",
+  "1A79NXz9CFM_s175",
+  "1A79NXz9CFM_s196",
+  "1A79NXz9CFM_s220",
+  "1A79NXz9CFM_s241",
+  "1A79NXz9CFM_s270",
+  "1A79NXz9CFM_s304",
+  "1A79NXz9CFM_s322",
+  "1A79NXz9CFM_s595",
+  "1A79NXz9CFM_s612",
+  "1A79NXz9CFM_s637",
+  "1A79NXz9CFM_s659",
+  "1A79NXz9CFM_s679",
+  "1A79NXz9CFM_s698",
+  "1A79NXz9CFM_s723",
+  "1A79NXz9CFM_s746",
+  "1A79NXz9CFM_s765",
+  "1A79NXz9CFM_s788",
+  "1A79NXz9CFM_s814",
+  "1A79NXz9CFM_s837",
+  "hSXPCy5NedU_s105",
+  "hSXPCy5NedU_s117",
+  "hSXPCy5NedU_s129",
+  "hSXPCy5NedU_s145",
+  "hSXPCy5NedU_s156",
+  "hSXPCy5NedU_s168",
+  "hSXPCy5NedU_s179",
+  "hSXPCy5NedU_s189",
+  "hSXPCy5NedU_s209",
+  "hSXPCy5NedU_s220",
+  "hSXPCy5NedU_s232",
+  "hSXPCy5NedU_s242",
+  "hSXPCy5NedU_s258",
+  "hSXPCy5NedU_s267",
+  "hSXPCy5NedU_s282",
+  "hSXPCy5NedU_s298",
+  "hSXPCy5NedU_s313",
+  "hSXPCy5NedU_s326",
+  "hSXPCy5NedU_s573",
+  "hSXPCy5NedU_s582",
+  "hSXPCy5NedU_s598",
+  "hSXPCy5NedU_s608",
+  "hSXPCy5NedU_s630",
+  "hSXPCy5NedU_s647",
+  "hSXPCy5NedU_s657",
+  "hSXPCy5NedU_s665",
+  "hSXPCy5NedU_s681",
+  "hSXPCy5NedU_s696",
+  "hSXPCy5NedU_s708",
+  "hSXPCy5NedU_s722",
+  "hSXPCy5NedU_s733",
+  "hSXPCy5NedU_s758",
+  "hSXPCy5NedU_s768",
+  "hSXPCy5NedU_s780",
+  "hSXPCy5NedU_s789",
+  "hSXPCy5NedU_s805",
+  "hSXPCy5NedU_s813",
+  "hSXPCy5NedU_s843",
+  "hSXPCy5NedU_s856",
+  "hSXPCy5NedU_s89"
+ ],
  "shots": [
   {
    "sequence": "4XMD9FWmQws_s10",
@@ -12360,19 +12422,37 @@
    "note": ""
   },
   {
+   "sequence": "hSXPCy5NedU_s168",
+   "youtube_id": "hSXPCy5NedU",
+   "shot": 168,
+   "held_out": false,
+   "release_frame": 81670,
+   "rim_frame": 81730,
+   "outcome": "made",
+   "points": 1,
+   "shooter_xyxy": [
+    505.7,
+    410.8,
+    618.1,
+    757.4
+   ],
+   "shooter_team": "home",
+   "note": "free throw (light kit): only attempt in sequence; ball on rim 81730, net moves 81745, no bounce-out seen; DZI 21->22 by s179; please confirm"
+  },
+  {
    "sequence": "hSXPCy5NedU_s189",
    "youtube_id": "hSXPCy5NedU",
    "shot": 189,
    "held_out": false,
-   "release_frame": 94365,
+   "release_frame": 94370,
    "rim_frame": 94405,
    "outcome": "made",
    "points": 2,
    "shooter_xyxy": [
-    1247.1,
-    344.4,
-    1329.9,
-    587.5
+    1246.9,
+    310.7,
+    1325.1,
+    568.2
    ],
    "shooter_team": "home",
    "note": ""
@@ -12468,6 +12548,24 @@
    "note": ""
   },
   {
+   "sequence": "hSXPCy5NedU_s242",
+   "youtube_id": "hSXPCy5NedU",
+   "shot": 242,
+   "held_out": false,
+   "release_frame": 126585,
+   "rim_frame": 126650,
+   "outcome": "made",
+   "points": 1,
+   "shooter_xyxy": [
+    1314.2,
+    393.0,
+    1426.5,
+    720.4
+   ],
+   "shooter_team": "away",
+   "note": "free throw (dark kit): likely and-one (score 33-24 -> 33-26 at same 7:43); ball drops in ring 126650, net flares 126665"
+  },
+  {
    "sequence": "hSXPCy5NedU_s258",
    "youtube_id": "hSXPCy5NedU",
    "shot": 258,
@@ -12520,6 +12618,24 @@
    ],
    "shooter_team": "away",
    "note": ""
+  },
+  {
+   "sequence": "hSXPCy5NedU_s298",
+   "youtube_id": "hSXPCy5NedU",
+   "shot": 298,
+   "held_out": false,
+   "release_frame": 167375,
+   "rim_frame": 167440,
+   "outcome": "missed",
+   "points": 1,
+   "shooter_xyxy": [
+    472.6,
+    300.6,
+    578.9,
+    697.5
+   ],
+   "shooter_team": "home",
+   "note": "free throw (light kit): only attempt in sequence; hits backboard/rim and bounces out left; live putback follows ~167620 (not FT)"
   },
   {
    "sequence": "hSXPCy5NedU_s298",
@@ -12610,6 +12726,24 @@
    ],
    "shooter_team": "home",
    "note": ""
+  },
+  {
+   "sequence": "hSXPCy5NedU_s573",
+   "youtube_id": "hSXPCy5NedU",
+   "shot": 573,
+   "held_out": false,
+   "release_frame": 275260,
+   "rim_frame": 275320,
+   "outcome": "missed",
+   "points": 1,
+   "shooter_xyxy": [
+    1327.8,
+    350.0,
+    1445.5,
+    748.7
+   ],
+   "shooter_team": "home",
+   "note": "free throw (light kit): only attempt in sequence (likely 1st of 2); hits rim and pops out right"
   },
   {
    "sequence": "hSXPCy5NedU_s582",
@@ -12724,6 +12858,24 @@
    "youtube_id": "hSXPCy5NedU",
    "shot": 733,
    "held_out": false,
+   "release_frame": 373135,
+   "rim_frame": 373200,
+   "outcome": "made",
+   "points": 1,
+   "shooter_xyxy": [
+    494.7,
+    368.8,
+    600.6,
+    742.0
+   ],
+   "shooter_team": "away",
+   "note": "free throw (dark kit): orange #7 GLI; last FT of set (earlier attempt, if any, before seq start); score 81-61 to 81-62; ball through ring ~373196"
+  },
+  {
+   "sequence": "hSXPCy5NedU_s733",
+   "youtube_id": "hSXPCy5NedU",
+   "shot": 733,
+   "held_out": false,
    "release_frame": 374245,
    "rim_frame": 374245,
    "outcome": "made",
@@ -12810,6 +12962,24 @@
    "note": ""
   },
   {
+   "sequence": "hSXPCy5NedU_s843",
+   "youtube_id": "hSXPCy5NedU",
+   "shot": 843,
+   "held_out": false,
+   "release_frame": 436680,
+   "rim_frame": 436740,
+   "outcome": "made",
+   "points": 1,
+   "shooter_xyxy": [
+    541.7,
+    367.3,
+    639.4,
+    756.1
+   ],
+   "shooter_team": "away",
+   "note": "free throw (dark kit): orange #6 Almeida GLI; hits front rim ~436736, bounces on rim, in"
+  },
+  {
    "sequence": "1A79NXz9CFM_s175",
    "youtube_id": "1A79NXz9CFM",
    "shot": 175,
@@ -12862,6 +13032,24 @@
    ],
    "shooter_team": "away",
    "note": ""
+  },
+  {
+   "sequence": "1A79NXz9CFM_s196",
+   "youtube_id": "1A79NXz9CFM",
+   "shot": 196,
+   "held_out": true,
+   "release_frame": 83190,
+   "rim_frame": 83250,
+   "outcome": "made",
+   "points": 1,
+   "shooter_xyxy": [
+    296.3,
+    457.0,
+    475.3,
+    980.7
+   ],
+   "shooter_team": "home",
+   "note": "free throw (light kit): 1st of 2; hits rim, rolls in; score 10-5 to 11-5"
   },
   {
    "sequence": "1A79NXz9CFM_s220",
@@ -12940,6 +13128,24 @@
    "youtube_id": "1A79NXz9CFM",
    "shot": 270,
    "held_out": true,
+   "release_frame": 140955,
+   "rim_frame": 141015,
+   "outcome": "made",
+   "points": 1,
+   "shooter_xyxy": [
+    1377.0,
+    556.5,
+    1490.1,
+    918.3
+   ],
+   "shooter_team": "away",
+   "note": "free throw (dark kit): last of set (earlier attempts before sequence start); score 27-16 to 27-17"
+  },
+  {
+   "sequence": "1A79NXz9CFM_s270",
+   "youtube_id": "1A79NXz9CFM",
+   "shot": 270,
+   "held_out": true,
    "release_frame": 142235,
    "rim_frame": 142250,
    "outcome": "made",
@@ -13008,13 +13214,31 @@
    "note": ""
   },
   {
+   "sequence": "1A79NXz9CFM_s595",
+   "youtube_id": "1A79NXz9CFM",
+   "shot": 595,
+   "held_out": true,
+   "release_frame": 249880,
+   "rim_frame": 249940,
+   "outcome": "made",
+   "points": 1,
+   "shooter_xyxy": [
+    1382.1,
+    525.2,
+    1506.6,
+    919.1
+   ],
+   "shooter_team": "home",
+   "note": "free throw (light kit): 1st of 2; score 54-25 to 55-25"
+  },
+  {
    "sequence": "1A79NXz9CFM_s612",
    "youtube_id": "1A79NXz9CFM",
    "shot": 612,
    "held_out": true,
    "release_frame": 267450,
    "rim_frame": 267455,
-   "outcome": "missed",
+   "outcome": "made",
    "points": 2,
    "shooter_xyxy": [
     1149.8,
@@ -13024,6 +13248,24 @@
    ],
    "shooter_team": "away",
    "note": ""
+  },
+  {
+   "sequence": "1A79NXz9CFM_s637",
+   "youtube_id": "1A79NXz9CFM",
+   "shot": 637,
+   "held_out": true,
+   "release_frame": 284025,
+   "rim_frame": 284090,
+   "outcome": "made",
+   "points": 1,
+   "shooter_xyxy": [
+    277.0,
+    525.4,
+    425.2,
+    989.0
+   ],
+   "shooter_team": "away",
+   "note": "free throw (dark kit): sequence starts mid-attempt; shooter kit from one cell; score 61-37 to 61-38, shot clock resets"
   },
   {
    "sequence": "1A79NXz9CFM_s637",
@@ -13066,18 +13308,36 @@
    "youtube_id": "1A79NXz9CFM",
    "shot": 659,
    "held_out": true,
-   "release_frame": 299205,
+   "release_frame": 299200,
    "rim_frame": 299215,
    "outcome": "made",
    "points": 2,
    "shooter_xyxy": [
-    1179.3,
-    299.9,
-    1248.2,
-    583.4
+    1173.4,
+    294.0,
+    1246.3,
+    565.7
    ],
    "shooter_team": "away",
    "note": ""
+  },
+  {
+   "sequence": "1A79NXz9CFM_s679",
+   "youtube_id": "1A79NXz9CFM",
+   "shot": 679,
+   "held_out": true,
+   "release_frame": 309215,
+   "rim_frame": 309275,
+   "outcome": "made",
+   "points": 1,
+   "shooter_xyxy": [
+    1335.6,
+    503.2,
+    1489.6,
+    918.7
+   ],
+   "shooter_team": "home",
+   "note": "free throw (light kit): 1st of 2; bounces on rim/backboard, drops in ~309370; scorebug not yet updated by sequence end"
   },
   {
    "sequence": "1A79NXz9CFM_s698",
@@ -13168,6 +13428,24 @@
    ],
    "shooter_team": "away",
    "note": ""
+  },
+  {
+   "sequence": "1A79NXz9CFM_s788",
+   "youtube_id": "1A79NXz9CFM",
+   "shot": 788,
+   "held_out": true,
+   "release_frame": 388135,
+   "rim_frame": 388200,
+   "outcome": "made",
+   "points": 1,
+   "shooter_xyxy": [
+    311.0,
+    519.2,
+    436.1,
+    973.9
+   ],
+   "shooter_team": "away",
+   "note": "free throw (dark kit): 1st of 2; score 87-69 to 87-70"
   },
   {
    "sequence": "1A79NXz9CFM_s814",
