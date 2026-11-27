@@ -1,7 +1,7 @@
 # `plk-r4-l4` and `ball-plk-fused-v6-r4` become the active detector and Layer 7 config
 
 - **Date:** 2026-11-27
-- **Status:** Accepted (Tomasz, 2026-11-27) on dev; the one held-out score waits for his approval
+- **Status:** Accepted (Tomasz, 2026-11-27) on dev; held-out scored once with his approval the same day (mixed, below)
 - **Area:** Pipeline (detect, L2; ball, L7)
 - **Decider:** Tomasz / Implementer
 - **Supersedes:** [2026-11-26-detector-r4-kept-as-comparator.md](2026-11-26-detector-r4-kept-as-comparator.md)
@@ -45,9 +45,17 @@ On 2026-11-26, `plk-r4-l4` stayed a comparator. Its gains were one shot per spli
 ## Consequences
 
 - `docs/architecture.md` and `docs/architecture-c4-view.md` list r4 and v6-r4. The link and identity benchmarks there are still the r3 numbers; on r4 tracking is flat and IDSW rises by 10 on dev.
-- The held-out score comes once, with Tomasz's approval:
-  - `ball-plk-fused-v2` (active before) against `v6` and `v6-r4`;
-  - on the combined held-out gold, which includes the PGE Start full game.
+- Held-out, scored once with Tomasz's approval (2026-11-27): 31 shots, 233 frames, 35 field goals and 6 free throws, from `Tnuscrm9RyU` and the PGE Start full game.
 
-  If `v6-r4` loses there, this ADR is revisited.
+  | | ball F1 | poss acc | holder F1 | team acc | shot F1 (P/R) | outcome acc | shooter acc | FT F1 (P/R) |
+  |---|---|---|---|---|---|---|---|---|
+  | `ball-plk-fused-v2` (r3) | 0.867 | 0.704 | 0.747 | 0.897 | 0.842 (0.78/0.91) | 0.844 | 0.719 | – |
+  | `ball-plk-fused-v6` (r3) | 0.874 | 0.747 | 0.770 | 0.889 | 0.842 (0.78/0.91) | 0.844 | 0.750 | 0.444 (0.67/0.33) |
+  | `ball-plk-fused-v6-r4` | 0.908 | 0.777 | 0.799 | 0.865 | 0.785 (0.70/0.89) | 0.871 | 0.774 | 0.400 (0.50/0.33) |
+
+  - **Held on held-out:** the gains in ball, possession, holder and shooter, and on held-out outcome too.
+  - **Did not hold:**
+    - shot F1 (44 predicted shots against 41, for 35 field goals);
+    - team accuracy;
+    - free-throw recall: 2 of 6, against 6 of 6 on dev.
 - Referee AP falls slightly on both splits (held-out 0.810 → 0.743, scored 2026-11-26). Referees are excluded from holders and teams, so Layer 7 does not depend on it.
