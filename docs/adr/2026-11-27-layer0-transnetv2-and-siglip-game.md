@@ -1,7 +1,7 @@
 # Layer 0 ingest: `shots/video` with TransNet V2 cuts (threshold 0.3) and the `siglip_game` camera check
 
 - **Date:** 2026-11-27
-- **Status:** Accepted on dev; held-out not scored yet
+- **Status:** Accepted (dev; held-out scored once, 2026-11-27)
 - **Area:** Pipeline (shots, L0)
 - **Decider:** Implementer
 - **Builds on:** [2026-11-23-highlights-footage-and-m10-ingest-milestone.md](2026-11-23-highlights-footage-and-m10-ingest-milestone.md)
@@ -62,6 +62,29 @@ main camera and a scorebug. The arena-colour check removes them.
 - **TransNet V2 at 0.3:** catches them. Its extra cuts are mostly both ends of one stinger; the 36-frame sliver
   between them is shorter than `min_s` and dropped.
 
+## Held-out (scored once, 2026-11-27)
+
+Held-out is `Tnuscrm9RyU` (highlights) and the full game `1A79NXz9CFM`. Their cut gold was built by the same review: 95
+disagreements read, 60 of 60 sampled agreements real, every further `transnetv2` cut at 0.3 read.
+
+| config | cut P | cut R | camera acc | central P | central R |
+|---|---|---|---|---|---|
+| `ingest-siglip-zeroshot` | – | – | 0.790 | 0.748 | 1.000 |
+| `ingest-siglip-game-hsv` (`hist_diff`) | 0.942 | 0.845 | 0.892 | 0.858 | 0.990 |
+| `ingest-transnetv2-game-hsv` (0.5) | 1.000 | 0.901 | | | |
+| `ingest-transnetv2-t030-game-hsv` (0.3) | 0.995 | 0.998 | 0.892 | 0.858 | 0.990 |
+
+The cuts hold up: threshold 0.3 catches the 2025/26 PGE stingers (a blue card) as it caught the ORLEN ones. The
+camera check does not hold up as well as on dev (0.971). Of its 32 false central shots on `1A79NXz9CFM`, most show this
+game's own main camera outside live play:
+- the pre-tip warm-up (14 shots in minutes 3–11);
+- quarter-break score banners;
+- slow-motion replays shot from a main-camera angle;
+- the final stats screen.
+
+The gold tags these `other`, since `central` means the main camera during play with the scorebug. An arena-colour
+check cannot separate them, because the arena is the same. Nothing was tuned on held-out.
+
 ## Decision
 
 The production Layer 0 config is `ingest-transnetv2-t030-game-hsv`:
@@ -80,8 +103,10 @@ sequences every other layer is scored on.
   Court, detect, team and appearance run on Modal (`--remote-layer`, A10G after L4 sat in Modal's capacity queue);
   track, numbers and the later layers run on the Mac. The Modal image has no PARSeq (`strhub`), so `numbers` stays
   local.
-- **Picked on dev, held-out not scored:** `min_sim` and the threshold were picked on dev. The held-out games
-  (`Tnuscrm9RyU`, `1A79NXz9CFM`) are scored once at the end of M10.
+- **Picked on dev:** `min_sim` and the threshold were picked on dev; held-out was scored once (above).
+- **Non-play footage kept:** Layer 0 keeps main-camera footage outside live play as sequences (warm-ups,
+  break banners, some replays). It costs compute and adds tracks outside play. A scorebug check, as used when
+  labelling the camera tags, is the follow-up. It must be designed on dev and scored on footage not yet seen.
 - **What the cut gold can miss:** it only holds cuts some detector made. A cut every detector missed is not in it, so
   recall is over the cuts found. A new detector's false positives on no gold entry are counted as unread and need
   reading before its precision counts.
