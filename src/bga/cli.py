@@ -771,8 +771,10 @@ INGEST_INTRO = (
     "## Ingest (Layer 0)\n\n"
     "Scored by `bga eval-ingest` on the gold games of `data/labels/gold.json`, dev unless `--held-out`. **camera"
     " acc:** share of label-file shots tagged `central` or `other` (shots of at least 6 s) that the `shots/video`"
-    " config's camera backend tags the same, on the label file's own shot bounds. **central P / R:** precision and"
-    " recall of `central`. **ms/shot:** the classifier on M1 Max, frame reading excluded.\n\n"
+    " config's camera backend tags the same, on the label file's own shot bounds. The backend scores every shot of"
+    " the game and only tagged shots count; rows whose notes do not say *whole game* scored the tagged shots alone."
+    " **central P / R:** precision and recall of `central`. **ms/shot:** the classifier on M1 Max per scored shot,"
+    " frame reading excluded.\n\n"
 )
 
 
@@ -871,6 +873,7 @@ def eval_cuts(
 
     """
     from bga.eval.ingest import score_cuts
+    from bga.ingest.video import VideoShots
 
     _setup_logging(verbose)
     rows = []
@@ -878,7 +881,7 @@ def eval_cuts(
         cfg = load_config(path, set_)
         if cfg.layers["shots"].backend != "video":
             raise typer.BadParameter(f"{path}: shots backend is {cfg.layers['shots'].backend!r}, not 'video'")
-        params = cfg.layers["shots"].params
+        params = VideoShots(cfg.layers["shots"].params).p
         s = score_cuts(params, held_out=held_out)
         k = s.counts
         games = ", ".join(f"{y} {_fmt(c.precision)}/{_fmt(c.recall)}" for y, c in s.per_game.items())
@@ -899,6 +902,37 @@ def _shots_split(held_out: bool, all_splits: bool) -> str:
     if all_splits:
         return "all"
     return "only" if held_out else "exclude"
+
+
+def _apply_split(cfg: RunConfig, held_out: bool, all_splits: bool) -> None:
+    """Set the gold split on a shots backend that has one; refuse the split flags for one that does not.
+
+    ``shots/video`` takes its games from ``clips`` in the config, so it has no split to set.
+
+    Args:
+        cfg: The run config, changed in place.
+        held_out: ``--held-out``.
+        all_splits: ``--all-splits``.
+
+    Raises:
+        typer.BadParameter: When a split flag is given for a shots backend without ``held_out``.
+
+    Examples:
+        >>> cfg = load_config(Path("configs/e2e-video-fused-v8-r4.yaml"), [])
+        >>> _apply_split(cfg, held_out=False, all_splits=False)
+        >>> "held_out" in cfg.layers["shots"].params
+        False
+        >>> gold = load_config(Path("configs/ball-plk-fused-v8-r4.yaml"), [])
+        >>> _apply_split(gold, held_out=True, all_splits=False)
+        >>> gold.layers["shots"].params["held_out"]
+        'only'
+
+    """
+    shots = cfg.layers["shots"]
+    if "held_out" in registry.get("shots", shots.backend).defaults:
+        shots.params["held_out"] = _shots_split(held_out, all_splits)
+    elif held_out or all_splits:
+        raise typer.BadParameter(f"shots/{shots.backend} has no gold split; it runs the games its config names")
 
 
 @app.command("export", help="Export per-frame player parquet tables (plan section 5) for each sequence of a run.")
@@ -935,7 +969,7 @@ def export_(
     _setup_logging(verbose)
     cfg = load_config(config, set_)
     _require_provenance(cfg)
-    cfg.layers["shots"].params["held_out"] = _shots_split(held_out, all_splits)
+    _apply_split(cfg, held_out, all_splits)
     seqs = pipeline.run(cfg, only=seq or None)
     all_rows = []
     for s in seqs:
@@ -976,7 +1010,7 @@ def radar(
 
     cfg = load_config(config, set_)
     _require_provenance(cfg)
-    cfg.layers["shots"].params["held_out"] = _shots_split(held_out, all_splits)
+    _apply_split(cfg, held_out, all_splits)
     for s in pipeline.run(cfg, only=seq or None):
         typer.echo(render(cfg, s))
 

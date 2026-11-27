@@ -51,11 +51,15 @@ class TestTransitionsToShots:
 
 
 class TestUse2dConvs:
+    @pytest.fixture(autouse=True)
+    def _seed_torch(self):
+        torch = pytest.importorskip("torch")
+        torch.manual_seed(0)
+
     def test_same_output_as_3d_convs(self):
         torch = pytest.importorskip("torch")
         from bga.ingest._transnetv2 import TransNetV2
 
-        torch.manual_seed(0)
         model = TransNetV2().eval()
         x = torch.from_numpy(frames_of(100)[None])
         with torch.no_grad():

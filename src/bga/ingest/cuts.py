@@ -11,6 +11,7 @@ from __future__ import annotations
 import hashlib
 import shutil
 import subprocess
+import tempfile
 from collections.abc import Callable, Iterator
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, ClassVar
@@ -48,6 +49,12 @@ class CutsBackend(BaseBackend):
         Returns:
             Shots ``{"start", "end"}`` covering every frame, in order, with inclusive bounds.
 
+        Examples:
+            >>> CutsBackend({}).shots("g.mp4")
+            Traceback (most recent call last):
+            ...
+            NotImplementedError
+
         """
         raise NotImplementedError
 
@@ -75,6 +82,11 @@ class HistDiffCuts(CutsBackend):
 
         Returns:
             Shots ``{"start", "end"}``.
+
+        Examples:
+            >>> shots = HistDiffCuts({}).shots("data/raw/game.mp4")  # doctest: +SKIP
+            >>> shots[0]["start"]  # doctest: +SKIP
+            0
 
         """
         found = detect_shots(video, self.p["threshold"], self.p["min_len_s"], progress)
@@ -177,14 +189,19 @@ def ffmpeg_frames(video: str | Path, hw: tuple[int, int] = TRANSNET_HW) -> Itera
     cmd = ["ffmpeg", "-v", "error", "-i", str(video), "-fps_mode", "passthrough", "-vf", f"scale={w}:{h}"]
     cmd += ["-pix_fmt", "rgb24", "-f", "rawvideo", "pipe:"]
     size = h * w * 3
-    with subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE) as proc:  # noqa: S603  # fixed argv, no shell
+    # stderr goes to a file: a pipe left unread while frames stream could fill on a damaged video and stall ffmpeg.
+    with (
+        tempfile.TemporaryFile() as log,
+        subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=log) as proc,  # noqa: S603  # fixed argv, no shell
+    ):
         while chunk := proc.stdout.read(size):
             if len(chunk) == size:
                 yield np.frombuffer(chunk, np.uint8).reshape(h, w, 3)
         proc.stdout.close()
-        err = proc.stderr.read()
         if proc.wait() != 0:
-            raise RuntimeError(f"ffmpeg could not decode {video}: {err.decode(errors='replace').strip()[-300:]}")
+            log.seek(0)
+            err = log.read().decode(errors="replace").strip()[-300:]
+            raise RuntimeError(f"ffmpeg could not decode {video}: {err}")
 
 
 def _separable_conv_2d(self: Conv3DConfigurable, x: torch.Tensor) -> torch.Tensor:
@@ -252,6 +269,9 @@ class TransNetV2Cuts(CutsBackend):
             FileNotFoundError: When the weights have not been converted (``scripts/convert_transnetv2.py``).
             ValueError: When the file's hash differs from the one in :data:`TRANSNETV2`.
 
+        Examples:
+            >>> TransNetV2Cuts({}).load()  # doctest: +SKIP
+
         """
         import torch
 
@@ -270,7 +290,15 @@ class TransNetV2Cuts(CutsBackend):
         use_2d_convs(self.model).eval().to(self.device)
 
     def unload(self) -> None:
-        """Free the model."""
+        """Free the model.
+
+        Examples:
+            >>> cuts = TransNetV2Cuts({})
+            >>> cuts.unload()
+            >>> cuts.model is None
+            True
+
+        """
         self.model = None
 
     def _score(self, batch: list[np.ndarray]) -> np.ndarray:
@@ -290,6 +318,11 @@ class TransNetV2Cuts(CutsBackend):
 
         Returns:
             A float32 array, one probability per decoded frame.
+
+        Examples:
+            >>> probs = TransNetV2Cuts({}).predict("data/raw/game.mp4")  # doctest: +SKIP
+            >>> probs.dtype  # doctest: +SKIP
+            dtype('float32')
 
         """
         out: list[np.ndarray] = []
@@ -322,6 +355,11 @@ class TransNetV2Cuts(CutsBackend):
 
         Returns:
             Shots ``{"start", "end"}``.
+
+        Examples:
+            >>> shots = TransNetV2Cuts({"threshold": 0.3}).shots("data/raw/game.mp4")  # doctest: +SKIP
+            >>> shots[0]["start"]  # doctest: +SKIP
+            0
 
         """
         import cv2

@@ -235,7 +235,7 @@ Scored by `bga eval-ball` on the gold shots, dev unless `--held-out` (both gold 
 
 ## Ingest (Layer 0)
 
-Scored by `bga eval-ingest` on the gold games of `data/labels/gold.json`, dev unless `--held-out`. **camera acc:** share of label-file shots tagged `central` or `other` (shots of at least 6 s) that the `shots/video` config's camera backend tags the same, on the label file's own shot bounds. **central P / R:** precision and recall of `central`. **ms/shot:** the classifier on M1 Max, frame reading excluded.
+Scored by `bga eval-ingest` on the gold games of `data/labels/gold.json`, dev unless `--held-out`. **camera acc:** share of label-file shots tagged `central` or `other` (shots of at least 6 s) that the `shots/video` config's camera backend tags the same, on the label file's own shot bounds. The backend scores every shot of the game and only tagged shots count; rows whose notes do not say *whole game* scored the tagged shots alone. **central P / R:** precision and recall of `central`. **ms/shot:** the classifier on M1 Max per scored shot, frame reading excluded.
 
 | date | commit | config | camera backend | samples | split (games, shots) | camera acc | central P | central R | acc per game | ms/shot | notes |
 |---|---|---|---|---|---|---|---|---|---|---|---|

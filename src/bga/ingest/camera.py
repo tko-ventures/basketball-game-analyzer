@@ -92,6 +92,12 @@ class CameraBackend(BaseBackend):
         Returns:
             One score in ``[0, 1]`` per shot; a shot is ``central`` at 0.5 or more.
 
+        Examples:
+            >>> CameraBackend({}).score_shots([])
+            Traceback (most recent call last):
+            ...
+            NotImplementedError
+
         """
         raise NotImplementedError
 
@@ -131,7 +137,12 @@ class SiglipZeroShot(CameraBackend):
     }
 
     def load(self) -> None:
-        """Load SigLIP and embed the prompts once."""
+        """Load SigLIP and embed the prompts once.
+
+        Examples:
+            >>> SiglipZeroShot({}).load()  # doctest: +SKIP
+
+        """
         import torch
         from transformers import AutoModel, AutoProcessor
 
@@ -146,7 +157,15 @@ class SiglipZeroShot(CameraBackend):
         self.text = torch.nn.functional.normalize(out, dim=-1).cpu().numpy()
 
     def unload(self) -> None:
-        """Free the model."""
+        """Free the model.
+
+        Examples:
+            >>> cam = SiglipZeroShot({})
+            >>> cam.unload()
+            >>> cam.model is None
+            True
+
+        """
         self.model = self.processor = self.text = None
 
     def embed(self, frames: list[np.ndarray]) -> np.ndarray:
@@ -157,6 +176,12 @@ class SiglipZeroShot(CameraBackend):
 
         Returns:
             A float32 array ``(len(frames), dim)``.
+
+        Examples:
+            >>> cam = SiglipZeroShot({})  # doctest: +SKIP
+            >>> cam.load()  # doctest: +SKIP
+            >>> cam.embed([np.zeros((224, 398, 3), np.uint8)]).shape  # doctest: +SKIP
+            (1, 768)
 
         """
         import torch
@@ -179,6 +204,12 @@ class SiglipZeroShot(CameraBackend):
 
         Returns:
             One share per shot.
+
+        Examples:
+            >>> cam = SiglipZeroShot({})  # doctest: +SKIP
+            >>> cam.load()  # doctest: +SKIP
+            >>> cam.score_shots([[np.zeros((224, 398, 3), np.uint8)]])  # doctest: +SKIP
+            [0.0]
 
         """
         flat = [f for fs in shots for f in fs]
@@ -268,6 +299,12 @@ class SiglipGame(SiglipZeroShot):
 
         Returns:
             One score per shot.
+
+        Examples:
+            >>> cam = SiglipGame({"min_sim": 0.95})  # doctest: +SKIP
+            >>> cam.load()  # doctest: +SKIP
+            >>> len(cam.score_shots(frames_per_shot)) == len(frames_per_shot)  # doctest: +SKIP
+            True
 
         """
         flat = [f for fs in shots for f in fs]

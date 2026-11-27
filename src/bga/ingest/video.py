@@ -120,6 +120,11 @@ class VideoShots(BaseBackend):
         Returns:
             The shots ``{"start", "end"}``.
 
+        Examples:
+            >>> shots = VideoShots({}).game_cuts(clip, video)  # doctest: +SKIP
+            >>> shots[0]["start"]  # doctest: +SKIP
+            0
+
         """
         key = entry_key("cuts", self.p["cuts"])
 
@@ -140,6 +145,11 @@ class VideoShots(BaseBackend):
 
         Returns:
             The shots ``{"start", "end"}`` and one camera score per shot.
+
+        Examples:
+            >>> shots, scores = VideoShots({}).game_shots(clip, video)  # doctest: +SKIP
+            >>> len(shots) == len(scores)  # doctest: +SKIP
+            True
 
         """
         shots = self.game_cuts(clip, video)
@@ -165,6 +175,11 @@ class VideoShots(BaseBackend):
         Returns:
             One sequence per kept shot, framed on the multiples of ``stride``.
 
+        Examples:
+            >>> clips = ["20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20"]
+            >>> VideoShots({"clips": clips}).sequences()[0].name  # doctest: +SKIP
+            'vHfwZeG4BPw_v...'
+
         """
         out = []
         for clip in self.p["clips"]:
@@ -188,6 +203,11 @@ class VideoShots(BaseBackend):
 
         Returns:
             ``dataclasses.asdict(seq)``.
+
+        Examples:
+            >>> seq = Sequence("g_v3", "g", "g.mp4", 3, [0, 5], 50.0)
+            >>> VideoShots({}).run(seq, {}, None)["name"]
+            'g_v3'
 
         """
         return asdict(seq)

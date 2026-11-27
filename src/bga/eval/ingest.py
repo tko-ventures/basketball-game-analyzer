@@ -1,7 +1,8 @@
 """Score Layer 0 on the gold games (M10, #32): camera tags and shot cuts.
 
-**Camera:** every shot of a gold game's label file tagged ``central`` or ``other`` is scored by the configured
-camera backend on the label file's own shot bounds, so a camera row does not depend on the cut detector. The split
+**Camera:** the configured camera backend scores every shot of a gold game's label file, on the label file's own
+shot bounds, so a camera row does not depend on the cut detector; a backend that compares shots within a game
+(``siglip_game``) sees the whole game, as in production. Only the shots tagged ``central`` or ``other`` count. The split
 follows ``data/labels/gold.json``: dev games unless ``held_out``.
 
 **Cuts:** the configured cut detector's cuts inside each game's game-time spans are matched to the cut gold
@@ -81,7 +82,7 @@ def score_camera(camera: dict, samples: int, held_out: bool = False, labels: Pat
 
     Returns:
         Accuracy over ``central`` / ``other`` tags, central precision and recall, accuracy per YouTube id, and the
-        classifier's time per shot (frame reading excluded).
+        classifier's time per scored shot (every shot of the games; frame reading excluded).
 
     Examples:
         >>> score_camera({"backend": "siglip_zeroshot", "params": {}}, samples=3).acc  # doctest: +SKIP
@@ -91,17 +92,20 @@ def score_camera(camera: dict, samples: int, held_out: bool = False, labels: Pat
     cam = make_component("camera", camera)
     cam.load()
     pairs: list[tuple[str, bool, bool]] = []  # (youtube id, gold central, predicted central)
-    seconds = 0.0
+    seconds, scored = 0.0, 0
     try:
         for clip in split_clips(held_out):
             label = json.loads((labels / f"{clip}.json").read_text())
-            shots = [s for s in label["shots"] if s.get("camera") in TAGS]
+            shots = label["shots"]
             frames = read_shot_frames(label["clip"], shots, samples)
             t = time.perf_counter()
             scores = cam.score_shots(frames)
             seconds += time.perf_counter() - t
+            scored += len(shots)
             pairs += [
-                (clip.split("_")[1], s["camera"] == "central", p >= 0.5) for s, p in zip(shots, scores, strict=True)
+                (clip.split("_")[1], s["camera"] == "central", p >= 0.5)
+                for s, p in zip(shots, scores, strict=True)
+                if s.get("camera") in TAGS
             ]
     finally:
         cam.unload()
@@ -117,7 +121,7 @@ def score_camera(camera: dict, samples: int, held_out: bool = False, labels: Pat
         central_p=tp / max(sum(p for _, _, p in pairs), 1),
         central_r=tp / max(sum(g for _, g, _ in pairs), 1),
         per_game=per_game,
-        ms_per_shot=1000 * seconds / max(len(pairs), 1),
+        ms_per_shot=1000 * seconds / max(scored, 1),
     )
 
 
@@ -179,12 +183,24 @@ class CutCounts:
 
     @property
     def precision(self) -> float:
-        """Hits over hits and false positives."""
+        """Hits over hits and false positives.
+
+        Examples:
+            >>> CutCounts(tp=3, fp=1, fn=0, dup=0, unseen=0).precision
+            0.75
+
+        """
         return self.tp / max(self.tp + self.fp, 1)
 
     @property
     def recall(self) -> float:
-        """Hits over real gold cuts."""
+        """Hits over real gold cuts.
+
+        Examples:
+            >>> CutCounts(tp=3, fp=0, fn=1, dup=0, unseen=0).recall
+            0.75
+
+        """
         return self.tp / max(self.tp + self.fn, 1)
 
 
