@@ -190,3 +190,104 @@ class SiglipZeroShot(CameraBackend):
             out.append(float(votes[i : i + len(fs)].mean()) if fs else 0.0)
             i += len(fs)
         return out
+
+
+def hsv_feature(frame: np.ndarray) -> np.ndarray:
+    """Arena colour signature of a frame: the square root of its hue–saturation histogram, unit length.
+
+    Floor paint, boards and seats differ between halls, so shots of another game's arena land far from this game's.
+
+    Args:
+        frame: A BGR image.
+
+    Returns:
+        A float32 vector of 18 x 8 bins.
+
+    Examples:
+        >>> v = hsv_feature(np.full((54, 96, 3), (40, 120, 200), np.uint8))
+        >>> v.shape, round(float(np.linalg.norm(v)), 3)
+        ((144,), 1.0)
+
+    """
+    hsv = cv2.cvtColor(cv2.resize(frame, (192, 108), interpolation=cv2.INTER_AREA), cv2.COLOR_BGR2HSV)
+    h = np.sqrt(cv2.calcHist([hsv], [0, 1], None, [18, 8], [0, 180, 0, 256]).ravel())
+    return (h / max(float(np.linalg.norm(h)), 1e-9)).astype(np.float32)
+
+
+def robust_centroid(x: np.ndarray, keep: float = 0.6, iters: int = 5) -> np.ndarray:
+    """Unit centroid of the rows most like each other: refit on the ``keep`` share nearest the last centroid.
+
+    Args:
+        x: Unit row vectors, at least one.
+        keep: Share of rows kept on each refit.
+        iters: Number of refits.
+
+    Returns:
+        The unit centroid.
+
+    Examples:
+        >>> x = np.array([[1.0, 0.0], [1.0, 0.0], [1.0, 0.0], [0.0, 1.0]])
+        >>> robust_centroid(x).round(3).tolist()
+        [1.0, 0.0]
+
+    """
+    cen = x.mean(0)
+    for _ in range(iters):
+        sim = x @ (cen / max(float(np.linalg.norm(cen)), 1e-9))
+        cen = x[sim >= np.quantile(sim, 1.0 - keep)].mean(0)
+    return cen / max(float(np.linalg.norm(cen)), 1e-9)
+
+
+@register("camera", "siglip_game")
+class SiglipGame(SiglipZeroShot):
+    """Zero-shot SigLIP, then keep only the central shots that look like the rest of this game's central shots.
+
+    A full recording also shows other games' highlights at half-time, shot by the same kind of main camera with a
+    scorebug, which a frame-by-frame classifier tags central. Among the shots zero-shot tags central, this backend
+    fits a :func:`robust_centroid` of a per-shot feature (the mean over its frames). A shot whose similarity to it is
+    below ``min_sim`` scores 0. The feature is ``hsv`` (:func:`hsv_feature`, the arena's colours) or ``siglip``
+    (the image embedding).
+
+    Params (``defaults``): those of :class:`SiglipZeroShot`, plus ``feature``, ``min_sim`` and ``keep`` (the share of
+    shots each centroid refit keeps).
+
+    """
+
+    defaults: ClassVar[dict[str, Any]] = {
+        **SiglipZeroShot.defaults,
+        "feature": "hsv",
+        "min_sim": 0.95,
+        "keep": 0.6,
+    }
+
+    def score_shots(self, shots: list[list[np.ndarray]]) -> list[float]:
+        """Zero-shot shares, zeroed for central shots unlike the game's own central shots.
+
+        Args:
+            shots: Per shot, its sampled BGR frames.
+
+        Returns:
+            One score per shot.
+
+        """
+        flat = [f for fs in shots for f in fs]
+        emb = self.embed(flat)
+        n_central = len(self.p["central"])
+        sims = emb @ self.text.T
+        votes = sims[:, :n_central].max(1) > sims[:, n_central:].max(1)
+        if self.p["feature"] == "siglip":
+            frame_feat = emb
+        else:
+            frame_feat = np.stack([hsv_feature(f) for f in flat] or [np.zeros(144, np.float32)])
+        scores, feats, i = [], [], 0
+        for fs in shots:
+            scores.append(float(votes[i : i + len(fs)].mean()) if fs else 0.0)
+            v = frame_feat[i : i + len(fs)].mean(0) if fs else np.zeros(frame_feat.shape[1])
+            feats.append(v / max(float(np.linalg.norm(v)), 1e-9))
+            i += len(fs)
+        cand = [k for k, s in enumerate(scores) if s >= 0.5]
+        if not cand:
+            return scores
+        x = np.stack(feats)
+        sim = x @ robust_centroid(x[cand], self.p["keep"])
+        return [s if sim[k] >= self.p["min_sim"] else 0.0 for k, s in enumerate(scores)]

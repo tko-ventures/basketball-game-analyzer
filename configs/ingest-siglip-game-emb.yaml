@@ -1,0 +1,11 @@
+name: ingest-siglip-game-emb
+description: >
+  Layer 0 (M10, #32): ingest-siglip-game-hsv with the SigLIP image embedding as the game-consistency feature
+  (min_sim 0.93, picked on dev from 0.92 / 0.93 / 0.94 / 0.95). Comparator for ingest-siglip-game-hsv.
+layers:
+  shots:
+    backend: video
+    params:
+      cuts: {backend: hist_diff, params: {}}
+      camera: {backend: siglip_game, params: {feature: siglip, min_sim: 0.93}}
+      samples: 3
