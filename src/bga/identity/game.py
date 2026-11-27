@@ -110,7 +110,7 @@ class GameIdentity(BaseBackend):
                     if side_tracks[i].seq == seq.name:
                         out[seq.name]["numbers"][str(side_tracks[i].tid)] = num
         for sp in splits:
-            for seq_name, _ in sp["tracks"]:
+            for seq_name in dict.fromkeys(name for name, _ in sp["tracks"]):
                 if seq_name in out:
                     out[seq_name]["conflicts"].append(sp)
 

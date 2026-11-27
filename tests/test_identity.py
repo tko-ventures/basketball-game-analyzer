@@ -370,10 +370,31 @@ class TestVectorisedClusteringMatchesReference:
 
     @pytest.mark.parametrize("linkage", ["average", "complete"])
     @pytest.mark.parametrize("seed", [pytest.param(s, id=f"seed{s}") for s in range(8)])
-    def test_same_clusters_and_splits(self, seed: int, linkage: str) -> None:
+    def test_same_clusters(self, seed: int, linkage: str) -> None:
         tracks, confirmed = random_team(seed)
-        expected = reference_cluster_team_tracks(tracks, confirmed, max_dist=0.3, linkage=linkage)
-        assert cluster_team_tracks(tracks, confirmed, max_dist=0.3, linkage=linkage) == expected
+        expected, _ = reference_cluster_team_tracks(tracks, confirmed, max_dist=0.3, linkage=linkage)
+        assert cluster_team_tracks(tracks, confirmed, max_dist=0.3, linkage=linkage)[0] == expected
+
+    @pytest.mark.parametrize("seed", [pytest.param(s, id=f"seed{s}") for s in range(8)])
+    def test_splits_name_two_clashing_confirmed_tracks(self, seed: int) -> None:
+        tracks, confirmed = random_team(seed)
+        number = {(t.seq, t.tid): c for t, c in zip(tracks, confirmed, strict=True)}
+        _, splits = cluster_team_tracks(tracks, confirmed, max_dist=0.3)
+        named = [sorted(number[tuple(k)] for k in sp["tracks"]) for sp in splits]
+        assert named == [sp["numbers"] for sp in splits]
+
+    @pytest.mark.parametrize("seed", [pytest.param(s, id=f"seed{s}") for s in range(8)])
+    def test_each_clash_logged_once(self, seed: int) -> None:
+        tracks, confirmed = random_team(seed)
+        _, splits = cluster_team_tracks(tracks, confirmed, max_dist=0.3)
+        keys = [tuple(map(tuple, sp["tracks"])) for sp in splits]
+        assert len(keys) == len(set(keys))
+
+    def test_log_bounded_by_clashing_pairs(self) -> None:
+        tracks, confirmed = random_team(2)
+        _, splits = cluster_team_tracks(tracks, confirmed, max_dist=0.3)
+        _, reference = reference_cluster_team_tracks(tracks, confirmed, max_dist=0.3)
+        assert 0 < len(splits) <= len(reference)
 
     def test_merges_happen(self) -> None:
         tracks, confirmed = random_team(0)

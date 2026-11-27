@@ -530,6 +530,9 @@ def cluster_team_tracks(
     1. Tracklets co-visible in any frame of the same shot are never joined.
     2. Tracklets with conflicting confirmed jersey numbers are never joined (kept split and logged).
 
+    A blocked merge within ``max_dist`` is logged once per pair of clashing confirmed tracks (each cluster's first
+    confirmed member), however often the clusters around them grow.
+
     Each step merges the closest allowed pair (the first in cluster order on a tie) into the earlier cluster. The
     cluster distances are kept as matrices updated on each merge (sums and counts of the pairwise distances for
     average linkage, maxima for complete), so a full game's thousands of tracks cluster in seconds.
@@ -563,6 +566,7 @@ def cluster_team_tracks(
     blocked = _covisible(tracks)
     codes = {num: k for k, num in enumerate(sorted({c for c in confirmed if c is not None}))}
     number = np.array([codes[c] if c is not None else -1 for c in confirmed])
+    first_confirmed = np.where(number >= 0, np.arange(n), -1)
     alive = np.ones(n, dtype=bool)
     upper = np.triu(np.ones((n, n), dtype=bool), k=1)
     seen_splits: set[tuple[tuple[str, int], ...]] = set()
@@ -572,10 +576,11 @@ def cluster_team_tracks(
         near = upper & alive[:, None] & alive[None, :] & (count > 0) & (d <= max_dist) & ~blocked
         conflict = (number[:, None] >= 0) & (number[None, :] >= 0) & (number[:, None] != number[None, :])
         for a, b in zip(*np.nonzero(near & conflict), strict=True):
-            key = tuple(sorted((tracks[i].seq, tracks[i].tid) for i in members[a] + members[b]))
+            pair = (first_confirmed[a], first_confirmed[b])
+            key = tuple(sorted((tracks[i].seq, tracks[i].tid) for i in pair))
             if key not in seen_splits:
                 seen_splits.add(key)
-                nums = sorted({confirmed[i] for i in members[a] + members[b] if confirmed[i]})
+                nums = sorted({confirmed[i] for i in pair if confirmed[i]})
                 splits.append({
                     "kind": "cluster_split_conflict",
                     "dist": round(float(d[a, b]), 4),
@@ -598,4 +603,5 @@ def cluster_team_tracks(
         blocked[:, a] = blocked[a, :]
         if number[a] < 0:
             number[a] = number[b]
+            first_confirmed[a] = first_confirmed[b]
     return [members[i] for i in np.flatnonzero(alive)], splits
