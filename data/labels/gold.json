@@ -137,6 +137,16 @@
    "held_out": true,
    "full_game": true,
    "shots": []
+  },
+  {
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "youtube_id": "vHfwZeG4BPw",
+   "game": "Energa Trefl Sopot – Dziki Warszawa",
+   "season": "2025/26",
+   "fps": 60.0,
+   "held_out": false,
+   "full_game": true,
+   "shots": []
   }
  ]
 }
