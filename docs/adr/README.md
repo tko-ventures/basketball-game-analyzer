@@ -63,6 +63,7 @@ What changes in code, configs, metrics, or future milestones?
 | 2026-11-22 | Pipeline / Cache | [Pipeline hardening invariants and immutable cache/weight hashes](2026-11-22-pipeline-hardening-and-cache-invariants.md) | Accepted |
 | 2026-11-24 | Gold & Eval / Ball (L7) | [Holder gold under the 2026-11-20 definition; `ball-plk-fused-v2` for shooter attribution](2026-11-24-holder-gold-and-fused-v2-shooter.md) | Accepted |
 | 2026-11-26 | Gold & Eval / Ball (L7) | [Shot gold: 26 more shots of the gold games, labelled for the ball layer only](2026-11-26-shot-gold-more-layer7-gold.md) | Accepted |
+| 2026-11-27 | Gold & Eval / Ball (L7) | [Free throws are shot attempts in their own category (1 point, scored apart; `kind` on Layer 7 shots)](2026-11-27-free-throws-own-shot-category.md) | Accepted |
 
 ### Infrastructure, licences & process
 
