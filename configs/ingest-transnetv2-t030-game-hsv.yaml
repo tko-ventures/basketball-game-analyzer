@@ -1,0 +1,13 @@
+name: ingest-transnetv2-t030-game-hsv
+description: >
+  Layer 0 (M10, #32): ingest-transnetv2-game-hsv with the TransNet V2 threshold lowered from 0.5 to 0.3, picked on the
+  dev cut gold from 0.5 / 0.45 / 0.4 / 0.35 / 0.3 / 0.25 / 0.2: at 0.5 it misses ORLEN replay stingers it scores
+  0.3-0.45, merging live play with the replay. Every cut it makes at 0.3 on dev is read. Scored against
+  ingest-transnetv2-game-hsv.
+layers:
+  shots:
+    backend: video
+    params:
+      cuts: {backend: transnetv2, params: {threshold: 0.3}}
+      camera: {backend: siglip_game, params: {feature: hsv, min_sim: 0.95}}
+      samples: 3

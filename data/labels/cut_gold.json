@@ -115,6 +115,15 @@
      "verdict": "cut"
     },
     {
+     "frame": 4003,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "LED board changes behind a close-up, same camera"
+    },
+    {
      "frame": 4087,
      "by": [
       "hist_diff",
@@ -955,6 +964,17 @@
      "note": "ORLEN stinger, frames by red share"
     },
     {
+     "frame": 29362,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 29326,
+     "last": 29362,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
      "frame": 30911,
      "by": [
       "hist_diff",
@@ -1110,6 +1130,28 @@
      "note": "slow-motion replay, fast pan"
     },
     {
+     "frame": 35399,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 35391,
+     "last": 35427,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 35426,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 35391,
+     "last": 35427,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
      "frame": 35579,
      "by": [
       "hist_diff",
@@ -1216,6 +1258,15 @@
      ],
      "reviewed": false,
      "verdict": "cut"
+    },
+    {
+     "frame": 42491,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "referee passes close in front of the camera, same shot"
     },
     {
      "frame": 42530,
@@ -1514,6 +1565,28 @@
      "verdict": "cut"
     },
     {
+     "frame": 55552,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 55549,
+     "last": 55585,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 55583,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 55549,
+     "last": 55585,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
      "frame": 56144,
      "by": [
       "hist_diff"
@@ -1809,6 +1882,15 @@
      "verdict": "cut"
     },
     {
+     "frame": 67030,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "person passes close in front of the camera, same shot"
+    },
+    {
      "frame": 67250,
      "by": [
       "hist_diff",
@@ -1929,6 +2011,15 @@
      "reviewed": true,
      "verdict": "no",
      "note": "slow-motion replay, continuous"
+    },
+    {
+     "frame": 71691,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "whip pan following the ball into the stands, same shot"
     },
     {
      "frame": 71743,
@@ -2537,13 +2628,27 @@
      "note": "continuous (slow-motion or fast pan)"
     },
     {
+     "frame": 94090,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 94088,
+     "last": 94123,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
      "frame": 94120,
      "by": [
       "hist_diff",
       "transnetv2"
      ],
      "reviewed": false,
-     "verdict": "cut"
+     "verdict": "gradual",
+     "first": 94088,
+     "last": 94123,
+     "note": "extent of the read entry at 94090"
     },
     {
      "frame": 94249,
@@ -2760,6 +2865,15 @@
      ],
      "reviewed": false,
      "verdict": "cut"
+    },
+    {
+     "frame": 104878,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "continuous main camera"
     },
     {
      "frame": 105776,
@@ -3042,6 +3156,28 @@
      "reviewed": true,
      "verdict": "no",
      "note": "slow-motion replay, continuous"
+    },
+    {
+     "frame": 108879,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 108877,
+     "last": 108913,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 108911,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 108877,
+     "last": 108913,
+     "note": "ORLEN stinger, frames by red share"
     },
     {
      "frame": 109320,
@@ -3564,6 +3700,17 @@
      "note": "dissolve, frames by progress between its ends"
     },
     {
+     "frame": 140033,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 140015,
+     "last": 140049,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
      "frame": 140668,
      "by": [
       "transnetv2"
@@ -3595,6 +3742,17 @@
      "note": "slow-motion replay, continuous"
     },
     {
+     "frame": 141314,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 141304,
+     "last": 141313,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
      "frame": 141641,
      "by": [
       "transnetv2"
@@ -3606,13 +3764,27 @@
      "note": "dissolve, frames by progress between its ends"
     },
     {
+     "frame": 141916,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 141913,
+     "last": 141949,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
      "frame": 141947,
      "by": [
       "hist_diff",
       "transnetv2"
      ],
      "reviewed": false,
-     "verdict": "cut"
+     "verdict": "gradual",
+     "first": 141913,
+     "last": 141949,
+     "note": "extent of the read entry at 141916"
     },
     {
      "frame": 142292,
@@ -4081,7 +4253,10 @@
       "transnetv2"
      ],
      "reviewed": false,
-     "verdict": "cut"
+     "verdict": "gradual",
+     "first": 164079,
+     "last": 164115,
+     "note": "extent of the read entry at 164081"
     },
     {
      "frame": 164477,
@@ -4563,6 +4738,17 @@
      "note": "ORLEN stinger, frames by red share"
     },
     {
+     "frame": 248153,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 248119,
+     "last": 248155,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
      "frame": 250234,
      "by": [
       "hist_diff",
@@ -4644,6 +4830,28 @@
      "reviewed": true,
      "verdict": "no",
      "note": "slow-motion replay or close-up, continuous"
+    },
+    {
+     "frame": 252929,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 252928,
+     "last": 252964,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 252963,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 252928,
+     "last": 252964,
+     "note": "ORLEN stinger, frames by red share"
     },
     {
      "frame": 253180,
@@ -4860,6 +5068,15 @@
      ],
      "reviewed": false,
      "verdict": "cut"
+    },
+    {
+     "frame": 263776,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "LED board changes, same camera"
     },
     {
      "frame": 263800,
@@ -5159,6 +5376,28 @@
      "reviewed": true,
      "verdict": "no",
      "note": "slow-motion replay, continuous"
+    },
+    {
+     "frame": 276836,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 276833,
+     "last": 276870,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 276869,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 276833,
+     "last": 276870,
+     "note": "ORLEN stinger, frames by red share"
     },
     {
      "frame": 277449,
@@ -5475,6 +5714,28 @@
      "note": "slow-motion replay, continuous"
     },
     {
+     "frame": 287308,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 287306,
+     "last": 287341,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 287339,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 287306,
+     "last": 287341,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
      "frame": 288969,
      "by": [
       "hist_diff",
@@ -5581,6 +5842,15 @@
      ],
      "reviewed": false,
      "verdict": "cut"
+    },
+    {
+     "frame": 294307,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "person passes close in front of the camera, same shot"
     },
     {
      "frame": 294361,
@@ -6180,6 +6450,17 @@
      "note": "slow-motion replay or close-up, continuous"
     },
     {
+     "frame": 325043,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 325007,
+     "last": 325044,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
      "frame": 327900,
      "by": [
       "transnetv2"
@@ -6283,6 +6564,28 @@
      "verdict": "gradual",
      "first": 333338,
      "last": 333375,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 333747,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 333743,
+     "last": 333780,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 333778,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 333743,
+     "last": 333780,
      "note": "ORLEN stinger, frames by red share"
     },
     {
@@ -6805,6 +7108,28 @@
      "verdict": "gradual",
      "first": 366523,
      "last": 366558,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 367222,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 367219,
+     "last": 367255,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 367253,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 367219,
+     "last": 367255,
      "note": "ORLEN stinger, frames by red share"
     },
     {
@@ -7662,6 +7987,50 @@
      "verdict": "cut"
     },
     {
+     "frame": 37915,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 37913,
+     "last": 37949,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 37950,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 37913,
+     "last": 37949,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 38376,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 38371,
+     "last": 38408,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 38407,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 38371,
+     "last": 38408,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
      "frame": 39331,
      "by": [
       "hist_diff",
@@ -8285,6 +8654,15 @@
      "verdict": "cut"
     },
     {
+     "frame": 67855,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "whip pan following the ball to the rim, same shot"
+    },
+    {
      "frame": 67905,
      "by": [
       "hist_diff",
@@ -8494,6 +8872,17 @@
      "verdict": "cut"
     },
     {
+     "frame": 83315,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 83280,
+     "last": 83316,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
      "frame": 83611,
      "by": [
       "hist_diff"
@@ -8622,6 +9011,28 @@
      "reviewed": true,
      "verdict": "no",
      "note": "slow-motion replay, continuous"
+    },
+    {
+     "frame": 88608,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 88605,
+     "last": 88641,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 88639,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 88605,
+     "last": 88641,
+     "note": "ORLEN stinger, frames by red share"
     },
     {
      "frame": 89443,
@@ -8779,6 +9190,50 @@
      "verdict": "cut"
     },
     {
+     "frame": 108075,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 108073,
+     "last": 108108,
+     "note": "ORLEN stinger, frames by eye (red boards in the next shot)"
+    },
+    {
+     "frame": 108107,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 108073,
+     "last": 108108,
+     "note": "ORLEN stinger, frames by eye (red boards in the next shot)"
+    },
+    {
+     "frame": 108431,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 108429,
+     "last": 108465,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 108463,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 108429,
+     "last": 108465,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
      "frame": 108649,
      "by": [
       "hist_diff",
@@ -8786,6 +9241,15 @@
      ],
      "reviewed": false,
      "verdict": "cut"
+    },
+    {
+     "frame": 109060,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "whip pan following the ball to the rim, same shot"
     },
     {
      "frame": 109121,
@@ -8918,6 +9382,28 @@
      "reviewed": true,
      "verdict": "no",
      "note": "slow-motion replay, continuous"
+    },
+    {
+     "frame": 118025,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 118023,
+     "last": 118059,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 118057,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 118023,
+     "last": 118059,
+     "note": "ORLEN stinger, frames by red share"
     },
     {
      "frame": 118564,
@@ -9418,6 +9904,39 @@
      "verdict": "cut"
     },
     {
+     "frame": 144367,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 144364,
+     "last": 144400,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 144400,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 144364,
+     "last": 144400,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 144785,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 144750,
+     "last": 144786,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
      "frame": 147423,
      "by": [
       "hist_diff",
@@ -9490,6 +10009,28 @@
      "reviewed": true,
      "verdict": "no",
      "note": "slow-motion replay, continuous"
+    },
+    {
+     "frame": 151760,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 151757,
+     "last": 151793,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 151793,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 151757,
+     "last": 151793,
+     "note": "ORLEN stinger, frames by red share"
     },
     {
      "frame": 152356,
@@ -10133,6 +10674,39 @@
      "verdict": "cut"
     },
     {
+     "frame": 186537,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 186535,
+     "last": 186572,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 186570,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 186535,
+     "last": 186572,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 187068,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 187066,
+     "last": 187102,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
      "frame": 188541,
      "by": [
       "transnetv2"
@@ -10571,6 +11145,28 @@
      "note": "slow-motion replay, continuous"
     },
     {
+     "frame": 281245,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 281243,
+     "last": 281279,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 281279,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 281243,
+     "last": 281279,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
      "frame": 281779,
      "by": [
       "hist_diff",
@@ -10843,6 +11439,28 @@
      "note": "slow-motion replay, continuous (whip pan)"
     },
     {
+     "frame": 294575,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 294574,
+     "last": 294610,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 294609,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 294574,
+     "last": 294610,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
      "frame": 294796,
      "by": [
       "hist_diff",
@@ -11059,6 +11677,17 @@
      "reviewed": true,
      "verdict": "no",
      "note": "slow-motion replay, continuous (whip pan)"
+    },
+    {
+     "frame": 304181,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 304174,
+     "last": 304210,
+     "note": "ORLEN stinger, frames by red share"
     },
     {
      "frame": 304651,
@@ -11303,6 +11932,17 @@
      "note": "ORLEN stinger, frames by red share"
     },
     {
+     "frame": 312877,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 312843,
+     "last": 312879,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
      "frame": 313762,
      "by": [
       "hist_diff",
@@ -11337,6 +11977,17 @@
      ],
      "reviewed": false,
      "verdict": "cut"
+    },
+    {
+     "frame": 315490,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 315454,
+     "last": 315490,
+     "note": "ORLEN stinger, frames by red share"
     },
     {
      "frame": 315912,
@@ -12031,6 +12682,28 @@
      "note": "ORLEN stinger, frames by red share"
     },
     {
+     "frame": 364704,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 364701,
+     "last": 364737,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 364735,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 364701,
+     "last": 364737,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
      "frame": 365031,
      "by": [
       "transnetv2"
@@ -12236,6 +12909,17 @@
      "note": "slow-motion replay, continuous"
     },
     {
+     "frame": 376517,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 376480,
+     "last": 376516,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
      "frame": 391380,
      "by": [
       "hist_diff",
@@ -12292,6 +12976,28 @@
      "note": "slow-motion replay, continuous"
     },
     {
+     "frame": 392958,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 392956,
+     "last": 392992,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 392992,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 392956,
+     "last": 392992,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
      "frame": 393894,
      "by": [
       "hist_diff",
@@ -12346,6 +13052,28 @@
      "reviewed": true,
      "verdict": "no",
      "note": "slow-motion replay, continuous"
+    },
+    {
+     "frame": 394795,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 394794,
+     "last": 394830,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 394829,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 394795,
+     "last": 394830,
+     "note": "ORLEN stinger, frames by red share"
     },
     {
      "frame": 395338,
@@ -12497,6 +13225,28 @@
      "verdict": "gradual",
      "first": 400099,
      "last": 400136,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 400429,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 400426,
+     "last": 400462,
+     "note": "ORLEN stinger, frames by red share"
+    },
+    {
+     "frame": 400461,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 400426,
+     "last": 400462,
      "note": "ORLEN stinger, frames by red share"
     },
     {

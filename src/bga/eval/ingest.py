@@ -7,10 +7,11 @@ follows ``data/labels/gold.json``: dev games unless ``held_out``.
 **Cuts:** the configured cut detector's cuts inside each game's game-time spans are matched to the cut gold
 ``data/labels/cut_gold.json`` (``scripts/cut_review.py``). The gold holds every cut either of two detectors made in
 game time: each one only one detector made is read by eye, and the ones both made are read on a random sample and
-otherwise taken as real. A detected cut is a hit when it falls within ``tol_s`` of a real hard cut, or on a gradual
-transition's blended frames (or the frame after them) within ``tol_s``. A second cut on the same transition is a
-duplicate, neither hit nor false positive, since ``shots/video`` drops the sliver of a shot between them. Recall is over
-the cuts the two gold detectors found; a cut both missed is not in the gold.
+otherwise taken as real; the further cuts ``transnetv2`` makes at threshold 0.3 are all read and added. A detected cut
+is a hit when it falls within ``tol_s`` of a real hard cut, or on a gradual transition's blended frames (or the frame
+after them) within ``tol_s``. A second cut on the same transition is a duplicate, neither hit nor false positive, since
+``shots/video`` drops the sliver of a shot between them. Recall is over the cuts in the gold; a cut every gold detector
+missed is not in it.
 
 """
 

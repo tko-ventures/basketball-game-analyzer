@@ -3,6 +3,8 @@
     uv run scripts/cut_review.py candidates <tn.npy> <hd.json> <clip> --out <dir>    # merge both detectors' cuts
     uv run scripts/cut_review.py sheets <dir>/<clip>.candidates.json --only disagree   # strips to read
     uv run scripts/cut_review.py export <dir>/<clip>.candidates.json <verdicts.tsv>    # into data/labels/cut_gold.json
+    uv run scripts/cut_review.py unseen <tn.npy> <clip> --threshold 0.3 --out <dir>    # a detector's cuts on no entry
+    uv run scripts/cut_review.py add <dir>/<clip>.transnetv2@0.3.candidates.json <verdicts.tsv>  # read, then added
 
 A candidate is a cut either detector makes; cuts of the two within ``tol_s`` are one candidate. Each candidate gets a
 strip of four frames (0.4 s before, the frame before the cut, the cut frame, 0.4 s after), read by eye. Verdicts are
@@ -236,6 +238,26 @@ def read_verdicts(path):
     return verdicts
 
 
+def absorb(transitions, tol):
+    """Give an unread cut on a gradual transition (within ``tol``) that transition's extent, so it counts once."""
+    gradual = [t for t in transitions if t["verdict"] == "gradual"]
+    n = 0
+    for t in transitions:
+        if t["reviewed"] or t["verdict"] != "cut":
+            continue
+        for g in gradual:
+            if g["first"] - tol <= t["frame"] <= g["last"] + 1 + tol:
+                t.update(
+                    verdict="gradual",
+                    first=g["first"],
+                    last=g["last"],
+                    note=f"extent of the read entry at {g['frame']}",
+                )
+                n += 1
+                break
+    return n
+
+
 def export(a):
     doc = json.loads(Path(a.candidates).read_text())
     verdicts = {}
@@ -253,6 +275,7 @@ def export(a):
             read += 1
             real += rec["verdict"] != "no"
         transitions.append(rec)
+    absorbed = absorb(transitions, max(1, round(doc["tol_s"] * doc["fps"])))
     gold = json.loads(GOLD.read_text()) if GOLD.exists() else {"version": 1, "tol_s": doc["tol_s"], "games": {}}
     if gold["tol_s"] != doc["tol_s"]:
         raise SystemExit(f"candidates merged at tol_s {doc['tol_s']}, gold uses {gold['tol_s']}")
@@ -264,7 +287,70 @@ def export(a):
     }
     gold["games"] = dict(sorted(gold["games"].items()))
     GOLD.write_text(json.dumps(gold, indent=1) + "\n")
-    print(f"{doc['clip']}: {len(transitions)} entries, {len(verdicts)} read, agreement sample {real}/{read} real")
+    print(
+        f"{doc['clip']}: {len(transitions)} entries, {len(verdicts)} read, agreement sample {real}/{read} real, "
+        f"{absorbed} unread cuts on gradual transitions"
+    )
+
+
+def unseen(a):
+    """Write a candidates file of a detector's in-game cuts that fall on no gold entry, for reading and ``add``."""
+    from bga.eval.ingest import gold_transitions
+
+    gold = json.loads(GOLD.read_text())
+    game = gold["games"][a.clip]
+    label = json.loads(Path(f"data/labels/{a.clip}.json").read_text())
+    tol = max(1, round(gold["tol_s"] * game["fps"]))
+    windows = gold_transitions(game, tol)
+    probs = np.load(a.tn)
+    by = f"transnetv2@{a.threshold}"
+    out = []
+    for f in transnet_cuts(probs, a.threshold):
+        in_game = any(s <= f <= e for s, e in game["spans"])
+        if in_game and not any(t.holds(f) for t in windows) and not (out and f - out[-1]["frame"] <= tol):
+            lo, hi = max(0, f - tol), min(len(probs), f + tol + 1)
+            out.append({
+                "id": len(out),
+                "frame": f,
+                "frames": [f],
+                "by": [by],
+                "in_game": True,
+                "tn_max_prob": round(float(probs[lo:hi].max()), 3),
+            })
+    doc = {
+        "clip": a.clip,
+        "video": label["clip"],
+        "fps": game["fps"],
+        "frame_count": int(label["frame_count"]),
+        "tol_s": gold["tol_s"],
+        "spans": game["spans"],
+        "candidates": out,
+    }
+    path = Path(a.out) / f"{a.clip}.{by}.candidates.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(doc, indent=1))
+    print(f"{a.clip}: {len(out)} {by} cuts on no gold entry -> {path}")
+
+
+def add(a):
+    """Add read verdicts of an ``unseen`` candidates file to the game's gold entries."""
+    doc = json.loads(Path(a.candidates).read_text())
+    verdicts = {}
+    for path in a.verdicts:
+        verdicts.update(read_verdicts(path))
+    unread = [c["id"] for c in doc["candidates"] if c["id"] not in verdicts]
+    if unread:
+        raise SystemExit(f"{len(unread)} candidates have no verdict, e.g. {unread[:5]}")
+    gold = json.loads(GOLD.read_text())
+    game = gold["games"][doc["clip"]]
+    known = {(t["frame"], tuple(t["by"])) for t in game["transitions"]}
+    new = [{"frame": c["frame"], "by": c["by"], "reviewed": True, **verdicts[c["id"]]} for c in doc["candidates"]]
+    new = [t for t in new if (t["frame"], tuple(t["by"])) not in known]
+    game["transitions"] = sorted(game["transitions"] + new, key=lambda t: t["frame"])
+    absorbed = absorb(game["transitions"], max(1, round(gold["tol_s"] * game["fps"])))
+    GOLD.write_text(json.dumps(gold, indent=1) + "\n")
+    real = sum(t["verdict"] != "no" for t in new)
+    print(f"{doc['clip']}: {len(new)} entries added, {real} real, {absorbed} unread cuts on gradual transitions")
 
 
 def main(argv=None):
@@ -297,6 +383,14 @@ def main(argv=None):
     x.add_argument("candidates")
     x.add_argument("ids", type=int, nargs="+")
     x.add_argument("--half-s", type=float, default=0.75)
+    u = sub.add_parser("unseen", help="a detector's in-game cuts on no gold entry, as a candidates file")
+    u.add_argument("tn")
+    u.add_argument("clip")
+    u.add_argument("--threshold", type=float, required=True)
+    u.add_argument("--out", required=True)
+    ad = sub.add_parser("add", help="add read verdicts of an unseen candidates file to the gold")
+    ad.add_argument("candidates")
+    ad.add_argument("verdicts", nargs="+")
     e = sub.add_parser("export")
     e.add_argument("candidates")
     e.add_argument("verdicts", nargs="+", help="TSVs of candidate id, verdict and an optional note")
@@ -308,6 +402,8 @@ def main(argv=None):
         "stinger": stinger,
         "dissolve": dissolve,
         "export": export,
+        "unseen": unseen,
+        "add": add,
     }[a.cmd](a)
 
 
