@@ -6569,7 +6569,7 @@
    "end": 37289,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [],
    "frames": [
     {
@@ -6828,7 +6828,7 @@
     }
    ],
    "events_note": "dark #0 dribbling on wing, no shot scramble for loose ball on floor, no shot",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s105",
@@ -6839,7 +6839,7 @@
    "end": 45659,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 45490,
@@ -7118,7 +7118,7 @@
     }
    ],
    "events_note": "short shot over dark #24 contest, made (5-4 to 7-4)",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s117",
@@ -7129,7 +7129,7 @@
    "end": 52563,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [],
    "frames": [
     {
@@ -7221,7 +7221,7 @@
     }
    ],
    "events_note": "",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s129",
@@ -7232,7 +7232,7 @@
    "end": 59813,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 58850,
@@ -7595,7 +7595,7 @@
     }
    ],
    "events_note": "dark holding ball, no shot dark holding ball on wing, no shot dark holding ball overhead, no shot dark dribbling, no shot elbow jumper; strip shows rim hit ~58930 (before row 1), bounces out right wing jumper off board/rim right, missed; feet near arc",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s145",
@@ -7606,7 +7606,7 @@
    "end": 67006,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [],
    "frames": [
     {
@@ -7648,7 +7648,7 @@
     }
    ],
    "events_note": "",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s156",
@@ -7659,7 +7659,7 @@
    "end": 71852,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 71650,
@@ -7843,7 +7843,7 @@
     }
    ],
    "events_note": "floater rolls on rim from ~71685 and falls off; score 18-16 unchanged",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s168",
@@ -7854,14 +7854,22 @@
    "end": 81809,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
-     "release_frame": 81665,
+     "release_frame": 81670,
      "rim_frame": 81730,
      "outcome": "made",
      "points": 1,
-     "shooter": null,
+     "shooter": {
+      "xyxy": [
+       505.7,
+       410.8,
+       618.1,
+       757.4
+      ],
+      "team": "home"
+     },
      "note": "free throw (light kit): only attempt in sequence; ball on rim 81730, net moves 81745, no bounce-out seen; DZI 21->22 by s179; please confirm"
     }
    ],
@@ -7946,7 +7954,7 @@
     }
    ],
    "events_note": "free throw, made",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s179",
@@ -7957,7 +7965,7 @@
    "end": 87365,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [],
    "frames": [
     {
@@ -8040,7 +8048,7 @@
     }
    ],
    "events_note": "",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s189",
@@ -8051,19 +8059,19 @@
    "end": 94504,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
-     "release_frame": 94365,
+     "release_frame": 94370,
      "rim_frame": 94405,
      "outcome": "made",
      "points": 2,
      "shooter": {
       "xyxy": [
-       1247.1,
-       344.4,
-       1329.9,
-       587.5
+       1246.9,
+       310.7,
+       1325.1,
+       568.2
       ],
       "team": "home"
      },
@@ -8300,7 +8308,7 @@
     }
    ],
    "events_note": "light passing at top, no shot short contested shot near basket, made",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s209",
@@ -8311,7 +8319,7 @@
    "end": 107741,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 107575,
@@ -8534,7 +8542,7 @@
     }
    ],
    "events_note": "dark dribbling near half court, no shot FT-line jumper hits rim, off board, out front; boxes 7/8/9 overlap shooter",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s220",
@@ -8545,7 +8553,7 @@
    "end": 115994,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 113645,
@@ -9064,7 +9072,7 @@
     }
    ],
    "events_note": "wing jumper over dark #11 contest, off board right; score 31-24 unchanged dark drive, ball not at rim yet; attempt follows, see #x0 jumper near arc, off rim up-left close shot after drive bounces on rim, falls out left ~114466; detector moment came before the shot",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s232",
@@ -9075,7 +9083,7 @@
    "end": 122424,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 122140,
@@ -9326,7 +9334,7 @@
     }
    ],
    "events_note": "dark bringing ball up after score, no shot long jumper off rim right, likely three",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s242",
@@ -9337,14 +9345,22 @@
    "end": 126712,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 126585,
      "rim_frame": 126650,
      "outcome": "made",
      "points": 1,
-     "shooter": null,
+     "shooter": {
+      "xyxy": [
+       1314.2,
+       393.0,
+       1426.5,
+       720.4
+      ],
+      "team": "away"
+     },
      "note": "free throw (dark kit): likely and-one (score 33-24 -> 33-26 at same 7:43); ball drops in ring 126650, net flares 126665"
     }
    ],
@@ -9422,7 +9438,7 @@
     }
    ],
    "events_note": "free throw, made",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s258",
@@ -9433,7 +9449,7 @@
    "end": 142361,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 142185,
@@ -9641,7 +9657,7 @@
     }
    ],
    "events_note": "light dribbling at top, no shot dark dribbling, no shot jumper inside arc, made (35-30 to 35-32)",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s267",
@@ -9652,7 +9668,7 @@
    "end": 150968,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 150315,
@@ -10047,7 +10063,7 @@
     }
    ],
    "events_note": "dark #4 dribbling, no shot short shot on right block, rolls off rim left",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s282",
@@ -10058,7 +10074,7 @@
    "end": 157571,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 157365,
@@ -10319,7 +10335,7 @@
     }
    ],
    "events_note": "dark #0 dribbling, no shot contested floater in lane, made (40-34 to 40-36)",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s298",
@@ -10330,14 +10346,22 @@
    "end": 167736,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
-     "release_frame": 167385,
+     "release_frame": 167375,
      "rim_frame": 167440,
      "outcome": "missed",
      "points": 1,
-     "shooter": null,
+     "shooter": {
+      "xyxy": [
+       472.6,
+       300.6,
+       578.9,
+       697.5
+      ],
+      "team": "home"
+     },
      "note": "free throw (light kit): only attempt in sequence; hits backboard/rim and bounces out left; live putback follows ~167620 (not FT)"
     },
     {
@@ -10454,7 +10478,7 @@
     }
    ],
    "events_note": "free-throw setup, no live ball free throw by light, missed put-back after missed free throw, rattles out; score unchanged",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s313",
@@ -10465,7 +10489,7 @@
    "end": 175401,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 173560,
@@ -10925,7 +10949,7 @@
     }
    ],
    "events_note": "baseline jumper off board; score 48-39 unchanged dark rebounding light #0's missed jumper (see #x0) light #0 left-wing jumper, missed; detector moment fired on the rebound",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s326",
@@ -10936,7 +10960,7 @@
    "end": 194776,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 193785,
@@ -11277,7 +11301,7 @@
     }
    ],
    "events_note": "top-of-key jumper bounces up off rim, out right; feet near arc right-corner three off rim; score 53-43 unchanged, shot clock reset to 14",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s573",
@@ -11288,14 +11312,22 @@
    "end": 275426,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 275260,
      "rim_frame": 275320,
      "outcome": "missed",
      "points": 1,
-     "shooter": null,
+     "shooter": {
+      "xyxy": [
+       1327.8,
+       350.0,
+       1445.5,
+       748.7
+      ],
+      "team": "home"
+     },
      "note": "free throw (light kit): only attempt in sequence (likely 1st of 2); hits rim and pops out right"
     }
    ],
@@ -11449,7 +11481,7 @@
     }
    ],
    "events_note": "free throw",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s582",
@@ -11460,7 +11492,7 @@
    "end": 280263,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 279685,
@@ -11684,7 +11716,7 @@
     }
    ],
    "events_note": "wing three off rim; score unchanged fast-break layup rolls on rim from ~280035, drops in by 280090",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s598",
@@ -11695,7 +11727,7 @@
    "end": 287766,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 287595,
@@ -11977,7 +12009,7 @@
     }
    ],
    "events_note": "layup off glass, rolls off; GLI stays 47",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s608",
@@ -11988,7 +12020,7 @@
    "end": 291945,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 291665,
@@ -12166,7 +12198,7 @@
     }
    ],
    "events_note": "pull-up near FT circle top, off left rim; green box wrong player",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s630",
@@ -12177,7 +12209,7 @@
    "end": 301200,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 300960,
@@ -12453,7 +12485,7 @@
     }
    ],
    "events_note": "elbow jumper, swish",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s647",
@@ -12464,7 +12496,7 @@
    "end": 311787,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [],
    "frames": [
     {
@@ -12687,7 +12719,7 @@
     }
    ],
    "events_note": "post-up by dark, ball still held; no ball at rim in window or strip",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s657",
@@ -12698,7 +12730,7 @@
    "end": 318243,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [],
    "frames": [
     {
@@ -12912,7 +12944,7 @@
     }
    ],
    "events_note": "dribble far from rim, no ball at rim",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s665",
@@ -12923,7 +12955,7 @@
    "end": 323926,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [],
    "frames": [
     {
@@ -13107,7 +13139,7 @@
     }
    ],
    "events_note": "dribble on wing, no ball at rim drive and ball handled low, no ball at rim",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s681",
@@ -13118,7 +13150,7 @@
    "end": 332492,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [],
    "frames": [
     {
@@ -13177,7 +13209,7 @@
     }
    ],
    "events_note": "",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s696",
@@ -13188,7 +13220,7 @@
    "end": 339862,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [],
    "frames": [
     {
@@ -13422,7 +13454,7 @@
     }
    ],
    "events_note": "light player holds ball in paint, no ball at rim",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s708",
@@ -13433,7 +13465,7 @@
    "end": 359127,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [],
    "frames": [
     {
@@ -13555,7 +13587,7 @@
     }
    ],
    "events_note": "",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s722",
@@ -13566,7 +13598,7 @@
    "end": 367036,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 366730,
@@ -13945,7 +13977,7 @@
     }
    ],
    "events_note": "layup off backboard, rebound light",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s733",
@@ -13956,14 +13988,22 @@
    "end": 374376,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
-     "release_frame": 373136,
+     "release_frame": 373135,
      "rim_frame": 373200,
      "outcome": "made",
      "points": 1,
-     "shooter": null,
+     "shooter": {
+      "xyxy": [
+       494.7,
+       368.8,
+       600.6,
+       742.0
+      ],
+      "team": "away"
+     },
      "note": "free throw (dark kit): orange #7 GLI; last FT of set (earlier attempt, if any, before seq start); score 81-61 to 81-62; ball through ring ~373196"
     },
     {
@@ -14252,7 +14292,7 @@
     }
    ],
    "events_note": "free throw dunk, rim frame before window (~374255)",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s758",
@@ -14263,7 +14303,7 @@
    "end": 395337,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [],
    "frames": [
     {
@@ -14360,7 +14400,7 @@
     }
    ],
    "events_note": "",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s768",
@@ -14371,7 +14411,7 @@
    "end": 399696,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [],
    "frames": [
     {
@@ -14517,7 +14557,7 @@
     }
    ],
    "events_note": "",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s780",
@@ -14528,7 +14568,7 @@
    "end": 406446,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 406255,
@@ -14738,7 +14778,7 @@
     }
    ],
    "events_note": "same jumper as s780#1, window before release corner jumper, swish; GLI 69->72",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s789",
@@ -14749,7 +14789,7 @@
    "end": 409982,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [],
    "frames": [
     {
@@ -14790,7 +14830,7 @@
     }
    ],
    "events_note": "free throw",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s805",
@@ -14801,17 +14841,8 @@
    "end": 417086,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
-   "events": [
-    {
-     "release_frame": 416593,
-     "rim_frame": 416655,
-     "outcome": "made",
-     "points": 1,
-     "shooter": null,
-     "note": "free throw (dark kit): orange #10 Oguine GLI; 1st of 2; release just before seq start; score 100-73 to 100-74; ball through ring ~416648"
-    }
-   ],
+   "events_status": "done",
+   "events": [],
    "frames": [
     {
      "frame": 416625,
@@ -14884,7 +14915,7 @@
     }
    ],
    "events_note": "free throw free throw",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s813",
@@ -14895,7 +14926,7 @@
    "end": 425669,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 423865,
@@ -15360,7 +15391,7 @@
     }
    ],
    "events_note": "jumper off rim left, bounces up; score unchanged layup contested by dark, rolls on rim; DZI stays 103 short jumper bounces on rim, off right, light rebound",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s843",
@@ -15371,15 +15402,23 @@
    "end": 436856,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
-     "release_frame": 436677,
+     "release_frame": 436680,
      "rim_frame": 436740,
-     "outcome": "missed",
+     "outcome": "made",
      "points": 1,
-     "shooter": null,
-     "note": "free throw (dark kit): orange #6 Almeida GLI; hits front rim ~436736, bounces on rim, out; live rebound; score stays 103-78"
+     "shooter": {
+      "xyxy": [
+       541.7,
+       367.3,
+       639.4,
+       756.1
+      ],
+      "team": "away"
+     },
+     "note": "free throw (dark kit): orange #6 Almeida GLI; hits front rim ~436736, bounces on rim, in"
     }
    ],
    "frames": [
@@ -15571,7 +15610,7 @@
     }
    ],
    "events_note": "jumper, drops in after sitting on rim (probable); green box 4 overlaps defender, shooter box 5",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "hSXPCy5NedU_s856",
@@ -15582,7 +15621,7 @@
    "end": 443540,
    "fps": 60.0,
    "held_out": false,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [],
    "frames": [
     {
@@ -15633,7 +15672,7 @@
     }
    ],
    "events_note": "free throw",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "1A79NXz9CFM_s141",
@@ -15644,7 +15683,7 @@
    "end": 51510,
    "fps": 60.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [],
    "frames": [
     {
@@ -15690,7 +15729,7 @@
     }
    ],
    "events_note": "replay close-up of an earlier dunk/layup, not live play free-throw set-up (shooter holding ball at line), no live attempt",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "1A79NXz9CFM_s175",
@@ -15701,7 +15740,7 @@
    "end": 69147,
    "fps": 60.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 67475,
@@ -16127,7 +16166,7 @@
     }
    ],
    "events_note": "baseline catch and pass back out; ball passes below the rim, not a shot three from left wing, off rim, rebound runner from lane, bounces on rim and out, rebound dark contested layup/scoop in traffic, ball high off glass onto ring; drops near ring at 68900-68905, cannot see if through",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "1A79NXz9CFM_s196",
@@ -16138,14 +16177,22 @@
    "end": 83764,
    "fps": 60.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
-     "release_frame": 83225,
-     "rim_frame": 83285,
+     "release_frame": 83190,
+     "rim_frame": 83250,
      "outcome": "made",
      "points": 1,
-     "shooter": null,
+     "shooter": {
+      "xyxy": [
+       296.3,
+       457.0,
+       475.3,
+       980.7
+      ],
+      "team": "home"
+     },
      "note": "free throw (light kit): 1st of 2; hits rim, rolls in; score 10-5 to 11-5"
     }
    ],
@@ -16260,7 +16307,7 @@
     }
    ],
    "events_note": "free throw (players lined up on lane), not a live-play attempt",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "1A79NXz9CFM_s220",
@@ -16271,7 +16318,7 @@
    "end": 95105,
    "fps": 60.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 94905,
@@ -16531,7 +16578,7 @@
     }
    ],
    "events_note": "dribble drive far from rim; no ball at rim layup/hook under rim, made",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "1A79NXz9CFM_s241",
@@ -16542,7 +16589,7 @@
    "end": 125522,
    "fps": 60.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 124545,
@@ -16838,7 +16885,7 @@
     }
    ],
    "events_note": "jumper from lane; ball drops in front of ring without going in (score stays 25-15, shot clock not reset, same team shoots again); verify three from left wing off rim/board, bounces out left dribbling near top of key; no shot at this moment driving layup, shooter falls into defender (box 9 is the dark defender); ball off rim left",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "1A79NXz9CFM_s270",
@@ -16849,14 +16896,22 @@
    "end": 142523,
    "fps": 60.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
-     "release_frame": 140945,
-     "rim_frame": 141020,
+     "release_frame": 140955,
+     "rim_frame": 141015,
      "outcome": "made",
      "points": 1,
-     "shooter": null,
+     "shooter": {
+      "xyxy": [
+       1377.0,
+       556.5,
+       1490.1,
+       918.3
+      ],
+      "team": "away"
+     },
      "note": "free throw (dark kit): last of set (earlier attempts before sequence start); score 27-16 to 27-17"
     },
     {
@@ -17235,7 +17290,7 @@
     }
    ],
    "events_note": "pull-up jumper from right elbow, made layup, ball drops through ring",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "1A79NXz9CFM_s304",
@@ -17246,7 +17301,7 @@
    "end": 172109,
    "fps": 60.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 171840,
@@ -17417,7 +17472,7 @@
     }
    ],
    "events_note": "driving layup off glass, ball on ring 171880; light player has ball under rim at 171910 (maybe missed)",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "1A79NXz9CFM_s322",
@@ -17428,7 +17483,7 @@
    "end": 187200,
    "fps": 60.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 185620,
@@ -17879,7 +17934,7 @@
     }
    ],
    "events_note": "three from right wing, off back rim, rebound contested floater/layup in lane, drops through net",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "1A79NXz9CFM_s595",
@@ -17890,14 +17945,22 @@
    "end": 250384,
    "fps": 60.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
-     "release_frame": 249885,
-     "rim_frame": 249945,
+     "release_frame": 249880,
+     "rim_frame": 249940,
      "outcome": "made",
      "points": 1,
-     "shooter": null,
+     "shooter": {
+      "xyxy": [
+       1382.1,
+       525.2,
+       1506.6,
+       919.1
+      ],
+      "team": "home"
+     },
      "note": "free throw (light kit): 1st of 2; score 54-25 to 55-25"
     }
    ],
@@ -17975,7 +18038,7 @@
     }
    ],
    "events_note": "free throw (made), players lined up on lane; not a live-play attempt",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "1A79NXz9CFM_s612",
@@ -17986,12 +18049,12 @@
    "end": 267711,
    "fps": 60.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 267450,
      "rim_frame": 267455,
-     "outcome": "missed",
+     "outcome": "made",
      "points": 2,
      "shooter": {
       "xyxy": [
@@ -18204,7 +18267,7 @@
     }
    ],
    "events_note": "driving layup off glass; ball in ring 267465-267470, light player holds ball under basket at 267505; looks made but not certain",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "1A79NXz9CFM_s637",
@@ -18215,14 +18278,22 @@
    "end": 285221,
    "fps": 60.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 284025,
-     "rim_frame": 284085,
+     "rim_frame": 284090,
      "outcome": "made",
      "points": 1,
-     "shooter": null,
+     "shooter": {
+      "xyxy": [
+       277.0,
+       525.4,
+       425.2,
+       989.0
+      ],
+      "team": "away"
+     },
      "note": "free throw (dark kit): sequence starts mid-attempt; shooter kit from one cell; score 61-37 to 61-38, shot clock resets"
     },
     {
@@ -18447,7 +18518,7 @@
     }
    ],
    "events_note": "mid-range jumper from left elbow, swish contested layup, ball rolls on rim then drops through net (285055)",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "1A79NXz9CFM_s659",
@@ -18458,7 +18529,7 @@
    "end": 299418,
    "fps": 60.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 298225,
@@ -18477,16 +18548,16 @@
      "note": ""
     },
     {
-     "release_frame": 299205,
+     "release_frame": 299200,
      "rim_frame": 299215,
      "outcome": "made",
      "points": 2,
      "shooter": {
       "xyxy": [
-       1179.3,
-       299.9,
-       1248.2,
-       583.4
+       1173.4,
+       294.0,
+       1246.3,
+       565.7
       ],
       "team": "away"
      },
@@ -18791,7 +18862,7 @@
     }
    ],
    "events_note": "mid-range jumper near free-throw line (light #13, not green box), off rim, bounces out right catch on the left wing, no shot (shot clock keeps running, ball never at rim) close-range contested shot under rim; ball on ring at 299225, light player holds ball under rim at 299255; cannot tell if it dropped through",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "1A79NXz9CFM_s679",
@@ -18802,14 +18873,22 @@
    "end": 309612,
    "fps": 60.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
-     "release_frame": 309235,
-     "rim_frame": 309295,
+     "release_frame": 309215,
+     "rim_frame": 309275,
      "outcome": "made",
      "points": 1,
-     "shooter": null,
+     "shooter": {
+      "xyxy": [
+       1335.6,
+       503.2,
+       1489.6,
+       918.7
+      ],
+      "team": "home"
+     },
      "note": "free throw (light kit): 1st of 2; bounces on rim/backboard, drops in ~309370; scorebug not yet updated by sequence end"
     }
    ],
@@ -18901,7 +18980,7 @@
     }
    ],
    "events_note": "free throw (rolls on ring, drops in); not a live-play attempt",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "1A79NXz9CFM_s698",
@@ -18912,7 +18991,7 @@
    "end": 321427,
    "fps": 60.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 320845,
@@ -19322,7 +19401,7 @@
     }
    ],
    "events_note": "three from left wing (shooter unboxed, top of frame, feet just behind arc); release before the five pictures; front rim, out contested three from right wing, ball off right side of ring (320930); fairly sure missed",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "1A79NXz9CFM_s723",
@@ -19333,7 +19412,7 @@
    "end": 343074,
    "fps": 60.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 341920,
@@ -19748,7 +19827,7 @@
     }
    ],
    "events_note": "driving layup high off glass, ball rolls on ring and out (dark #13 reaches for it at 341975-341990); score unchanged 80-52, light gets ball contested shot under rim, ball off glass/rim and bounces high, falls out; score unchanged short jumper in lane, ball drops through net 342855-342870 (fairly sure)",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "1A79NXz9CFM_s746",
@@ -19759,7 +19838,7 @@
    "end": 358271,
    "fps": 60.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 357490,
@@ -20113,7 +20192,7 @@
     }
    ],
    "events_note": "dead ball, referee tossing the ball; no attempt dribble hand-off on left wing, no shot; ball not at rim contested jumper from left wing at shot-clock end (box 4, not green box); ball reaches left of ring at 357565 then lost; feet near the arc",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "1A79NXz9CFM_s765",
@@ -20124,7 +20203,7 @@
    "end": 369872,
    "fps": 60.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [],
    "frames": [
     {
@@ -20206,7 +20285,7 @@
     }
    ],
    "events_note": "dead ball, inbound setup; no attempt",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "1A79NXz9CFM_s788",
@@ -20217,14 +20296,22 @@
    "end": 388749,
    "fps": 60.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
-     "release_frame": 388150,
-     "rim_frame": 388210,
+     "release_frame": 388135,
+     "rim_frame": 388200,
      "outcome": "made",
      "points": 1,
-     "shooter": null,
+     "shooter": {
+      "xyxy": [
+       311.0,
+       519.2,
+       436.1,
+       973.9
+      ],
+      "team": "away"
+     },
      "note": "free throw (dark kit): 1st of 2; score 87-69 to 87-70"
     }
    ],
@@ -20295,7 +20382,7 @@
     }
    ],
    "events_note": "free throw (made, 87-69 to 87-70); not a live-play attempt dead ball, inbound with referee; no attempt",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "1A79NXz9CFM_s814",
@@ -20306,7 +20393,7 @@
    "end": 406437,
    "fps": 60.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [
     {
      "release_frame": 405545,
@@ -20539,7 +20626,7 @@
     }
    ],
    "events_note": "three from right corner/wing, off back rim, bounces out left layup/put-back off glass, rolls on ring and drops through net (406330-406345)",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   },
   {
    "sequence": "1A79NXz9CFM_s837",
@@ -20550,7 +20637,7 @@
    "end": 417089,
    "fps": 60.0,
    "held_out": true,
-   "events_status": "first_pass",
+   "events_status": "done",
    "events": [],
    "frames": [
     {
@@ -20624,7 +20711,7 @@
     }
    ],
    "events_note": "",
-   "free_throws": "proposed"
+   "free_throws": "labelled"
   }
  ]
 }
