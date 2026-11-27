@@ -326,27 +326,46 @@ def _run_local_clips(
         log.info("  %s (%d shots): %.1f s", clip, len(clip_seqs), wall)
 
 
+def check_upstreams(cfg: RunConfig, runs: Path, seqs: list[Sequence], layer: str, keys: dict[str, str]) -> None:
+    """Refuse to run ``layer`` on ``seqs`` when an upstream output they read was made by other code.
+
+    Writing the layer's current code key over outputs computed from stale inputs would hide them from every later run,
+    so the upstream layer has to be remade first.
+
+    Args:
+        cfg: The run config.
+        runs: Root of all run outputs.
+        seqs: The sequences the layer is about to run on.
+        layer: A configured layer name.
+        keys: Current code keys of every configured layer (:func:`code_keys`).
+
+    Raises:
+        RuntimeError: Naming the upstream layer and one of its stale sequences.
+
+    Examples:
+        >>> from bga.config import RunConfig
+        >>> cfg = RunConfig(name="demo", layers={"shots": {"backend": "gold"}})
+        >>> check_upstreams(cfg, Path("runs"), [], "detect", code_keys(cfg))
+
+    """
+    for up in LAYERS[layer]:
+        if up in cfg.layers and up != "shots" and (bad := stale_sequences(cfg, runs, seqs, up, keys[up])):
+            raise RuntimeError(
+                f"{layer} would read {len(bad)} {up} outputs made by other code (e.g. {bad[0].name}); "
+                f"rerun {up} first (CUDA backends need --remote modal)"
+            )
+
+
 def _todo(
     cfg: RunConfig, runs: Path, seqs: list[Sequence], layer: str, keys: dict[str, str], force: list[str] | None
 ) -> list[Sequence]:
-    """The sequences a layer must run on: forced, missing, or made by other code.
-
-    Raises:
-        RuntimeError: When an upstream output those sequences read was made by other code and this run did not remake
-            it (its layer was skipped or not selected), so the layer would read stale inputs under a current key.
-
-    """
+    """The sequences a layer must run on: forced, missing, or made by other code (see :func:`check_upstreams`)."""
     todo = [s for s in seqs if (force and layer in force) or not output_path(cfg, runs, s, layer).exists()]
     stale = stale_sequences(cfg, runs, [s for s in seqs if s not in todo], layer, keys[layer])
     if stale:
         log.warning("%s: %d cached outputs were made by other code; recomputing", layer, len(stale))
         todo = [s for s in seqs if s in todo or s in stale]
-    for up in LAYERS[layer]:
-        if up in cfg.layers and up != "shots" and (bad := stale_sequences(cfg, runs, todo, up, keys[up])):
-            raise RuntimeError(
-                f"{layer} would read {len(bad)} {up} outputs made by other code (e.g. {bad[0].name}); "
-                f"rerun {up} first (CUDA backends need --remote modal)"
-            )
+    check_upstreams(cfg, runs, todo, layer, keys)
     return todo
 
 
@@ -490,7 +509,7 @@ def remote_summary(records: dict[str, dict]) -> dict | None:
         True
 
     """
-    remote = [r for r in records.values() if r.get("platform") != "local"]
+    remote = [r for r in records.values() if r.get("platform") not in (None, "local")]
     if not remote:
         return None
     return {
@@ -512,13 +531,20 @@ def _read_meta(path: Path) -> dict:
 def _write_meta(cfg: RunConfig, runs: Path, layer: str, todo: list[Sequence], t0: float, code: str) -> None:
     """Record a run in each clip's ``meta.json``: the run's own fields, and the records of the sequences it wrote.
 
-    Records of sequences this run did not write are kept.
+    Records of sequences this run did not write are kept. The first time a directory written before code keys is
+    written again, every output in it without a record gets ``{"legacy": True}``. That record has no code key, so the
+    output stays reusable, while an output with no record at all in a keyed directory counts as unknown code.
 
     """
     commit, written = git_commit(), dt.datetime.now().isoformat(timespec="seconds")
     for clip in {s.clip for s in todo}:
         path = cfg.run_dir(runs, clip, layer) / "meta.json"
-        records = dict(_read_meta(path).get("sequences") or {})
+        old = _read_meta(path)
+        records = dict(old.get("sequences") or {})
+        if old and "code" not in old:  # a directory written before code keys: its unrecorded outputs are legacy
+            for out_path in path.parent.glob("*.json"):
+                if out_path.name != "meta.json":
+                    records.setdefault(out_path.stem, {"legacy": True})
         for s in todo:
             if s.clip == clip:
                 out = load_output(cfg, runs, s, layer)

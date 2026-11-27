@@ -31,6 +31,12 @@ def write(runs, seq, out):
     pipeline._write_meta(CFG, runs, "detect", [seq], time.perf_counter(), "c0de0000")
 
 
+def legacy_dir(runs) -> None:
+    """A detect directory as runs before 2026-11-22 left it: an output of S2 and a ``meta.json`` with no records."""
+    pipeline.write_output(pipeline.output_path(CFG, runs, S2, "detect"), {"wall_s": 1.0})
+    (CFG.run_dir(runs, "clip", "detect") / "meta.json").write_text(json.dumps({"layer": "detect", "commit": "0000000"}))
+
+
 def meta(runs) -> dict:
     """The detect layer's ``meta.json`` of the clip."""
     return json.loads((CFG.run_dir(runs, "clip", "detect") / "meta.json").read_text())
@@ -86,6 +92,16 @@ class TestMeta:
         write(tmp_path, S2, {"remote": REMOTE})
         got = {name: rec["platform"] for name, rec in meta(tmp_path)["sequences"].items()}
         assert got == {"clip_s1": "local", "clip_s2": "modal"}
+
+    def test_untouched_legacy_output_stays_reusable(self, tmp_path, commits):
+        legacy_dir(tmp_path)
+        write(tmp_path, S1, {"wall_s": 1.5})
+        assert pipeline.stale_sequences(CFG, tmp_path, [S2], "detect", "c0de1111") == []
+
+    def test_legacy_record_is_not_counted_as_remote(self, tmp_path, commits):
+        legacy_dir(tmp_path)
+        write(tmp_path, S1, {"wall_s": 1.5})
+        assert "remote" not in meta(tmp_path)
 
     def test_meta_written_before_sequence_records_is_extended(self, tmp_path, commits):
         path = CFG.run_dir(tmp_path, "clip", "detect") / "meta.json"
