@@ -187,3 +187,666 @@ Tnuscrm9RyU_s39:9290	none	none	-	no	ring a is on the PGE logo of the board; game
 Tnuscrm9RyU_s39:9340	a	none	-	yes	shot in flight in front of the crowd; ring b is on a yellow object in the crowd
 Tnuscrm9RyU_s39:9390	a	none	-	yes	shot arriving at the rim
 Tnuscrm9RyU_s39:9440	none	none	-	no	ring a is on the hand of green 13, no ball there; dead ball after the basket, game ball not visible (appears at the left at +0.2 s)
+hSXPCy5NedU_s89:35880	a	3	dark	yes	dribble
+hSXPCy5NedU_s89:36060	a	3	dark	yes	dribble
+hSXPCy5NedU_s89:36240	a	none	-	no	ball in air near scorer table; loose or pass toward 7, unclear
+hSXPCy5NedU_s89:36420	a	8	dark	yes	holds ball, guarded by 6
+hSXPCy5NedU_s89:36600	a	8	dark	yes	dribble
+hSXPCy5NedU_s89:36780	a	8	dark	yes	dribble, boxes 8 and 9 overlap
+hSXPCy5NedU_s89:36960	none	none	-	no	crowd shot, ring on a fan, ball not visible
+hSXPCy5NedU_s89:37140	other	none	-	no	scramble on floor, ball fought for, ring position unclear
+hSXPCy5NedU_s105:44135	none	none	-	no	crowd shot, ring on a fan, ball not visible
+hSXPCy5NedU_s105:44315	a	none	-	yes	referee holds ball
+hSXPCy5NedU_s105:44495	a	none	-	yes	referee holds ball
+hSXPCy5NedU_s105:44675	a	none	-	yes	referee passing ball to player 5, ball in flight
+hSXPCy5NedU_s105:44855	a	6	light	yes	holds ball after catch
+hSXPCy5NedU_s105:45035	a	6	light	yes	dribble
+hSXPCy5NedU_s105:45215	a	6	light	yes	dribble
+hSXPCy5NedU_s105:45395	a	9	light	yes	dribble
+hSXPCy5NedU_s105:45575	a	none	-	no	rebound under rim, 7 reaching up; ring b on fallen player; control unclear
+hSXPCy5NedU_s117:52075	none	none	-	no	close-up of coach and player, ball not visible
+hSXPCy5NedU_s117:52255	a	5	dark	yes	free throw shooter holds ball
+hSXPCy5NedU_s117:52435	a	5	dark	yes	free throw shooter holds ball
+hSXPCy5NedU_s129:58045	a	2	dark	yes	dribble
+hSXPCy5NedU_s129:58225	a	5	dark	yes	dribble
+hSXPCy5NedU_s129:58405	a	none	-	yes	pass in flight from 2 to 7
+hSXPCy5NedU_s129:58585	a	9	dark	yes	shooter, ball still in hands overhead
+hSXPCy5NedU_s129:58765	a	9	dark	yes	dribble
+hSXPCy5NedU_s129:58945	a	none	-	yes	shot at rim
+hSXPCy5NedU_s129:59125	a	4	light	yes	dribble
+hSXPCy5NedU_s129:59305	none	none	-	no	ring on crowd; game ball not found in frame
+hSXPCy5NedU_s129:59485	a	10	light	no	layup, ball overhead; release timing and box 10 assignment unclear
+hSXPCy5NedU_s129:59665	a	none	-	no	scrum under basket after shot; ball not clearly held
+hSXPCy5NedU_s145:66655	a	none	-	yes	referee holds ball
+hSXPCy5NedU_s145:66835	none	none	-	no	wide free-throw setup, ball not seen (likely referee)
+hSXPCy5NedU_s156:70935	a	1	light	no	dribble; boxes 1 and 2 overlap, holder is the rear player
+hSXPCy5NedU_s156:71115	a	4	light	yes	dribble
+hSXPCy5NedU_s156:71295	a	4	light	yes	dribble
+hSXPCy5NedU_s156:71475	none	none	-	no	crowd shot, ring on a fan, ball not visible
+hSXPCy5NedU_s156:71655	a	none	-	yes	shot at rim
+hSXPCy5NedU_s168:81190	a	none	-	no	referee bouncing ball to free throw shooter 9; control unclear
+hSXPCy5NedU_s168:81370	a	none	-	yes	referee holds ball
+hSXPCy5NedU_s168:81550	none	none	-	no	wide free-throw setup, ball not seen
+hSXPCy5NedU_s168:81730	a	none	-	yes	free throw at rim
+hSXPCy5NedU_s179:87025	a	8	light	yes	holds ball while dribbling up
+hSXPCy5NedU_s179:87205	a	6	light	yes	dribble
+hSXPCy5NedU_s189:93360	none	none	-	no	crowd shot, ball not visible
+hSXPCy5NedU_s189:93540	a	3	light	yes	dribble
+hSXPCy5NedU_s189:93720	b	8	light	no	ring a on crowd; b likely ball with 8 at frame bottom edge, small
+hSXPCy5NedU_s189:93900	a	9	light	yes	dribble
+hSXPCy5NedU_s189:94080	a	5	light	yes	dribble
+hSXPCy5NedU_s189:94260	a	5	light	no	dribble by light player; overlapping boxes 3/5/10, box assignment unclear
+hSXPCy5NedU_s189:94440	a	none	-	yes	loose ball on floor near baseline
+hSXPCy5NedU_s209:106665	a	2	dark	yes	dribble
+hSXPCy5NedU_s209:106845	a	6	dark	yes	dribble
+hSXPCy5NedU_s209:107025	a	0	dark	yes	dribble
+hSXPCy5NedU_s209:107205	a	none	-	no	bounce pass just released by 6 toward 7; may still touch hand
+hSXPCy5NedU_s209:107385	none	none	-	no	crowd shot, ring on a fan, ball not visible
+hSXPCy5NedU_s209:107565	a	8	dark	no	jump shot, ball overhead; release imminent
+hSXPCy5NedU_s220:113625	a	9	dark	no	jump shot overhead, rings a and b both on ball; boxes 5/9 overlap, release unclear
+hSXPCy5NedU_s220:113805	a	8	dark	yes	dribble
+hSXPCy5NedU_s220:113985	a	8	dark	yes	dribble
+hSXPCy5NedU_s220:114165	a	10	dark	yes	dribble, defender 7 close
+hSXPCy5NedU_s220:114345	a	7	dark	no	drive with ball; boxes 7 and 9 overlap
+hSXPCy5NedU_s220:114525	a	10	light	yes	dribble
+hSXPCy5NedU_s220:114705	other	none	-	no	ring a on banner; possible ball in air above 8, unclear
+hSXPCy5NedU_s220:114885	a	6	dark	no	dribble by dark 8 jersey; boxes 6/8 overlap
+hSXPCy5NedU_s220:115065	a	7	light	yes	dribble
+hSXPCy5NedU_s220:115245	a	9	light	yes	shooter, ball still in hands overhead
+hSXPCy5NedU_s220:115425	a	9	light	yes	dribble
+hSXPCy5NedU_s220:115605	a	6	light	no	dribble in traffic; overlapping boxes 6/10/11
+hSXPCy5NedU_s220:115785	none	none	-	no	crowd shot, ring a in stands; ball not identified
+hSXPCy5NedU_s232:120930	a	none	-	no	shot at rim; unclear whether a or b is the ball
+hSXPCy5NedU_s232:121110	a	4	dark	yes	dribble
+hSXPCy5NedU_s232:121290	none	none	-	no	crowd shot, rings on fans, ball not visible
+hSXPCy5NedU_s232:121470	a	8	dark	yes	holds ball under pressure
+hSXPCy5NedU_s232:121650	a	8	dark	no	handoff from dark 8 jersey (box 2) to 7 (box 8); control unclear
+hSXPCy5NedU_s232:121830	a	7	dark	no	ball at shoulder of 7, defender 9 reaching
+hSXPCy5NedU_s232:122010	none	none	-	no	crowd shot, ring on a fan, ball not visible
+hSXPCy5NedU_s232:122190	a	none	-	no	ball high in flight near top edge; ring small
+hSXPCy5NedU_s232:122370	none	none	-	no	crowd shot, ring on a fan, ball not visible
+hSXPCy5NedU_s242:126305	none	none	-	no	fans close-up, ball not visible
+hSXPCy5NedU_s242:126485	a	8	dark	yes	free throw shooter bouncing ball
+hSXPCy5NedU_s242:126665	a	none	-	yes	loose ball out of bounds near scorer table
+hSXPCy5NedU_s258:140635	none	none	-	no	close-up of light 2, ball not visible
+hSXPCy5NedU_s258:140815	a	none	-	yes	referee holds ball
+hSXPCy5NedU_s258:140995	none	none	-	no	rings on crowd, ball not visible
+hSXPCy5NedU_s258:141175	none	none	-	no	crowd shot, ring on a fan, ball not visible
+hSXPCy5NedU_s258:141355	none	none	-	no	crowd shot, rings on fans, ball not visible
+hSXPCy5NedU_s258:141535	none	none	-	no	crowd shot, rings on fans, ball not visible
+hSXPCy5NedU_s258:141715	a	9	dark	yes	holds ball, about to pass
+hSXPCy5NedU_s258:141895	none	none	-	no	rings on crowd, ball not visible
+hSXPCy5NedU_s258:142075	a	6	dark	yes	dribble drive, defender 7 reaching
+hSXPCy5NedU_s258:142255	a	none	-	yes	shot at rim
+hSXPCy5NedU_s267:148600	a	none	-	no	referee handing ball to inbounder 4; control unclear
+hSXPCy5NedU_s267:148780	a	none	-	yes	referee holds ball
+hSXPCy5NedU_s267:148960	a	none	-	yes	referee holds ball
+hSXPCy5NedU_s267:149140	a	2	light	no	dribble before handoff to 1; ring b on head of 1, tiny box 4 on ball
+hSXPCy5NedU_s267:149320	none	none	-	no	wide shot, ball not found
+hSXPCy5NedU_s267:149500	a	5	light	yes	dribble
+hSXPCy5NedU_s267:149680	a	3	light	yes	dribble
+hSXPCy5NedU_s267:149860	none	none	-	no	ring a on jersey of 6; game ball not found
+hSXPCy5NedU_s267:150040	a	8	light	yes	dribble
+hSXPCy5NedU_s267:150220	a	9	light	yes	holds ball, defender 6 reaching
+hSXPCy5NedU_s267:150400	none	none	-	no	ring a on cheerleader; shot likely in flight, ball not located
+hSXPCy5NedU_s267:150580	none	none	-	no	blurred crowd shot, ball not visible
+hSXPCy5NedU_s267:150760	a	8	dark	yes	dribble
+hSXPCy5NedU_s282:156405	none	none	-	yes	crowd shot, no play in view
+hSXPCy5NedU_s282:156585	a	3	dark	yes	dribble up court
+hSXPCy5NedU_s282:156765	a	6	dark	yes	caught pass, ball under control
+hSXPCy5NedU_s282:156945	a	7	dark	yes	dribble
+hSXPCy5NedU_s282:157125	a	6	dark	no	shooter 11 just before release; boxes 6 and 10 both on him
+hSXPCy5NedU_s282:157305	a	6	dark	yes	drive, ball in right hand
+hSXPCy5NedU_s282:157485	a	8	light	yes	holds ball at chest
+hSXPCy5NedU_s298:167065	none	none	-	no	free-throw lineup, ball not visible, shooter likely off frame
+hSXPCy5NedU_s298:167245	a	7	light	yes	free-throw shooter holding ball
+hSXPCy5NedU_s298:167425	a	none	-	yes	free throw in flight
+hSXPCy5NedU_s298:167605	a	none	-	no	putback at rim, ball just leaving light player 6 fingertips
+hSXPCy5NedU_s313:173035	a	8	dark	yes	shooter, ball still in hands overhead
+hSXPCy5NedU_s313:173215	a	7	dark	yes	dribble, defender in front
+hSXPCy5NedU_s313:173395	a	none	-	no	bounce pass from dark 10 to dark 8 near floor; 8 controls only after
+hSXPCy5NedU_s313:173575	a	none	-	yes	ball in flight above rim at backboard
+hSXPCy5NedU_s313:173755	b	8	light	yes	caught pass, holds at chest; ring a on table
+hSXPCy5NedU_s313:173935	a	7	light	yes	dribble up court
+hSXPCy5NedU_s313:174115	none	6	light	no	light 6 driving and dribbling but ball occluded in frame; rings a and b on heads
+hSXPCy5NedU_s313:174295	a	3	light	no	ball overhead in light 3 hands, pass leaves just after; rings a and b both on ball
+hSXPCy5NedU_s313:174475	a	none	-	yes	pass in flight from light 0 to light 9
+hSXPCy5NedU_s313:174655	a	6	light	yes	gathers ball at chest before pass
+hSXPCy5NedU_s313:174835	a	none	-	yes	ball in flight high over crowd side; ring b not the ball
+hSXPCy5NedU_s313:175015	a	none	-	no	loose-ball scramble near floor, dark 6 reaching for it
+hSXPCy5NedU_s313:175195	a	6	dark	yes	holds ball at waist before passing
+hSXPCy5NedU_s326:193170	a	1	dark	yes	dribble up court
+hSXPCy5NedU_s326:193350	a	4	dark	yes	dribble along sideline, referee box 6 beside
+hSXPCy5NedU_s326:193530	a	8	dark	yes	dribble drive
+hSXPCy5NedU_s326:193710	a	7	dark	yes	holds ball at waist, triple threat
+hSXPCy5NedU_s326:193890	a	none	-	no	layup just released by light player 9/8, ball just above fingertips; ring b on hand
+hSXPCy5NedU_s326:194070	a	9	light	yes	dribble on fast break, ball at floor
+hSXPCy5NedU_s326:194250	a	6	light	yes	dribble drive
+hSXPCy5NedU_s326:194430	a	none	-	yes	shot in flight high near shot clock; ring b not the ball
+hSXPCy5NedU_s326:194610	a	none	-	no	loose ball near baseline, light 6 bending to recover it
+hSXPCy5NedU_s573:274660	a	7	light	no	FT shooter 45 just took ball from referee; handover moment
+hSXPCy5NedU_s573:274840	a	none	-	yes	referee holding ball between free throws
+hSXPCy5NedU_s573:275020	a	7	light	yes	FT shooter 45 holding ball at waist
+hSXPCy5NedU_s573:275200	a	6	light	no	FT shooter 45 holds ball; boxes 6 and 7 overlap him and dark player behind, box id unclear
+hSXPCy5NedU_s573:275380	a	none	-	yes	ball in the air after FT, bouncing to dark 11 (box 4)
+hSXPCy5NedU_s582:279210	a	2	dark	yes	dribble
+hSXPCy5NedU_s582:279390	a	2	dark	yes	dribble up court
+hSXPCy5NedU_s582:279570	a	6	dark	yes	dribble drive, defender box 8 beside
+hSXPCy5NedU_s582:279750	a	none	-	yes	shot in flight toward backboard
+hSXPCy5NedU_s582:279930	a	none	-	yes	ball in flight during fast camera pan
+hSXPCy5NedU_s582:280110	a	none	-	yes	ball dropping below rim after shot
+hSXPCy5NedU_s598:286245	none	none	-	yes	close-up of players walking during stoppage, ball out of view
+hSXPCy5NedU_s598:286425	a	2	dark	yes	dribble, ball at hip
+hSXPCy5NedU_s598:286605	a	none	-	yes	ball bounced from referee toward inbounder, in the air
+hSXPCy5NedU_s598:286785	a	2	dark	yes	dribble up court
+hSXPCy5NedU_s598:286965	a	9	dark	yes	dribble up court
+hSXPCy5NedU_s598:287145	a	1	dark	yes	dribble at hip, defender box 7
+hSXPCy5NedU_s598:287325	a	none	-	no	ball on floor below tangled dark blond player and light defender; dribble or loose unclear; boxes 7/8/2/9 overlap
+hSXPCy5NedU_s598:287505	none	none	-	no	motion blur during pan; ring a on dark player shoulder; ball not found
+hSXPCy5NedU_s598:287685	a	none	-	no	loose ball on floor in scramble, dark player falling and light player over it
+hSXPCy5NedU_s608:290950	a	none	-	yes	referee holding ball, not in play
+hSXPCy5NedU_s608:291130	a	none	-	yes	referee handling ball before inbound, not in play
+hSXPCy5NedU_s608:291310	a	0	dark	yes	dribble up court
+hSXPCy5NedU_s608:291490	a	4	dark	yes	dribble at hip
+hSXPCy5NedU_s608:291670	a	none	-	yes	shot in flight high above players
+hSXPCy5NedU_s608:291850	none	none	-	no	wide shot, players standing, ball not found (maybe occluded or off frame)
+hSXPCy5NedU_s630:299780	a	none	-	yes	referee holding ball, not in play
+hSXPCy5NedU_s630:299960	a	none	-	yes	unboxed referee tossing ball, not in play
+hSXPCy5NedU_s630:300140	a	3	light	yes	dribble, ball at chest between bounces
+hSXPCy5NedU_s630:300320	a	4	light	yes	dribble up court
+hSXPCy5NedU_s630:300500	a	5	light	yes	dribble, defender box 3
+hSXPCy5NedU_s630:300680	a	5	light	yes	light 1 dribbling, ball at right hip
+hSXPCy5NedU_s630:300860	a	9	light	yes	drive, ball at chest between dribbles
+hSXPCy5NedU_s630:301040	none	none	-	yes	crowd cutaway; ring a on a fan
+hSXPCy5NedU_s647:310495	none	none	-	yes	close-up of light player walking, ball out of view
+hSXPCy5NedU_s647:310675	none	none	-	yes	close-up of light player, ball out of view
+hSXPCy5NedU_s647:310855	none	none	-	yes	close-up of light players, ball out of view
+hSXPCy5NedU_s647:311035	a	none	-	yes	referee bounce pass to inbounder dark 9, ball bouncing at his feet
+hSXPCy5NedU_s647:311215	a	8	dark	yes	holds ball low with both hands, defender box 3
+hSXPCy5NedU_s647:311395	a	6	dark	yes	dark 7 dribbling, ball at floor beside him
+hSXPCy5NedU_s647:311575	a	8	dark	no	dark driver with ball at hip, light defender 9 wrapping him; possible tie-up/foul
+hSXPCy5NedU_s647:311755	a	8	light	no	light player holds ball at chest, appears to be stoppage after foul; may be dead ball
+hSXPCy5NedU_s657:317025	a	none	-	yes	referee holding ball, not in play
+hSXPCy5NedU_s657:317205	a	none	-	yes	referee holding ball (box 10 is referee), not in play
+hSXPCy5NedU_s657:317385	a	2	dark	no	dark player holds ball standing still, likely inbounder before play resumes; may be dead ball
+hSXPCy5NedU_s657:317565	a	8	dark	no	ball at dark 8 chest just after light 9 pass/deflection; catch vs arriving unclear
+hSXPCy5NedU_s657:317745	a	10	dark	yes	stationary dribble at feet
+hSXPCy5NedU_s657:317925	a	7	dark	yes	dribble, walking ball up
+hSXPCy5NedU_s657:318105	a	none	-	yes	bounce pass in flight from dark 7 to dark 6 (box 9)
+hSXPCy5NedU_s665:323030	a	none	-	yes	pass in flight to dark 7 (box 3) near sideline
+hSXPCy5NedU_s665:323210	a	3	dark	yes	dribble at hip
+hSXPCy5NedU_s665:323390	a	1	dark	yes	dribble
+hSXPCy5NedU_s665:323570	a	3	dark	yes	dribble, defender box 6 reaching
+hSXPCy5NedU_s665:323750	a	9	dark	no	dark 6 dribbling behind light 0; boxes 9 and 8 overlap, unclear which is the dark dribbler
+hSXPCy5NedU_s681:332105	a	8	dark	no	dark 11 holds ball at hip during apparent stoppage, referee arrives after; may be dead ball
+hSXPCy5NedU_s681:332285	a	none	-	yes	referee (box 7) holding ball, not in play
+hSXPCy5NedU_s696:338515	a	3	dark	yes	dribble while signalling play
+hSXPCy5NedU_s696:338695	a	8	dark	yes	dribble, ball at floor
+hSXPCy5NedU_s696:338875	a	none	-	yes	shot in flight near backboard
+hSXPCy5NedU_s696:339055	a	6	dark	yes	dark 8 dribbling, ball at hand
+hSXPCy5NedU_s696:339235	a	none	-	no	dark 8 (box 5) shooting under pressure, ball at or just above fingertips, light defender's hand near; release vs hold unclear
+hSXPCy5NedU_s696:339415	a	none	-	no	loose ball in air after strip/deflection, dark 7 diving
+hSXPCy5NedU_s696:339595	a	none	-	yes	pass in flight arriving to light 4
+hSXPCy5NedU_s696:339775	none	none	-	no	ring a on bench object; ball not in frame, holder off-frame unknown
+hSXPCy5NedU_s708:358715	a	3	light	yes	dribble
+hSXPCy5NedU_s708:358895	a	1	light	yes	crossover dribble, defender falling
+hSXPCy5NedU_s708:359075	a	8	light	yes	dribble, ball at hip
+hSXPCy5NedU_s722:364670	a	unboxed	light	no	extreme close-up, light player holding ball at hip with motion blur; no proper box (likely replay/close camera)
+hSXPCy5NedU_s722:364850	none	none	-	yes	coach close-up, ball out of view
+hSXPCy5NedU_s722:365030	a	none	-	yes	referee holding ball, not in play
+hSXPCy5NedU_s722:365210	a	none	-	yes	referee holding ball, not in play
+hSXPCy5NedU_s722:365390	a	none	-	yes	referee bouncing ball before free throw, not in play
+hSXPCy5NedU_s722:365570	none	none	-	no	ring a on backboard logo; ball not found, likely dead ball before free throw
+hSXPCy5NedU_s722:365750	a	7	dark	yes	dribble up court
+hSXPCy5NedU_s722:365930	b	none	-	no	ball low near tangled dark driver and light defender (boxes 7/9/10); dribble vs loose unclear; ring a not the ball
+hSXPCy5NedU_s722:366110	a	9	dark	yes	dribble
+hSXPCy5NedU_s722:366290	a	8	dark	yes	dribble
+hSXPCy5NedU_s722:366470	a	9	dark	yes	dribble
+hSXPCy5NedU_s722:366650	none	none	-	no	ring a on ad board; ball not visible, likely near boxes 8/9 at bottom-left edge
+hSXPCy5NedU_s722:366830	a	7	light	yes	dribble drive between defenders
+hSXPCy5NedU_s733:372945	a	8	dark	yes	free-throw shooter holds ball
+hSXPCy5NedU_s733:373125	a	8	dark	yes	free throw at set point, ball still in hands
+hSXPCy5NedU_s733:373305	a	6	light	yes	holds ball gathering for shot
+hSXPCy5NedU_s733:373485	a	5	light	yes	dribble
+hSXPCy5NedU_s733:373665	a	7	light	yes	dribble
+hSXPCy5NedU_s733:373845	a	8	light	no	pass arriving at light player's hands (box 8); catch moment, control unclear
+hSXPCy5NedU_s733:374025	a	none	-	yes	pass in flight
+hSXPCy5NedU_s733:374205	none	none	-	no	wide view, no ring; ball not found, likely in crowd of dark players near basket
+hSXPCy5NedU_s758:394700	a	none	-	yes	ball loose near ad board, out of play
+hSXPCy5NedU_s758:394880	a	none	-	yes	referee holds ball beside free-throw shooter
+hSXPCy5NedU_s758:395060	a	none	-	yes	referee holds ball beside free-throw shooter
+hSXPCy5NedU_s758:395240	a	none	-	yes	referee holds ball beside free-throw shooter
+hSXPCy5NedU_s768:398855	none	none	-	no	close-up of crowd and player, no ring; ball not visible
+hSXPCy5NedU_s768:399035	a	5	dark	yes	dribble upcourt
+hSXPCy5NedU_s768:399215	a	6	dark	yes	dribble
+hSXPCy5NedU_s768:399395	a	none	-	no	ball passing in front of light box 9 toward dark #30 (who has it +0.2 s); pass or deflection, not clearly held
+hSXPCy5NedU_s768:399575	a	9	dark	no	layup at release, ball at shooter's hand; may have just left
+hSXPCy5NedU_s780:405455	a	2	dark	yes	dribble
+hSXPCy5NedU_s780:405635	a	8	dark	yes	dribble
+hSXPCy5NedU_s780:405815	a	3	dark	yes	dribble
+hSXPCy5NedU_s780:405995	none	none	-	no	wide view, no ring; ball not seen, possibly with dark player in box 3 at left wing
+hSXPCy5NedU_s780:406175	a	none	-	yes	shot in flight toward rim
+hSXPCy5NedU_s780:406355	a	none	-	no	ball just above shooter's raised hand (box 7); release moment, may still be touching
+hSXPCy5NedU_s789:409355	none	none	-	no	bench close-up, no ring; ball not visible
+hSXPCy5NedU_s789:409535	none	none	-	no	bench close-up, no ring; ball not visible
+hSXPCy5NedU_s789:409715	none	none	-	no	wide view, free-throw setup; ball not visible (likely with referee or shooter off view)
+hSXPCy5NedU_s789:409895	none	none	-	no	wide view, free-throw setup; ball not visible
+hSXPCy5NedU_s805:416625	a	none	-	yes	shot in flight toward rim
+hSXPCy5NedU_s805:416805	a	none	-	yes	referee holds ball, out of play
+hSXPCy5NedU_s805:416985	a	none	-	no	ball at referee's hand next to free-throw shooter (box 4); likely referee handing ball, not shooter yet
+hSXPCy5NedU_s813:423300	other	6	dark	yes	dribble low at knee; ring a on defender's hand
+hSXPCy5NedU_s813:423480	other	7	dark	no	ring a on dark box 8 hands; ball likely low with dribbling dark player in box 7 at left, blurred
+hSXPCy5NedU_s813:423660	a	8	dark	no	layup going up, ball above head in hands; near release
+hSXPCy5NedU_s813:423840	none	none	-	no	wide view, no ring; ball not found, likely with dark player near box 7 in key
+hSXPCy5NedU_s813:424020	a	6	light	yes	dribble drive
+hSXPCy5NedU_s813:424200	a	8	light	yes	drive with ball at hip; ring b on a head
+hSXPCy5NedU_s813:424380	a	8	light	yes	dribble
+hSXPCy5NedU_s813:424560	a	none	-	yes	shot at rim
+hSXPCy5NedU_s813:424740	a	7	dark	yes	carrying ball upcourt
+hSXPCy5NedU_s813:424920	a	9	dark	yes	dribble drive
+hSXPCy5NedU_s813:425100	a	none	-	no	ball above heads at shot release; shooter unclear (dark #6 box 7 or light #25 box 9), may still be in hands
+hSXPCy5NedU_s813:425280	a	6	light	yes	dribble
+hSXPCy5NedU_s813:425460	none	none	-	no	ring a on crowd; ball not visible
+hSXPCy5NedU_s843:435855	a	none	-	yes	referee holds ball before free throw
+hSXPCy5NedU_s843:436035	a	none	-	yes	referee holds ball
+hSXPCy5NedU_s843:436215	a	6	dark	yes	free-throw shooter holds ball
+hSXPCy5NedU_s843:436395	a	5	dark	yes	free-throw shooter holds ball at hip
+hSXPCy5NedU_s843:436575	a	4	dark	yes	free-throw shooter holds ball
+hSXPCy5NedU_s843:436755	a	none	-	yes	free throw at rim
+hSXPCy5NedU_s856:443205	a	none	-	yes	referee holds ball over bent shooter
+hSXPCy5NedU_s856:443385	a	none	-	yes	bounce pass from referee to shooter in flight
+1A79NXz9CFM_s141:51025	other	none	-	yes	ball under rim after shot; no ring on it
+1A79NXz9CFM_s141:51205	none	none	-	no	ring a on crowd; ball not visible
+1A79NXz9CFM_s141:51385	a	none	-	yes	ball bouncing on floor toward dark player, nobody holds
+1A79NXz9CFM_s175:66865	a	none	-	no	ball near stanchion out of play or loose; unclear
+1A79NXz9CFM_s175:67045	a	2	light	yes	dribble
+1A79NXz9CFM_s175:67225	a	3	light	yes	dribble
+1A79NXz9CFM_s175:67405	none	none	-	no	ring a on crowd; ball not visible
+1A79NXz9CFM_s175:67585	a	none	-	yes	shot at rim
+1A79NXz9CFM_s175:67765	a	none	-	yes	shot at rim
+1A79NXz9CFM_s175:67945	a	5	dark	yes	dribble
+1A79NXz9CFM_s175:68125	a	3	dark	yes	dribble
+1A79NXz9CFM_s175:68305	a	8	dark	yes	dribble
+1A79NXz9CFM_s175:68485	a	none	-	yes	pass in flight toward dark box 8
+1A79NXz9CFM_s175:68665	none	none	-	no	ring a on crowd; ball not visible
+1A79NXz9CFM_s175:68845	a	none	-	no	layup at release by dark player under overlapping boxes 11/10; ball at fingertips, may still be held
+1A79NXz9CFM_s175:69025	a	none	-	yes	ball loose in air near sideline
+1A79NXz9CFM_s196:83120	a	5	light	yes	free-throw shooter holds ball
+1A79NXz9CFM_s196:83300	a	none	-	yes	free throw at rim
+1A79NXz9CFM_s196:83480	a	none	-	yes	referee (box 8) holds ball
+1A79NXz9CFM_s196:83660	a	none	-	yes	referee pass in flight to shooter
+1A79NXz9CFM_s220:93770	a	4	light	yes	dribble
+1A79NXz9CFM_s220:93950	a	5	light	yes	dribble
+1A79NXz9CFM_s220:94130	a	0	light	yes	dribble
+1A79NXz9CFM_s220:94310	none	none	-	no	ring a on object at bench; ball not visible
+1A79NXz9CFM_s220:94490	a	9	light	yes	dribble
+1A79NXz9CFM_s220:94670	none	none	-	no	ring a on crowd; ball not visible
+1A79NXz9CFM_s220:94850	a	9	light	no	ball at light player's hip behind dark #21 who was dribbling before; possible steal, holder unclear
+1A79NXz9CFM_s220:95030	none	none	-	no	ring a on hand of light #2 (box 8); no ball clearly visible
+1A79NXz9CFM_s241:124145	a	none	-	yes	pass arriving, ball below receiver's hands
+1A79NXz9CFM_s241:124325	a	5	light	yes	dribble
+1A79NXz9CFM_s241:124505	a	8	light	yes	dribble drive
+1A79NXz9CFM_s241:124685	a	none	-	yes	ball in air between players, pass
+1A79NXz9CFM_s241:124865	none	none	-	no	ring a on crowd, ring b on a head; ball not visible
+1A79NXz9CFM_s241:125045	a	9	light	yes	dribble
+1A79NXz9CFM_s241:125225	a	8	light	yes	dribble drive
+1A79NXz9CFM_s241:125405	b	none	-	no	ring b top-right may be ball out of play or fan object; ring a on dark #8 hand without ball
+1A79NXz9CFM_s270:140645	a	none	-	yes	bounce pass to free-throw shooter in flight
+1A79NXz9CFM_s270:140825	a	5	dark	yes	free-throw shooter holds ball
+1A79NXz9CFM_s270:141005	a	none	-	yes	free throw at rim
+1A79NXz9CFM_s270:141185	a	4	light	no	catching pass overhead; ball in hands but control moment unclear
+1A79NXz9CFM_s270:141365	a	2	light	yes	dribble
+1A79NXz9CFM_s270:141545	a	4	light	yes	dribble
+1A79NXz9CFM_s270:141725	a	2	light	yes	holding ball in triple threat
+1A79NXz9CFM_s270:141905	a	none	-	yes	pass in flight toward light box 9
+1A79NXz9CFM_s270:142085	a	9	light	yes	dribble drive
+1A79NXz9CFM_s270:142265	none	none	-	no	wide view, no ring; ball not found, maybe near boxes 8/9 under basket
+1A79NXz9CFM_s270:142445	a	3	dark	yes	dribble after picking up ball
+1A79NXz9CFM_s304:171200	none	none	-	no	ring a on crowd; ball not visible
+1A79NXz9CFM_s304:171380	a	5	dark	yes	dribble
+1A79NXz9CFM_s304:171560	a	6	dark	yes	dribble
+1A79NXz9CFM_s304:171740	a	4	dark	yes	dribble
+1A79NXz9CFM_s304:171920	a	none	-	no	ball loose in air beside 5, falls to floor after; unclear if 5 batting it
+1A79NXz9CFM_s322:185045	a	4	dark	yes	holding ball, dribble
+1A79NXz9CFM_s322:185225	a	7	dark	yes	dribble, ball near floor
+1A79NXz9CFM_s322:185405	a	8	dark	yes	dribble
+1A79NXz9CFM_s322:185585	a	8	dark	yes	holds ball after catch
+1A79NXz9CFM_s322:185765	a	9	light	no	ball at 9's raised hands under rim after a dunk/layup; unclear if he has control or ball is dropping through
+1A79NXz9CFM_s322:185945	a	6	light	yes	dribble
+1A79NXz9CFM_s322:186125	a	9	light	yes	dribble
+1A79NXz9CFM_s322:186305	a	5	light	yes	dribble
+1A79NXz9CFM_s322:186485	a	6	light	yes	dribble
+1A79NXz9CFM_s322:186665	none	none	-	no	ring a on orange object in crowd; game ball not visible (likely free throw, shooter off frame)
+1A79NXz9CFM_s322:186845	none	none	-	no	ring a on cheerleader pom-pom; game ball not visible in frame
+1A79NXz9CFM_s322:187025	a	none	-	no	ball likely in flight above backboard after shot/rebound; small and blurry, could be crowd object
+1A79NXz9CFM_s595:249825	a	4	light	yes	holds ball, free throw set
+1A79NXz9CFM_s595:250005	a	none	-	no	dead ball bounced between referee and 15 (box 8); in air in this frame
+1A79NXz9CFM_s595:250185	none	none	-	no	rings on ad mascot; game ball not visible, stoppage
+1A79NXz9CFM_s612:266370	none	none	-	no	wide view; ball not found, maybe with referee/8 at left sideline
+1A79NXz9CFM_s612:266550	a	none	-	yes	referee (box 8) holds ball
+1A79NXz9CFM_s612:266730	a	none	-	yes	referee holds ball overhead
+1A79NXz9CFM_s612:266910	a	5	dark	no	5 holds ball at chest as 4 cuts past; possible hand-off to 4 at this moment
+1A79NXz9CFM_s612:267090	a	5	dark	yes	dribble
+1A79NXz9CFM_s612:267270	a	8	dark	no	jump shot at release point; ball at fingertips, may have just left hands; ring b on crowd
+1A79NXz9CFM_s612:267450	a	none	-	yes	shot at rim
+1A79NXz9CFM_s612:267630	none	none	-	no	rings on spectators' orange items; game ball not visible
+1A79NXz9CFM_s637:284040	a	none	-	yes	ball in flight high in front of crowd, motion blurred
+1A79NXz9CFM_s637:284220	none	none	-	no	ring a on a ball held by a child in the stands (souvenir, not game ball); game ball not visible
+1A79NXz9CFM_s637:284400	a	4	light	yes	dribble
+1A79NXz9CFM_s637:284580	a	5	light	yes	dribble
+1A79NXz9CFM_s637:284760	a	7	light	yes	holds ball at chest, guarded by 6
+1A79NXz9CFM_s637:284940	none	none	-	no	ring a on ad mascot; ball not visible, maybe pass arriving at 9 (#23, raised arm) who has it at +0.2
+1A79NXz9CFM_s637:285120	a	8	dark	yes	dribble
+1A79NXz9CFM_s659:297225	none	none	-	no	ring a on crowd; game ball not visible, looks like stoppage
+1A79NXz9CFM_s659:297405	none	none	-	no	wide view, free-throw line-up at far basket; ball not found
+1A79NXz9CFM_s659:297585	a	none	-	yes	referee holds ball
+1A79NXz9CFM_s659:297765	a	none	-	no	ball low near floor in front of 4, not in anyone's hand; bounce pass or loose ball, light 5 may be dribbling
+1A79NXz9CFM_s659:297945	none	none	-	no	wide view; ball not found in crowd of players
+1A79NXz9CFM_s659:298125	a	7	light	no	ball overhead in 7's hands in traffic; rebound grab or shot gather, kit of 7 partly occluded
+1A79NXz9CFM_s659:298305	a	none	-	yes	shot at rim
+1A79NXz9CFM_s659:298485	a	none	-	no	ring a likely ball in flight against red board after 4 (#7) released a pass; blur makes ball identity uncertain
+1A79NXz9CFM_s659:298665	none	none	-	no	ring a on crowd; ball not visible, camera panning
+1A79NXz9CFM_s659:298845	a	8	dark	yes	dribble
+1A79NXz9CFM_s659:299025	none	none	-	no	ring a on 8's hand/hip, no ball there; game ball not visible
+1A79NXz9CFM_s659:299205	a	none	-	yes	shot in flight near backboard
+1A79NXz9CFM_s659:299385	a	none	-	yes	dead ball in air between 9 and referee
+1A79NXz9CFM_s679:309160	a	4	light	yes	holds ball, free throw
+1A79NXz9CFM_s679:309340	a	none	-	yes	free throw at rim
+1A79NXz9CFM_s679:309520	a	none	-	yes	referee holds ball
+1A79NXz9CFM_s698:319060	a	none	-	yes	shot at rim
+1A79NXz9CFM_s698:319240	a	8	dark	no	pass arriving at 8, ball at his hands at catch moment; dribbles after
+1A79NXz9CFM_s698:319420	a	6	dark	yes	dribble in transition
+1A79NXz9CFM_s698:319600	a	none	-	yes	ball in flight across open court, nobody near
+1A79NXz9CFM_s698:319780	a	none	-	yes	pass in flight toward 0
+1A79NXz9CFM_s698:319960	a	5	light	yes	holds ball in drive/gather
+1A79NXz9CFM_s698:320140	a	none	-	no	ball blurred by 9's head just after light 2 (#13) released a pass; possible deflection by 9
+1A79NXz9CFM_s698:320320	a	5	light	yes	dribble
+1A79NXz9CFM_s698:320500	none	none	-	no	ring a on 13's red shoe; game ball not visible, maybe hidden in 7/8 tangle
+1A79NXz9CFM_s698:320680	a	9	light	yes	dribble
+1A79NXz9CFM_s698:320860	a	none	-	yes	jump shot in flight, 9 in follow-through
+1A79NXz9CFM_s698:321040	a	9	light	yes	dribble
+1A79NXz9CFM_s698:321220	none	none	-	no	wide view; ball not found
+1A79NXz9CFM_s723:340995	none	none	-	no	close-up, ball not visible in frame (dark player had it 0.4 s earlier)
+1A79NXz9CFM_s723:341175	a	5	dark	yes	dribble
+1A79NXz9CFM_s723:341355	a	3	dark	yes	dribble
+1A79NXz9CFM_s723:341535	a	7	dark	yes	dribble
+1A79NXz9CFM_s723:341715	a	9	dark	yes	dribble (crossover) with light 7 reaching
+1A79NXz9CFM_s723:341895	none	none	-	no	wide view; ball not found among players at the lane
+1A79NXz9CFM_s723:342075	a	7	light	yes	dribble
+1A79NXz9CFM_s723:342255	none	1	light	no	ring a on 1's head; ball hidden in front of 1 (#21) after loose-ball recovery, he holds it at +0.2
+1A79NXz9CFM_s723:342435	none	none	-	no	ring a on spectator above backboard; ball not visible, possibly shot in flight off frame
+1A79NXz9CFM_s723:342615	a	5	dark	yes	dribble
+1A79NXz9CFM_s723:342795	none	none	-	no	ring a on 9's hand/arm, no ball visible there; game ball not visible
+1A79NXz9CFM_s723:342975	a	none	-	yes	loose ball bouncing out of bounds, referee walking to it
+1A79NXz9CFM_s746:355905	a	none	-	yes	ball bouncing loose, referee about to collect it
+1A79NXz9CFM_s746:356085	a	none	-	no	dead ball: light 8 handing ball to referee 10; 8 has hand on it (if dead-ball holds count, holder is 8 light)
+1A79NXz9CFM_s746:356265	none	none	-	no	ring a on crowd; game ball not visible, stoppage
+1A79NXz9CFM_s746:356445	a	none	-	yes	referee holds ball
+1A79NXz9CFM_s746:356625	a	none	-	yes	referee (box 10) passing ball
+1A79NXz9CFM_s746:356805	a	7	dark	yes	dribble
+1A79NXz9CFM_s746:356985	a	7	dark	yes	dribble
+1A79NXz9CFM_s746:357165	a	none	-	yes	pass in flight toward 8 (ring b on 8's hands, no ball)
+1A79NXz9CFM_s746:357345	none	none	-	no	ring a on 8's hands but no ball clearly visible; game ball not located
+1A79NXz9CFM_s746:357525	a	none	-	no	ring a on blurred object in front of crowd, may be ball in flight; identity uncertain
+1A79NXz9CFM_s746:357705	a	7	light	yes	holds ball at chest
+1A79NXz9CFM_s746:357885	a	none	-	yes	dead ball, 13 handing ball to referee (box 9)
+1A79NXz9CFM_s746:358065	a	none	-	yes	referee holds ball
+1A79NXz9CFM_s765:369335	a	none	-	no	ball at head height in cluster of players 6/7/8; rebound fight, no clear control
+1A79NXz9CFM_s765:369515	b	7	light	no	ring b looks like ball at 7's raised hands; small and partly occluded; ring a on crowd
+1A79NXz9CFM_s765:369695	a	none	-	yes	referee (box 8) holds ball
+1A79NXz9CFM_s788:388135	a	none	-	yes	free throw in flight, shooter 5 in follow-through
+1A79NXz9CFM_s788:388315	none	none	-	no	rings on crowd and cheerleader hair; game ball not visible
+1A79NXz9CFM_s788:388495	none	none	-	no	ring a on crowd; game ball not visible
+1A79NXz9CFM_s788:388675	a	none	-	yes	referee (box 6) holds ball overhead
+1A79NXz9CFM_s814:405055	a	4	dark	yes	holds ball after catch
+1A79NXz9CFM_s814:405235	none	none	-	no	ring a on 3's hand, no ball visible there; ball likely hidden in 2/4 cluster (on floor there at +0.4)
+1A79NXz9CFM_s814:405415	none	none	-	no	wide view; ball not found, maybe with dark 1 in backcourt
+1A79NXz9CFM_s814:405595	a	none	-	yes	shot in flight above backboard
+1A79NXz9CFM_s814:405775	a	none	-	yes	pass in flight from 7 toward 8
+1A79NXz9CFM_s814:405955	a	none	-	no	ball in air just ahead of running 9; long pass arriving or push-ahead dribble, not yet under control
+1A79NXz9CFM_s814:406135	b	8	light	yes	dribble drive
+1A79NXz9CFM_s814:406315	none	none	-	no	ring a on crowd; game ball not visible
+1A79NXz9CFM_s837:416575	a	none	-	yes	referee (box 9) holds ball
+1A79NXz9CFM_s837:416755	a	none	-	yes	referee (box 6) holds ball
+1A79NXz9CFM_s837:416935	a	none	-	no	ball in air at 6's hands before free throw; arriving from referee or a pre-shot bounce, control unclear
+vHfwZeG4BPw_s86:26445	a	4	dark	yes	dark player dribbling near sideline, ball at his hand and bouncing in all neighbours
+vHfwZeG4BPw_s86:26625	a	7	dark	yes	dark player dribbling at sideline, ball at his left hand, dribbling in neighbours
+vHfwZeG4BPw_s86:26805	a	1	dark	no	dark #1 gathering ball at chest; ball low ahead of him at -0.4/-0.2, held at +0.2; may be a catch moment
+vHfwZeG4BPw_s86:26985	a	8	dark	yes	dark #2 dribbling low near baseline, ball by his hand in all neighbours
+vHfwZeG4BPw_s86:27165	a	6	dark	yes	dark player dribbling against light #37, ball low at his right hand, dribbling in all neighbours
+vHfwZeG4BPw_s86:27345	a	none	-	no	dark player just released a pass, ball in the air in front of his extended hand; held at -0.4, near light #12 at +0.2
+vHfwZeG4BPw_s86:27525	a	none	-	yes	ball in flight at the backboard after a shot; ball high in the air at -0.4
+vHfwZeG4BPw_s86:27705	a	3	light	yes	light player holding ball at chest after catching a pass (ball in air at -0.4), dribbling at +0.2
+vHfwZeG4BPw_s86:27885	a	5	light	yes	light #0 dribbling past dark defender, ball at his right hand, dribbling in all neighbours
+vHfwZeG4BPw_s86:28065	a	7	dark	no	dark #25 strips light #12 and gathers the ball at his chest; ball barely visible in this frame, clearly in his hands 0.1 s later; scrum
+vHfwZeG4BPw_s86:28245	a	none	-	yes	ball in flight above dark player's raised hands after his tip/pass, moving left away from everyone
+vHfwZeG4BPw_s86:28425	none	none	-	no	ring a is the red logo on light #12's jersey; no ball visible in the full frame, looks like a stoppage
+vHfwZeG4BPw_s99:33555	a	9	light	yes	light shooter at free-throw line holding ball above head at set point; ball in flight only at +0.4
+vHfwZeG4BPw_s99:33735	a	6	dark	yes	dark player driving baseline with ball at his right hand, still holding at +0.2 and shooting at +0.4
+vHfwZeG4BPw_s99:33915	a	none	-	no	long pass in the air over the court against the crowd after light #0's throw; ring a is a blurry shape that may be the ball
+vHfwZeG4BPw_s99:34095	other	2	light	yes	light #0 holds the game ball raised in his left hand at the baseline in all neighbours; ring a is a spare ball in the Molten cart at the table
+vHfwZeG4BPw_s118:42015	a	7	light	yes	light player dribbling between defenders, ball low at his right hand, dribbling and driving in all neighbours
+vHfwZeG4BPw_s118:42195	a	none	-	yes	referee bending to pick up the ball near the bench during a stoppage; dark #1 waits with hand out
+vHfwZeG4BPw_s135:49020	a	none	-	yes	dead ball at the baseline; referee holds the ball beside dark #2 in all neighbours; ring b is a spare ball in the cart
+vHfwZeG4BPw_s135:49200	other	none	-	yes	referee holds the game ball at his hip in all neighbours during a stoppage; ring a is a spare ball in the Molten cart
+vHfwZeG4BPw_s135:49380	b	none	-	yes	referee holds the game ball (ring b) at his waist during a stoppage; ring a is a spare ball in the Molten cart
+vHfwZeG4BPw_s135:49560	a	none	-	yes	ball in flight at the backboard after a shot; players jumping under the basket
+vHfwZeG4BPw_s135:49740	none	none	-	no	ring a is a spare ball in the Molten cart; game ball not found in the full frame (stoppage, players set up around the lane)
+vHfwZeG4BPw_s154:59145	a	8	dark	yes	dark #2 bouncing the ball at the free-throw line, ball at his right hand in all neighbours
+vHfwZeG4BPw_s154:59325	a	none	-	yes	free-throw ball in flight in front of the backboard
+vHfwZeG4BPw_s154:59505	a	none	-	yes	referee (box 10) holds the ball between free throws in all neighbours
+vHfwZeG4BPw_s154:59685	a	8	dark	yes	dark #2 at the free-throw line holding the ball at his chest, bouncing it at +0.2/+0.4
+vHfwZeG4BPw_s172:65625	a	8	light	yes	light player pushing the ball ahead on the dribble in transition, mid-bounce in front of him; dribbling in all neighbours
+vHfwZeG4BPw_s172:65805	none	1	light	yes	no detection; light #0 on the wing seen from behind holds the ball in front of his chest (hidden by his body), visibly held at hip 0.4 s before and overhead 0.2 s after
+vHfwZeG4BPw_s172:65985	a	none	-	yes	pass in flight from the left wing towards light #0 (box 8), who catches it at +0.2
+vHfwZeG4BPw_s172:66165	other	none	-	yes	loose ball after a collision, rolling near the referee at the bottom edge (mostly behind the scoreboard); ring a is in the crowd behind the backboard
+vHfwZeG4BPw_s202:77490	a	10	light	yes	light player driving along the baseline, ball at his left hand on the dribble in all neighbours; ring b is dark #45's hand
+vHfwZeG4BPw_s202:77670	a	7	dark	yes	dark #1 dribbling past light #37 near the sideline, ball low at his hand; dark #1 dribbles in all neighbours
+vHfwZeG4BPw_s202:77850	other	6	dark	yes	dark #1 dribbling near the left sideline beside dark #45, ball low at his right hand in all neighbours; rings a and b are a floor logo and the backboard
+vHfwZeG4BPw_s202:78030	a	8	dark	yes	dark player dribbling with his right hand while light defender bodies him; dribbling in all neighbours
+vHfwZeG4BPw_s202:78210	a	8	dark	yes	dark #2 dribbling low at his right hand against light defender; dribbling in all neighbours
+vHfwZeG4BPw_s202:78390	a	9	dark	yes	dark #2 holds the ball at his face after gathering in the lane; holds it through 0.4 s and then shoots
+vHfwZeG4BPw_s202:78570	a	7	light	yes	light player holds the ball overhead under the basket after grabbing it out of the net (caught 0.1 s earlier); still holding at +0.2
+vHfwZeG4BPw_s229:84060	a	5	dark	no	dark player with headband bent over a low ball on the floor among legs; could be a low dribble or a loose ball he is chasing; he secures it 0.6 s later
+vHfwZeG4BPw_s229:84240	a	none	-	yes	ball on the floor at the referee's feet during a dead ball; referee bends to pick it up at +0.2; ring b is not the ball
+vHfwZeG4BPw_s229:84420	a	none	-	yes	referee holds the ball at the baseline before an inbound in all neighbours
+vHfwZeG4BPw_s229:84600	other	9	dark	no	dark #16 inbounding from the baseline under the basket guarded by light #11; ball at his waist, partly hidden in this frame, clearly in his hands 0.6 s later; rings are a spare ball in the cart and the backboard area
+vHfwZeG4BPw_s229:84780	a	8	dark	yes	dark #45 holds the ball overhead on the wing facing light #21; holding in all neighbours
+vHfwZeG4BPw_s229:84960	a	8	light	yes	light player dribbling with his left hand near the elbow; dribbling in neighbours
+vHfwZeG4BPw_s229:85140	none	none	-	no	dark player on the left wing in follow-through after releasing a three; ball (in flight) not found in frame; ring a is a spare ball in the Molten cart
+vHfwZeG4BPw_s229:85320	a	7	light	no	dead ball: light #21 holds the ball at waist level next to light #7, whose hand touches it; #21 holds it before and after, possible handoff in progress
+vHfwZeG4BPw_s242:93040	a	none	-	yes	referee (box 10) holds the ball at the sideline in all neighbours; ring b is his head
+vHfwZeG4BPw_s242:93220	a	none	-	yes	referee (box 10) holds the ball after catching a bounce pass, holding at +0.2/+0.4
+vHfwZeG4BPw_s258:97845	a	none	-	yes	referee holds the ball at his chest while players set up for free throws; held in all neighbours
+vHfwZeG4BPw_s258:98025	a	none	-	yes	referee (box 9) holds the ball at his chest during free-throw setup; held in all neighbours
+vHfwZeG4BPw_s258:98205	a	none	-	yes	referee (box 11) holds the ball at his hip at the free-throw lane; held in all neighbours
+vHfwZeG4BPw_s258:98385	a	none	-	yes	referee (box 10) holds the ball at his chest during free-throw setup; held in all neighbours
+vHfwZeG4BPw_s271:104500	a	8	light	yes	light shooter at the free-throw line holding the ball low before his shot; holding in all neighbours
+vHfwZeG4BPw_s271:104680	a	none	-	yes	ball in flight at the rim after a shot
+vHfwZeG4BPw_s271:104860	a	6	dark	yes	dark ball handler dribbling up the court with his free arm raised calling a play; dribbling in all neighbours
+vHfwZeG4BPw_s271:105040	a	6	dark	yes	dark ball handler dribbling with his right hand at the top; dribbling in all neighbours
+vHfwZeG4BPw_s271:105220	a	7	dark	yes	dark ball handler dribbling low against light defender near the sideline; dribbling in all neighbours
+vHfwZeG4BPw_s271:105400	a	none	-	no	ball in flight just before dark player (box 6) catches it on the wing; he has it at +0.2
+vHfwZeG4BPw_s271:105580	a	7	dark	no	dark #16 rising for a layup with the ball at his raised hands at the release point; ball leaves his hands within 0.1 s
+vHfwZeG4BPw_s312:119200	other	none	-	yes	dead ball lying on the floor out of bounds by the referee's foot while light #21 stretches; rings are a spare ball in the cart and light #21's knee
+vHfwZeG4BPw_s312:119380	a	none	-	yes	dead ball rolling on the floor past the referee near the sideline
+vHfwZeG4BPw_s312:119560	a	none	-	yes	referee (box 4) holds the ball at the baseline in all neighbours
+vHfwZeG4BPw_s324:123625	none	7	dark	no	dark #4 at the free-throw line seen from behind; ball hidden at his right hip, clearly held there from 0.4 s later; unclear when the referee gave it to him; ring a is a spare ball in the Molten cart
+vHfwZeG4BPw_s324:123805	a	8	dark	yes	dark #4 at the free-throw line holding the ball at his waist; holding in all neighbours
+vHfwZeG4BPw_s324:123985	none	none	-	no	dark #4 in follow-through after releasing a free throw; ball (in flight) not found in frame; ring a is a spare ball in the Molten cart
+vHfwZeG4BPw_s324:124165	a	3	light	yes	light player pushing the ball ahead on the dribble in transition, ball mid-bounce in front of him; dribbling in all neighbours
+vHfwZeG4BPw_s324:124345	a	6	light	yes	light player dribbling up the court, ball mid-bounce beside him; dribbling in all neighbours
+vHfwZeG4BPw_s324:124525	a	6	light	yes	light #55 dribbling low with dark #2 on his back; dribbling in all neighbours
+vHfwZeG4BPw_s324:124705	a	5	light	yes	light player dribbling up the court with his right hand; dribbling in all neighbours
+vHfwZeG4BPw_s324:124885	a	4	light	yes	light player holding the ball at his chest on the wing, dribbling again at +0.4
+vHfwZeG4BPw_s324:125065	a	none	-	no	ball rising beside light #0 after a bounce; 0.1 s later it travels to the light teammate at the top, so likely a bounce pass in flight; could still be the end of his dribble
+vHfwZeG4BPw_s342:135170	a	none	-	yes	referee bouncing the ball beside him before a free throw; the ball goes back to his hands in neighbours
+vHfwZeG4BPw_s342:135350	a	1	light	no	handoff in progress: ball behind light #0's hip as he dribbles past the light teammate (box 2), who is dribbling it 0.1 s later
+vHfwZeG4BPw_s342:135530	b	6	light	yes	light guard (box 6) brings the ball up the court, ball at his right hip on the dribble; ring a is light #0's hand, and #0 has no ball
+vHfwZeG4BPw_s342:135710	a	7	light	yes	light player holds the ball at his chest after catching a pass (ball arriving at -0.4/-0.2), still holding at +0.2/+0.4
+vHfwZeG4BPw_s342:135890	a	5	light	yes	light #0 dribbling at his right side facing dark defender; dribbling in all neighbours
+vHfwZeG4BPw_s342:136070	none	8	light	no	no detection; handoff between two light players on the right wing: ball hidden in front of light #55 (back to camera) just after the big man hands it to him; #55 has it at +0.2
+vHfwZeG4BPw_s342:136250	a	9	light	yes	light player driving with the ball at his right hand on the dribble past dark defender; dribbling and then gathering in neighbours
+vHfwZeG4BPw_s342:136430	a	9	dark	yes	dark #4 has picked up his dribble and holds the ball at his chest near the baseline; holds it through +0.4
+vHfwZeG4BPw_s366:149295	a	6	dark	yes	dark #1 holding the ball at his set point while shooting a free throw; releases it about 0.25 s later
+vHfwZeG4BPw_s366:149475	a	none	-	yes	referee (box 8) holds the ball at the free-throw line between free throws; held in neighbours
+vHfwZeG4BPw_s366:149655	a	none	-	yes	referee raises the ball overhead in one hand, tossing it to the free-throw shooter; no player has it
+vHfwZeG4BPw_s377:156210	a	3	light	yes	light guard dribbling up the court with his right hand while calling a play; dribbling in all neighbours
+vHfwZeG4BPw_s377:156390	a	7	light	yes	light #37 dribbling at his right side facing dark defender; dribbling in all neighbours
+vHfwZeG4BPw_s377:156570	a	8	light	yes	light player holding ball at waist on the wing, shoots after +0.2 s; ring b is not the ball
+vHfwZeG4BPw_s377:156750	a	8	dark	yes	dark #1 (headband) dribbling along baseline past light #13, ball at his hand in all neighbours
+vHfwZeG4BPw_s395:164150	a	none	-	yes	referee holding ball during stoppage
+vHfwZeG4BPw_s395:164330	other	none	-	yes	referee holding ball at waist before free throw, no ring on the ball
+vHfwZeG4BPw_s410:169610	a	6	dark	yes	dark #1 (headband) dribbling at wing against light #11, ball at his hand in all neighbours
+vHfwZeG4BPw_s410:169790	a	7	dark	yes	dark #1 (headband) dribbling against light #37, ball low at his hand
+vHfwZeG4BPw_s410:169970	none	none	-	no	ball not located in frame; ring a is dark #4's empty hand; nearby dark players have no ball
+vHfwZeG4BPw_s410:170150	other	4	dark	yes	dark guard dribbling at left wing guarded by light (box 0), ball at his hip, not ringed
+vHfwZeG4BPw_s410:170330	a	6	dark	yes	dark guard (dreadlocks) dribbling up court, ball bouncing in all neighbours
+vHfwZeG4BPw_s410:170510	none	9	dark	no	slow play near the centre circle; dark guard (dreadlocks) held ball at chest 0.2 s earlier, ball now hidden behind dark #1; ring a is in the crowd
+vHfwZeG4BPw_s425:176515	a	none	-	yes	referee holding ball during stoppage; box 10 is a floor mopper
+vHfwZeG4BPw_s425:176695	none	none	-	no	dead ball while the floor is mopped, ball not visible in frame
+vHfwZeG4BPw_s425:176875	none	none	-	no	dead ball while the floor is mopped; light player jogging with empty hands, rings a and b are on his jersey; ball not visible
+vHfwZeG4BPw_s439:182195	a	none	-	yes	skip pass in flight high above the wing, thrown by dark headband player over light #37 toward dark #11, who catches it at +0.4 s
+vHfwZeG4BPw_s439:182375	a	9	dark	yes	dark player dribbling at the Trefl logo past light defender (box 10), ball at his hand in all neighbours
+vHfwZeG4BPw_s439:182555	none	none	-	no	ball not located; ring a is at the backboard with no ball there in neighbours, ring b is a light player's head
+vHfwZeG4BPw_s439:182735	a	7	dark	yes	dark headband player dribbling up the sideline, ball at his hand in all neighbours
+vHfwZeG4BPw_s439:182915	a	9	dark	yes	dark headband player dribbling low against light #21, ball at his hand in all neighbours
+vHfwZeG4BPw_s439:183095	a	none	-	yes	shot in flight above the backboard; ring b is at the backboard edge, not the ball
+vHfwZeG4BPw_s439:183275	a	none	-	no	pass arriving at light player (box 3) whose hands are out, ball just short of his hands; he holds it at +0.2 s
+vHfwZeG4BPw_s683:250420	none	none	-	no	dead ball, ball not visible in crop; referee and dark #2 nearby with empty hands
+vHfwZeG4BPw_s683:250600	a	none	-	no	dark #2 (box 7) tossing ball to himself during stoppage, ball in the air above his hand, caught again 0.1 s later
+vHfwZeG4BPw_s683:250780	a	9	dark	yes	dark player holding ball under pressure, ball in his hands in all neighbours
+vHfwZeG4BPw_s683:250960	a	9	light	yes	light player holding ball at chest near sideline, held in all neighbours
+vHfwZeG4BPw_s700:256095	a	4	dark	yes	dark #4 walking ball up, ball in hand or dribbled in all neighbours
+vHfwZeG4BPw_s700:256275	a	none	-	yes	referee holding ball during stoppage
+vHfwZeG4BPw_s700:256455	a	none	-	yes	referee holding ball at chest, dark player behind him without ball
+vHfwZeG4BPw_s700:256635	a	5	dark	yes	dark player at sideline holding ball (inbound), held in all neighbours then thrown in after +0.2 s
+vHfwZeG4BPw_s700:256815	a	7	dark	yes	dark #4 dribbling on fast break, ball at hand; box 4 duplicates the same player
+vHfwZeG4BPw_s700:256995	a	7	dark	yes	dark player in layup, ball still in his raised hand, released about 0.1 s later
+vHfwZeG4BPw_s712:262265	a	7	light	yes	light ball handler holding ball at waist at top, dark #2 (box 8) guarding; ring b is not the ball
+vHfwZeG4BPw_s712:262445	a	9	light	yes	light player dribbling at wing guarded by dark #2 (box 8), ball at his hand
+vHfwZeG4BPw_s712:262625	a	7	light	yes	light player holding ball overhead with dark defender in contact, held in all neighbours
+vHfwZeG4BPw_s712:262805	a	6	light	yes	light #37 holding ball at waist, bounce pass follows after +0.2 s
+vHfwZeG4BPw_s712:262985	a	none	-	yes	shot in flight near backboard; ring b is on the sponsor logo
+vHfwZeG4BPw_s712:263165	a	7	dark	yes	dark player dribbling low past light #55, ball bounced in all neighbours
+vHfwZeG4BPw_s712:263345	a	none	-	no	loose ball after collision between dark and light players, ball ahead of both with nobody touching
+vHfwZeG4BPw_s712:263525	other	none	-	no	ball at the rim after a shot, rebound fight underneath; no ring on the ball
+vHfwZeG4BPw_s729:271415	a	none	-	yes	referee holding ball before free throw
+vHfwZeG4BPw_s729:271595	a	none	-	yes	referee holding ball before free throw; ring b is not the ball
+vHfwZeG4BPw_s729:271775	a	none	-	yes	referee holding ball before free throw
+vHfwZeG4BPw_s729:271955	a	7	light	yes	light #11 dribbling at top of key, ball bouncing in all neighbours
+vHfwZeG4BPw_s750:278320	a	5	light	yes	light player dribbling up court, referee behind; ball bouncing in all neighbours
+vHfwZeG4BPw_s750:278500	a	4	light	yes	light player dribbling at wing, dark defender (box 3) in front
+vHfwZeG4BPw_s750:278680	a	9	light	yes	light #21 holding ball at shoulder facing defender, held in all neighbours
+vHfwZeG4BPw_s750:278860	a	7	light	yes	light player holding ball at hip while driving, dark defender close
+vHfwZeG4BPw_s750:279040	a	none	-	yes	shot in flight over the crowd, released by light player over dark #2 about 0.2 s earlier
+vHfwZeG4BPw_s750:279220	a	7	dark	yes	dark player dribbling along baseline, ball at his hand; ring b is not the ball
+vHfwZeG4BPw_s750:279400	none	6	dark	no	dark headband player dribbling at centre line guarded by light #7 (box 5), ball hidden by bodies; ring a near referee and ring b not confirmed as ball
+vHfwZeG4BPw_s750:279580	a	8	dark	yes	dark headband player dribbling low, ball at floor by his hand, bounced in all neighbours
+vHfwZeG4BPw_s750:279760	a	none	-	yes	shot in flight at the backboard
+vHfwZeG4BPw_s750:279940	a	6	light	yes	light player caught pass about 0.1 s earlier, ball held in both hands at chest
+vHfwZeG4BPw_s750:280120	b	8	light	no	light #37 dribbling near bottom, ball mostly hidden at his hip; ring a is not the ball
+vHfwZeG4BPw_s750:280300	a	9	light	yes	light player driving into dark #45, ball held at chest, shoots after +0.2 s
+vHfwZeG4BPw_s750:280480	a	11	light	no	light player on the floor with ball at his raised hand, tossing or catching it after a fall; dark #1 standing over him
+vHfwZeG4BPw_s781:289280	a	none	-	yes	referee holding ball during stoppage
+vHfwZeG4BPw_s781:289460	a	6	light	yes	light player holding ball at chest beside referee, hands it to referee about 0.4 s later
+vHfwZeG4BPw_s781:289640	other	none	-	yes	referee holding ball at chest; ring a is on the referee's head, not the ball
+vHfwZeG4BPw_s793:295250	a	none	-	yes	referee holding ball before free throw
+vHfwZeG4BPw_s793:295430	a	none	-	yes	referee (box 11) holding ball before free throw
+vHfwZeG4BPw_s793:295610	a	none	-	yes	referee releasing bounce pass to free-throw shooter
+vHfwZeG4BPw_s793:295790	a	7	dark	yes	dark free-throw shooter holding ball at the line
+vHfwZeG4BPw_s793:295970	a	none	-	yes	referee bouncing ball before free throw
+vHfwZeG4BPw_s793:296150	a	none	-	yes	referee (box 7) holding ball before free throw
+vHfwZeG4BPw_s793:296330	a	6	dark	yes	dark free-throw shooter holding ball at the line
+vHfwZeG4BPw_s804:300580	a	8	light	yes	light player dribbling up court, ball bouncing in all neighbours
+vHfwZeG4BPw_s804:300760	a	7	light	yes	light #12 just caught pass, ball held in both hands above shoulder; box 8 is another player
+vHfwZeG4BPw_s804:300940	a	8	light	yes	light #55 dribbling low against dark #2
+vHfwZeG4BPw_s804:301120	a	none	-	yes	pass in flight above the players toward the right
+vHfwZeG4BPw_s804:301300	a	8	dark	yes	dark #4 dribbling at centre circle
+vHfwZeG4BPw_s804:301480	none	none	-	no	ball not found; dark #11 (box 9 or 10) catches it 0.1 s later, probably in flight behind the score overlay; ring a is light player's jersey
+vHfwZeG4BPw_s804:301660	a	7	dark	yes	dark #16 gathering ball in one hand after dribble, passes after +0.2 s
+vHfwZeG4BPw_s804:301840	b	8	dark	yes	dark headband player dribbling at right wing; ring a is near the referee, not the ball
+vHfwZeG4BPw_s804:302020	none	7	dark	no	dark headband player driving into light #7, ball hidden between bodies
+vHfwZeG4BPw_s804:302200	none	7	dark	no	dark headband player driving before jump shot, ball hidden in front of his body; ring a is light player's jersey
+vHfwZeG4BPw_s804:302380	none	7	dark	no	dark headband player just received pass from dark #45, ball barely visible at his hip
+vHfwZeG4BPw_s804:302560	a	none	-	no	ball loose or pushed far ahead, light player chasing it with no contact in neighbours
+vHfwZeG4BPw_s804:302740	a	6	light	yes	light player on fast break holding ball after dribble
+vHfwZeG4BPw_s813:309490	a	none	-	yes	shot in flight above the backboard
+vHfwZeG4BPw_s813:309670	none	none	-	no	dead ball, players standing; ball not located; ring a is an object in the crowd
+vHfwZeG4BPw_s813:309850	a	none	-	yes	ball bouncing loose on the floor toward the referee during a stoppage; referee holds it at +0.4 s
+vHfwZeG4BPw_s813:310030	none	none	-	no	no candidate; wide shot of players lined up in a dead-ball moment, ball not visible
+vHfwZeG4BPw_s813:310210	none	none	-	no	ring a is a spare ball held by a child next to the mascot behind the baseline; game ball not visible
+vHfwZeG4BPw_s813:310390	a	none	-	yes	referee (box 10) holds the ball at his chest, holding in all neighbours
+vHfwZeG4BPw_s813:310570	a	10	light	no	light player driving into a dark defender with the ball at his shoulder; boxes 4 and 10 overlap, ball partly hidden; b is empty court near light #11 and dark #4
+vHfwZeG4BPw_s813:310750	a	none	-	no	ball loose on the floor bouncing toward light (box 7), who has it at +0.2 s; ring b is on his empty chest
+vHfwZeG4BPw_s813:310930	a	10	light	yes	light #11 dribbling up the wing, ball at right hand, dribbling in neighbours
+vHfwZeG4BPw_s813:311110	none	none	-	no	ring a is a spare ball held by a child next to the mascot, b is in the crowd; game ball not visible in a dead-ball moment
+vHfwZeG4BPw_s813:311290	none	none	-	no	ring a is in the crowd, b is the spare ball by the mascot; game ball not visible
+vHfwZeG4BPw_s826:315125	a	5	dark	yes	dark dribbling up the sideline, ball at right hand, dribbling in neighbours
+vHfwZeG4BPw_s826:315305	a	7	dark	yes	dark dribbling at the top, ball low at hand, dribbling in neighbours
+vHfwZeG4BPw_s826:315485	a	7	dark	yes	dark dribbling up court, ball low at hand; b is not the ball
+vHfwZeG4BPw_s826:315665	a	5	dark	yes	dark #1 dribbling, ball at right hand, dribbling in neighbours
+vHfwZeG4BPw_s826:315845	none	none	-	no	ring a is a spectator object in the stands, b is on dark #45's back with no ball; game ball not found
+vHfwZeG4BPw_s826:316025	a	none	-	no	loose ball on the floor after a steal attempt; dark dives at -0.2 s, light (box 7) gathers and dribbles by +0.2 s
+vHfwZeG4BPw_s826:316205	a	7	dark	no	fast break, dark (box 7) running beside light; ring a at his chest but ball barely visible in neighbours
+vHfwZeG4BPw_s851:330580	none	none	-	no	close-up cutaway of a light player during a stoppage, no ball in view
+vHfwZeG4BPw_s851:330760	a	none	-	yes	referee holds the ball at his chest near the sideline, holding in all neighbours
+vHfwZeG4BPw_s851:330940	a	6	light	no	light player near the sideline carrying the ball at head height during a stoppage; b is in the crowd; ball small and hard to separate from his head
+vHfwZeG4BPw_s851:331120	a	none	-	yes	referee holds the ball at his chest behind light (box 8), holding in all neighbours
+vHfwZeG4BPw_s851:331300	a	8	light	no	light dribbling into a dark defender (box 5) near the baseline; ball partly hidden at the contact; b is in the crowd
+vHfwZeG4BPw_s851:331480	a	8	light	yes	light dribbling up court, ball at right hand, dribbling in neighbours
+vHfwZeG4BPw_s851:331660	a	0	light	yes	light dribbling against dark defender, ball at hand; b is in the crowd
+vHfwZeG4BPw_s851:331840	a	7	light	yes	light holds the ball low at the hip facing dark #2, dribbling in neighbours
+vHfwZeG4BPw_s851:332020	a	5	light	yes	light holds the ball at the hip facing dark #2, holding or dribbling in neighbours
+vHfwZeG4BPw_s851:332200	a	9	light	yes	light shooter holds the ball overhead before the jump shot; release about 0.2 s later
+vHfwZeG4BPw_s851:332380	a	2	light	yes	light #12 holds the ball overhead under the rim among dark defenders; release at about +0.2 s
+vHfwZeG4BPw_s851:332560	a	3	dark	yes	dark dribbling with the ball low at his right hand near the baseline, dribbling in neighbours
+vHfwZeG4BPw_s851:332740	none	9	dark	no	dark #1 holds ball with both hands at -0.2 s; in label frame ball hidden between him and pressing light #55 (box 8)
+vHfwZeG4BPw_s865:340715	a	3	light	yes	light dribbling up court, ball at right hand, dribbling in all neighbours
+vHfwZeG4BPw_s865:340895	a	9	light	yes	light dribbling, ball at right hand, bouncing in neighbours
+vHfwZeG4BPw_s865:341075	a	7	light	yes	light #11 dribbling, ball at hand; b is on another player's shirt
+vHfwZeG4BPw_s865:341255	none	none	-	no	ring a is in the crowd; ball not visible, players standing in a dead-ball moment
+vHfwZeG4BPw_s877:347015	a	none	-	no	ball appears held by the referee near the baseline during a stoppage; b is on the backboard; small and hard to confirm
+vHfwZeG4BPw_s877:347195	b	none	-	yes	referee holds the ball at his side during a stoppage; a is on the rim
+vHfwZeG4BPw_s877:347375	a	none	-	no	ball at the referee's shoulder during free-throw setup; may be passing it to a shooter
+vHfwZeG4BPw_s888:352520	a	9	light	yes	light #37 holds the ball at the waist, holding in all neighbours
+vHfwZeG4BPw_s888:352700	a	none	-	yes	ball at the rim after a shot, nobody near
+vHfwZeG4BPw_s888:352880	a	none	-	yes	referee holds the ball at his hip before handing it over
+vHfwZeG4BPw_s909:370300	a	5	light	yes	light dribbling up court, ball at right hand, bouncing in neighbours
+vHfwZeG4BPw_s909:370480	none	8	light	no	light #55 dribbling; ball hidden behind his body in label frame, visible at hand at -0.2 s and +0.1 s
+vHfwZeG4BPw_s909:370660	a	7	light	yes	light #7 dribbling through traffic, ball low at hand; b is on a dark player's knee
+vHfwZeG4BPw_s909:370840	a	none	-	no	ball high in the air ahead of the light runner on a fast break, back at his hand by +0.2 s; looks like a pass or toss ahead
+vHfwZeG4BPw_s909:371020	a	none	-	no	ball in the air between light (box 2), who lost it, and dark (box 4), who catches it at +0.07 s
+vHfwZeG4BPw_s909:371200	a	none	-	no	bounce pass arriving at light (box 7); ball at chest height just before his hands
+vHfwZeG4BPw_s930:380225	a	7	dark	yes	dark at the free-throw line bouncing or holding the ball before the shot
+vHfwZeG4BPw_s930:380405	a	8	dark	yes	dark at the free-throw line holding the ball at the waist before the shot
+vHfwZeG4BPw_s930:380585	a	none	-	yes	free-throw ball in flight toward the rim
+vHfwZeG4BPw_s930:380765	none	none	-	no	no candidate; ball not visible during a stoppage between free throws, referee has it at +0.6 s
+vHfwZeG4BPw_s943:386135	a	none	-	yes	free throw by light #3 just released, ball in flight above his hands
+vHfwZeG4BPw_s943:386315	a	none	-	yes	ball in flight on a toss from light (box 10) to light #3 on the left, between both players
+vHfwZeG4BPw_s943:386495	a	none	-	yes	referee bounce-passes the ball to the free-throw shooter; ball on the floor between them
+vHfwZeG4BPw_s943:386675	a	9	light	yes	light #3 holds the ball at the free-throw line
+vHfwZeG4BPw_s943:386855	a	8	light	no	light #3 free-throw shooter, ball above his head in his hands just before release; box 8 is his body, boxes 9 and 11 overlap him and a dark player
+vHfwZeG4BPw_s943:387035	a	6	light	yes	light #7 holds the ball at the chest after a drive, then shoots at +0.4 s
+vHfwZeG4BPw_s943:387215	a	8	dark	yes	dark #7 holds the ball overhead for a pass, holding in all neighbours
+vHfwZeG4BPw_s943:387395	a	5	dark	yes	dark dribbling up court, ball at right hand
+vHfwZeG4BPw_s943:387575	a	8	dark	yes	dark dribbling, ball at hand, bouncing in neighbours
+vHfwZeG4BPw_s943:387755	a	7	dark	no	dark #8 releasing a pass, ball at his fingertips; it leaves by +0.05 s
+vHfwZeG4BPw_s943:387935	a	8	dark	no	dark #7 catching a pass, ball just reaching his hand; he holds it at +0.05 s
+vHfwZeG4BPw_s943:388115	b	none	-	no	ball high in the air (ring b near the sign) after being knocked away from dark (box 9); dark regathers it at +0.2 s; ring a is on his empty hand
+vHfwZeG4BPw_s943:388295	a	9	dark	yes	dark dribbling low against light defender, ball at hand, dribbling in neighbours
+vHfwZeG4BPw_s955:392125	a	6	light	yes	light dribbling up the sideline, ball at hand, bouncing in neighbours
+vHfwZeG4BPw_s955:392305	none	none	-	no	ring a is in the crowd; ball not visible, probably off-frame with the ball carrier
+vHfwZeG4BPw_s955:392485	a	9	light	yes	light holds the ball at the chest on the wing, holding in all neighbours
+vHfwZeG4BPw_s955:392665	none	8	dark	no	no candidate; dark #45 held the ball at -0.2 s in the corner and the ball is hidden by his body; box 8 or 9 overlaps him
+vHfwZeG4BPw_s955:392845	a	none	-	yes	loose ball rolling toward the baseline out of bounds, nobody near
+vHfwZeG4BPw_s966:399070	a	7	light	yes	light dribbling up court, ball at hand, bouncing in neighbours
+vHfwZeG4BPw_s966:399250	a	6	light	yes	light dribbling, ball at hand at the waist, bouncing in neighbours
+vHfwZeG4BPw_s966:399430	a	none	-	no	pass in the air arriving at light #11 (box 9), whose hands reach for it; he catches it by +0.2 s
+vHfwZeG4BPw_s966:399610	a	8	light	yes	light #11 dribbling, ball at his right hand; bouncing at +0.2 s and +0.4 s
+vHfwZeG4BPw_s966:399790	a	9	light	no	light drives into the lane holding the ball, partly hidden behind dark defender (box 8); box choice uncertain
+vHfwZeG4BPw_s966:399970	none	none	-	no	dead ball, players standing in the lane; ring a is on a dark player's face, b is in the crowd; ball not visible
+vHfwZeG4BPw_s966:400150	a	9	dark	no	dark walking with the ball in his right hand at his hip during a stoppage; ball faint in the label frame, clear at +0.2 s
+vHfwZeG4BPw_s979:406475	a	none	-	no	referee near the free-throw line appears to hold the ball at his chest; ball barely visible
+vHfwZeG4BPw_s979:406655	a	none	-	yes	referee holds the ball at his hip during free-throw setup; b is on the ad board
+vHfwZeG4BPw_s979:406835	a	none	-	yes	referee holds the ball before handing it to the free-throw shooter, holding in all neighbours

@@ -46,7 +46,9 @@ What changes in code, configs, metrics, or future milestones?
 | 2026-11-02 | Court (L1) | [Fine-tune RF-DETR Keypoint on PLK halls with median smoothing](2026-11-02-court-keypoint-finetune-and-smoothing.md) | Accepted |
 | 2026-11-19 | Detect (L2) | [RF-DETR Large at 1280 px on PyTorch/MPS; drop XL, DEIM, YOLO26, and court filter](2026-11-19-detector-rfdetr-large-1280px-mps.md) | Accepted |
 | 2026-11-20 | Detect / M9 | [Six active box classes, split visual holder from `dead_ball`, adopt `plk-r3-poss`](2026-11-20-detector-classes-and-possession-schema.md) | Accepted |
-| 2026-11-26 | Detect (L2) / Ball (L7) | [Detector round 4 (`plk-r4-l4`) stays a comparator; `plk-r3-poss` and `ball-plk-fused-v2` remain active](2026-11-26-detector-r4-kept-as-comparator.md) | Accepted |
+| 2026-11-26 | Detect (L2) / Ball (L7) | [Detector round 4 (`plk-r4-l4`) stays a comparator; `plk-r3-poss` and `ball-plk-fused-v2` remain active](2026-11-26-detector-r4-kept-as-comparator.md) | Superseded by [2026-11-27](2026-11-27-detector-r4-and-fused-v6-active.md) |
+| 2026-11-27 | Detect (L2) / Ball (L7) | [`plk-r4-l4` and `ball-plk-fused-v6-r4` become the active detector and Layer 7 config](2026-11-27-detector-r4-and-fused-v6-active.md) | Accepted (held-out scored once, mixed); Layer 7 config superseded by [2026-11-27 v8-r4](2026-11-27-fused-v8-r4-active.md) |
+| 2026-11-27 | Ball (L7) | [`ball-plk-fused-v8-r4` becomes the active Layer 7 config (shooter required, first-contact rim frame, free-throw window clamped to the camera cut), with directions for known shortcomings](2026-11-27-fused-v8-r4-active.md) | Accepted (dev; held-out not scored) |
 | 2026-11-20 | Team (L3) | [Fit `siglip_kmeans` per shot at 5 fps with fixed seed and required kit metadata](2026-11-20-team-classification-siglip-5fps.md) | Accepted |
 | 2026-11-22 | Track / Link (L3b, L4) | [BoT-SORT with PLK re-ID encoder + greedy link (5-per-team cap); drop SAM 2.1 and `bytetrack_court`](2026-11-22-tracking-botsort-plk-reid-and-greedy-link.md) | Accepted |
 | 2026-11-23 | Numbers & Identity (L5/L5b) | [PARSeq fine-tuned from scene-text weights + roster log-prob, co-visible assignment & game-level clustering](2026-11-23-jersey-number-reading-parseq-and-roster-scoring.md) | Accepted *(open licence check)* |
@@ -63,6 +65,7 @@ What changes in code, configs, metrics, or future milestones?
 | 2026-11-22 | Pipeline / Cache | [Pipeline hardening invariants and immutable cache/weight hashes](2026-11-22-pipeline-hardening-and-cache-invariants.md) | Accepted |
 | 2026-11-24 | Gold & Eval / Ball (L7) | [Holder gold under the 2026-11-20 definition; `ball-plk-fused-v2` for shooter attribution](2026-11-24-holder-gold-and-fused-v2-shooter.md) | Accepted |
 | 2026-11-26 | Gold & Eval / Ball (L7) | [Shot gold: 26 more shots of the gold games, labelled for the ball layer only](2026-11-26-shot-gold-more-layer7-gold.md) | Accepted |
+| 2026-11-27 | Gold & Eval / Ball (L7) | [Free throws are shot attempts in their own category (1 point, scored apart; `kind` on Layer 7 shots)](2026-11-27-free-throws-own-shot-category.md) | Accepted |
 
 ### Infrastructure, licences & process
 

@@ -25,10 +25,21 @@ from bga.ball.base import (
     pack_output,
     shot_points,
 )
-from bga.ball.fused import FusedBall, _filter_ball_candidates, _find_shooter, _possession_emissions, _track_ball
+from bga.ball.fused import (
+    FusedBall,
+    _ball_node_score,
+    _classify_shot_outcome,
+    _cluster_rim_index,
+    _filter_ball_candidates,
+    _find_shooter,
+    _loose_ball_bonus,
+    _possession_emissions,
+    _track_ball,
+    _track_possession,
+)
 from bga.ball.skalski import SkalskiBall
 from bga.config import LAYERS, OPTIONAL_BY_LAYER, LayerConfig, RunConfig
-from bga.eval.ball import load_holders, load_shot_gold, score, score_boxes, score_events
+from bga.eval.ball import load_holders, load_shot_gold, score, score_boxes, score_events, score_free_throws
 from bga.export.parquet import BALL_SCHEMA, export_ball_sequence
 from bga.export.radar import render
 from bga.stage import Sequence
@@ -122,6 +133,15 @@ def _synthetic_shot_upstream(made: bool, *, stride: int = 5) -> tuple[Sequence, 
         "team": {"frames": team_frames},
         "positions": {"tracks": {"1": pos_pts}},
     }
+    return seq, upstream
+
+
+def _shooterless_shot_upstream() -> tuple[Sequence, dict[str, Any]]:
+    """Build the synthetic made shot with no tracked player, so no shooter can be found."""
+    seq, upstream = _synthetic_shot_upstream(made=True)
+    upstream["track"] = {"frames": {f: [] for f in upstream["track"]["frames"]}}
+    upstream["team"] = {"frames": {f: [] for f in upstream["team"]["frames"]}}
+    upstream["positions"] = {"tracks": {}}
     return seq, upstream
 
 
@@ -474,6 +494,123 @@ class TestFusedBall:
         em = _possession_emissions([], tracks, {1: "home"}, [180.0, 50.0], 0.9, params)
         assert em[1] == pytest.approx(expected)
 
+    @pytest.mark.parametrize(
+        ("local_rw", "expected"),
+        [
+            pytest.param(0.0, "missed", id="off-far-jump-counts-as-miss"),
+            pytest.param(4.0, "made", id="far-jump-ignored-net-drop-counts"),
+        ],
+    )
+    def test_outcome_ignores_far_tracker_jump(self, local_rw: float, expected: str) -> None:
+        frames = [0, 5, 10, 15]
+        state = BallTrackState(frames, {}, {}, {}, {}, {})
+        rel = [(0.0, 0.0, 0.0), (-5.0, 4.0, 6.4), (0.1, 1.2, 1.2), None]
+        params = {**FusedBall.defaults, "outcome_local_rw": local_rw}
+        assert _classify_shot_outcome(state, 0, rel, {}, params, 10.0)[0] == expected
+
+    @pytest.mark.parametrize(
+        ("bonus", "ball_x", "expected"),
+        [
+            pytest.param(0.0, 930.0, 0.0, id="off"),
+            pytest.param(0.6, 930.0, 0.6, id="at-rim-centre"),
+            pytest.param(0.6, 960.0, 0.3, id="three-quarter-rim-width-away"),
+            pytest.param(0.6, 1100.0, 0.0, id="outside-reach"),
+        ],
+    )
+    def test_rim_bonus_lifts_candidates_near_rim(self, bonus: float, ball_x: float, expected: float) -> None:
+        rim = [910.0, 200.0, 950.0, 210.0, 0.9]
+        params = {**FusedBall.defaults, "ball_rim_bonus": bonus, "ball_rim_bonus_rw": 1.5}
+        base = _ball_node_score(ball_x, 205.0, 0.5, [], [], {}, params)
+        assert _ball_node_score(ball_x, 205.0, 0.5, [], [], {}, params, rim) - base == pytest.approx(expected)
+
+    @pytest.mark.parametrize(
+        ("bonus", "expected"),
+        [
+            pytest.param(None, 1, id="off-ball-in-box-is-held"),
+            pytest.param(2.0, None, id="loose-window-ball-in-box-is-unheld"),
+        ],
+    )
+    def test_loose_bonus_releases_ball_overlapping_player(self, bonus: float | None, expected: int | None) -> None:
+        frames = [0, 5, 10]
+        tracks = {f: [(1, [0.0, 0.0, 50.0, 100.0], "player")] for f in frames}
+        ball_px: dict[int, list[float] | None] = {f: [25.0, 50.0] for f in frames}
+        none_bonus = None if bonus is None else dict.fromkeys(frames, bonus)
+        holders = _track_possession(
+            frames, {}, tracks, {1: "home"}, ball_px, dict.fromkeys(frames, 0.9), FusedBall.defaults, none_bonus
+        )
+        assert holders[5] == expected
+
+    def test_loose_bonus_covers_window_around_closest_rim_step(self) -> None:
+        rel = [None, (0.0, -3.0, 3.0), (0.0, -0.5, 0.5), (0.0, 0.1, 0.1), (0.0, 1.0, 1.0), None, None]
+        params = {"poss_loose_bonus": 1.0, "poss_loose_pre_s": 0.1, "poss_loose_post_s": 0.2}
+        frames = [0, 5, 10, 15, 20, 25, 30]
+        assert _loose_ball_bonus(frames, [[2, 3]], rel, params, 10.0) == {10: 1.0, 15: 1.0, 20: 1.0, 25: 1.0}
+
+    def test_loose_bonus_keeps_shooter_released_before_rim(self) -> None:
+        seq, upstream = _synthetic_shot_upstream(made=True)
+        params = {"poss_loose_bonus": 1.0, "poss_loose_pre_s": 0.3, "poss_loose_post_s": 2.5}
+        out = FusedBall(params).run(seq, upstream, _dummy_read)
+        assert [(s["shooter_track_id"], s["outcome"]) for s in out["shots"]] == [(1, "made")]
+
+    @pytest.mark.parametrize(
+        ("params", "expected"),
+        [
+            pytest.param({}, ("field_goal", 3), id="off-by-default"),
+            pytest.param(
+                {"ft_scene_still_m": 0.45, "ft_scene_window_s": 0.4, "ft_scene_min_tracks": 1},
+                ("free_throw", 1),
+                id="still-scene",
+            ),
+            pytest.param(
+                {"ft_scene_still_m": 0.45, "ft_scene_window_s": 0.4, "ft_scene_min_tracks": 4},
+                ("field_goal", 3),
+                id="scene-too-few-tracks",
+            ),
+            pytest.param(
+                {"ft_scene_still_m": 0.45, "ft_scene_window_s": 9.0, "ft_scene_min_tracks": 1},
+                ("field_goal", 3),
+                id="window-before-sequence-start",
+            ),
+            pytest.param(
+                {
+                    "ft_scene_still_m": 0.45,
+                    "ft_scene_window_s": 9.0,
+                    "ft_scene_min_tracks": 1,
+                    "ft_scene_min_window_s": 0.2,
+                },
+                ("free_throw", 1),
+                id="window-clamped-to-sequence-start",
+            ),
+        ],
+    )
+    def test_free_throw_tag(self, params: dict[str, Any], expected: tuple[str, int]) -> None:
+        seq, upstream = _synthetic_shot_upstream(made=True)
+        out = FusedBall(params).run(seq, upstream, _dummy_read)
+        assert [(s["kind"], s["points"]) for s in out["shots"]] == [expected]
+
+    @pytest.mark.parametrize(
+        ("build", "params", "expected"),
+        [
+            pytest.param(_shooterless_shot_upstream, {}, [None], id="kept-by-default"),
+            pytest.param(_shooterless_shot_upstream, {"shot_require_shooter": True}, [], id="dropped-without-shooter"),
+            pytest.param(
+                lambda: _synthetic_shot_upstream(made=True), {"shot_require_shooter": True}, [1], id="kept-with-shooter"
+            ),
+        ],
+    )
+    def test_require_shooter(self, build: Any, params: dict[str, Any], expected: list[int | None]) -> None:
+        seq, upstream = build()
+        out = FusedBall(params).run(seq, upstream, _dummy_read)
+        assert [s["shooter_track_id"] for s in out["shots"]] == expected
+
+    @pytest.mark.parametrize(
+        ("pick", "expected"),
+        [pytest.param("closest", 3, id="closest-to-rim"), pytest.param("first", 1, id="first-contact")],
+    )
+    def test_cluster_rim_index(self, pick: str, expected: int) -> None:
+        rel = [(0.0, -3.0, 3.0), (-0.5, -0.3, 0.58), (0.1, -1.1, 1.1), (0.07, 0.5, 0.5)]
+        assert _cluster_rim_index([1, 3], rel, pick) == expected
+
 
 class TestSkalskiBall:
     """Reference Skalski baseline backend."""
@@ -576,6 +713,57 @@ class TestEvalBall:
         assert (em["shot_gt"], em["shot_pred"], em["shot_p"], em["shot_r"]) == (2, 1, 1.0, 0.5)
         assert (em["shot_outcome_acc"], em["shot_shooter_acc"]) == (1.0, 1.0)
 
+    @pytest.mark.parametrize(
+        ("fps", "expected_f1"),
+        [
+            pytest.param(None, 0.0, id="frame-tolerance-40"),
+            pytest.param(60.0, 1.0, id="0.8s-at-60fps-is-48-frames"),
+        ],
+    )
+    def test_match_tolerance_follows_sequence_fps(self, fps: float | None, expected_f1: float) -> None:
+        ball_by_seq = {"vid_s1": {"frames": {}, "shots": [{"start_frame": 0, "rim_frame": 145, "outcome": "made"}]}}
+        gt_events = [{"sequence": "vid_s1", "rim_frame": 100, "outcome": "made"}]
+        fps_by_seq = None if fps is None else {"vid_s1": fps}
+        em = score_events(ball_by_seq, {"vid_s1": {}}, gt_events, fps_by_seq=fps_by_seq)
+        assert em["shot_f1"] == expected_f1
+
+    @pytest.mark.parametrize(
+        ("gold_points", "pred_kind", "expected"),
+        [
+            pytest.param(2, "field_goal", (1, 1), id="field-goal-scored"),
+            pytest.param(1, "field_goal", (0, 1), id="gold-free-throw-left-out"),
+            pytest.param(2, "free_throw", (1, 0), id="predicted-free-throw-left-out"),
+        ],
+    )
+    def test_field_goal_scores_leave_free_throws_out(self, gold_points: int, pred_kind: str, expected: tuple) -> None:
+        shots = [{"start_frame": 0, "rim_frame": 50, "outcome": "made", "kind": pred_kind}]
+        gt_events = [{"sequence": "vid_s1", "rim_frame": 50, "outcome": "made", "points": gold_points}]
+        em = score_events({"vid_s1": {"frames": {}, "shots": shots}}, {"vid_s1": {}}, gt_events)
+        assert (em["shot_gt"], em["shot_pred"]) == expected
+
+    @pytest.mark.parametrize(
+        ("labelled", "expected_gt"),
+        [pytest.param({"vid_s1"}, 1, id="labelled-sequence"), pytest.param(set(), 0, id="unlabelled-sequence")],
+    )
+    def test_free_throws_scored_only_where_labelled(self, labelled: set, expected_gt: int) -> None:
+        ball = {"vid_s1": {"shots": [{"rim_frame": 50, "outcome": "made", "kind": "free_throw"}]}}
+        gt_events = [{"sequence": "vid_s1", "rim_frame": 50, "outcome": "made", "points": 1}]
+        assert score_free_throws(ball, gt_events, labelled)["ft_gt"] == expected_gt
+
+    def test_outcome_recall_splits_by_gold_outcome(self) -> None:
+        shots = [
+            {"start_frame": 0, "rim_frame": 50, "outcome": "made"},
+            {"start_frame": 150, "rim_frame": 200, "outcome": "made"},
+            {"start_frame": 300, "rim_frame": 350, "outcome": "made"},
+        ]
+        gt_events = [
+            {"sequence": "vid_s1", "rim_frame": 50, "outcome": "made"},
+            {"sequence": "vid_s1", "rim_frame": 200, "outcome": "missed"},
+            {"sequence": "vid_s1", "rim_frame": 350, "outcome": "missed"},
+        ]
+        em = score_events({"vid_s1": {"frames": {}, "shots": shots}}, {"vid_s1": {}}, gt_events)
+        assert (em["shot_outcome_acc"], em["shot_made_r"], em["shot_missed_r"]) == (pytest.approx(1 / 3), 1.0, 0.0)
+
     def test_matches_null_rim_frame_against_gold_release_frame(self) -> None:
         ball_by_seq = {
             "vid_s1": {
@@ -636,6 +824,37 @@ class TestEvalBall:
         assert res["unverified_sequences"] == [seq.name]
         assert math.isnan(res["shot_f1"])
         assert "unverified sequences" in caplog.text
+
+    @pytest.mark.parametrize(
+        ("shooter_frame", "expected"),
+        [
+            pytest.param(1, 1.0, id="gold-box-0.4s-before-start"),
+            pytest.param(None, 0.0, id="no-gold-box-near-start"),
+        ],
+    )
+    def test_shooter_match_uses_nearest_gold_frame_boxing_the_shooter(
+        self, tmp_path: Path, shooter_frame: int | None, expected: float
+    ) -> None:
+        gt_dir = tmp_path / "vid_s1" / "gt"
+        gt_dir.mkdir(parents=True)
+        (tmp_path / "vid_s1" / "frames.txt").write_text("0\n20\n", encoding="utf-8")
+        (tmp_path / "vid_s1" / "identities.csv").write_text(
+            "tid,team,number,name,team_name,note\n1,home,10,Shooter,Home,\n2,away,5,Defender,Away,\n",
+            encoding="utf-8",
+        )
+        shooter_rows = "" if shooter_frame is None else f"{shooter_frame},1,100,100,60,120,1,1,1\n"
+        (gt_dir / "gt.txt").write_text(shooter_rows + "2,2,400,100,60,120,1,2,1\n", encoding="utf-8")
+        box = [9, 100.0, 100.0, 160.0, 220.0, 0.9, "player", 0]
+        ball_by_seq = {
+            "vid_s1": {
+                "frames": {},
+                "shots": [{"start_frame": 20, "rim_frame": 60, "outcome": "made", "shooter_track_id": 9}],
+            }
+        }
+        tracks_by_seq = {"vid_s1": {"0": [box], "20": [box]}}
+        gt_events = [{"sequence": "vid_s1", "rim_frame": 60, "outcome": "made", "shooter_gt_tid": 1}]
+        em = score_events(ball_by_seq, tracks_by_seq, gt_events, gold_v0_root=tmp_path)
+        assert em["shot_shooter_acc"] == expected
 
     def test_shooter_match_requires_best_overlapping_gt_box(self, tmp_path: Path) -> None:
         # Predicted box overlaps defender (gt#2) at IoU ~0.85 and true shooter (gt#1) at IoU ~0.48 -> must NOT match.

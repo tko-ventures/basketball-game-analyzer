@@ -28,7 +28,10 @@ def gold_clips(gold_json: Path = ROOT / "data/labels/gold.json") -> set[str]:
 
 
 def gold_ids(gold_json: Path = ROOT / "data/labels/gold.json") -> set[str]:
-    """List the YouTube ids of every gold game (from ``youtube_id``, else the second field of the label stem).
+    """List the YouTube ids of every gold game and of every other upload of the same game.
+
+    A game's own id is ``youtube_id``, else the second field of its label stem. ``same_game_ids`` names other
+    uploads of that game, such as the highlights of a full-game recording, which show the same broadcast frames.
 
     Args:
         gold_json: the gold-set index.
@@ -39,9 +42,15 @@ def gold_ids(gold_json: Path = ROOT / "data/labels/gold.json") -> set[str]:
     Examples:
         >>> "4XMD9FWmQws" in gold_ids()
         True
+        >>> "Fulq9md9DZc" in gold_ids()  # the highlights of the full-game gold recording 1A79NXz9CFM
+        True
 
     """
-    return {g.get("youtube_id") or g["clip"].split("_")[1] for g in json.loads(gold_json.read_text())["games"]}
+    ids = set()
+    for g in json.loads(gold_json.read_text())["games"]:
+        ids.add(g.get("youtube_id") or g["clip"].split("_")[1])
+        ids.update(g.get("same_game_ids", []))
+    return ids
 
 
 def assert_no_gold(clips: Iterable[str]) -> None:

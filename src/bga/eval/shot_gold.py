@@ -42,6 +42,10 @@ EDGE_S = 0.5
 MIN_SHOT_S = 6.0
 #: Shot outcomes.
 OUTCOMES = ("made", "missed")
+#: Points of an attempt; 1 marks a free throw (decided 2026-11-26, #53), 2 and 3 field goals.
+POINTS = (1, 2, 3)
+#: ``free_throws`` value of a shot whose free throws were proposed for labelling, and once Tomasz confirmed them.
+FT_PROPOSED, FT_LABELLED = "proposed", "labelled"
 #: Sides a holder or shooter can belong to.
 TEAMS = ("home", "away")
 #: The holder definition shown on the page and recorded in the file.
@@ -90,13 +94,14 @@ def pick_shots(shots: list[dict[str, Any]], taken: set[int], fps: float, count: 
     return [cand[int((k + 0.5) * len(cand) / count)] for k in range(count)]
 
 
-def sample_frames(start: int, end: int, fps: float) -> list[int]:
-    """List the frames of a shot to label: one every ``FRAME_STEP_S`` on the stride grid, away from the cuts.
+def sample_frames(start: int, end: int, fps: float, step_s: float = FRAME_STEP_S) -> list[int]:
+    """List the frames of a shot to label: one every ``step_s`` on the stride grid, away from the cuts.
 
     Args:
         start: The shot's first frame.
         end: The shot's last frame, included.
         fps: The clip's frame rate.
+        step_s: Seconds between two labelled frames.
 
     Returns:
         Source frame indices, ascending.
@@ -104,9 +109,11 @@ def sample_frames(start: int, end: int, fps: float) -> list[int]:
     Examples:
         >>> sample_frames(546, 800, 50.0)
         [575, 625, 675, 725, 775]
+        >>> sample_frames(546, 800, 60.0, step_s=2.0)
+        [580, 700]
 
     """
-    edge, step = round(EDGE_S * fps), max(STRIDE, round(FRAME_STEP_S * fps / STRIDE) * STRIDE)
+    edge, step = round(EDGE_S * fps), max(STRIDE, round(step_s * fps / STRIDE) * STRIDE)
     first = math.ceil((start + edge) / STRIDE) * STRIDE
     return list(range(first, end - edge + 1, step))
 
@@ -114,7 +121,9 @@ def sample_frames(start: int, end: int, fps: float) -> list[int]:
 def build_queue(
     per_dev_game: int, per_held_out_game: int, gold_index: Path = GOLD_INDEX, labels_dir: Path = LABELS_DIR
 ) -> dict[str, Any]:
-    """Build an empty working file: the picked shots of every gold game and their frames to label.
+    """Build an empty working file: the picked shots of every highlight gold game and their frames to label.
+
+    Full-game gold games (``full_game`` in the index) join the working file through :func:`add_game` instead.
 
     Args:
         per_dev_game: Shots picked from each dev game.
@@ -133,25 +142,104 @@ def build_queue(
     """
     out: list[dict[str, Any]] = []
     for game in json.loads(gold_index.read_text(encoding="utf-8"))["games"]:
+        if game.get("full_game"):
+            continue
         labels = json.loads((labels_dir / f"{game['clip']}.json").read_text(encoding="utf-8"))
         fps = float(labels["fps"])
         count = per_held_out_game if game["held_out"] else per_dev_game
         for i in pick_shots(labels["shots"], {s["shot"] for s in game["shots"]}, fps, count):
             start, end = int(labels["shots"][i]["start"]), int(labels["shots"][i]["end"])
-            out.append({
-                "sequence": f"{game['youtube_id']}_s{i}",
-                "youtube_id": game["youtube_id"],
-                "clip": game["clip"],
-                "shot": i,
-                "start": start,
-                "end": end,
-                "fps": fps,
-                "held_out": bool(game["held_out"]),
-                "events_status": Status.TODO.value,
-                "events": [],
-                "frames": [_empty_frame(f) for f in sample_frames(start, end, fps)],
-            })
+            out.append(_shot_record(game, i, start, end, fps, FRAME_STEP_S))
     return {"version": 1, "definition": DEFINITION, "stride": STRIDE, "shots": out}
+
+
+def trim_window(start: int, end: int, fps: float, max_s: float) -> tuple[int, int]:
+    """Keep the middle ``max_s`` seconds of a shot; a shot no longer than that is kept whole.
+
+    Full-game shots of the main camera can run for minutes; the middle window keeps a sequence's labelling load fixed
+    without looking at what happens in it.
+
+    Args:
+        start: The shot's first frame.
+        end: The shot's last frame, included.
+        fps: The clip's frame rate.
+        max_s: Longest window kept, in seconds.
+
+    Returns:
+        The window's ``(start, end)``, inclusive.
+
+    Examples:
+        >>> trim_window(0, 5999, 60.0, 40.0)
+        (1800, 4199)
+        >>> trim_window(100, 999, 60.0, 40.0)
+        (100, 999)
+
+    """
+    keep = round(max_s * fps)
+    if end - start + 1 <= keep:
+        return start, end
+    first = start + (end - start + 1 - keep) // 2
+    return first, first + keep - 1
+
+
+def add_game(
+    queue: dict[str, Any], game: dict[str, Any], labels: dict[str, Any], count: int, step_s: float, max_s: float
+) -> list[str]:
+    """Append ``count`` shots of one more game to the working file, keeping every shot and answer already in it.
+
+    Shots are chosen by :func:`pick_shots` from the game's tagged shot list (so never from a model's output), cut to
+    their middle ``max_s`` seconds, and labelled every ``step_s`` seconds.
+
+    Args:
+        queue: The working file's content; edited in place.
+        game: The game's entry in the gold-set index (``clip``, ``youtube_id``, ``held_out``, ``shots``).
+        labels: The game's label file (``fps`` and the tagged ``shots``).
+        count: Shots to pick.
+        step_s: Seconds between two labelled frames.
+        max_s: Longest window kept of a shot, in seconds.
+
+    Returns:
+        The sequence names added (none when the game is already in the working file).
+
+    Raises:
+        ValueError: When the game already has shots in the working file.
+
+    Examples:
+        >>> shots = [{"start": 3000 * i, "end": 3000 * i + 2999, "camera": "central"} for i in range(4)]
+        >>> game = {"clip": "c", "youtube_id": "yt", "held_out": False, "shots": []}
+        >>> q = {"shots": []}
+        >>> add_game(q, game, {"fps": 60.0, "shots": shots}, 2, 2.0, 20.0)
+        ['yt_s1', 'yt_s3']
+        >>> q["shots"][0]["start"], q["shots"][0]["end"], len(q["shots"][0]["frames"])
+        (3900, 5099, 10)
+
+    """
+    if any(s["youtube_id"] == game["youtube_id"] for s in queue["shots"]):
+        raise ValueError(f"{game['youtube_id']} already has shots in the working file")
+    fps = float(labels["fps"])
+    added = []
+    for i in pick_shots(labels["shots"], {s["shot"] for s in game["shots"]}, fps, count):
+        start, end = trim_window(int(labels["shots"][i]["start"]), int(labels["shots"][i]["end"]), fps, max_s)
+        queue["shots"].append(_shot_record(game, i, start, end, fps, step_s))
+        added.append(queue["shots"][-1]["sequence"])
+    return added
+
+
+def _shot_record(game: dict[str, Any], shot: int, start: int, end: int, fps: float, step_s: float) -> dict[str, Any]:
+    """Return an unlabelled shot record of the working file."""
+    return {
+        "sequence": f"{game['youtube_id']}_s{shot}",
+        "youtube_id": game["youtube_id"],
+        "clip": game["clip"],
+        "shot": shot,
+        "start": start,
+        "end": end,
+        "fps": fps,
+        "held_out": bool(game["held_out"]),
+        "events_status": Status.TODO.value,
+        "events": [],
+        "frames": [_empty_frame(f) for f in sample_frames(start, end, fps, step_s)],
+    }
 
 
 def _empty_frame(frame: int) -> dict[str, Any]:
@@ -281,7 +369,8 @@ def clean_event(event: dict[str, Any], shot: dict[str, Any]) -> dict[str, Any]:
     """Validate one shot attempt of a shot.
 
     Args:
-        event: ``release_frame``, ``rim_frame``, ``outcome``, ``points``, ``shooter`` and an optional ``note``.
+        event: ``release_frame``, ``rim_frame``, ``outcome``, ``points`` (1 for a free throw), ``shooter`` and an
+            optional ``note``.
         shot: The shot record it belongs to.
 
     Returns:
@@ -295,6 +384,8 @@ def clean_event(event: dict[str, Any], shot: dict[str, Any]) -> dict[str, Any]:
         >>> ev = {"release_frame": 200, "rim_frame": 240, "outcome": "made", "points": 3, "shooter": None}
         >>> clean_event(ev, shot)["points"]
         3
+        >>> clean_event({**ev, "points": 1}, shot)["points"]
+        1
         >>> clean_event({**ev, "rim_frame": 150}, shot)
         Traceback (most recent call last):
         ...
@@ -309,8 +400,8 @@ def clean_event(event: dict[str, Any], shot: dict[str, Any]) -> dict[str, Any]:
         raise ValueError(f"{shot['sequence']}: release frame {release} is after rim frame {rim}")
     if event.get("outcome") not in OUTCOMES:
         raise ValueError(f"outcome must be one of {OUTCOMES}, got {event.get('outcome')!r}")
-    if event.get("points") not in (2, 3):
-        raise ValueError(f"points must be 2 or 3, got {event.get('points')!r}")
+    if event.get("points") not in POINTS:
+        raise ValueError(f"points must be one of {POINTS}, got {event.get('points')!r}")
     return {
         "release_frame": release,
         "rim_frame": rim,
@@ -358,6 +449,9 @@ def set_frame_label(queue: dict[str, Any], body: dict[str, Any], status: Status 
 def set_shot_events(queue: dict[str, Any], body: dict[str, Any], status: Status = Status.DONE) -> dict[str, Any]:
     """Record the shot attempts of one shot, replacing the earlier list.
 
+    Tomasz's answer on a shot whose free throws were proposed (``free_throws == "proposed"``) also marks its free
+    throws as labelled, so free-throw scores only count shots where free throws were looked for.
+
     Args:
         queue: The working file's content, changed in place.
         body: ``{"sequence", "events": [attempt, ...]}``.
@@ -373,12 +467,17 @@ def set_shot_events(queue: dict[str, Any], body: dict[str, Any], status: Status 
         >>> q = {"shots": [{"sequence": "a_s1", "start": 0, "end": 99, "events": [], "events_status": "todo"}]}
         >>> set_shot_events(q, {"sequence": "a_s1", "events": []})["events_status"]
         'done'
+        >>> q["shots"][0]["free_throws"] = "proposed"
+        >>> set_shot_events(q, {"sequence": "a_s1", "events": []})["free_throws"]
+        'labelled'
 
     """
     shot = find_shot(queue, str(body["sequence"]))
     events = [clean_event(ev, shot) for ev in body.get("events", [])]
     shot["events"] = sorted(events, key=lambda ev: ev["rim_frame"])
     shot["events_status"] = status.value
+    if status == Status.DONE and shot.get("free_throws") == FT_PROPOSED:
+        shot["free_throws"] = FT_LABELLED
     return shot
 
 
@@ -411,8 +510,9 @@ def export_shot_gold(queue_path: Path = QUEUE_PATH, out_path: Path = EXPORT_PATH
     """Export confirmed shot-gold answers to ``data/gold/v1/shot_gold.json`` for ``bga eval-ball``.
 
     Only shots with ``events_status == "done"`` enter ``verified_sequences`` and ``events``, and only frames with
-    ``status == "done"`` enter ``frames``. Working-file draft fields (``proposal``, ``origin``, ``events_note``) are
-    omitted.
+    ``status == "done"`` enter ``frames``. ``free_throw_sequences`` lists the verified shots whose free throws were
+    labelled too (1-point attempts); elsewhere free throws were left out. Working-file draft fields (``proposal``,
+    ``origin``, ``events_note``) are omitted.
 
     Args:
         queue_path: Working file edited by ``/shotgold``.
@@ -493,6 +593,9 @@ def export_shot_gold(queue_path: Path = QUEUE_PATH, out_path: Path = EXPORT_PATH
         "definition": queue.get("definition", DEFINITION),
         "stride": int(queue.get("stride", STRIDE)),
         "verified_sequences": sorted(verified),
+        "free_throw_sequences": sorted(
+            s["sequence"] for s in queue["shots"] if s.get("free_throws") == FT_LABELLED and s["sequence"] in verified
+        ),
         "shots": shots,
         "frames": frames,
         "events": events,

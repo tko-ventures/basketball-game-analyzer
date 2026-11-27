@@ -13,7 +13,7 @@ v0 was prefilled by the public models the baseline uses (Skalski's player detect
 
 ## Contents
 
-- **Games:** 4 games, 3 central shots each, listed in `data/labels/gold.json`. The held-out game is `Tnuscrm9RyU` (Dziki – Zastal, 2026/27). It is scored once per milestone and never trained on.
+- **Games:** 4 highlight games, 3 central shots each, listed in `data/labels/gold.json`. The held-out game is `Tnuscrm9RyU` (Dziki – Zastal, 2026/27). It is scored once per milestone and never trained on. Two full-length games (`full_game: true`, one dev, one held-out) hold shot gold only (section "Shot gold").
 - **Track gold:** `data/gold/v0/<youtube_id>_s<shot>/` holds one MOTChallenge sequence per shot, every 5th frame at 50 fps:
   - `gt/gt.txt`: `frame,id,x,y,w,h,1,class,visibility`, where class is 1 home, 2 away, 3 referee, 4 other;
   - `frames.txt`: the source frame index of each sequence frame;
@@ -311,3 +311,51 @@ Tomasz confirmed all 26 shots and all 188 frames on `/shotgold`. `uv run scripts
 - **Dev:** 18 shots, 20 shot attempts (17 made, 3 missed; 11 two-pointers, 9 threes; every attempt carries a shooter box and team), 133 frames (119 with ball, 72 with holder).
 - **Held-out:** 8 shots, 8 shot attempts (8 made, 0 missed; 5 two-pointers, 3 threes; every attempt carries a shooter box and team), 55 frames (53 with ball, 32 with holder).
 - **Combined Layer 7 gold (`bga eval-ball`):** 27 dev shots / 209 frames / 31 attempts and 11 held-out shots / 79 frames / 13 attempts (use `--no-shot-gold` to score gold `v1` alone).
+
+### Full-game shots (2026-11-26)
+
+The 26 shots above hold 37 made and 7 missed attempts (gold v1 included), because highlights show mostly baskets. Outcome accuracy on them mostly measures how often a backend says "made" (#48). Two full-length YouTube games add live play in which about half the attempts miss. Both games are gold games in `data/labels/gold.json` (`full_game: true`), so no training set may use them.
+
+| Game | Split | Shots picked | Seconds | Frames (every 3 s) |
+|---|---|---|---|---|
+| `hSXPCy5NedU` Dziki – Tauron GTK Gliwice, 2026-02-15 | Dev | 40 | 792 | 268 |
+| `1A79NXz9CFM` Dziki – PGE Start Lublin, 2026-10-11 | Held-out | 20 | 455 | 154 |
+
+- **Shots:** `tools/labeler/prepare_clips.py` cuts each game with `hist_diff`. The implementer tags every shot of at least 6 s from its middle frame (`sheet_ledger.tsv`): `central` is the main camera with the scorebug on screen. Timeouts and breaks without the scorebug, replays, close-ups and the half-time highlights of other games are `other`, and shorter shots stay `unset`.
+- **Pick:** `uv run scripts/shot_gold.py add --clip <stem> --count N --step-s 3 --max-s 40` picks `N` central shots evenly over the game (`pick_shots`, reading the shot list only), keeps the middle 40 s of each (`trim_window`), and labels a frame every 3 s, a third as often as the highlight shots, so the batch stays reviewable.
+- **Same game, other uploads:** `same_game_ids` in a game's entry names other uploads of that game, and the leakage guard refuses them too. The PGE Start highlights `Fulq9md9DZc` are cut from the same broadcast as `1A79NXz9CFM`.
+- **First pass:** as for the highlight shots, plus rim close-ups every 0.25 s placed by the detector's rim box (never its ball), so attempts the ball detector misses are still read. Such attempts enter the events ledger as `<sequence>#x<n>` rows with explicit frames.
+
+First pass (2026-11-26, ledger rows of that date):
+- **Holders:** 422 frames, 272 settled by the first pass and 150 flagged for Tomasz (92 dev, 58 held-out).
+- **Shot attempts:** 55 proposed in 35 of the 60 shots. Dev: 30 (9 made, 21 missed). Held-out: 25 (8 made, 12 missed, 5 with an unclear outcome, proposed as missed with the doubt in the note). Two attempts showed only on the rim close-ups, because the detector's moment came before the shot or on the rebound.
+
+Confirmed export (2026-11-26): Tomasz confirmed all 60 full-game shots and 422 frames on `/shotgold` (8 of the 272 first-pass holder frames changed). `data/gold/v1/shot_gold.json` now holds:
+- **Full-game dev (Gliwice):** 40 shots, 29 attempts (11 made, 18 missed; 20 two-pointers, 9 threes; every attempt with a shooter box), 268 frames (152 with holder).
+- **Full-game held-out (PGE Start):** 20 shots, 22 attempts (9 made, 13 missed; 15 two-pointers, 7 threes), 154 frames (80 with holder).
+- **All shot gold:** 86 shots, 79 attempts, 610 frames. Full-game sequences are 60 fps; `bga eval-ball` matches shots within 0.8 s at each sequence's frame rate.
+
+### Free throws (2026-11-26, #53)
+
+Tomasz decided that free throws are shots, captured as their own category. In shot gold a free throw is an attempt worth **1 point** (labeller key `1`), with release frame, rim frame, outcome and shooter like any attempt. Free throws were left out of the 26 highlight shots, so they are labelled only on the full-game shots: `uv run scripts/shot_gold.py apply-free-throws` adds the first-pass free throws (`data/labels/review/shot_gold_free_throws.tsv`) to every full-game shot and marks it `free_throws: proposed` ("free throws to check" on the page); confirming the shot marks them `labelled`, and the export lists those shots in `free_throw_sequences`. `bga eval-ball` scores field goals (2 and 3 points) in its shot columns and free throws in their own column, only on those shots.
+
+First pass: 13 free throws in 13 of the 60 shots (dev 7: 4 made, 3 missed; held-out 6: all made), none overlapping a confirmed field goal. A free throw whose rim frame falls outside its shot is left out. Release frames are estimates; every free-throw shooter still needs a click.
+
+### Third full game, dev (2026-11-27, #50, #53)
+
+After the held-out run of 2026-11-27, dev gained a third full-length game, so that shot precision and free throws are measured on more than one full game. The new game is Energa Trefl Sopot – Dziki Warszawa (`vHfwZeG4BPw`, 2026-01-31), an away arena.
+- **Leakage:** no highlights of it are in `data/clip_ids.txt` or any training manifest. It is a gold game in `data/labels/gold.json` (`full_game: true`, dev).
+- **Shots:** `prepare_clips.py` cut it into 1063 shots. Of the 304 shots of at least 6 s, 199 are tagged `central`. The rest are `other`:
+  - 47 with no scorebug;
+  - the half-time highlights of other games (s448–s680);
+  - close-ups and crowd shots.
+
+  A scorebug template match sorted the shots, and the shots with a scorebug were read on contact sheets (ledger rows of 2026-11-27).
+- **Pick:** `shot_gold.py add --count 40 --step-s 3 --max-s 40`, as for the other full games: 40 shots, 241 frames.
+- **First pass:**
+  - **Holders:** 165 settled and 76 flagged.
+  - **Attempts:** 28 field goals proposed (5 of them only on the rim close-ups) and 10 free throws. Five reader agents read the sheets; the results were spot-checked.
+- **Confirmed (Tomasz, 2026-11-27):**
+  - 29 field-goal attempts (14 made, 15 missed) and 10 free throws, every attempt with a shooter box;
+  - 241 frames (6 of the 165 first-pass holder frames changed).
+- **Export:** 126 shots, 130 attempts, 851 frames. Dev for `bga eval-ball` is now 107 shots, 89 field goals and 16 free throws.

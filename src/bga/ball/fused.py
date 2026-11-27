@@ -15,8 +15,9 @@ from __future__ import annotations
 
 import itertools
 import math
+import statistics
 import time
-from typing import Any, ClassVar
+from typing import Any, ClassVar, Literal
 
 from bga.ball.base import (
     BallTrackState,
@@ -246,9 +247,23 @@ def _ball_node_score(
     tracks: list[tuple[int, list[float], str]],
     teams: dict[int, str],
     params: dict[str, Any],
+    rim: list[float] | None = None,
 ) -> float:
-    """Unary score for a candidate ball detection: confidence + possession/player proximity + rim context."""
+    """Unary score for a candidate ball detection: confidence + possession/player proximity + rim context.
+
+    With ``ball_rim_bonus > 0`` a candidate within ``ball_rim_bonus_rw`` rim widths of the rim gains up to that bonus
+    (linearly less with distance), so the trajectory through the rim is not outscored by faint detections next to
+    players, which collect the possession and player bonuses.
+
+    """
     score = conf - float(params["ball_prior"])
+    rim_bonus = float(params.get("ball_rim_bonus", 0.0))
+    if rim is not None and rim_bonus > 0.0:
+        rcx, rcy, rw = _rim_center_w(rim)
+        nd = math.hypot(bx - rcx, by - rcy) / rw
+        reach = float(params.get("ball_rim_bonus_rw", 1.5))
+        if nd <= reach:
+            score += rim_bonus * (1.0 - nd / reach)
     pip_boxes = [b for b in boxes if b[5] == "player-in-possession" and float(b[4]) >= 0.15]
     if pip_boxes:
         d_pip = min(point_to_box_dist(bx, by, b[:4]) for b in pip_boxes)
@@ -307,6 +322,7 @@ def _track_ball(
     params: dict[str, Any],
     *,
     eff_fps: float = 10.0,
+    rims: dict[int, list[float]] | None = None,
 ) -> tuple[dict[int, list[float] | None], dict[int, float]]:
     """Find the maximum-score multi-segment ball trajectory via time-ordered DAG dynamic programming.
 
@@ -319,7 +335,7 @@ def _track_ball(
         boxes = det_frames.get(str(f), [])
         tracks = tracks_by_f.get(f, [])
         for bx, by, conf in candidates.get(f, []):
-            sc = _ball_node_score(bx, by, conf, boxes, tracks, teams, params)
+            sc = _ball_node_score(bx, by, conf, boxes, tracks, teams, params, (rims or {}).get(f))
             nodes.append((idx, bx, by, conf, sc))
 
     ball_px: dict[int, list[float] | None] = dict.fromkeys(frames)
@@ -409,10 +425,16 @@ def _track_possession(
     ball_px: dict[int, list[float] | None],
     ball_conf: dict[int, float],
     params: dict[str, Any],
+    none_bonus: dict[int, float] | None = None,
 ) -> dict[int, int | None]:
-    """Decode the MAP ball-holder sequence via Viterbi over ``{None} U active_players``."""
+    """Decode the MAP ball-holder sequence via Viterbi over ``{None} U active_players``.
+
+    ``none_bonus`` adds a per-frame score to the unheld state (see :func:`_loose_ball_bonus`).
+
+    """
     if not frames:
         return {}
+    loose = none_bonus or {}
     stay_same = float(params["poss_stay_bonus"])
     stay_none = float(params["poss_none_stay_bonus"])
     switch_pen = float(params["poss_switch_penalty"])
@@ -425,6 +447,7 @@ def _track_possession(
         em = _possession_emissions(
             det_frames.get(str(f), []), tracks_by_f.get(f, []), teams, ball_px.get(f), ball_conf.get(f, 0.0), params
         )
+        em[None] += loose.get(f, 0.0)
         if i == 0:
             dp_prev = em
             back.append(dict.fromkeys(em))
@@ -505,12 +528,15 @@ def _classify_shot_outcome(
 
     # Check if the ball drops straight beneath the hoop through the net cylinder (|ndx| <= 0.85, ndy in [0.45, 3.0])
     # without first bouncing up (ndy < -0.45) or laterally away (|ndx| > 1.25).
+    # With ``outcome_local_rw > 0`` a tracked point farther than that from the rim is a tracker jump to another
+    # candidate, not the ball bouncing off the rim, so it no longer counts as a miss (it can still be a net hit).
+    local_rw = float(params.get("outcome_local_rw", 0.0))
     net_hits = 0
     for j, pt in post:
         if pt is None:
             continue
-        ndx, ndy, _ = pt
-        if ndy < -0.45 or abs(ndx) > 1.25:
+        ndx, ndy, dist = pt
+        if (ndy < -0.45 or abs(ndx) > 1.25) and not (local_rw > 0.0 and dist > local_rw):
             return "missed", state.frames[j]
         if abs(ndx) <= 0.85 and ndy >= 0.45:
             net_hits += 1
@@ -526,8 +552,20 @@ def _rim_hit_clusters(
     cooldown: int,
     approach_steps: int,
     arc_steps: int,
+    *,
+    strict_arc: bool = False,
 ) -> list[list[int]]:
-    """Find separated clusters of step indices where the ball arrives at the rim from outside."""
+    """Find separated clusters of step indices where the ball arrives at the rim from outside.
+
+    With ``strict_arc`` the ball must have been at or above rim height in the ``arc_steps`` before the hit; a point
+    at rim height reached straight from below (rim hardware, a ball under the basket) no longer counts.
+
+    Examples:
+        >>> rel = [(0.0, 4.0, 4.0), (0.0, 4.2, 4.2), (0.4, 0.0, 0.4)]
+        >>> _rim_hit_clusters(rel, 0.95, 5, 5, 5), _rim_hit_clusters(rel, 0.95, 5, 5, 5, strict_arc=True)
+        ([[2]], [])
+
+    """
     hits: list[int] = []
     for i, pt in enumerate(rel):
         if pt is None or pt[2] > rim_r:
@@ -535,7 +573,8 @@ def _rim_hit_clusters(
         _, ndy, _ = pt
         pre = [rel[j] for j in range(max(0, i - approach_steps), i) if rel[j] is not None]
         pre_recent = [rel[j] for j in range(max(0, i - arc_steps), i) if rel[j] is not None]
-        if pre and any(p[2] >= 1.25 for p in pre) and (any(p[1] <= 0.15 for p in pre_recent) or ndy <= 0.15):
+        from_above = any(p[1] <= 0.15 for p in pre_recent) or (ndy <= 0.15 and not strict_arc)
+        if pre and any(p[2] >= 1.25 for p in pre) and from_above:
             hits.append(i)
     clusters: list[list[int]] = []
     for idx in hits:
@@ -544,6 +583,73 @@ def _rim_hit_clusters(
         else:
             clusters[-1].append(idx)
     return clusters
+
+
+def _shot_rim_clusters(
+    rel: list[tuple[float, float, float] | None], params: dict[str, Any], eff_fps: float
+) -> list[list[int]]:
+    """Rim-arrival clusters of a sequence from the ``shot_*`` params (shared by possession and shot detection)."""
+    return _rim_hit_clusters(
+        rel,
+        float(params["shot_rim_radius_rw"]),
+        max(2, round(float(params["shot_cooldown_s"]) * eff_fps)),
+        max(2, round(float(params["shot_approach_s"]) * eff_fps)),
+        max(1, round(float(params["shot_arc_s"]) * eff_fps)),
+        strict_arc=bool(params.get("shot_strict_arc", False)),
+    )
+
+
+def _cluster_rim_index(
+    cl: list[int], rel: list[tuple[float, float, float] | None], pick: Literal["closest", "first"]
+) -> int:
+    """Pick the step of a rim-arrival cluster that stands for the shot's rim frame.
+
+    ``"closest"`` takes the step nearest the rim centre. ``"first"`` takes the first arrival, the first contact with
+    the rim or board (as shot gold labels it), so a ball that bounces up and lands on the rim again keeps the
+    frame of its first contact.
+
+    Examples:
+        >>> rel = [(0.0, 0.6, 0.6), (0.0, 1.2, 1.2), (0.0, 0.2, 0.2)]
+        >>> _cluster_rim_index([0, 2], rel, "closest"), _cluster_rim_index([0, 2], rel, "first")
+        (2, 0)
+
+    """
+    if pick == "first":
+        return cl[0]
+    return min(cl, key=lambda j: rel[j][2] if rel[j] is not None else 1e9)
+
+
+def _loose_ball_bonus(
+    frames: list[int],
+    clusters: list[list[int]],
+    rel: list[tuple[float, float, float] | None],
+    params: dict[str, Any],
+    eff_fps: float,
+) -> dict[int, float]:
+    """Unheld-state bonus for steps around each rim arrival, when the ball is at the rim or loose under it.
+
+    On PLK dev gold most false holds fall between just before a rim hit and the rebound or inbound pickup, where
+    the ball overlaps the boxes of players under the basket. ``poss_loose_bonus`` is added to the unheld state from
+    ``poss_loose_pre_s`` before to ``poss_loose_post_s`` after each rim frame; ``0`` disables it (the v2 behaviour).
+
+    Examples:
+        >>> rel = [(0.0, -3.0, 3.0), (0.0, 0.0, 0.0), None, None]
+        >>> p = {"poss_loose_bonus": 1.0, "poss_loose_pre_s": 0.0, "poss_loose_post_s": 0.2}
+        >>> _loose_ball_bonus([0, 5, 10, 15], [[1]], rel, p, 10.0)
+        {5: 1.0, 10: 1.0, 15: 1.0}
+
+    """
+    bonus = float(params.get("poss_loose_bonus", 0.0))
+    if bonus <= 0.0 or not clusters:
+        return {}
+    pre = round(float(params.get("poss_loose_pre_s", 0.0)) * eff_fps)
+    post = round(float(params.get("poss_loose_post_s", 0.0)) * eff_fps)
+    out: dict[int, float] = {}
+    for cl in clusters:
+        rim_idx = min(cl, key=lambda j: rel[j][2] if rel[j] is not None else 1e9)
+        for j in range(max(0, rim_idx - pre), min(len(frames), rim_idx + post + 1)):
+            out[frames[j]] = bonus
+    return out
 
 
 def _approach_start(rel: list[tuple[float, float, float] | None], rim_idx: int, excl_rw: float, max_steps: int) -> int:
@@ -616,6 +722,69 @@ def _find_shooter(
     return shooter, release
 
 
+def _scene_motion_m(
+    pos_by_tid: dict[int, dict[int, tuple[float, float]]], frame: int, window: int, tol: int, min_tracks: int
+) -> float | None:
+    """Return the median court displacement (m) over ``window`` frames up to ``frame`` of tracks seen at both ends.
+
+    A track counts when it has a position within ``tol`` frames after ``frame - window`` and within ``tol`` frames
+    before ``frame``. Returns ``None`` when fewer than ``min_tracks`` tracks count.
+
+    Examples:
+        >>> pos = {1: {0: (0.0, 0.0), 90: (0.2, 0.0)}, 2: {0: (5.0, 5.0), 90: (5.0, 6.0)}, 3: {90: (1.0, 1.0)}}
+        >>> _scene_motion_m(pos, 90, 90, 10, 2), _scene_motion_m(pos, 90, 90, 10, 3)
+        (0.6, None)
+
+    """
+    moves = []
+    for track in pos_by_tid.values():
+        first = [f for f in track if frame - window <= f <= frame - window + tol]
+        last = [f for f in track if frame - tol <= f <= frame]
+        if first and last:
+            (x0, y0), (x1, y1) = track[min(first)], track[max(last)]
+            moves.append(math.hypot(x1 - x0, y1 - y0))
+    return statistics.median(moves) if len(moves) >= max(1, min_tracks) else None
+
+
+def _is_free_throw(
+    shot: dict[str, Any],
+    pos_by_tid: dict[int, dict[int, tuple[float, float]]],
+    fps: float,
+    params: dict[str, Any],
+    seq_start: int | None = None,
+) -> bool:
+    """Return whether a detected shot is a free throw: the whole scene stood still before its release.
+
+    On when ``ft_scene_still_m > 0``: the median displacement of tracks over ``ft_scene_window_s`` (source seconds)
+    before the release is at most that many metres, over at least ``ft_scene_min_tracks`` tracks. Players line up and
+    wait for a free throw; in live play someone is always moving. A camera shot often cuts to the line just before the
+    release; with ``ft_scene_min_window_s > 0`` the window then starts at ``seq_start`` instead, as long as at least
+    that many seconds remain.
+
+    Examples:
+        >>> still = {t: {f: (float(t), 3.0) for f in range(60, 100, 5)} for t in range(5)}
+        >>> p = {**FusedBall.defaults, "ft_scene_still_m": 0.45}
+        >>> _is_free_throw({"start_frame": 95}, still, 60.0, p), _is_free_throw({"start_frame": 95}, still, 60.0, {})
+        (False, False)
+        >>> _is_free_throw({"start_frame": 95}, still, 60.0, {**p, "ft_scene_min_window_s": 0.5}, seq_start=60)
+        True
+
+    """
+    limit = float(params.get("ft_scene_still_m", 0.0))
+    if limit <= 0:
+        return False
+    window = round(float(params["ft_scene_window_s"]) * fps)
+    min_window = round(float(params.get("ft_scene_min_window_s", 0.0)) * fps)
+    if min_window > 0 and seq_start is not None and int(shot["start_frame"]) - window < seq_start:
+        window = max(int(shot["start_frame"]) - seq_start, 0)
+        if window < min_window:
+            return False
+    motion = _scene_motion_m(
+        pos_by_tid, int(shot["start_frame"]), window, max(1, round(0.2 * fps)), int(params["ft_scene_min_tracks"])
+    )
+    return motion is not None and motion <= limit
+
+
 def _detect_shots(
     seq: Sequence,
     state: BallTrackState,
@@ -623,25 +792,28 @@ def _detect_shots(
     pos_by_tid: dict[int, dict[int, tuple[float, float]]],
     params: dict[str, Any],
 ) -> tuple[list[dict[str, Any]], dict[int, tuple[float, float]]]:
-    """Detect shot attempts, outcomes, shooters, and 2/3-point values from rim-arrival trajectories."""
+    """Detect shot attempts, outcomes, shooters, and 2/3-point values from rim-arrival trajectories.
+
+    A shot that :func:`_is_free_throw` accepts gets ``kind="free_throw"``, ``shot_type="free_throw"`` and 1 point;
+    every other shot is ``kind="field_goal"``. ``shot_rim_pick`` chooses the reported rim frame of a rim-arrival
+    cluster (:func:`_cluster_rim_index`); outcome and shooter are always read from the step nearest the rim. With
+    ``shot_require_shooter`` an arrival without a shooter is no shot.
+
+    """
     eff_fps = effective_fps(seq)
     rel = _rim_relative_ball(state.frames, state.ball_px, state.rims)
-    clusters = _rim_hit_clusters(
-        rel,
-        float(params["shot_rim_radius_rw"]),
-        max(2, round(float(params["shot_cooldown_s"]) * eff_fps)),
-        max(2, round(float(params["shot_approach_s"]) * eff_fps)),
-        max(1, round(float(params["shot_arc_s"]) * eff_fps)),
-    )
+    clusters = _shot_rim_clusters(rel, params, eff_fps)
     fallback_pre = max(1, round(0.3 * eff_fps))
     shots: list[dict[str, Any]] = []
     anchors: dict[int, tuple[float, float]] = {}
 
     for cl in clusters:
-        rim_idx = min(cl, key=lambda j: rel[j][2] if rel[j] is not None else 1e9)
-        rim_f = state.frames[rim_idx]
-        outcome, end_f = _classify_shot_outcome(state, rim_idx, rel, det_frames, params, eff_fps)
+        rim_idx = _cluster_rim_index(cl, rel, "closest")
+        rim_f = state.frames[_cluster_rim_index(cl, rel, params.get("shot_rim_pick", "closest"))]
         shooter_tid, release_f = _find_shooter(state, rim_idx, rel, params, eff_fps)
+        if shooter_tid is None and params.get("shot_require_shooter", False):
+            continue
+        outcome, end_f = _classify_shot_outcome(state, rim_idx, rel, det_frames, params, eff_fps)
         start_f = release_f if release_f is not None else state.frames[max(0, cl[0] - fallback_pre)]
         pt = (
             pos_by_tid.get(shooter_tid, {}).get(release_f)
@@ -668,7 +840,11 @@ def _detect_shots(
             "x_m": round(pt[0], 3) if pt is not None else None,
             "y_m": round(pt[1], 3) if pt is not None else None,
             "points": pts,
+            "kind": "field_goal",
         })
+    for shot in shots:
+        if _is_free_throw(shot, pos_by_tid, float(seq.fps), params, seq.frames[0] if seq.frames else None):
+            shot.update(kind="free_throw", shot_type="free_throw", points=1)
     return shots, anchors
 
 
@@ -707,15 +883,28 @@ class FusedBall(BaseBackend):
         "poss_switch_penalty": 0.85,
         "poss_drop_penalty": 0.35,
         "ball_far_penalty": 0.0,
+        "ball_rim_bonus": 0.0,
+        "ball_rim_bonus_rw": 1.5,
+        "poss_loose_bonus": 0.0,
+        "poss_loose_pre_s": 0.0,
+        "poss_loose_post_s": 0.0,
         "shot_rim_radius_rw": 0.95,
         "shot_approach_s": 1.4,
         "shot_arc_s": 0.8,
         "shot_cooldown_s": 1.2,
         "shot_post_s": 0.9,
         "shot_release_lookback_s": 2.0,
+        "shot_strict_arc": False,
+        "shot_rim_pick": "closest",
+        "shot_require_shooter": False,
         "shot_release_rim_excl_rw": 0.0,
         "shot_team_window_s": 0.0,
         "bib_conf": 0.20,
+        "outcome_local_rw": 0.0,
+        "ft_scene_still_m": 0.0,
+        "ft_scene_window_s": 1.5,
+        "ft_scene_min_tracks": 4,
+        "ft_scene_min_window_s": 0.0,
     }
 
     def run(self, seq: Sequence, upstream: dict[str, Any], read: FrameReader) -> dict[str, Any]:
@@ -755,8 +944,12 @@ class FusedBall(BaseBackend):
             tracks_by_f=tracks_by_f,
             teams=teams,
         )
-        ball_px, ball_conf = _track_ball(seq.frames, cands, det_frames, tracks_by_f, teams, self.p, eff_fps=eff_fps)
-        holders = _track_possession(seq.frames, det_frames, tracks_by_f, teams, ball_px, ball_conf, self.p)
+        ball_px, ball_conf = _track_ball(
+            seq.frames, cands, det_frames, tracks_by_f, teams, self.p, eff_fps=eff_fps, rims=rims
+        )
+        rel = _rim_relative_ball(seq.frames, ball_px, rims)
+        loose = _loose_ball_bonus(seq.frames, _shot_rim_clusters(rel, self.p, eff_fps), rel, self.p, eff_fps)
+        holders = _track_possession(seq.frames, det_frames, tracks_by_f, teams, ball_px, ball_conf, self.p, loose)
         state = BallTrackState(seq.frames, ball_px, ball_conf, holders, teams, rims)
         shots, anchors = _detect_shots(seq, state, det_frames, pos_by_tid, self.p)
         pos_2d = interpolate_ball_2d(

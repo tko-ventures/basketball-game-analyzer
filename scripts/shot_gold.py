@@ -2,10 +2,12 @@
 """Shot gold: pick the shots, cache detector boxes for the labeller, draw first-pass sheets, apply the first pass.
 
     uv run scripts/shot_gold.py select      # data/labels/shot_gold.json (refuses once anything is labelled)
+    uv run scripts/shot_gold.py add --clip <stem> --count 30 --step-s 2 --max-s 40   # one more gold game's shots
     uv run bga run --config configs/shot-gold-prefill.yaml --layer shots --layer detect
     uv run scripts/shot_gold.py prefill     # data/labels/.cache/shot_gold/<sequence>.json, for /shotgold
     uv run scripts/shot_gold.py sheets      # runs/_scratch/shot_gold/{holders,events}/sheet_NNN.jpg and items.json
     uv run scripts/shot_gold.py apply       # data/labels/review/shot_gold_{holders,events}.tsv into the queue
+    uv run scripts/shot_gold.py apply-free-throws   # data/labels/review/shot_gold_free_throws.tsv: full-game shots
     uv run scripts/shot_gold.py export      # confirmed answers -> data/gold/v1/shot_gold.json
     uv run scripts/shot_gold.py status
 
@@ -30,9 +32,12 @@ from bga.ball.base import bbox_iou
 from bga.config import load_config
 from bga.eval.shot_gold import (
     EXPORT_PATH,
+    GOLD_INDEX,
+    LABELS_DIR,
     QUEUE_PATH,
     STRIDE,
     Status,
+    add_game,
     build_queue,
     export_shot_gold,
     find_shot,
@@ -49,6 +54,7 @@ BOXES_DIR = Path("data/labels/.cache/shot_gold")
 SCRATCH = Path("runs/_scratch/shot_gold")
 HOLDERS_TSV = Path("data/labels/review/shot_gold_holders.tsv")
 EVENTS_TSV = Path("data/labels/review/shot_gold_events.tsv")
+FREE_THROWS_TSV = Path("data/labels/review/shot_gold_free_throws.tsv")
 PEOPLE = ("player", "player-in-possession", "player-jump-shot", "player-layup-dunk", "player-shot-block")
 FONT = cv2.FONT_HERSHEY_SIMPLEX
 
@@ -61,6 +67,15 @@ def cmd_select(args):
     queue = build_queue(args.per_dev, args.per_held_out)
     save_queue(queue)
     print(f"{QUEUE_PATH}: {progress(queue)}")
+
+
+def cmd_add(args):
+    game = next(g for g in json.loads(GOLD_INDEX.read_text(encoding="utf-8"))["games"] if g["clip"] == args.clip)
+    labels = json.loads((LABELS_DIR / f"{args.clip}.json").read_text(encoding="utf-8"))
+    queue = load_queue()
+    added = add_game(queue, game, labels, args.count, args.step_s, args.max_s)
+    save_queue(queue)
+    print(f"{QUEUE_PATH}: added {len(added)} shots of {args.clip}; {progress(queue)}")
 
 
 def dedupe_people(rows):
@@ -131,9 +146,12 @@ def kits(shot):
 
 
 def holder_items(queue):
+    """Frames nobody has looked at yet (status todo), so a new batch leaves earlier answers alone."""
     for shot in queue["shots"]:
+        if all(fr["status"] != Status.TODO for fr in shot["frames"]):
+            continue
         boxes = boxes_of(shot["sequence"])
-        for fr in shot["frames"]:
+        for fr in (f for f in shot["frames"] if f["status"] == Status.TODO):
             b = boxes.get(str(fr["frame"]), {"people": [], "balls": []})
             balls = [x for x in b["balls"] if x[4] >= 0.15][:2]
             poss = next((p for p in b["people"] if p[5] == "player-in-possession"), None)
@@ -226,7 +244,10 @@ def release_guess(shot, boxes, rim_frame):
 
 
 def event_items(queue):
+    """Rim moments of the shots whose attempts nobody has looked at yet (events_status todo)."""
     for shot in queue["shots"]:
+        if shot["events_status"] != Status.TODO:
+            continue
         boxes = boxes_of(shot["sequence"])
         for n, (rim_frame, _, rc, rw) in enumerate(rim_candidates(shot, boxes)):
             release, held_frame, held_idx = release_guess(shot, boxes, rim_frame)
@@ -336,6 +357,8 @@ def apply_holders(queue):
     items = {it["id"]: it for it in json.loads((SCRATCH / "holders" / "items.json").read_text(encoding="utf-8"))}
     settled = flagged = 0
     for r in read_tsv(HOLDERS_TSV):
+        if r["id"] not in items:  # a row of an earlier batch, already applied
+            continue
         it, shot = items[r["id"]], find_shot(queue, r["id"].split(":")[0])
         fr = next(f for f in shot["frames"] if f["frame"] == it["frame"])
         if fr["status"] == Status.DONE:
@@ -360,7 +383,13 @@ def apply_events(queue):
     items = {it["id"]: it for it in json.loads((SCRATCH / "events" / "items.json").read_text(encoding="utf-8"))}
     by_shot, notes = {}, {}
     for r in read_tsv(EVENTS_TSV):
-        it, shot = items[r["id"]], find_shot(queue, r["id"].split("#")[0])
+        # "<sequence>#x<n>" is an attempt found by reading the whole sequence, with no rim moment of the detector.
+        it, extra = items.get(r["id"]), r["id"].split("#")[-1].startswith("x")
+        if it is None and not extra:  # a row of an earlier batch, already applied
+            continue
+        shot = find_shot(queue, r["id"].split("#")[0])
+        if shot["events_status"] != Status.TODO:
+            continue
         by_shot.setdefault(shot["sequence"], [])
         if r["note"]:
             notes.setdefault(shot["sequence"], []).append(r["note"])
@@ -370,7 +399,7 @@ def apply_events(queue):
         release = min(int(r["release_frame"]) if r["release_frame"].isdigit() else it["release_frame"], rim)
         team = side_of(shot, r["kit"])
         shooter = None
-        if r["shooter"].isdigit() and team and release == it["release_frame"] and r["release_frame"] != "off":
+        if it and r["shooter"].isdigit() and team and release == it["release_frame"] and r["release_frame"] != "off":
             shooter = {"xyxy": it["people"][int(r["shooter"])][:4], "team": team}
         by_shot[shot["sequence"]].append({
             "release_frame": release,
@@ -382,7 +411,7 @@ def apply_events(queue):
         })
     done = 0
     for shot in queue["shots"]:
-        if shot["events_status"] == Status.DONE:
+        if shot["events_status"] != Status.TODO:
             continue
         set_shot_events(
             queue, {"sequence": shot["sequence"], "events": by_shot.get(shot["sequence"], [])}, Status.FIRST_PASS
@@ -401,6 +430,45 @@ def cmd_apply(args):
         print(f"events: proposals written for {apply_events(queue)} shots")
     save_queue(queue)
     print(f"{QUEUE_PATH}: {progress(queue)}")
+
+
+def cmd_apply_free_throws(args):
+    """Propose free throws (1-point attempts) on every full-game shot and reopen it for Tomasz (#53).
+
+    Confirmed field goals stay; the proposals are added beside them, and the shot is marked ``free_throws: proposed``
+    so the page shows it as "free throws to check" and confirming it records its free throws as labelled.
+
+    """
+    full = {g["youtube_id"] for g in json.loads(GOLD_INDEX.read_text(encoding="utf-8"))["games"] if g.get("full_game")}
+    queue = load_queue()
+    by_seq = {}
+    for r in read_tsv(FREE_THROWS_TSV):
+        if "#ft" in r["id"]:
+            by_seq.setdefault(r["id"].split("#")[0], []).append(r)
+    added = shots = 0
+    for shot in queue["shots"]:
+        if shot["youtube_id"] not in full or shot.get("free_throws"):
+            continue
+        events = [ev for ev in shot["events"] if ev["points"] != 1]
+        for r in by_seq.get(shot["sequence"], []):
+            rim = int(r["rim_frame"])
+            release = int(r["release_frame"]) if r["release_frame"].isdigit() else rim - round(shot["fps"])
+            unclear = r["outcome"] not in ("made", "missed")
+            note = ("outcome unclear; " if unclear else "") + r["note"]
+            events.append({
+                "release_frame": min(max(release, shot["start"]), rim),
+                "rim_frame": rim,
+                "outcome": "missed" if unclear else r["outcome"],
+                "points": 1,
+                "shooter": None,
+                "note": f"free throw ({r['kit']} kit): {note}",
+            })
+            added += 1
+        set_shot_events(queue, {"sequence": shot["sequence"], "events": events}, Status.FIRST_PASS)
+        shot["free_throws"] = "proposed"
+        shots += 1
+    save_queue(queue)
+    print(f"{QUEUE_PATH}: {added} free throws proposed on {shots} full-game shots; {progress(queue)}")
 
 
 def cmd_export(args):
@@ -425,10 +493,17 @@ def main():
     sel.add_argument("--per-held-out", type=int, default=8)
     sel.add_argument("--force", action="store_true")
     sel.set_defaults(fn=cmd_select)
+    add = sub.add_parser("add", help="append the shots of one more gold game (data/labels/gold.json)")
+    add.add_argument("--clip", required=True, help="label stem of the game")
+    add.add_argument("--count", type=int, required=True)
+    add.add_argument("--step-s", type=float, default=1.0, help="seconds between labelled frames")
+    add.add_argument("--max-s", type=float, default=40.0, help="longest window kept of a shot")
+    add.set_defaults(fn=cmd_add)
     for name, fn in (
         ("prefill", cmd_prefill),
         ("sheets", cmd_sheets),
         ("apply", cmd_apply),
+        ("apply-free-throws", cmd_apply_free_throws),
         ("export", cmd_export),
         ("status", cmd_status),
     ):
