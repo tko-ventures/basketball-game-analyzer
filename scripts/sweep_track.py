@@ -37,7 +37,7 @@ COLS = ["HOTA", "DetA", "AssA", "IDF1", "MOTA", "IDSW", "team_acc", "pred_ids_pe
 def run_remote(config, keys, values, gpu):
     """Run the track layer of every setting on Modal in one parallel batch, writing outputs where bga reads them."""
     from bga.config import LAYERS
-    from bga.pipeline import _write_meta, load_output, output_path, sequences
+    from bga.pipeline import _write_meta, code_keys, load_output, output_path, sequences
     from bga.remote.modal_runner import run_layer
 
     items = []
@@ -63,7 +63,7 @@ def run_remote(config, keys, values, gpu):
     for cfg, seq, _ in items:
         done.setdefault(cfg.name, (cfg, []))[1].append(seq)
     for cfg, seqs in done.values():
-        _write_meta(cfg, Path("runs"), "track", seqs, t0)
+        _write_meta(cfg, Path("runs"), "track", seqs, t0, code_keys(cfg)["track"])
 
 
 def main(argv=None):

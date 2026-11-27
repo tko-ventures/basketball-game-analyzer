@@ -95,7 +95,14 @@ class TestMeta:
         assert list(meta(tmp_path)["sequences"]) == ["clip_s1"]
 
 
-FAKE_CFG = RunConfig(name="fake", layers={"shots": {"backend": "_fake_shots"}, "detect": {"backend": "_fake_detect"}})
+FAKE_LAYERS = {
+    "shots": {"backend": "_fake_shots"},
+    "detect": {"backend": "_fake_detect"},
+    "team": {"backend": "_fake_team"},
+}
+FAKE_CFG = RunConfig(name="fake", layers=FAKE_LAYERS)
+#: A detect ``value`` that makes the fake detect backend fail on the second sequence.
+FAIL_ON_SECOND = 9
 
 #: Source of a throwaway backend module; ``{value}`` is what its detect output records, ``{doc}`` its docstring.
 FAKE_SOURCE = '''"""{doc}"""
@@ -105,12 +112,22 @@ from bga.stage import BaseBackend, Sequence
 
 class Shots(BaseBackend):
     def sequences(self):
-        return [Sequence(name="clip_s1", clip="clip", video="missing.mp4", shot=1, frames=[0], fps=50.0)]
+        return [
+            Sequence(name=f"clip_s{{i}}", clip="clip", video="missing.mp4", shot=i, frames=[0], fps=50.0)
+            for i in (1, 2)
+        ]
 
 
 class Detect(BaseBackend):
     def run(self, seq, upstream, read):
+        if {value} == 9 and seq.name == "clip_s2":
+            raise RuntimeError("detector failed")
         return {{"frames": {{}}, "value": {value}}}
+
+
+class Team(BaseBackend):
+    def run(self, seq, upstream, read):
+        return {{"value": upstream["detect"]["value"]}}
 '''
 
 
@@ -128,7 +145,7 @@ def install(tmp_path, monkeypatch):
         monkeypatch.delitem(sys.modules, "fakebackends.backend", raising=False)
         importlib.invalidate_caches()
         mod = importlib.import_module("fakebackends.backend")
-        for layer, cls in (("shots", mod.Shots), ("detect", mod.Detect)):
+        for layer, cls in (("shots", mod.Shots), ("detect", mod.Detect), ("team", mod.Team)):
             cls.layer, cls.name = layer, f"_fake_{layer}"
             monkeypatch.setitem(registry._REGISTRY, (layer, cls.name), cls)
 
@@ -137,10 +154,15 @@ def install(tmp_path, monkeypatch):
     sys.modules.pop("fakebackends", None)
 
 
-def fake_output(runs) -> dict:
-    """The fake detect output of the one sequence."""
+def fake_output(runs, layer: str = "detect") -> dict:
+    """The fake output of the first sequence."""
     seq = pipeline.sequences(FAKE_CFG)[0]
-    return pipeline.load_output(FAKE_CFG, runs, seq, "detect")
+    return pipeline.load_output(FAKE_CFG, runs, seq, layer)
+
+
+def fake_meta(runs) -> dict:
+    """The fake detect layer's ``meta.json``."""
+    return json.loads((FAKE_CFG.run_dir(runs, "clip", "detect") / "meta.json").read_text())
 
 
 class TestStaleCode:
@@ -177,3 +199,33 @@ class TestStaleCode:
         meta_path = FAKE_CFG.run_dir(tmp_path, "clip", "detect") / "meta.json"
         record = json.loads(meta_path.read_text())["sequences"]["clip_s1"]
         assert record["code"] == pipeline.code_keys(FAKE_CFG)["detect"]
+
+    def test_output_of_a_stopped_run_keeps_its_code_key(self, tmp_path, install):
+        install(FAIL_ON_SECOND)
+        with pytest.raises(RuntimeError, match="detector failed"):
+            pipeline.run(FAKE_CFG, runs=tmp_path)
+        assert fake_meta(tmp_path)["sequences"]["clip_s1"]["code"] == pipeline.code_keys(FAKE_CFG)["detect"]
+
+    def test_unrecorded_output_in_a_keyed_directory_is_recomputed(self, tmp_path, install):
+        install(1)
+        pipeline.run(FAKE_CFG, runs=tmp_path)
+        meta = fake_meta(tmp_path)
+        del meta["sequences"]["clip_s1"]
+        (FAKE_CFG.run_dir(tmp_path, "clip", "detect") / "meta.json").write_text(json.dumps(meta))
+        install(2)
+        pipeline.run(FAKE_CFG, runs=tmp_path, layers=["detect"])
+        assert fake_output(tmp_path)["value"] == 2
+
+    def test_layer_refuses_stale_upstream_outputs_it_did_not_remake(self, tmp_path, install):
+        install(1)
+        pipeline.run(FAKE_CFG, runs=tmp_path)
+        install(2)
+        with pytest.raises(RuntimeError, match="team would read 2 detect outputs made by other code"):
+            pipeline.run(FAKE_CFG, runs=tmp_path, layers=["team"])
+
+    def test_downstream_reruns_on_fresh_upstream(self, tmp_path, install):
+        install(1)
+        pipeline.run(FAKE_CFG, runs=tmp_path)
+        install(2)
+        pipeline.run(FAKE_CFG, runs=tmp_path)
+        assert fake_output(tmp_path, "team")["value"] == 2

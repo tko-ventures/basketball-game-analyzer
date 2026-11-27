@@ -38,10 +38,12 @@ def _prob_vec(dist: dict[str, float]) -> np.ndarray:
 
 
 def _seed_empty_upstreams(cfg: RunConfig, runs: Path, seqs: tuple[Sequence, ...], layers: tuple[str, ...]) -> None:
-    """Write minimal empty layer outputs so a downstream test layer can run."""
-    for seq in seqs:
-        for layer in layers:
+    """Write minimal empty layer outputs, recorded under the current code keys, so a downstream test layer can run."""
+    keys = pipeline.code_keys(cfg)
+    for layer in layers:
+        for seq in seqs:
             pipeline.write_output(pipeline.output_path(cfg, runs, seq, layer), {"frames": {}, "numbers": {}})
+        pipeline._write_meta(cfg, runs, layer, list(seqs), 0.0, keys[layer])
 
 
 class _StubProbReader(TrackNumbers):

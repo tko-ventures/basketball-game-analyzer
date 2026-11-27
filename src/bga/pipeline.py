@@ -106,9 +106,11 @@ def code_keys(cfg: RunConfig) -> dict[str, str]:
 
 
 def stale_sequences(cfg: RunConfig, runs: Path, seqs: list[Sequence], layer: str, code: str) -> list[Sequence]:
-    """The sequences in ``seqs`` whose stored ``layer`` output was made by code with another key.
+    """The sequences in ``seqs`` whose stored ``layer`` output was made by code with another key, or by unknown code.
 
     An output whose ``meta.json`` record has no code key (written before 2026-11-27) cannot be checked and is kept.
+    An output with no record at all is kept only in a directory no run has written since then (its ``meta.json`` has
+    no top-level ``code``). Otherwise the run that wrote it stopped before recording it, so it is stale.
 
     Args:
         cfg: The run config.
@@ -140,9 +142,13 @@ def stale_sequences(cfg: RunConfig, runs: Path, seqs: list[Sequence], layer: str
         if not output_path(cfg, runs, seq, layer).exists():
             continue
         if seq.clip not in metas:
-            metas[seq.clip] = _read_meta(cfg.run_dir(runs, seq.clip, layer) / "meta.json").get("sequences") or {}
-        made_by = (metas[seq.clip].get(seq.name) or {}).get("code")
-        if made_by is not None and made_by != code:
+            metas[seq.clip] = _read_meta(cfg.run_dir(runs, seq.clip, layer) / "meta.json")
+        meta = metas[seq.clip]
+        record = (meta.get("sequences") or {}).get(seq.name)
+        if record is None:
+            if not meta or "code" in meta:  # written by a run that stopped before recording it
+                stale.append(seq)
+        elif record.get("code") is not None and record["code"] != code:
             stale.append(seq)
     return stale
 
@@ -270,8 +276,10 @@ def _load_upstreams(cfg: RunConfig, runs: Path, seq: Sequence, layer: str) -> di
     return {u: load_output(cfg, runs, seq, u, arrays=True) for u in LAYERS[layer] if u in cfg.layers and u != "shots"}
 
 
-def _run_local_sequences(cfg: RunConfig, runs: Path, layer: str, backend: Backend, todo: list[Sequence]) -> None:
-    """Run a sequence-scoped backend on every sequence in ``todo`` and write its output."""
+def _run_local_sequences(
+    cfg: RunConfig, runs: Path, layer: str, backend: Backend, todo: list[Sequence], done: list[Sequence]
+) -> None:
+    """Run a sequence-scoped backend on every sequence in ``todo``, write its output and append it to ``done``."""
     for seq in todo:
         ups = _load_upstreams(cfg, runs, seq, layer)
         read = FrameReader(seq.video)
@@ -282,19 +290,29 @@ def _run_local_sequences(cfg: RunConfig, runs: Path, layer: str, backend: Backen
         finally:
             read.close()
         write_output(output_path(cfg, runs, seq, layer), out)
+        done.append(seq)
         log.info("  %s: %.1f s", seq.name, out["wall_s"])
 
 
 def _run_local_clips(
-    cfg: RunConfig, runs: Path, layer: str, backend: Backend, seqs: list[Sequence], todo: list[Sequence]
-) -> list[Sequence]:
-    """Run a clip-scoped backend once per clip that has any sequence in ``todo``, writing every shot of those clips."""
+    cfg: RunConfig,
+    runs: Path,
+    layer: str,
+    backend: Backend,
+    seqs: list[Sequence],
+    todo: list[Sequence],
+    done: list[Sequence],
+) -> None:
+    """Run a clip-scoped backend once per clip with a sequence in ``todo``; write and record every shot of it.
+
+    Each shot written is appended to ``done``.
+
+    """
     clips = {s.clip for s in todo}
     by_clip: dict[str, list[Sequence]] = {}
     for seq in seqs:
         if seq.clip in clips:
             by_clip.setdefault(seq.clip, []).append(seq)
-    written: list[Sequence] = []
     for clip, clip_seqs in by_clip.items():
         clip_ups = {s.name: _load_upstreams(cfg, runs, s, layer) for s in clip_seqs}
         t = time.perf_counter()
@@ -304,9 +322,32 @@ def _run_local_clips(
             out = outs[seq.name]
             out.setdefault("wall_s", wall)
             write_output(output_path(cfg, runs, seq, layer), out)
-            written.append(seq)
+            done.append(seq)
         log.info("  %s (%d shots): %.1f s", clip, len(clip_seqs), wall)
-    return written
+
+
+def _todo(
+    cfg: RunConfig, runs: Path, seqs: list[Sequence], layer: str, keys: dict[str, str], force: list[str] | None
+) -> list[Sequence]:
+    """The sequences a layer must run on: forced, missing, or made by other code.
+
+    Raises:
+        RuntimeError: When an upstream output those sequences read was made by other code and this run did not remake
+            it (its layer was skipped or not selected), so the layer would read stale inputs under a current key.
+
+    """
+    todo = [s for s in seqs if (force and layer in force) or not output_path(cfg, runs, s, layer).exists()]
+    stale = stale_sequences(cfg, runs, [s for s in seqs if s not in todo], layer, keys[layer])
+    if stale:
+        log.warning("%s: %d cached outputs were made by other code; recomputing", layer, len(stale))
+        todo = [s for s in seqs if s in todo or s in stale]
+    for up in LAYERS[layer]:
+        if up in cfg.layers and up != "shots" and (bad := stale_sequences(cfg, runs, todo, up, keys[up])):
+            raise RuntimeError(
+                f"{layer} would read {len(bad)} {up} outputs made by other code (e.g. {bad[0].name}); "
+                f"rerun {up} first (CUDA backends need --remote modal)"
+            )
+    return todo
 
 
 def run(
@@ -356,13 +397,7 @@ def run(
         if backend.requires == "cuda" and not here:
             log.warning("%s/%s needs CUDA: run it with --remote modal; skipped", layer, cfg.layers[layer].backend)
             continue
-        todo = [s for s in seqs if (force and layer in force) or not output_path(cfg, runs, s, layer).exists()]
-        stale = stale_sequences(cfg, runs, [s for s in seqs if s not in todo], layer, keys[layer])
-        if stale:
-            log.warning(
-                "%s/%s: %d cached outputs were made by other code; recomputing", layer, backend.name, len(stale)
-            )
-            todo = [s for s in seqs if s in todo or s in stale]
+        todo = _todo(cfg, runs, seqs, layer, keys, force)
         if not todo:
             continue
         log.info("%s/%s on %d sequences%s", layer, cfg.layers[layer].backend, len(todo), " (modal)" if here else "")
@@ -371,16 +406,17 @@ def run(
             gpu = getattr(backend, "gpu", None) if backend.requires == "cuda" else remote_gpu
             _run_remote(cfg, runs, layer, todo, gpu, keys[layer])
             continue
+        done: list[Sequence] = []
         backend.load()
         try:
             if getattr(backend, "scope", "sequence") == "clip":
-                done = _run_local_clips(cfg, runs, layer, backend, seqs, todo)
+                _run_local_clips(cfg, runs, layer, backend, seqs, todo, done)
             else:
-                _run_local_sequences(cfg, runs, layer, backend, todo)
-                done = todo
+                _run_local_sequences(cfg, runs, layer, backend, todo, done)
         finally:
             backend.unload()
-        _write_meta(cfg, runs, layer, done, t0, keys[layer])
+            if done:  # also when a sequence fails or the run is stopped, so finished outputs keep their code key
+                _write_meta(cfg, runs, layer, done, t0, keys[layer])
     return seqs
 
 
