@@ -88,7 +88,47 @@
   "hSXPCy5NedU_s813",
   "hSXPCy5NedU_s843",
   "hSXPCy5NedU_s856",
-  "hSXPCy5NedU_s89"
+  "hSXPCy5NedU_s89",
+  "vHfwZeG4BPw_s118",
+  "vHfwZeG4BPw_s135",
+  "vHfwZeG4BPw_s154",
+  "vHfwZeG4BPw_s172",
+  "vHfwZeG4BPw_s202",
+  "vHfwZeG4BPw_s229",
+  "vHfwZeG4BPw_s242",
+  "vHfwZeG4BPw_s258",
+  "vHfwZeG4BPw_s271",
+  "vHfwZeG4BPw_s312",
+  "vHfwZeG4BPw_s324",
+  "vHfwZeG4BPw_s342",
+  "vHfwZeG4BPw_s366",
+  "vHfwZeG4BPw_s377",
+  "vHfwZeG4BPw_s395",
+  "vHfwZeG4BPw_s410",
+  "vHfwZeG4BPw_s425",
+  "vHfwZeG4BPw_s439",
+  "vHfwZeG4BPw_s683",
+  "vHfwZeG4BPw_s700",
+  "vHfwZeG4BPw_s712",
+  "vHfwZeG4BPw_s729",
+  "vHfwZeG4BPw_s750",
+  "vHfwZeG4BPw_s781",
+  "vHfwZeG4BPw_s793",
+  "vHfwZeG4BPw_s804",
+  "vHfwZeG4BPw_s813",
+  "vHfwZeG4BPw_s826",
+  "vHfwZeG4BPw_s851",
+  "vHfwZeG4BPw_s86",
+  "vHfwZeG4BPw_s865",
+  "vHfwZeG4BPw_s877",
+  "vHfwZeG4BPw_s888",
+  "vHfwZeG4BPw_s909",
+  "vHfwZeG4BPw_s930",
+  "vHfwZeG4BPw_s943",
+  "vHfwZeG4BPw_s955",
+  "vHfwZeG4BPw_s966",
+  "vHfwZeG4BPw_s979",
+  "vHfwZeG4BPw_s99"
  ],
  "free_throw_sequences": [
   "1A79NXz9CFM_s141",
@@ -150,7 +190,47 @@
   "hSXPCy5NedU_s813",
   "hSXPCy5NedU_s843",
   "hSXPCy5NedU_s856",
-  "hSXPCy5NedU_s89"
+  "hSXPCy5NedU_s89",
+  "vHfwZeG4BPw_s118",
+  "vHfwZeG4BPw_s135",
+  "vHfwZeG4BPw_s154",
+  "vHfwZeG4BPw_s172",
+  "vHfwZeG4BPw_s202",
+  "vHfwZeG4BPw_s229",
+  "vHfwZeG4BPw_s242",
+  "vHfwZeG4BPw_s258",
+  "vHfwZeG4BPw_s271",
+  "vHfwZeG4BPw_s312",
+  "vHfwZeG4BPw_s324",
+  "vHfwZeG4BPw_s342",
+  "vHfwZeG4BPw_s366",
+  "vHfwZeG4BPw_s377",
+  "vHfwZeG4BPw_s395",
+  "vHfwZeG4BPw_s410",
+  "vHfwZeG4BPw_s425",
+  "vHfwZeG4BPw_s439",
+  "vHfwZeG4BPw_s683",
+  "vHfwZeG4BPw_s700",
+  "vHfwZeG4BPw_s712",
+  "vHfwZeG4BPw_s729",
+  "vHfwZeG4BPw_s750",
+  "vHfwZeG4BPw_s781",
+  "vHfwZeG4BPw_s793",
+  "vHfwZeG4BPw_s804",
+  "vHfwZeG4BPw_s813",
+  "vHfwZeG4BPw_s826",
+  "vHfwZeG4BPw_s851",
+  "vHfwZeG4BPw_s86",
+  "vHfwZeG4BPw_s865",
+  "vHfwZeG4BPw_s877",
+  "vHfwZeG4BPw_s888",
+  "vHfwZeG4BPw_s909",
+  "vHfwZeG4BPw_s930",
+  "vHfwZeG4BPw_s943",
+  "vHfwZeG4BPw_s955",
+  "vHfwZeG4BPw_s966",
+  "vHfwZeG4BPw_s979",
+  "vHfwZeG4BPw_s99"
  ],
  "shots": [
   {
@@ -1012,6 +1092,406 @@
    "end": 417089,
    "fps": 60.0,
    "held_out": true
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s86",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 86,
+   "start": 26413,
+   "end": 28489,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s99",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 99,
+   "start": 33523,
+   "end": 34195,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s118",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 118,
+   "start": 41983,
+   "end": 42363,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s135",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 135,
+   "start": 48986,
+   "end": 49896,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s154",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 154,
+   "start": 59113,
+   "end": 59766,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s172",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 172,
+   "start": 65593,
+   "end": 66312,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s202",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 202,
+   "start": 77459,
+   "end": 78752,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s229",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 229,
+   "start": 84028,
+   "end": 85378,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s242",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 242,
+   "start": 93007,
+   "end": 93367,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s258",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 258,
+   "start": 97813,
+   "end": 98492,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s271",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 271,
+   "start": 104469,
+   "end": 105775,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s312",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 312,
+   "start": 119169,
+   "end": 119608,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s324",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 324,
+   "start": 123595,
+   "end": 125246,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s342",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 342,
+   "start": 135136,
+   "end": 136488,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s366",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 366,
+   "start": 149261,
+   "end": 149694,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s377",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 377,
+   "start": 156176,
+   "end": 156795,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s395",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 395,
+   "start": 164116,
+   "end": 164476,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s410",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 410,
+   "start": 169579,
+   "end": 170626,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s425",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 425,
+   "start": 176483,
+   "end": 176979,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s439",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 439,
+   "start": 182164,
+   "end": 183380,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s683",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 683,
+   "start": 250389,
+   "end": 251026,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s700",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 700,
+   "start": 256063,
+   "end": 257144,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s712",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 712,
+   "start": 262235,
+   "end": 263635,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s729",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 729,
+   "start": 271385,
+   "end": 271993,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s750",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 750,
+   "start": 278287,
+   "end": 280563,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s781",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 781,
+   "start": 289250,
+   "end": 289682,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s793",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 793,
+   "start": 295220,
+   "end": 296398,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s804",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 804,
+   "start": 300546,
+   "end": 302945,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s813",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 813,
+   "start": 309458,
+   "end": 311322,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s826",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 826,
+   "start": 315094,
+   "end": 316347,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s851",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 851,
+   "start": 330546,
+   "end": 332945,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s865",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 865,
+   "start": 340684,
+   "end": 341384,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s877",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 877,
+   "start": 346982,
+   "end": 347496,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s888",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 888,
+   "start": 352487,
+   "end": 352996,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s909",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 909,
+   "start": 370270,
+   "end": 371304,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s930",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 930,
+   "start": 380192,
+   "end": 380828,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s943",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 943,
+   "start": 386104,
+   "end": 388503,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s955",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 955,
+   "start": 392092,
+   "end": 392910,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s966",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 966,
+   "start": 399038,
+   "end": 400200,
+   "fps": 60.0,
+   "held_out": false
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s979",
+   "youtube_id": "vHfwZeG4BPw",
+   "clip": "20260131_vHfwZeG4BPw_ZAPIS_MECZU_Energa_Trefl_Sopot_-_Dziki_Warszawa_31.01.20",
+   "shot": 979,
+   "start": 406441,
+   "end": 406921,
+   "fps": 60.0,
+   "held_out": false
   }
  ],
  "frames": [
@@ -11842,6 +12322,4357 @@
     842.4
    ],
    "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s86",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 86,
+   "frame": 26445,
+   "held_out": false,
+   "ball": [
+    605.6,
+    408.0,
+    623.1,
+    428.5
+   ],
+   "holder": {
+    "xyxy": [
+     554.3,
+     336.2,
+     621.5,
+     464.2
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s86",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 86,
+   "frame": 26625,
+   "held_out": false,
+   "ball": [
+    598.2,
+    387.7,
+    625.7,
+    413.6
+   ],
+   "holder": {
+    "xyxy": [
+     597.4,
+     331.0,
+     746.9,
+     509.3
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s86",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 86,
+   "frame": 26805,
+   "held_out": false,
+   "ball": [
+    652.2,
+    662.9,
+    693.4,
+    706.3
+   ],
+   "holder": {
+    "xyxy": [
+     654.9,
+     624.9,
+     887.1,
+     904.1
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s86",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 86,
+   "frame": 26985,
+   "held_out": false,
+   "ball": [
+    990.0,
+    808.0,
+    1029.4,
+    850.8
+   ],
+   "holder": {
+    "xyxy": [
+     853.5,
+     654.2,
+     1027.6,
+     905.7
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s86",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 86,
+   "frame": 27165,
+   "held_out": false,
+   "ball": [
+    399.5,
+    592.3,
+    428.2,
+    622.9
+   ],
+   "holder": {
+    "xyxy": [
+     363.7,
+     470.1,
+     479.7,
+     672.7
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s86",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 86,
+   "frame": 27345,
+   "held_out": false,
+   "ball": [
+    304.1,
+    609.8,
+    336.9,
+    647.5
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s86",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 86,
+   "frame": 27525,
+   "held_out": false,
+   "ball": [
+    1203.4,
+    204.0,
+    1231.6,
+    229.9
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s86",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 86,
+   "frame": 27705,
+   "held_out": false,
+   "ball": [
+    1120.5,
+    632.9,
+    1153.2,
+    666.8
+   ],
+   "holder": {
+    "xyxy": [
+     1119.1,
+     581.8,
+     1244.9,
+     813.8
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s86",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 86,
+   "frame": 27885,
+   "held_out": false,
+   "ball": [
+    839.9,
+    709.9,
+    876.3,
+    742.6
+   ],
+   "holder": {
+    "xyxy": [
+     826.5,
+     633.5,
+     973.5,
+     873.5
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s86",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 86,
+   "frame": 28065,
+   "held_out": false,
+   "ball": [
+    628.0,
+    436.5,
+    649.8,
+    461.3
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s86",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 86,
+   "frame": 28245,
+   "held_out": false,
+   "ball": [
+    810.5,
+    313.1,
+    831.7,
+    335.5
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s86",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 86,
+   "frame": 28425,
+   "held_out": false,
+   "ball": null,
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s99",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 99,
+   "frame": 33555,
+   "held_out": false,
+   "ball": [
+    1053.2,
+    513.7,
+    1086.9,
+    547.3
+   ],
+   "holder": {
+    "xyxy": [
+     1049.3,
+     511.7,
+     1131.5,
+     785.4
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s99",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 99,
+   "frame": 33735,
+   "held_out": false,
+   "ball": [
+    556.1,
+    477.1,
+    579.2,
+    502.9
+   ],
+   "holder": {
+    "xyxy": [
+     542.9,
+     413.4,
+     636.1,
+     603.5
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s99",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 99,
+   "frame": 33915,
+   "held_out": false,
+   "ball": [
+    1023.4,
+    211.0,
+    1046.0,
+    233.6
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s99",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 99,
+   "frame": 34095,
+   "held_out": false,
+   "ball": [
+    1142.2,
+    553.5,
+    1164.2,
+    575.5
+   ],
+   "holder": {
+    "xyxy": [
+     1129.9,
+     549.6,
+     1236.2,
+     764.5
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s118",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 118,
+   "frame": 42015,
+   "held_out": false,
+   "ball": [
+    1285.4,
+    450.4,
+    1310.0,
+    472.2
+   ],
+   "holder": {
+    "xyxy": [
+     1228.8,
+     376.1,
+     1307.4,
+     511.8
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s118",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 118,
+   "frame": 42195,
+   "held_out": false,
+   "ball": [
+    281.8,
+    447.1,
+    304.5,
+    472.6
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s135",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 135,
+   "frame": 49020,
+   "held_out": false,
+   "ball": [
+    1773.9,
+    461.3,
+    1797.5,
+    486.5
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s135",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 135,
+   "frame": 49200,
+   "held_out": false,
+   "ball": [
+    1750.5,
+    490.1,
+    1772.5,
+    512.1
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s135",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 135,
+   "frame": 49380,
+   "held_out": false,
+   "ball": [
+    1789.2,
+    536.9,
+    1829.3,
+    569.2
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s135",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 135,
+   "frame": 49560,
+   "held_out": false,
+   "ball": [
+    1124.1,
+    111.2,
+    1156.8,
+    142.3
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s135",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 135,
+   "frame": 49740,
+   "held_out": false,
+   "ball": null,
+   "holder": {
+    "xyxy": [
+     519.6,
+     341.2,
+     627.7,
+     523.6
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s154",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 154,
+   "frame": 59145,
+   "held_out": false,
+   "ball": [
+    788.9,
+    673.0,
+    822.2,
+    707.1
+   ],
+   "holder": {
+    "xyxy": [
+     699.6,
+     560.6,
+     814.9,
+     803.7
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s154",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 154,
+   "frame": 59325,
+   "held_out": false,
+   "ball": [
+    1160.0,
+    231.2,
+    1192.2,
+    262.8
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s154",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 154,
+   "frame": 59505,
+   "held_out": false,
+   "ball": [
+    1154.8,
+    521.9,
+    1185.7,
+    552.6
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s154",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 154,
+   "frame": 59685,
+   "held_out": false,
+   "ball": [
+    783.8,
+    595.4,
+    817.1,
+    628.3
+   ],
+   "holder": {
+    "xyxy": [
+     693.9,
+     550.2,
+     796.5,
+     802.4
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s172",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 172,
+   "frame": 65625,
+   "held_out": false,
+   "ball": [
+    1025.0,
+    853.8,
+    1063.7,
+    891.9
+   ],
+   "holder": {
+    "xyxy": [
+     1085.1,
+     692.1,
+     1282.2,
+     919.3
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s172",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 172,
+   "frame": 65805,
+   "held_out": false,
+   "ball": null,
+   "holder": {
+    "xyxy": [
+     1255.9,
+     388.6,
+     1329.4,
+     556.7
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s172",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 172,
+   "frame": 65985,
+   "held_out": false,
+   "ball": [
+    1421.9,
+    382.0,
+    1446.4,
+    408.2
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s172",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 172,
+   "frame": 66165,
+   "held_out": false,
+   "ball": [
+    1133.1,
+    907.0,
+    1155.1,
+    929.0
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s202",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 202,
+   "frame": 77490,
+   "held_out": false,
+   "ball": [
+    857.8,
+    305.8,
+    879.8,
+    327.8
+   ],
+   "holder": {
+    "xyxy": [
+     851.7,
+     244.0,
+     921.7,
+     368.6
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s202",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 202,
+   "frame": 77670,
+   "held_out": false,
+   "ball": [
+    574.0,
+    430.3,
+    598.0,
+    452.9
+   ],
+   "holder": {
+    "xyxy": [
+     562.1,
+     362.9,
+     647.4,
+     476.7
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s202",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 202,
+   "frame": 77850,
+   "held_out": false,
+   "ball": [
+    520.4,
+    447.1,
+    542.4,
+    469.1
+   ],
+   "holder": {
+    "xyxy": [
+     527.6,
+     369.7,
+     618.8,
+     498.2
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s202",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 202,
+   "frame": 78030,
+   "held_out": false,
+   "ball": [
+    493.1,
+    613.1,
+    521.7,
+    644.0
+   ],
+   "holder": {
+    "xyxy": [
+     508.7,
+     526.0,
+     673.1,
+     772.5
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s202",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 202,
+   "frame": 78210,
+   "held_out": false,
+   "ball": [
+    595.1,
+    723.1,
+    623.3,
+    754.2
+   ],
+   "holder": {
+    "xyxy": [
+     499.7,
+     603.2,
+     617.1,
+     819.3
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s202",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 202,
+   "frame": 78390,
+   "held_out": false,
+   "ball": [
+    1006.0,
+    369.6,
+    1023.7,
+    392.5
+   ],
+   "holder": {
+    "xyxy": [
+     967.7,
+     359.7,
+     1031.8,
+     493.7
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s202",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 202,
+   "frame": 78570,
+   "held_out": false,
+   "ball": [
+    1201.4,
+    326.2,
+    1222.8,
+    348.0
+   ],
+   "holder": {
+    "xyxy": [
+     1169.7,
+     346.4,
+     1236.1,
+     511.6
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s229",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 229,
+   "frame": 84060,
+   "held_out": false,
+   "ball": [
+    993.4,
+    620.1,
+    1021.7,
+    654.0
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s229",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 229,
+   "frame": 84240,
+   "held_out": false,
+   "ball": [
+    1104.1,
+    377.8,
+    1123.5,
+    398.2
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s229",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 229,
+   "frame": 84420,
+   "held_out": false,
+   "ball": [
+    996.0,
+    276.0,
+    1017.3,
+    299.1
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s229",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 229,
+   "frame": 84600,
+   "held_out": false,
+   "ball": [
+    1126.1,
+    293.9,
+    1148.1,
+    315.9
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s229",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 229,
+   "frame": 84780,
+   "held_out": false,
+   "ball": [
+    654.3,
+    266.6,
+    676.7,
+    290.4
+   ],
+   "holder": {
+    "xyxy": [
+     568.6,
+     260.2,
+     680.1,
+     464.2
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s229",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 229,
+   "frame": 84960,
+   "held_out": false,
+   "ball": [
+    989.8,
+    357.6,
+    1014.8,
+    382.7
+   ],
+   "holder": {
+    "xyxy": [
+     944.2,
+     302.7,
+     1015.2,
+     446.5
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s229",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 229,
+   "frame": 85140,
+   "held_out": false,
+   "ball": null,
+   "holder": {
+    "xyxy": [
+     1102.8,
+     349.7,
+     1181.4,
+     465.7
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s229",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 229,
+   "frame": 85320,
+   "held_out": false,
+   "ball": [
+    1205.0,
+    402.0,
+    1227.6,
+    425.1
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s242",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 242,
+   "frame": 93040,
+   "held_out": false,
+   "ball": [
+    1450.9,
+    478.0,
+    1477.4,
+    503.7
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s242",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 242,
+   "frame": 93220,
+   "held_out": false,
+   "ball": [
+    1280.3,
+    458.7,
+    1305.9,
+    480.4
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s258",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 258,
+   "frame": 97845,
+   "held_out": false,
+   "ball": [
+    737.7,
+    317.8,
+    759.9,
+    340.2
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s258",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 258,
+   "frame": 98025,
+   "held_out": false,
+   "ball": [
+    767.9,
+    374.5,
+    792.3,
+    398.0
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s258",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 258,
+   "frame": 98205,
+   "held_out": false,
+   "ball": [
+    804.7,
+    442.0,
+    827.4,
+    467.2
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s258",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 258,
+   "frame": 98385,
+   "held_out": false,
+   "ball": [
+    759.3,
+    370.7,
+    783.4,
+    395.1
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s271",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 271,
+   "frame": 104500,
+   "held_out": false,
+   "ball": [
+    971.7,
+    530.4,
+    997.7,
+    561.6
+   ],
+   "holder": {
+    "xyxy": [
+     970.5,
+     440.5,
+     1053.7,
+     658.9
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s271",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 271,
+   "frame": 104680,
+   "held_out": false,
+   "ball": [
+    623.7,
+    207.7,
+    651.6,
+    233.7
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s271",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 271,
+   "frame": 104860,
+   "held_out": false,
+   "ball": [
+    936.8,
+    350.2,
+    961.7,
+    376.5
+   ],
+   "holder": {
+    "xyxy": [
+     933.0,
+     279.2,
+     1032.0,
+     475.2
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s271",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 271,
+   "frame": 105040,
+   "held_out": false,
+   "ball": [
+    479.1,
+    490.0,
+    504.7,
+    515.7
+   ],
+   "holder": {
+    "xyxy": [
+     406.9,
+     459.4,
+     506.5,
+     616.8
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s271",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 271,
+   "frame": 105220,
+   "held_out": false,
+   "ball": [
+    220.2,
+    527.4,
+    245.5,
+    553.0
+   ],
+   "holder": {
+    "xyxy": [
+     205.7,
+     456.0,
+     297.0,
+     596.3
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s271",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 271,
+   "frame": 105400,
+   "held_out": false,
+   "ball": [
+    455.3,
+    447.6,
+    482.4,
+    475.7
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s271",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 271,
+   "frame": 105580,
+   "held_out": false,
+   "ball": [
+    1027.9,
+    370.9,
+    1057.5,
+    402.5
+   ],
+   "holder": {
+    "xyxy": [
+     986.8,
+     380.4,
+     1073.6,
+     632.7
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s312",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 312,
+   "frame": 119200,
+   "held_out": false,
+   "ball": [
+    1459.5,
+    510.3,
+    1481.5,
+    532.3
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s312",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 312,
+   "frame": 119380,
+   "held_out": false,
+   "ball": [
+    1532.3,
+    584.4,
+    1560.3,
+    614.3
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s312",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 312,
+   "frame": 119560,
+   "held_out": false,
+   "ball": [
+    1580.8,
+    526.1,
+    1607.2,
+    553.2
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s324",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 324,
+   "frame": 123625,
+   "held_out": false,
+   "ball": null,
+   "holder": {
+    "xyxy": [
+     766.3,
+     444.0,
+     842.4,
+     667.0
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s324",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 324,
+   "frame": 123805,
+   "held_out": false,
+   "ball": [
+    823.1,
+    509.3,
+    846.5,
+    537.1
+   ],
+   "holder": {
+    "xyxy": [
+     763.0,
+     448.0,
+     845.6,
+     669.8
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s324",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 324,
+   "frame": 123985,
+   "held_out": false,
+   "ball": [
+    1221.5,
+    265.9,
+    1243.5,
+    287.9
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s324",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 324,
+   "frame": 124165,
+   "held_out": false,
+   "ball": [
+    1163.6,
+    437.0,
+    1190.3,
+    464.0
+   ],
+   "holder": {
+    "xyxy": [
+     1224.1,
+     449.5,
+     1311.3,
+     624.5
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s324",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 324,
+   "frame": 124345,
+   "held_out": false,
+   "ball": [
+    1330.0,
+    670.6,
+    1361.7,
+    700.9
+   ],
+   "holder": {
+    "xyxy": [
+     1372.5,
+     518.0,
+     1481.4,
+     738.4
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s324",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 324,
+   "frame": 124525,
+   "held_out": false,
+   "ball": [
+    705.3,
+    869.0,
+    744.8,
+    912.4
+   ],
+   "holder": {
+    "xyxy": [
+     656.8,
+     733.7,
+     783.4,
+     916.0
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s324",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 324,
+   "frame": 124705,
+   "held_out": false,
+   "ball": [
+    1357.2,
+    1058.4,
+    1379.2,
+    1080.4
+   ],
+   "holder": {
+    "xyxy": [
+     1328.0,
+     1001.5,
+     1455.5,
+     1079.4
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s324",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 324,
+   "frame": 124885,
+   "held_out": false,
+   "ball": [
+    1344.4,
+    392.9,
+    1367.4,
+    415.8
+   ],
+   "holder": {
+    "xyxy": [
+     1343.8,
+     363.7,
+     1400.8,
+     530.4
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s324",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 324,
+   "frame": 125065,
+   "held_out": false,
+   "ball": [
+    767.2,
+    497.0,
+    792.0,
+    522.7
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s342",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 342,
+   "frame": 135170,
+   "held_out": false,
+   "ball": [
+    1250.6,
+    253.9,
+    1271.3,
+    274.2
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s342",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 342,
+   "frame": 135350,
+   "held_out": false,
+   "ball": [
+    1216.8,
+    290.3,
+    1232.2,
+    314.6
+   ],
+   "holder": {
+    "xyxy": [
+     1219.2,
+     191.1,
+     1283.6,
+     355.9
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s342",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 342,
+   "frame": 135530,
+   "held_out": false,
+   "ball": [
+    1279.5,
+    378.4,
+    1308.9,
+    406.6
+   ],
+   "holder": {
+    "xyxy": [
+     1241.8,
+     277.9,
+     1337.6,
+     462.6
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s342",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 342,
+   "frame": 135710,
+   "held_out": false,
+   "ball": [
+    564.1,
+    709.0,
+    603.7,
+    751.7
+   ],
+   "holder": {
+    "xyxy": [
+     439.4,
+     622.5,
+     610.9,
+     917.3
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s342",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 342,
+   "frame": 135890,
+   "held_out": false,
+   "ball": [
+    1595.3,
+    555.1,
+    1627.2,
+    587.0
+   ],
+   "holder": {
+    "xyxy": [
+     1540.3,
+     430.8,
+     1629.7,
+     687.1
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s342",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 342,
+   "frame": 136070,
+   "held_out": false,
+   "ball": [
+    1444.8,
+    342.2,
+    1466.8,
+    364.2
+   ],
+   "holder": {
+    "xyxy": [
+     1393.9,
+     320.8,
+     1509.2,
+     497.7
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s342",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 342,
+   "frame": 136250,
+   "held_out": false,
+   "ball": [
+    861.8,
+    371.0,
+    887.0,
+    398.5
+   ],
+   "holder": {
+    "xyxy": [
+     862.3,
+     353.3,
+     990.0,
+     581.4
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s342",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 342,
+   "frame": 136430,
+   "held_out": false,
+   "ball": [
+    609.3,
+    327.6,
+    635.5,
+    363.0
+   ],
+   "holder": {
+    "xyxy": [
+     569.6,
+     299.1,
+     636.7,
+     476.3
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s366",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 366,
+   "frame": 149295,
+   "held_out": false,
+   "ball": [
+    719.9,
+    412.8,
+    750.4,
+    440.9
+   ],
+   "holder": {
+    "xyxy": [
+     682.3,
+     411.3,
+     779.6,
+     668.0
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s366",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 366,
+   "frame": 149475,
+   "held_out": false,
+   "ball": [
+    1044.7,
+    427.6,
+    1073.1,
+    456.7
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s366",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 366,
+   "frame": 149655,
+   "held_out": false,
+   "ball": [
+    1033.1,
+    317.3,
+    1055.1,
+    345.1
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s377",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 377,
+   "frame": 156210,
+   "held_out": false,
+   "ball": [
+    1506.9,
+    494.4,
+    1533.4,
+    518.4
+   ],
+   "holder": {
+    "xyxy": [
+     1464.2,
+     410.9,
+     1541.6,
+     573.8
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s377",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 377,
+   "frame": 156390,
+   "held_out": false,
+   "ball": [
+    922.5,
+    786.8,
+    956.9,
+    822.8
+   ],
+   "holder": {
+    "xyxy": [
+     816.3,
+     714.4,
+     957.3,
+     917.3
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s377",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 377,
+   "frame": 156570,
+   "held_out": false,
+   "ball": [
+    1242.5,
+    429.2,
+    1264.6,
+    451.9
+   ],
+   "holder": {
+    "xyxy": [
+     1239.0,
+     377.8,
+     1298.7,
+     500.1
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s377",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 377,
+   "frame": 156750,
+   "held_out": false,
+   "ball": [
+    639.8,
+    418.0,
+    660.0,
+    440.7
+   ],
+   "holder": {
+    "xyxy": [
+     644.1,
+     358.9,
+     718.5,
+     518.3
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s395",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 395,
+   "frame": 164150,
+   "held_out": false,
+   "ball": [
+    664.7,
+    269.6,
+    686.5,
+    293.0
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s395",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 395,
+   "frame": 164330,
+   "held_out": false,
+   "ball": [
+    657.2,
+    258.1,
+    679.2,
+    280.1
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s410",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 410,
+   "frame": 169610,
+   "held_out": false,
+   "ball": [
+    1112.3,
+    350.7,
+    1136.1,
+    373.1
+   ],
+   "holder": {
+    "xyxy": [
+     1113.7,
+     245.5,
+     1189.0,
+     386.8
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s410",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 410,
+   "frame": 169790,
+   "held_out": false,
+   "ball": [
+    346.0,
+    439.8,
+    374.6,
+    466.8
+   ],
+   "holder": {
+    "xyxy": [
+     364.1,
+     404.4,
+     475.0,
+     610.4
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s410",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 410,
+   "frame": 169970,
+   "held_out": false,
+   "ball": [
+    796.8,
+    537.3,
+    818.8,
+    559.3
+   ],
+   "holder": {
+    "xyxy": [
+     793.6,
+     457.4,
+     858.2,
+     589.8
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s410",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 410,
+   "frame": 170150,
+   "held_out": false,
+   "ball": [
+    254.3,
+    615.8,
+    274.8,
+    640.4
+   ],
+   "holder": {
+    "xyxy": [
+     230.4,
+     552.5,
+     327.1,
+     739.1
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s410",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 410,
+   "frame": 170330,
+   "held_out": false,
+   "ball": [
+    329.8,
+    608.2,
+    361.3,
+    640.7
+   ],
+   "holder": {
+    "xyxy": [
+     271.4,
+     481.7,
+     397.4,
+     702.4
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s410",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 410,
+   "frame": 170510,
+   "held_out": false,
+   "ball": [
+    731.8,
+    527.5,
+    753.8,
+    549.5
+   ],
+   "holder": {
+    "xyxy": [
+     697.4,
+     461.0,
+     761.2,
+     691.2
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s425",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 425,
+   "frame": 176515,
+   "held_out": false,
+   "ball": [
+    558.7,
+    399.9,
+    583.0,
+    426.5
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s425",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 425,
+   "frame": 176695,
+   "held_out": false,
+   "ball": null,
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s425",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 425,
+   "frame": 176875,
+   "held_out": false,
+   "ball": [
+    551.0,
+    389.8,
+    573.0,
+    411.8
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s439",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 439,
+   "frame": 182195,
+   "held_out": false,
+   "ball": [
+    1030.8,
+    240.3,
+    1055.7,
+    264.7
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s439",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 439,
+   "frame": 182375,
+   "held_out": false,
+   "ball": [
+    1132.9,
+    598.9,
+    1156.4,
+    622.5
+   ],
+   "holder": {
+    "xyxy": [
+     1087.7,
+     526.2,
+     1203.0,
+     671.4
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s439",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 439,
+   "frame": 182555,
+   "held_out": false,
+   "ball": [
+    543.1,
+    665.1,
+    565.1,
+    687.1
+   ],
+   "holder": {
+    "xyxy": [
+     509.2,
+     606.3,
+     574.0,
+     807.4
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s439",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 439,
+   "frame": 182735,
+   "held_out": false,
+   "ball": [
+    551.6,
+    443.4,
+    570.5,
+    464.7
+   ],
+   "holder": {
+    "xyxy": [
+     522.0,
+     392.9,
+     583.7,
+     529.8
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s439",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 439,
+   "frame": 182915,
+   "held_out": false,
+   "ball": [
+    169.6,
+    490.1,
+    199.8,
+    515.6
+   ],
+   "holder": {
+    "xyxy": [
+     162.5,
+     464.8,
+     257.5,
+     636.5
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s439",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 439,
+   "frame": 183095,
+   "held_out": false,
+   "ball": [
+    1270.1,
+    132.9,
+    1298.2,
+    160.4
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s439",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 439,
+   "frame": 183275,
+   "held_out": false,
+   "ball": [
+    988.1,
+    364.7,
+    1009.3,
+    388.0
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s683",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 683,
+   "frame": 250420,
+   "held_out": false,
+   "ball": null,
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s683",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 683,
+   "frame": 250600,
+   "held_out": false,
+   "ball": [
+    902.0,
+    745.6,
+    938.9,
+    782.3
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s683",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 683,
+   "frame": 250780,
+   "held_out": false,
+   "ball": [
+    713.9,
+    382.8,
+    734.3,
+    405.8
+   ],
+   "holder": {
+    "xyxy": [
+     700.3,
+     325.2,
+     773.7,
+     503.6
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s683",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 683,
+   "frame": 250960,
+   "held_out": false,
+   "ball": [
+    676.9,
+    332.5,
+    697.6,
+    354.3
+   ],
+   "holder": {
+    "xyxy": [
+     645.5,
+     269.1,
+     728.4,
+     434.0
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s700",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 700,
+   "frame": 256095,
+   "held_out": false,
+   "ball": [
+    1390.8,
+    733.9,
+    1429.9,
+    776.0
+   ],
+   "holder": {
+    "xyxy": [
+     1383.0,
+     646.5,
+     1514.7,
+     918.6
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s700",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 700,
+   "frame": 256275,
+   "held_out": false,
+   "ball": [
+    1820.7,
+    568.9,
+    1855.5,
+    604.3
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s700",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 700,
+   "frame": 256455,
+   "held_out": false,
+   "ball": [
+    1784.7,
+    569.9,
+    1811.8,
+    600.3
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s700",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 700,
+   "frame": 256635,
+   "held_out": false,
+   "ball": [
+    1806.5,
+    487.9,
+    1838.3,
+    518.9
+   ],
+   "holder": {
+    "xyxy": [
+     1791.3,
+     449.0,
+     1874.7,
+     663.4
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s700",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 700,
+   "frame": 256815,
+   "held_out": false,
+   "ball": [
+    1170.7,
+    830.4,
+    1214.9,
+    874.0
+   ],
+   "holder": {
+    "xyxy": [
+     1172.3,
+     746.8,
+     1381.3,
+     1020.7
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s700",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 700,
+   "frame": 256995,
+   "held_out": false,
+   "ball": [
+    708.5,
+    341.4,
+    732.7,
+    367.0
+   ],
+   "holder": {
+    "xyxy": [
+     699.7,
+     352.3,
+     767.8,
+     546.0
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s712",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 712,
+   "frame": 262265,
+   "held_out": false,
+   "ball": [
+    1196.6,
+    364.4,
+    1218.7,
+    387.6
+   ],
+   "holder": {
+    "xyxy": [
+     1164.2,
+     302.6,
+     1219.8,
+     460.7
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s712",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 712,
+   "frame": 262445,
+   "held_out": false,
+   "ball": [
+    650.3,
+    388.8,
+    670.9,
+    409.6
+   ],
+   "holder": {
+    "xyxy": [
+     610.2,
+     354.9,
+     675.3,
+     489.7
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s712",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 712,
+   "frame": 262625,
+   "held_out": false,
+   "ball": [
+    483.8,
+    354.7,
+    506.7,
+    378.7
+   ],
+   "holder": {
+    "xyxy": [
+     463.7,
+     354.2,
+     539.3,
+     570.7
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s712",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 712,
+   "frame": 262805,
+   "held_out": false,
+   "ball": [
+    604.4,
+    637.3,
+    634.6,
+    669.6
+   ],
+   "holder": {
+    "xyxy": [
+     514.5,
+     582.9,
+     645.0,
+     803.9
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s712",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 712,
+   "frame": 262985,
+   "held_out": false,
+   "ball": [
+    1364.1,
+    112.1,
+    1388.2,
+    137.0
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s712",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 712,
+   "frame": 263165,
+   "held_out": false,
+   "ball": [
+    602.1,
+    542.3,
+    627.3,
+    569.2
+   ],
+   "holder": {
+    "xyxy": [
+     627.7,
+     436.0,
+     774.4,
+     593.4
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s712",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 712,
+   "frame": 263345,
+   "held_out": false,
+   "ball": [
+    571.5,
+    419.5,
+    595.6,
+    440.0
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s712",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 712,
+   "frame": 263525,
+   "held_out": false,
+   "ball": [
+    732.8,
+    241.5,
+    762.6,
+    262.5
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s729",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 729,
+   "frame": 271415,
+   "held_out": false,
+   "ball": [
+    1024.7,
+    410.1,
+    1046.2,
+    435.3
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s729",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 729,
+   "frame": 271595,
+   "held_out": false,
+   "ball": [
+    1056.1,
+    410.2,
+    1085.7,
+    435.1
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s729",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 729,
+   "frame": 271775,
+   "held_out": false,
+   "ball": [
+    1063.5,
+    412.5,
+    1088.4,
+    437.7
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s729",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 729,
+   "frame": 271955,
+   "held_out": false,
+   "ball": [
+    846.6,
+    494.7,
+    873.3,
+    521.1
+   ],
+   "holder": {
+    "xyxy": [
+     794.4,
+     425.4,
+     873.4,
+     607.8
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s750",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 750,
+   "frame": 278320,
+   "held_out": false,
+   "ball": [
+    613.9,
+    428.6,
+    636.8,
+    454.2
+   ],
+   "holder": {
+    "xyxy": [
+     535.8,
+     346.2,
+     651.8,
+     502.1
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s750",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 750,
+   "frame": 278500,
+   "held_out": false,
+   "ball": [
+    385.9,
+    442.6,
+    410.4,
+    468.5
+   ],
+   "holder": {
+    "xyxy": [
+     387.6,
+     380.7,
+     481.9,
+     543.8
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s750",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 750,
+   "frame": 278680,
+   "held_out": false,
+   "ball": [
+    908.8,
+    483.7,
+    934.2,
+    510.2
+   ],
+   "holder": {
+    "xyxy": [
+     870.5,
+     472.6,
+     1027.6,
+     686.4
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s750",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 750,
+   "frame": 278860,
+   "held_out": false,
+   "ball": [
+    351.9,
+    550.5,
+    380.0,
+    579.6
+   ],
+   "holder": {
+    "xyxy": [
+     279.9,
+     466.6,
+     398.4,
+     635.5
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s750",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 750,
+   "frame": 279040,
+   "held_out": false,
+   "ball": [
+    984.8,
+    269.6,
+    1012.7,
+    295.0
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s750",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 750,
+   "frame": 279220,
+   "held_out": false,
+   "ball": [
+    1210.1,
+    476.2,
+    1234.4,
+    501.9
+   ],
+   "holder": {
+    "xyxy": [
+     1145.2,
+     414.3,
+     1223.8,
+     590.0
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s750",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 750,
+   "frame": 279400,
+   "held_out": false,
+   "ball": null,
+   "holder": {
+    "xyxy": [
+     1164.4,
+     512.9,
+     1257.8,
+     684.8
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s750",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 750,
+   "frame": 279580,
+   "held_out": false,
+   "ball": [
+    1116.9,
+    792.6,
+    1146.0,
+    828.0
+   ],
+   "holder": {
+    "xyxy": [
+     1099.1,
+     628.1,
+     1259.5,
+     812.8
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s750",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 750,
+   "frame": 279760,
+   "held_out": false,
+   "ball": [
+    847.6,
+    238.8,
+    872.6,
+    261.6
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s750",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 750,
+   "frame": 279940,
+   "held_out": false,
+   "ball": [
+    567.0,
+    667.1,
+    599.7,
+    698.4
+   ],
+   "holder": {
+    "xyxy": [
+     453.0,
+     664.6,
+     600.4,
+     887.2
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s750",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 750,
+   "frame": 280120,
+   "held_out": false,
+   "ball": [
+    765.3,
+    825.8,
+    792.8,
+    860.9
+   ],
+   "holder": {
+    "xyxy": [
+     761.5,
+     750.1,
+     865.8,
+     917.6
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s750",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 750,
+   "frame": 280300,
+   "held_out": false,
+   "ball": [
+    896.3,
+    389.4,
+    919.8,
+    410.0
+   ],
+   "holder": {
+    "xyxy": [
+     881.0,
+     392.0,
+     946.9,
+     604.4
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s750",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 750,
+   "frame": 280480,
+   "held_out": false,
+   "ball": [
+    1234.2,
+    418.4,
+    1260.6,
+    446.9
+   ],
+   "holder": {
+    "xyxy": [
+     1162.1,
+     444.4,
+     1280.1,
+     583.1
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s781",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 781,
+   "frame": 289280,
+   "held_out": false,
+   "ball": [
+    1456.9,
+    384.8,
+    1487.2,
+    416.0
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s781",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 781,
+   "frame": 289460,
+   "held_out": false,
+   "ball": [
+    1476.2,
+    400.1,
+    1500.6,
+    427.2
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s781",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 781,
+   "frame": 289640,
+   "held_out": false,
+   "ball": [
+    1449.6,
+    403.6,
+    1471.6,
+    425.6
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s793",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 793,
+   "frame": 295250,
+   "held_out": false,
+   "ball": [
+    698.0,
+    431.5,
+    724.7,
+    457.3
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s793",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 793,
+   "frame": 295430,
+   "held_out": false,
+   "ball": [
+    695.0,
+    426.4,
+    725.6,
+    453.5
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s793",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 793,
+   "frame": 295610,
+   "held_out": false,
+   "ball": [
+    646.6,
+    309.5,
+    673.5,
+    339.3
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s793",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 793,
+   "frame": 295790,
+   "held_out": false,
+   "ball": [
+    960.0,
+    519.3,
+    988.3,
+    547.4
+   ],
+   "holder": {
+    "xyxy": [
+     957.3,
+     449.2,
+     1043.6,
+     643.9
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s793",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 793,
+   "frame": 295970,
+   "held_out": false,
+   "ball": [
+    622.3,
+    479.5,
+    648.7,
+    512.0
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s793",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 793,
+   "frame": 296150,
+   "held_out": false,
+   "ball": [
+    642.0,
+    418.4,
+    672.1,
+    447.6
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s793",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 793,
+   "frame": 296330,
+   "held_out": false,
+   "ball": [
+    964.1,
+    505.1,
+    992.3,
+    536.9
+   ],
+   "holder": {
+    "xyxy": [
+     965.3,
+     421.7,
+     1036.0,
+     645.6
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s804",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 804,
+   "frame": 300580,
+   "held_out": false,
+   "ball": [
+    329.5,
+    458.0,
+    358.9,
+    488.3
+   ],
+   "holder": {
+    "xyxy": [
+     198.1,
+     426.9,
+     359.9,
+     651.3
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s804",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 804,
+   "frame": 300760,
+   "held_out": false,
+   "ball": [
+    855.9,
+    515.1,
+    886.1,
+    548.7
+   ],
+   "holder": {
+    "xyxy": [
+     768.8,
+     507.6,
+     891.7,
+     810.1
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s804",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 804,
+   "frame": 300940,
+   "held_out": false,
+   "ball": [
+    154.6,
+    773.6,
+    186.0,
+    808.9
+   ],
+   "holder": {
+    "xyxy": [
+     84.7,
+     681.7,
+     215.3,
+     902.6
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s804",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 804,
+   "frame": 301120,
+   "held_out": false,
+   "ball": [
+    528.9,
+    343.0,
+    556.0,
+    369.3
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s804",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 804,
+   "frame": 301300,
+   "held_out": false,
+   "ball": [
+    1271.8,
+    645.4,
+    1295.3,
+    676.4
+   ],
+   "holder": {
+    "xyxy": [
+     1202.0,
+     596.5,
+     1297.5,
+     856.5
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s804",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 804,
+   "frame": 301480,
+   "held_out": false,
+   "ball": [
+    973.8,
+    806.7,
+    995.8,
+    828.7
+   ],
+   "holder": {
+    "xyxy": [
+     913.3,
+     726.0,
+     1064.7,
+     918.8
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s804",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 804,
+   "frame": 301660,
+   "held_out": false,
+   "ball": [
+    1358.8,
+    805.4,
+    1396.0,
+    841.9
+   ],
+   "holder": {
+    "xyxy": [
+     1222.6,
+     724.3,
+     1398.8,
+     916.8
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s804",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 804,
+   "frame": 301840,
+   "held_out": false,
+   "ball": [
+    1555.2,
+    396.6,
+    1573.7,
+    417.9
+   ],
+   "holder": {
+    "xyxy": [
+     1539.1,
+     358.3,
+     1618.9,
+     523.6
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s804",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 804,
+   "frame": 302020,
+   "held_out": false,
+   "ball": null,
+   "holder": {
+    "xyxy": [
+     1405.1,
+     359.3,
+     1499.6,
+     499.0
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s804",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 804,
+   "frame": 302200,
+   "held_out": false,
+   "ball": null,
+   "holder": {
+    "xyxy": [
+     1327.1,
+     358.6,
+     1436.0,
+     517.3
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s804",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 804,
+   "frame": 302380,
+   "held_out": false,
+   "ball": null,
+   "holder": {
+    "xyxy": [
+     944.2,
+     322.9,
+     1010.6,
+     482.7
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s804",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 804,
+   "frame": 302560,
+   "held_out": false,
+   "ball": [
+    1058.7,
+    788.4,
+    1100.0,
+    827.1
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s804",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 804,
+   "frame": 302740,
+   "held_out": false,
+   "ball": [
+    1273.6,
+    510.7,
+    1294.0,
+    533.2
+   ],
+   "holder": {
+    "xyxy": [
+     1206.2,
+     478.3,
+     1307.0,
+     627.3
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s813",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 813,
+   "frame": 309490,
+   "held_out": false,
+   "ball": null,
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s813",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 813,
+   "frame": 309670,
+   "held_out": false,
+   "ball": null,
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s813",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 813,
+   "frame": 309850,
+   "held_out": false,
+   "ball": [
+    1276.4,
+    617.5,
+    1308.8,
+    647.8
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s813",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 813,
+   "frame": 310030,
+   "held_out": false,
+   "ball": null,
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s813",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 813,
+   "frame": 310210,
+   "held_out": false,
+   "ball": null,
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s813",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 813,
+   "frame": 310390,
+   "held_out": false,
+   "ball": [
+    988.9,
+    776.5,
+    1028.7,
+    816.2
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s813",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 813,
+   "frame": 310570,
+   "held_out": false,
+   "ball": [
+    1222.3,
+    795.2,
+    1244.3,
+    817.2
+   ],
+   "holder": {
+    "xyxy": [
+     1214.4,
+     734.6,
+     1319.5,
+     918.3
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s813",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 813,
+   "frame": 310750,
+   "held_out": false,
+   "ball": [
+    632.0,
+    551.0,
+    662.9,
+    583.7
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s813",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 813,
+   "frame": 310930,
+   "held_out": false,
+   "ball": [
+    496.3,
+    489.4,
+    516.0,
+    511.7
+   ],
+   "holder": {
+    "xyxy": [
+     471.0,
+     429.2,
+     578.7,
+     609.3
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s813",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 813,
+   "frame": 311110,
+   "held_out": false,
+   "ball": null,
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s813",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 813,
+   "frame": 311290,
+   "held_out": false,
+   "ball": null,
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s826",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 826,
+   "frame": 315125,
+   "held_out": false,
+   "ball": [
+    1018.9,
+    284.4,
+    1040.6,
+    306.6
+   ],
+   "holder": {
+    "xyxy": [
+     924.0,
+     236.6,
+     1038.8,
+     354.7
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s826",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 826,
+   "frame": 315305,
+   "held_out": false,
+   "ball": [
+    1478.5,
+    412.4,
+    1504.8,
+    437.5
+   ],
+   "holder": {
+    "xyxy": [
+     1437.6,
+     342.0,
+     1513.7,
+     498.8
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s826",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 826,
+   "frame": 315485,
+   "held_out": false,
+   "ball": [
+    1571.6,
+    473.9,
+    1598.1,
+    498.8
+   ],
+   "holder": {
+    "xyxy": [
+     1556.7,
+     406.3,
+     1625.7,
+     537.2
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s826",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 826,
+   "frame": 315665,
+   "held_out": false,
+   "ball": [
+    1295.9,
+    604.1,
+    1323.6,
+    631.7
+   ],
+   "holder": {
+    "xyxy": [
+     1246.0,
+     535.3,
+     1323.7,
+     754.4
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s826",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 826,
+   "frame": 315845,
+   "held_out": false,
+   "ball": [
+    1662.6,
+    514.4,
+    1685.8,
+    537.9
+   ],
+   "holder": {
+    "xyxy": [
+     1626.9,
+     435.9,
+     1737.0,
+     617.5
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s826",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 826,
+   "frame": 316025,
+   "held_out": false,
+   "ball": [
+    1140.0,
+    754.1,
+    1171.7,
+    786.4
+   ],
+   "holder": {
+    "xyxy": [
+     917.5,
+     599.5,
+     1124.5,
+     802.5
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s826",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 826,
+   "frame": 316205,
+   "held_out": false,
+   "ball": [
+    1280.5,
+    305.2,
+    1302.5,
+    327.2
+   ],
+   "holder": {
+    "xyxy": [
+     1233.3,
+     358.3,
+     1307.7,
+     510.8
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s851",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 851,
+   "frame": 330580,
+   "held_out": false,
+   "ball": null,
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s851",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 851,
+   "frame": 330760,
+   "held_out": false,
+   "ball": [
+    989.0,
+    351.2,
+    1006.0,
+    369.3
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s851",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 851,
+   "frame": 330940,
+   "held_out": false,
+   "ball": [
+    1007.2,
+    356.4,
+    1029.2,
+    378.4
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s851",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 851,
+   "frame": 331120,
+   "held_out": false,
+   "ball": [
+    896.3,
+    339.2,
+    914.5,
+    357.3
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s851",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 851,
+   "frame": 331300,
+   "held_out": false,
+   "ball": null,
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s851",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 851,
+   "frame": 331480,
+   "held_out": false,
+   "ball": [
+    839.5,
+    451.9,
+    860.9,
+    474.2
+   ],
+   "holder": {
+    "xyxy": [
+     801.6,
+     402.6,
+     873.6,
+     549.5
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s851",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 851,
+   "frame": 331660,
+   "held_out": false,
+   "ball": [
+    537.7,
+    320.2,
+    560.0,
+    340.4
+   ],
+   "holder": {
+    "xyxy": [
+     548.8,
+     292.9,
+     626.8,
+     435.1
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s851",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 851,
+   "frame": 331840,
+   "held_out": false,
+   "ball": [
+    413.7,
+    441.4,
+    441.2,
+    466.4
+   ],
+   "holder": {
+    "xyxy": [
+     409.6,
+     385.8,
+     486.4,
+     551.1
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s851",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 851,
+   "frame": 332020,
+   "held_out": false,
+   "ball": [
+    345.3,
+    496.3,
+    375.5,
+    523.7
+   ],
+   "holder": {
+    "xyxy": [
+     310.4,
+     428.2,
+     391.1,
+     598.0
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s851",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 851,
+   "frame": 332200,
+   "held_out": false,
+   "ball": [
+    1105.8,
+    181.6,
+    1124.9,
+    203.4
+   ],
+   "holder": {
+    "xyxy": [
+     1088.5,
+     180.8,
+     1146.6,
+     356.7
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s851",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 851,
+   "frame": 332380,
+   "held_out": false,
+   "ball": [
+    1278.8,
+    295.8,
+    1299.2,
+    319.3
+   ],
+   "holder": {
+    "xyxy": [
+     1223.5,
+     317.4,
+     1295.8,
+     509.3
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s851",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 851,
+   "frame": 332560,
+   "held_out": false,
+   "ball": [
+    1391.6,
+    475.3,
+    1416.1,
+    502.4
+   ],
+   "holder": {
+    "xyxy": [
+     1261.7,
+     383.0,
+     1396.1,
+     539.6
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s851",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 851,
+   "frame": 332740,
+   "held_out": false,
+   "ball": null,
+   "holder": {
+    "xyxy": [
+     802.4,
+     640.0,
+     898.0,
+     865.5
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s865",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 865,
+   "frame": 340715,
+   "held_out": false,
+   "ball": [
+    388.3,
+    558.6,
+    417.9,
+    588.3
+   ],
+   "holder": {
+    "xyxy": [
+     339.9,
+     474.1,
+     419.8,
+     688.0
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s865",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 865,
+   "frame": 340895,
+   "held_out": false,
+   "ball": [
+    435.2,
+    598.2,
+    463.0,
+    626.4
+   ],
+   "holder": {
+    "xyxy": [
+     336.8,
+     517.3,
+     461.6,
+     698.0
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s865",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 865,
+   "frame": 341075,
+   "held_out": false,
+   "ball": [
+    358.7,
+    573.7,
+    387.2,
+    599.9
+   ],
+   "holder": {
+    "xyxy": [
+     266.0,
+     504.7,
+     372.0,
+     715.5
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s865",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 865,
+   "frame": 341255,
+   "held_out": false,
+   "ball": null,
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s877",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 877,
+   "frame": 347015,
+   "held_out": false,
+   "ball": [
+    697.2,
+    368.4,
+    716.2,
+    393.6
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s877",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 877,
+   "frame": 347195,
+   "held_out": false,
+   "ball": [
+    706.9,
+    374.9,
+    729.2,
+    400.8
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s877",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 877,
+   "frame": 347375,
+   "held_out": false,
+   "ball": [
+    767.4,
+    350.9,
+    783.9,
+    375.3
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s888",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 888,
+   "frame": 352520,
+   "held_out": false,
+   "ball": [
+    843.6,
+    533.1,
+    868.7,
+    561.0
+   ],
+   "holder": {
+    "xyxy": [
+     791.1,
+     471.0,
+     873.3,
+     667.2
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s888",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 888,
+   "frame": 352700,
+   "held_out": false,
+   "ball": [
+    1252.3,
+    249.6,
+    1279.9,
+    272.0
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s888",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 888,
+   "frame": 352880,
+   "held_out": false,
+   "ball": [
+    1195.0,
+    452.9,
+    1222.5,
+    481.2
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s909",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 909,
+   "frame": 370300,
+   "held_out": false,
+   "ball": [
+    437.5,
+    550.2,
+    462.2,
+    576.2
+   ],
+   "holder": {
+    "xyxy": [
+     377.9,
+     467.9,
+     461.9,
+     648.8
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s909",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 909,
+   "frame": 370480,
+   "held_out": false,
+   "ball": null,
+   "holder": {
+    "xyxy": [
+     556.1,
+     652.9,
+     664.7,
+     878.4
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s909",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 909,
+   "frame": 370660,
+   "held_out": false,
+   "ball": [
+    1065.2,
+    497.2,
+    1087.5,
+    520.8
+   ],
+   "holder": {
+    "xyxy": [
+     1001.5,
+     439.5,
+     1088.7,
+     609.5
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s909",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 909,
+   "frame": 370840,
+   "held_out": false,
+   "ball": [
+    666.5,
+    258.4,
+    702.7,
+    294.1
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s909",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 909,
+   "frame": 371020,
+   "held_out": false,
+   "ball": [
+    985.0,
+    429.4,
+    1011.6,
+    457.8
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s909",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 909,
+   "frame": 371200,
+   "held_out": false,
+   "ball": [
+    531.0,
+    462.8,
+    555.0,
+    489.2
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s930",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 930,
+   "frame": 380225,
+   "held_out": false,
+   "ball": [
+    1147.9,
+    494.5,
+    1175.9,
+    526.7
+   ],
+   "holder": {
+    "xyxy": [
+     1145.6,
+     403.3,
+     1208.1,
+     624.7
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s930",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 930,
+   "frame": 380405,
+   "held_out": false,
+   "ball": [
+    1157.6,
+    497.3,
+    1180.1,
+    526.5
+   ],
+   "holder": {
+    "xyxy": [
+     1150.0,
+     402.7,
+     1208.9,
+     624.5
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s930",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 930,
+   "frame": 380585,
+   "held_out": false,
+   "ball": [
+    966.6,
+    146.1,
+    992.5,
+    173.8
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s930",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 930,
+   "frame": 380765,
+   "held_out": false,
+   "ball": null,
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s943",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 943,
+   "frame": 386135,
+   "held_out": false,
+   "ball": [
+    878.8,
+    310.6,
+    902.5,
+    338.2
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s943",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 943,
+   "frame": 386315,
+   "held_out": false,
+   "ball": [
+    1025.0,
+    481.6,
+    1054.0,
+    512.1
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s943",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 943,
+   "frame": 386495,
+   "held_out": false,
+   "ball": [
+    1017.3,
+    554.7,
+    1044.7,
+    582.8
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s943",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 943,
+   "frame": 386675,
+   "held_out": false,
+   "ball": [
+    840.6,
+    421.6,
+    868.6,
+    449.5
+   ],
+   "holder": {
+    "xyxy": [
+     779.1,
+     378.3,
+     857.0,
+     601.7
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s943",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 943,
+   "frame": 386855,
+   "held_out": false,
+   "ball": [
+    828.1,
+    353.7,
+    853.1,
+    380.3
+   ],
+   "holder": {
+    "xyxy": [
+     783.5,
+     377.6,
+     857.8,
+     606.3
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s943",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 943,
+   "frame": 387035,
+   "held_out": false,
+   "ball": [
+    1205.1,
+    447.2,
+    1224.9,
+    473.8
+   ],
+   "holder": {
+    "xyxy": [
+     1152.6,
+     367.2,
+     1237.2,
+     560.8
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s943",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 943,
+   "frame": 387215,
+   "held_out": false,
+   "ball": [
+    1275.4,
+    396.0,
+    1307.4,
+    425.0
+   ],
+   "holder": {
+    "xyxy": [
+     1210.5,
+     396.6,
+     1319.8,
+     587.8
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s943",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 943,
+   "frame": 387395,
+   "held_out": false,
+   "ball": [
+    1210.0,
+    372.4,
+    1233.3,
+    396.3
+   ],
+   "holder": {
+    "xyxy": [
+     1214.4,
+     337.1,
+     1315.2,
+     497.6
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s943",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 943,
+   "frame": 387575,
+   "held_out": false,
+   "ball": [
+    1281.9,
+    508.8,
+    1309.3,
+    538.2
+   ],
+   "holder": {
+    "xyxy": [
+     1278.4,
+     445.9,
+     1388.6,
+     632.1
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s943",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 943,
+   "frame": 387755,
+   "held_out": false,
+   "ball": [
+    1519.8,
+    437.9,
+    1547.7,
+    462.2
+   ],
+   "holder": {
+    "xyxy": [
+     1519.1,
+     434.6,
+     1652.0,
+     661.7
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s943",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 943,
+   "frame": 387935,
+   "held_out": false,
+   "ball": [
+    1513.3,
+    551.1,
+    1542.6,
+    579.6
+   ],
+   "holder": {
+    "xyxy": [
+     1459.6,
+     576.7,
+     1559.2,
+     830.7
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s943",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 943,
+   "frame": 388115,
+   "held_out": false,
+   "ball": [
+    527.1,
+    361.2,
+    554.8,
+    387.5
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s943",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 943,
+   "frame": 388295,
+   "held_out": false,
+   "ball": [
+    555.1,
+    541.6,
+    583.1,
+    572.2
+   ],
+   "holder": {
+    "xyxy": [
+     509.8,
+     448.4,
+     628.6,
+     603.6
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s955",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 955,
+   "frame": 392125,
+   "held_out": false,
+   "ball": [
+    706.5,
+    334.0,
+    727.3,
+    354.6
+   ],
+   "holder": {
+    "xyxy": [
+     631.4,
+     277.2,
+     715.5,
+     427.1
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s955",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 955,
+   "frame": 392305,
+   "held_out": false,
+   "ball": null,
+   "holder": {
+    "xyxy": [
+     501.6,
+     325.8,
+     598.0,
+     455.9
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s955",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 955,
+   "frame": 392485,
+   "held_out": false,
+   "ball": [
+    680.2,
+    288.5,
+    700.9,
+    310.0
+   ],
+   "holder": {
+    "xyxy": [
+     679.1,
+     246.2,
+     734.4,
+     390.6
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s955",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 955,
+   "frame": 392665,
+   "held_out": false,
+   "ball": [
+    1290.4,
+    372.1,
+    1312.4,
+    394.1
+   ],
+   "holder": {
+    "xyxy": [
+     1228.1,
+     312.8,
+     1300.7,
+     485.9
+    ],
+    "team": "away"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s955",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 955,
+   "frame": 392845,
+   "held_out": false,
+   "ball": null,
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s966",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 966,
+   "frame": 399070,
+   "held_out": false,
+   "ball": [
+    746.7,
+    349.3,
+    767.0,
+    370.3
+   ],
+   "holder": {
+    "xyxy": [
+     680.3,
+     313.3,
+     759.8,
+     466.8
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s966",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 966,
+   "frame": 399250,
+   "held_out": false,
+   "ball": [
+    428.6,
+    376.3,
+    448.6,
+    397.2
+   ],
+   "holder": {
+    "xyxy": [
+     395.9,
+     339.8,
+     467.0,
+     490.0
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s966",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 966,
+   "frame": 399430,
+   "held_out": false,
+   "ball": [
+    1424.3,
+    520.1,
+    1458.5,
+    556.9
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s966",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 966,
+   "frame": 399610,
+   "held_out": false,
+   "ball": [
+    962.9,
+    763.8,
+    997.4,
+    798.8
+   ],
+   "holder": {
+    "xyxy": [
+     964.0,
+     663.1,
+     1114.2,
+     916.4
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s966",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 966,
+   "frame": 399790,
+   "held_out": false,
+   "ball": [
+    848.8,
+    333.0,
+    868.4,
+    354.6
+   ],
+   "holder": {
+    "xyxy": [
+     752.9,
+     342.8,
+     851.8,
+     485.9
+    ],
+    "team": "home"
+   }
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s966",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 966,
+   "frame": 399970,
+   "held_out": false,
+   "ball": null,
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s966",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 966,
+   "frame": 400150,
+   "held_out": false,
+   "ball": [
+    1327.2,
+    359.0,
+    1346.1,
+    381.8
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s979",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 979,
+   "frame": 406475,
+   "held_out": false,
+   "ball": null,
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s979",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 979,
+   "frame": 406655,
+   "held_out": false,
+   "ball": [
+    1164.7,
+    356.4,
+    1184.1,
+    379.7
+   ],
+   "holder": null
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s979",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 979,
+   "frame": 406835,
+   "held_out": false,
+   "ball": [
+    1111.2,
+    400.4,
+    1134.8,
+    426.8
+   ],
+   "holder": null
   }
  ],
  "events": [
@@ -13479,6 +18310,708 @@
     274.0,
     750.1,
     486.6
+   ],
+   "shooter_team": "home",
+   "note": ""
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s86",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 86,
+   "held_out": false,
+   "release_frame": 27460,
+   "rim_frame": 27535,
+   "outcome": "missed",
+   "points": 3,
+   "shooter_xyxy": [
+    1648.1,
+    492.4,
+    1753.5,
+    878.3
+   ],
+   "shooter_team": "away",
+   "note": ""
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s99",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 99,
+   "held_out": false,
+   "release_frame": 33570,
+   "rim_frame": 33630,
+   "outcome": "missed",
+   "points": 1,
+   "shooter_xyxy": [
+    1050.4,
+    430.4,
+    1129.6,
+    785.4
+   ],
+   "shooter_team": "home",
+   "note": "free throw (light kit): light player at FT line, lane lined up, clock 8:45 stopped; ball hits ring and bounces off left, dark rebound; score stays 1:0"
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s99",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 99,
+   "held_out": false,
+   "release_frame": 34020,
+   "rim_frame": 34035,
+   "outcome": "made",
+   "points": 2,
+   "shooter_xyxy": [
+    1091.4,
+    516.0,
+    1182.7,
+    717.7
+   ],
+   "shooter_team": "away",
+   "note": ""
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s154",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 154,
+   "held_out": false,
+   "release_frame": 59285,
+   "rim_frame": 59340,
+   "outcome": "made",
+   "points": 1,
+   "shooter_xyxy": [
+    705.9,
+    509.1,
+    785.9,
+    766.2
+   ],
+   "shooter_team": "away",
+   "note": "free throw (dark kit): dark #2 first of two free throws at the right basket, ball drops through; score 1:9 -> 1:10. Second free throw not released before the sequence ends"
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s202",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 202,
+   "held_out": false,
+   "release_frame": 78435,
+   "rim_frame": 78475,
+   "outcome": "missed",
+   "points": 2,
+   "shooter_xyxy": [
+    1012.3,
+    284.0,
+    1067.4,
+    494.4
+   ],
+   "shooter_team": "away",
+   "note": ""
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s202",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 202,
+   "held_out": false,
+   "release_frame": 78510,
+   "rim_frame": 78520,
+   "outcome": "made",
+   "points": 2,
+   "shooter_xyxy": [
+    1193.2,
+    248.6,
+    1271.9,
+    506.2
+   ],
+   "shooter_team": "away",
+   "note": ""
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s229",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 229,
+   "held_out": false,
+   "release_frame": 85040,
+   "rim_frame": 85080,
+   "outcome": "missed",
+   "points": 2,
+   "shooter_xyxy": [
+    907.7,
+    215.0,
+    977.8,
+    472.7
+   ],
+   "shooter_team": "away",
+   "note": ""
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s229",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 229,
+   "held_out": false,
+   "release_frame": 85195,
+   "rim_frame": 85280,
+   "outcome": "missed",
+   "points": 2,
+   "shooter_xyxy": [
+    1217.3,
+    252.6,
+    1323.8,
+    463.9
+   ],
+   "shooter_team": "away",
+   "note": "a missed shot from behind the board"
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s271",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 271,
+   "held_out": false,
+   "release_frame": 104580,
+   "rim_frame": 104640,
+   "outcome": "missed",
+   "points": 1,
+   "shooter_xyxy": [
+    962.4,
+    353.4,
+    1040.7,
+    659.3
+   ],
+   "shooter_team": "home",
+   "note": "free throw (light kit): light shooter on the free-throw line, lane lined up, game clock frozen at 16.1 until after the rebound; ball hits the backboard and rim and bounces off right, dark rebound; score stays 8:23"
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s271",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 271,
+   "held_out": false,
+   "release_frame": 105590,
+   "rim_frame": 105650,
+   "outcome": "made",
+   "points": 2,
+   "shooter_xyxy": [
+    990.8,
+    374.6,
+    1084.5,
+    615.5
+   ],
+   "shooter_team": "away",
+   "note": ""
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s324",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 324,
+   "held_out": false,
+   "release_frame": 123925,
+   "rim_frame": 123990,
+   "outcome": "made",
+   "points": 1,
+   "shooter_xyxy": [
+    769.9,
+    375.8,
+    849.1,
+    664.9
+   ],
+   "shooter_team": "away",
+   "note": "free throw (dark kit): dark #4 on the free-throw line, lane lined up, clock frozen at 8:22; score 13:31 -> 13:32 by 124015. Only one free throw in this sequence; rest of the sequence is a light possession at the left basket with no attempt"
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s342",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 342,
+   "held_out": false,
+   "release_frame": 136360,
+   "rim_frame": 136360,
+   "outcome": "made",
+   "points": 2,
+   "shooter_xyxy": [
+    659.9,
+    178.2,
+    722.8,
+    450.3
+   ],
+   "shooter_team": "home",
+   "note": ""
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s366",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 366,
+   "held_out": false,
+   "release_frame": 149315,
+   "rim_frame": 149375,
+   "outcome": "made",
+   "points": 1,
+   "shooter_xyxy": [
+    684.3,
+    356.5,
+    779.3,
+    662.5
+   ],
+   "shooter_team": "away",
+   "note": "free throw (dark kit): dark #1 on the free-throw line, lane lined up, clock frozen at 5:27; ball drops through the ring; score 22:35 -> 22:36. Next free throw not yet released when the sequence ends (shooter waiting at 149694)"
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s377",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 377,
+   "held_out": false,
+   "release_frame": 156600,
+   "rim_frame": 156685,
+   "outcome": "made",
+   "points": 3,
+   "shooter_xyxy": [
+    1232.9,
+    295.9,
+    1297.2,
+    482.3
+   ],
+   "shooter_team": "home",
+   "note": ""
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s439",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 439,
+   "held_out": false,
+   "release_frame": 183065,
+   "rim_frame": 183135,
+   "outcome": "made",
+   "points": 3,
+   "shooter_xyxy": [
+    1393.0,
+    468.2,
+    1478.5,
+    775.7
+   ],
+   "shooter_team": "away",
+   "note": ""
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s683",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 683,
+   "held_out": false,
+   "release_frame": 250860,
+   "rim_frame": 250895,
+   "outcome": "made",
+   "points": 2,
+   "shooter_xyxy": [
+    693.5,
+    266.1,
+    759.5,
+    456.5
+   ],
+   "shooter_team": "away",
+   "note": ""
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s700",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 700,
+   "held_out": false,
+   "release_frame": 257005,
+   "rim_frame": 257015,
+   "outcome": "made",
+   "points": 2,
+   "shooter_xyxy": [
+    661.6,
+    349.1,
+    744.8,
+    528.2
+   ],
+   "shooter_team": "away",
+   "note": "layup shot for an alley oop pass landed in the basket"
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s712",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 712,
+   "held_out": false,
+   "release_frame": 262945,
+   "rim_frame": 263010,
+   "outcome": "missed",
+   "points": 2,
+   "shooter_xyxy": [
+    1583.8,
+    393.8,
+    1669.3,
+    671.4
+   ],
+   "shooter_team": "home",
+   "note": ""
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s712",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 712,
+   "held_out": false,
+   "release_frame": 263490,
+   "rim_frame": 263500,
+   "outcome": "made",
+   "points": 2,
+   "shooter_xyxy": [
+    697.1,
+    326.7,
+    770.9,
+    557.1
+   ],
+   "shooter_team": "away",
+   "note": ""
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s750",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 750,
+   "held_out": false,
+   "release_frame": 279035,
+   "rim_frame": 279065,
+   "outcome": "missed",
+   "points": 2,
+   "shooter_xyxy": [
+    863.7,
+    341.7,
+    944.2,
+    540.6
+   ],
+   "shooter_team": "home",
+   "note": ""
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s750",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 750,
+   "held_out": false,
+   "release_frame": 279660,
+   "rim_frame": 279725,
+   "outcome": "missed",
+   "points": 3,
+   "shooter_xyxy": [
+    844.2,
+    515.3,
+    928.4,
+    835.9
+   ],
+   "shooter_team": "away",
+   "note": ""
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s750",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 750,
+   "held_out": false,
+   "release_frame": 279780,
+   "rim_frame": 279800,
+   "outcome": "missed",
+   "points": 2,
+   "shooter_xyxy": [
+    772.4,
+    278.1,
+    870.7,
+    529.8
+   ],
+   "shooter_team": "away",
+   "note": ""
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s750",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 750,
+   "held_out": false,
+   "release_frame": 280330,
+   "rim_frame": 280365,
+   "outcome": "made",
+   "points": 2,
+   "shooter_xyxy": [
+    976.9,
+    289.9,
+    1071.3,
+    494.4
+   ],
+   "shooter_team": "home",
+   "note": ""
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s793",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 793,
+   "held_out": false,
+   "release_frame": 295840,
+   "rim_frame": 295895,
+   "outcome": "missed",
+   "points": 1,
+   "shooter_xyxy": [
+    949.1,
+    350.1,
+    1041.8,
+    640.3
+   ],
+   "shooter_team": "away",
+   "note": "free throw (dark kit): dark (curly hair, green shoes) free throw, rattles out; score 41:69 unchanged; clock stopped 3:14; same shooter back at the line at end of shot (next FT after the end)"
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s804",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 804,
+   "held_out": false,
+   "release_frame": 302795,
+   "rim_frame": 302810,
+   "outcome": "made",
+   "points": 2,
+   "shooter_xyxy": [
+    1277.1,
+    399.2,
+    1342.8,
+    586.5
+   ],
+   "shooter_team": "home",
+   "note": ""
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s813",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 813,
+   "held_out": false,
+   "release_frame": 311050,
+   "rim_frame": 311055,
+   "outcome": "missed",
+   "points": 2,
+   "shooter_xyxy": [
+    998.5,
+    227.0,
+    1059.5,
+    474.8
+   ],
+   "shooter_team": "home",
+   "note": "shot blocked by the defender"
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s826",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 826,
+   "held_out": false,
+   "release_frame": 316210,
+   "rim_frame": 316220,
+   "outcome": "made",
+   "points": 2,
+   "shooter_xyxy": [
+    1223.7,
+    351.9,
+    1302.0,
+    504.8
+   ],
+   "shooter_team": "home",
+   "note": ""
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s851",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 851,
+   "held_out": false,
+   "release_frame": 332210,
+   "rim_frame": 332265,
+   "outcome": "missed",
+   "points": 2,
+   "shooter_xyxy": [
+    1087.4,
+    190.1,
+    1140.9,
+    353.0
+   ],
+   "shooter_team": "home",
+   "note": ""
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s851",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 851,
+   "held_out": false,
+   "release_frame": 332400,
+   "rim_frame": 332415,
+   "outcome": "missed",
+   "points": 2,
+   "shooter_xyxy": [
+    1197.1,
+    238.8,
+    1325.0,
+    496.4
+   ],
+   "shooter_team": "home",
+   "note": ""
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s888",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 888,
+   "held_out": false,
+   "release_frame": 352605,
+   "rim_frame": 352660,
+   "outcome": "made",
+   "points": 1,
+   "shooter_xyxy": [
+    794.0,
+    391.0,
+    881.7,
+    671.2
+   ],
+   "shooter_team": "home",
+   "note": "free throw (light kit): light #37 free throw, bounces on the ring and drops; SOP 50->51"
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s909",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 909,
+   "held_out": false,
+   "release_frame": 370705,
+   "rim_frame": 370710,
+   "outcome": "missed",
+   "points": 2,
+   "shooter_xyxy": [
+    1085.3,
+    344.3,
+    1170.3,
+    562.2
+   ],
+   "shooter_team": "home",
+   "note": "blocked by the defender"
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s909",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 909,
+   "held_out": false,
+   "release_frame": 371100,
+   "rim_frame": 371120,
+   "outcome": "made",
+   "points": 2,
+   "shooter_xyxy": [
+    678.0,
+    266.3,
+    764.5,
+    506.2
+   ],
+   "shooter_team": "away",
+   "note": ""
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s930",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 930,
+   "held_out": false,
+   "release_frame": 380560,
+   "rim_frame": 380615,
+   "outcome": "made",
+   "points": 1,
+   "shooter_xyxy": [
+    1142.0,
+    393.7,
+    1198.9,
+    624.4
+   ],
+   "shooter_team": "away",
+   "note": "free throw (dark kit): dark (curly hair) free throw, clean; DZI 91->92; same shooter back at the line at end of shot"
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s943",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 943,
+   "held_out": false,
+   "release_frame": 386135,
+   "rim_frame": 386190,
+   "outcome": "made",
+   "points": 1,
+   "shooter_xyxy": [
+    780.5,
+    362.9,
+    869.2,
+    632.3
+   ],
+   "shooter_team": "home",
+   "note": "free throw (light kit): light #3 first free throw; SOP 57->58"
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s943",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 943,
+   "held_out": false,
+   "release_frame": 386870,
+   "rim_frame": 386920,
+   "outcome": "missed",
+   "points": 1,
+   "shooter_xyxy": [
+    782.0,
+    369.3,
+    859.4,
+    586.4
+   ],
+   "shooter_team": "home",
+   "note": "free throw (light kit): light #3 second free throw, bounces on the ring and out, light #7 rebound (putback #x0); score stays 58:95"
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s943",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 943,
+   "held_out": false,
+   "release_frame": 387060,
+   "rim_frame": 387065,
+   "outcome": "missed",
+   "points": 2,
+   "shooter_xyxy": [
+    1187.3,
+    248.0,
+    1294.0,
+    508.1
+   ],
+   "shooter_team": "home",
+   "note": "blocker by the defender"
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s943",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 943,
+   "held_out": false,
+   "release_frame": 388375,
+   "rim_frame": 388425,
+   "outcome": "made",
+   "points": 2,
+   "shooter_xyxy": [
+    898.0,
+    293.6,
+    1002.8,
+    575.0
+   ],
+   "shooter_team": "away",
+   "note": ""
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s955",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 955,
+   "held_out": false,
+   "release_frame": 392575,
+   "rim_frame": 392580,
+   "outcome": "missed",
+   "points": 2,
+   "shooter_xyxy": [
+    951.3,
+    242.7,
+    1043.8,
+    455.1
+   ],
+   "shooter_team": "home",
+   "note": "blocked by the defender"
+  },
+  {
+   "sequence": "vHfwZeG4BPw_s966",
+   "youtube_id": "vHfwZeG4BPw",
+   "shot": 966,
+   "held_out": false,
+   "release_frame": 399845,
+   "rim_frame": 399886,
+   "outcome": "missed",
+   "points": 2,
+   "shooter_xyxy": [
+    1083.0,
+    306.0,
+    1193.0,
+    461.5
    ],
    "shooter_team": "home",
    "note": ""
