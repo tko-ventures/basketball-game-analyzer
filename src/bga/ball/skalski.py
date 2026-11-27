@@ -169,6 +169,7 @@ def _run_shot_tracker(
                     "x_m": round(pt[0], 3) if pt is not None else None,
                     "y_m": round(pt[1], 3) if pt is not None else None,
                     "points": shot_points(pt[0], pt[1], basket) if pt is not None else 2,
+                    "kind": "field_goal",
                 })
     return shots, anchors
 

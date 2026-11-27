@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import itertools
 import math
+import statistics
 import time
 from typing import Any, ClassVar
 
@@ -701,6 +702,56 @@ def _find_shooter(
     return shooter, release
 
 
+def _scene_motion_m(
+    pos_by_tid: dict[int, dict[int, tuple[float, float]]], frame: int, window: int, tol: int, min_tracks: int
+) -> float | None:
+    """Return the median court displacement (m) over ``window`` frames up to ``frame`` of tracks seen at both ends.
+
+    A track counts when it has a position within ``tol`` frames after ``frame - window`` and within ``tol`` frames
+    before ``frame``. Returns ``None`` when fewer than ``min_tracks`` tracks count.
+
+    Examples:
+        >>> pos = {1: {0: (0.0, 0.0), 90: (0.2, 0.0)}, 2: {0: (5.0, 5.0), 90: (5.0, 6.0)}, 3: {90: (1.0, 1.0)}}
+        >>> _scene_motion_m(pos, 90, 90, 10, 2), _scene_motion_m(pos, 90, 90, 10, 3)
+        (0.6, None)
+
+    """
+    moves = []
+    for track in pos_by_tid.values():
+        first = [f for f in track if frame - window <= f <= frame - window + tol]
+        last = [f for f in track if frame - tol <= f <= frame]
+        if first and last:
+            (x0, y0), (x1, y1) = track[min(first)], track[max(last)]
+            moves.append(math.hypot(x1 - x0, y1 - y0))
+    return statistics.median(moves) if len(moves) >= max(1, min_tracks) else None
+
+
+def _is_free_throw(
+    shot: dict[str, Any], pos_by_tid: dict[int, dict[int, tuple[float, float]]], fps: float, params: dict[str, Any]
+) -> bool:
+    """Return whether a detected shot is a free throw: the whole scene stood still before its release.
+
+    On when ``ft_scene_still_m > 0``: the median displacement of tracks over ``ft_scene_window_s`` (source seconds)
+    before the release is at most that many metres, over at least ``ft_scene_min_tracks`` tracks. Players line up and
+    wait for a free throw; in live play someone is always moving.
+
+    Examples:
+        >>> still = {t: {f: (float(t), 3.0) for f in range(0, 100, 5)} for t in range(5)}
+        >>> p = {**FusedBall.defaults, "ft_scene_still_m": 0.45}
+        >>> _is_free_throw({"start_frame": 95}, still, 60.0, p), _is_free_throw({"start_frame": 95}, still, 60.0, {})
+        (True, False)
+
+    """
+    limit = float(params.get("ft_scene_still_m", 0.0))
+    if limit <= 0:
+        return False
+    window = round(float(params["ft_scene_window_s"]) * fps)
+    motion = _scene_motion_m(
+        pos_by_tid, int(shot["start_frame"]), window, max(1, round(0.2 * fps)), int(params["ft_scene_min_tracks"])
+    )
+    return motion is not None and motion <= limit
+
+
 def _detect_shots(
     seq: Sequence,
     state: BallTrackState,
@@ -708,7 +759,12 @@ def _detect_shots(
     pos_by_tid: dict[int, dict[int, tuple[float, float]]],
     params: dict[str, Any],
 ) -> tuple[list[dict[str, Any]], dict[int, tuple[float, float]]]:
-    """Detect shot attempts, outcomes, shooters, and 2/3-point values from rim-arrival trajectories."""
+    """Detect shot attempts, outcomes, shooters, and 2/3-point values from rim-arrival trajectories.
+
+    A shot that :func:`_is_free_throw` accepts gets ``kind="free_throw"``, ``shot_type="free_throw"`` and 1 point;
+    every other shot is ``kind="field_goal"``.
+
+    """
     eff_fps = effective_fps(seq)
     rel = _rim_relative_ball(state.frames, state.ball_px, state.rims)
     clusters = _shot_rim_clusters(rel, params, eff_fps)
@@ -747,7 +803,11 @@ def _detect_shots(
             "x_m": round(pt[0], 3) if pt is not None else None,
             "y_m": round(pt[1], 3) if pt is not None else None,
             "points": pts,
+            "kind": "field_goal",
         })
+    for shot in shots:
+        if _is_free_throw(shot, pos_by_tid, float(seq.fps), params):
+            shot.update(kind="free_throw", shot_type="free_throw", points=1)
     return shots, anchors
 
 
@@ -802,6 +862,9 @@ class FusedBall(BaseBackend):
         "shot_team_window_s": 0.0,
         "bib_conf": 0.20,
         "outcome_local_rw": 0.0,
+        "ft_scene_still_m": 0.0,
+        "ft_scene_window_s": 1.5,
+        "ft_scene_min_tracks": 4,
     }
 
     def run(self, seq: Sequence, upstream: dict[str, Any], read: FrameReader) -> dict[str, Any]:

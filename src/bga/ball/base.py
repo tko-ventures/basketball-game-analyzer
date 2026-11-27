@@ -25,7 +25,8 @@ Every backend in ``bga.ball`` returns::
                 "shooter_team": str | None,
                 "x_m": float | None,
                 "y_m": float | None,
-                "points": int,
+                "points": int,              # 1 for a free throw
+                "kind": "field_goal" | "free_throw",
             }
         ],
         "rims": {"<frame>": [x1, y1, x2, y2, conf]},

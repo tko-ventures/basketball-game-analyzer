@@ -542,6 +542,27 @@ class TestFusedBall:
         out = FusedBall(params).run(seq, upstream, _dummy_read)
         assert [(s["shooter_track_id"], s["outcome"]) for s in out["shots"]] == [(1, "made")]
 
+    @pytest.mark.parametrize(
+        ("params", "expected"),
+        [
+            pytest.param({}, ("field_goal", 3), id="off-by-default"),
+            pytest.param(
+                {"ft_scene_still_m": 0.45, "ft_scene_window_s": 0.4, "ft_scene_min_tracks": 1},
+                ("free_throw", 1),
+                id="still-scene",
+            ),
+            pytest.param(
+                {"ft_scene_still_m": 0.45, "ft_scene_window_s": 0.4, "ft_scene_min_tracks": 4},
+                ("field_goal", 3),
+                id="scene-too-few-tracks",
+            ),
+        ],
+    )
+    def test_free_throw_tag(self, params: dict[str, Any], expected: tuple[str, int]) -> None:
+        seq, upstream = _synthetic_shot_upstream(made=True)
+        out = FusedBall(params).run(seq, upstream, _dummy_read)
+        assert [(s["kind"], s["points"]) for s in out["shots"]] == [expected]
+
 
 class TestSkalskiBall:
     """Reference Skalski baseline backend."""
