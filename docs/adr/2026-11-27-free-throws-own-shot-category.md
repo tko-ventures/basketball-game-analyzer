@@ -19,10 +19,10 @@ Full-game shot gold (Gliwice dev, PGE Start held-out, both 60 fps) added 29 + 22
 
 - Full-game dev: first-pass free throws measure 0.20 to 0.37 m of scene movement before release; all 28 confirmed field goals measure 0.61 m or more.
 - Dev r3, v5 to v6: shot F1 0.844 to 0.898 (P 0.76 to 0.85, R 0.95 unchanged); the other columns are unchanged (`docs/metrics.md`, 2026-11-27).
+- Confirmed free throws (Tomasz, 2026-11-27): dev 6, held-out 6. Dev r3 v6: FT F1 0.857 (P 0.75, R 1.00, 8 predicted / 6), outcome acc 1.000; the 2 extra are false shots during line-ups.
 - Rejected: shooter standing still within 1.5 m of the free-throw spot. It caught 2 of 7 free throws, both already caught by the scene rule, and fired on 2 false shots during line-ups.
 
 ## Consequences
 
-- FT F1 is measured once Tomasz's free-throw confirmations are exported.
 - Fouls (#54) can build on free throws, since they mark shooting fouls.
 - A scorebug read (frozen clock) would be a stronger signal than stillness; it is out of scope until #54.
