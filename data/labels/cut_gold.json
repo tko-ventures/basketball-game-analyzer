@@ -14752,6 +14752,5581 @@
      "verdict": "cut"
     }
    ]
+  },
+  "20260926_Tnuscrm9RyU_SKROT_Dziki_-_Zastal_po_fina_Superpucharu_Polski": {
+   "fps": 50.0,
+   "spans": [
+    [
+     0,
+     9480
+    ]
+   ],
+   "agree_sample": {
+    "read": 20,
+    "real": 20
+   },
+   "transitions": [
+    {
+     "frame": 306,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 406,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 819,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 874,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 1232,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 1325,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 1617,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 1655,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 2061,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 2393,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 2419,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 2762,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 2824,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 3157,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 3393,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 3413,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "continuous fast pan on a close-up"
+    },
+    {
+     "frame": 3442,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 3833,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 4299,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 4508,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 4718,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 4738,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "continuous fast pan on a close-up"
+    },
+    {
+     "frame": 4766,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 5077,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 5140,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 5452,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 5488,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "LED board changes behind a close-up, same camera"
+    },
+    {
+     "frame": 5510,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 5801,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 6053,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 6450,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 6492,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 6879,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 7437,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 7848,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 7953,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 8415,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 8879,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 9165,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    }
+   ]
+  },
+  "20261011_1A79NXz9CFM_ZAPIS_TRANSMISJI_Dziki_Warszawa_-_PGE_Start_Lublin": {
+   "fps": 60.0,
+   "spans": [
+    [
+     42988,
+     97456
+    ],
+    [
+     106715,
+     109532
+    ],
+    [
+     121101,
+     187758
+    ],
+    [
+     242531,
+     423633
+    ]
+   ],
+   "agree_sample": {
+    "read": 40,
+    "real": 40
+   },
+   "transitions": [
+    {
+     "frame": 42988,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 45280,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 45471,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 48001,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 48295,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 48258,
+     "last": 48294,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 48425,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "slow-motion replay, continuous"
+    },
+    {
+     "frame": 48463,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "slow-motion replay, continuous"
+    },
+    {
+     "frame": 48553,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 48549,
+     "last": 48585,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 49699,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 49762,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut",
+     "note": "close-up to main camera"
+    },
+    {
+     "frame": 50661,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 50784,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 50777,
+     "last": 50813,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 50967,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "slow-motion replay, continuous pan"
+    },
+    {
+     "frame": 50992,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "slow-motion replay, continuous pan"
+    },
+    {
+     "frame": 51115,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 51112,
+     "last": 51147,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 51511,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 51627,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 51864,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 52001,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 52233,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 52433,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 52701,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 52783,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 54661,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 54871,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 55137,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 55297,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 56287,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 56358,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 58349,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 58409,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 58487,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 59777,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 59923,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 61483,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 61589,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 61585,
+     "last": 61623,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 61619,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 61585,
+     "last": 61623,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 61714,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "continuous main camera"
+    },
+    {
+     "frame": 61744,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "continuous main camera"
+    },
+    {
+     "frame": 61908,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 61903,
+     "last": 61940,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 61939,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "gradual",
+     "first": 61903,
+     "last": 61940,
+     "note": "extent of the read entry at 61908"
+    },
+    {
+     "frame": 62341,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 62445,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 62560,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut",
+     "note": "close-up to main camera"
+    },
+    {
+     "frame": 63169,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 63298,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 63360,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 66153,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 66309,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 66400,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 66720,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 66831,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 69148,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 69301,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 69828,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 70045,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 70151,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 70665,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 70809,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 74535,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 74619,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 74850,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 74844,
+     "last": 74880,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 74994,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "slow-motion replay, continuous"
+    },
+    {
+     "frame": 75079,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "slow-motion replay, continuous (same frame either side)"
+    },
+    {
+     "frame": 75145,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 75144,
+     "last": 75179,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 75529,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 75636,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 76726,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 76823,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 79092,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 79175,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut",
+     "note": "close-up to main camera"
+    },
+    {
+     "frame": 81415,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 81505,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 81502,
+     "last": 81538,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 81859,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 81856,
+     "last": 81892,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 82223,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 82591,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 82931,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 83087,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 83765,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 83961,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 85783,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 85869,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 87057,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 87160,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 87277,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 87789,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 87903,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 87994,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 88625,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 88783,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 88891,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 89179,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 89242,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 90906,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 91009,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 91002,
+     "last": 91038,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 91155,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "continuous main camera"
+    },
+    {
+     "frame": 91315,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 91309,
+     "last": 91346,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 91812,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 91893,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 92002,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 92908,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 92995,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 93663,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 93737,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 95106,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 95178,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 96005,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 96085,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut",
+     "note": "close-up to main camera"
+    },
+    {
+     "frame": 96525,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 96605,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 106715,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 108327,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 108537,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 109037,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 109140,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 121101,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 122361,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 122449,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut",
+     "note": "close-up to main camera"
+    },
+    {
+     "frame": 124007,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 124115,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 125523,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 125593,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 125731,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 125697,
+     "last": 125733,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 126007,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 126003,
+     "last": 126039,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 126219,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 126463,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 126562,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 127237,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 127390,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 127522,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 127833,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 127888,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 128466,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 128653,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 130885,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 130974,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 131041,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 131167,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 131161,
+     "last": 131198,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 131524,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 131526,
+     "last": 131562,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 134597,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 134681,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 134830,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut",
+     "note": "close-up to main camera"
+    },
+    {
+     "frame": 136627,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 136777,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 137131,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 137213,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 137361,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 138432,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 138594,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 138712,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 138973,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 138969,
+     "last": 139005,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 139273,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 139269,
+     "last": 139305,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 140423,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 140615,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 142524,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 142575,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 143562,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 143795,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 144171,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 144276,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 145344,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 145470,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 145636,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 147825,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 148050,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 148599,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 148588,
+     "last": 148603,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 149083,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 149077,
+     "last": 149089,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 149509,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 149495,
+     "last": 149515,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 152167,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 152157,
+     "last": 152179,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 152461,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 152452,
+     "last": 152469,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 154989,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 155071,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 155227,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 155221,
+     "last": 155258,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 155580,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 155574,
+     "last": 155610,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 155851,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 156017,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 159742,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 159897,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 160044,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 160008,
+     "last": 160044,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 160458,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 160451,
+     "last": 160487,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 160486,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 160451,
+     "last": 160487,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 160648,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 160785,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 161195,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 161326,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 161459,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 162010,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 162187,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 162329,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 164467,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 164563,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 164719,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 164712,
+     "last": 164748,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 165055,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 165048,
+     "last": 165084,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 165083,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 165048,
+     "last": 165084,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 168815,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 169023,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 168989,
+     "last": 169024,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 169506,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 169500,
+     "last": 169536,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 169857,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 170031,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 170950,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 171166,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 172110,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 172177,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 172765,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 172950,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 172944,
+     "last": 172980,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 173233,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 173227,
+     "last": 173264,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 174315,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 174556,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 175633,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 175804,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 176044,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 176167,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 177767,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 177852,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 178591,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 178693,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 180699,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 180797,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut",
+     "note": "close-up to main camera"
+    },
+    {
+     "frame": 183295,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 183370,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 184915,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 185015,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 187201,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 187266,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut",
+     "note": "close-up to main camera"
+    },
+    {
+     "frame": 242531,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 244720,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 244831,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 244942,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 245409,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 245575,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 245903,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 246024,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 246682,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 246942,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 247321,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 247407,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 248256,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 248557,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 248701,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 248699,
+     "last": 248735,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 248860,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "slow-motion replay, continuous"
+    },
+    {
+     "frame": 248886,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "slow-motion replay, continuous"
+    },
+    {
+     "frame": 248913,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "slow-motion replay, continuous"
+    },
+    {
+     "frame": 248945,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "slow-motion replay, continuous"
+    },
+    {
+     "frame": 249049,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 249047,
+     "last": 249084,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 249082,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 249047,
+     "last": 249084,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 249615,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 249795,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 250385,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 250594,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 252100,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 252186,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 252297,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 257057,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 257176,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 259571,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 259618,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut",
+     "note": "close-up to main camera"
+    },
+    {
+     "frame": 260593,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 260709,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut",
+     "note": "close-up to main camera"
+    },
+    {
+     "frame": 261491,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 261709,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 261702,
+     "last": 261738,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 261945,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "slow-motion replay, continuous (same frame either side)"
+    },
+    {
+     "frame": 262013,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 262008,
+     "last": 262043,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 262042,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 262008,
+     "last": 262043,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 262775,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 262945,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 264720,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 264821,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 265993,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 266340,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 267712,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 267778,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut",
+     "note": "close-up to main camera"
+    },
+    {
+     "frame": 269069,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 269060,
+     "last": 269075,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 269818,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 269811,
+     "last": 269826,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 271684,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 271671,
+     "last": 271690,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 271909,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 271904,
+     "last": 271918,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 272890,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 272884,
+     "last": 272892,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 273256,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 274903,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 275127,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 275857,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 276306,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 276754,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 278002,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 278219,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 278184,
+     "last": 278220,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 278346,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "slow-motion replay, continuous"
+    },
+    {
+     "frame": 278445,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "slow-motion replay, continuous"
+    },
+    {
+     "frame": 278472,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "slow-motion replay, continuous"
+    },
+    {
+     "frame": 278579,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 278573,
+     "last": 278609,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 278608,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 278573,
+     "last": 278609,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 279743,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 279880,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 280002,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 280403,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 280566,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 281919,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 282108,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 282247,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 282729,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 283073,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 283761,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 283945,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 284008,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 285222,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 285355,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 285505,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 285501,
+     "last": 285536,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 285822,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 285816,
+     "last": 285852,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 285851,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 285816,
+     "last": 285852,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 286051,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 286157,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 287087,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 287338,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 287740,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 288030,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 289581,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 289643,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut",
+     "note": "close-up to main camera"
+    },
+    {
+     "frame": 290428,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 290518,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 290635,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 291054,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 291156,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 292000,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 292135,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 292315,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 292422,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 295743,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 295816,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 297046,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 297193,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 299419,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 299573,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 300107,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 300319,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 300660,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 300743,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 300969,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 301095,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 303474,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 303633,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 305467,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 305539,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 306652,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 306718,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut",
+     "note": "close-up to main camera"
+    },
+    {
+     "frame": 307479,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 307609,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 307729,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 308166,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 308410,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 308921,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 309129,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 309613,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 309755,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 312024,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 312195,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut",
+     "note": "close-up to main camera"
+    },
+    {
+     "frame": 312460,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 312425,
+     "last": 312461,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 312855,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "slow-motion replay, continuous"
+    },
+    {
+     "frame": 312901,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 312898,
+     "last": 312933,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 312931,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 312898,
+     "last": 312933,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 313326,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 313476,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 313956,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 314021,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 314808,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 314893,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 316263,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 316413,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 317226,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 317327,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 318166,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 318243,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 318484,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 318587,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 321869,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 321922,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 322707,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 322785,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 322929,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 324202,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 324293,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 325181,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 325446,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 325579,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 326429,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 326596,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 326589,
+     "last": 326603,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 327630,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 327595,
+     "last": 327632,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 327899,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 327896,
+     "last": 327900,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 328206,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 328203,
+     "last": 328207,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 328516,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 328512,
+     "last": 328517,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 328578,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "slow-motion replay, LED board behind the play changes"
+    },
+    {
+     "frame": 328661,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 328658,
+     "last": 328662,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 328744,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "slow-motion replay, continuous"
+    },
+    {
+     "frame": 328875,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 329481,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 329488,
+     "last": 329523,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 331526,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 331517,
+     "last": 331531,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 331767,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 331758,
+     "last": 331775,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 332374,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 332629,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 336179,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 336267,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut",
+     "note": "close-up to main camera"
+    },
+    {
+     "frame": 337711,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 337869,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 337969,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 338536,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 338742,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 338850,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 340961,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 341023,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut",
+     "note": "close-up to main camera"
+    },
+    {
+     "frame": 343075,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 343158,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 343972,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 344171,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 344219,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "close-up, continuous (same frame either side)"
+    },
+    {
+     "frame": 344243,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 344787,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 345273,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 345478,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 345706,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 347580,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 347862,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 348381,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 348675,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 348879,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 352339,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 352541,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 352687,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 352681,
+     "last": 352718,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 353005,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 352999,
+     "last": 353034,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 353713,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 353962,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 354295,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 354713,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 355509,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 355681,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 358240,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 358234,
+     "last": 358270,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 358463,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "slow-motion replay, continuous pan"
+    },
+    {
+     "frame": 358506,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 358500,
+     "last": 358536,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 358752,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 358959,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 359674,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 359861,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 360629,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 360815,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 362013,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 362182,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 362734,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 362699,
+     "last": 362735,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 362896,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "slow-motion replay, continuous"
+    },
+    {
+     "frame": 362920,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "slow-motion replay, continuous"
+    },
+    {
+     "frame": 365087,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 365293,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 365289,
+     "last": 365325,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 365470,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "slow-motion replay, ball passing the camera"
+    },
+    {
+     "frame": 365567,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 365562,
+     "last": 365597,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 366751,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 366823,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 368874,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 368928,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut",
+     "note": "close-up to main camera"
+    },
+    {
+     "frame": 369239,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 369303,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 369873,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 370021,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 371014,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 371110,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 371217,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 372714,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 372855,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 373938,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 374146,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 375571,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 375670,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 377169,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 377410,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 379437,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 379761,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 379878,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 379875,
+     "last": 379882,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 380508,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 380501,
+     "last": 380513,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 381588,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 381579,
+     "last": 381593,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 383135,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 383131,
+     "last": 383138,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 383290,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 383283,
+     "last": 383298,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 383401,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 383397,
+     "last": 383432,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 383610,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "slow-motion replay, continuous pan"
+    },
+    {
+     "frame": 383739,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 383975,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 383972,
+     "last": 383976,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 384108,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 384101,
+     "last": 384137,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 386770,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 387143,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 387438,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 387601,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 387964,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 388101,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 388750,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 388890,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 389951,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 390058,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 390166,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 390684,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 390972,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 393161,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 393357,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 396201,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 396271,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 396373,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 396367,
+     "last": 396404,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 396661,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 396658,
+     "last": 396694,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 396917,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 397060,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 397135,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 397497,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 397637,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 398425,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 398491,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 400227,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 400308,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 400384,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 400991,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 400982,
+     "last": 400999,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 401248,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 401243,
+     "last": 401254,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 401588,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 401580,
+     "last": 401593,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 402117,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 402111,
+     "last": 402121,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 402319,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "cut",
+     "note": "hard cut inside the replay-review inset (full-screen graphic)"
+    },
+    {
+     "frame": 403048,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "cut",
+     "note": "hard cut inside the replay-review inset (full-screen graphic)"
+    },
+    {
+     "frame": 403563,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "cut",
+     "note": "hard cut inside the replay-review inset (full-screen graphic)"
+    },
+    {
+     "frame": 403608,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 403601,
+     "last": 403610,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 404399,
+     "by": [
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 404393,
+     "last": 404401,
+     "note": "dissolve, frames by progress between its ends"
+    },
+    {
+     "frame": 404965,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 405025,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 406438,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 406500,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 407250,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 407415,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 407713,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 407707,
+     "last": 407744,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 407913,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "slow-motion replay, continuous"
+    },
+    {
+     "frame": 407977,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 407973,
+     "last": 408009,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 408803,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 408906,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 409059,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 409860,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 409991,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 411785,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 411925,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 412045,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 412637,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 412870,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 413379,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 413515,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 413871,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 413992,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 415997,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 416087,
+     "by": [
+      "transnetv2@0.3"
+     ],
+     "reviewed": true,
+     "verdict": "no",
+     "note": "continuous close-up pan; the cut is 20 frames later (416107)"
+    },
+    {
+     "frame": 416107,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 416255,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 416219,
+     "last": 416254,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 416541,
+     "by": [
+      "hist_diff"
+     ],
+     "reviewed": true,
+     "verdict": "gradual",
+     "first": 416506,
+     "last": 416542,
+     "note": "blue league stinger, frames by card colour share"
+    },
+    {
+     "frame": 417090,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 417225,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 419230,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 419302,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    },
+    {
+     "frame": 419969,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 420072,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 420186,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 420766,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": false,
+     "verdict": "cut"
+    },
+    {
+     "frame": 420898,
+     "by": [
+      "hist_diff",
+      "transnetv2"
+     ],
+     "reviewed": true,
+     "verdict": "cut"
+    }
+   ]
   }
  }
 }

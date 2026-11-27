@@ -158,10 +158,17 @@ def dense(a):
     print(out)
 
 
-def red_share(img):
+#: League stinger card colours by sponsor: ORLEN red, PGE blue (OpenCV hue 0..180).
+CARD_HUES = {"red": ((0, 4), (172, 180)), "blue": ((109, 117),)}
+
+
+def card_share(img, color="red"):
     hsv = cv2.cvtColor(cv2.resize(img, (96, 54)), cv2.COLOR_BGR2HSV)
     h, sat, val = hsv[..., 0], hsv[..., 1], hsv[..., 2]
-    return float((((h <= 4) | (h >= 172)) & (sat > 170) & (val > 140)).mean())
+    hue = np.zeros(h.shape, bool)
+    for lo, hi in CARD_HUES[color]:
+        hue |= (h >= lo) & (h <= hi)
+    return float((hue & (sat > 170) & (val > 140)).mean())
 
 
 def stinger(a):
@@ -179,11 +186,11 @@ def stinger(a):
             ok, img = cap.read()
             if not ok:
                 break
-            share.append(red_share(img))
+            share.append(card_share(img, a.color))
         share = np.array(share)
         peak = int(np.argmax(share))
         if share[peak] < 0.6:
-            print(f"{cid}\t?\tno stinger card within 2 s (max red share {share[peak]:.2f})")
+            print(f"{cid}\t?\tno stinger card within 2 s (max {a.color} card share {share[peak]:.2f})")
             continue
         on = share > np.percentile(share, 20) + 0.05
         first = last = peak
@@ -191,7 +198,7 @@ def stinger(a):
             first -= 1
         while last < len(share) - 1 and on[last + 1]:
             last += 1
-        print(f"{cid}\tgradual {lo + first} {lo + last}\tORLEN stinger, frames by red share")
+        print(f"{cid}\tgradual {lo + first} {lo + last}\t{a.color} league stinger, frames by card colour share")
 
 
 def dissolve(a):
@@ -376,8 +383,9 @@ def main(argv=None):
     d.add_argument("end", type=int)
     d.add_argument("--step", type=int, default=1)
     d.add_argument("--out", required=True)
-    t = sub.add_parser("stinger", help="verdict lines for candidates on an ORLEN logo stinger")
+    t = sub.add_parser("stinger", help="verdict lines for candidates on a league logo stinger")
     t.add_argument("candidates")
+    t.add_argument("--color", choices=sorted(CARD_HUES), default="red", help="card colour: red ORLEN, blue PGE")
     t.add_argument("ids", type=int, nargs="+")
     x = sub.add_parser("dissolve", help="verdict lines for candidates on a dissolve")
     x.add_argument("candidates")
