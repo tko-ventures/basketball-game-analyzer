@@ -169,7 +169,7 @@ flowchart TB
 
         L6["«L6: positions — 2D FIBA court (x_m, y_m)»\nActive: bbox_bottom (linked-track box foot +\nw>0 guard + clean_paths smooth_window=9)\nComparator: ankles_pose (COCO 17-kp + airborne hold)"]:::layer
 
-        L7["«L7: ball — ball, possession & shots»\nActive: fused, ball-plk-fused-v6-r4 (rim-FP filter +\nDAG DP ball + Viterbi HMM possession +\nrim-trajectory shots, shooter before rim zone,\nfree throws by scene stillness)\nBaseline: skalski (pip + ShotEventTracker)"]:::layer
+        L7["«L7: ball — ball, possession & shots»\nActive: fused, ball-plk-fused-v8-r4 (rim-FP filter +\nDAG DP ball + Viterbi HMM possession +\nrim-trajectory shots with a shooter,\nfirst-contact rim frame,\nfree throws by scene stillness)\nBaseline: skalski (pip + ShotEventTracker)"]:::layer
 
         L0 --> L1
         L0 --> L2

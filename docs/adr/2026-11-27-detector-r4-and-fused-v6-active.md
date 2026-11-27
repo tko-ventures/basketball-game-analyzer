@@ -2,6 +2,7 @@
 
 - **Date:** 2026-11-27
 - **Status:** Accepted (Tomasz, 2026-11-27) on dev; held-out scored once with his approval the same day (mixed, below)
+- **Superseded in part by:** [2026-11-27-fused-v8-r4-active.md](2026-11-27-fused-v8-r4-active.md) (the active Layer 7 config; the detector decision stands)
 - **Area:** Pipeline (detect, L2; ball, L7)
 - **Decider:** Tomasz / Implementer
 - **Supersedes:** [2026-11-26-detector-r4-kept-as-comparator.md](2026-11-26-detector-r4-kept-as-comparator.md)

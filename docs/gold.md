@@ -340,3 +340,22 @@ Confirmed export (2026-11-26): Tomasz confirmed all 60 full-game shots and 422 f
 Tomasz decided that free throws are shots, captured as their own category. In shot gold a free throw is an attempt worth **1 point** (labeller key `1`), with release frame, rim frame, outcome and shooter like any attempt. Free throws were left out of the 26 highlight shots, so they are labelled only on the full-game shots: `uv run scripts/shot_gold.py apply-free-throws` adds the first-pass free throws (`data/labels/review/shot_gold_free_throws.tsv`) to every full-game shot and marks it `free_throws: proposed` ("free throws to check" on the page); confirming the shot marks them `labelled`, and the export lists those shots in `free_throw_sequences`. `bga eval-ball` scores field goals (2 and 3 points) in its shot columns and free throws in their own column, only on those shots.
 
 First pass: 13 free throws in 13 of the 60 shots (dev 7: 4 made, 3 missed; held-out 6: all made), none overlapping a confirmed field goal. A free throw whose rim frame falls outside its shot is left out. Release frames are estimates; every free-throw shooter still needs a click.
+
+### Third full game, dev (2026-11-27, #50, #53)
+
+After the held-out run of 2026-11-27, dev gained a third full-length game, so that shot precision and free throws are measured on more than one full game. The new game is Energa Trefl Sopot – Dziki Warszawa (`vHfwZeG4BPw`, 2026-01-31), an away arena.
+- **Leakage:** no highlights of it are in `data/clip_ids.txt` or any training manifest. It is a gold game in `data/labels/gold.json` (`full_game: true`, dev).
+- **Shots:** `prepare_clips.py` cut it into 1063 shots. Of the 304 shots of at least 6 s, 199 are tagged `central`. The rest are `other`:
+  - 47 with no scorebug;
+  - the half-time highlights of other games (s448–s680);
+  - close-ups and crowd shots.
+
+  A scorebug template match sorted the shots, and the shots with a scorebug were read on contact sheets (ledger rows of 2026-11-27).
+- **Pick:** `shot_gold.py add --count 40 --step-s 3 --max-s 40`, as for the other full games: 40 shots, 241 frames.
+- **First pass:**
+  - **Holders:** 165 settled and 76 flagged.
+  - **Attempts:** 28 field goals proposed (5 of them only on the rim close-ups) and 10 free throws. Five reader agents read the sheets; the results were spot-checked.
+- **Confirmed (Tomasz, 2026-11-27):**
+  - 29 field-goal attempts (14 made, 15 missed) and 10 free throws, every attempt with a shooter box;
+  - 241 frames (6 of the 165 first-pass holder frames changed).
+- **Export:** 126 shots, 130 attempts, 851 frames. Dev for `bga eval-ball` is now 107 shots, 89 field goals and 16 free throws.
