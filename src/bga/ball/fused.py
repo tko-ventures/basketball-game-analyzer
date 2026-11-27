@@ -782,8 +782,9 @@ def _detect_shots(
     """Detect shot attempts, outcomes, shooters, and 2/3-point values from rim-arrival trajectories.
 
     A shot that :func:`_is_free_throw` accepts gets ``kind="free_throw"``, ``shot_type="free_throw"`` and 1 point;
-    every other shot is ``kind="field_goal"``. ``shot_rim_pick`` chooses the rim frame of a rim-arrival cluster
-    (:func:`_cluster_rim_index`), and with ``shot_require_shooter`` an arrival without a shooter is no shot.
+    every other shot is ``kind="field_goal"``. ``shot_rim_pick`` chooses the reported rim frame of a rim-arrival
+    cluster (:func:`_cluster_rim_index`); outcome and shooter are always read from the step nearest the rim. With
+    ``shot_require_shooter`` an arrival without a shooter is no shot.
 
     """
     eff_fps = effective_fps(seq)
@@ -794,8 +795,8 @@ def _detect_shots(
     anchors: dict[int, tuple[float, float]] = {}
 
     for cl in clusters:
-        rim_idx = _cluster_rim_index(cl, rel, params.get("shot_rim_pick", "closest"))
-        rim_f = state.frames[rim_idx]
+        rim_idx = _cluster_rim_index(cl, rel, "closest")
+        rim_f = state.frames[_cluster_rim_index(cl, rel, params.get("shot_rim_pick", "closest"))]
         shooter_tid, release_f = _find_shooter(state, rim_idx, rel, params, eff_fps)
         if shooter_tid is None and params.get("shot_require_shooter", False):
             continue

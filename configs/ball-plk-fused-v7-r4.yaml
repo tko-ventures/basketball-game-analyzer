@@ -3,7 +3,8 @@ description: >
   Layer 7 v7 on plk-r4-l4 (#50, shot precision): ball-plk-fused-v6-r4 plus two shot rules. A rim arrival with no
   shooter is no shot (shot_require_shooter), and a shot's rim frame is its first contact with the rim or board
   instead of the step nearest the rim centre (shot_rim_pick first), so a ball that bounces and lands on the rim again
-  keeps the first contact's frame. Scored against ball-plk-fused-v6-r4.
+  keeps the first contact's frame (outcome and shooter still read from the step nearest the rim). Scored
+  against ball-plk-fused-v6-r4.
 layers:
   shots:
     backend: gold
