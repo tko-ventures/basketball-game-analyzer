@@ -35,35 +35,65 @@ COLS = ["HOTA", "DetA", "AssA", "IDF1", "MOTA", "IDSW", "team_acc", "pred_ids_pe
 
 
 def run_remote(config, keys, values, gpu):
-    """Run the track layer of every setting on Modal in one parallel batch, writing outputs where bga reads them."""
+    """Run the track layer of every setting on Modal in one parallel batch, writing outputs where bga reads them.
+
+    Like ``bga.pipeline.run``, a setting reruns outputs made by other track code and refuses to run on detect or court
+    outputs made by other code. Finished outputs are recorded with their code key even when the sweep stops part way.
+
+    """
     from bga.config import LAYERS
-    from bga.pipeline import _write_meta, load_output, output_path, sequences
+    from bga.pipeline import (
+        _write_meta,
+        check_upstreams,
+        code_keys,
+        load_output,
+        output_path,
+        sequences,
+        stale_sequences,
+    )
     from bga.remote.modal_runner import run_layer
 
+    runs = Path("runs")
     items = []
     for combo in itertools.product(*values):
         cfg = load_config(config, [f"{k}={v}" for k, v in zip(keys, combo, strict=True)])
-        for seq in sequences(cfg):
-            if not output_path(cfg, Path("runs"), seq, "track").exists():
-                ups = {u: load_output(cfg, Path("runs"), seq, u) for u in LAYERS["track"] if u in cfg.layers}
-                items.append((cfg, seq, ups))
+        cfg_keys = code_keys(cfg)
+        seqs = sequences(cfg)
+        stale = {s.name for s in stale_sequences(cfg, runs, seqs, "track", cfg_keys["track"])}
+        todo = [s for s in seqs if s.name in stale or not output_path(cfg, runs, s, "track").exists()]
+        check_upstreams(cfg, runs, todo, "track", cfg_keys)
+        for seq in todo:
+            ups = {u: load_output(cfg, runs, seq, u) for u in LAYERS["track"] if u in cfg.layers}
+            items.append((cfg, seq, ups, cfg_keys["track"]))
     if not items:
         return
     t0 = time.perf_counter()
-    entries = [cfg.layers["track"].model_dump() for cfg, _, _ in items]
+    entries = [cfg.layers["track"].model_dump() for cfg, _, _, _ in items]
+    finished = []
 
     def keep(i, out):  # written as each call finishes, so a stopped sweep keeps what finished
-        cfg, seq, _ = items[i]
-        path = output_path(cfg, Path("runs"), seq, "track")
+        cfg, seq, _, _ = items[i]
+        path = output_path(cfg, runs, seq, "track")
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(out, separators=(",", ":")))
+        finished.append(i)
 
-    run_layer("track", entries, [s for _, s, _ in items], [u for _, _, u in items], None if gpu == "cpu" else gpu, keep)
-    done = {}
-    for cfg, seq, _ in items:
-        done.setdefault(cfg.name, (cfg, []))[1].append(seq)
-    for cfg, seqs in done.values():
-        _write_meta(cfg, Path("runs"), "track", seqs, t0)
+    try:
+        run_layer(
+            "track",
+            entries,
+            [s for _, s, _, _ in items],
+            [u for _, _, u, _ in items],
+            None if gpu == "cpu" else gpu,
+            keep,
+        )
+    finally:
+        done = {}
+        for i in finished:
+            cfg, seq, _, key = items[i]
+            done.setdefault(cfg.name, (cfg, key, []))[2].append(seq)
+        for cfg, key, seqs in done.values():
+            _write_meta(cfg, runs, "track", seqs, t0, key)
 
 
 def main(argv=None):

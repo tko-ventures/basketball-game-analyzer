@@ -141,7 +141,7 @@ flowchart TB
     subgraph core["«Container: bga Core Engine»"]
         cfg["«Component»\nConfig & Hashing (config.py)\nRunConfig Pydantic schema,\nSHA-256 layer_hash & --set overrides"]:::engine
         reg["«Component»\nBackend Registry (registry.py)\n@register(layer, name)\nLazy plugin loader"]:::engine
-        orch["«Component»\nLayer Orchestrator (pipeline.py)\nSequential load->infer->unload;\natomic JSON+.npy cache & meta.json"]:::engine
+        orch["«Component»\nLayer Orchestrator (pipeline.py)\nSequential load->infer->unload;\natomic JSON+.npy cache & meta.json;\nreruns outputs of changed code (code keys)"]:::engine
         reader["«Component»\nFrameReader & Device\n(stage.py, device.py)\nSequential grab <=64f (~4ms/f);\nCUDA->MPS->CPU selection"]:::engine
         cfg --> orch
         reg --> orch
