@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 import json
+from collections.abc import Sequence as Seq
 from pathlib import Path
-from typing import ClassVar
+from typing import Any, ClassVar
 
 import numpy as np
 import pytest
@@ -273,3 +274,112 @@ class TestPipelineAndEvalIntegration:
         assert out1["seen"] == ["clipA_s1", "clipA_s2"]
         assert out2["numbers"] == {"1": "7"}
         assert _track_numbers(cfg, tmp_path, s1, {"numbers": {"1": "99"}}) == {"1": "7"}
+
+
+# --- Reference: the clustering before it was vectorised (#32), same merge order, constraints and split log. ---
+
+
+def _ref_distance(ca: list[int], cb: list[int], embeddings: Seq[np.ndarray | None], linkage: str) -> float | None:
+    """Average or complete cosine distance between two clusters' unit embeddings, or ``None`` if unavailable."""
+    dists = [
+        1.0 - float(embeddings[i] @ embeddings[j])
+        for i in ca
+        for j in cb
+        if embeddings[i] is not None and embeddings[j] is not None
+    ]
+    if not dists:
+        return None
+    return max(dists) if linkage == "complete" else float(np.mean(dists))
+
+
+def _ref_can_merge(
+    ca: list[int],
+    cb: list[int],
+    tracks: Seq[TrackEvidence],
+    confirmed: Seq[str | None],
+) -> tuple[bool, bool]:
+    """Return ``(allowed, number_conflict)`` for merging two track clusters."""
+    for i in ca:
+        for j in cb:
+            if tracks[i].seq == tracks[j].seq and (tracks[i].frames & tracks[j].frames):
+                return False, False
+    nums = {confirmed[i] for i in (*ca, *cb) if confirmed[i] is not None}
+    if len(nums) > 1:
+        return False, True
+    return True, False
+
+
+def reference_cluster_team_tracks(
+    tracks: Seq[TrackEvidence],
+    confirmed: Seq[str | None],
+    max_dist: float = 0.18,
+    linkage: str = "average",
+) -> tuple[list[list[int]], list[dict[str, Any]]]:
+    """The pure-Python clustering ``cluster_team_tracks`` replaced (commit ab3420f), kept as its reference."""
+    embeddings = [t.embedding for t in tracks]
+    clusters = [[i] for i in range(len(tracks))]
+    splits: list[dict[str, Any]] = []
+    seen_splits: set[tuple[tuple[str, int], ...]] = set()
+    while True:
+        best: tuple[float, int, int] | None = None
+        for a in range(len(clusters)):
+            for b in range(a + 1, len(clusters)):
+                dist = _ref_distance(clusters[a], clusters[b], embeddings, linkage)
+                if dist is None or dist > max_dist:
+                    continue
+                ok, num_conflict = _ref_can_merge(clusters[a], clusters[b], tracks, confirmed)
+                if not ok:
+                    if num_conflict:
+                        key = tuple(sorted((tracks[i].seq, tracks[i].tid) for i in clusters[a] + clusters[b]))
+                        if key not in seen_splits:
+                            seen_splits.add(key)
+                            splits.append({
+                                "kind": "cluster_split_conflict",
+                                "dist": round(dist, 4),
+                                "numbers": sorted({confirmed[i] for i in clusters[a] + clusters[b] if confirmed[i]}),
+                                "tracks": [list(k) for k in key],
+                            })
+                    continue
+                if best is None or dist < best[0]:
+                    best = (dist, a, b)
+        if best is None:
+            break
+        _, a, b = best
+        clusters[a] = clusters[a] + clusters[b]
+        clusters.pop(b)
+    return clusters, splits
+
+
+def random_team(seed: int, n: int = 40) -> tuple[list[TrackEvidence], list[str | None]]:
+    """A random team: tracks over 6 shots with clustered embeddings, some missing, overlapping frames, and numbers."""
+    rng = np.random.default_rng(seed)
+    centres = rng.normal(size=(8, 16))
+    tracks, confirmed = [], []
+    for i in range(n):
+        emb = centres[rng.integers(8)] + rng.normal(scale=0.35, size=16)
+        emb = (emb / np.linalg.norm(emb)).astype(np.float32) if rng.random() > 0.1 else None
+        start = int(rng.integers(0, 40))
+        frames = set(range(start, start + int(rng.integers(1, 15))))
+        tracks.append(TrackEvidence(f"s{rng.integers(6)}", i, "home", boxes=len(frames), frames=frames, embedding=emb))
+        confirmed.append(str(rng.integers(3)) if rng.random() < 0.3 else None)
+    return tracks, confirmed
+
+
+class TestVectorisedClusteringMatchesReference:
+    """The vectorised clustering gives the reference's clusters and split log on random teams."""
+
+    @pytest.mark.parametrize("linkage", ["average", "complete"])
+    @pytest.mark.parametrize("seed", [pytest.param(s, id=f"seed{s}") for s in range(8)])
+    def test_same_clusters_and_splits(self, seed: int, linkage: str) -> None:
+        tracks, confirmed = random_team(seed)
+        expected = reference_cluster_team_tracks(tracks, confirmed, max_dist=0.3, linkage=linkage)
+        assert cluster_team_tracks(tracks, confirmed, max_dist=0.3, linkage=linkage) == expected
+
+    def test_merges_happen(self) -> None:
+        tracks, confirmed = random_team(0)
+        clusters, _ = cluster_team_tracks(tracks, confirmed, max_dist=0.3)
+        assert len(clusters) < len(tracks)
+
+    def test_single_track_is_one_cluster(self) -> None:
+        tracks, confirmed = random_team(0, n=1)
+        assert cluster_team_tracks(tracks, confirmed) == ([[0]], [])
