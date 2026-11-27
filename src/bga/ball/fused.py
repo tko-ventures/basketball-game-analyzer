@@ -747,25 +747,38 @@ def _scene_motion_m(
 
 
 def _is_free_throw(
-    shot: dict[str, Any], pos_by_tid: dict[int, dict[int, tuple[float, float]]], fps: float, params: dict[str, Any]
+    shot: dict[str, Any],
+    pos_by_tid: dict[int, dict[int, tuple[float, float]]],
+    fps: float,
+    params: dict[str, Any],
+    seq_start: int | None = None,
 ) -> bool:
     """Return whether a detected shot is a free throw: the whole scene stood still before its release.
 
     On when ``ft_scene_still_m > 0``: the median displacement of tracks over ``ft_scene_window_s`` (source seconds)
     before the release is at most that many metres, over at least ``ft_scene_min_tracks`` tracks. Players line up and
-    wait for a free throw; in live play someone is always moving.
+    wait for a free throw; in live play someone is always moving. A camera shot often cuts to the line just before the
+    release; with ``ft_scene_min_window_s > 0`` the window then starts at ``seq_start`` instead, as long as at least
+    that many seconds remain.
 
     Examples:
-        >>> still = {t: {f: (float(t), 3.0) for f in range(0, 100, 5)} for t in range(5)}
+        >>> still = {t: {f: (float(t), 3.0) for f in range(60, 100, 5)} for t in range(5)}
         >>> p = {**FusedBall.defaults, "ft_scene_still_m": 0.45}
         >>> _is_free_throw({"start_frame": 95}, still, 60.0, p), _is_free_throw({"start_frame": 95}, still, 60.0, {})
-        (True, False)
+        (False, False)
+        >>> _is_free_throw({"start_frame": 95}, still, 60.0, {**p, "ft_scene_min_window_s": 0.5}, seq_start=60)
+        True
 
     """
     limit = float(params.get("ft_scene_still_m", 0.0))
     if limit <= 0:
         return False
     window = round(float(params["ft_scene_window_s"]) * fps)
+    min_window = round(float(params.get("ft_scene_min_window_s", 0.0)) * fps)
+    if min_window > 0 and seq_start is not None and int(shot["start_frame"]) - window < seq_start:
+        window = max(int(shot["start_frame"]) - seq_start, 0)
+        if window < min_window:
+            return False
     motion = _scene_motion_m(
         pos_by_tid, int(shot["start_frame"]), window, max(1, round(0.2 * fps)), int(params["ft_scene_min_tracks"])
     )
@@ -830,7 +843,7 @@ def _detect_shots(
             "kind": "field_goal",
         })
     for shot in shots:
-        if _is_free_throw(shot, pos_by_tid, float(seq.fps), params):
+        if _is_free_throw(shot, pos_by_tid, float(seq.fps), params, seq.frames[0] if seq.frames else None):
             shot.update(kind="free_throw", shot_type="free_throw", points=1)
     return shots, anchors
 
@@ -891,6 +904,7 @@ class FusedBall(BaseBackend):
         "ft_scene_still_m": 0.0,
         "ft_scene_window_s": 1.5,
         "ft_scene_min_tracks": 4,
+        "ft_scene_min_window_s": 0.0,
     }
 
     def run(self, seq: Sequence, upstream: dict[str, Any], read: FrameReader) -> dict[str, Any]:

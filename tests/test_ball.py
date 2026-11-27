@@ -566,6 +566,21 @@ class TestFusedBall:
                 ("field_goal", 3),
                 id="scene-too-few-tracks",
             ),
+            pytest.param(
+                {"ft_scene_still_m": 0.45, "ft_scene_window_s": 9.0, "ft_scene_min_tracks": 1},
+                ("field_goal", 3),
+                id="window-before-sequence-start",
+            ),
+            pytest.param(
+                {
+                    "ft_scene_still_m": 0.45,
+                    "ft_scene_window_s": 9.0,
+                    "ft_scene_min_tracks": 1,
+                    "ft_scene_min_window_s": 0.2,
+                },
+                ("free_throw", 1),
+                id="window-clamped-to-sequence-start",
+            ),
         ],
     )
     def test_free_throw_tag(self, params: dict[str, Any], expected: tuple[str, int]) -> None:
