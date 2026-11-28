@@ -1,7 +1,7 @@
 # Dedicated GitHub App bot identity and per-agent provenance trailers for AI agents
 
 - **Date:** 2026-11-28
-- **Status:** Proposed
+- **Status:** Accepted
 - **Area:** Infra / Process
 - **Decider:** Tomasz
 

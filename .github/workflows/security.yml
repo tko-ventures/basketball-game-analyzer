@@ -2,6 +2,8 @@ name: Security
 
 on:
   pull_request:
+  pull_request_review:
+    types: [submitted, dismissed]
   push:
     branches: [main]
   schedule:
@@ -12,12 +14,13 @@ on:
 permissions: {}
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' || github.event_name == 'pull_request_review' }}
 
 jobs:
   gitleaks:
     name: gitleaks
+    if: github.event_name != 'pull_request_review'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -54,7 +57,7 @@ jobs:
 
   osv-scheduled:
     name: osv-scanner (full audit)
-    if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request' && github.event_name != 'pull_request_review'
     permissions:
       actions: read
       contents: read
@@ -85,11 +88,12 @@ jobs:
 
   pr-oversight:
     name: pr-oversight
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' || github.event_name == 'pull_request_review'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
       contents: read
+      pull-requests: read
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -99,6 +103,22 @@ jobs:
 
       - name: Audit PR diff for manager oversight
         env:
+          EVENT_NAME: ${{ github.event_name }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        run: python3 scripts/check_pr_oversight.py --base "$BASE_SHA" --head "$HEAD_SHA" --summary "$GITHUB_STEP_SUMMARY" --strict
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "$EVENT_NAME" = "pull_request_review" ]; then
+            git fetch --no-tags origin "refs/pull/${PR_NUMBER}/head"
+            git cat-file -e "${HEAD_SHA}^{commit}" 2>/dev/null || git fetch --no-tags origin "$HEAD_SHA"
+          fi
+          python3 scripts/check_pr_oversight.py \
+            --base "$BASE_SHA" \
+            --head "$HEAD_SHA" \
+            --summary "$GITHUB_STEP_SUMMARY" \
+            --strict \
+            --require-suppression-approval \
+            --approver tk-o \
+            --repo "$GITHUB_REPOSITORY" \
+            --pr-number "$PR_NUMBER"

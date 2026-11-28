@@ -8,7 +8,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from scripts.check_pr_oversight import analyze_diff, format_brief, main
+from scripts.check_pr_oversight import analyze_diff, format_brief, has_approver_approval, main
 from scripts.run_gitleaks import _install_binary
 from scripts.security_digest import _fetch_alert_feed, collect_gitleaks_allowlists
 
@@ -42,6 +42,11 @@ class TestAnalyzeDiff:
             pytest.param(".gitleaks.toml", id="gitleaks-config"),
             pytest.param("AGENTS.md", id="agents-md"),
             pytest.param("scripts/run_gitleaks.py", id="gitleaks-runner"),
+            pytest.param("scripts/agent_identity.py", id="agent-identity"),
+            pytest.param("scripts/agent_git.py", id="agent-git"),
+            pytest.param("scripts/agent_gh.py", id="agent-gh"),
+            pytest.param("scripts/check_agent_identity.py", id="check-agent-identity"),
+            pytest.param("scripts/setup_github_app.py", id="setup-github-app"),
         ],
     )
     def test_flags_protected_governance_files(self, touched_path: str):
@@ -121,7 +126,7 @@ class TestAnalyzeDiff:
         ("rel_path", "line_text", "expected_kind"),
         [
             pytest.param("scripts/run.sh", "# shellcheck disable=SC2086", "shellcheck-disable", id="shellcheck"),
-            pytest.param("src/bga/foo.py", "token = 'x'  # gitleaks:allow", "gitleaks:allow", id="gitleaks-allow"),
+            pytest.param("src/bga/foo.py", "val = 'x'  # gitleaks:allow", "gitleaks:allow", id="gitleaks-allow"),
             pytest.param(".github/workflows/ci.yml", "# zizmor: ignore[artipacked]", "zizmor-ignore", id="zizmor"),
             pytest.param("src/bga/foo.py", "subprocess.run(cmd)  # nosec", "nosec", id="nosec"),
         ],
@@ -147,12 +152,77 @@ class TestAnalyzeDiff:
         assert report.suppressions == ()
         assert report.unreasoned_noqa == ()
 
+    def test_groups_commit_authors_in_descending_order(self):
+        log_text = (
+            "tko-agent[bot] <1+tko-agent[bot]@users.noreply.github.com>\n"
+            "Tomasz Kopacki <tomasz@kopacki.net>\n"
+            "tko-agent[bot] <1+tko-agent[bot]@users.noreply.github.com>\n"
+        )
+        report = analyze_diff("M\tsrc/bga/cli.py\n", "", log_text)
+        assert len(report.commit_authors) == 2
+        assert report.commit_authors[0].author.startswith("tko-agent[bot]")
+        assert report.commit_authors[0].count == 2
+        assert report.commit_authors[1].count == 1
+
+
+class TestSuppressionApprovalGate:
+    @pytest.mark.parametrize(
+        ("reviews", "expected"),
+        [
+            pytest.param([], False, id="no-reviews"),
+            pytest.param(
+                [{"user": {"login": "other-user"}, "state": "APPROVED", "commit_id": "a" * 40}],
+                False,
+                id="wrong-approver",
+            ),
+            pytest.param(
+                [{"user": {"login": "tk-o"}, "state": "APPROVED", "commit_id": "b" * 40}],
+                False,
+                id="stale-commit-approval",
+            ),
+            pytest.param(
+                [
+                    {"user": {"login": "tk-o"}, "state": "APPROVED", "commit_id": "a" * 40},
+                    {"user": {"login": "tk-o"}, "state": "CHANGES_REQUESTED", "commit_id": "a" * 40},
+                ],
+                False,
+                id="changes-requested-after-approval",
+            ),
+            pytest.param(
+                [
+                    {"user": {"login": "tk-o"}, "state": "APPROVED", "commit_id": "a" * 40},
+                    {"user": {"login": "tk-o"}, "state": "DISMISSED", "commit_id": "a" * 40},
+                ],
+                False,
+                id="dismissed-after-approval",
+            ),
+            pytest.param(
+                [
+                    {"user": {"login": "tk-o"}, "state": "APPROVED", "commit_id": "a" * 40},
+                    {"user": {"login": "tk-o"}, "state": "COMMENTED", "commit_id": "a" * 40},
+                ],
+                True,
+                id="comment-after-approval-stays-approved",
+            ),
+            pytest.param(
+                [{"user": {"login": "tk-o"}, "state": "APPROVED", "commit_id": "a" * 40}],
+                True,
+                id="approved-on-head",
+            ),
+        ],
+    )
+    def test_has_approver_approval(self, reviews: list[dict[str, object]], expected: bool):
+        assert has_approver_approval(reviews, "tk-o", "a" * 40) is expected
+
 
 class TestFormatAndCli:
-    def test_format_brief_clean_message(self):
-        report = analyze_diff("M\tsrc/bga/cli.py\n", "")
+    def test_format_brief_clean_message_and_commit_authorship(self):
+        log_text = "tko-agent[bot] <1+tko-agent[bot]@users.noreply.github.com>\n"
+        report = analyze_diff("M\tsrc/bga/cli.py\n", "", log_text)
         text = format_brief(report)
         assert "Clean — no security/governance escalations." in text
+        assert "### Commit authorship" in text
+        assert "tko-agent[bot]" in text
 
     def test_strict_cli_exits_nonzero_on_unreasoned_noqa(self, monkeypatch, tmp_path):
         patch = (
@@ -161,7 +231,7 @@ class TestFormatAndCli:
             "@@ -1,0 +2,1 @@\n"
             "+eval(x)  # noqa: S307\n"
         )
-        responses = iter(["M\tscripts/example.py\n", patch])
+        responses = iter(["M\tscripts/example.py\n", patch, "tko-agent[bot] <1@users.noreply.github.com>\n"])
         monkeypatch.setattr(
             "scripts.check_pr_oversight.subprocess.check_output", lambda _cmd, text=True: next(responses)
         )
@@ -177,7 +247,7 @@ class TestFormatAndCli:
             "@@ -1,0 +2,1 @@\n"
             "+urllib.request.urlopen(req)  # noqa: S310  # scheme validated above\n"
         )
-        responses = iter(["M\tscripts/example.py\n", patch])
+        responses = iter(["M\tscripts/example.py\n", patch, ""])
         monkeypatch.setattr(
             "scripts.check_pr_oversight.subprocess.check_output", lambda _cmd, text=True: next(responses)
         )
@@ -185,6 +255,41 @@ class TestFormatAndCli:
         rc = main(["--base", "main", "--head", "HEAD", "--summary", str(summary), "--strict"])
         assert rc == 0
         assert "Oversight required" in summary.read_text(encoding="utf-8")
+
+    @pytest.mark.parametrize(
+        ("reviews", "expected_rc"),
+        [
+            pytest.param([], 1, id="unapproved-suppression-blocked"),
+            pytest.param([{"user": {"login": "tk-o"}, "state": "APPROVED", "commit_id": "c" * 40}], 0, id="approved"),
+        ],
+    )
+    def test_require_suppression_approval_enforces_manager_signoff(
+        self, monkeypatch, reviews: list[dict[str, object]], expected_rc: int
+    ):
+        patch = (
+            "diff --git a/src/bga/foo.py b/src/bga/foo.py\n"
+            "+++ b/src/bga/foo.py\n"
+            "@@ -1,0 +2,1 @@\n"
+            "+subprocess.run(cmd)  # noqa: S603  # fixed argv\n"
+        )
+        responses = iter(["M\tsrc/bga/foo.py\n", patch, ""])
+        monkeypatch.setattr(
+            "scripts.check_pr_oversight.subprocess.check_output", lambda _cmd, text=True: next(responses)
+        )
+        monkeypatch.setattr("scripts.check_pr_oversight.fetch_pr_reviews", lambda *_a: reviews)
+        rc = main([
+            "--base",
+            "main",
+            "--head",
+            "c" * 40,
+            "--strict",
+            "--require-suppression-approval",
+            "--repo",
+            "tko-ventures/basketball-game-analyzer",
+            "--pr-number",
+            "99",
+        ])
+        assert rc == expected_rc
 
 
 class TestSecurityDigest:
