@@ -44,7 +44,14 @@ vol = modal.Volume.from_name("bga-data", create_if_missing=True)
 image = (
     modal.Image
     .debian_slim(python_version="3.12")
-    .pip_install("torch==2.5.1", "torchvision==0.20.1", "numpy<2.3", "huggingface_hub", "pillow", "tqdm")
+    .pip_install(
+        "torch==2.5.1",
+        "torchvision==0.20.1",
+        "numpy==2.2.6",
+        "huggingface-hub==1.13.0",
+        "pillow==12.3.0",
+        "tqdm==4.70.1",
+    )
     .env({"SAM2_BUILD_CUDA": "0", "HF_HOME": "/root/hf"})
     .pip_install(
         f"https://github.com/facebookresearch/sam2/archive/{SAM2_SHA}.tar.gz",

@@ -59,6 +59,14 @@ SETUP_PACKAGES: dict[str, tuple[str, ...]] = {
     "train_numbers": (),
     "train_parseq": ("pytorch-lightning==2.6.6", "nltk==3.10.4", PARSEQ_PACKAGE),
 }
+#: Base runtime packages installed on Colab only when absent from the preinstalled image.
+BASE_PACKAGES: tuple[tuple[str, str], ...] = (
+    ("yaml", "pyyaml==6.0.3"),
+    ("pydantic", "pydantic==2.11.10"),
+    ("cv2", "opencv-python-headless==5.0.0.93"),
+    ("timm", "timm==1.0.30"),
+    ("safetensors", "safetensors==0.8.0"),
+)
 
 _BALANCE_RE = re.compile(r"Current balance:\s*([0-9]+(?:\.[0-9]+)?)\s+compute units")
 _RATE_RE = re.compile(r"Usage rate:\s*([0-9]+(?:\.[0-9]+)?)/hr")
@@ -396,8 +404,7 @@ def _reassemble(chunks: dict) -> None:
 
 def _install_packages(packages: list[str]) -> None:
     missing_base = [
-        pkg for mod, pkg in (("yaml", "pyyaml"), ("pydantic", "pydantic"), ("cv2", "opencv-python-headless"),
-                             ("timm", "timm"), ("safetensors", "safetensors"))
+        pkg for mod, pkg in {BASE_PACKAGES!r}
         if importlib.util.find_spec(mod) is None
     ]
     to_install = [*missing_base, *packages]

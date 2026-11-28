@@ -47,8 +47,9 @@ SUPPRESSION_SELF_EXEMPT_FILES = frozenset({
     "tests/test_security_policy.py",
 })
 
-NOQA_RE = re.compile(r"#\s*noqa\s*:\s*([^#]+)")
+NOQA_RE = re.compile(r"#\s*(?:(?:ruff|flake8)\s*:\s*)?noqa(?:\s*:\s*([^#]+)|\b(?![\w:]))", re.IGNORECASE)
 SEC_CODE_RE = re.compile(r"\bS\d+\b")
+PAREN_REASON_RE = re.compile(r"\(([^)]+)\)")
 OTHER_SUPPRESSION_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     ("nosec", re.compile(r"#\s*nosec\b", re.IGNORECASE)),
     ("nosemgrep", re.compile(r"#\s*nosemgrep\b", re.IGNORECASE)),
@@ -94,11 +95,29 @@ def _is_dependency_file(path: str) -> bool:
 
 
 def _has_noqa_reason(line: str, match: re.Match[str]) -> bool:
-    codes = match.group(1)
     tail = line[match.end() :].strip()
     if tail.startswith("#") and len(tail.lstrip("#").strip()) >= 3:
         return True
-    return "(" in codes and ")" in codes
+    if tail.startswith("("):
+        paren = PAREN_REASON_RE.match(tail)
+        if paren is not None and len(paren.group(1).strip()) >= 3:
+            return True
+    codes_raw = match.group(1) or ""
+    paren_in_codes = PAREN_REASON_RE.search(codes_raw)
+    return paren_in_codes is not None and len(paren_in_codes.group(1).strip()) >= 3
+
+
+def _classify_noqa(text: str) -> tuple[str, bool] | None:
+    match = NOQA_RE.search(text)
+    if match is None:
+        return None
+    codes_group = match.group(1)
+    if codes_group is None:
+        return ("noqa-blanket", _has_noqa_reason(text, match))
+    codes_part = codes_group.split("(", 1)[0]
+    if not SEC_CODE_RE.search(codes_part):
+        return None
+    return ("noqa-security", _has_noqa_reason(text, match))
 
 
 def parse_name_status(output: str) -> list[str]:
@@ -121,15 +140,16 @@ def _classify_added_line(path: str, line_no: int, text: str) -> list[Suppression
     if path in SUPPRESSION_SELF_EXEMPT_FILES or Path(path).suffix.lower() not in CODE_CONFIG_SUFFIXES:
         return []
     findings: list[SuppressionFinding] = []
-    noqa_match = NOQA_RE.search(text)
-    if noqa_match is not None and SEC_CODE_RE.search(noqa_match.group(1)):
+    noqa_info = _classify_noqa(text)
+    if noqa_info is not None:
+        kind, has_reason = noqa_info
         findings.append(
             SuppressionFinding(
                 path=path,
                 line=line_no,
-                kind="noqa-security",
+                kind=kind,
                 text=text.strip(),
-                has_reason=_has_noqa_reason(text, noqa_match),
+                has_reason=has_reason,
             )
         )
     for kind, pattern in OTHER_SUPPRESSION_PATTERNS:
@@ -174,7 +194,9 @@ def analyze_diff(name_status_text: str, patch_text: str) -> OversightReport:
     protected = tuple(p for p in touched if _is_protected(p))
     deps = tuple(p for p in touched if _is_dependency_file(p))
     suppressions = tuple(parse_added_suppressions(patch_text))
-    unreasoned = tuple(item for item in suppressions if item.kind == "noqa-security" and not item.has_reason)
+    unreasoned = tuple(
+        item for item in suppressions if item.kind in {"noqa-security", "noqa-blanket"} and not item.has_reason
+    )
     return OversightReport(
         protected_files=protected,
         dependency_files=deps,
@@ -187,7 +209,7 @@ def format_brief(report: OversightReport) -> str:
     """Format a compact Markdown Manager Oversight Brief."""
     lines = ["## Manager Oversight Brief", ""]
     if report.unreasoned_noqa:
-        lines.append("**Status:** BLOCKED — unreasoned `# noqa: S*` suppression(s) added.")
+        lines.append("**Status:** BLOCKED — unreasoned `# noqa` / `# noqa: S*` suppression(s) added.")
     elif report.needs_oversight:
         lines.append("**Status:** Oversight required — Tomasz sign-off needed on:")
     else:
@@ -207,7 +229,11 @@ def format_brief(report: OversightReport) -> str:
     if report.suppressions:
         lines.append("### Inline security suppressions added")
         for item in report.suppressions:
-            tag = "MISSING RATIONALE" if item.kind == "noqa-security" and not item.has_reason else item.kind
+            tag = (
+                "MISSING RATIONALE"
+                if item.kind in {"noqa-security", "noqa-blanket"} and not item.has_reason
+                else item.kind
+            )
             lines.append(f"- `{item.path}:{item.line}` (`{tag}`): `{item.text}`")
         lines.append("")
 
@@ -238,7 +264,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--base", required=True, help="Base git ref/SHA.")
     parser.add_argument("--head", default="HEAD", help="Head git ref/SHA (default: HEAD).")
     parser.add_argument("--summary", help="Optional Markdown file path (e.g. $GITHUB_STEP_SUMMARY) to append to.")
-    parser.add_argument("--strict", action="store_true", help="Exit 1 if unreasoned # noqa: S* suppressions are added.")
+    parser.add_argument(
+        "--strict",
+        action="store_true",
+        help="Exit 1 if unreasoned blanket or security # noqa suppressions are added.",
+    )
     args = parser.parse_args(argv)
 
     diff_range = f"{args.base}...{args.head}"

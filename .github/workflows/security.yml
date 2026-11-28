@@ -8,6 +8,7 @@ on:
     - cron: "47 4 * * 1"
   workflow_dispatch:
 
+# Default-deny token scope; each job grants only the permissions it needs.
 permissions: {}
 
 concurrency:

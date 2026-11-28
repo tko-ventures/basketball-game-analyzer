@@ -2,15 +2,16 @@
 
 import ast
 import re
+import shlex
 import tokenize
 import tomllib
 from pathlib import Path
 
 import pytest
 import yaml
+from packaging.requirements import InvalidRequirement, Requirement
 
 ROOT = Path(__file__).resolve().parents[1]
-FORBIDDEN_TOKENS = ("ultralytics", "yolo26", "sam3", "sam-3", "sam_3")
 FORBIDDEN_RE = re.compile(r"\b(?:ultralytics|yolo26|sam[-_]?3)\b", re.IGNORECASE)
 TROJAN_CODEPOINTS = frozenset({
     "\u202a",
@@ -26,9 +27,26 @@ TROJAN_CODEPOINTS = frozenset({
     "\u200f",
     "\u061c",
 })
-NOQA_RE = re.compile(r"#\s*noqa\s*:\s*([^#]+)")
+NOQA_RE = re.compile(r"#\s*(?:(?:ruff|flake8)\s*:\s*)?noqa(?:\s*:\s*([^#]+)|\b(?![\w:]))", re.IGNORECASE)
 SEC_CODE_RE = re.compile(r"\bS\d+\b")
-PIN_RE = re.compile(r"(?:==|@[0-9a-f]{40}\b|/archive/[0-9a-f]{40}\.)")
+PAREN_REASON_RE = re.compile(r"\(([^)]+)\)")
+ARCHIVE_PIN_RE = re.compile(r"(?:@[0-9a-f]{40}\b|/archive/[0-9a-f]{40}\.(?:tar\.gz|zip)$)")
+PIP_VALUE_FLAGS = frozenset({
+    "-c",
+    "--constraint",
+    "-f",
+    "--find-links",
+    "-i",
+    "--index-url",
+    "--extra-index-url",
+    "-r",
+    "--requirement",
+    "-t",
+    "--target",
+    "--prefix",
+    "--root",
+    "--cache-dir",
+})
 SCAN_DIRS = ("src", "tools", "scripts")
 UNICODE_CHECK_TARGETS = (
     "src",
@@ -56,30 +74,48 @@ def _iter_python_files(root_dir: str) -> list[Path]:
     return sorted(p for p in base.rglob("*.py") if not any(p.is_relative_to(ex) for ex in excluded))
 
 
-def _is_torch_load_call(node: ast.Call, imported_load: bool) -> bool:
+def _collect_torch_aliases(tree: ast.AST) -> tuple[set[str], set[str]]:
+    torch_aliases: set[str] = set()
+    load_aliases: set[str] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            torch_aliases.update(a.asname or "torch" for a in node.names if a.name == "torch")
+        elif isinstance(node, ast.ImportFrom) and node.module == "torch":
+            load_aliases.update(a.asname or "load" for a in node.names if a.name == "load")
+    return torch_aliases, load_aliases
+
+
+def _is_torch_load_call(node: ast.Call, torch_aliases: set[str], load_aliases: set[str]) -> bool:
     if isinstance(node.func, ast.Attribute):
-        return node.func.attr == "load" and isinstance(node.func.value, ast.Name) and node.func.value.id == "torch"
-    return imported_load and isinstance(node.func, ast.Name) and node.func.id == "load"
+        return (
+            node.func.attr == "load" and isinstance(node.func.value, ast.Name) and node.func.value.id in torch_aliases
+        )
+    return isinstance(node.func, ast.Name) and node.func.id in load_aliases
+
+
+def _torch_load_violations_in_source(source: str, label: str) -> list[str]:
+    tree = ast.parse(source, filename=label)
+    torch_aliases, load_aliases = _collect_torch_aliases(tree)
+    violations: list[str] = []
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Call) or not _is_torch_load_call(node, torch_aliases, load_aliases):
+            continue
+        weights_only = [kw for kw in node.keywords if kw.arg == "weights_only"]
+        if (
+            not weights_only
+            or not isinstance(weights_only[0].value, ast.Constant)
+            or weights_only[0].value.value is not True
+        ):
+            violations.append(f"{label}:{node.lineno}")
+    return violations
 
 
 def _torch_load_violations(root_dir: str) -> list[str]:
     violations: list[str] = []
     for path in _iter_python_files(root_dir):
-        tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
-        imported_load = any(
-            isinstance(n, ast.ImportFrom) and n.module == "torch" and any(a.name == "load" for a in n.names)
-            for n in ast.walk(tree)
+        violations.extend(
+            _torch_load_violations_in_source(path.read_text(encoding="utf-8"), str(path.relative_to(ROOT)))
         )
-        for node in ast.walk(tree):
-            if not isinstance(node, ast.Call) or not _is_torch_load_call(node, imported_load):
-                continue
-            weights_only = [kw for kw in node.keywords if kw.arg == "weights_only"]
-            if (
-                not weights_only
-                or not isinstance(weights_only[0].value, ast.Constant)
-                or weights_only[0].value.value is not True
-            ):
-                violations.append(f"{path.relative_to(ROOT)}:{node.lineno}")
     return violations
 
 
@@ -124,22 +160,6 @@ def _forbidden_hits_in_configs() -> list[str]:
     return hits
 
 
-def _resolve_constants(files: tuple[Path, ...]) -> dict[str, str]:
-    constants: dict[str, str] = {}
-    for path in files:
-        tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
-        for stmt in tree.body:
-            if isinstance(stmt, ast.Assign) and len(stmt.targets) == 1 and isinstance(stmt.targets[0], ast.Name):
-                val = _eval_str_expr(stmt.value, constants)
-                if val is not None:
-                    constants[stmt.targets[0].id] = val
-            elif isinstance(stmt, ast.AnnAssign) and isinstance(stmt.target, ast.Name) and stmt.value is not None:
-                val = _eval_str_expr(stmt.value, constants)
-                if val is not None:
-                    constants[stmt.target.id] = val
-    return constants
-
-
 def _eval_str_expr(node: ast.AST, constants: dict[str, str]) -> str | None:
     if isinstance(node, ast.Constant) and isinstance(node.value, str):
         return node.value
@@ -161,40 +181,125 @@ def _eval_str_expr(node: ast.AST, constants: dict[str, str]) -> str | None:
     return None
 
 
+def _resolve_constants(files: tuple[Path, ...]) -> dict[str, str]:
+    constants: dict[str, str] = {}
+    for path in files:
+        tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+        for stmt in tree.body:
+            if isinstance(stmt, ast.Assign) and len(stmt.targets) == 1 and isinstance(stmt.targets[0], ast.Name):
+                val = _eval_str_expr(stmt.value, constants)
+                if val is not None:
+                    constants[stmt.targets[0].id] = val
+            elif isinstance(stmt, ast.AnnAssign) and isinstance(stmt.target, ast.Name) and stmt.value is not None:
+                val = _eval_str_expr(stmt.value, constants)
+                if val is not None:
+                    constants[stmt.target.id] = val
+    return constants
+
+
+def _find_pip_install_start(tokens: list[str], idx: int) -> int | None:
+    if tokens[idx] in {"pip", "pip3"} and idx + 1 < len(tokens) and tokens[idx + 1] == "install":
+        return idx + 2
+    if tokens[idx : idx + 3] == ["uv", "pip", "install"]:
+        return idx + 3
+    if tokens[idx : idx + 4] == ["python", "-m", "pip", "install"]:
+        return idx + 4
+    return None
+
+
+def _extract_pip_install_specs(command: str) -> list[str]:
+    try:
+        tokens = shlex.split(command)
+    except ValueError:
+        tokens = command.split()
+    specs: list[str] = []
+    i = 0
+    while i < len(tokens):
+        start = _find_pip_install_start(tokens, i)
+        if start is None:
+            i += 1
+            continue
+        i = start
+        while i < len(tokens) and tokens[i] not in {"&&", "||", ";", "|"}:
+            tok = tokens[i]
+            if tok in PIP_VALUE_FLAGS:
+                i += 2
+                continue
+            if not tok.startswith("-"):
+                specs.append(tok)
+            i += 1
+    return specs
+
+
+def _extract_colab_packages(colab: Path, constants: dict[str, str]) -> list[tuple[str, str]]:
+    specs: list[tuple[str, str]] = []
+    tree = ast.parse(colab.read_text(encoding="utf-8"), filename=str(colab))
+    for stmt in tree.body:
+        if not isinstance(stmt, ast.AnnAssign) or not isinstance(stmt.target, ast.Name):
+            continue
+        if stmt.target.id == "SETUP_PACKAGES" and isinstance(stmt.value, ast.Dict):
+            for key_node, tup_node in zip(stmt.value.keys, stmt.value.values, strict=True):
+                key = _eval_str_expr(key_node, constants) if key_node is not None else "?"
+                if isinstance(tup_node, ast.Tuple):
+                    specs.extend(
+                        (f"colab_train.SETUP_PACKAGES[{key}]", _eval_str_expr(item, constants) or ast.dump(item))
+                        for item in tup_node.elts
+                    )
+        elif stmt.target.id == "BASE_PACKAGES" and isinstance(stmt.value, ast.Tuple):
+            for pair in stmt.value.elts:
+                if isinstance(pair, ast.Tuple) and len(pair.elts) == 2:
+                    val = _eval_str_expr(pair.elts[1], constants)
+                    specs.append(("colab_train.BASE_PACKAGES", val or ast.dump(pair.elts[1])))
+    return specs
+
+
+def _extract_remote_file_installs(path: Path, constants: dict[str, str]) -> list[tuple[str, str]]:
+    specs: list[tuple[str, str]] = []
+    tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Call) or not isinstance(node.func, ast.Attribute):
+            continue
+        if node.func.attr in {"pip_install", "uv_pip_install"}:
+            specs.extend(
+                (f"{path.name}:{node.lineno}", _eval_str_expr(arg, constants) or ast.dump(arg)) for arg in node.args
+            )
+        elif node.func.attr == "run_commands":
+            for arg in node.args:
+                cmd = _eval_str_expr(arg, constants)
+                if cmd is not None:
+                    specs.extend((f"{path.name}:{node.lineno}", spec) for spec in _extract_pip_install_specs(cmd))
+    return specs
+
+
 def _collect_remote_package_specs() -> list[tuple[str, str]]:
     dispatch = ROOT / "src" / "bga" / "train" / "dispatch.py"
-    colab = ROOT / "src" / "bga" / "remote" / "colab_train.py"
-    modal_runner = ROOT / "src" / "bga" / "remote" / "modal_runner.py"
-    modal_train = ROOT / "src" / "bga" / "remote" / "modal_train.py"
-    constants = _resolve_constants((dispatch, modal_runner, modal_train, colab))
+    remote_files = tuple(sorted((ROOT / "src" / "bga" / "remote").glob("*.py")))
+    constants = _resolve_constants((dispatch, *remote_files))
     specs = [
         (f"dispatch.{name}", constants[name])
         for name in ("RFDETR_PACKAGE", "RFDETR_PLUS_PACKAGE", "REID_PACKAGE", "PARSEQ_PACKAGE")
     ]
-
-    colab_tree = ast.parse(colab.read_text(encoding="utf-8"), filename=str(colab))
-    for stmt in colab_tree.body:
-        if isinstance(stmt, ast.AnnAssign) and isinstance(stmt.target, ast.Name) and stmt.target.id == "SETUP_PACKAGES":
-            assert isinstance(stmt.value, ast.Dict)
-            for key_node, tup_node in zip(stmt.value.keys, stmt.value.values, strict=True):
-                key = _eval_str_expr(key_node, constants) if key_node is not None else "?"
-                if isinstance(tup_node, ast.Tuple):
-                    for item in tup_node.elts:
-                        val = _eval_str_expr(item, constants)
-                        specs.append((f"colab_train.SETUP_PACKAGES[{key}]", val or ast.dump(item)))
-
-    for path, attr in ((modal_train, "pip_install"), (modal_runner, "uv_pip_install")):
-        tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
-        for node in ast.walk(tree):
-            if isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute) and node.func.attr == attr:
-                for arg in node.args:
-                    val = _eval_str_expr(arg, constants)
-                    specs.append((f"{path.name}:{node.lineno}", val or ast.dump(arg)))
+    specs.extend(_extract_colab_packages(ROOT / "src" / "bga" / "remote" / "colab_train.py", constants))
+    for path in remote_files:
+        file_constants = _resolve_constants((dispatch, path))
+        specs.extend(_extract_remote_file_installs(path, file_constants))
     return specs
 
 
+def _is_pinned_requirement(spec: str) -> bool:
+    if spec.startswith(("http://", "https://")):
+        return bool(ARCHIVE_PIN_RE.search(spec))
+    try:
+        req = Requirement(spec)
+    except InvalidRequirement:
+        return False
+    if req.url is not None:
+        return bool(ARCHIVE_PIN_RE.search(req.url))
+    return any(sp.operator in {"==", "==="} and "*" not in sp.version for sp in req.specifier)
+
+
 def _unpinned_remote_specs() -> list[str]:
-    return [f"{loc}: {spec}" for loc, spec in _collect_remote_package_specs() if not PIN_RE.search(spec)]
+    return [f"{loc}: {spec}" for loc, spec in _collect_remote_package_specs() if not _is_pinned_requirement(spec)]
 
 
 def _forbidden_hits_in_remote_specs() -> list[str]:
@@ -235,13 +340,20 @@ def _has_noqa_reason(comment: str) -> bool:
     match = NOQA_RE.search(comment)
     if match is None:
         return True
-    codes = match.group(1)
-    if not SEC_CODE_RE.search(codes):
-        return True
+    codes_group = match.group(1)
+    if codes_group is not None:
+        codes_part = codes_group.split("(", 1)[0]
+        if not SEC_CODE_RE.search(codes_part):
+            return True
     tail = comment[match.end() :].strip()
     if tail.startswith("#") and len(tail.lstrip("#").strip()) >= 3:
         return True
-    return "(" in codes and ")" in codes
+    if tail.startswith("("):
+        paren = PAREN_REASON_RE.match(tail)
+        if paren is not None and len(paren.group(1).strip()) >= 3:
+            return True
+    paren_in_codes = PAREN_REASON_RE.search(codes_group or "")
+    return paren_in_codes is not None and len(paren_in_codes.group(1).strip()) >= 3
 
 
 def _unreasoned_security_noqa(root_dir: str) -> list[str]:
@@ -260,6 +372,23 @@ class TestTorchLoadSafety:
     @pytest.mark.parametrize("root_dir", [pytest.param(d, id=d) for d in SCAN_DIRS])
     def test_torch_load_requires_weights_only_true(self, root_dir: str):
         assert _torch_load_violations(root_dir) == []
+
+    @pytest.mark.parametrize(
+        ("source", "expected_violation"),
+        [
+            pytest.param("import torch\ntorch.load('a.pt')\n", True, id="direct-unsafe"),
+            pytest.param("import torch as t\nt.load('a.pt')\n", True, id="module-alias-unsafe"),
+            pytest.param("from torch import load as torch_load\ntorch_load('a.pt')\n", True, id="func-alias-unsafe"),
+            pytest.param("import torch as t\nt.load('a.pt', weights_only=True)\n", False, id="module-alias-safe"),
+            pytest.param(
+                "from torch import load as torch_load\ntorch_load('a.pt', weights_only=True)\n",
+                False,
+                id="func-alias-safe",
+            ),
+        ],
+    )
+    def test_detects_aliased_torch_load_calls(self, source: str, expected_violation: bool):
+        assert bool(_torch_load_violations_in_source(source, "snippet.py")) is expected_violation
 
 
 class TestForbiddenPackagesAndModels:
@@ -280,6 +409,30 @@ class TestRemotePackagePins:
     def test_all_remote_and_trainer_packages_are_pinned(self):
         assert _unpinned_remote_specs() == []
 
+    @pytest.mark.parametrize(
+        ("spec", "expected"),
+        [
+            pytest.param("torch==2.15.0", True, id="exact-pin"),
+            pytest.param("rfdetr[train]==1.12.1", True, id="extra-exact-pin"),
+            pytest.param(
+                "strhub @ git+https://github.com/baudm/parseq@1902db043c029a7e03a3818c616c06600af574be",
+                True,
+                id="git-sha-pin",
+            ),
+            pytest.param(
+                "https://github.com/facebookresearch/sam2/archive/2b90b9f5ceec907a1c18123530e92e794ad901a4.tar.gz",
+                True,
+                id="archive-sha-pin",
+            ),
+            pytest.param("torch==2.*", False, id="wildcard-pin-rejected"),
+            pytest.param("numpy<2.3", False, id="upper-bound-rejected"),
+            pytest.param("huggingface_hub", False, id="unpinned-name-rejected"),
+            pytest.param("pkg @ git+https://github.com/org/repo@main", False, id="branch-ref-rejected"),
+        ],
+    )
+    def test_pin_validator_rejects_wildcards_and_unpinned_specs(self, spec: str, expected: bool):
+        assert _is_pinned_requirement(spec) is expected
+
 
 class TestNoTrojanSourceUnicode:
     def test_no_bidi_or_invisible_control_characters(self):
@@ -290,3 +443,18 @@ class TestReasonedSecurityNoqa:
     @pytest.mark.parametrize("root_dir", [pytest.param(d, id=d) for d in SCAN_DIRS])
     def test_security_noqa_has_inline_rationale(self, root_dir: str):
         assert _unreasoned_security_noqa(root_dir) == []
+
+    @pytest.mark.parametrize(
+        ("comment", "expected_valid"),
+        [
+            pytest.param("# noqa", False, id="blanket-unreasoned"),
+            pytest.param("# ruff: noqa", False, id="file-blanket-unreasoned"),
+            pytest.param("# ruff: noqa: S310", False, id="file-security-unreasoned"),
+            pytest.param("# ruff: noqa: S310  # scheme validated", True, id="file-security-reasoned"),
+            pytest.param("# ruff: noqa: E501  (sentences kept whole)", True, id="non-security-file-noqa"),
+            pytest.param("# noqa: S603  # fixed argv", True, id="inline-security-reasoned"),
+            pytest.param("# noqa: S603 ()", False, id="empty-parens-rejected"),
+        ],
+    )
+    def test_comment_reason_parser_handles_blanket_and_file_noqa(self, comment: str, expected_valid: bool):
+        assert _has_noqa_reason(comment) is expected_valid

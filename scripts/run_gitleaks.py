@@ -8,7 +8,6 @@ import hashlib
 import io
 import os
 import platform
-import shutil
 import subprocess
 import sys
 import tarfile
@@ -77,11 +76,9 @@ def _install_binary(dest: Path) -> str:
         with urllib.request.urlopen(url, timeout=60) as resp:  # fixed GitHub release HTTPS URL verified by SHA-256
             data = resp.read()
     except (urllib.error.URLError, OSError) as exc:
-        fallback = shutil.which("gitleaks")
-        if fallback:
-            print(f"warning: gitleaks download failed ({exc}); using system binary {fallback}", file=sys.stderr)
-            return fallback
-        raise RuntimeError(f"failed to download gitleaks from {url}: {exc}") from exc
+        raise RuntimeError(
+            f"failed to download pinned gitleaks v{GITLEAKS_VERSION} from {url} to {dest}: {exc}"
+        ) from exc
 
     actual_sha = hashlib.sha256(data).hexdigest()
     if actual_sha != expected_sha:
