@@ -545,3 +545,6 @@ class TestSetupGithubAppManifest:
         updated = json.loads(id_file.read_text(encoding="utf-8"))
         assert updated["bot_slug"] == "tko-agent"
         assert updated["bot_user_id"] == 989898
+
+
+E2E_SUPPRESSION_PROBE = "probe"  # gitleaks:allow
