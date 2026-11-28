@@ -21,7 +21,9 @@ import urllib.request
 
 def get(base: str, route: str, **q) -> bytes:
     url = f"{base}{route}?{urllib.parse.urlencode(q)}" if q else f"{base}{route}"
-    with urllib.request.urlopen(url, timeout=120) as r:
+    if urllib.parse.urlsplit(url).scheme not in {"http", "https"}:
+        raise ValueError(f"unsupported URL scheme: {url!r}")
+    with urllib.request.urlopen(url, timeout=120) as r:  # noqa: S310  # scheme validated as http/https above
         return r.read()
 
 

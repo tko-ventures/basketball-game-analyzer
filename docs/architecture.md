@@ -160,8 +160,8 @@ Published to `https://basketball-analyzer.demo.tko.ventures` via `scripts/deploy
 | `configs/` | Inference run configs (`*.yaml`) and training configs (`train/*.yaml`) | Yes |
 | `tools/labeler/` | Local labelling HTTP server and 5 web UI pages | Yes |
 | `scripts/` | Labelling/review helpers, gold export, sweeps, probes, demo builders | Yes |
-| `tests/` | Pytest suite + doctests (including gold-leakage and contract tests) | Yes |
-| `.github/workflows/ci.yml` | GitHub Actions CI on pull requests and pushes to `main`: `uv run pytest` (incl. doctests and gold leakage) and all pre-commit hooks | Yes |
+| `tests/` | Pytest suite + doctests (including gold-leakage, contract, and security-policy tests) | Yes |
+| `.github/` | GitHub Actions (`ci.yml` for pytest & pre-commit; `security.yml` for Gitleaks, OSV-Scanner, Dependency Review & PR Oversight; `codeql.yml`), `CODEOWNERS`, `dependabot.yml`, PR template | Yes |
 | `data/labels/`, `data/rosters/`, `data/gold/`, `data/fixtures/` | Committed labels, rosters, gold sets, synthetic fixtures | Yes |
 | `docs/` | Architecture (`architecture.md`, `architecture-c4-view.md`), ADRs (`adr/`), plan, metrics, training log, costs, archived logs | Yes |
 | `data/raw/`, `weights/`, `runs/` | Downloaded videos, trained weights, cached stage outputs | No |

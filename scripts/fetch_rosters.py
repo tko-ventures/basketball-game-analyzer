@@ -19,6 +19,7 @@ import datetime as dt
 import json
 import re
 import time
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
@@ -91,8 +92,10 @@ EXTRA_ALIASES = {1490: ["MKS DG"], 769: ["ORLEN Zastal"]}
 
 
 def get(url: str) -> str:
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (bga roster fetch)"})
-    with urllib.request.urlopen(req, timeout=60) as r:
+    if urllib.parse.urlsplit(url).scheme not in {"http", "https"}:
+        raise ValueError(f"unsupported URL scheme: {url!r}")
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (bga roster fetch)"})  # noqa: S310  # scheme validated as http/https above
+    with urllib.request.urlopen(req, timeout=60) as r:  # noqa: S310  # scheme validated as http/https above
         return r.read().decode("utf-8")
 
 

@@ -111,10 +111,13 @@ lint.ignore = [
 # On-screen text uses typographic dashes and the multiplication sign on purpose.
 lint.allowed-confusables = ["–", "×"]
 lint.per-file-ignores."scripts/**/*.py" = [
-  "ANN", # type annotations not required in one-off scripts
-  "D",   # module docstring covers the script; per-function docs not required
-  "N",   # relaxed naming (H, K, X etc. are idiomatic in image and geometry code)
-  "S",   # security rules relaxed for local scripts
+  "ANN",  # type annotations not required in one-off scripts
+  "D",    # module docstring covers the script; per-function docs not required
+  "N",    # relaxed naming (H, K, X etc. are idiomatic in image and geometry code)
+  "S101", # asserts allowed in local scripts
+  "S311", # non-cryptographic random (sampling/shuffling frames and sheets)
+  "S603", # local subprocess calls with fixed argv (no shell=True)
+  "S607", # local CLI tools invoked via PATH (ffmpeg, git, gh, vercel)
 ]
 lint.per-file-ignores."tests/**/*.py" = [
   "ANN",   # No type annotations required in tests

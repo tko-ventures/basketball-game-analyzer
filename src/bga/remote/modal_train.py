@@ -70,7 +70,7 @@ parseq_image = (
         "pytorch-lightning==2.6.6",
         "nltk==3.10.4",
         "opencv-python-headless==5.0.0.93",
-        "pyyaml",
+        "pyyaml==6.0.3",
         PARSEQ_PACKAGE,
     )
     .run_commands("python -c 'import strhub.models.parseq.system'")
