@@ -1,7 +1,7 @@
 # Free security scanner stack and human-oversight verification contract
 
 - **Date:** 2026-11-28
-- **Status:** Approved
+- **Status:** Accepted
 - **Area:** Infra / Process
 - **Decider:** Tomasz
 
