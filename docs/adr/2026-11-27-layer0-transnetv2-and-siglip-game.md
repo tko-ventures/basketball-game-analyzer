@@ -34,13 +34,16 @@ Two choices had to be made: the cut detector and the camera classifier.
 
 ## Evidence (dev, `docs/metrics.md` "Ingest (Layer 0)", 2026-11-27)
 
-**Camera** (795 tagged shots of 5 games, on the label files' own shot bounds):
+**Camera** (795 tagged shots of 5 games, on the label files' own shot bounds). Every shot of each game's label file is
+scored, so `siglip_game` builds its centroid from the whole game as in production. The first rows (2026-11-27) passed
+it only the tagged shots, a cleaner centroid that scored `hsv` 0.971 and `emb` 0.919; they were re-scored on
+2026-11-28 after the PR #57 review:
 
 | config | acc | central P | central R |
 |---|---|---|---|
 | `ingest-siglip-zeroshot` | 0.804 | 0.756 | 1.000 |
-| `ingest-siglip-game-emb` | 0.919 | 0.883 | 1.000 |
-| `ingest-siglip-game-hsv` | 0.971 | 0.956 | 0.998 |
+| `ingest-siglip-game-emb` | 0.894 | 0.852 | 1.000 |
+| `ingest-siglip-game-hsv` | 0.965 | 0.947 | 0.998 |
 
 All zero-shot errors are `other` shots tagged central. Most are other games' half-time highlights, which also show a
 main camera and a scorebug. The arena-colour check removes them.
@@ -70,12 +73,13 @@ disagreements read, 60 of 60 sampled agreements real, every further `transnetv2`
 | config | cut P | cut R | camera acc | central P | central R |
 |---|---|---|---|---|---|
 | `ingest-siglip-zeroshot` | – | – | 0.790 | 0.748 | 1.000 |
-| `ingest-siglip-game-hsv` (`hist_diff`) | 0.942 | 0.845 | 0.892 | 0.858 | 0.990 |
+| `ingest-siglip-game-emb` | – | – | 0.898 | 0.863 | 0.995 |
+| `ingest-siglip-game-hsv` (`hist_diff`) | 0.942 | 0.845 | 0.889 | 0.855 | 0.990 |
 | `ingest-transnetv2-game-hsv` (0.5) | 1.000 | 0.901 | | | |
-| `ingest-transnetv2-t030-game-hsv` (0.3) | 0.995 | 0.998 | 0.892 | 0.858 | 0.990 |
+| `ingest-transnetv2-t030-game-hsv` (0.3) | 0.995 | 0.998 | 0.889 | 0.855 | 0.990 |
 
 The cuts hold up: threshold 0.3 catches the 2025/26 PGE stingers (a blue card) as it caught the ORLEN ones. The
-camera check does not hold up as well as on dev (0.971). Of its 32 false central shots on `1A79NXz9CFM`, most show this
+camera check does not hold up as well as on dev (0.965). Of its 33 false central shots on `1A79NXz9CFM`, most show this
 game's own main camera outside live play:
 - the pre-tip warm-up (14 shots in minutes 3–11);
 - quarter-break score banners;
@@ -84,6 +88,11 @@ game's own main camera outside live play:
 
 The gold tags these `other`, since `central` means the main camera during play with the scorebug. An arena-colour
 check cannot separate them, because the arena is the same. Nothing was tuned on held-out.
+
+The camera rows were re-scored on held-out once more (2026-11-28), only to apply the whole-game protocol above; no
+parameter was changed or picked. On held-out `emb` (0.898) now scores above `hsv` (0.889). That is 3 of 314 shots,
+against a gap of 0.071 on dev. The camera stays the one picked on dev, since choosing it on held-out would tune on
+held-out.
 
 ## Decision
 
