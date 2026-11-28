@@ -351,6 +351,28 @@ class TestAgentGhWrapper:
         assert rc == 0
         assert captured[0]["body_file_text"] == "From stdin\n\n<sub>Agent: grok/4.7</sub>"
 
+    def test_pr_comment_no_footer_leaves_body_file_untouched(
+        self, configured_app_env: dict[str, Path], tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ):
+        expected = f"gh-nofooter-{tmp_path.name}"
+        src_body = tmp_path / "comment.md"
+        src_body.write_text("Plain body\n", encoding="utf-8")
+        captured = _install_subprocess_stub(monkeypatch)
+        _install_https_stub(
+            monkeypatch,
+            {
+                ("POST", "/app/installations/777/access_tokens"): (
+                    201,
+                    {"token": expected, "expires_at": "2099-11-28T13:00:00Z"},
+                )
+            },
+        )
+
+        rc = agent_gh.main(["--no-footer", "pr", "comment", "75", "--body-file", str(src_body)])
+        assert rc == 0
+        assert captured[0]["cmd"] == ["gh", "pr", "comment", "75", "--body-file", str(src_body)]
+        assert captured[0]["body_file_text"] == "Plain body\n"
+
     def test_pr_reply_targets_review_comment_replies_endpoint(
         self, configured_app_env: dict[str, Path], tmp_path: Path, monkeypatch: pytest.MonkeyPatch
     ):
