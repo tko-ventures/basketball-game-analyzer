@@ -26,6 +26,10 @@ TAGS = ("central", "other")
 
 #: Size sampled frames are kept at: SigLIP sees 224 x 224, and a full game samples thousands of frames.
 SAMPLE_SIZE = (398, 224)
+#: Longest gap between sampled frames read by decoding through it rather than seeking. On a full 60 fps game a seek
+#: takes 1.2-3.2 s and decoding runs at about 300 frames/s (M1 Max, 2026-11-28), so a gap under 600 frames is cheaper
+#: to decode.
+READ_AHEAD = 600
 
 
 def sample_positions(start: int, end: int, samples: int) -> list[int]:
@@ -52,6 +56,8 @@ def sample_positions(start: int, end: int, samples: int) -> list[int]:
 def read_shot_frames(video: str, shots: list[dict], samples: int) -> list[list[np.ndarray]]:
     """Read :func:`sample_positions` frames of every shot, shrunk to ``SAMPLE_SIZE``, in one forward pass.
 
+    Gaps up to ``READ_AHEAD`` frames are decoded through rather than seeked over.
+
     Args:
         video: Path of the video.
         shots: Shots ``{"start", "end"}``.
@@ -66,7 +72,7 @@ def read_shot_frames(video: str, shots: list[dict], samples: int) -> list[list[n
 
     """
     wanted = sorted({f for s in shots for f in sample_positions(s["start"], s["end"], samples)})
-    read, got = FrameReader(video), {}
+    read, got = FrameReader(video, max_skip=READ_AHEAD), {}
     try:
         for f in wanted:
             try:

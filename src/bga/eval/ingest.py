@@ -71,44 +71,8 @@ def split_clips(held_out: bool, gold_json: Path = GOLD_JSON) -> list[str]:
     return [g["clip"] for g in games if bool(g["held_out"]) == held_out]
 
 
-def score_camera(camera: dict, samples: int, held_out: bool = False, labels: Path = Path("data/labels")) -> CameraScore:
-    """Score a camera backend on every tagged shot of the split's games.
-
-    Args:
-        camera: The backend entry ``{"backend", "params"}``.
-        samples: Frames per shot.
-        held_out: Score the held-out games (once per milestone).
-        labels: The label folder.
-
-    Returns:
-        Accuracy over ``central`` / ``other`` tags, central precision and recall, accuracy per YouTube id, and the
-        classifier's time per scored shot (every shot of the games; frame reading excluded).
-
-    Examples:
-        >>> score_camera({"backend": "siglip_zeroshot", "params": {}}, samples=3).acc  # doctest: +SKIP
-        0.8
-
-    """
-    cam = make_component("camera", camera)
-    cam.load()
-    pairs: list[tuple[str, bool, bool]] = []  # (youtube id, gold central, predicted central)
-    seconds, scored = 0.0, 0
-    try:
-        for clip in split_clips(held_out):
-            label = json.loads((labels / f"{clip}.json").read_text())
-            shots = label["shots"]
-            frames = read_shot_frames(label["clip"], shots, samples)
-            t = time.perf_counter()
-            scores = cam.score_shots(frames)
-            seconds += time.perf_counter() - t
-            scored += len(shots)
-            pairs += [
-                (clip.split("_")[1], s["camera"] == "central", p >= 0.5)
-                for s, p in zip(shots, scores, strict=True)
-                if s.get("camera") in TAGS
-            ]
-    finally:
-        cam.unload()
+def _camera_score(pairs: list[tuple[str, bool, bool]], seconds: float, scored: int) -> CameraScore:
+    """Summarise ``(youtube id, gold central, predicted central)`` pairs as a :class:`CameraScore`."""
     tp = sum(g and p for _, g, p in pairs)
     per_game = {}
     for yid in dict.fromkeys(y for y, _, _ in pairs):
@@ -123,6 +87,53 @@ def score_camera(camera: dict, samples: int, held_out: bool = False, labels: Pat
         per_game=per_game,
         ms_per_shot=1000 * seconds / max(scored, 1),
     )
+
+
+def score_cameras(
+    cameras: list[dict], samples: int, held_out: bool = False, labels: Path = Path("data/labels")
+) -> list[CameraScore]:
+    """Score camera backends on every tagged shot of the split's games, reading each game's frames once.
+
+    Each game's sampled frames are read once and every backend scores them in turn, loaded one at a time: on a full
+    game the reading takes far longer than the scoring.
+
+    Args:
+        cameras: The backend entries ``{"backend", "params"}``.
+        samples: Frames per shot.
+        held_out: Score the held-out games (once per milestone).
+        labels: The label folder.
+
+    Returns:
+        Per backend: accuracy over ``central`` / ``other`` tags, central precision and recall, accuracy per YouTube id,
+        and the classifier's time per scored shot (every shot of the games; frame reading excluded).
+
+    Examples:
+        >>> score_cameras([{"backend": "siglip_zeroshot", "params": {}}], samples=3)[0].acc  # doctest: +SKIP
+        0.8
+
+    """
+    pairs: list[list[tuple[str, bool, bool]]] = [[] for _ in cameras]  # (youtube id, gold central, predicted central)
+    seconds, scored = [0.0] * len(cameras), 0
+    for clip in split_clips(held_out):
+        label = json.loads((labels / f"{clip}.json").read_text())
+        shots = label["shots"]
+        frames = read_shot_frames(label["clip"], shots, samples)
+        scored += len(shots)
+        for k, camera in enumerate(cameras):
+            cam = make_component("camera", camera)
+            cam.load()
+            try:
+                t = time.perf_counter()
+                scores = cam.score_shots(frames)
+                seconds[k] += time.perf_counter() - t
+            finally:
+                cam.unload()
+            pairs[k] += [
+                (clip.split("_")[1], s["camera"] == "central", p >= 0.5)
+                for s, p in zip(shots, scores, strict=True)
+                if s.get("camera") in TAGS
+            ]
+    return [_camera_score(p, t, scored) for p, t in zip(pairs, seconds, strict=True)]
 
 
 @dataclass(frozen=True, slots=True)

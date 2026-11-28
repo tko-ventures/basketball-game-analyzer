@@ -804,17 +804,24 @@ def eval_ingest(
         >>> eval_ingest([Path("configs/ingest-siglip-zeroshot.yaml")])  # doctest: +SKIP
 
     """
-    from bga.eval.ingest import score_camera
+    from bga.eval.ingest import score_cameras
     from bga.ingest.video import VideoShots
 
     _setup_logging(verbose)
-    rows = []
+    runs = []
     for path in config:
         cfg = load_config(path, set_)
         if cfg.layers["shots"].backend != "video":
             raise typer.BadParameter(f"{path}: shots backend is {cfg.layers['shots'].backend!r}, not 'video'")
-        p = VideoShots(cfg.layers["shots"].params).p
-        s = score_camera(p["camera"], p["samples"], held_out=held_out)
+        runs.append((cfg, VideoShots(cfg.layers["shots"].params).p))
+    scores = {}  # configs with the same frames per shot share one read of each game
+    for samples in dict.fromkeys(p["samples"] for _, p in runs):
+        group = [i for i, (_, p) in enumerate(runs) if p["samples"] == samples]
+        got = score_cameras([runs[i][1]["camera"] for i in group], samples, held_out=held_out)
+        scores |= dict(zip(group, got, strict=True))
+    rows = []
+    for i, (cfg, p) in enumerate(runs):
+        s = scores[i]
         games = ", ".join(f"{k} {v:.3f}" for k, v in s.per_game.items())
         rows.append(
             f"| {dt.date.today().isoformat()} | {pipeline.git_commit()} | `{cfg.name}`@{cfg.config_hash()} "

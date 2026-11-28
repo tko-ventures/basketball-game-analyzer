@@ -55,14 +55,18 @@ class FrameReader:
     #: Longest forward step, in frames, read by dropping the frames between; longer steps and steps back seek.
     MAX_SKIP: ClassVar[int] = 64
 
-    def __init__(self, video: str, cache: int = 64) -> None:
+    def __init__(self, video: str, cache: int = 64, max_skip: int | None = None) -> None:
         """Open the video for reading.
 
         Args:
             video: Path to the video file.
             cache: Number of decoded frames kept; the oldest is evicted first.
+            max_skip: Longest forward step read by dropping the frames between (default ``MAX_SKIP``). A sparse forward
+                pass over a long 60 fps game sets it higher, since a seek there costs as much as decoding about 500
+                frames.
 
         """
+        self.max_skip = self.MAX_SKIP if max_skip is None else max_skip
         self.cap = cv2.VideoCapture(video)
         self.pos: int | None = -1  # the last frame decoded; None when the position is unknown (after a failed read)
         self.cache: dict[int, np.ndarray] = {}
@@ -71,13 +75,13 @@ class FrameReader:
     def _advance(self, i: int) -> bool:
         """Move the decoder so the next read returns frame ``i``: drop frames for a short step ahead, else seek."""
         step = i - self.pos if self.pos is not None else 0
-        if 0 < step <= self.MAX_SKIP:
+        if 0 < step <= self.max_skip:
             return all(self.cap.grab() for _ in range(step - 1))
         self.cap.set(cv2.CAP_PROP_POS_FRAMES, i)  # a failed seek shows in the read that follows
         return True
 
     def __call__(self, i: int) -> np.ndarray:
-        """Return frame ``i`` as a BGR image, seeking only for a step back or one longer than ``MAX_SKIP``.
+        """Return frame ``i`` as a BGR image, seeking only for a step back or one longer than ``max_skip``.
 
         Args:
             i: Source frame index.
