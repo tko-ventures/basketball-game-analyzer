@@ -31,6 +31,8 @@ from scripts.agent_identity import (
 )
 
 CODE_RE = re.compile(r"^[A-Za-z0-9_-]{1,128}$")
+SLUG_RE = re.compile(r"^[A-Za-z0-9](?:[A-Za-z0-9-]{0,62}[A-Za-z0-9])?$")
+ORG_RE = re.compile(r"^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38}[A-Za-z0-9])?$")
 DEFAULT_PERMISSIONS: dict[str, str] = {
     "contents": "write",
     "pull_requests": "write",
@@ -100,6 +102,21 @@ def render_setup_page(state: ManifestSetupState) -> str:
     )
 
 
+def render_redirect_page(install_url: str, bot_slug: str) -> str:
+    """Render a safe HTML meta-refresh page directing the browser to the install page."""
+    escaped_url = html.escape(install_url, quote=True)
+    escaped_slug = html.escape(bot_slug)
+    return (
+        "<!doctype html><html><head><meta charset='utf-8'>"
+        f"<meta http-equiv='refresh' content='0;url={escaped_url}'>"
+        f"<title>Redirecting to install {escaped_slug}[bot]</title></head>"
+        "<body style='font-family:system-ui,sans-serif;max-width:640px;margin:48px auto;padding:0 16px'>"
+        f"<h2>Step 2 of 2: Install <code>{escaped_slug}[bot]</code></h2>"
+        f"<p>If you are not redirected automatically, <a href='{escaped_url}'>click here to install the App</a>.</p>"
+        "</body></html>"
+    )
+
+
 def _fetch_bot_user_id(bot_slug: str) -> int:
     login = urllib.parse.quote(f"{bot_slug}[bot]", safe="")
     user_payload = github_api_json("GET", f"/users/{login}")
@@ -110,6 +127,8 @@ def _fetch_bot_user_id(bot_slug: str) -> int:
 
 def handle_manifest_callback(state: ManifestSetupState, query_string: str) -> str:
     """Validate callback params, exchange manifest code, save PEM, and return install URL."""
+    if not ORG_RE.fullmatch(state.org):
+        raise ValueError(f"Invalid organization login: {state.org!r}")
     params = urllib.parse.parse_qs(query_string, keep_blank_values=False)
     got_state = params.get("state", [""])[0]
     code = params.get("code", [""])[0]
@@ -124,6 +143,8 @@ def handle_manifest_callback(state: ManifestSetupState, query_string: str) -> st
 
     app_id = str(conversion["id"])
     bot_slug = str(conversion.get("slug") or state.name)
+    if not SLUG_RE.fullmatch(bot_slug):
+        raise ValueError(f"Invalid GitHub App slug returned by GitHub: {bot_slug!r}")
     pem_path = state.config_dir / "github-app.pem"
     write_secret_file(pem_path, str(conversion["pem"]))
     bot_user_id = _fetch_bot_user_id(bot_slug)
@@ -160,10 +181,13 @@ def _make_handler(state: ManifestSetupState) -> type[BaseHTTPRequestHandler]:
                     self.end_headers()
                     self.wfile.write(msg)
                     return
+                body = render_redirect_page(install_url, state.bot_slug or state.name).encode("utf-8")
                 state.callback_done.set()
-                self.send_response(HTTPStatus.FOUND)
-                self.send_header("Location", install_url)
+                self.send_response(HTTPStatus.OK)
+                self.send_header("Content-Type", "text/html; charset=utf-8")
+                self.send_header("Content-Length", str(len(body)))
                 self.end_headers()
+                self.wfile.write(body)
                 return
             self.send_error(HTTPStatus.NOT_FOUND)
 

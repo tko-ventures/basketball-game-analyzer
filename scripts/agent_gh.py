@@ -7,6 +7,7 @@ import argparse
 import os
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -56,21 +57,62 @@ def append_agent_footer(body: str, agent_label: str, *, include_footer: bool = T
     return f"{stripped}\n\n<sub>Agent: {agent_label}</sub>" if stripped else f"<sub>Agent: {agent_label}</sub>"
 
 
-def _rewrite_body_flag(args: list[str], agent_label: str, *, include_footer: bool) -> list[str]:
+def _read_body_source(source: str) -> str:
+    return sys.stdin.read() if source == "-" else Path(source).read_text(encoding="utf-8")
+
+
+def _write_temp_body(tmp_dir: Path, index: int, body: str) -> str:
+    dest = tmp_dir / f"body-{index}.md"
+    dest.write_text(body, encoding="utf-8")
+    return str(dest)
+
+
+def _rewrite_body_arg(
+    args: list[str],
+    idx: int,
+    *,
+    agent_label: str,
+    tmp_dir: Path,
+    body_index: int,
+) -> tuple[list[str], int] | None:
+    tok = args[idx]
+    if tok in {"--body", "-b"} and idx + 1 < len(args):
+        return ([tok, append_agent_footer(args[idx + 1], agent_label)], idx + 2)
+    if tok.startswith("--body="):
+        return ([f"--body={append_agent_footer(tok.split('=', 1)[1], agent_label)}"], idx + 1)
+    if tok.startswith("-b="):
+        return ([f"-b={append_agent_footer(tok.split('=', 1)[1], agent_label)}"], idx + 1)
+    if tok in {"--body-file", "-F"} and idx + 1 < len(args):
+        body_text = append_agent_footer(_read_body_source(args[idx + 1]), agent_label)
+        return (["--body-file", _write_temp_body(tmp_dir, body_index, body_text)], idx + 2)
+    if tok.startswith(("--body-file=", "-F=")):
+        body_text = append_agent_footer(_read_body_source(tok.split("=", 1)[1]), agent_label)
+        return (["--body-file", _write_temp_body(tmp_dir, body_index, body_text)], idx + 1)
+    return None
+
+
+def _rewrite_body_flag(
+    args: list[str],
+    agent_label: str,
+    *,
+    include_footer: bool,
+    tmp_dir: Path,
+) -> list[str]:
     if not include_footer or len(args) < 2 or (args[0], args[1]) not in BODY_WRITE_SUBCOMMANDS:
         return args
     rewritten: list[str] = []
     i = 0
+    body_index = 0
     while i < len(args):
         tok = args[i]
-        if tok in {"--body", "-b"} and i + 1 < len(args):
-            rewritten.extend([tok, append_agent_footer(args[i + 1], agent_label)])
-            i += 2
-            continue
-        if tok.startswith("--body="):
-            val = tok.split("=", 1)[1]
-            rewritten.append(f"--body={append_agent_footer(val, agent_label)}")
-            i += 1
+        if tok == "--":
+            rewritten.extend(args[i:])
+            break
+        replacement = _rewrite_body_arg(args, i, agent_label=agent_label, tmp_dir=tmp_dir, body_index=body_index)
+        if replacement is not None:
+            new_tokens, i = replacement
+            rewritten.extend(new_tokens)
+            body_index += 1
             continue
         rewritten.append(tok)
         i += 1
@@ -83,13 +125,13 @@ def _parse_pr_reply(args: list[str]) -> argparse.Namespace:
     parser.add_argument("comment_id", type=int, help="Inline review comment ID to reply to.")
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--body", "-b", help="Reply text.")
-    group.add_argument("--body-file", "-F", help="Read reply text from file path.")
+    group.add_argument("--body-file", "-F", help="Read reply text from file path or '-' for stdin.")
     return parser.parse_args(args)
 
 
 def _run_pr_reply(args: list[str], *, gh_env: dict[str, str], agent_label: str, include_footer: bool) -> int:
     parsed = _parse_pr_reply(args)
-    raw_body = Path(parsed.body_file).read_text(encoding="utf-8") if parsed.body_file else (parsed.body or "")
+    raw_body = _read_body_source(parsed.body_file) if parsed.body_file else (parsed.body or "")
     body_text = append_agent_footer(raw_body, agent_label, include_footer=include_footer)
     cfg = load_repo_identity()
     endpoint = f"repos/{cfg.org}/{cfg.repo}/pulls/{parsed.pr_number}/comments/{parsed.comment_id}/replies"
@@ -122,8 +164,9 @@ def main(argv: list[str] | None = None) -> int:
     if gh_args[0] == "pr-reply":
         return _run_pr_reply(gh_args[1:], gh_env=gh_env, agent_label=agent_label, include_footer=include_footer)
 
-    cmd_args = _rewrite_body_flag(gh_args, agent_label, include_footer=include_footer)
-    return subprocess.run(["gh", *cmd_args], env=gh_env, check=False).returncode
+    with tempfile.TemporaryDirectory(prefix="bga-gh-body-") as tmp_dir:
+        cmd_args = _rewrite_body_flag(gh_args, agent_label, include_footer=include_footer, tmp_dir=Path(tmp_dir))
+        return subprocess.run(["gh", *cmd_args], env=gh_env, check=False).returncode
 
 
 if __name__ == "__main__":

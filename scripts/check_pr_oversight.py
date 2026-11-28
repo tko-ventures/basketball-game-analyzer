@@ -67,6 +67,7 @@ OTHER_SUPPRESSION_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
 )
 HUNK_RE = re.compile(r"^@@ -\d+(?:,\d+)? \+(\d+)(?:,\d+)? @@")
 FULL_SHA_RE = re.compile(r"^[0-9a-fA-F]{40}$")
+MAX_REVIEW_PAGES = 100
 
 
 @dataclass(frozen=True)
@@ -254,8 +255,38 @@ def has_approver_approval(reviews: list[dict[str, object]], approver: str, head_
     return str(latest.get("state", "")).strip().upper() == "APPROVED" and str(latest.get("commit_id", "")) == head_sha
 
 
-def fetch_pr_reviews(repo: str, pr_number: int, token: str) -> list[dict[str, object]]:
-    """Fetch PR reviews from GitHub's REST API using HTTPS."""
+def _fetch_review_page(
+    repo: str,
+    pr_number: int,
+    page: int,
+    headers: dict[str, str],
+) -> tuple[list[dict[str, object]], str]:
+    api_path = f"/repos/{repo}/pulls/{pr_number}/reviews?per_page=100&page={page}"
+    conn = http.client.HTTPSConnection("api.github.com", timeout=30)
+    try:
+        conn.request("GET", api_path, headers=headers)
+        resp = conn.getresponse()
+        link_header = resp.getheader("Link") or ""
+        raw = resp.read().decode("utf-8", errors="replace")
+    finally:
+        conn.close()
+    if resp.status >= 400:
+        snippet = raw[:300].replace("\n", " ")
+        raise RuntimeError(f"GitHub reviews API returned {resp.status}: {snippet}")
+    batch = json.loads(raw)
+    if not isinstance(batch, list):
+        return ([], "")
+    return ([item for item in batch if isinstance(item, dict)], link_header)
+
+
+def fetch_pr_reviews(
+    repo: str,
+    pr_number: int,
+    token: str,
+    *,
+    max_pages: int = MAX_REVIEW_PAGES,
+) -> list[dict[str, object]]:
+    """Fetch all PR reviews from GitHub's REST API, failing closed if truncated."""
     reviews: list[dict[str, object]] = []
     headers = {
         "Accept": "application/vnd.github+json",
@@ -265,25 +296,15 @@ def fetch_pr_reviews(repo: str, pr_number: int, token: str) -> list[dict[str, ob
     if token:
         headers["Authorization"] = f"Bearer {token}"
 
-    for page in range(1, 11):
-        api_path = f"/repos/{repo}/pulls/{pr_number}/reviews?per_page=100&page={page}"
-        conn = http.client.HTTPSConnection("api.github.com", timeout=30)
-        try:
-            conn.request("GET", api_path, headers=headers)
-            resp = conn.getresponse()
-            raw = resp.read().decode("utf-8", errors="replace")
-        finally:
-            conn.close()
-        if resp.status >= 400:
-            snippet = raw[:300].replace("\n", " ")
-            raise RuntimeError(f"GitHub reviews API returned {resp.status}: {snippet}")
-        batch = json.loads(raw)
-        if not isinstance(batch, list):
-            break
-        reviews.extend(item for item in batch if isinstance(item, dict))
-        if len(batch) < 100:
-            break
-    return reviews
+    for page in range(1, max_pages + 1):
+        batch, link_header = _fetch_review_page(repo, pr_number, page, headers)
+        reviews.extend(batch)
+        if len(batch) < 100 or (link_header and 'rel="next"' not in link_header):
+            return reviews
+    raise RuntimeError(
+        f"PR #{pr_number} exceeded {max_pages} review pages ({len(reviews)} reviews); "
+        "refusing incomplete review history."
+    )
 
 
 def format_brief(report: OversightReport) -> str:

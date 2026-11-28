@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import fnmatch
 import os
 import subprocess
 import sys
@@ -22,6 +23,7 @@ from scripts.agent_identity import (
 
 PUSH_VALUE_FLAGS = frozenset({"-o", "--push-option", "--receive-pack", "--exec", "--repo"})
 PROTECTED_BRANCH_REFS = frozenset({"main", "refs/heads/main"})
+WILDCARD_CHARS = frozenset({"*", "?", "["})
 
 
 def _extract_commit_options(args: list[str]) -> tuple[bool, str | None, list[str]]:
@@ -111,6 +113,16 @@ def _parse_push_positionals(git_args: list[str]) -> tuple[bool, list[str]]:
     return (has_broad_push, positionals)
 
 
+def _ref_matches_main(ref: str, current_branch: str) -> bool:
+    if ref in PROTECTED_BRANCH_REFS:
+        return True
+    if ref == "HEAD" and current_branch in PROTECTED_BRANCH_REFS:
+        return True
+    if any(ch in WILDCARD_CHARS for ch in ref):
+        return any(fnmatch.fnmatchcase(protected, ref) for protected in PROTECTED_BRANCH_REFS)
+    return False
+
+
 def is_main_push(git_args: list[str], current_branch: str) -> bool:
     """Return ``True`` when the push invocation targets ``main``."""
     has_broad_push, positionals = _parse_push_positionals(git_args)
@@ -124,9 +136,9 @@ def is_main_push(git_args: list[str], current_branch: str) -> bool:
         if ":" in spec:
             src, dst = spec.split(":", 1)
             target = dst or src
-            if target in PROTECTED_BRANCH_REFS or (target == "HEAD" and current_branch in PROTECTED_BRANCH_REFS):
+            if _ref_matches_main(target, current_branch):
                 return True
-        elif spec in PROTECTED_BRANCH_REFS or (spec == "HEAD" and current_branch in PROTECTED_BRANCH_REFS):
+        elif _ref_matches_main(spec, current_branch):
             return True
     return False
 

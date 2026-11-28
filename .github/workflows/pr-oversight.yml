@@ -1,0 +1,50 @@
+name: PR Oversight
+
+on:
+  pull_request:
+  pull_request_review:
+    types: [submitted, dismissed]
+
+# Default-deny token scope; the single job below grants only the read scopes it needs.
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  pr-oversight:
+    name: pr-oversight
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Audit PR diff for manager oversight
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "$EVENT_NAME" = "pull_request_review" ]; then
+            git fetch --no-tags origin "refs/pull/${PR_NUMBER}/head"
+            git cat-file -e "${HEAD_SHA}^{commit}" 2>/dev/null || git fetch --no-tags origin "$HEAD_SHA"
+          fi
+          python3 scripts/check_pr_oversight.py \
+            --base "$BASE_SHA" \
+            --head "$HEAD_SHA" \
+            --summary "$GITHUB_STEP_SUMMARY" \
+            --strict \
+            --require-suppression-approval \
+            --approver tk-o \
+            --repo "$GITHUB_REPOSITORY" \
+            --pr-number "$PR_NUMBER"

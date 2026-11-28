@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import io
 import json
 import stat
 from pathlib import Path
@@ -10,6 +11,102 @@ from types import SimpleNamespace
 import pytest
 
 from scripts import agent_gh, agent_git, agent_identity, check_agent_identity, setup_github_app
+
+GITHUB_ENV_VARS = (
+    "BGA_GITHUB_APP_ID",
+    "BGA_GITHUB_INSTALLATION_ID",
+    "BGA_GITHUB_BOT_SLUG",
+    "BGA_GITHUB_BOT_USER_ID",
+    "BGA_GITHUB_APP_PEM",
+    "BGA_AGENT_MODEL",
+    "BGA_AGENT_NAME",
+    "BGA_COMMIT_AS_HUMAN",
+    "ANTIGRAVITY_AGENT",
+    "CLAUDECODE",
+    "CLAUDE_AGENT_SDK_VERSION",
+    "CODEX_SANDBOX",
+    "CODEX_CI",
+    "GROK_AGENT",
+    "CURSOR_AGENT",
+    "OPENCODE",
+    "T3CODE_THREAD_ID",
+)
+
+
+def _install_https_stub(
+    monkeypatch: pytest.MonkeyPatch,
+    routes: dict[tuple[str, str], tuple[int, object]],
+) -> list[tuple[str, str, dict[str, str]]]:
+    calls: list[tuple[str, str, dict[str, str]]] = []
+
+    class _FakeHTTPSConnection:
+        def __init__(self, host: str, timeout: int = 30) -> None:
+            self.host = host
+            self.timeout = timeout
+            self._status = 500
+            self._payload: bytes = b"{}"
+
+        def request(self, method: str, path: str, body: bytes | None = None, headers: dict[str, str] | None = None):
+            calls.append((method, path, dict(headers or {})))
+            status, payload = routes[(method, path)]
+            self._status = status
+            self._payload = json.dumps(payload).encode("utf-8")
+
+        def getresponse(self):
+            return SimpleNamespace(status=self._status, read=lambda: self._payload)
+
+        def close(self) -> None:
+            return
+
+    monkeypatch.setattr("http.client.HTTPSConnection", _FakeHTTPSConnection)
+    return calls
+
+
+def _install_subprocess_stub(
+    monkeypatch: pytest.MonkeyPatch,
+    *,
+    branch: str = "feat/test",
+    sig_bytes: bytes = b"sig-bytes",
+) -> list[dict[str, object]]:
+    captured: list[dict[str, object]] = []
+
+    def _fake_run(cmd, input=None, env=None, capture_output=False, check=False):  # noqa: A002 (mirrors subprocess.run signature)
+        if cmd and cmd[0] == "openssl":
+            return SimpleNamespace(returncode=0, stdout=sig_bytes, stderr=b"")
+        entry: dict[str, object] = {"cmd": list(cmd), "env": dict(env or {})}
+        if env and "GIT_ASKPASS" in env:
+            entry["askpass_text"] = Path(env["GIT_ASKPASS"]).read_text(encoding="utf-8")
+        if "--body-file" in cmd:
+            body_idx = cmd.index("--body-file")
+            if body_idx + 1 < len(cmd):
+                entry["body_file_text"] = Path(cmd[body_idx + 1]).read_text(encoding="utf-8")
+        captured.append(entry)
+        return SimpleNamespace(returncode=0, stdout=b"", stderr=b"")
+
+    monkeypatch.setattr("subprocess.run", _fake_run)
+    monkeypatch.setattr("subprocess.check_output", lambda *_a, **_kw: f"{branch}\n")
+    return captured
+
+
+@pytest.fixture
+def configured_app_env(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, Path]:
+    for var_name in GITHUB_ENV_VARS:
+        monkeypatch.delenv(var_name, raising=False)
+    monkeypatch.setenv("HOME", str(tmp_path))
+    monkeypatch.setenv("XDG_CACHE_HOME", str(tmp_path / "cache"))
+    cfg_dir = tmp_path / ".config" / "bga"
+    cfg_dir.mkdir(parents=True)
+    pem_path = cfg_dir / "github-app.pem"
+    pem_path.write_text("DUMMY-PEM-BYTES", encoding="utf-8")
+    env_path = setup_github_app.write_app_env_file(
+        cfg_dir,
+        app_id="4242",
+        installation_id="777",
+        bot_slug="test-bot",
+        bot_user_id=555000,
+        pem_path=pem_path,
+    )
+    return {"home": tmp_path, "cfg_dir": cfg_dir, "pem_path": pem_path, "env_path": env_path}
 
 
 class TestAgentIdentityHelpers:
@@ -44,41 +141,48 @@ class TestAgentIdentityHelpers:
         assert target.read_text(encoding="utf-8") == "KEY=value\n"
         assert stat.S_IMODE(target.stat().st_mode) == 0o600
 
-    def test_mint_installation_token_uses_valid_cache_without_network(self, tmp_path: Path, monkeypatch):
-        pem_path = tmp_path / "app.pem"
-        pem_path.write_text("dummy", encoding="utf-8")
+    def test_mint_installation_token_uses_valid_cache_without_network(
+        self, configured_app_env: dict[str, Path], tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ):
         cache_path = tmp_path / "cache.json"
         expected = f"cached-{tmp_path.name}"
         cache_path.write_text(
             json.dumps({
-                "app_id": "111",
-                "installation_id": "222",
+                "app_id": "4242",
+                "installation_id": "777",
                 "token": expected,
                 "expires_at": 2000.0,
             }),
             encoding="utf-8",
         )
-        creds = agent_identity.AppCredentials("111", "222", "tko-agent", 333, pem_path)
-        monkeypatch.setattr("scripts.agent_identity.github_api_json", lambda *_a, **_kw: pytest.fail("unexpected API"))
+        api_calls = _install_https_stub(monkeypatch, {})
+        creds = agent_identity.load_app_credentials()
         entry = agent_identity.mint_installation_token(creds, cache_path=cache_path, now=1000.0)
         assert entry == agent_identity.TokenCacheEntry(token=expected, expires_at=2000.0)
+        assert api_calls == []
 
-    def test_mint_installation_token_refreshes_expired_cache_and_writes_0600(self, tmp_path: Path, monkeypatch):
-        pem_path = tmp_path / "app.pem"
-        pem_path.write_text("dummy", encoding="utf-8")
-        cache_path = tmp_path / "cache.json"
+    def test_mint_installation_token_signs_jwt_and_caches_0600_response(
+        self, configured_app_env: dict[str, Path], tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ):
+        cache_path = tmp_path / "cache" / "bga" / "github-app-token.json"
         expected = f"fresh-{tmp_path.name}"
-        creds = agent_identity.AppCredentials("111", "222", "tko-agent", 333, pem_path)
-        monkeypatch.setattr("scripts.agent_identity.sign_app_jwt", lambda *_a, **_kw: "signed.jwt.value")
-        monkeypatch.setattr(
-            "scripts.agent_identity.github_api_json",
-            lambda *_a, **_kw: {"token": expected, "expires_at": "2026-11-28T13:00:00Z"},
+        _install_subprocess_stub(monkeypatch)
+        api_calls = _install_https_stub(
+            monkeypatch,
+            {
+                ("POST", "/app/installations/777/access_tokens"): (
+                    201,
+                    {"token": expected, "expires_at": "2026-11-28T13:00:00Z"},
+                )
+            },
         )
+        creds = agent_identity.load_app_credentials()
         entry = agent_identity.mint_installation_token(creds, cache_path=cache_path, now=1000.0)
         assert entry.token == expected
         assert stat.S_IMODE(cache_path.stat().st_mode) == 0o600
         saved = json.loads(cache_path.read_text(encoding="utf-8"))
         assert saved["token"] == expected
+        assert api_calls[0][2]["Authorization"].startswith("Bearer ")
 
 
 class TestAgentGitWrapper:
@@ -90,131 +194,110 @@ class TestAgentGitWrapper:
             pytest.param(["origin", "HEAD"], "main", True, id="head-on-main"),
             pytest.param(["origin", "main"], "feat/x", True, id="explicit-main"),
             pytest.param(["origin", "+feat/x:refs/heads/main"], "feat/x", True, id="force-refspec-to-main"),
+            pytest.param(["origin", "refs/heads/*:refs/heads/*"], "feat/x", True, id="wildcard-all-heads"),
+            pytest.param(["origin", "refs/heads/*"], "feat/x", True, id="wildcard-bare-heads"),
+            pytest.param(["origin", ":refs/heads/*"], "feat/x", True, id="wildcard-delete-heads"),
+            pytest.param(["origin", "refs/heads/m*:refs/heads/m*"], "feat/x", True, id="wildcard-m-prefix"),
+            pytest.param(["--delete", "origin", "main"], "feat/x", True, id="delete-main"),
             pytest.param(["--all"], "feat/x", True, id="push-all"),
             pytest.param(["origin", "feat/x"], "feat/x", False, id="feature-branch"),
+            pytest.param(["origin", "refs/heads/feat/*:refs/heads/feat/*"], "feat/x", False, id="safe-feat-wildcard"),
             pytest.param(["-u", "origin", "HEAD"], "feat/x", False, id="head-on-feature"),
             pytest.param(["origin", "HEAD:feat/y"], "main", False, id="push-to-non-main-refspec"),
         ],
     )
-    def test_is_main_push_detects_protected_target(
+    def test_is_main_push_detects_protected_and_wildcard_targets(
         self, push_args: list[str], current_branch: str, expected_blocked: bool
     ):
         assert agent_git.is_main_push(push_args, current_branch) is expected_blocked
 
-    def test_commit_sets_bot_identity_and_agent_trailer(self, monkeypatch):
-        captured: dict[str, object] = {}
-
-        def _fake_run(cmd, env=None, check=False):
-            captured["cmd"] = cmd
-            captured["env"] = env
-            return SimpleNamespace(returncode=0)
-
-        monkeypatch.setattr("scripts.agent_git.resolve_bot_identity", lambda: ("tko-agent", 555))
-        monkeypatch.setattr("scripts.agent_git.subprocess.run", _fake_run)
+    def test_commit_resolves_bot_identity_and_appends_agent_trailer(
+        self, configured_app_env: dict[str, Path], monkeypatch: pytest.MonkeyPatch
+    ):
+        captured = _install_subprocess_stub(monkeypatch)
         monkeypatch.setenv("ANTIGRAVITY_AGENT", "1")
-        monkeypatch.delenv("BGA_AGENT_MODEL", raising=False)
-        monkeypatch.delenv("BGA_AGENT_NAME", raising=False)
 
         rc = agent_git.main(["commit", "-m", "feat: add test"])
         assert rc == 0
-        assert captured["cmd"] == ["git", "commit", "--trailer", "Agent: antigravity", "-m", "feat: add test"]
-        env = captured["env"]
+        assert captured[0]["cmd"] == ["git", "commit", "--trailer", "Agent: antigravity", "-m", "feat: add test"]
+        env = captured[0]["env"]
         assert isinstance(env, dict)
-        assert env["GIT_AUTHOR_NAME"] == "tko-agent[bot]"
-        assert env["GIT_AUTHOR_EMAIL"] == "555+tko-agent[bot]@users.noreply.github.com"
-        assert env["GIT_COMMITTER_EMAIL"] == "555+tko-agent[bot]@users.noreply.github.com"
+        assert env["GIT_AUTHOR_NAME"] == "test-bot[bot]"
+        assert env["GIT_AUTHOR_EMAIL"] == "555000+test-bot[bot]@users.noreply.github.com"
+        assert env["GIT_COMMITTER_EMAIL"] == "555000+test-bot[bot]@users.noreply.github.com"
         assert "BGA_COMMIT_AS_HUMAN" not in env
 
-    def test_commit_as_human_attributes_author_to_human_and_committer_to_bot(self, monkeypatch):
-        captured: dict[str, object] = {}
-
-        def _fake_run(cmd, env=None, check=False):
-            captured["cmd"] = cmd
-            captured["env"] = env
-            return SimpleNamespace(returncode=0)
-
-        monkeypatch.setattr("scripts.agent_git.resolve_bot_identity", lambda: ("tko-agent", 555))
-        monkeypatch.setattr("scripts.agent_git.subprocess.run", _fake_run)
+    def test_commit_as_human_attributes_author_to_human_and_committer_to_bot(
+        self, configured_app_env: dict[str, Path], monkeypatch: pytest.MonkeyPatch
+    ):
+        captured = _install_subprocess_stub(monkeypatch)
 
         rc = agent_git.main(["commit", "--as-human", "-m", "data: Tomasz labels"])
         assert rc == 0
-        assert captured["cmd"] == ["git", "commit", "-m", "data: Tomasz labels"]
-        env = captured["env"]
+        assert captured[0]["cmd"] == ["git", "commit", "-m", "data: Tomasz labels"]
+        env = captured[0]["env"]
         assert isinstance(env, dict)
         assert env["GIT_AUTHOR_NAME"] == "Tomasz Kopacki"
         assert env["GIT_AUTHOR_EMAIL"] == "tomasz@kopacki.net"
-        assert env["GIT_COMMITTER_NAME"] == "tko-agent[bot]"
+        assert env["GIT_COMMITTER_NAME"] == "test-bot[bot]"
         assert env["BGA_COMMIT_AS_HUMAN"] == "1"
 
-    def test_push_uses_ephemeral_askpass_and_keeps_token_out_of_argv(self, tmp_path: Path, monkeypatch):
-        pem_path = tmp_path / "app.pem"
-        pem_path.write_text("dummy", encoding="utf-8")
+    def test_push_mints_token_via_https_and_uses_ephemeral_askpass(
+        self, configured_app_env: dict[str, Path], tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ):
         expected = f"ephemeral-{tmp_path.name}"
-        captured: dict[str, object] = {}
-
-        def _fake_run(cmd, env=None, check=False):
-            captured["cmd"] = cmd
-            captured["env"] = env
-            captured["askpass_text"] = Path(env["GIT_ASKPASS"]).read_text(encoding="utf-8")
-            return SimpleNamespace(returncode=0)
-
-        monkeypatch.setattr("scripts.agent_git._current_branch", lambda: "feat/test")
-        monkeypatch.setattr(
-            "scripts.agent_git.load_app_credentials",
-            lambda: agent_identity.AppCredentials("111", "222", "tko-agent", 555, pem_path),
+        captured = _install_subprocess_stub(monkeypatch, branch="feat/test")
+        _install_https_stub(
+            monkeypatch,
+            {
+                ("POST", "/app/installations/777/access_tokens"): (
+                    201,
+                    {"token": expected, "expires_at": "2099-11-28T13:00:00Z"},
+                )
+            },
         )
-        monkeypatch.setattr(
-            "scripts.agent_git.mint_installation_token",
-            lambda _c: agent_identity.TokenCacheEntry(expected, 9999999999.0),
-        )
-        monkeypatch.setattr("scripts.agent_git.subprocess.run", _fake_run)
 
         rc = agent_git.main(["push", "-u", "origin", "feat/test"])
         assert rc == 0
-        cmd = captured["cmd"]
+        cmd = captured[0]["cmd"]
         assert isinstance(cmd, list)
-        assert not any(expected in part for part in cmd)
-        env = captured["env"]
+        assert not any(expected in str(part) for part in cmd)
+        env = captured[0]["env"]
         assert isinstance(env, dict)
         assert env["BGA_GIT_ASKPASS_TOKEN"] == expected
         assert env["GIT_TERMINAL_PROMPT"] == "0"
-        assert "BGA_GIT_ASKPASS_TOKEN" in str(captured["askpass_text"])
+        assert "BGA_GIT_ASKPASS_TOKEN" in str(captured[0]["askpass_text"])
 
-    def test_push_refuses_main_without_minting_token(self, monkeypatch, capsys):
-        monkeypatch.setattr("scripts.agent_git._current_branch", lambda: "main")
-        monkeypatch.setattr(
-            "scripts.agent_git.load_app_credentials", lambda: pytest.fail("should not load creds on main push")
-        )
+    def test_push_refuses_main_without_calling_github_api(
+        self, configured_app_env: dict[str, Path], monkeypatch: pytest.MonkeyPatch, capsys
+    ):
+        _install_subprocess_stub(monkeypatch, branch="main")
+        api_calls = _install_https_stub(monkeypatch, {})
         rc = agent_git.main(["push", "origin", "main"])
         assert rc == 2
+        assert api_calls == []
         assert "Refusing to push directly to main" in capsys.readouterr().err
 
 
 class TestAgentGhWrapper:
-    def test_pr_comment_injects_gh_token_and_agent_footer(self, tmp_path: Path, monkeypatch):
-        pem_path = tmp_path / "app.pem"
-        pem_path.write_text("dummy", encoding="utf-8")
+    def test_pr_comment_injects_minted_gh_token_and_agent_footer(
+        self, configured_app_env: dict[str, Path], tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ):
         expected = f"gh-{tmp_path.name}"
-        captured: dict[str, object] = {}
-
-        def _fake_run(cmd, env=None, check=False):
-            captured["cmd"] = cmd
-            captured["env"] = env
-            return SimpleNamespace(returncode=0)
-
-        monkeypatch.setattr(
-            "scripts.agent_gh.load_app_credentials",
-            lambda: agent_identity.AppCredentials("111", "222", "tko-agent", 555, pem_path),
+        captured = _install_subprocess_stub(monkeypatch)
+        _install_https_stub(
+            monkeypatch,
+            {
+                ("POST", "/app/installations/777/access_tokens"): (
+                    201,
+                    {"token": expected, "expires_at": "2099-11-28T13:00:00Z"},
+                )
+            },
         )
-        monkeypatch.setattr(
-            "scripts.agent_gh.mint_installation_token",
-            lambda _c: agent_identity.TokenCacheEntry(expected, 9999999999.0),
-        )
-        monkeypatch.setattr("scripts.agent_gh.subprocess.run", _fake_run)
 
         rc = agent_gh.main(["--agent", "claude/opus-5.5", "pr", "comment", "74", "--body", "Looks good"])
         assert rc == 0
-        assert captured["cmd"] == [
+        assert captured[0]["cmd"] == [
             "gh",
             "pr",
             "comment",
@@ -222,32 +305,70 @@ class TestAgentGhWrapper:
             "--body",
             "Looks good\n\n<sub>Agent: claude/opus-5.5</sub>",
         ]
-        env = captured["env"]
+        env = captured[0]["env"]
         assert isinstance(env, dict)
         assert env["GH_TOKEN"] == expected
 
-    def test_pr_reply_targets_review_comment_replies_endpoint(self, tmp_path: Path, monkeypatch):
-        pem_path = tmp_path / "app.pem"
-        pem_path.write_text("dummy", encoding="utf-8")
-        captured: dict[str, object] = {}
-
-        def _fake_run(cmd, env=None, check=False):
-            captured["cmd"] = cmd
-            return SimpleNamespace(returncode=0)
-
-        monkeypatch.setattr(
-            "scripts.agent_gh.load_app_credentials",
-            lambda: agent_identity.AppCredentials("111", "222", "tko-agent", 555, pem_path),
+    def test_pr_create_rewrites_body_file_without_mutating_source_file(
+        self, configured_app_env: dict[str, Path], tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ):
+        expected = f"gh-file-{tmp_path.name}"
+        src_body = tmp_path / "pr_body.md"
+        src_body.write_text("## Summary\n\n- Fixed bug.\n", encoding="utf-8")
+        captured = _install_subprocess_stub(monkeypatch)
+        _install_https_stub(
+            monkeypatch,
+            {
+                ("POST", "/app/installations/777/access_tokens"): (
+                    201,
+                    {"token": expected, "expires_at": "2099-11-28T13:00:00Z"},
+                )
+            },
         )
-        monkeypatch.setattr(
-            "scripts.agent_gh.mint_installation_token",
-            lambda _c: agent_identity.TokenCacheEntry("gh-ephemeral-val", 9999999999.0),
+
+        rc = agent_gh.main(["--agent", "antigravity", "pr", "create", "--title", "Fix", "--body-file", str(src_body)])
+        assert rc == 0
+        assert src_body.read_text(encoding="utf-8") == "## Summary\n\n- Fixed bug.\n"
+        assert captured[0]["body_file_text"] == "## Summary\n\n- Fixed bug.\n\n<sub>Agent: antigravity</sub>"
+
+    def test_pr_comment_rewrites_stdin_body_file(
+        self, configured_app_env: dict[str, Path], tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ):
+        expected = f"gh-stdin-{tmp_path.name}"
+        captured = _install_subprocess_stub(monkeypatch)
+        _install_https_stub(
+            monkeypatch,
+            {
+                ("POST", "/app/installations/777/access_tokens"): (
+                    201,
+                    {"token": expected, "expires_at": "2099-11-28T13:00:00Z"},
+                )
+            },
         )
-        monkeypatch.setattr("scripts.agent_gh.subprocess.run", _fake_run)
+        monkeypatch.setattr("sys.stdin", io.StringIO("From stdin\n"))
+
+        rc = agent_gh.main(["--agent", "grok/4.7", "pr", "comment", "75", "-F", "-"])
+        assert rc == 0
+        assert captured[0]["body_file_text"] == "From stdin\n\n<sub>Agent: grok/4.7</sub>"
+
+    def test_pr_reply_targets_review_comment_replies_endpoint(
+        self, configured_app_env: dict[str, Path], tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ):
+        expected = f"gh-reply-{tmp_path.name}"
+        captured = _install_subprocess_stub(monkeypatch)
+        _install_https_stub(
+            monkeypatch,
+            {
+                ("POST", "/app/installations/777/access_tokens"): (
+                    201,
+                    {"token": expected, "expires_at": "2099-11-28T13:00:00Z"},
+                )
+            },
+        )
 
         rc = agent_gh.main(["--agent", "antigravity", "pr-reply", "74", "12345", "--body", "Fixed"])
         assert rc == 0
-        assert captured["cmd"] == [
+        assert captured[0]["cmd"] == [
             "gh",
             "api",
             "-X",
@@ -319,7 +440,7 @@ class TestSetupGithubAppManifest:
         assert perms["pull_requests"] == "write"
         assert perms["workflows"] == "write"
 
-    def test_render_setup_page_escapes_html_fields(self, tmp_path: Path):
+    def test_render_setup_and_redirect_pages_escape_html_fields(self, tmp_path: Path):
         state = setup_github_app.ManifestSetupState(
             org="tko-ventures",
             repo="basketball-game-analyzer",
@@ -333,7 +454,16 @@ class TestSetupGithubAppManifest:
         assert "<script>" not in page
         assert "bot&lt;script&gt;" in page
 
-    def test_callback_validates_state_saves_0600_pem_and_returns_install_url(self, tmp_path: Path, monkeypatch):
+        redirect = setup_github_app.render_redirect_page(
+            "https://github.com/organizations/tko-ventures/settings/apps/tko-agent/installations",
+            'tko-agent"<>',
+        )
+        assert "<meta http-equiv='refresh'" in redirect
+        assert "tko-agent&quot;&lt;&gt;" in redirect
+
+    def test_callback_validates_state_slug_saves_0600_pem_and_returns_install_url(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ):
         state = setup_github_app.ManifestSetupState(
             org="tko-ventures",
             repo="basketball-game-analyzer",
@@ -346,12 +476,16 @@ class TestSetupGithubAppManifest:
         with pytest.raises(ValueError, match="state"):
             setup_github_app.handle_manifest_callback(state, "code=abc123&state=wrong")
 
-        def _fake_api(method: str, path: str, **_kw):
-            if path.startswith("/app-manifests/"):
-                return {"id": 4242, "slug": "tko-agent", "pem": "DUMMY-PEM-PAYLOAD"}
-            return {"id": 989898}
-
-        monkeypatch.setattr("scripts.setup_github_app.github_api_json", _fake_api)
+        _install_https_stub(
+            monkeypatch,
+            {
+                ("POST", "/app-manifests/validCode_1/conversions"): (
+                    201,
+                    {"id": 4242, "slug": "tko-agent", "pem": "DUMMY-PEM-PAYLOAD"},
+                ),
+                ("GET", "/users/tko-agent%5Bbot%5D"): (200, {"id": 989898}),
+            },
+        )
         install_url = setup_github_app.handle_manifest_callback(state, "code=validCode_1&state=expected-csrf")
         assert install_url == "https://github.com/organizations/tko-ventures/settings/apps/tko-agent/installations"
         pem_path = tmp_path / "github-app.pem"
@@ -359,6 +493,36 @@ class TestSetupGithubAppManifest:
         assert stat.S_IMODE(pem_path.stat().st_mode) == 0o600
         assert state.app_id == "4242"
         assert state.bot_user_id == 989898
+
+    @pytest.mark.parametrize(
+        "bad_slug",
+        [
+            pytest.param("evil\r\nSet-Cookie: a=b", id="crlf-injection"),
+            pytest.param("evil/path", id="path-slash"),
+            pytest.param("-leading-dash", id="leading-dash"),
+        ],
+    )
+    def test_callback_rejects_malformed_slug(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, bad_slug: str):
+        state = setup_github_app.ManifestSetupState(
+            org="tko-ventures",
+            repo="basketball-game-analyzer",
+            name="tko-agent",
+            config_dir=tmp_path,
+            identity_file=tmp_path / "agent-identity.json",
+            csrf_state="expected-csrf",
+            bound_port=8080,
+        )
+        _install_https_stub(
+            monkeypatch,
+            {
+                ("POST", "/app-manifests/validCode_1/conversions"): (
+                    201,
+                    {"id": 4242, "slug": bad_slug, "pem": "DUMMY-PEM-PAYLOAD"},
+                ),
+            },
+        )
+        with pytest.raises(ValueError, match="slug"):
+            setup_github_app.handle_manifest_callback(state, "code=validCode_1&state=expected-csrf")
 
     def test_write_app_env_and_update_identity_json(self, tmp_path: Path):
         pem_path = tmp_path / "github-app.pem"
