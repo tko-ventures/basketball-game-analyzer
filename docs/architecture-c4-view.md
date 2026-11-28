@@ -300,7 +300,7 @@ flowchart TB
     end
 
     subgraph gha_node["«Deployment Node: GitHub Actions (ubuntu-latest, CPU only)»"]
-        gha_ci["CI & Security (.github/workflows/)\nci.yml (pytest, doctests, gold leakage, pre-commit)\nsecurity.yml (Gitleaks, OSV-Scanner, Dependency Review, PR Oversight)\ncodeql.yml (Python, JS/TS, Actions); no videos, weights or GPU"]:::svc
+        gha_ci["CI & Security (.github/workflows/)\nci.yml (pytest, doctests, gold leakage, pre-commit)\nsecurity.yml (Gitleaks, OSV-Scanner, Dependency Review)\npr-oversight.yml (PR Oversight); codeql.yml (Python, JS/TS, Actions); no videos, weights or GPU"]:::svc
     end
 
     subgraph vercel_node["«Deployment Node: Vercel Edge Network»"]
