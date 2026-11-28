@@ -55,7 +55,7 @@ parseq = [
 ]
 
 [dependency-groups]
-dev = ["pre-commit>=4.0", "pytest>=8.3", "ruff==0.17.5"]
+dev = ["pre-commit>=4.0", "pytest>=8.3", "ruff==0.17.6"]
 
 [build-system]
 requires = ["hatchling"]
