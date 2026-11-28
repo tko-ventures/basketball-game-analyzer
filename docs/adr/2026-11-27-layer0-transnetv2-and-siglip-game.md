@@ -101,8 +101,22 @@ sequences every other layer is scored on.
 - A raw full game runs end to end with no hand-labelled shots: `configs/e2e-video-fused-v8-r4.yaml` is the active
   full stack on `shots/video`.
   Court, detect, team and appearance run on Modal (`--remote-layer`, A10G after L4 sat in Modal's capacity queue);
-  track, numbers and the later layers run on the Mac. The Modal image has no PARSeq (`strhub`), so `numbers` stays
-  local.
+  track, numbers and the later layers run on the Mac.
+- **`numbers` runs on the Mac by choice:** the Modal runner image does not install the `parseq` extra (`strhub`, the
+  PARSeq number reader). It would take one more entry in `RUNNER_EXTRAS` and an import check in the image build. It
+  was left out for these reasons (vHfwZeG4BPw run, 2026-11-27):
+  - **For keeping it local:**
+    - Numbers took 415 s for 254 sequences on the M1 Max and costs nothing there.
+    - On Modal it would cost an estimated 0.15–0.95 USD per full game. The low end is the same GPU time at the
+      A10G list price, with 1.21× for CPU and memory as billed. The high end adds per-sequence container and model
+      start-up, as the other remote layers pay: 6.8 s a sequence for appearance and 17.7 s for detect.
+    - The four Modal layers already cost 4.55 USD per full game (Modal billing).
+  - **Against:**
+    - It is the only GPU model layer left on the Mac, so the Mac's GPU stays busy for up to 7 minutes a game.
+    - A machine without a GPU would read numbers on its CPU.
+    - Its 254 sequences run one after another instead of side by side.
+  - **What it changes:** little, since tracking (2,862 s locally on the same game) sets the run's wall time.
+    Tracking is the layer to move first if wall time matters.
 - **Picked on dev:** `min_sim` and the threshold were picked on dev; held-out was scored once (above).
 - **Non-play footage kept:** Layer 0 keeps main-camera footage outside live play as sequences (warm-ups,
   break banners, some replays). It costs compute and adds tracks outside play. A scorebug check, as used when
