@@ -57,6 +57,15 @@ def read(clip):
     reader.close()
 
 
+@pytest.fixture
+def read_far(clip):
+    """A reader of the synthetic clip that decodes through any gap inside it, with its seeks counted."""
+    reader = FrameReader(clip[0], cache=4, max_skip=FRAMES)
+    reader.cap = CountingCapture(reader.cap)
+    yield reader
+    reader.close()
+
+
 class TestFrameReader:
     @pytest.mark.parametrize(
         "step",
@@ -77,6 +86,10 @@ class TestFrameReader:
     def test_short_steps_ahead_do_not_seek(self, read):
         frames = [read(f) for f in range(0, 40, 5)]
         assert (len(frames), read.cap.seeks) == (8, 0)
+
+    def test_longer_max_skip_decodes_through_a_long_gap(self, read_far, truth):
+        frames = [read_far(f) for f in (0, 75)]
+        assert (np.array_equal(frames[1], truth[75]), read_far.cap.seeks) == (True, 0)
 
     def test_first_read_inside_the_clip_seeks_once(self, read):
         frames = [read(f) for f in range(70, FRAMES, 5)]

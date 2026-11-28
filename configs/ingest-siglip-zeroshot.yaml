@@ -1,0 +1,11 @@
+name: ingest-siglip-zeroshot
+description: >
+  Layer 0 baseline (M10, #32): hist_diff cuts, then zero-shot SigLIP camera tags from 3 frames per shot (no
+  training). Scored by `bga eval-ingest` on the gold games' camera tags; `clips` names the games a run ingests.
+layers:
+  shots:
+    backend: video
+    params:
+      cuts: {backend: hist_diff, params: {}}
+      camera: {backend: siglip_zeroshot, params: {}}
+      samples: 3

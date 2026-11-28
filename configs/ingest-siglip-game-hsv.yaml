@@ -1,0 +1,13 @@
+name: ingest-siglip-game-hsv
+description: >
+  Layer 0 (M10, #32): ingest-siglip-zeroshot plus a game-consistency check. Among the shots zero-shot SigLIP tags
+  central, a shot whose mean arena colour histogram is below 0.95 cosine similarity to the game's robust centroid is
+  dropped (other games' half-time highlights). min_sim picked on dev from 0.85 / 0.90 / 0.93 / 0.95. Scored against
+  ingest-siglip-zeroshot.
+layers:
+  shots:
+    backend: video
+    params:
+      cuts: {backend: hist_diff, params: {}}
+      camera: {backend: siglip_game, params: {feature: hsv, min_sim: 0.95}}
+      samples: 3

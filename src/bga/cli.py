@@ -760,11 +760,186 @@ def eval_ball(
         METRICS_MD.write_text(_insert_rows(METRICS_MD.read_text(), BALL_HEADER, rows, BALL_INTRO))
 
 
+#: Header of the Layer 0 camera table in ``docs/metrics.md`` written by ``bga eval-ingest``.
+INGEST_HEADER = (
+    "| date | commit | config | camera backend | samples | split (games, shots) | camera acc | central P | central R "
+    "| acc per game | ms/shot | notes |\n"
+    "|---|---|---|---|---|---|---|---|---|---|---|---|\n"
+)
+#: Section heading and explanation placed above the Layer 0 camera table when it is first added.
+INGEST_INTRO = (
+    "## Ingest (Layer 0)\n\n"
+    "Scored by `bga eval-ingest` on the gold games of `data/labels/gold.json`, dev unless `--held-out`. **camera"
+    " acc:** share of label-file shots tagged `central` or `other` (shots of at least 6 s) that the `shots/video`"
+    " config's camera backend tags the same, on the label file's own shot bounds. The backend scores every shot of"
+    " the game and only tagged shots count; rows whose notes do not say *whole game* scored the tagged shots alone."
+    " **central P / R:** precision and recall of `central`. **ms/shot:** the classifier on M1 Max per scored shot,"
+    " frame reading excluded.\n\n"
+)
+
+
+@app.command("eval-ingest", help="Score each shots/video config's camera classifier on the gold games' camera tags.")
+def eval_ingest(
+    config: Annotated[list[Path], typer.Option(help="one or more run configs whose shots backend is video")],
+    set_: Annotated[list[str], typer.Option("--set", help="override applied to every config")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
+    held_out: Annotated[bool, typer.Option(help="score the held-out games instead (once per milestone)")] = False,
+    write: Annotated[bool, typer.Option(help="append rows to docs/metrics.md")] = False,
+    note: str = "",
+    verbose: bool = False,
+) -> None:
+    """Score each config's Layer 0 camera classifier on the camera tags of the gold games.
+
+    Args:
+        config: Run configs with ``shots.backend: video``, scored side by side.
+        set_: Overrides applied to every config.
+        held_out: Score the held-out games instead of dev (once per milestone).
+        write: Add the rows to the ingest table in ``docs/metrics.md``.
+        note: Text for the notes column.
+        verbose: Log progress.
+
+    Raises:
+        typer.BadParameter: When a config's shots backend is not ``video``.
+
+    Examples:
+        >>> eval_ingest([Path("configs/ingest-siglip-zeroshot.yaml")])  # doctest: +SKIP
+
+    """
+    from bga.eval.ingest import score_cameras
+    from bga.ingest.video import VideoShots
+
+    _setup_logging(verbose)
+    runs = []
+    for path in config:
+        cfg = load_config(path, set_)
+        if cfg.layers["shots"].backend != "video":
+            raise typer.BadParameter(f"{path}: shots backend is {cfg.layers['shots'].backend!r}, not 'video'")
+        runs.append((cfg, VideoShots(cfg.layers["shots"].params).p))
+    scores = {}  # configs with the same frames per shot share one read of each game
+    for samples in dict.fromkeys(p["samples"] for _, p in runs):
+        group = [i for i, (_, p) in enumerate(runs) if p["samples"] == samples]
+        got = score_cameras([runs[i][1]["camera"] for i in group], samples, held_out=held_out)
+        scores |= dict(zip(group, got, strict=True))
+    rows = []
+    for i, (cfg, p) in enumerate(runs):
+        s = scores[i]
+        games = ", ".join(f"{k} {v:.3f}" for k, v in s.per_game.items())
+        rows.append(
+            f"| {dt.date.today().isoformat()} | {pipeline.git_commit()} | `{cfg.name}`@{cfg.config_hash()} "
+            f"| {p['camera']['backend']} | {p['samples']} | {'held-out' if held_out else 'dev'} ({s.games}, {s.shots}) "
+            f"| {_fmt(s.acc)} | {_fmt(s.central_p)} | {_fmt(s.central_r)} | {games} | {_fmt(s.ms_per_shot, 0)} "
+            f"| {note} |"
+        )
+    typer.echo(INGEST_HEADER + "\n".join(rows))
+    if write:
+        METRICS_MD.write_text(_insert_rows(METRICS_MD.read_text(), INGEST_HEADER, rows, INGEST_INTRO))
+
+
+#: Header of the Layer 0 cuts table in ``docs/metrics.md`` written by ``bga eval-cuts``.
+CUTS_HEADER = (
+    "| date | commit | config | cuts backend | split (games, gold cuts) | cut P | cut R | P / R per game | FP unread "
+    "| duplicates | notes |\n"
+    "|---|---|---|---|---|---|---|---|---|---|---|\n"
+)
+#: Explanation placed above the Layer 0 cuts table when it is first added.
+CUTS_INTRO = (
+    "Scored by `bga eval-cuts` on `data/labels/cut_gold.json`, game time only (from the first to the last"
+    " `central`-tagged label shot, split at breaks over 150 s). The gold is every cut `hist_diff` or `transnetv2`"
+    " (threshold 0.5) made there, merged within 0.2 s: each one only one detector made is read by eye; the ones both"
+    " made are read on a random sample (real share in the notes) and otherwise taken as real. Every further cut"
+    " `transnetv2` makes at threshold 0.3 is read and added. **cut P / R:** a cut"
+    " hits a hard cut within 0.2 s or a gradual transition's blended frames within 0.2 s; recall is over the cuts the"
+    " two detectors found. **FP unread:** false positives on no gold entry, which a new detector needs read before its"
+    " precision counts. **duplicates:** extra cuts on one transition (not errors).\n\n"
+)
+
+
+@app.command("eval-cuts", help="Score each shots/video config's cut detector on the cut gold of the gold games.")
+def eval_cuts(
+    config: Annotated[list[Path], typer.Option(help="one or more run configs whose shots backend is video")],
+    set_: Annotated[list[str], typer.Option("--set", help="override applied to every config")] = [],  # noqa: B006  # typer reads list defaults once and never mutates them
+    held_out: Annotated[bool, typer.Option(help="score the held-out games instead (once per milestone)")] = False,
+    write: Annotated[bool, typer.Option(help="append rows to docs/metrics.md")] = False,
+    note: str = "",
+    verbose: bool = False,
+) -> None:
+    """Score each config's Layer 0 cut detector on the cut gold, computing and caching its cuts once per video.
+
+    Args:
+        config: Run configs with ``shots.backend: video``, scored side by side.
+        set_: Overrides applied to every config.
+        held_out: Score the held-out games instead of dev (once per milestone).
+        write: Add the rows to the cuts table in ``docs/metrics.md``.
+        note: Text for the notes column.
+        verbose: Log progress.
+
+    Raises:
+        typer.BadParameter: When a config's shots backend is not ``video``.
+
+    Examples:
+        >>> eval_cuts([Path("configs/ingest-transnetv2-game-hsv.yaml")])  # doctest: +SKIP
+
+    """
+    from bga.eval.ingest import score_cuts
+    from bga.ingest.video import VideoShots
+
+    _setup_logging(verbose)
+    rows = []
+    for path in config:
+        cfg = load_config(path, set_)
+        if cfg.layers["shots"].backend != "video":
+            raise typer.BadParameter(f"{path}: shots backend is {cfg.layers['shots'].backend!r}, not 'video'")
+        params = VideoShots(cfg.layers["shots"].params).p
+        s = score_cuts(params, held_out=held_out)
+        k = s.counts
+        games = ", ".join(f"{y} {_fmt(c.precision)}/{_fmt(c.recall)}" for y, c in s.per_game.items())
+        sample = f"agreement sample {s.sample_real}/{s.sample_read} real"
+        rows.append(
+            f"| {dt.date.today().isoformat()} | {pipeline.git_commit()} | `{cfg.name}`@{cfg.config_hash()} "
+            f"| {params['cuts']['backend']} | {'held-out' if held_out else 'dev'} ({s.games}, {k.tp + k.fn}) "
+            f"| {_fmt(k.precision)} | {_fmt(k.recall)} | {games} | {k.unseen} | {k.dup} "
+            f"| {'; '.join(x for x in (note, sample) if x)} |"
+        )
+    typer.echo(CUTS_HEADER + "\n".join(rows))
+    if write:
+        METRICS_MD.write_text(_insert_rows(METRICS_MD.read_text(), CUTS_HEADER, rows, CUTS_INTRO))
+
+
 def _shots_split(held_out: bool, all_splits: bool) -> str:
     """Resolve ``shots.params.held_out`` from ``--held-out`` and ``--all-splits`` flags."""
     if all_splits:
         return "all"
     return "only" if held_out else "exclude"
+
+
+def _apply_split(cfg: RunConfig, held_out: bool, all_splits: bool) -> None:
+    """Set the gold split on a shots backend that has one; refuse the split flags for one that does not.
+
+    ``shots/video`` takes its games from ``clips`` in the config, so it has no split to set.
+
+    Args:
+        cfg: The run config, changed in place.
+        held_out: ``--held-out``.
+        all_splits: ``--all-splits``.
+
+    Raises:
+        typer.BadParameter: When a split flag is given for a shots backend without ``held_out``.
+
+    Examples:
+        >>> cfg = load_config(Path("configs/e2e-video-fused-v8-r4.yaml"), [])
+        >>> _apply_split(cfg, held_out=False, all_splits=False)
+        >>> "held_out" in cfg.layers["shots"].params
+        False
+        >>> gold = load_config(Path("configs/ball-plk-fused-v8-r4.yaml"), [])
+        >>> _apply_split(gold, held_out=True, all_splits=False)
+        >>> gold.layers["shots"].params["held_out"]
+        'only'
+
+    """
+    shots = cfg.layers["shots"]
+    if "held_out" in registry.get("shots", shots.backend).defaults:
+        shots.params["held_out"] = _shots_split(held_out, all_splits)
+    elif held_out or all_splits:
+        raise typer.BadParameter(f"shots/{shots.backend} has no gold split; it runs the games its config names")
 
 
 @app.command("export", help="Export per-frame player parquet tables (plan section 5) for each sequence of a run.")
@@ -801,7 +976,7 @@ def export_(
     _setup_logging(verbose)
     cfg = load_config(config, set_)
     _require_provenance(cfg)
-    cfg.layers["shots"].params["held_out"] = _shots_split(held_out, all_splits)
+    _apply_split(cfg, held_out, all_splits)
     seqs = pipeline.run(cfg, only=seq or None)
     all_rows = []
     for s in seqs:
@@ -842,7 +1017,7 @@ def radar(
 
     cfg = load_config(config, set_)
     _require_provenance(cfg)
-    cfg.layers["shots"].params["held_out"] = _shots_split(held_out, all_splits)
+    _apply_split(cfg, held_out, all_splits)
     for s in pipeline.run(cfg, only=seq or None):
         typer.echo(render(cfg, s))
 

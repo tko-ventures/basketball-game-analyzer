@@ -56,6 +56,7 @@ What changes in code, configs, metrics, or future milestones?
 | 2026-11-23 | Positions & Export (L6 / M8) | [Keep `positions/bbox_bottom` on linked tracks + PLK court; reject zero-shot COCO `ankles_pose`; ship Parquet export & upgraded radar](2026-11-23-positions-bbox-bottom-over-coco-pose-and-parquet-export.md) | Accepted |
 | 2026-11-24 | Ball, Possession & Shots (L7 / M9) | [Adopt `ball/fused` over `ball/skalski`; skip tiled ball inference; ship gold `v1/events.json` and `.ball.parquet`](2026-11-24-ball-fused-tracking-possession-and-rim-shots.md) | Accepted |
 | 2026-11-24 | Ingest (L0 / M10) | [Full-length YouTube game recordings are the M10 footage; improve existing layers first](2026-11-24-full-length-youtube-games-for-m10.md) | Accepted |
+| 2026-11-27 | Ingest (L0 / M10) | [Layer 0 ingest: `shots/video` with TransNet V2 cuts (threshold 0.3) and the `siglip_game` camera check](2026-11-27-layer0-transnetv2-and-siglip-game.md) | Accepted (held-out scored once) |
 
 ### Data & evaluation
 

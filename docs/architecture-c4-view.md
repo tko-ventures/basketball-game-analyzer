@@ -149,7 +149,7 @@ flowchart TB
     end
 
     subgraph dag["«Component Group: 11-Layer Pipeline DAG (Solid = Required, Dashed = Optional Upstream)»"]
-        L0["«L0: shots — sequence selection»\nActive: gold | clips\nHelper: hist_diff shot-cut detector"]:::layer
+        L0["«L0: shots — sequence selection»\nEval & training: gold | clips | shot_gold\nRaw games: video, ingest-transnetv2-t030-game-hsv\n(cuts: transnetv2 @0.3, alt hist_diff;\ncamera: siglip_game hsv, alt siglip_zeroshot)"]:::layer
 
         L1["«L1: court — homography»\nActive: rfdetr_keypoint (PLK + RANSAC + smooth4)\nAlt: roboflow_keypoints\nUses fiba_court.json & propagate.py"]:::layer
 
@@ -203,7 +203,7 @@ flowchart TB
     subgraph consumers["«Component Group: Export & Evaluation Consumers»"]
         exp_pq["«Component: Export»\nParquet Exporter (export/parquet.py)\nTyped 17-col PLAYER_SCHEMA +\nsibling .ball.parquet (BALL_SCHEMA)"]:::output
         exp_rad["«Component: Export»\nRadar Renderer (export/radar.py)\nStacked broadcast + 2D FIBA court MP4\n(players, ball/holder ring, shot markers)"]:::output
-        eval_mod["«Component: Evaluation»\n7 Gold Evaluators (eval/*.py)\neval (TrackEval+churn), eval-court,\neval-detect (COCO), eval-appearance,\neval-numbers, eval-positions,\neval-ball (v1 + shot_gold) -> docs/metrics.md"]:::output
+        eval_mod["«Component: Evaluation»\n9 Gold Evaluators (eval/*.py)\neval (TrackEval+churn), eval-court,\neval-detect (COCO), eval-appearance,\neval-numbers, eval-positions,\neval-ball (v1 + shot_gold),\neval-ingest (camera tags), eval-cuts (cut_gold)\n-> docs/metrics.md"]:::output
     end
 
     orch -->|"Executes configured layers"| dag
@@ -384,7 +384,7 @@ Exact backend contracts live in `src/bga/<layer>/base.py`; run `bga backends` fo
 
 | Layer | Package | Upstream | Active Leading Backend | Registered Alternatives |
 |---|---|---|---|---|
-| **L0 `shots`** | `src/bga/ingest/` | *(none)* | `gold` / `clips` | `shot_gold` |
+| **L0 `shots`** | `src/bga/ingest/` | *(none)* | `gold` / `clips` (eval, training); `video` (raw games: `cuts` `transnetv2`, `camera` `siglip_game`) | `shot_gold`; `cuts` `hist_diff`; `camera` `siglip_zeroshot` |
 | **L1 `court`** | `src/bga/court/` | `shots` | `rfdetr_keypoint` | `roboflow_keypoints` |
 | **L2 `detect`** | `src/bga/detect/` | `shots` | `rfdetr_torch` | `roboflow_inference` |
 | **L3 `team`** | `src/bga/team/` | `detect` | `siglip_kmeans` | — |

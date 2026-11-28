@@ -486,36 +486,36 @@ def assign_covisible(
     return out, conflicts
 
 
-def _cosine_cluster_distance(
-    ca: list[int], cb: list[int], embeddings: Seq[np.ndarray | None], linkage: str
-) -> float | None:
-    """Average or complete cosine distance between two clusters' unit embeddings, or ``None`` if unavailable."""
-    dists = [
-        1.0 - float(embeddings[i] @ embeddings[j])
-        for i in ca
-        for j in cb
-        if embeddings[i] is not None and embeddings[j] is not None
-    ]
-    if not dists:
-        return None
-    return max(dists) if linkage == "complete" else float(np.mean(dists))
+def _pair_distance_stats(embeddings: Seq[np.ndarray | None]) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Per track pair: cosine distance, whether both tracks have an embedding, and the complete-linkage seed.
+
+    The seed is the distance where both have an embedding and ``-inf`` where either lacks one.
+
+    """
+    n = len(embeddings)
+    have = np.array([e is not None for e in embeddings])
+    dist = np.zeros((n, n))
+    if have.any():
+        e = np.stack([emb for emb in embeddings if emb is not None]).astype(np.float32)
+        idx = np.flatnonzero(have)
+        dist[np.ix_(idx, idx)] = 1.0 - (e @ e.T).astype(np.float64)
+    count = (have[:, None] & have[None, :]).astype(np.int64)
+    return dist, count, np.where(count > 0, dist, -np.inf)
 
 
-def _can_merge_clusters(
-    ca: list[int],
-    cb: list[int],
-    tracks: Seq[TrackEvidence],
-    confirmed: Seq[str | None],
-) -> tuple[bool, bool]:
-    """Return ``(allowed, number_conflict)`` for merging two track clusters."""
-    for i in ca:
-        for j in cb:
-            if tracks[i].seq == tracks[j].seq and (tracks[i].frames & tracks[j].frames):
-                return False, False
-    nums = {confirmed[i] for i in (*ca, *cb) if confirmed[i] is not None}
-    if len(nums) > 1:
-        return False, True
-    return True, False
+def _covisible(tracks: Seq[TrackEvidence]) -> np.ndarray:
+    """Whether two tracks share a frame of the same shot (never joined)."""
+    n = len(tracks)
+    out = np.zeros((n, n), dtype=bool)
+    by_seq: dict[str, list[int]] = defaultdict(list)
+    for i, t in enumerate(tracks):
+        by_seq[t.seq].append(i)
+    for members in by_seq.values():
+        for x, i in enumerate(members):
+            for j in members[x + 1 :]:
+                if tracks[i].frames & tracks[j].frames:
+                    out[i, j] = out[j, i] = True
+    return out
 
 
 def cluster_team_tracks(
@@ -529,6 +529,13 @@ def cluster_team_tracks(
     Two hard constraints are enforced on every merge:
     1. Tracklets co-visible in any frame of the same shot are never joined.
     2. Tracklets with conflicting confirmed jersey numbers are never joined (kept split and logged).
+
+    A blocked merge within ``max_dist`` is logged once per pair of clashing confirmed tracks (each cluster's first
+    confirmed member), however often the clusters around them grow.
+
+    Each step merges the closest allowed pair (the first in cluster order on a tie) into the earlier cluster. The
+    cluster distances are kept as matrices updated on each merge (sums and counts of the pairwise distances for
+    average linkage, maxima for complete), so a full game's thousands of tracks cluster in seconds.
 
     Args:
         tracks: One team's tracks across all shots of one game.
@@ -549,35 +556,52 @@ def cluster_team_tracks(
         [[0, 1], [2]]
 
     """
-    embeddings = [t.embedding for t in tracks]
-    clusters = [[i] for i in range(len(tracks))]
+    n = len(tracks)
+    members = [[i] for i in range(n)]
     splits: list[dict[str, Any]] = []
+    if n < 2:
+        return members, splits
+    dist, count, peak = _pair_distance_stats([t.embedding for t in tracks])
+    total = dist * count
+    blocked = _covisible(tracks)
+    codes = {num: k for k, num in enumerate(sorted({c for c in confirmed if c is not None}))}
+    number = np.array([codes[c] if c is not None else -1 for c in confirmed])
+    first_confirmed = np.where(number >= 0, np.arange(n), -1)
+    alive = np.ones(n, dtype=bool)
+    upper = np.triu(np.ones((n, n), dtype=bool), k=1)
     seen_splits: set[tuple[tuple[str, int], ...]] = set()
     while True:
-        best: tuple[float, int, int] | None = None
-        for a in range(len(clusters)):
-            for b in range(a + 1, len(clusters)):
-                dist = _cosine_cluster_distance(clusters[a], clusters[b], embeddings, linkage)
-                if dist is None or dist > max_dist:
-                    continue
-                ok, num_conflict = _can_merge_clusters(clusters[a], clusters[b], tracks, confirmed)
-                if not ok:
-                    if num_conflict:
-                        key = tuple(sorted((tracks[i].seq, tracks[i].tid) for i in clusters[a] + clusters[b]))
-                        if key not in seen_splits:
-                            seen_splits.add(key)
-                            splits.append({
-                                "kind": "cluster_split_conflict",
-                                "dist": round(dist, 4),
-                                "numbers": sorted({confirmed[i] for i in clusters[a] + clusters[b] if confirmed[i]}),
-                                "tracks": [list(k) for k in key],
-                            })
-                    continue
-                if best is None or dist < best[0]:
-                    best = (dist, a, b)
-        if best is None:
+        with np.errstate(invalid="ignore", divide="ignore"):
+            d = peak if linkage == "complete" else total / count
+        near = upper & alive[:, None] & alive[None, :] & (count > 0) & (d <= max_dist) & ~blocked
+        conflict = (number[:, None] >= 0) & (number[None, :] >= 0) & (number[:, None] != number[None, :])
+        for a, b in zip(*np.nonzero(near & conflict), strict=True):
+            pair = (first_confirmed[a], first_confirmed[b])
+            key = tuple(sorted((tracks[i].seq, tracks[i].tid) for i in pair))
+            if key not in seen_splits:
+                seen_splits.add(key)
+                nums = sorted({confirmed[i] for i in pair if confirmed[i]})
+                splits.append({
+                    "kind": "cluster_split_conflict",
+                    "dist": round(float(d[a, b]), 4),
+                    "numbers": nums,
+                    "tracks": [list(k) for k in key],
+                })
+        allowed = near & ~conflict
+        if not allowed.any():
             break
-        _, a, b = best
-        clusters[a] = clusters[a] + clusters[b]
-        clusters.pop(b)
-    return clusters, splits
+        a, b = np.unravel_index(int(np.argmin(np.where(allowed, d, np.inf))), d.shape)
+        members[a] = members[a] + members[b]
+        alive[b] = False
+        total[a, :] += total[b, :]
+        total[:, a] = total[a, :]
+        count[a, :] += count[b, :]
+        count[:, a] = count[a, :]
+        peak[a, :] = np.maximum(peak[a, :], peak[b, :])
+        peak[:, a] = peak[a, :]
+        blocked[a, :] |= blocked[b, :]
+        blocked[:, a] = blocked[a, :]
+        if number[a] < 0:
+            number[a] = number[b]
+            first_confirmed[a] = first_confirmed[b]
+    return [members[i] for i in np.flatnonzero(alive)], splits

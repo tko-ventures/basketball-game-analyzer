@@ -1,0 +1,12 @@
+name: ingest-transnetv2-game-hsv
+description: >
+  Layer 0 (M10, #32): ingest-siglip-game-hsv with TransNet V2 cuts (official weights, soCzech/TransNetV2 at
+  85cef72a converted by scripts/convert_transnetv2.py; threshold 0.5) instead of hist_diff. Scored against
+  ingest-siglip-game-hsv on cut gold.
+layers:
+  shots:
+    backend: video
+    params:
+      cuts: {backend: transnetv2, params: {threshold: 0.5}}
+      camera: {backend: siglip_game, params: {feature: hsv, min_sim: 0.95}}
+      samples: 3

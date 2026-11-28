@@ -32,6 +32,7 @@ The pipeline processes video in **sequences** (`bga.stage.Sequence`): one contin
 - **`shots/gold`** selects the 12 gold shots across 4 PLK games (9 dev shots, 3 held-out shots from `Tnuscrm9RyU`) at stride 5 (every 5th frame of 50 fps video).
 - **`shots/clips`** selects shots (≥ 3 s) from named non-gold clips for training-data harvesting, enforcing a gold-leakage check.
 - **`shots/shot_gold`** selects the shot-gold sequences of `data/labels/shot_gold.json`: further shots of the gold games, labelled for Layer 7 only (shot attempts, ball and holder on one frame a second).
+- **`shots/video`** turns raw game videos into sequences with no hand-labelled shots (Layer 0, M10). A cut detector (pseudo-layer `cuts`: `transnetv2`, or the `hist_diff` baseline) splits each video into shots, and a camera classifier (pseudo-layer `camera`: `siglip_game`, or `siglip_zeroshot`) scores each shot. The central shots of at least `min_s` become `<ytid>_v<i>` sequences. From the label file it reads only `clip`, `fps` and `meta`. Cuts and camera scores are cached per video under `runs/<clip>/ingest/`, keyed by the backend entry and its source hash.
 - `FrameReader` decodes sequentially across small frame steps (≤ 64 frames) instead of seeking, cutting decode latency from ~122 ms to ~4 ms per frame.
 
 ### Layer DAG
@@ -58,7 +59,7 @@ Every layer supports multiple swappable backends registered via `@register(layer
 
 | Layer | Active backend & config | What it does | Current benchmark / status | ADR |
 |---|---|---|---|---|
-| `shots` | `gold` / `clips` / `shot_gold` | Selects gold eval shots, non-gold training shots, or the shot-gold sequences | M10 adds raw full-game ingest | [2026-11-23](adr/2026-11-23-highlights-footage-and-m10-ingest-milestone.md) |
+| `shots` | `gold` / `clips` / `shot_gold` for eval and training; `video` (`ingest-transnetv2-t030-game-hsv`) for raw games | Selects gold eval shots, non-gold training shots, or the shot-gold sequences; `video` cuts a raw game with TransNet V2 (threshold 0.3) and keeps central shots by SigLIP plus an arena-colour game-consistency check | Held-out: cut R 0.998, camera acc 0.889 (main-camera footage outside live play passes as central; [#59](https://github.com/tko-ventures/basketball-game-analyzer/issues/59)); rows in [`metrics.md`](metrics.md#ingest-layer-0) | [2026-11-23](adr/2026-11-23-highlights-footage-and-m10-ingest-milestone.md), [2026-11-27](adr/2026-11-27-layer0-transnetv2-and-siglip-game.md) |
 | `court` | `rfdetr_keypoint` (`court-plk-v1-smooth4`) | PLK fine-tuned RF-DETR Keypoint → RANSAC homography + 4-frame median smoothing | 0.21 m paint error dev, 0.20 m held-out (vs. 0.89 m NBA baseline) | [2026-11-02](adr/2026-11-02-court-keypoint-finetune-and-smoothing.md) |
 | `detect` | `rfdetr_torch` (`detect-plk-r4`, weights `plk-r4-l4`) | PLK fine-tuned RF-DETR Large @ 1280 px on MPS; 6 active classes incl. `player-in-possession` | AP50 dev: people 0.963, ball 0.810, number 0.842, possession 0.598 | [2026-11-19](adr/2026-11-19-detector-rfdetr-large-1280px-mps.md), [2026-11-20](adr/2026-11-20-detector-classes-and-possession-schema.md), [2026-11-27](adr/2026-11-27-detector-r4-and-fused-v6-active.md) |
 | `team` | `siglip_kmeans` (`fit_fps: 5.0`, fixed seed) | SigLIP + UMAP + KMeans per shot; aligns clusters via clip `light`/`dark` kit metadata | ~1.00 track accuracy on dev & held-out | [2026-11-20](adr/2026-11-20-team-classification-siglip-5fps.md) |
@@ -101,7 +102,7 @@ Other registered backends remain available for baselines, ablations, and reprodu
 
 ### Evaluation (`bga eval*`)
 
-Seven dedicated CLI commands evaluate layers against the gold set and append rows to [`docs/metrics.md`](metrics.md) (with `--write`). Every `eval` command refuses weights that are neither `pretrained:` nor backed by a local `weights/<id>/train.json`:
+Nine dedicated CLI commands evaluate layers against the gold set and append rows to [`docs/metrics.md`](metrics.md) (with `--write`). Every `eval` command refuses weights that are neither `pretrained:` nor backed by a local `weights/<id>/train.json`:
 
 | Command | Gold target | Primary metrics |
 |---|---|---|
@@ -111,6 +112,8 @@ Seven dedicated CLI commands evaluate layers against the gold set and append row
 | `bga eval-appearance` | Clean `v0` gold boxes | Teammate re-association (1 s, 3 s) and cross-shot rank-1 / MRR |
 | `bga eval-numbers` | `data/gold/v1/numbers.json` (376 crops) | Free & roster top-1, non-number refusal rate, calibration (ECE), ms/crop |
 | `bga eval-positions` | Gold court keyframes + linked tracks | Keyframe median/p90 error (m), on-court share, coverage, speed p95 & >10 m/s spikes, ms/frame |
+| `bga eval-ingest` | Camera tags of the gold games' label files (`data/labels/gold.json` games) | Camera accuracy, central precision / recall, accuracy per game, ms/shot |
+| `bga eval-cuts` | `data/labels/cut_gold.json` (game time of the gold games) | Cut precision / recall, per game, unread false positives, duplicates |
 | `bga eval-ball` | `data/gold/v1/boxes.json` + `holders.json` + `events.json` + `shot_gold.json` | Ball F1/R/med px, possession acc, holder F1, team acc, field-goal shot F1, outcome acc (made / missed recall), shooter acc, free-throw F1, attempt F1 (any kind), ms/frame |
 
 Other top-level CLI commands: `bga run`, `bga train`, `bga export` (17-column per-player per-frame Parquet + sibling `<seq>.ball.parquet` when `ball` is configured), `bga radar` (broadcast + 2D FIBA court overlay video with team colours, `#jersey` labels, ball/holder ring, and cumulative shot markers), and `bga backends`.
@@ -124,6 +127,7 @@ Other top-level CLI commands: `bga run`, `bga train`, `bga export` (17-column pe
 - **Source clips (`data/clip_ids.txt` → `data/raw/`):** 39 PLK YouTube highlight clips (1080p50 H.264, gitignored).
 - **Labels & rosters (`data/labels/`, `data/rosters/`):** Per-clip shot/kit/box JSONs, 19 PLK club rosters (2024/25–2026/27), versioned training manifests (`detect/`, `appearance/`, `numbers/`, `court/`), and replayable audit logs (`data/labels/review/*.ops.txt`).
 - **Gold set (`data/gold/v0/`, `data/gold/v1/`):** 4 PLK games (3 dev + 1 held-out `Tnuscrm9RyU`), 3 central shots each; shot gold (`v1/shot_gold.json`, Layer 7 only) adds further shots of those games and of two full-length games (`hSXPCy5NedU` dev, `1A79NXz9CFM` held-out). Track gold (`v0`) is MOTChallenge format; box gold, court keyframes, number crops, and verified shot events (`events.json`) are `v1`.
+- **Cut gold (`data/labels/cut_gold.json`):** Layer 0 cut gold for the game time of the dev games: every cut `hist_diff` or `transnetv2` makes, read by eye where they disagree, on a sample where they agree, and for every further `transnetv2` cut at threshold 0.3; gradual transitions (ORLEN replay stingers, dissolves) keep their blended frames. Built with `scripts/cut_review.py`.
 - **Synthetic fixtures (`data/fixtures/synthetic/`):** 8 deterministic simulated possessions (`bga.tracking2d/v0`, see [`docs/fixtures.md`](fixtures.md)) used solely by the coach demo page.
 
 ### Labeller (`tools/labeler/server.py`)
