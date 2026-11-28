@@ -79,3 +79,4 @@ What changes in code, configs, metrics, or future milestones?
 | 2026-11-20 | Dependencies | [Follow upstream migration guides (`supervision` → `trackers`) via new backends](2026-11-20-upstream-migration-policy.md) | Accepted |
 | 2026-11-23 | Compute | [Google Colab for training, alternating with Modal by credit availability](2026-11-23-colab-for-training-alternating-with-modal.md) | Superseded (training platform) by [2026-11-24](2026-11-24-colab-first-training-modal-under-30.md) |
 | 2026-11-24 | Compute | [Training on Colab first; Modal only while the month's Modal usage is below 30 USD](2026-11-24-colab-first-training-modal-under-30.md) | Accepted |
+| 2026-11-28 | Infra / Process | [Free security scanner stack and human-oversight verification contract](2026-11-28-security-scanners-and-verification-oversight.md) | Proposed |
