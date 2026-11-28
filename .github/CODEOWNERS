@@ -1,10 +1,23 @@
-# Governance, CI, and security boundaries require Tomasz's review.
+# Governance, decisions, dependencies, remote compute, configs, and data require Tomasz's review.
 /.github/ @tk-o
 /.pre-commit-config.yaml @tk-o
 /.gitleaks.toml @tk-o
-/pyproject.toml @tk-o
 /AGENTS.md @tk-o
+/pyproject.toml @tk-o
+/uv.lock @tk-o
+/docs/adr/ @tk-o
+/docs/architecture.md @tk-o
+/docs/architecture-c4-view.md @tk-o
+/configs/ @tk-o
+/data/ @tk-o
+/src/bga/remote/ @tk-o
+/src/bga/train/dispatch.py @tk-o
 /tests/test_security_policy.py @tk-o
 /scripts/check_pr_oversight.py @tk-o
 /scripts/run_gitleaks.py @tk-o
 /scripts/security_digest.py @tk-o
+/scripts/agent_identity.py @tk-o
+/scripts/agent_git.py @tk-o
+/scripts/agent_gh.py @tk-o
+/scripts/check_agent_identity.py @tk-o
+/scripts/setup_github_app.py @tk-o

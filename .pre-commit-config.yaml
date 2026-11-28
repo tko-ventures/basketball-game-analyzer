@@ -43,6 +43,12 @@ repos:
 
   - repo: local
     hooks:
+      - id: agent-commit-identity
+        name: agent commit identity guard
+        entry: python3 scripts/check_agent_identity.py
+        language: system
+        pass_filenames: false
+
       - id: gitleaks
         name: gitleaks (staged secrets)
         entry: python3 scripts/run_gitleaks.py --staged
